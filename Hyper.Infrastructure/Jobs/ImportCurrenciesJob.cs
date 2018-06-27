@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Hangfire;
 using Microsoft.Extensions.Logging;
 using Hyper.Domain.Repositories;
-using Hyper.Infrastructure.Mappings;
 using NoobsMuc.Coinmarketcap.Client;
 using Hyper.Infrastructure.Contexts;
 
@@ -34,7 +35,7 @@ namespace Hyper.Infrastructure.Jobs
                 var result = _coinmarketcapClient.GetCurrencies();
 
                 // Map to our Model
-                var currencies = result.Map();
+                var currencies = Mapper.Map<List<Domain.Models.Currency>>(result);
 
                 // Set all currencies
                 await _currencyRepository.SetAllCurrencies(currencies);
