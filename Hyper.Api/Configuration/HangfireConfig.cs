@@ -10,26 +10,19 @@ namespace Hyper.Api.Configuration
     {
         public static IServiceCollection ConfigureHangfire(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("OwnedDB")));
+            services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("Hyper")));
 
             return services;
         }
         public static IApplicationBuilder ConfigureHangfire(this IApplicationBuilder app, IConfiguration configuration)
         {
-            // Queue name
-            var queue = "Hyper";
-
             // Configure
             app.UseHangfireDashboard();
-            var backgroundJobServerOptions = new BackgroundJobServerOptions
-            {
-                Queues = new[] { queue }
-            };
-            app.UseHangfireServer(backgroundJobServerOptions);
+            app.UseHangfireServer();
 
             // Background jobs
             var jobsIntervalInMinutes = int.Parse(configuration["JobsIntervalInMinutes"]);
-            RecurringJob.AddOrUpdate<ImportCurrenciesJob>("Hyper - Import currencies", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes), queue: queue);          
+            RecurringJob.AddOrUpdate<CurrencyJob>("Import currencies", x => x.Import(), Cron.MinuteInterval(jobsIntervalInMinutes));          
 
             return app;
         }

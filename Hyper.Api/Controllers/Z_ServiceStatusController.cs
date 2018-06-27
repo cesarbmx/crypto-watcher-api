@@ -17,11 +17,13 @@ namespace Hyper.Api.Controllers
     [AllowAnonymous]
     public class Z_ServiceStatusController : Controller
     {
+        private readonly IMapper _mapper;
         private readonly StatusService _statusService;
         private readonly IHostingEnvironment _env;
 
-        public Z_ServiceStatusController(StatusService statusService, IHostingEnvironment env)
+        public Z_ServiceStatusController(IMapper mapper, StatusService statusService, IHostingEnvironment env)
         {
+            _mapper = mapper;
             _statusService = statusService;
             _env = env;
         }
@@ -51,7 +53,7 @@ namespace Hyper.Api.Controllers
             var version = await _statusService.GetVersion(_env.EnvironmentName);
 
             // Response
-            var response = Mapper.Map<VersionResponse>(version);
+            var response = _mapper.Map<VersionResponse>(version);
 
             // Return
             return Ok(response);

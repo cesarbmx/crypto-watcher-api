@@ -10,32 +10,33 @@ using Hyper.Infrastructure.Contexts;
 
 namespace Hyper.Infrastructure.Jobs
 {
-    public class ImportCurrenciesJob
+    public class CurrencyJob
     {
-        readonly ILogger<ImportCurrenciesJob> _logger;
+        private readonly IMapper _mapper;
+        readonly ILogger<CurrencyJob> _logger;
         private readonly MainDbContext _mainDbContext;
         private readonly ICoinmarketcapClient _coinmarketcapClient;
         private readonly ICurrencyRepository _currencyRepository;
 
-        public ImportCurrenciesJob(ILogger<ImportCurrenciesJob> logger, MainDbContext mainDbContext, ICoinmarketcapClient coinmarketcapClient, ICurrencyRepository currencyRepository)
+        public CurrencyJob(IMapper mapper, ILogger<CurrencyJob> logger, MainDbContext mainDbContext, ICoinmarketcapClient coinmarketcapClient, ICurrencyRepository currencyRepository)
         {
+            _mapper = mapper;
             _logger = logger;
             _mainDbContext = mainDbContext;
             _coinmarketcapClient = coinmarketcapClient;
             _currencyRepository = currencyRepository;
         }
 
-        [Queue("Hyper")]
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
-        public async Task Run()
+        public async Task Import()
         {
             try
             {
                 // Get all currencies from CoinMarketCap
-                var result = _coinmarketcapClient.GetCurrencies();
+                var result = _coinmarketcapClient.GetCurrencies(5);
 
                 // Map to our Model
-                var currencies = Mapper.Map<List<Domain.Models.Currency>>(result);
+                var currencies = _mapper.Map<List<Domain.Models.Currency>>(result);
 
                 // Set all currencies
                 await _currencyRepository.SetAllCurrencies(currencies);

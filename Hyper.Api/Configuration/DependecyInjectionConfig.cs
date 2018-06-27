@@ -1,8 +1,14 @@
 ﻿using System.Reflection;
 using System.Security.Principal;
+using Hyper.Domain.Repositories;
+using Hyper.Domain.Services;
+using Hyper.Infrastructure.Contexts;
+using Hyper.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NoobsMuc.Coinmarketcap.Client;
 
 namespace Hyper.Api.Configuration
 {
@@ -14,12 +20,20 @@ namespace Hyper.Api.Configuration
             //services.AddScoped<IPinnacleTokenService<HyperPermission>, PinnacleTokenService<HyperPermission>>();
 
             //Contexts (UOW)
+            services.AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Hyper")));
 
             //Services
-         
+            services.AddScoped<CacheService, CacheService>();
+            services.AddScoped<StatusService, StatusService>();
+            services.AddScoped<ErrorMessagesService, ErrorMessagesService>();
+
             //Repositories
+            services.AddScoped<ICacheRepository, CacheRepository>();
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+
 
             // Other
+            services.AddScoped<ICoinmarketcapClient>(factory => new CoinmarketcapClient());
             services.AddScoped(factory => Assembly.GetExecutingAssembly());
             services.AddScoped<IPrincipal>( x => x.GetService<IHttpContextAccessor>().HttpContext.User);
 
