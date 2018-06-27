@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Startup.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HangFire.Core" Version="1.7.0-beta1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hyper.App\Hyper.App.csproj" />
+    <ProjectReference Include="..\Hyper.Domain\Hyper.Domain.csproj" />
+    <ProjectReference Include="..\Hyper.Infrastructure\Hyper.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

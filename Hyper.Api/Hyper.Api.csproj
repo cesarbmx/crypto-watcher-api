@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <Configurations>Debug;Release</Configurations>
+    <Company></Company>
+    <Version>1.0</Version>
+    <Product>Hyper API</Product>
+    <PackageId>HyperApi</PackageId>
+    <Authors>cesarbmx</Authors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ValidationMessages\**" />
+    <Content Remove="ValidationMessages\**" />
+    <EmbeddedResource Remove="ValidationMessages\**" />
+    <None Remove="ValidationMessages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\A_JurisdictionsController.cs" />
+    <Compile Remove="ResponseExamples\IProvideExamples.cs" />
+    <Compile Remove="ResponseExamples\ValidationResponseExample.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="appsettings.develop.json" />
+    <Content Remove="appsettings.release.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Hyper.Api.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Hyper.Api.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="FakeResponses\" />
+    <Folder Include="Requests\" />
+    <Folder Include="Responses\" />
+    <Folder Include="Services\" />
+    <Folder Include="Validators\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="7.6.103" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.0-beta1" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.0-beta1" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.0-beta1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="2.2.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Examples" Version="2.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hyper.Domain\Hyper.Domain.csproj" />
+    <ProjectReference Include="..\Hyper.Infrastructure\Hyper.Infrastructure.csproj" />
+    <ProjectReference Include="..\Hyper.Shared\Hyper.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
