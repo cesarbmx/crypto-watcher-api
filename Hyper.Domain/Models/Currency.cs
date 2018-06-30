@@ -14,6 +14,7 @@ namespace Hyper.Domain.Models
 
         public decimal PercentageChange24H { get; private set; }
 
+        public Currency() { }
         public Currency(
             string id,
             short rank,

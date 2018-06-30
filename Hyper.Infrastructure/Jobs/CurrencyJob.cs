@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Hyper.Domain.Repositories;
 using NoobsMuc.Coinmarketcap.Client;
 using Hyper.Infrastructure.Contexts;
+using System.Linq;
 
 namespace Hyper.Infrastructure.Jobs
 {
@@ -33,10 +34,13 @@ namespace Hyper.Infrastructure.Jobs
             try
             {
                 // Get all currencies from CoinMarketCap
-                var result = _coinmarketcapClient.GetCurrencies(5);
+                var result = _coinmarketcapClient.GetCurrencies(1);
+                var type = result.GetType();
 
                 // Map to our Model
-                var currencies = _mapper.Map<List<Domain.Models.Currency>>(result);
+                var firstItem = result.FirstOrDefault();
+                var currency = _mapper.Map<Domain.Models.Currency>(firstItem);
+                var currencies = _mapper.Map<IEnumerable<Domain.Models.Currency>>(result);
 
                 // Set all currencies
                 await _currencyRepository.SetAllCurrencies(currencies);

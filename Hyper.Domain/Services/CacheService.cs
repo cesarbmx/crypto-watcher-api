@@ -23,7 +23,7 @@ namespace Hyper.Domain.Services
             // Return
             return cache;
         }
-        public async Task SetCache<T>(string key, List<T> value)
+        public async Task SetCache<T>(string key, IEnumerable<T> value)
         {
             // Set cache
             var cache = await _cacheRepository.GetByKey(key);

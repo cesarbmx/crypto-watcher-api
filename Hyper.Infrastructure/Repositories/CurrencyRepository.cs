@@ -7,19 +7,19 @@ namespace Hyper.Infrastructure.Repositories
 {
     public class CurrencyRepository : ICurrencyRepository
     {
-        private List<Currency> _currencies;
+        private IEnumerable<Currency> _currencies;
 
         public CurrencyRepository()
         {
             _currencies = new List<Currency>();
         }
 
-        public async Task<List<Currency>> GetAllCurrencies()
+        public async Task<IEnumerable<Currency>> GetAllCurrencies()
         {
             // Get  all currencies
             return await Task.FromResult(_currencies);
         }
-        public async Task SetAllCurrencies(List<Currency> currencies)
+        public async Task SetAllCurrencies(IEnumerable<Currency> currencies)
         {
             // Set all currencies
             _currencies = currencies;

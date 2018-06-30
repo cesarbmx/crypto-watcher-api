@@ -6,7 +6,7 @@ namespace Hyper.Domain.Repositories
 {
     public interface ICurrencyRepository
     {
-        Task<List<Currency>> GetAllCurrencies();
-        Task SetAllCurrencies(List<Currency> currencies);
+        Task<IEnumerable<Currency>> GetAllCurrencies();
+        Task SetAllCurrencies(IEnumerable<Currency> currencies);
     }
 }

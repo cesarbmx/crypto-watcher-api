@@ -14,7 +14,7 @@ namespace Hyper.Domain.Services
             _currencyRepository = currencyRepository;
         }
 
-        public async Task<List<Currency>> GetAllSpikingCurrencies()
+        public async Task<IEnumerable<Currency>> GetAllSpikingCurrencies()
         {
             // Get all currencies
             var currencies = await _currencyRepository.GetAllCurrencies();

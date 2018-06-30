@@ -6,9 +6,9 @@ namespace Hyper.Domain.Services
 {
     public class ErrorMessagesService
     {
-        public Dictionary<string, List<string>> GetAllErrorMessages()
+        public Dictionary<string, IEnumerable<string>> GetAllErrorMessages()
         {
-            var errorMessages = new Dictionary<string, List<string>>();
+            var errorMessages = new Dictionary<string, IEnumerable<string>>();
 
             var query = from t in Assembly.GetExecutingAssembly().GetTypes()
                 where t.IsClass && t.Namespace == "Hyper.Domain.Messages"
