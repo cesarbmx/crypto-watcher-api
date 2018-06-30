@@ -8,6 +8,6 @@ namespace Hyper.Domain.Messages
         public const string ValidationFailed = "(#0502) Validation failed";
         public const string ResourceNotFound = "(#0503) The resoruce was not found";
         public const string Conflict = "(#0504) There is a conflict with the current state";
-        public const string InternalServerError = "(#0505) Internal Server Error - Contact CSD";
+        public const string InternalServerError = "(#0505) Internal Server Error";
     }
 }
