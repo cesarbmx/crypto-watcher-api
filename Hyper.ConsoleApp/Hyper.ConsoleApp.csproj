@@ -10,11 +10,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HangFire.Core" Version="1.7.0-beta1" />
+    <None Remove="appsettings.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hyper.App\Hyper.App.csproj" />
+    <Content Include="appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HangFire.Core" Version="1.7.0-beta1" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.0-beta1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Hyper.Domain\Hyper.Domain.csproj" />
     <ProjectReference Include="..\Hyper.Infrastructure\Hyper.Infrastructure.csproj" />
   </ItemGroup>

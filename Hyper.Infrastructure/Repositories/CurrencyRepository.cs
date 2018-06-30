@@ -9,18 +9,20 @@ namespace Hyper.Infrastructure.Repositories
 {
     public class CurrencyRepository : ICurrencyRepository
     {
-        private MainDbContext _mainDbContext;
+        // TODO: (Cesar) Remove in memory list and use EF7
+
+        //private MainDbContext _mainDbContext;
         private IEnumerable<Currency> _currencies;
 
-        public CurrencyRepository(MainDbContext mainDbContext)
-        {
-            _mainDbContext = mainDbContext;
-            _currencies = new List<Currency>();
-        }
+        //public CurrencyRepository(MainDbContext mainDbContext)
+        //{
+        //    _mainDbContext = mainDbContext;
+        //    _currencies = new List<Currency>();
+        //}
 
         public async Task<IEnumerable<Currency>> GetAllCurrencies()
         {
-            //return await _mainDbContext.Currencies.ToListAsync(); // TODO: (Cesar) Remove in memory list
+            //return await _mainDbContext.Currencies.ToListAsync();
             // Get  all currencies
             return await Task.FromResult(_currencies);
         }

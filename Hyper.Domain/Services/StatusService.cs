@@ -48,7 +48,7 @@ namespace Hyper.Domain.Services
                 await _currencyRepository.GetAllCurrencies();
                 sw.Stop();
             }
-            catch(Exception ex)
+            catch
             {
                 isEverythingOk = false;
                 isConnectionToDatabaseOk = false;

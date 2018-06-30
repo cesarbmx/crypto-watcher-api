@@ -22,7 +22,7 @@ namespace Hyper.Api.Configuration
 
             // Background jobs
             var jobsIntervalInMinutes = int.Parse(configuration["JobsIntervalInMinutes"]);
-            RecurringJob.AddOrUpdate<CurrencyJob>("Import currencies", x => x.Import(), Cron.MinuteInterval(jobsIntervalInMinutes));          
+            //RecurringJob.AddOrUpdate<CurrencyJob>("Import currencies", x => x.Import(), Cron.MinuteInterval(jobsIntervalInMinutes));          
 
             return app;
         }

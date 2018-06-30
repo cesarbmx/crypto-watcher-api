@@ -35,11 +35,8 @@ namespace Hyper.Infrastructure.Jobs
             {
                 // Get all currencies from CoinMarketCap
                 var result = _coinmarketcapClient.GetCurrencies(1);
-                var type = result.GetType();
 
                 // Map to our Model
-                var firstItem = result.FirstOrDefault();
-                var currency = _mapper.Map<Domain.Models.Currency>(firstItem);
                 var currencies = _mapper.Map<IEnumerable<Domain.Models.Currency>>(result);
 
                 // Set all currencies
