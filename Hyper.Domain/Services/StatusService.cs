@@ -1,9 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 using Hyper.Domain.Models;
 using Hyper.Domain.Repositories;
 using Hyper.Shared.Helpers;
+using Version = Hyper.Domain.Models.Version;
 
 namespace Hyper.Domain.Services
 {
@@ -46,7 +48,7 @@ namespace Hyper.Domain.Services
                 await _currencyRepository.GetAllCurrencies();
                 sw.Stop();
             }
-            catch
+            catch(Exception ex)
             {
                 isEverythingOk = false;
                 isConnectionToDatabaseOk = false;

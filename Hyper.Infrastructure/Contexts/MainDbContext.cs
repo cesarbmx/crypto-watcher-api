@@ -8,7 +8,7 @@ namespace Hyper.Infrastructure.Contexts
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public class MainDbContext : DbContext
     {
-        public DbSet<Currency> Taxes { get; set; }
+        public DbSet<Currency> Currency { get; set; }
         public DbSet<Cache> Cache { get; set; }
 
         public MainDbContext(DbContextOptions<MainDbContext> options)
@@ -19,8 +19,7 @@ namespace Hyper.Infrastructure.Contexts
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("Hyper");
-
+            new CurrencyMap(modelBuilder.Entity<Currency>());
             new CacheMap(modelBuilder.Entity<Cache>());
 
             base.OnModelCreating(modelBuilder);
