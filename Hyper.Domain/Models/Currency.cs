@@ -10,8 +10,6 @@ namespace Hyper.Domain.Models
         public decimal MarketCap { get; private set; }
         public decimal Price { get; private set; }
         public decimal Volume24H { get; private set; }
-
-
         public decimal PercentageChange24H { get; private set; }
 
         public Currency() { }

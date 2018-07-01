@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using AutoMapper;
 using Hangfire;
 using Hyper.Domain.Repositories;
@@ -8,6 +9,8 @@ using Hyper.Infrastructure.Configuration;
 using Hyper.Infrastructure.Contexts;
 using Hyper.Infrastructure.Jobs;
 using Hyper.Infrastructure.Repositories;
+using log4net;
+using log4net.Config;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -48,10 +51,17 @@ namespace Hyper.ConsoleApp
                 .GetService<ILoggerFactory>()
                 .AddConsole(configuration.GetSection("Logging"));
 
+            // Log4Net
+            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+
+            var logger = serviceProvider.GetService<ILoggerFactory>()
+                .CreateLogger<Program>();
+            logger.LogInformation("LogInformation");
+            
             // Hangfire
             GlobalConfiguration.Configuration.UseSqlServerStorage(configuration.GetConnectionString("Hyper"));
             GlobalConfiguration.Configuration.UseActivator(new HangfireActivator(serviceProvider));
-
 
             // Register jobs
             var currencyJob = serviceProvider.GetService<CurrencyJob>();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Hyper.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hyper.Infrastructure.Mappings
 {
@@ -12,22 +13,28 @@ namespace Hyper.Infrastructure.Mappings
 
             // Properties
             entityBuilder.Property(t => t.Rank)
+                .HasColumnType("smallint")
                 .IsRequired();
 
             entityBuilder.Property(t => t.Name)
+                .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Rank)
-                .IsRequired();
-
             entityBuilder.Property(t => t.MarketCap)
+                .HasColumnType("decimal")
                 .IsRequired();
 
             entityBuilder.Property(t => t.Price)
+                .HasColumnType("decimal")
                 .IsRequired();
 
             entityBuilder.Property(t => t.Volume24H)
+                .HasColumnType("decimal")
+                .IsRequired();
+
+            entityBuilder.Property(t => t.PercentageChange24H)
+                .HasColumnType("decimal")
                 .IsRequired();
         }
     }
