@@ -18,8 +18,6 @@ namespace Hyper.ConsoleApp
 {
     public class Program
     {
-
-
         public static void Main(string[] args)
         {
             try
@@ -50,14 +48,15 @@ namespace Hyper.ConsoleApp
                 // Logging
                 serviceProvider
                     .GetService<ILoggerFactory>()
-                    .AddConsole(LogLevel.Debug);
+                    .AddConsole(configuration.GetSection("Logging"));
 
                 var logger = serviceProvider.GetService<ILoggerFactory>()
                     .CreateLogger<Program>();
-                logger.LogDebug("Starting application");
 
                 // Hangfire
                 GlobalConfiguration.Configuration.UseSqlServerStorage(configuration.GetConnectionString("Hyper"));
+                GlobalConfiguration.Configuration.UseActivator(new HangfireActivator(serviceProvider));
+
 
                 // Register jobs
                 var currencyJob = serviceProvider.GetService<CurrencyJob>();
@@ -73,6 +72,20 @@ namespace Hyper.ConsoleApp
             {
                 var message = ex.Message;
             }
+        }
+    }
+    public class HangfireActivator : Hangfire.JobActivator
+    {
+        private readonly IServiceProvider _serviceProvider;
+
+        public HangfireActivator(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+        public override object ActivateJob(Type type)
+        {
+            return _serviceProvider.GetService(type);
         }
     }
 }
