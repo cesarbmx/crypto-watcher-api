@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using CoinMarketCap.Core;
 using Hangfire;
 using Microsoft.Extensions.Logging;
 using Hyper.Domain.Repositories;
-using NoobsMuc.Coinmarketcap.Client;
 using Hyper.Infrastructure.Contexts;
 
 namespace Hyper.Infrastructure.Jobs
@@ -15,15 +15,15 @@ namespace Hyper.Infrastructure.Jobs
         private readonly IMapper _mapper;
         readonly ILogger<CurrencyJob> _logger;
         private readonly MainDbContext _mainDbContext;
-        private readonly ICoinmarketcapClient _coinmarketcapClient;
+        private readonly ICoinMarketCapClient _coinMarketCapClient;
         private readonly ICurrencyRepository _currencyRepository;
 
-        public CurrencyJob(IMapper mapper, ILogger<CurrencyJob> logger, MainDbContext mainDbContext, ICoinmarketcapClient coinmarketcapClient, ICurrencyRepository currencyRepository)
+        public CurrencyJob(IMapper mapper, ILogger<CurrencyJob> logger, MainDbContext mainDbContext, ICoinMarketCapClient coinMarketCapClient, ICurrencyRepository currencyRepository)
         {
             _mapper = mapper;
             _logger = logger;
             _mainDbContext = mainDbContext;
-            _coinmarketcapClient = coinmarketcapClient;
+            _coinMarketCapClient = coinMarketCapClient;
             _currencyRepository = currencyRepository;
         }
 
@@ -33,7 +33,7 @@ namespace Hyper.Infrastructure.Jobs
             try
             {
                 // Get all currencies from CoinMarketCap
-                var result = _coinmarketcapClient.GetCurrencies(1);
+                var result = await _coinMarketCapClient.GetTickerListAsync(5);
 
                 // Map to our Model
                 var currencies = _mapper.Map<IEnumerable<Domain.Models.Currency>>(result);

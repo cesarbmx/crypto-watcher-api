@@ -2,6 +2,8 @@
 using System.IO;
 using System.Reflection;
 using AutoMapper;
+using CoinMarketCap;
+using CoinMarketCap.Core;
 using Hangfire;
 using Hyper.Domain.Repositories;
 using Hyper.Domain.Services;
@@ -14,7 +16,6 @@ using log4net.Config;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NoobsMuc.Coinmarketcap.Client;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hyper.ConsoleApp
@@ -42,7 +43,7 @@ namespace Hyper.ConsoleApp
                 .AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Hyper")))
                 .AddSingleton<ICurrencyRepository, CurrencyRepository>()
                 .AddSingleton<CurrencyService, CurrencyService>()
-                .AddSingleton<ICoinmarketcapClient, CoinmarketcapClient>()
+                .AddSingleton<ICoinMarketCapClient, CoinMarketCapClient>()
                 .AddSingleton<CurrencyJob, CurrencyJob>()
                 .BuildServiceProvider();
 

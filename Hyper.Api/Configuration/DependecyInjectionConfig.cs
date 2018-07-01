@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using System.Security.Principal;
+using CoinMarketCap;
+using CoinMarketCap.Core;
 using Hyper.Domain.Repositories;
 using Hyper.Domain.Services;
 using Hyper.Infrastructure.Contexts;
@@ -8,7 +10,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NoobsMuc.Coinmarketcap.Client;
 
 namespace Hyper.Api.Configuration
 {
@@ -33,7 +34,7 @@ namespace Hyper.Api.Configuration
 
 
             // Other
-            services.AddScoped<ICoinmarketcapClient>(factory => new CoinmarketcapClient());
+            services.AddScoped<ICoinMarketCapClient, CoinMarketCapClient>();
             services.AddScoped(factory => Assembly.GetExecutingAssembly());
             services.AddScoped<IPrincipal>( x => x.GetService<IHttpContextAccessor>().HttpContext.User);
 

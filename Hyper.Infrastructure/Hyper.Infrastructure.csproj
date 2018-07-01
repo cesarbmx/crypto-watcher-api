@@ -7,9 +7,9 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="CoinMarketCapClient" Version="1.1.1" />
     <PackageReference Include="Hangfire.Core" Version="1.7.0-beta1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
-    <PackageReference Include="NoobsMuc.Coinmarketcap.Client" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using CoinMarketCap.Entities;
 using Hyper.Domain.Models;
 
 namespace Hyper.Infrastructure.Configuration
@@ -8,7 +9,7 @@ namespace Hyper.Infrastructure.Configuration
     {
         public AutomapperConfig()
         {
-            CreateMap<NoobsMuc.Coinmarketcap.Client.Currency, Currency>()
+            CreateMap<TickerEntity, Currency>()
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Convert.ToDecimal(src.PriceUsd)))
                 .ForMember(dest => dest.Volume24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.Volume24hUsd)))
                 .ForMember(dest => dest.MarketCap, opt => opt.MapFrom(src => Convert.ToDecimal(src.MarketCapUsd)))
