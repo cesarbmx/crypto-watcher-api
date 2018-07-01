@@ -23,15 +23,8 @@ namespace Hyper.Api.Configuration
                     cfg.CreateMap<Health, HealthResponse>();
 
                     // Infrastructure
-
                     cfg.AddProfile(new Infrastructure.Configuration.AutomapperConfig());
-
-                    //cfg.CreateMap<NoobsMuc.Coinmarketcap.Client.Currency, Currency>()
-                    //   .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Convert.ToDecimal(src.PriceUsd)))
-                    //   .ForMember(dest => dest.Volume24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.Volume24hUsd)))
-                    //   .ForMember(dest => dest.MarketCap, opt => opt.MapFrom(src => Convert.ToDecimal(src.MarketCapUsd)))
-                    //   .ForMember(dest => dest.PercentageChange24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.PercentChange24h)));
-
+                    
                 });
 
             return services;

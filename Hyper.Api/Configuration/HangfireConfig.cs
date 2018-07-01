@@ -1,5 +1,4 @@
 ﻿using Hangfire;
-using Hyper.Infrastructure.Jobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +20,7 @@ namespace Hyper.Api.Configuration
             app.UseHangfireServer();
 
             // Background jobs
-            var jobsIntervalInMinutes = int.Parse(configuration["JobsIntervalInMinutes"]);
+            //var jobsIntervalInMinutes = int.Parse(configuration["JobsIntervalInMinutes"]);
             //RecurringJob.AddOrUpdate<CurrencyJob>("Import currencies", x => x.Import(), Cron.MinuteInterval(jobsIntervalInMinutes));          
 
             return app;

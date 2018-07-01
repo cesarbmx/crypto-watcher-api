@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using System.Security.Principal;
-using AutoMapper;
 using Hyper.Domain.Repositories;
 using Hyper.Domain.Services;
 using Hyper.Infrastructure.Contexts;
