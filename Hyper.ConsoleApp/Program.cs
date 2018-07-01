@@ -20,72 +20,48 @@ namespace Hyper.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            try
+            // Configuration
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
+
+            // Automapper
+            var automapperConfig = new MapperConfiguration(cfg =>
             {
-                // Configuration
-                var builder = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json");
-                var configuration = builder.Build();
+                cfg.AddProfile(new AutomapperConfig());
+            });
 
-                // Automapper
-                var automapperConfig = new MapperConfiguration(cfg =>
-                {
-                    cfg.AddProfile(new AutomapperConfig());
-                });
+            // DI
+            var serviceProvider = new ServiceCollection()
+                .AddLogging()
+                .AddSingleton<IMapper>(factory => new Mapper(automapperConfig))
+                .AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Hyper")))
+                .AddSingleton<ICurrencyRepository, CurrencyRepository>()
+                .AddSingleton<CurrencyService, CurrencyService>()
+                .AddSingleton<ICoinmarketcapClient, CoinmarketcapClient>()
+                .AddSingleton<CurrencyJob, CurrencyJob>()
+                .BuildServiceProvider();
 
-                // DI
-                var serviceProvider = new ServiceCollection()
-                    .AddLogging()
-                    .AddSingleton<IMapper>(factory => new Mapper(automapperConfig))
-                    .AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Hyper")))
-                    .AddSingleton<ICurrencyRepository, CurrencyRepository>()
-                    .AddSingleton<CurrencyService, CurrencyService>()
-                    .AddSingleton<ICoinmarketcapClient, CoinmarketcapClient>()
-                    .AddSingleton<CurrencyJob, CurrencyJob>()
-                    .BuildServiceProvider();
+            // Logging
+            serviceProvider
+                .GetService<ILoggerFactory>()
+                .AddConsole(configuration.GetSection("Logging"));
 
-                // Logging
-                serviceProvider
-                    .GetService<ILoggerFactory>()
-                    .AddConsole(configuration.GetSection("Logging"));
-
-                var logger = serviceProvider.GetService<ILoggerFactory>()
-                    .CreateLogger<Program>();
-
-                // Hangfire
-                GlobalConfiguration.Configuration.UseSqlServerStorage(configuration.GetConnectionString("Hyper"));
-                GlobalConfiguration.Configuration.UseActivator(new HangfireActivator(serviceProvider));
+            // Hangfire
+            GlobalConfiguration.Configuration.UseSqlServerStorage(configuration.GetConnectionString("Hyper"));
+            GlobalConfiguration.Configuration.UseActivator(new HangfireActivator(serviceProvider));
 
 
-                // Register jobs
-                var currencyJob = serviceProvider.GetService<CurrencyJob>();
-                RecurringJob.AddOrUpdate("Import currencies", () => currencyJob.Import(), Cron.Minutely);
+            // Register jobs
+            var currencyJob = serviceProvider.GetService<CurrencyJob>();
+            RecurringJob.AddOrUpdate("Import currencies", () => currencyJob.Import(), Cron.Minutely);
 
-                using (new BackgroundJobServer())
-                {
-                    Console.WriteLine("Hangfire Server started. Press ENTER to exit...");
-                    Console.ReadLine();
-                }
-            }
-            catch (Exception ex)
+            using (new BackgroundJobServer())
             {
-                var message = ex.Message;
+                Console.WriteLine("Hangfire Server started. Press ENTER to exit...");
+                Console.ReadLine();
             }
-        }
-    }
-    public class HangfireActivator : Hangfire.JobActivator
-    {
-        private readonly IServiceProvider _serviceProvider;
-
-        public HangfireActivator(IServiceProvider serviceProvider)
-        {
-            _serviceProvider = serviceProvider;
-        }
-
-        public override object ActivateJob(Type type)
-        {
-            return _serviceProvider.GetService(type);
         }
     }
 }

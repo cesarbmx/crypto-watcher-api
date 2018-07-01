@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using Hyper.Domain.Repositories;
 using NoobsMuc.Coinmarketcap.Client;
 using Hyper.Infrastructure.Contexts;
-using System.Linq;
 
 namespace Hyper.Infrastructure.Jobs
 {
