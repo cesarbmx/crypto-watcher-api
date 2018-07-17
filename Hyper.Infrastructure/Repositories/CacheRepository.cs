@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Hyper.Domain.Models;
 using Hyper.Infrastructure.Contexts;
 using System.Collections.Generic;
+using Hyper.Domain.Expressions;
 
 namespace Hyper.Infrastructure.Repositories
 {
@@ -18,7 +19,7 @@ namespace Hyper.Infrastructure.Repositories
         public async Task<IEnumerable<T>> GetByKey<T>()
         {
             // Get cache
-            var cache = await _mainDbContext.Cache.FirstOrDefaultAsync(x=>x.Key == typeof(T).Name);
+            var cache = await _mainDbContext.Cache.FirstOrDefaultAsync(CacheExpressions.HasKey(typeof(T).Name));
 
             // Return
             if (cache == null) return new List<T>();
@@ -26,7 +27,7 @@ namespace Hyper.Infrastructure.Repositories
         }
         public async Task Set<T>(IEnumerable<T> t)
         {
-            var currentCache = await _mainDbContext.Cache.FirstOrDefaultAsync(x => x.Key == typeof(T).Name);
+            var currentCache = await _mainDbContext.Cache.FirstOrDefaultAsync(CacheExpressions.HasKey(typeof(T).Name));
             if (currentCache != null)
             {
                 // Set value
