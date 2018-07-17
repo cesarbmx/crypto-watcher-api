@@ -1,26 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Hyper.Domain.Models;
-using Hyper.Domain.Repositories;
 
 namespace Hyper.Domain.Services
 {
     public class CurrencyService
     {
-        private readonly ICurrencyRepository _currencyRepository;
+        private readonly CacheService _cacheService;
 
-        public CurrencyService(ICurrencyRepository currencyRepository)
+        public CurrencyService(CacheService cacheService)
         {
-            _currencyRepository = currencyRepository;
+            _cacheService = cacheService;
         }
 
         public async Task<IEnumerable<Currency>> GetAllSpikingCurrencies()
         {
             // Get all currencies
-            var currencies = await _currencyRepository.GetAllCurrencies();
-
-            // Return
-            return currencies;
+            return await _cacheService.GetCache<Currency>();
         }
     }
 }

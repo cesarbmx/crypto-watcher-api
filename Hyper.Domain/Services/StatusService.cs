@@ -2,23 +2,21 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using Hyper.Domain.Models;
-using Hyper.Domain.Repositories;
 using Hyper.Shared.Helpers;
-using Version = Hyper.Domain.Models.Version;
 
 namespace Hyper.Domain.Services
 {
     public class StatusService
     {
         private readonly Assembly _assembly;
-        private readonly ICurrencyRepository _currencyRepository;
+        private readonly CacheService _cacheService;
 
         public StatusService(
             Assembly assembly,
-            ICurrencyRepository currencyRepository)
+            CacheService cacheService)
         {
             _assembly = assembly;
-            _currencyRepository = currencyRepository;
+            _cacheService = cacheService;
         }
 
         public  Task<Version> GetVersion(string environment)
@@ -44,7 +42,7 @@ namespace Hyper.Domain.Services
             sw.Start();
             try
             {
-                await _currencyRepository.GetAllCurrencies();
+                await _cacheService.GetCache<Currency>();
                 sw.Stop();
             }
             catch

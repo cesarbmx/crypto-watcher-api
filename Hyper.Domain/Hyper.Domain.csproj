@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Repositories\ICurrencyRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Hyper.Shared\Hyper.Shared.csproj" />
   </ItemGroup>
 

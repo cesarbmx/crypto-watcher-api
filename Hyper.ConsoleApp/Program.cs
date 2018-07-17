@@ -5,12 +5,10 @@ using AutoMapper;
 using CoinMarketCap;
 using CoinMarketCap.Core;
 using Hangfire;
-using Hyper.Domain.Repositories;
 using Hyper.Domain.Services;
 using Hyper.Infrastructure.Configuration;
 using Hyper.Infrastructure.Contexts;
 using Hyper.Infrastructure.Jobs;
-using Hyper.Infrastructure.Repositories;
 using log4net;
 using log4net.Config;
 using Microsoft.Extensions.Configuration;
@@ -41,7 +39,7 @@ namespace Hyper.ConsoleApp
                 .AddLogging()
                 .AddSingleton<IMapper>(factory => new Mapper(automapperConfig))
                 .AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Hyper")))
-                .AddSingleton<ICurrencyRepository, CurrencyRepository>()
+                .AddSingleton<CacheService, CacheService>()
                 .AddSingleton<CurrencyService, CurrencyService>()
                 .AddSingleton<ICoinMarketCapClient, CoinMarketCapClient>()
                 .AddSingleton<CurrencyJob, CurrencyJob>()

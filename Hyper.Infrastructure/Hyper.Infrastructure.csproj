@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Repositories\CurrencyRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="CoinMarketCapClient" Version="1.1.1" />
     <PackageReference Include="Hangfire.Core" Version="1.7.0-beta1" />

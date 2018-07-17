@@ -5,7 +5,7 @@ using AutoMapper;
 using CoinMarketCap.Core;
 using Hangfire;
 using Microsoft.Extensions.Logging;
-using Hyper.Domain.Repositories;
+using Hyper.Domain.Services;
 using Hyper.Infrastructure.Contexts;
 
 namespace Hyper.Infrastructure.Jobs
@@ -16,15 +16,20 @@ namespace Hyper.Infrastructure.Jobs
         readonly ILogger<CurrencyJob> _logger;
         private readonly MainDbContext _mainDbContext;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
-        private readonly ICurrencyRepository _currencyRepository;
+        private readonly CacheService _cacheService;
 
-        public CurrencyJob(IMapper mapper, ILogger<CurrencyJob> logger, MainDbContext mainDbContext, ICoinMarketCapClient coinMarketCapClient, ICurrencyRepository currencyRepository)
+        public CurrencyJob(
+            IMapper mapper,
+            ILogger<CurrencyJob> logger,
+            MainDbContext mainDbContext,
+            ICoinMarketCapClient coinMarketCapClient,
+            CacheService cacheService)
         {
             _mapper = mapper;
             _logger = logger;
             _mainDbContext = mainDbContext;
             _coinMarketCapClient = coinMarketCapClient;
-            _currencyRepository = currencyRepository;
+            _cacheService = cacheService;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -39,7 +44,7 @@ namespace Hyper.Infrastructure.Jobs
                 var currencies = _mapper.Map<IEnumerable<Domain.Models.Currency>>(result);
 
                 // Set all currencies
-                await _currencyRepository.SetAllCurrencies(currencies);
+                await _cacheService.SetCache(currencies);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

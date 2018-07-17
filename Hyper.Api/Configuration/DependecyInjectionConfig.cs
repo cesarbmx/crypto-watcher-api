@@ -25,13 +25,12 @@ namespace Hyper.Api.Configuration
             services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("Hyper"));
 
             //Services
+            services.AddScoped<CacheService, CacheService>();
             services.AddScoped<StatusService, StatusService>();
             services.AddScoped<ErrorMessagesService, ErrorMessagesService>();
 
             //Repositories
-            services.AddScoped<CacheRepository, CacheRepository>();
-            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
-
+            services.AddScoped<ICacheRepository, CacheRepository>();
 
             // Other
             services.AddScoped<ICoinMarketCapClient, CoinMarketCapClient>();
