@@ -11,14 +11,13 @@ namespace Hyper.Domain.Models
         public string Value { get; private set; }
         public DateTime CreationTime { get; private set; }
 
-
         public IEnumerable<T> GetValue<T>()
         {
             return JsonConvertHelper.DeserializeObjectRaw<IEnumerable<T>>(Value);
         }
-        public void SetValue<T>(string key, IEnumerable<T> value)
+        public void SetValue<T>(IEnumerable<T> value)
         {
-            Key = key;
+            Key = typeof(T).Name;
             Value = JsonConvertHelper.SerializeObjectRaw(value);
             CreationTime = DateTime.Now;
         }

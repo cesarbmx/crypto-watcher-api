@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Hyper.Domain.Models;
-using Hyper.Domain.Repositories;
 using Hyper.Infrastructure.Contexts;
+using System.Collections.Generic;
 
 namespace Hyper.Infrastructure.Repositories
 {
-    public class CacheRepository : ICacheRepository
+    public class CacheRepository
     {
         private readonly MainDbContext _mainDbContext;
 
@@ -15,13 +15,29 @@ namespace Hyper.Infrastructure.Repositories
             _mainDbContext = mainDbContext;
         }
 
-        public async Task<Cache> GetByKey(string key)
+        public async Task<IEnumerable<T>> GetByKey<T>()
         {
-            return await _mainDbContext.Cache.FirstOrDefaultAsync(x=>x.Key == key);
+            // Get cache
+            var cache = await _mainDbContext.Cache.FirstOrDefaultAsync(x=>x.Key == typeof(T).Name);
+
+            // Return
+            if (cache == null) return new List<T>();
+            return cache.GetValue<T>();
         }
-        public void Add(Cache cache)
+        public async Task Set<T>(IEnumerable<T> t)
         {
-            _mainDbContext.Cache.Add(cache);
+            var currentCache = await _mainDbContext.Cache.FirstOrDefaultAsync(x => x.Key == typeof(T).Name);
+            if (currentCache != null)
+            {
+                // Set value
+                currentCache.SetValue(t);
+            }
+            else
+            {
+                // Set cache
+                var cache = new Cache();
+                cache.SetValue(t);
+            }
         }
     }
 }

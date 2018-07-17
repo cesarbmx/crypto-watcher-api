@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using Hangfire.MemoryStorage;
 using Hyper.Infrastructure.Jobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +11,9 @@ namespace Hyper.Api.Configuration
     {
         public static IServiceCollection ConfigureHangfire(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("Hyper")));
+            //services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("Hyper")));
+            var inMemoryStorage = GlobalConfiguration.Configuration.UseMemoryStorage();
+            services.AddHangfire(x => x.UseStorage(inMemoryStorage));
 
             return services;
         }

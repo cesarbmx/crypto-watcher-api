@@ -2,35 +2,27 @@
 using System.Threading.Tasks;
 using Hyper.Domain.Models;
 using Hyper.Domain.Repositories;
-//using Hyper.Infrastructure.Contexts;
-//using Microsoft.EntityFrameworkCore;
 
 namespace Hyper.Infrastructure.Repositories
 {
     public class CurrencyRepository : ICurrencyRepository
     {
-        // TODO: (Cesar) Remove in memory list and use EF7
+        private readonly CacheRepository _cacheRepository;
 
-        //private MainDbContext _mainDbContext;
-        private IEnumerable<Currency> _currencies;
-
-        //public CurrencyRepository(MainDbContext mainDbContext)
-        //{
-        //    _mainDbContext = mainDbContext;
-        //    _currencies = new List<Currency>();
-        //}
+        public CurrencyRepository(CacheRepository cacheRepository)
+        {
+            _cacheRepository = cacheRepository;
+        }
 
         public async Task<IEnumerable<Currency>> GetAllCurrencies()
         {
-            //return await _mainDbContext.Currencies.ToListAsync();
             // Get  all currencies
-            return await Task.FromResult(_currencies);
+            return await _cacheRepository.GetByKey<Currency>();
         }
         public async Task SetAllCurrencies(IEnumerable<Currency> currencies)
         {
             // Set all currencies
-            _currencies = currencies;
-            await Task.CompletedTask;
+            await _cacheRepository.Set(currencies);
         }
     }
 }

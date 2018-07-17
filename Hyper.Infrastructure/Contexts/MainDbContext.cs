@@ -8,7 +8,7 @@ namespace Hyper.Infrastructure.Contexts
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public class MainDbContext : DbContext
     {
-        public DbSet<Currency> Currency { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
         public DbSet<Cache> Cache { get; set; }
 
         public MainDbContext(DbContextOptions<MainDbContext> options)

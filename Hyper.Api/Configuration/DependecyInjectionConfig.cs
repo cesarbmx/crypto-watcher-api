@@ -21,15 +21,15 @@ namespace Hyper.Api.Configuration
             //services.AddScoped<IPinnacleTokenService<HyperPermission>, PinnacleTokenService<HyperPermission>>();
 
             //Contexts (UOW)
-            services.AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Hyper")));
+            //services.AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Hyper")));
+            services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("Hyper"));
 
             //Services
-            services.AddScoped<CacheService, CacheService>();
             services.AddScoped<StatusService, StatusService>();
             services.AddScoped<ErrorMessagesService, ErrorMessagesService>();
 
             //Repositories
-            services.AddScoped<ICacheRepository, CacheRepository>();
+            services.AddScoped<CacheRepository, CacheRepository>();
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 
 
