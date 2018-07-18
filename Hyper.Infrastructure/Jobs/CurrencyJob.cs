@@ -44,7 +44,7 @@ namespace Hyper.Infrastructure.Jobs
                 var currencies = _mapper.Map<IEnumerable<Domain.Models.Currency>>(result);
 
                 // Set all currencies
-                await _cacheService.SetCache(currencies);
+                await _cacheService.SetInCache(currencies);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

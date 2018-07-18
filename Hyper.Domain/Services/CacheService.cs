@@ -14,7 +14,7 @@ namespace Hyper.Domain.Services
             _cacheRepository = cacheRepository;
         }
 
-        public async Task<IEnumerable<T>> GetCache<T>()
+        public async Task<IEnumerable<T>> GetFromCache<T>()
         {
             // Get cache
             var cache = await _cacheRepository.GetByKey(typeof(T).Name);
@@ -23,7 +23,7 @@ namespace Hyper.Domain.Services
             if (cache == null) return new List<T>();
             return cache.GetValue<T>();
         }
-        public async Task SetCache<T>(IEnumerable<T> value)
+        public async Task SetInCache<T>(IEnumerable<T> value)
         {
             // Set cache
             var cache = await _cacheRepository.GetByKey(typeof(T).Name);

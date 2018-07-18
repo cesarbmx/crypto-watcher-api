@@ -26,6 +26,7 @@ namespace Hyper.Api.Configuration
 
             //Services
             services.AddScoped<CacheService, CacheService>();
+            services.AddScoped<CurrencyService, CurrencyService>();
             services.AddScoped<StatusService, StatusService>();
             services.AddScoped<ErrorMessagesService, ErrorMessagesService>();
 

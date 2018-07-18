@@ -42,7 +42,7 @@ namespace Hyper.Domain.Services
             sw.Start();
             try
             {
-                await _cacheService.GetCache<Currency>();
+                await _cacheService.GetFromCache<Currency>();
                 sw.Stop();
             }
             catch

@@ -48,9 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="FakeResponses\" />
     <Folder Include="Requests\" />
-    <Folder Include="Responses\" />
     <Folder Include="Services\" />
     <Folder Include="Validators\" />
     <Folder Include="wwwroot\" />

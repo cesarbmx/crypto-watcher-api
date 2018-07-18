@@ -21,6 +21,7 @@ namespace Hyper.Api.Configuration
                         .ForMember(dest => dest.BuildDateTime, opt => opt.MapFrom(src => src.LastBuild.ToString("yyyy/MM/dd HH:mm")))
                         .ForMember(dest => dest.LastBuildOccurred, opt => opt.MapFrom(src => src.LastBuild.DaysHoursMinutesAndSecondsSinceDate()));
                     cfg.CreateMap<Health, HealthResponse>();
+                    cfg.CreateMap<Currency, CurrencyResponse>();
 
                     // Infrastructure
                     cfg.AddProfile(new Infrastructure.Configuration.AutomapperConfig());
