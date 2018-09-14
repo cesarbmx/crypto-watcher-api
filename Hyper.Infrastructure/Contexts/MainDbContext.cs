@@ -10,6 +10,7 @@ namespace Hyper.Infrastructure.Contexts
     {
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Cache> Cache { get; set; }
+        public DbSet<Log> Log { get; set; }
 
         public MainDbContext(DbContextOptions<MainDbContext> options)
            : base(options)
@@ -21,6 +22,7 @@ namespace Hyper.Infrastructure.Contexts
         {
             new CurrencyMap(modelBuilder.Entity<Currency>());
             new CacheMap(modelBuilder.Entity<Cache>());
+            new LogMap(modelBuilder.Entity<Log>());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -11,34 +11,34 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 namespace Hyper.Api.Controllers
 {
     // ReSharper disable once InconsistentNaming
-    public class A_CurrenciesController : Controller
+    public class B_LogControllerController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly CurrencyService _currencyService;
+        private readonly LogService _logService;
 
-        public A_CurrenciesController(IMapper mapper, CurrencyService currencyService)
+        public B_LogControllerController(IMapper mapper, LogService logService)
         {
             _mapper = mapper;
-            _currencyService = currencyService;
+            _logService = logService;
         }
 
         /// <summary>
-        /// Get all currencies
+        /// Get alll currencies
         /// </summary>
         [HttpGet]
-        [Route("currencies")]
-        [SwaggerResponse(200, Type = typeof(IEnumerable<CurrencyResponse>))]       
+        [Route("log")]
+        [SwaggerResponse(200, Type = typeof(IEnumerable<LogResponse>))]       
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(CurrencyListResponseExample))]
+        [SwaggerResponseExample(200, typeof(LogListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetAllCurrencies")]
+        [SwaggerOperation(Tags = new[] { "Log" }, OperationId = "Log_GetLog")]
         public async Task<IActionResult> GetVersion()
         {
-            // Get all currencies
-            var currencies = await _currencyService.GetAllCurrencies();
+            // Get log
+            var log = await _logService.GetLog();
 
             // Response
-            var response = _mapper.Map<IEnumerable<CurrencyResponse>>(currencies);
+            var response = _mapper.Map<IEnumerable<LogResponse>>(log);
 
             // Return
             return Ok(response);

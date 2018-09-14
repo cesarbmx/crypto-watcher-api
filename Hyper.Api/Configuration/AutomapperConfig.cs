@@ -22,6 +22,7 @@ namespace Hyper.Api.Configuration
                         .ForMember(dest => dest.LastBuildOccurred, opt => opt.MapFrom(src => src.LastBuild.DaysHoursMinutesAndSecondsSinceDate()));
                     cfg.CreateMap<Health, HealthResponse>();
                     cfg.CreateMap<Currency, CurrencyResponse>();
+                    cfg.CreateMap<Log, LogResponse>();
 
                     // Infrastructure
                     cfg.AddProfile(new Infrastructure.Configuration.AutomapperConfig());

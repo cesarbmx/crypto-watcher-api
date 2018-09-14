@@ -29,9 +29,11 @@ namespace Hyper.Api.Configuration
             services.AddScoped<CurrencyService, CurrencyService>();
             services.AddScoped<StatusService, StatusService>();
             services.AddScoped<ErrorMessagesService, ErrorMessagesService>();
+            services.AddScoped<LogService, LogService>();
 
             //Repositories
             services.AddScoped<ICacheRepository, CacheRepository>();
+            services.AddScoped<ILogRepository, LogRepository>();
 
             // Other
             services.AddScoped<ICoinMarketCapClient, CoinMarketCapClient>();
