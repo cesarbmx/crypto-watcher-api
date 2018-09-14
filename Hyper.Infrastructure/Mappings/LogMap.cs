@@ -16,9 +16,8 @@ namespace Hyper.Infrastructure.Mappings
                 .HasColumnType("uniqueidentifier")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.LogLevelString)
-                .HasColumnName("LogLevel")
-                .HasColumnType("nvarchar")
+            entityBuilder.Property(t => t.LogLevel)
+                .HasColumnType("tinyint")
                 .IsRequired();
 
             entityBuilder.Property(t => t.Message)
@@ -28,8 +27,6 @@ namespace Hyper.Infrastructure.Mappings
             entityBuilder.Property(t => t.CreationTime)
                 .HasColumnType("datetime")
                 .IsRequired();
-
-            entityBuilder.Ignore(x => x.LogLevel);
         }
     }
 }

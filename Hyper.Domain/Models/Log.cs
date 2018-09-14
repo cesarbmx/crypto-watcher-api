@@ -11,12 +11,6 @@ namespace Hyper.Domain.Models
         public string Message { get; private set; }
         public DateTime CreationTime { get; private set; }
 
-        public string LogLevelString
-        {
-            get => LogLevel.ToString();
-            set => LogLevel = (LogLevel)Enum.Parse(typeof(LogLevel), value);
-        }
-
         public Log() { }
         public Log(LogLevel logLevel, string message)
         {

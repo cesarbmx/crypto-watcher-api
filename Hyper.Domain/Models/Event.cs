@@ -1,7 +1,7 @@
 ﻿
 namespace Hyper.Domain.Models
 {
-    public enum Event
+    public enum Event: byte
     {
         CurrenciesUpdated
     }
