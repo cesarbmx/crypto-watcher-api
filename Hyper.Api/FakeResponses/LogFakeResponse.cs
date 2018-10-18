@@ -12,8 +12,8 @@ namespace Hyper.Api.FakeResponses
             return new LogResponse
             {              
                 Id = Guid.Parse("2f0bd0cd-6b95-4759-afbc-d25c570d823c"),
-                LogLevel = LogLevel.Event,
-                Message = Event.CurrenciesUpdated.ToString(),
+                LogLevel = LogLevel.Info,
+                Message = Event.ImportCurrencies.ToString(),
                 CreationTime = DateTime.Parse("2018-09-14T14:05")
             };
         }

@@ -54,13 +54,16 @@ namespace Hyper.Infrastructure.Jobs
                 await _mainDbContext.SaveChangesAsync();
 
                 // Log
-                _logService.LogEvent(Event.CurrenciesUpdated);
+                _logService.LogInfo(Event.ImportCurrencies);
 
                 // Log into Splunk
-                _logger.LogInformation("Event=ImportCountriesCompleted", Event.CurrenciesUpdated);
+                _logger.LogInformation("Event=ImportCountriesCompleted", Event.ImportCurrencies);
             }
             catch (Exception ex)
             {
+                // Log
+                _logService.LogError(Event.ImportCurrencies);
+
                 // Log into Splunk
                 _logger.LogError(ex, "Event=ImportCountriesFailed");
             }

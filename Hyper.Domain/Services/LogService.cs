@@ -19,10 +19,18 @@ namespace Hyper.Domain.Services
             // Get Log
             return await _logRepository.GetLog();
         }
-        public void LogEvent(Event @event)
+        public void LogInfo(Event @event)
         {
             // Create log
-            var log = new Log(LogLevel.Event, Event.CurrenciesUpdated.ToString());
+            var log = new Log(LogLevel.Info, Event.ImportCurrencies.ToString());
+
+            // Add Log
+            _logRepository.Add(log);
+        }
+        public void LogError(Event @event)
+        {
+            // Create log
+            var log = new Log(LogLevel.Error, Event.ImportCurrencies.ToString());
 
             // Add Log
             _logRepository.Add(log);
