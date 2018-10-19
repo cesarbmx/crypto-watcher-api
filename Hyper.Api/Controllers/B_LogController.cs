@@ -23,7 +23,7 @@ namespace Hyper.Api.Controllers
         }
 
         /// <summary>
-        /// Get alll currencies
+        /// Get all currencies
         /// </summary>
         [HttpGet]
         [Route("log")]

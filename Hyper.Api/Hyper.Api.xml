@@ -4,6 +4,16 @@
         <name>Hyper.Api</name>
     </assembly>
     <members>
+        <member name="M:Hyper.Api.Controllers.A_CurrenciesController.GetVersion">
+            <summary>
+            Get all currencies
+            </summary>
+        </member>
+        <member name="M:Hyper.Api.Controllers.B_LogControllerController.GetVersion">
+            <summary>
+            Get all currencies
+            </summary>
+        </member>
         <member name="M:Hyper.Api.Controllers.Z_ServiceStatusController.GetVersion">
             <summary>
             Get service version
