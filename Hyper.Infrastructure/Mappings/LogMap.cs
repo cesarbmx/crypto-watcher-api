@@ -16,13 +16,9 @@ namespace Hyper.Infrastructure.Mappings
                 .HasColumnType("uniqueidentifier")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.LogLevel)
-                .HasColumnType("tinyint")
-                .IsRequired();
-
-            entityBuilder.Property(t => t.Event)
-                .HasColumnType("tinyint")
-                .IsRequired();
+            entityBuilder.Property(t => t.Message)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50);
 
             entityBuilder.Property(t => t.CreationTime)
                 .HasColumnType("datetime")

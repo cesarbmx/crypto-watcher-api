@@ -6,7 +6,7 @@ namespace Hyper.Domain.Repositories
 {
     public interface ILogRepository
     {
-        Task<List<Log>> GetLog();
+        Task<IEnumerable<Log>> GetLog();
         void Add(Log log);
     }
 }

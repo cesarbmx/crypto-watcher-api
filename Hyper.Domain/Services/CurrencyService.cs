@@ -7,12 +7,11 @@ namespace Hyper.Domain.Services
     public class CurrencyService
     {
         private readonly CacheService _cacheService;
-        private readonly LogService _logService;
 
-        public CurrencyService(CacheService cacheService, LogService logService)
+
+        public CurrencyService(CacheService cacheService)
         {
             _cacheService = cacheService;
-            _logService = logService;
         }
 
         public async Task<IEnumerable<Currency>> GetAllCurrencies()
@@ -20,13 +19,10 @@ namespace Hyper.Domain.Services
             // Get all currencies
             return await _cacheService.GetFromCache<Currency>();
         }
-        public async Task SetAllCurrencies(IEnumerable<Currency> currencies)
+        public async Task SetAllCurrencies(IList<Currency> currencies)
         {
             // Set all currencies
             await _cacheService.SetInCache(currencies);
-
-            // Log
-            _logService.LogInfo(Event.CurrenciesImported);
         }
     }
 }

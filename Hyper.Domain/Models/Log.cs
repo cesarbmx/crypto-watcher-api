@@ -1,22 +1,18 @@
-﻿
-
-using System;
+﻿using System;
 
 namespace Hyper.Domain.Models
 {
     public class Log
     {
         public Guid Id { get; private set; }
-        public LogLevel LogLevel { get; private set; }
-        public Event Event { get; private set; }
+        public string Message { get; private set; }
         public DateTime CreationTime { get; private set; }
-
+        
         public Log() { }
-        public Log(LogLevel logLevel, Event @event)
+        public Log(string message)
         {
             Id = Guid.NewGuid();
-            LogLevel = logLevel;
-            Event = @event;
+            Message = message;
             CreationTime = DateTime.Now;
         }
     }

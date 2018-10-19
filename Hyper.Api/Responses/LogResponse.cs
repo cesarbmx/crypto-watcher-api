@@ -1,14 +1,13 @@
 ﻿using System;
-using Hyper.Domain.Models;
+using System.Collections.Generic;
 
 
 namespace Hyper.Api.Responses
 {
-    public class LogResponse
+    public class LogResponse: List<string>
     {
         public Guid Id { get; set; }
-        public LogLevel LogLevel { get; set; }
-        public Event Event { get; set; }
+        public string Message { get; set; }
         public DateTime CreationTime { get; set; }
     }
 }

@@ -1,29 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hyper.Api.Responses;
-using Hyper.Domain.Models;
 
 namespace Hyper.Api.FakeResponses
 {
     public static class LogFakeResponse
     {
-        public static LogResponse GetFake_Event()
+        public static LogResponse GetFake_Log()
         {
             return new LogResponse
             {              
                 Id = Guid.Parse("2f0bd0cd-6b95-4759-afbc-d25c570d823c"),
-                LogLevel = LogLevel.Info,
-                Event = Event.CurrenciesImported,
-                CreationTime = DateTime.Parse("2018-09-14T14:05")
-            };
-        }
-        public static LogResponse GetFake_Error()
-        {
-            return new LogResponse
-            {
-                Id = Guid.Parse("2f0bd0cd-6b95-4759-afbc-d25c570d824d"),
-                LogLevel = LogLevel.Error,
-                Event = Event.CurrenciesImported,
+                Message = "AllCurrenciesImported",
                 CreationTime = DateTime.Parse("2018-09-14T14:05")
             };
         }
@@ -31,8 +19,7 @@ namespace Hyper.Api.FakeResponses
         {
             return new List<LogResponse>
             {
-                GetFake_Event(),
-                GetFake_Error()
+                GetFake_Log()
             };
         }
     }

@@ -7,7 +7,7 @@ namespace Hyper.Api.ResponseExamples
     {
         public object GetExamples()
         {
-            return LogFakeResponse.GetFake_Error();
+            return LogFakeResponse.GetFake_Log();
         }
     }
     public class LogListResponseExample : IExamplesProvider

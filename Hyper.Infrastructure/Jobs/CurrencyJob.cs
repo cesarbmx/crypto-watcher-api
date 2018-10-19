@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CoinMarketCap.Core;
@@ -14,6 +15,7 @@ namespace Hyper.Infrastructure.Jobs
     public class CurrencyJob
     {
         private readonly IMapper _mapper;
+        private readonly LogService _logService;
         readonly ILogger<CurrencyJob> _logger;
         private readonly MainDbContext _mainDbContext;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
@@ -22,12 +24,14 @@ namespace Hyper.Infrastructure.Jobs
 
         public CurrencyJob(
             IMapper mapper,
+            LogService logService,
             ILogger<CurrencyJob> logger,
             MainDbContext mainDbContext,
             ICoinMarketCapClient coinMarketCapClient,
             CurrencyService currencyService)
         {
             _mapper = mapper;
+            _logService = logService;
             _logger = logger;
             _mainDbContext = mainDbContext;
             _coinMarketCapClient = coinMarketCapClient;
@@ -46,18 +50,27 @@ namespace Hyper.Infrastructure.Jobs
                 var currencies = _mapper.Map<IEnumerable<Currency>>(result);
 
                 // Set all currencies
-                await _currencyService.SetAllCurrencies(currencies);
+                await _currencyService.SetAllCurrencies(currencies.ToList());
 
-               
+                // Log
+                var log = new Log("ImportCountriesCompleted");
+                _logService.Log(log);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
                 // Log into Splunk
-                _logger.LogInformation("Event=ImportCountriesCompleted", Event.CurrenciesImported);
+                _logger.LogInformation("Event=ImportCountriesCompleted");
             }
             catch (Exception ex)
             {
+                // Log
+                var log = new Log("ImportCountriesFailed");
+                _logService.Log(log);
+
+                // Save
+                await _mainDbContext.SaveChangesAsync();
+
                 // Log into Splunk
                 _logger.LogError(ex, "Event=ImportCountriesFailed");
             }
