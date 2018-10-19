@@ -13,7 +13,7 @@ namespace Hyper.Api.FakeResponses
             {              
                 Id = Guid.Parse("2f0bd0cd-6b95-4759-afbc-d25c570d823c"),
                 LogLevel = LogLevel.Info,
-                Message = Event.ImportCurrencies.ToString(),
+                Event = Event.CurrenciesImported,
                 CreationTime = DateTime.Parse("2018-09-14T14:05")
             };
         }
@@ -23,7 +23,7 @@ namespace Hyper.Api.FakeResponses
             {
                 Id = Guid.Parse("2f0bd0cd-6b95-4759-afbc-d25c570d824d"),
                 LogLevel = LogLevel.Error,
-                Message = "Object reference not set to an instance of an object",
+                Event = Event.CurrenciesImported,
                 CreationTime = DateTime.Parse("2018-09-14T14:05")
             };
         }

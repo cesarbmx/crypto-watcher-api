@@ -10,6 +10,7 @@ namespace Hyper.Api.FakeResponses
             return new CurrencyResponse
             {              
                 Id = "bitcoin",
+                Symbol = "BTC",
                 Name = "Bitcoin",
                 Rank = 1,
                 Price = (decimal)7464.36,
@@ -23,6 +24,7 @@ namespace Hyper.Api.FakeResponses
             return new CurrencyResponse
             {
                 Id = "ethereum",
+                Symbol = "ETH",
                 Name = "Ethereum",
                 Rank = 2,
                 Price = (decimal)497.108,

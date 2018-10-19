@@ -8,15 +8,15 @@ namespace Hyper.Domain.Models
     {
         public Guid Id { get; private set; }
         public LogLevel LogLevel { get; private set; }
-        public string Message { get; private set; }
+        public Event Event { get; private set; }
         public DateTime CreationTime { get; private set; }
 
         public Log() { }
-        public Log(LogLevel logLevel, string message)
+        public Log(LogLevel logLevel, Event @event)
         {
             Id = Guid.NewGuid();
             LogLevel = logLevel;
-            Message = message;
+            Event = @event;
             CreationTime = DateTime.Now;
         }
     }

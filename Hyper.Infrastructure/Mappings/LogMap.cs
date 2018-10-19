@@ -20,8 +20,8 @@ namespace Hyper.Infrastructure.Mappings
                 .HasColumnType("tinyint")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Message)
-                .HasColumnType("nvarchar(max)")
+            entityBuilder.Property(t => t.Event)
+                .HasColumnType("tinyint")
                 .IsRequired();
 
             entityBuilder.Property(t => t.CreationTime)

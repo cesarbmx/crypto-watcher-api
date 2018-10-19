@@ -5,6 +5,7 @@ namespace Hyper.Domain.Models
     public class Currency
     {
         public string Id { get; private set; }
+        public string Symbol { get; private set; }
         public string Name { get; private set; }
         public short Rank { get; private set; }
         public decimal Price { get; private set; }
@@ -15,6 +16,7 @@ namespace Hyper.Domain.Models
         public Currency() { }
         public Currency(
             string id,
+            string symbol,
             string name,
             short rank,
             decimal price,
@@ -24,6 +26,7 @@ namespace Hyper.Domain.Models
         )
         {
             Id = id;
+            Symbol = symbol;
             Name = name;
             Rank = rank;
             Price = price;

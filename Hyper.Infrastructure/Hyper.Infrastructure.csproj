@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Hyper.Domain\Hyper.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CachingProviders\" />
+  </ItemGroup>
+
 </Project>

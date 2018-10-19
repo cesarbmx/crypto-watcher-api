@@ -17,23 +17,21 @@ namespace Hyper.Infrastructure.Jobs
         readonly ILogger<CurrencyJob> _logger;
         private readonly MainDbContext _mainDbContext;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
-        private readonly CacheService _cacheService;
-        private readonly LogService _logService;
+        private readonly CurrencyService _currencyService;
+
 
         public CurrencyJob(
             IMapper mapper,
             ILogger<CurrencyJob> logger,
             MainDbContext mainDbContext,
             ICoinMarketCapClient coinMarketCapClient,
-            CacheService cacheService,
-            LogService logService)
+            CurrencyService currencyService)
         {
             _mapper = mapper;
             _logger = logger;
             _mainDbContext = mainDbContext;
             _coinMarketCapClient = coinMarketCapClient;
-            _cacheService = cacheService;
-            _logService = logService;
+            _currencyService = currencyService;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -48,22 +46,18 @@ namespace Hyper.Infrastructure.Jobs
                 var currencies = _mapper.Map<IEnumerable<Currency>>(result);
 
                 // Set all currencies
-                await _cacheService.SetInCache(currencies);
+                await _currencyService.SetAllCurrencies(currencies);
+
+               
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
-                // Log
-                _logService.LogInfo(Event.ImportCurrencies);
-
                 // Log into Splunk
-                _logger.LogInformation("Event=ImportCountriesCompleted", Event.ImportCurrencies);
+                _logger.LogInformation("Event=ImportCountriesCompleted", Event.CurrenciesImported);
             }
             catch (Exception ex)
             {
-                // Log
-                _logService.LogError(Event.ImportCurrencies);
-
                 // Log into Splunk
                 _logger.LogError(ex, "Event=ImportCountriesFailed");
             }

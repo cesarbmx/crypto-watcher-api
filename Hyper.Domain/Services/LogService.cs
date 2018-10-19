@@ -22,7 +22,7 @@ namespace Hyper.Domain.Services
         public void LogInfo(Event @event)
         {
             // Create log
-            var log = new Log(LogLevel.Info, Event.ImportCurrencies.ToString());
+            var log = new Log(LogLevel.Info, Event.CurrenciesImported);
 
             // Add Log
             _logRepository.Add(log);
@@ -30,7 +30,7 @@ namespace Hyper.Domain.Services
         public void LogError(Event @event)
         {
             // Create log
-            var log = new Log(LogLevel.Error, Event.ImportCurrencies.ToString());
+            var log = new Log(LogLevel.Error, Event.CurrenciesImported);
 
             // Add Log
             _logRepository.Add(log);
