@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
 
 namespace Hyper.Api.Responses
 {
-    public class LogResponse: List<string>
+    public class LogResponse
     {
         public Guid Id { get; set; }
         public string Message { get; set; }
