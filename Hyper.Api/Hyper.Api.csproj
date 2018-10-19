@@ -20,10 +20,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\**" />
     <Compile Remove="ValidationMessages\**" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="Services\**" />
     <Content Remove="ValidationMessages\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="Services\**" />
     <EmbeddedResource Remove="ValidationMessages\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="Services\**" />
     <None Remove="ValidationMessages\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,9 +57,7 @@
 
   <ItemGroup>
     <Folder Include="Requests\" />
-    <Folder Include="Services\" />
     <Folder Include="Validators\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
