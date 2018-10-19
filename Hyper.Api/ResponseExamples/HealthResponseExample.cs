@@ -1,5 +1,5 @@
 ﻿using Hyper.Api.Responses;
-using Swashbuckle.AspNetCore.Examples;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Hyper.Api.ResponseExamples
 {

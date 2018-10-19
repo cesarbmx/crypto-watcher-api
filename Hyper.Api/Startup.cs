@@ -19,9 +19,6 @@ namespace Hyper.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Mvc
-            services.ConfigureMvc();
-
             // CORS
             services.ConfigureCors();
 
@@ -36,6 +33,9 @@ namespace Hyper.Api
 
            // DI
             services.ConfigureDependencies(Configuration);
+
+            // Mvc
+            services.ConfigureMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

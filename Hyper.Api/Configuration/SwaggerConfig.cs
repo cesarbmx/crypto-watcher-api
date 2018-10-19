@@ -5,7 +5,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Examples;
+using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Hyper.Api.Configuration
@@ -35,8 +35,8 @@ namespace Hyper.Api.Configuration
                         Title = "Hyper API",
                         Version = "v1"
                     }); // Register the Swagger generator, defining one or more Swagger documents
-                c.OperationFilter<ExamplesOperationFilter>(); // [SwaggerRequestExample] & [SwaggerResponseExample]
-                c.OperationFilter<DescriptionOperationFilter>(); // [Description] on Response properties
+                c.ExampleFilters(); // [SwaggerRequestExample] & [SwaggerResponseExample]
+                //c.OperationFilter<DescriptionOperationFilter>(); // [Description] on Response properties
                 //c.OperationFilter<AuthorizationInputOperationFilter>(); // Adds an Authorization input box to every endpoint
                 c.OperationFilter<AddFileParamTypesOperationFilter>(); // Adds an Upload button to endpoints which have [AddSwaggerFileUploadButton]
                 //c.OperationFilter<AddHeaderOperationFilter>("CorrelationId", "Correlation Id for the request"); // adds any string you like to the request headers - in this case, a correlation id
@@ -49,6 +49,9 @@ namespace Hyper.Api.Configuration
                 var commentsFile = Path.Combine(baseDirectory, commentsFileName);
                 c.IncludeXmlComments(commentsFile);
             });
+
+            // Add swagger examples
+            services.AddSwaggerExamples();
 
             return services;
         }
