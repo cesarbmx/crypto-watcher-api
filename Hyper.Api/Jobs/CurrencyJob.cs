@@ -15,7 +15,6 @@ namespace Hyper.Api.Jobs
     public class CurrencyJob
     {
         private readonly IMapper _mapper;
-        private readonly LogService _logService;
         readonly ILogger<CurrencyJob> _logger;
         private readonly MainDbContext _mainDbContext;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
@@ -24,14 +23,12 @@ namespace Hyper.Api.Jobs
 
         public CurrencyJob(
             IMapper mapper,
-            LogService logService,
             ILogger<CurrencyJob> logger,
             MainDbContext mainDbContext,
             ICoinMarketCapClient coinMarketCapClient,
             CurrencyService currencyService)
         {
             _mapper = mapper;
-            _logService = logService;
             _logger = logger;
             _mainDbContext = mainDbContext;
             _coinMarketCapClient = coinMarketCapClient;
@@ -52,10 +49,6 @@ namespace Hyper.Api.Jobs
                 // Set all currencies
                 await _currencyService.SetAllCurrencies(currencies.ToList());
 
-                // Log
-                var log = new Log("ImportCountriesCompleted");
-                _logService.Log(log);
-
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
@@ -64,13 +57,6 @@ namespace Hyper.Api.Jobs
             }
             catch (Exception ex)
             {
-                // Log
-                var log = new Log("ImportCountriesFailed");
-                _logService.Log(log);
-
-                // Save
-                await _mainDbContext.SaveChangesAsync();
-
                 // Log into Splunk
                 _logger.LogError(ex, "Event=ImportCountriesFailed");
             }

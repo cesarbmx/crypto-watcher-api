@@ -16,9 +16,17 @@ namespace Hyper.Persistence.Mappings
                 .HasColumnType("uniqueidentifier")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Message)
+            entityBuilder.Property(t => t.ModelName)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50);
+
+            entityBuilder.Property(t => t.ActionName)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50);
+
+            entityBuilder.Property(t => t.ModelJson)
+                .HasColumnType("nvarchar(max)")
+                .IsRequired();
 
             entityBuilder.Property(t => t.CreationTime)
                 .HasColumnType("datetime")

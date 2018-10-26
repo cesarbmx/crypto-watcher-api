@@ -11,7 +11,9 @@ namespace Hyper.Api.FakeResponses
             return new LogResponse
             {              
                 Id = Guid.Parse("2f0bd0cd-6b95-4759-afbc-d25c570d823c"),
-                Message = "AllCurrenciesImported",
+                ModelName = "Cache",
+                ActionName = "Add",
+                ModelJson = "{}",
                 CreationTime = DateTime.Parse("2018-09-14T14:05")
             };
         }
