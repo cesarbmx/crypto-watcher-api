@@ -24,8 +24,8 @@ namespace Hyper.Api.Configuration
                     cfg.CreateMap<Currency, CurrencyResponse>();
                     cfg.CreateMap<Log, LogResponse>();
 
-                    // Infrastructure
-                    cfg.AddProfile(new Infrastructure.Configuration.AutomapperConfig());
+                    // Persistence
+                    cfg.AddProfile(new Persistence.Configuration.AutomapperConfig());
                     
                 });
 

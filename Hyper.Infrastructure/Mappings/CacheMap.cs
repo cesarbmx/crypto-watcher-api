@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Hyper.Domain.Models;
 
-namespace Hyper.Infrastructure.Mappings
+namespace Hyper.Persistence.Mappings
 {
     public class CacheMap
     {

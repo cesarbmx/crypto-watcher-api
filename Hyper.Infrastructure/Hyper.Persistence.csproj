@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CachingProviders\**" />
+    <EmbeddedResource Remove="CachingProviders\**" />
+    <None Remove="CachingProviders\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Repositories\CurrencyRepository.cs" />
   </ItemGroup>
 
@@ -18,10 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hyper.Domain\Hyper.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="CachingProviders\" />
   </ItemGroup>
 
 </Project>

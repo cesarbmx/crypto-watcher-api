@@ -2,7 +2,7 @@
 using Hyper.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hyper.Infrastructure.Mappings
+namespace Hyper.Persistence.Mappings
 {
     public class CurrencyMap
     {

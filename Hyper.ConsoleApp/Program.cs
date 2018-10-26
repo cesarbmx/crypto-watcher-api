@@ -6,9 +6,9 @@ using CoinMarketCap;
 using CoinMarketCap.Core;
 using Hangfire;
 using Hyper.Domain.Services;
-using Hyper.Infrastructure.Configuration;
-using Hyper.Infrastructure.Contexts;
-using Hyper.Infrastructure.Jobs;
+using Hyper.Persistence.Configuration;
+using Hyper.Persistence.Contexts;
+using Hyper.Persistence.Jobs;
 using log4net;
 using log4net.Config;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Hangfire.MemoryStorage;
 using Hyper.Domain.Repositories;
-using Hyper.Infrastructure.Repositories;
+using Hyper.Persistence.Repositories;
 
 namespace Hyper.ConsoleApp
 {

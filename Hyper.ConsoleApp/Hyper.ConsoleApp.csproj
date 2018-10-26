@@ -40,7 +40,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hyper.Domain\Hyper.Domain.csproj" />
-    <ProjectReference Include="..\Hyper.Infrastructure\Hyper.Infrastructure.csproj" />
+    <ProjectReference Include="..\Hyper.Infrastructure\Hyper.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

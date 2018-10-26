@@ -8,9 +8,9 @@ using Hangfire;
 using Hyper.Domain.Models;
 using Microsoft.Extensions.Logging;
 using Hyper.Domain.Services;
-using Hyper.Infrastructure.Contexts;
+using Hyper.Persistence.Contexts;
 
-namespace Hyper.Infrastructure.Jobs
+namespace Hyper.Api.Jobs
 {
     public class CurrencyJob
     {

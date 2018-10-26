@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Hyper.Domain.Models;
-using Hyper.Infrastructure.Mappings;
+using Hyper.Persistence.Mappings;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hyper.Infrastructure.Contexts
+namespace Hyper.Persistence.Contexts
 {
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public class MainDbContext : DbContext

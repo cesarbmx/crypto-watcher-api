@@ -3,7 +3,7 @@ using AutoMapper;
 using CoinMarketCap.Entities;
 using Hyper.Domain.Models;
 
-namespace Hyper.Infrastructure.Configuration
+namespace Hyper.Persistence.Configuration
 {
     public class AutomapperConfig : Profile
     {

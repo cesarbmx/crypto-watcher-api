@@ -1,6 +1,6 @@
 ﻿using Hangfire;
 using Hangfire.MemoryStorage;
-using Hyper.Infrastructure.Jobs;
+using Hyper.Api.Jobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Hyper.Domain.Models;
-using Hyper.Infrastructure.Contexts;
+using Hyper.Persistence.Contexts;
 using Hyper.Domain.Expressions;
 using Hyper.Domain.Repositories;
 
-namespace Hyper.Infrastructure.Repositories
+namespace Hyper.Persistence.Repositories
 {
     public class LogRepository : ILogRepository
     {
