@@ -14,10 +14,10 @@ namespace Hyper.Domain.Services
             _logRepository = logRepository;
         }
 
-        public async Task<IEnumerable<Log>> GetLog()
+        public async Task<List<Log>> GetLog()
         {
             // Get Log
-            return await _logRepository.GetLog();
+            return await _logRepository.GetAll();
         }
         public void Log(Log log)
         {

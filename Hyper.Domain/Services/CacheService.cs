@@ -16,7 +16,7 @@ namespace Hyper.Domain.Services
             _logService = logService;
         }
 
-        public async Task<IEnumerable<T>> GetFromCache<T>()
+        public async Task<List<T>> GetFromCache<T>()
         {
             // Get cache
             var cache = await _cacheRepository.GetByKey(typeof(T).Name);
@@ -25,7 +25,7 @@ namespace Hyper.Domain.Services
             if (cache == null) return new List<T>();
             return cache.GetValue<T>();
         }
-        public async Task SetInCache<T>(IEnumerable<T> value)
+        public async Task SetInCache<T>(List<T> value)
         {
             // Set cache
             var cache = await _cacheRepository.GetByKey(typeof(T).Name);

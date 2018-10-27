@@ -27,7 +27,7 @@ namespace Hyper.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("log")]
-        [SwaggerResponse(200, Type = typeof(IEnumerable<LogResponse>))]       
+        [SwaggerResponse(200, Type = typeof(List<LogResponse>))]       
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(LogListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
@@ -38,7 +38,7 @@ namespace Hyper.Api.Controllers
             var log = await _logService.GetLog();
 
             // Response
-            var response = _mapper.Map<IEnumerable<LogResponse>>(log);
+            var response = _mapper.Map<List<LogResponse>>(log);
 
             // Return
             return Ok(response);

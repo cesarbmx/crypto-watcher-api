@@ -4,6 +4,7 @@ using Hyper.Domain.Models;
 using Hyper.Persistence.Contexts;
 using Hyper.Domain.Expressions;
 using Hyper.Domain.Repositories;
+using System.Collections.Generic;
 
 namespace Hyper.Persistence.Repositories
 {
@@ -16,6 +17,17 @@ namespace Hyper.Persistence.Repositories
             _mainDbContext = mainDbContext;
         }
 
+
+        public async Task<List<Cache>> GetAll()
+        {
+            // Get all caches
+            return await _mainDbContext.Cache.ToListAsync();
+        }
+        public async Task<Cache> GetById(int id)
+        {
+            // Get cache
+            return await _mainDbContext.Cache.FirstOrDefaultAsync(x=>x.Id == id);
+        }
         public async Task<Cache> GetByKey(string key)
         {
             // Get cache

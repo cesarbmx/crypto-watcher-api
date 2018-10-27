@@ -33,7 +33,7 @@ namespace Hyper.Api.FakeResponses
                 PercentageChange24H = (decimal)5.61
             };
         }
-        public static IEnumerable<CurrencyResponse> GetFake_List()
+        public static List<CurrencyResponse> GetFake_List()
         {
             return new List<CurrencyResponse>
             {

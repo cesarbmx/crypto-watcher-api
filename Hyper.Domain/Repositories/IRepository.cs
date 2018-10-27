@@ -4,9 +4,10 @@ using Hyper.Domain.Models;
 
 namespace Hyper.Domain.Repositories
 {
-    public interface ILogRepository
+    public interface IRepository<T> where T:IEntity
     {
-        Task<List<Log>> GetAll();
-        void Add(Log log);
+        Task<List<T>> GetAll();
+        Task<T> GetById(int id);
+        void Add(T t);
     }
 }

@@ -3,7 +3,7 @@ using Hyper.Shared.Helpers;
 
 namespace Hyper.Domain.Models
 {
-    public class Log
+    public class Log : IEntity
     {
         public int Id { get; private set; }
         public string ModelName { get; private set; }

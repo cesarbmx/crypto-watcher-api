@@ -23,7 +23,7 @@ namespace Hyper.Persistence.Repositories
             return await _mainDbContext.Cache.FirstOrDefaultAsync(CacheExpressions.HasKey(key));
         }
 
-        public async Task<IEnumerable<Log>> GetLog()
+        public async Task<List<Log>> GetAll()
         {
             return await _mainDbContext.Log.ToListAsync();
         }

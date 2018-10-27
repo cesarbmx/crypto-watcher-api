@@ -27,7 +27,7 @@ namespace Hyper.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("currencies")]
-        [SwaggerResponse(200, Type = typeof(IEnumerable<CurrencyResponse>))]       
+        [SwaggerResponse(200, Type = typeof(List<CurrencyResponse>))]       
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(CurrencyListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
@@ -38,7 +38,7 @@ namespace Hyper.Api.Controllers
             var currencies = await _currencyService.GetAllCurrencies();
 
             // Response
-            var response = _mapper.Map<IEnumerable<CurrencyResponse>>(currencies);
+            var response = _mapper.Map<List<CurrencyResponse>>(currencies);
 
             // Return
             return Ok(response);

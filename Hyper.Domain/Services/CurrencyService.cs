@@ -14,12 +14,12 @@ namespace Hyper.Domain.Services
             _cacheService = cacheService;
         }
 
-        public async Task<IEnumerable<Currency>> GetAllCurrencies()
+        public async Task<List<Currency>> GetAllCurrencies()
         {
             // Get all currencies
             return await _cacheService.GetFromCache<Currency>();
         }
-        public async Task SetAllCurrencies(IList<Currency> currencies)
+        public async Task SetAllCurrencies(List<Currency> currencies)
         {
             // Set all currencies
             await _cacheService.SetInCache(currencies);

@@ -1,20 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Hyper.Domain.Models;
-using Hyper.Domain.Expressions;
 using Hyper.Domain.Repositories;
 using System.Linq;
 
 namespace Hyper.Persistence.AuditRepositories
 {
-    public class AuditRepository<T>: ICacheRepository where T: new()
+    public abstract class AuditRepository<T> where T:IEntity
     {
-        private readonly List<T> _t;
+        protected readonly List<T> List;
         private readonly ILogRepository _logRepository;
 
         public AuditRepository(ILogRepository logRepository)
         {
-            _t = new List<T>();
+            List = new List<T>();
             _logRepository = logRepository;
 
             LoadAudit();
@@ -22,7 +22,7 @@ namespace Hyper.Persistence.AuditRepositories
 
         private void LoadAudit()
         {
-            var log = _logRepository.GetLog().Result;
+            var log = _logRepository.GetAll().Result;
             foreach (var logEntry in log)
             {
                 T originalValue;
@@ -31,31 +31,38 @@ namespace Hyper.Persistence.AuditRepositories
                 {
                     case "Add":
                         newValue = logEntry.ModelJsonToObject<T>();
-                        _t.Add(newValue);
+                        List.Add(newValue);
                         break;
                     case "Update":
                         newValue = logEntry.ModelJsonToObject<T>();
-                        originalValue = GetByKey(originalValue.Key).Result;
-                        originalValue = newValue;
+                        originalValue = GetById(newValue.Id).Result;
+                        var index = List.IndexOf(originalValue);
+                        if (index != -1) List[index] = newValue;
                         break;
                     case "Delete":
                         newValue = logEntry.ModelJsonToObject<T>();
-                        originalValue = GetByKey(originalValue.Key).Result;
-                        _t.Remove(originalValue);
+                        originalValue = GetById(newValue.Id).Result;
+                        List.Remove(originalValue);
                         break;
                 }
             }
         }
 
-        public  Task<Cache> GetByKey(string key)
+        public Task<List<T>> GetAll()
         {
-            // Get cache
-            return Task.FromResult(_cacheList.FirstOrDefault(CacheExpressions.HasKey(key).Compile()));
+            return Task.FromResult(List);
         }
-        public void Add(Cache cache)
+        public Task<T> GetById(int id)
         {
-            // Add
-            _cacheList.Add(cache);
+            // Get t
+            return Task.FromResult(List.FirstOrDefault(x=>x.Id == id));
         }
+        public void Add(T t)
+        {
+            // Not supported
+            throw new NotSupportedException();
+        }
+
+
     }
 }

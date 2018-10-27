@@ -17,7 +17,7 @@ namespace Hyper.Api.FakeResponses
                 CreationTime = DateTime.Parse("2018-09-14T14:05")
             };
         }
-        public static IEnumerable<LogResponse> GetFake_List()
+        public static List<LogResponse> GetFake_List()
         {
             return new List<LogResponse>
             {

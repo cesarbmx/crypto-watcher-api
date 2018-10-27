@@ -3,9 +3,8 @@ using Hyper.Domain.Models;
 
 namespace Hyper.Domain.Repositories
 {
-    public interface ICacheRepository
+    public interface ICacheRepository : IRepository<Cache>
     {
         Task<Cache> GetByKey(string key);
-        void Add(Cache cache);
     }
 }
