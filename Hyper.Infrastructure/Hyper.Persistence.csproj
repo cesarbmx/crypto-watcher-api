@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="AuditRepositories\AuditRepository.cs" />
     <Compile Remove="Repositories\CurrencyRepository.cs" />
   </ItemGroup>
 
