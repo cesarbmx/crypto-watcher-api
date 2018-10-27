@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Hyper.Domain.Models;
 using Hyper.Domain.Repositories;
@@ -23,6 +22,7 @@ namespace Hyper.Persistence.AuditRepositories
         private void LoadAudit()
         {
             var log = _logRepository.GetAll().Result;
+
             foreach (var logEntry in log)
             {
                 T originalValue;
@@ -59,8 +59,7 @@ namespace Hyper.Persistence.AuditRepositories
         }
         public void Add(T t)
         {
-            // Not supported
-            throw new NotSupportedException();
+            List.Add(t);
         }
 
 

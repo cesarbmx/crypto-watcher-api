@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 <doc>
-    <assembly>
-        <name>Hyper.Api</name>
-    </assembly>
-    <members>
-        <member name="M:Hyper.Api.Controllers.A_CurrenciesController.GetVersion">
-            <summary>
-            Get all currencies
-            </summary>
-        </member>
-        <member name="M:Hyper.Api.Controllers.B_LogControllerController.GetLog">
-            <summary>
-            Get all currencies
-            </summary>
-        </member>
-        <member name="M:Hyper.Api.Controllers.Z_ServiceStatusController.GetVersion">
-            <summary>
-            Get service version
-            </summary>
-        </member>
-        <member name="M:Hyper.Api.Controllers.Z_ServiceStatusController.GetHealth">
-            <summary>
-            Get service health
-            </summary>
-        </member>
-    </members>
+  <assembly>
+    <name>Hyper.Api</name>
+  </assembly>
+  <members>
+    <member name="M:Hyper.Api.Controllers.A_CurrenciesController.GetVersion">
+      <summary>
+        Get all currencies
+      </summary>
+    </member>
+    <member name="M:Hyper.Api.Controllers.B_LogControllerController.GetLog">
+      <summary>
+        Get log
+      </summary>
+    </member>
+    <member name="M:Hyper.Api.Controllers.Z_ServiceStatusController.GetVersion">
+      <summary>
+        Get service version
+      </summary>
+    </member>
+    <member name="M:Hyper.Api.Controllers.Z_ServiceStatusController.GetHealth">
+      <summary>
+        Get service health
+      </summary>
+    </member>
+  </members>
 </doc>

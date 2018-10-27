@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Hyper.Persistence.AuditRepositories
 {
-    public class CacheAuditRepository : AuditRepository<Cache>
+    public class CacheAuditRepository : AuditRepository<Cache>, ICacheRepository
     {
         public CacheAuditRepository(ILogRepository logRepository):base(logRepository)
         {}
