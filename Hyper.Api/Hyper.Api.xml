@@ -9,7 +9,7 @@
             Get all currencies
             </summary>
         </member>
-        <member name="M:Hyper.Api.Controllers.B_LogControllerController.GetVersion">
+        <member name="M:Hyper.Api.Controllers.B_LogControllerController.GetLog">
             <summary>
             Get all currencies
             </summary>
