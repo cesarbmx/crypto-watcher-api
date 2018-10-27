@@ -13,7 +13,8 @@ namespace Hyper.Persistence.Mappings
 
             // Properties
             entityBuilder.Property(t => t.Id)
-                .HasColumnType("uniqueidentifier")
+                .HasColumnType("int")
+                .ValueGeneratedOnAdd()
                 .IsRequired();
 
             entityBuilder.Property(t => t.ModelName)

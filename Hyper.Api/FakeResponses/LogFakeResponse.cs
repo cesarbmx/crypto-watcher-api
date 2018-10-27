@@ -10,7 +10,7 @@ namespace Hyper.Api.FakeResponses
         {
             return new LogResponse
             {              
-                Id = Guid.Parse("2f0bd0cd-6b95-4759-afbc-d25c570d823c"),
+                Id = 1,
                 ModelName = "Cache",
                 ActionName = "Add",
                 ModelJson = "{}",

@@ -5,7 +5,7 @@ namespace Hyper.Api.Responses
 {
     public class LogResponse
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string ModelName { get; set; }
         public string ActionName { get; set; }
         public string ModelJson { get; set; }

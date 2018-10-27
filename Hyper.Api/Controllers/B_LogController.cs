@@ -32,7 +32,7 @@ namespace Hyper.Api.Controllers
         [SwaggerResponseExample(200, typeof(LogListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Log" }, OperationId = "Log_GetLog")]
-        public async Task<IActionResult> GetVersion()
+        public async Task<IActionResult> GetLog()
         {
             // Get log
             var log = await _logService.GetLog();
