@@ -11,7 +11,7 @@ namespace Hyper.Api.FakeResponses
             return new LogResponse
             {              
                 Id = "2779cf8051-381f-4834-93dc-ece6345dde33",
-                Model = "Cache",
+                Resource = "Cache",
                 Action = "Add",
                 Json = "{}",
                 CreationTime = DateTime.Parse("2018-09-14T14:05")

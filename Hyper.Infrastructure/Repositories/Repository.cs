@@ -26,11 +26,27 @@ namespace Hyper.Persistence.Repositories
         }
         public void Add(TEntity entity)
         {
+            // Add
             _mainDbContext.Set<TEntity>().Add(entity);
+
+            // Log
+            var log = new Log(entity, "Add");
+            _mainDbContext.Log.Add(log);
+        }
+        public void Update(TEntity entity)
+        {
+            // Log
+            var log = new Log(entity, "Update");
+            _mainDbContext.Log.Add(log);
         }
         public void Remove(TEntity entity)
         {
+            // Remove
             _mainDbContext.Set<TEntity>().Remove(entity);
+
+            // Log
+            var log = new Log(entity, "Remove");
+            _mainDbContext.Log.Add(log);
         }
     }
 }

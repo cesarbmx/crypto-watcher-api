@@ -6,7 +6,8 @@ namespace Hyper.Persistence.Repositories
 {
     public class CacheRepository : Repository<Cache>, ICacheRepository
     {
-        public CacheRepository(MainDbContext mainDbContext) : base(mainDbContext)
+        public CacheRepository(MainDbContext mainDbContext) 
+            : base(mainDbContext)
         {
         }
     }

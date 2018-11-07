@@ -60,7 +60,9 @@ namespace Hyper.Persistence.AuditRepositories
         {
             List.Add(entity);
         }
-
+        public void Update(TEntity entity)
+        {
+        }
         public void Remove(TEntity entity)
         {
             List.Remove(entity);

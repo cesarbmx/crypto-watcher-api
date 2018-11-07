@@ -9,7 +9,7 @@ namespace Hyper.Persistence.Mappings
         public LogMap(EntityTypeBuilder<Log> entityBuilder)
         {
             // Properties
-            entityBuilder.Property(t => t.Model)
+            entityBuilder.Property(t => t.Resource)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50);
 

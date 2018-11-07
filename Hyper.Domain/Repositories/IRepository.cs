@@ -9,6 +9,7 @@ namespace Hyper.Domain.Repositories
         Task<List<TEntity>> GetAll();
         Task<TEntity> GetByKey(string id);
         void Add(TEntity entity);
+        void Update(TEntity entity);
         void Remove(TEntity entity);
     }
 }
