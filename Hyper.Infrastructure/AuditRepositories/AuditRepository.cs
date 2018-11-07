@@ -54,7 +54,6 @@ namespace Hyper.Persistence.AuditRepositories
         }
         public Task<TEntity> GetByKey(string id)
         {
-            // Get t
             return Task.FromResult(List.FirstOrDefault(x=>x.Id == id));
         }
         public void Add(TEntity entity)
