@@ -27,7 +27,7 @@ namespace Hyper.Persistence.AuditRepositories
             {
                 T originalValue;
                 T newValue;
-                switch (logEntry.ActionName)
+                switch (logEntry.Action)
                 {
                     case "Add":
                         newValue = logEntry.ModelJsonToObject<T>();

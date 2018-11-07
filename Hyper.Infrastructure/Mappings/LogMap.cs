@@ -21,7 +21,7 @@ namespace Hyper.Persistence.Mappings
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50);
 
-            entityBuilder.Property(t => t.ActionName)
+            entityBuilder.Property(t => t.Action)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50);
 
