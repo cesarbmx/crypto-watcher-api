@@ -12,6 +12,11 @@ namespace Hyper.Persistence.Mappings
             entityBuilder.HasKey(t => t.Id);
 
             // Properties
+            entityBuilder.Property(t => t.Id)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
             entityBuilder.Property(t => t.Rank)
                 .HasColumnType("smallint")
                 .IsRequired();

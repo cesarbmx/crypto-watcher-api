@@ -4,10 +4,11 @@ using Hyper.Domain.Models;
 
 namespace Hyper.Domain.Repositories
 {
-    public interface IRepository<T> where T:IEntity
+    public interface IRepository<TEntity> where TEntity: Entity
     {
-        Task<List<T>> GetAll();
-        Task<T> GetById(int id);
-        void Add(T t);
+        Task<List<TEntity>> GetAll();
+        Task<TEntity> GetByKey(string id);
+        void Add(TEntity entity);
+        void Remove(TEntity entity);
     }
 }

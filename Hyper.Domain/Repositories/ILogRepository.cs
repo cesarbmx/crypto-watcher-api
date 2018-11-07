@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hyper.Domain.Models;
+﻿using Hyper.Domain.Models;
 
 namespace Hyper.Domain.Repositories
 {
-    public interface ILogRepository
+    public interface ILogRepository : IRepository<Log>
     {
-        Task<List<Log>> GetAll();
-        void Add(Log log);
     }
 }

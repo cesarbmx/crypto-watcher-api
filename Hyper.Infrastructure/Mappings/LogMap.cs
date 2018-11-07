@@ -8,16 +8,8 @@ namespace Hyper.Persistence.Mappings
     {
         public LogMap(EntityTypeBuilder<Log> entityBuilder)
         {
-            // Key
-            entityBuilder.HasKey(t => t.Id);
-
             // Properties
-            entityBuilder.Property(t => t.Id)
-                .HasColumnType("int")
-                .ValueGeneratedOnAdd()
-                .IsRequired();
-
-            entityBuilder.Property(t => t.ModelName)
+            entityBuilder.Property(t => t.Model)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50);
 
@@ -25,12 +17,8 @@ namespace Hyper.Persistence.Mappings
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50);
 
-            entityBuilder.Property(t => t.ModelJson)
+            entityBuilder.Property(t => t.Json)
                 .HasColumnType("nvarchar(max)")
-                .IsRequired();
-
-            entityBuilder.Property(t => t.CreationTime)
-                .HasColumnType("datetime")
                 .IsRequired();
         }
     }

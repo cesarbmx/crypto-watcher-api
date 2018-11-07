@@ -36,7 +36,7 @@ namespace Hyper.Domain.Services
                 _cacheRepository.Add(cache);
 
                 // Log
-                var log = new Log("Cache", "Add", cache);
+                var log = new Log(cache, "Add");
                 _logService.Log(log);
             }
             else
@@ -44,7 +44,7 @@ namespace Hyper.Domain.Services
                 cache.SetValue(value);
 
                 // Log
-                var log = new Log("Cache", "Update", cache);
+                var log = new Log(cache, "Update");
                 _logService.Log(log);
             }
         }

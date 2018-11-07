@@ -20,7 +20,7 @@ namespace Hyper.Persistence.Contexts
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new CurrencyMap(modelBuilder.Entity<Currency>());
+            new EntityMap(modelBuilder.Entity<Entity>());
             new CacheMap(modelBuilder.Entity<Cache>());
             new LogMap(modelBuilder.Entity<Log>());
 

@@ -1,28 +1,23 @@
-﻿using System;
-using Hyper.Shared.Helpers;
+﻿using Hyper.Shared.Helpers;
 
 namespace Hyper.Domain.Models
 {
-    public class Log : IEntity
+    public class Log : Entity
     {
-        public int Id { get; private set; }
-        public string ModelName { get; private set; }
+        public string Model { get; private set; }
         public string Action { get; private set; }
-        public string ModelJson { get; private set; }
-        public DateTime CreationTime { get; private set; }
+        public string Json { get; private set; }
 
         public Log() { }
-        public Log(string modelName, string action, object model)
+        public Log(object model, string action)
         {
-            Id = 0;
-            ModelName = modelName;
+            Model = model.GetType().Name;
             Action = action;
-            ModelJson = JsonConvertHelper.SerializeObjectRaw(model);
-            CreationTime = DateTime.Now;
+            Json = JsonConvertHelper.SerializeObjectRaw(model);
         }
         public T ModelJsonToObject<T>()
         {
-            return JsonConvertHelper.DeserializeObjectRaw<T>(ModelJson);
+            return JsonConvertHelper.DeserializeObjectRaw<T>(Json);
         }
     }
 }

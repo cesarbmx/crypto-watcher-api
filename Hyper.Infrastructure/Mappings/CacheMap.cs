@@ -8,26 +8,9 @@ namespace Hyper.Persistence.Mappings
     {
         public CacheMap(EntityTypeBuilder<Cache> entityBuilder)
         {
-            // Key
-            entityBuilder.HasKey(t => t.Id);
-
             // Properties
-            entityBuilder.Property(t => t.Id)
-                .HasColumnType("int")
-                .ValueGeneratedOnAdd()
-                .IsRequired();
-
-            entityBuilder.Property(t => t.Key)
-                .HasColumnType("nvarchar")
-                .HasMaxLength(50)
-                .IsRequired();
-
             entityBuilder.Property(t => t.Value)
                 .HasColumnType("nvarchar(max)")
-                .IsRequired();
-
-            entityBuilder.Property(t => t.CreationTime)
-                .HasColumnType("datetime")
                 .IsRequired();
         }
     }

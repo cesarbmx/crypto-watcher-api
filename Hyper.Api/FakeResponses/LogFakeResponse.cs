@@ -10,10 +10,10 @@ namespace Hyper.Api.FakeResponses
         {
             return new LogResponse
             {              
-                Id = 1,
-                ModelName = "Cache",
-                ActionName = "Add",
-                ModelJson = "{}",
+                Id = "2779cf8051-381f-4834-93dc-ece6345dde33",
+                Model = "Cache",
+                Action = "Add",
+                Json = "{}",
                 CreationTime = DateTime.Parse("2018-09-14T14:05")
             };
         }
