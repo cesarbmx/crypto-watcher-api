@@ -39,7 +39,7 @@ namespace Hyper.Persistence.AuditRepositories
                         var index = List.IndexOf(originalValue);
                         if (index != -1) List[index] = newValue;
                         break;
-                    case "Delete":
+                    case "Remove":
                         newValue = logEntry.ModelJsonToObject<TEntity>();
                         originalValue = GetByKey(newValue.Id).Result;
                         List.Remove(originalValue);
