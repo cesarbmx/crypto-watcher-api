@@ -12,18 +12,18 @@ using Hyper.Persistence.Contexts;
 
 namespace Hyper.Api.Jobs
 {
-    public class CurrencyJob
+    public class ImportCurrenciesJob
     {
         private readonly IMapper _mapper;
-        readonly ILogger<CurrencyJob> _logger;
+        readonly ILogger<ImportCurrenciesJob> _logger;
         private readonly MainDbContext _mainDbContext;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
         private readonly CurrencyService _currencyService;
 
 
-        public CurrencyJob(
+        public ImportCurrenciesJob(
             IMapper mapper,
-            ILogger<CurrencyJob> logger,
+            ILogger<ImportCurrenciesJob> logger,
             MainDbContext mainDbContext,
             ICoinMarketCapClient coinMarketCapClient,
             CurrencyService currencyService)
@@ -36,7 +36,7 @@ namespace Hyper.Api.Jobs
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
-        public async Task Import()
+        public async Task Execute()
         {
             try
             {
@@ -53,12 +53,12 @@ namespace Hyper.Api.Jobs
                 await _mainDbContext.SaveChangesAsync();
 
                 // Log into Splunk
-                _logger.LogInformation("Event=ImportCountriesCompleted");
+                _logger.LogInformation(LoggingEvents.AllCurrenciesHaveBeenImported,"All currencies have been imported");
             }
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogError(ex, "Event=ImportCountriesFailed");
+                _logger.LogError(LoggingEvents.ImportingAllCurrenciesHasFailed, ex, "Importing currencies has failed");
             }
         }
     }
