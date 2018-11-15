@@ -12,12 +12,12 @@ namespace Hyper.Persistence.AuditRepositories
         protected readonly List<TEntity> List;
         private readonly ILogRepository _logRepository;
 
-        public AuditRepository(ILogRepository logRepository, DateTime dateTime)
+        public AuditRepository(ILogRepository logRepository, IDateTimeProvider dateTimeProvider)
         {
             List = new List<TEntity>();
             _logRepository = logRepository;
 
-            LoadAudit(dateTime);
+            LoadAudit(dateTimeProvider.GetDate());
         }
 
         private void LoadAudit(DateTime dateTime)
@@ -68,5 +68,10 @@ namespace Hyper.Persistence.AuditRepositories
         {
             List.Remove(entity);
         }
+    }
+
+    public interface IDateTimeProvider
+    {
+        DateTime GetDate();
     }
 }
