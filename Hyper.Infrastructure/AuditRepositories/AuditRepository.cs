@@ -4,6 +4,7 @@ using Hyper.Domain.Models;
 using Hyper.Domain.Repositories;
 using System.Linq;
 using System.Threading.Tasks;
+using Hyper.Shared.Providers;
 
 namespace Hyper.Persistence.AuditRepositories
 {
@@ -17,7 +18,7 @@ namespace Hyper.Persistence.AuditRepositories
             List = new List<TEntity>();
             _logRepository = logRepository;
 
-            LoadAudit(dateTimeProvider.GetDate());
+            LoadAudit(dateTimeProvider.GetDateFromHeader());
         }
 
         private void LoadAudit(DateTime dateTime)
@@ -68,10 +69,5 @@ namespace Hyper.Persistence.AuditRepositories
         {
             List.Remove(entity);
         }
-    }
-
-    public interface IDateTimeProvider
-    {
-        DateTime GetDate();
     }
 }

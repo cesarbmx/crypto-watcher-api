@@ -1,5 +1,6 @@
 ﻿using Hyper.Domain.Models;
 using Hyper.Domain.Repositories;
+using Hyper.Shared.Providers;
 
 namespace Hyper.Persistence.AuditRepositories
 {
