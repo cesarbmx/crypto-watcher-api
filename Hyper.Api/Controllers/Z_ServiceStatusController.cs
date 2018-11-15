@@ -4,7 +4,6 @@ using Hyper.Api.ResponseExamples;
 using Hyper.Api.Responses;
 using Hyper.Domain.Messages;
 using Hyper.Domain.Services;
-using Hyper.Shared.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +32,7 @@ namespace Hyper.Api.Controllers
         [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult ResourceNotFound()
         {
-            var errorResponse = new ErrorResponse(ServiceMessages.ResourceNotFound.GetCode(), 404, ServiceMessages.ResourceNotFound.GetMessage());
+            var errorResponse = new ErrorResponse(nameof(Messages.NotFound), 404, Messages.NotFound);
             return NotFound(errorResponse);
         }
 

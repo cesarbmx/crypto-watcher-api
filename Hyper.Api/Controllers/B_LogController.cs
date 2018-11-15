@@ -43,6 +43,30 @@ namespace Hyper.Api.Controllers
             // Return
             return Ok(response);
         }
+
+        /// <summary>
+        /// Get log
+        /// </summary>
+        [HttpGet]
+        [Route("log/{id}", Name = "Taxes_GetLog")]
+        [SwaggerResponse(200, Type = typeof(LogResponse))]
+        [SwaggerResponse(404, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
+        [SwaggerResponseExample(200, typeof(LogResponseExample))]
+        [SwaggerResponseExample(404, typeof(NotFoundExample))]
+        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
+        [SwaggerOperation(Tags = new[] { "Log" }, OperationId = "Currencies_GetLog")]
+        public async Task<IActionResult> GetLog(string id)
+        {
+            // Get log
+            var log = await _logService.GetLog(id);
+
+            // Response
+            var response = _mapper.Map<LogResponse>(log);
+
+            // Return
+            return Ok(response);
+        }
     }
 }
 

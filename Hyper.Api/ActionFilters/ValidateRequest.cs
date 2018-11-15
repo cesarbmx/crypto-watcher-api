@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Hyper.Api.Responses;
 using Hyper.Domain.Messages;
-using Hyper.Shared.Extensions;
 
 namespace Hyper.Api.ActionFilters
 {
@@ -22,7 +21,7 @@ namespace Hyper.Api.ActionFilters
                     {
                         if (error.Exception != null)
                         {
-                            var errorResponse = new ErrorResponse(ServiceMessages.InvalidRequest.GetCode(), 400, ServiceMessages.InvalidRequest.GetMessage());
+                            var errorResponse = new ErrorResponse(nameof(Messages.InvalidRequest), 400, Messages.InvalidRequest);
                             filterContext.Result = new ObjectResult(errorResponse) { StatusCode = 400 };
                             return;
                         }
@@ -35,13 +34,13 @@ namespace Hyper.Api.ActionFilters
                     kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
 
-                var validationsResponse = new ValidationResponse(ServiceMessages.ValidationFailed.GetCode(), 422, ServiceMessages.ValidationFailed.GetMessage());
+                var validationsResponse = new ValidationResponse(nameof(Messages.ValidationFailed), 422, Messages.ValidationFailed);
                 var validationErrorsResponse = new List<ValidationErrorResponse>();
                 foreach (var error in errors)
                 {
                     foreach (var value in error.Value)
                     {
-                        validationErrorsResponse.Add(new ValidationErrorResponse(value.GetCode(), error.Key, value.GetMessage()));
+                        validationErrorsResponse.Add(new ValidationErrorResponse(nameof(value), error.Key, value));
                     }
                 }
 

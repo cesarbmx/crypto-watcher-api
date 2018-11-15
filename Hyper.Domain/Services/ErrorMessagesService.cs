@@ -6,32 +6,47 @@ namespace Hyper.Domain.Services
 {
     public class ErrorMessagesService
     {
-        public Dictionary<string, List<string>> GetAllErrorMessages()
+        public Dictionary<string, Dictionary<string, string>> GetAllErrorMessages()
         {
-            var errorMessages = new Dictionary<string, List<string>>();
+            var resources = new Dictionary<string, Dictionary<string, string>>();
 
             var query = from t in Assembly.GetExecutingAssembly().GetTypes()
-                where t.IsClass && t.Namespace == "Hyper.Domain.Messages"
-                    select t;
+                        where t.IsClass && t.Namespace == "Hyper.Domain.Messages"
+                        select t;
             var types = query.ToList();
 
             foreach (var type in types)
             {
-               var constants = type.GetFields(BindingFlags.Public | BindingFlags.Static |
-                                              BindingFlags.FlattenHierarchy)
-                   .Where(fi => fi.IsLiteral && !fi.IsInitOnly).ToList();
-          
-                var y = new List<string>();
+                var constants = type.GetFields(BindingFlags.Public | BindingFlags.Static |
+                                               BindingFlags.FlattenHierarchy)
+                    .Where(fi => fi.IsLiteral && !fi.IsInitOnly).ToList();
+
+                var errorMessages = new Dictionary<string, string>();
 
                 foreach (var constant in constants)
-                {                  
-                    y.Add(constant.GetValue(null).ToString());
+                {
+                    errorMessages.Add(constant.Name, constant.GetValue(null).ToString());
                 }
-                var lenght = type.Name.Length - 8;
-                errorMessages.Add(type.Name.Remove(lenght), y);
+                resources.Add(type.Name.Replace("Messages", ""), errorMessages);
             }
 
-            return errorMessages;
+            // Append common messages to each resource
+            var messages = resources.FirstOrDefault(x => x.Key == "").Value;
+            resources.Remove("");
+            foreach (var resource in resources)
+            {
+                foreach (var message in messages)
+                {
+                    if (!resource.Value.ContainsKey(message.Key))
+                    {
+                        resource.Value.Add(message.Key, message.Value);
+                    }
+                }
+            }
+
+
+
+            return resources;
         }
 
     }

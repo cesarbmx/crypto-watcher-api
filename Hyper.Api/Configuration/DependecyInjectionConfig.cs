@@ -24,14 +24,14 @@ namespace Hyper.Api.Configuration
             //services.AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Hyper")));
             services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("Hyper"));
 
-            //Services
+            // Services
             services.AddScoped<CacheService, CacheService>();
             services.AddScoped<CurrencyService, CurrencyService>();
             services.AddScoped<StatusService, StatusService>();
             services.AddScoped<ErrorMessagesService, ErrorMessagesService>();
             services.AddScoped<LogService, LogService>();
 
-            //Repositories
+            // Repositories
             services.AddScoped<ICacheRepository, CacheRepository>();
             services.AddScoped<ILogRepository, LogRepository>();
 

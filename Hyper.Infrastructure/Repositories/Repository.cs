@@ -9,44 +9,43 @@ namespace Hyper.Persistence.Repositories
 {
     public class Repository<TEntity>: IRepository<TEntity> where TEntity : Entity
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly DbSet<TEntity> _dbSet;
+        private readonly DbSet<Log> _dbLogSet;
 
         public Repository(MainDbContext mainDbContext)
         {
-            _mainDbContext = mainDbContext;
+            _dbSet = mainDbContext.Set<TEntity>();
+            _dbLogSet = mainDbContext.Log;
         }
 
         public async Task<List<TEntity>> GetAll()
         {
-            return await _mainDbContext.Set<TEntity>().ToListAsync();
+            return await _dbSet.ToListAsync();
         }
         public async Task<TEntity> GetByKey(string id)
         {
-            return await _mainDbContext.Set<TEntity>().FindAsync(id);
+            return await _dbSet.FindAsync(id);
         }
         public void Add(TEntity entity)
         {
             // Add
-            _mainDbContext.Set<TEntity>().Add(entity);
+            _dbSet.Add(entity);
 
             // Log
-            var log = new Log(entity, "Add");
-            _mainDbContext.Log.Add(log);
+            _dbLogSet.Add(new Log(entity, "Add"));
         }
         public void Update(TEntity entity)
         {
             // Log
-            var log = new Log(entity, "Update");
-            _mainDbContext.Log.Add(log);
+            _dbLogSet.Add(new Log(entity, "Update"));
         }
         public void Remove(TEntity entity)
         {
             // Remove
-            _mainDbContext.Set<TEntity>().Remove(entity);
+            _dbSet.Remove(entity);
 
             // Log
-            var log = new Log(entity, "Remove");
-            _mainDbContext.Log.Add(log);
+            _dbLogSet.Add(new Log(entity, "Remove"));
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Hyper.Api.Responses;
 using Hyper.Domain.Messages;
-using Hyper.Shared.Extensions;
 
 namespace Hyper.Api.FakeResponses
 {
@@ -8,19 +7,20 @@ namespace Hyper.Api.FakeResponses
     {
         public static ErrorResponse GetFake_BadRequest()
         {
-            return new ErrorResponse(ServiceMessages.InvalidRequest.GetCode(), 400, ServiceMessages.InvalidRequest.GetMessage());
+          
+            return new ErrorResponse(nameof(Messages.InvalidRequest), 400, Messages.InvalidRequest);
         }
         public static ErrorResponse GetFake_NotFound()
         {
-            return new ErrorResponse(ServiceMessages.ResourceNotFound.GetCode(), 404, ServiceMessages.ResourceNotFound.GetMessage());
+            return new ErrorResponse(nameof(Messages.NotFound), 404, Messages.NotFound);
         }
         public static ErrorResponse GetFake_Conflict()
         {
-            return new ErrorResponse(ServiceMessages.Conflict.GetCode(), 409, ServiceMessages.Conflict.GetMessage());
+            return new ErrorResponse(nameof(Messages.Conflict), 409, Messages.Conflict);
         }
         public static ValidationResponse GetFake_InvalidRequest()
         {
-            var validationResponse = new ValidationResponse(ServiceMessages.ValidationFailed.GetCode(), 422, ServiceMessages.ValidationFailed.GetMessage());
+            var validationResponse = new ValidationResponse(nameof(Messages.ValidationFailed), 422, Messages.ValidationFailed);
             validationResponse.ValidationErrors.Add(
                 new ValidationErrorResponse("#0000", "FieldName", "Validation description")
             );
@@ -28,7 +28,7 @@ namespace Hyper.Api.FakeResponses
         }
         public static ErrorResponse GetFake_InternalServerError()
         {
-            return new ErrorResponse(ServiceMessages.InternalServerError.GetCode(), 500, ServiceMessages.InternalServerError.GetMessage());
+            return new ErrorResponse(nameof(Messages.InternalServerError), 500, Messages.InternalServerError);
         }
     }
 }

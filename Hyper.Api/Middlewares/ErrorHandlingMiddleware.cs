@@ -8,7 +8,6 @@ using Newtonsoft.Json.Serialization;
 using Hyper.Api.Responses;
 using Hyper.Shared.Exceptions;
 using Hyper.Domain.Messages;
-using Hyper.Shared.Extensions;
 
 namespace Hyper.Api.Middlewares
 {
@@ -46,31 +45,31 @@ namespace Hyper.Api.Middlewares
                 case UnauthorizedException _: // 401
                     var unauthorizedException = (UnauthorizedException)exception;
                     errorCode = 401;
-                    errorResponse = new ErrorResponse(unauthorizedException.Message.GetCode(), errorCode, unauthorizedException.Message.GetMessage());
+                    errorResponse = new ErrorResponse(nameof(unauthorizedException.Message), errorCode, unauthorizedException.Message);
                     break;
                 case ForbiddenException _:    // 403
                     var forbiddenException = (ForbiddenException)exception;
                     errorCode = 401;
-                    errorResponse = new ErrorResponse(forbiddenException.Message.GetCode(), errorCode, forbiddenException.Message.GetMessage());
+                    errorResponse = new ErrorResponse(nameof(forbiddenException.Message), errorCode, forbiddenException.Message);
                     break;
                 case NotFoundException _:     // 404
                     var notFoundException = (NotFoundException)exception;
                     errorCode = 404;
-                    errorResponse = new ErrorResponse(notFoundException.Message.GetCode(), errorCode, notFoundException.Message.GetMessage());
+                    errorResponse = new ErrorResponse(nameof(notFoundException.Message), errorCode, notFoundException.Message);
                     break;
                 case ConflictException _:     // 409
                     var conflictException = (ConflictException)exception;
                     errorCode = 409;
-                    errorResponse = new ErrorResponse(conflictException.Message.GetCode(), errorCode, conflictException.Message.GetMessage());
+                    errorResponse = new ErrorResponse(nameof(conflictException.Message), errorCode, conflictException.Message);
                     break;
                 case ValidationException _:    // 422
                     var validationException = (ValidationException)exception;
                     errorCode = 422;
-                    errorResponse = new ErrorResponse(validationException.Message.GetCode(), errorCode, validationException.Message.GetMessage());
+                    errorResponse = new ErrorResponse(nameof(validationException.Message), errorCode, validationException.Message);
                     break;
                 default:                      // 500
                     errorCode = 500;
-                    errorResponse = new ErrorResponse(ServiceMessages.InternalServerError.GetCode(), errorCode, ServiceMessages.InternalServerError.GetMessage());
+                    errorResponse = new ErrorResponse(nameof(Messages.InternalServerError), errorCode, Messages.InternalServerError);
                     // Log error
                     _logger.LogError(exception, "Event:UnhandledException");
                     break;

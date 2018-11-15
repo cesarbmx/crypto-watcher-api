@@ -29,12 +29,14 @@ namespace Hyper.Domain.Services
             var cache = await _cacheRepository.GetByKey(typeof(T).Name);
             if (cache == null)
             {
+                // Add if it does not exist
                 cache = new Cache();
                 cache.SetValue(value);
                 _cacheRepository.Add(cache);
             }
             else
             {
+                // Update if it does exist
                 cache.SetValue(value);
                 _cacheRepository.Update(cache);
             }
