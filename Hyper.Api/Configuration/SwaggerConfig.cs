@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -18,15 +19,21 @@ namespace Hyper.Api.Configuration
             services.AddSwaggerGen(c =>
             {
                 // Define the OAuth2.0 scheme that's in use (i.e. Implicit Flow)
-                c.AddSecurityDefinition("oauth2", new OAuth2Scheme
-                {
-                    Type = "oauth2",
-                    Flow = "implicit",
-                    AuthorizationUrl = $"{configuration["IdentityServer:Sts"]}connect/authorize",
-                    Scopes = new Dictionary<string, string>
-                    {
-                        {configuration["IdentityServer:RequiredScopes"], "Hyper"}
-                    }
+                //c.AddSecurityDefinition("oauth2", new OAuth2Scheme
+                //{
+                //    Type = "oauth2",
+                //    Flow = "implicit",
+                //    AuthorizationUrl = $"{configuration["IdentityServer:Sts"]}connect/authorize",
+                //    Scopes = new Dictionary<string, string>
+                //    {
+                //        {configuration["IdentityServer:RequiredScopes"], "Hyper"}
+                //    }
+                //});
+
+                // Define the API Key scheme that's in use
+                c.AddSecurityDefinition("ApiKeyAuth", new ApiKeyScheme { In = "header", Description = "Please enter your API Key", Name = "X-API-Key", Type = "apiKey" });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+                    { "ApiKeyAuth", Enumerable.Empty<string>() },
                 });
 
                 c.SwaggerDoc("v1",
