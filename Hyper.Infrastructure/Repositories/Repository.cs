@@ -10,12 +10,10 @@ namespace Hyper.Persistence.Repositories
     public class Repository<TEntity>: IRepository<TEntity> where TEntity : Entity
     {
         private readonly DbSet<TEntity> _dbSet;
-        private readonly DbSet<Log> _dbLogSet;
 
         public Repository(MainDbContext mainDbContext)
         {
             _dbSet = mainDbContext.Set<TEntity>();
-            _dbLogSet = mainDbContext.Log;
         }
 
         public async Task<List<TEntity>> GetAll()
@@ -30,22 +28,11 @@ namespace Hyper.Persistence.Repositories
         {
             // Add
             _dbSet.Add(entity);
-
-            // Log
-            _dbLogSet.Add(new Log(entity, "Add"));
-        }
-        public void Update(TEntity entity)
-        {
-            // Log
-            _dbLogSet.Add(new Log(entity, "Update"));
         }
         public void Remove(TEntity entity)
         {
             // Remove
-            _dbSet.Remove(entity);
-
-            // Log
-            _dbLogSet.Add(new Log(entity, "Remove"));
+            _dbSet.Remove(entity);            
         }
     }
 }

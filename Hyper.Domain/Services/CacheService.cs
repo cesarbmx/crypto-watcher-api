@@ -8,10 +8,12 @@ namespace Hyper.Domain.Services
     public class CacheService
     {
         private readonly ICacheRepository _cacheRepository;
+        private readonly LogService _logService;
 
-        public CacheService(ICacheRepository cacheRepository)
+        public CacheService(ICacheRepository cacheRepository, LogService logService)
         {
             _cacheRepository = cacheRepository;
+            _logService = logService;
         }
 
         public async Task<List<T>> GetFromCache<T>()
@@ -33,12 +35,17 @@ namespace Hyper.Domain.Services
                 cache = new Cache();
                 cache.SetValue(value);
                 _cacheRepository.Add(cache);
+
+                // Add log
+                _logService.Log(new Log(cache, "Add"));
             }
             else
             {
                 // Update if it does exist
                 cache.SetValue(value);
-                _cacheRepository.Update(cache);
+
+                // Add log
+                _logService.Log(new Log(cache, "Update"));
             }
         }
     }

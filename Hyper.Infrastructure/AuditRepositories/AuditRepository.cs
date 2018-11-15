@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Hyper.Domain.Models;
 using Hyper.Domain.Repositories;
 using System.Linq;
@@ -11,17 +12,17 @@ namespace Hyper.Persistence.AuditRepositories
         protected readonly List<TEntity> List;
         private readonly ILogRepository _logRepository;
 
-        public AuditRepository(ILogRepository logRepository)
+        public AuditRepository(ILogRepository logRepository, DateTime dateTime)
         {
             List = new List<TEntity>();
             _logRepository = logRepository;
 
-            LoadAudit();
+            LoadAudit(dateTime);
         }
 
-        private void LoadAudit()
+        private void LoadAudit(DateTime dateTime)
         {
-            var log = _logRepository.GetAll().Result;
+            var log = _logRepository.GetFromDate(dateTime).Result;
 
             foreach (var logEntry in log)
             {

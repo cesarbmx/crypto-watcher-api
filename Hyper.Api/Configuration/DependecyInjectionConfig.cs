@@ -1,9 +1,11 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Security.Principal;
 using CoinMarketCap;
 using CoinMarketCap.Core;
 using Hyper.Domain.Repositories;
 using Hyper.Domain.Services;
+using Hyper.Persistence.AuditRepositories;
 using Hyper.Persistence.Contexts;
 using Hyper.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +35,7 @@ namespace Hyper.Api.Configuration
 
             // Repositories
             services.AddScoped<ICacheRepository, CacheRepository>();
+            //services.AddScoped<ICacheRepository>(x=> new CacheAuditRepository(x.GetService<ILogRepository>(), DateTime.Today));
             services.AddScoped<ILogRepository, LogRepository>();
 
             // Other
