@@ -26,12 +26,12 @@ namespace Hyper.Api.Controllers
         /// Get logs
         /// </summary>
         [HttpGet]
-        [Route("log")]
+        [Route("logs")]
         [SwaggerResponse(200, Type = typeof(List<LogResponse>))]       
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(LogListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Log" }, OperationId = "Log_GetLogs")]
+        [SwaggerOperation(Tags = new[] { "Logs" }, OperationId = "Logs_GetLogs")]
         public async Task<IActionResult> GetLogs()
         {
             // Get log
@@ -48,14 +48,14 @@ namespace Hyper.Api.Controllers
         /// Get log
         /// </summary>
         [HttpGet]
-        [Route("log/{id}", Name = "Taxes_GetLog")]
+        [Route("logs/{id}", Name = "Logs_GetLog")]
         [SwaggerResponse(200, Type = typeof(LogResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(LogResponseExample))]
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Log" }, OperationId = "Currencies_GetLog")]
+        [SwaggerOperation(Tags = new[] { "Logs" }, OperationId = "Logs_GetLog")]
         public async Task<IActionResult> GetLog(string id)
         {
             // Get log
