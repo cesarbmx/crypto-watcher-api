@@ -23,7 +23,7 @@ namespace Hyper.Api.Controllers
         }
 
         /// <summary>
-        /// Get log
+        /// Get logs
         /// </summary>
         [HttpGet]
         [Route("log")]
@@ -31,8 +31,8 @@ namespace Hyper.Api.Controllers
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(LogListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Log" }, OperationId = "Log_GetLog")]
-        public async Task<IActionResult> GetLog()
+        [SwaggerOperation(Tags = new[] { "Log" }, OperationId = "Log_GetLogs")]
+        public async Task<IActionResult> GetLogs()
         {
             // Get log
             var log = await _logService.GetLog();

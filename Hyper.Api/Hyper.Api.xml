@@ -14,9 +14,9 @@
             Get currency
             </summary>
         </member>
-        <member name="M:Hyper.Api.Controllers.B_LogControllerController.GetLog">
+        <member name="M:Hyper.Api.Controllers.B_LogControllerController.GetLogs">
             <summary>
-            Get log
+            Get logs
             </summary>
         </member>
         <member name="M:Hyper.Api.Controllers.B_LogControllerController.GetLog(System.String)">
