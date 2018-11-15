@@ -21,7 +21,7 @@ namespace Hyper.Persistence.Repositories
 
         public async Task<List<Log>> GetFromDate(DateTime dateTime)
         {
-            return await _mainDbContext.Log.Where(x => x.CreationTime >= dateTime).ToListAsync();
+            return await _mainDbContext.Log.Where(x => x.CreationTime < dateTime).ToListAsync();
         }
     }
 }

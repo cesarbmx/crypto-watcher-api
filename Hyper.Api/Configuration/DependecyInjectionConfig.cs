@@ -35,7 +35,7 @@ namespace Hyper.Api.Configuration
 
             // Repositories
             services.AddScoped<ICacheRepository, CacheRepository>();
-            //services.AddScoped<ICacheRepository>(x=> new CacheAuditRepository(x.GetService<ILogRepository>(), DateTime.Today));
+            //services.AddScoped<ICacheRepository>(x=> new CacheAuditRepository(x.GetService<ILogRepository>(), DateTime.Today.AddDays(1)));
             services.AddScoped<ILogRepository, LogRepository>();
 
             // Other

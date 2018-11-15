@@ -41,7 +41,7 @@ namespace Hyper.Domain.Services
             }
             else
             {
-                // Update if it does exist
+                // Update if it exists
                 cache.SetValue(value);
 
                 // Add log
