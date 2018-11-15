@@ -1,11 +1,9 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Security.Principal;
 using CoinMarketCap;
 using CoinMarketCap.Core;
 using Hyper.Domain.Repositories;
 using Hyper.Domain.Services;
-using Hyper.Persistence.AuditRepositories;
 using Hyper.Persistence.Contexts;
 using Hyper.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
