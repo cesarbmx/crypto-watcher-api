@@ -34,9 +34,8 @@ namespace Hyper.Api.Configuration
             services.AddScoped<LogService, LogService>();
 
             // Repositories
-            services.AddScoped<ICacheRepository, CacheRepository>();
+            services.AddScoped<ICacheRepository, CacheRepository>(); // TODO: (Cesar) app settings switch for audit
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
-            services.AddScoped<ICacheRepository, CacheAuditRepository>();
             services.AddScoped<ILogRepository, LogRepository>();
 
             // Other
