@@ -18,10 +18,12 @@ namespace Hyper.Persistence.Repositories
 
         public async Task<List<TEntity>> GetAll()
         {
+            // Get all
             return await _dbSet.ToListAsync();
         }
         public async Task<TEntity> GetByKey(string id)
         {
+            // Get by key
             return await _dbSet.FindAsync(id);
         }
         public void Add(TEntity entity)

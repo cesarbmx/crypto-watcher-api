@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hyper.Domain", "Hyper.Domain\Hyper.Domain.csproj", "{B6DBBB9C-D0C5-43D5-AAED-B2556727684C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hyper.Persistence", "Hyper.Infrastructure\Hyper.Persistence.csproj", "{C40B35A2-161C-42AA-BA44-189D6379FA3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hyper.Persistence", "Hyper.Persistence\Hyper.Persistence.csproj", "{C40B35A2-161C-42AA-BA44-189D6379FA3E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hyper.Api", "Hyper.Api\Hyper.Api.csproj", "{438DF868-6A71-4D78-A89F-2EB6D61A6D51}"
 EndProject
