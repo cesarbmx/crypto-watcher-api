@@ -23,16 +23,16 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get watchers
+        /// Get user watchers
         /// </summary>
         [HttpGet]
-        [Route("watchers")]
+        [Route("users/{userId}/watchers")]
         [SwaggerResponse(200, Type = typeof(List<WatcherResponse>))]       
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(WatcherListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetWatchers")]
-        public async Task<IActionResult> GetWatchers()
+        [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetUserWatchers")]
+        public async Task<IActionResult> GetWatchers(string userId)
         {
             // Get watcher
             var watcher = await _watcherService.GetWatcher();
@@ -45,21 +45,21 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get watcher
+        /// Get user watcher
         /// </summary>
         [HttpGet]
-        [Route("watchers/{id}", Name = "Watchers_GetWatcher")]
+        [Route("users/{userId}/watchers/{watcherId}", Name = "Watchers_GetWatcher")]
         [SwaggerResponse(200, Type = typeof(WatcherResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(WatcherResponseExample))]
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetWatcher")]
-        public async Task<IActionResult> GetWatcher(string id)
+        [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetUserWatcher")]
+        public async Task<IActionResult> GetWatcher(string userId, string watcherId)
         {
             // Get watcher
-            var watcher = await _watcherService.GetWatcher(id);
+            var watcher = await _watcherService.GetWatcher(watcherId);
 
             // Response
             var response = _mapper.Map<WatcherResponse>(watcher);

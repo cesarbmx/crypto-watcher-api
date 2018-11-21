@@ -1,5 +1,4 @@
-﻿using System;
-using CryptoWatcher.Shared.Helpers;
+﻿using CryptoWatcher.Shared.Helpers;
 
 namespace CryptoWatcher.Domain.Models
 {
@@ -12,7 +11,6 @@ namespace CryptoWatcher.Domain.Models
         public Log() { }
         public Log(object resource, string action)
         {
-            Id = Guid.NewGuid().ToString();
             Resource = resource.GetType().Name;
             Action = action;
             Json = JsonConvertHelper.SerializeObjectRaw(resource);

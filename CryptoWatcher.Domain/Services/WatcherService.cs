@@ -21,10 +21,10 @@ namespace CryptoWatcher.Domain.Services
             // Get Watcher
             return await _watcherRepository.GetAll();
         }
-        public async Task<Watcher> GetWatcher(string id)
+        public async Task<Watcher> GetWatcher(string watcherId)
         {
             // Get Watcher by key
-            var watcher = await _watcherRepository.GetByKey(id);
+            var watcher = await _watcherRepository.GetById(watcherId);
 
             // Throw NotFound exception if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessages.NotFound);

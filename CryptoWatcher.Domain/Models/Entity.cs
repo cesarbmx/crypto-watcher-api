@@ -12,6 +12,7 @@ namespace CryptoWatcher.Domain.Models
 
         protected Entity()
         {
+            Id = Guid.NewGuid().ToString();
             CreationTime = DateTime.Now;
         }
     }

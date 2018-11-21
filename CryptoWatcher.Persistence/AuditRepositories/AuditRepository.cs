@@ -37,13 +37,13 @@ namespace CryptoWatcher.Persistence.AuditRepositories
                         break;
                     case "Update":
                         newValue = logEntry.ModelJsonToObject<TEntity>();
-                        originalValue = GetByKey(newValue.Id).Result;
+                        originalValue = GetById(newValue.Id).Result;
                         var index = List.IndexOf(originalValue);
                         if (index != -1) List[index] = newValue;
                         break;
                     case "Remove":
                         newValue = logEntry.ModelJsonToObject<TEntity>();
-                        originalValue = GetByKey(newValue.Id).Result;
+                        originalValue = GetById(newValue.Id).Result;
                         List.Remove(originalValue);
                         break;
                 }
@@ -54,7 +54,7 @@ namespace CryptoWatcher.Persistence.AuditRepositories
         {
             return Task.FromResult(List);
         }
-        public Task<TEntity> GetByKey(string id)
+        public Task<TEntity> GetById(string id)
         {
             return Task.FromResult(List.FirstOrDefault(x=>x.Id == id));
         }

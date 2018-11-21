@@ -48,7 +48,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get log
         /// </summary>
         [HttpGet]
-        [Route("logs/{id}", Name = "Logs_GetLog")]
+        [Route("logs/{logId}", Name = "Logs_GetLog")]
         [SwaggerResponse(200, Type = typeof(LogResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
@@ -56,10 +56,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Logs" }, OperationId = "Logs_GetLog")]
-        public async Task<IActionResult> GetLog(string id)
+        public async Task<IActionResult> GetLog(string logId)
         {
             // Get log
-            var log = await _logService.GetLog(id);
+            var log = await _logService.GetLog(logId);
 
             // Response
             var response = _mapper.Map<LogResponse>(log);

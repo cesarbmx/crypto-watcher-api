@@ -24,7 +24,7 @@ namespace CryptoWatcher.Domain.Services
         public async Task<Log> GetLog(string id)
         {
             // Get Log by key
-            var log = await _logRepository.GetByKey(id);
+            var log = await _logRepository.GetById(id);
 
             // Throw NotFound exception if it does not exist
             if (log == null) throw new NotFoundException(LogMessages.NotFound);

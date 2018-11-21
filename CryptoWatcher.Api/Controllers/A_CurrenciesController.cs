@@ -48,7 +48,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get currency
         /// </summary>
         [HttpGet]
-        [Route("currencies/{id}", Name = "Taxes_GetCurrency")]
+        [Route("currencies/{currencyId}", Name = "Taxes_GetCurrency")]
         [SwaggerResponse(200, Type = typeof(CurrencyResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
@@ -56,10 +56,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrency")]
-        public async Task<IActionResult> GetCurrency(string id)
+        public async Task<IActionResult> GetCurrency(string currencyId)
         {
             // Get currency
-            var currency = await _currencyService.GetCurrency(id);
+            var currency = await _currencyService.GetCurrency(currencyId);
 
             // Response
             var response = _mapper.Map<CurrencyResponse>(currency);

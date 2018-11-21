@@ -14,12 +14,22 @@
             Get currency
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.B_LogControllerController.GetLogs">
+        <member name="M:CryptoWatcher.Api.Controllers.B_WatchersController.GetWatchers(System.String)">
+            <summary>
+            Get user watchers
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.B_WatchersController.GetWatcher(System.String,System.String)">
+            <summary>
+            Get user watcher
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.C_LogController.GetLogs">
             <summary>
             Get logs
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.B_LogControllerController.GetLog(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_LogController.GetLog(System.String)">
             <summary>
             Get log
             </summary>

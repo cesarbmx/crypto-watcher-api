@@ -5,6 +5,7 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Cache: Entity
     {
+        public string Key { get; private set; }
         public string Value { get; private set; }
 
         public List<T> GetValue<T>()
@@ -13,7 +14,7 @@ namespace CryptoWatcher.Domain.Models
         }
         public void SetValue<T>(List<T> value)
         {
-            Id = typeof(T).Name;
+            Key = typeof(T).Name;
             Value = JsonConvertHelper.SerializeObjectRaw(value);
         }
     }
