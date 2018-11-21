@@ -6,11 +6,11 @@ namespace CryptoWatcher.Api.FakeResponses
     {
         public static WatcherSettings GetFake_PriceWatcher()
         {
-            return new WatcherSettings("bitcoin", 5000, 5500);
+            return new WatcherSettings(5000, 5500);
         }
         public static WatcherSettings GetFake_HypeWatcher()
         {
-            return new WatcherSettings("bitcoin", 5, 2);
+            return new WatcherSettings(5, 2);
         }
     }
 }

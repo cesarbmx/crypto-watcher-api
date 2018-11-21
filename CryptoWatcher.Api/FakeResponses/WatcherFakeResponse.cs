@@ -9,17 +9,23 @@ namespace CryptoWatcher.Api.FakeResponses
         public static WatcherResponse GetFake_PriceWatcher()
         {
             return new WatcherResponse
-            {              
-               WatcherType = WatcherType.Price,
-               BuySellSettings = WatcherSettingsFakeResponse.GetFake_PriceWatcher()
+            {
+                Id = "bitcoin",
+                WatcherType = WatcherType.Price,
+                CurrentValue = 5000,
+                Settings = WatcherSettingsFakeResponse.GetFake_PriceWatcher(),
+                TrendSettings = WatcherSettingsFakeResponse.GetFake_PriceWatcher()
             };
         }
         public static WatcherResponse GetFake_HypeWatcher()
         {
             return new WatcherResponse
             {
+                Id = "bitcoin",
                 WatcherType = WatcherType.Hype,
-                BuySellSettings = WatcherSettingsFakeResponse.GetFake_HypeWatcher()
+                CurrentValue = 2,
+                Settings = WatcherSettingsFakeResponse.GetFake_HypeWatcher(),
+                TrendSettings = WatcherSettingsFakeResponse.GetFake_HypeWatcher()
             };
         }
         public static List<WatcherResponse> GetFake_List()
