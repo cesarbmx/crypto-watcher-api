@@ -4,15 +4,21 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Watcher : Entity
     {
-        public int Percentage { get; private set; }
-        public int Trend { get; private set; }
+        public WatcherType WatcherType { get; private set; }
+        public WatcherSettings BuySellSettings { get; private set; }
+        public WatcherSettings TrendSettings { get; private set; }
 
         public Watcher() { }
-        public Watcher(string id, int percentage, int trend)
+        public Watcher(
+            string id, 
+            WatcherType watcherType,
+            WatcherSettings buySellSettings,
+            WatcherSettings trendSettings)
         {
             Id = id;
-            Percentage = percentage;
-            Trend = trend;
+            WatcherType = watcherType;
+            BuySellSettings = buySellSettings;
+            TrendSettings = trendSettings;
         }
     }
 }

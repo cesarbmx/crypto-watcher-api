@@ -11,12 +11,12 @@ using Swashbuckle.AspNetCore.Filters;
 namespace CryptoWatcher.Api.Controllers
 {
     // ReSharper disable once InconsistentNaming
-    public class B_LogControllerController : Controller
+    public class C_LogController : Controller
     {
         private readonly IMapper _mapper;
         private readonly LogService _logService;
 
-        public B_LogControllerController(IMapper mapper, LogService logService)
+        public C_LogController(IMapper mapper, LogService logService)
         {
             _mapper = mapper;
             _logService = logService;
