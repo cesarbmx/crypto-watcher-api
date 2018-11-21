@@ -23,7 +23,7 @@ namespace CryptoWatcher.Persistence.Repositories
         }
         public async Task<TEntity> GetById(string id)
         {
-            // Get by key
+            // Get by id
             return await _dbSet.FindAsync(id);
         }
         public void Add(TEntity entity)

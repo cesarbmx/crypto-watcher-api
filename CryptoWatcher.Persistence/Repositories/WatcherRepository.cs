@@ -1,14 +1,26 @@
-﻿using CryptoWatcher.Domain.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
     public class WatcherRepository : Repository<Watcher>, IWatcherRepository
     {
+        private readonly MainDbContext _mainDbContext;
+
         public WatcherRepository(MainDbContext mainDbContext)
             : base(mainDbContext)
         {
+            _mainDbContext = mainDbContext;
+        }
+
+        public async Task<List<Watcher>> Get(string userId)
+        {
+            return await _mainDbContext.Watcher.Where(x => x.UserId == userId).ToListAsync();
         }
     }
 }

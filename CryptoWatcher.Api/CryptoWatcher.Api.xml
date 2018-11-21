@@ -19,9 +19,14 @@
             Get user watchers
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.B_WatchersController.GetWatcher(System.String,System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.B_WatchersController.GetWatcher(System.String)">
             <summary>
-            Get user watcher
+            Get watcher
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.B_WatchersController.UpdateWatcherSettings(System.String,CryptoWatcher.Domain.Models.WatcherSettings)">
+            <summary>
+            Update watcher settings
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.C_LogController.GetLogs">

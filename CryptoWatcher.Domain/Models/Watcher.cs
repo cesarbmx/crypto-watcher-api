@@ -27,5 +27,12 @@ namespace CryptoWatcher.Domain.Models
             Settings  = settings;
             TrendSettings = trendSettings;
         }
+
+        public Watcher UpdateSettings(WatcherSettings settings)
+        {
+            Settings = settings;
+
+            return this;
+        }
     }
 }

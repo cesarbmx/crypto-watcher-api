@@ -16,14 +16,14 @@ namespace CryptoWatcher.Domain.Services
             _watcherRepository = watcherRepository;
         }
 
-        public async Task<List<Watcher>> GetWatcher()
+        public async Task<List<Watcher>> GetWatchers(string userId)
         {
             // Get Watcher
             return await _watcherRepository.GetAll();
         }
         public async Task<Watcher> GetWatcher(string watcherId)
         {
-            // Get Watcher by key
+            // Get Watcher by id
             var watcher = await _watcherRepository.GetById(watcherId);
 
             // Throw NotFound exception if it does not exist
@@ -32,10 +32,24 @@ namespace CryptoWatcher.Domain.Services
             // Return
             return watcher;
         }
-        public void Watcher(Watcher watcher)
+        public void AddWatcher(Watcher watcher)
         {
             // Add watcher
             _watcherRepository.Add(watcher);
+        }
+        public async Task<Watcher> UpdateWatcherSettings(string watcherId, WatcherSettings settings)
+        {
+            // Get Watcher by id
+            var watcher = await _watcherRepository.GetById(watcherId);
+
+            // Throw NotFound exception if it does not exist
+            if (watcher == null) throw new NotFoundException(WatcherMessages.NotFound);
+
+            // Update settings
+            watcher.UpdateSettings(settings);
+
+            // Return
+            return watcher;
         }
     }
 }
