@@ -18,12 +18,12 @@ namespace CryptoWatcher.Domain.Services
 
         public async Task<List<Watcher>> GetWatchers(string userId)
         {
-            // Get Watcher
+            // Get watcher
             return await _watcherRepository.Get();
         }
         public async Task<Watcher> GetWatcher(string watcherId)
         {
-            // Get Watcher by id
+            // Get watcher by id
             var watcher = await _watcherRepository.GetById(watcherId);
 
             // Throw NotFound exception if it does not exist
@@ -39,7 +39,7 @@ namespace CryptoWatcher.Domain.Services
         }
         public async Task<Watcher> UpdateWatcherSettings(string watcherId, WatcherSettings settings)
         {
-            // Get Watcher by id
+            // Get watcher by id
             var watcher = await _watcherRepository.GetById(watcherId);
 
             // Throw NotFound exception if it does not exist

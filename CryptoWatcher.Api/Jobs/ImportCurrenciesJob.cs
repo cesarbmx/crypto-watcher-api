@@ -47,18 +47,18 @@ namespace CryptoWatcher.Api.Jobs
                 var currencies = _mapper.Map<List<Currency>>(result);
 
                 // Set all currencies
-                await _currencyService.SetAllCurrencies(currencies.ToList());
+                await _currencyService.SetCurrencies(currencies.ToList());
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
                 // Log into Splunk
-                _logger.LogInformation(nameof(LoggingEvents.AllCurrenciesHaveBeenImported), LoggingEvents.AllCurrenciesHaveBeenImported);
+                _logger.LogInformation(nameof(LoggingEvents.CurrenciesHaveBeenImported), LoggingEvents.CurrenciesHaveBeenImported);
             }
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogError(nameof(LoggingEvents.ImportingAllCurrenciesHasFailed), ex, LoggingEvents.ImportingAllCurrenciesHasFailed);
+                _logger.LogError(nameof(LoggingEvents.ImportingCurrenciesHasFailed), ex, LoggingEvents.ImportingCurrenciesHasFailed);
             }
         }
     }

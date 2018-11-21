@@ -23,14 +23,14 @@ namespace CryptoWatcher.Api.Jobs
             try
             {
                 // Log into Splunk
-                _logger.LogInformation(nameof(LoggingEvents.AllWatchersHaveBeenSet), LoggingEvents.AllWatchersHaveBeenSet);
+                _logger.LogInformation(nameof(LoggingEvents.WatchersHaveBeenSet), LoggingEvents.WatchersHaveBeenSet);
 
                 await Task.CompletedTask;
             }
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogError(nameof(LoggingEvents.UpdatingAllWatchersHasFailed), ex, LoggingEvents.UpdatingAllWatchersHasFailed);
+                _logger.LogError(nameof(LoggingEvents.UpdatingWatchersHasFailed), ex, LoggingEvents.UpdatingWatchersHasFailed);
             }
         }
     }

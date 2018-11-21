@@ -36,9 +36,9 @@ namespace CryptoWatcher.Domain.Services
             return currency;
 
         }
-        public async Task SetAllCurrencies(List<Currency> currencies)
+        public async Task SetCurrencies(List<Currency> currencies)
         {
-            // Set all currencies
+            // Set currencies
             await _cacheService.SetInCache(currencies);
         }
     }
