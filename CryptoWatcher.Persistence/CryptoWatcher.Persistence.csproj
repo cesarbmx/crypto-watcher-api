@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release;Develop;Staging;Production</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="CachingProviders\**" />
+    <EmbeddedResource Remove="CachingProviders\**" />
+    <None Remove="CachingProviders\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Repositories\CurrencyRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="CoinMarketCapClient" Version="1.1.1" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.0-beta1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CryptoWatcher.Domain\CryptoWatcher.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
