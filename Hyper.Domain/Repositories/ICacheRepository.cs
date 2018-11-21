@@ -1,6 +1,6 @@
-﻿using Hyper.Domain.Models;
+﻿using CryptoWatcher.Domain.Models;
 
-namespace Hyper.Domain.Repositories
+namespace CryptoWatcher.Domain.Repositories
 {
     public interface ICacheRepository : IRepository<Cache>
     {

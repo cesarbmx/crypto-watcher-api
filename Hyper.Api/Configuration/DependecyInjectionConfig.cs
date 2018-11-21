@@ -2,28 +2,28 @@
 using System.Security.Principal;
 using CoinMarketCap;
 using CoinMarketCap.Core;
-using Hyper.Domain.Repositories;
-using Hyper.Domain.Services;
-using Hyper.Persistence.Contexts;
-using Hyper.Persistence.Repositories;
-using Hyper.Shared.Providers;
+using CryptoWatcher.Domain.Repositories;
+using CryptoWatcher.Domain.Services;
+using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Persistence.Repositories;
+using CryptoWatcher.Shared.Providers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Hyper.Api.Configuration
+namespace CryptoWatcher.Api.Configuration
 {
     public static class DependecyInjectionConfig
     {
         public static IServiceCollection ConfigureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
 
-            //services.AddScoped<IPinnacleTokenService<HyperPermission>, PinnacleTokenService<HyperPermission>>();
+            //services.AddScoped<IPinnacleTokenService<CryptoWatcherPermission>, PinnacleTokenService<CryptoWatcherPermission>>();
 
             //Contexts (UOW)
-            //services.AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Hyper")));
-            services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("Hyper"));
+            //services.AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("CryptoWatcher")));
+            services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("CryptoWatcher"));
 
             // Services
             services.AddScoped<CacheService, CacheService>();

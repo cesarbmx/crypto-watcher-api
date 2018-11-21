@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Hyper.Api.Responses
+namespace CryptoWatcher.Api.Responses
 {
     public class LogResponse
     {

@@ -2,12 +2,12 @@
 using AutoMapper;
 using CoinMarketCap.Entities;
 using Microsoft.Extensions.DependencyInjection;
-using Hyper.Api.Responses;
-using Hyper.Domain.Models;
-using Hyper.Shared.Extensions;
-using Version = Hyper.Domain.Models.Version;
+using CryptoWatcher.Api.Responses;
+using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Shared.Extensions;
+using Version = CryptoWatcher.Domain.Models.Version;
 
-namespace Hyper.Api.Configuration
+namespace CryptoWatcher.Api.Configuration
 {
     public static class AutomapperConfig
     {

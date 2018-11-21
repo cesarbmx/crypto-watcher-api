@@ -1,40 +1,40 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Hyper.Api</name>
+        <name>CryptoWatcher.Api</name>
     </assembly>
     <members>
-        <member name="M:Hyper.Api.Controllers.A_CurrenciesController.GetAllCurrencies">
+        <member name="M:CryptoWatcher.Api.Controllers.A_CurrenciesController.GetAllCurrencies">
             <summary>
             Get all currencies
             </summary>
         </member>
-        <member name="M:Hyper.Api.Controllers.A_CurrenciesController.GetCurrency(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.A_CurrenciesController.GetCurrency(System.String)">
             <summary>
             Get currency
             </summary>
         </member>
-        <member name="M:Hyper.Api.Controllers.B_LogControllerController.GetLogs">
+        <member name="M:CryptoWatcher.Api.Controllers.B_LogControllerController.GetLogs">
             <summary>
             Get logs
             </summary>
         </member>
-        <member name="M:Hyper.Api.Controllers.B_LogControllerController.GetLog(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.B_LogControllerController.GetLog(System.String)">
             <summary>
             Get log
             </summary>
         </member>
-        <member name="M:Hyper.Api.Controllers.Y_ErrorMessagesController.GetAllErrorMessages">
+        <member name="M:CryptoWatcher.Api.Controllers.Y_ErrorMessagesController.GetAllErrorMessages">
             <summary>
             Get all error messages
             </summary>
         </member>
-        <member name="M:Hyper.Api.Controllers.Z_ServiceStatusController.GetVersion">
+        <member name="M:CryptoWatcher.Api.Controllers.Z_ServiceStatusController.GetVersion">
             <summary>
             Get service version
             </summary>
         </member>
-        <member name="M:Hyper.Api.Controllers.Z_ServiceStatusController.GetHealth">
+        <member name="M:CryptoWatcher.Api.Controllers.Z_ServiceStatusController.GetHealth">
             <summary>
             Get service health
             </summary>

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Hyper.Domain.Models;
+using CryptoWatcher.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hyper.Persistence.Mappings
+namespace CryptoWatcher.Persistence.Mappings
 {
     public class HypeMap
     {

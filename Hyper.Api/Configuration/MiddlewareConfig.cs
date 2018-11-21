@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Hyper.Api.Middlewares;
+using CryptoWatcher.Api.Middlewares;
 
-namespace Hyper.Api.Configuration
+namespace CryptoWatcher.Api.Configuration
 {
     public static class MiddlewareConfig
     {

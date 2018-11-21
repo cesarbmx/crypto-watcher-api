@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
-using Hyper.Domain.Models;
-using Hyper.Shared.Helpers;
+using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Shared.Helpers;
 
-namespace Hyper.Domain.Services
+namespace CryptoWatcher.Domain.Services
 {
     public class StatusService
     {

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Hyper.Shared.ContractResolvers;
+using CryptoWatcher.Shared.ContractResolvers;
 
-namespace Hyper.Shared.Helpers
+namespace CryptoWatcher.Shared.Helpers
 {
     public static class JsonConvertHelper
     {

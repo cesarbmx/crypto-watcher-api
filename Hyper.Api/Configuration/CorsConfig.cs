@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Hyper.Api.Configuration
+namespace CryptoWatcher.Api.Configuration
 {
     public static class CorsConfig
     {

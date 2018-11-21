@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hyper.Domain.Models
+namespace CryptoWatcher.Domain.Models
 {
     public class Version
     {

@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Hyper.Api.Responses;
-using Hyper.Shared.Exceptions;
-using Hyper.Domain.Messages;
+using CryptoWatcher.Api.Responses;
+using CryptoWatcher.Shared.Exceptions;
+using CryptoWatcher.Domain.Messages;
 
-namespace Hyper.Api.Middlewares
+namespace CryptoWatcher.Api.Middlewares
 {
     public class ErrorHandlingMiddleware
     {

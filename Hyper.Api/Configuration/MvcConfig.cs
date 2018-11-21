@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Hyper.Api.ActionFilters;
-using Hyper.Api.Controllers;
+using CryptoWatcher.Api.ActionFilters;
+using CryptoWatcher.Api.Controllers;
 
-namespace Hyper.Api.Configuration
+namespace CryptoWatcher.Api.Configuration
 {
     public static class MvcConfig
     {

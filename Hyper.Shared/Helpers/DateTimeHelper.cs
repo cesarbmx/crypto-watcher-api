@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hyper.Shared.Helpers
+namespace CryptoWatcher.Shared.Helpers
 {
     public static class DateTimeHelper
     {

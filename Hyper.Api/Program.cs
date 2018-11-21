@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Hyper.Api
+namespace CryptoWatcher.Api
 {
     public class Program
     {

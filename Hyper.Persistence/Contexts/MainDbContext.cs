@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Hyper.Domain.Models;
-using Hyper.Persistence.Mappings;
+using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Persistence.Mappings;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hyper.Persistence.Contexts
+namespace CryptoWatcher.Persistence.Contexts
 {
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public class MainDbContext : DbContext

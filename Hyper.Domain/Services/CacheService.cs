@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hyper.Domain.Models;
-using Hyper.Domain.Repositories;
+using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Repositories;
 
-namespace Hyper.Domain.Services
+namespace CryptoWatcher.Domain.Services
 {
     public class CacheService
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hyper.Domain.Models;
+using CryptoWatcher.Domain.Models;
 
-namespace Hyper.Domain.Repositories
+namespace CryptoWatcher.Domain.Repositories
 {
     public interface ILogRepository : IRepository<Log>
     {

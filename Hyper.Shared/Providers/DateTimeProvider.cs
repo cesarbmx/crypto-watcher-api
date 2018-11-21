@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 
-namespace Hyper.Shared.Providers
+namespace CryptoWatcher.Shared.Providers
 {
     public class DateTimeProvider : IDateTimeProvider
     {

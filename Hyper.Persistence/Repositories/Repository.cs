@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using Hyper.Domain.Models;
-using Hyper.Persistence.Contexts;
-using Hyper.Domain.Repositories;
+using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Domain.Repositories;
 using System.Collections.Generic;
 
-namespace Hyper.Persistence.Repositories
+namespace CryptoWatcher.Persistence.Repositories
 {
     public class Repository<TEntity>: IRepository<TEntity> where TEntity : Entity
     {

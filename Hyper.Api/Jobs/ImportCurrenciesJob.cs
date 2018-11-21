@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CoinMarketCap.Core;
 using Hangfire;
-using Hyper.Domain.Models;
+using CryptoWatcher.Domain.Models;
 using Microsoft.Extensions.Logging;
-using Hyper.Domain.Services;
-using Hyper.Persistence.Contexts;
+using CryptoWatcher.Domain.Services;
+using CryptoWatcher.Persistence.Contexts;
 
-namespace Hyper.Api.Jobs
+namespace CryptoWatcher.Api.Jobs
 {
     public class ImportCurrenciesJob
     {

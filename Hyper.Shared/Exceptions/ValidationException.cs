@@ -1,6 +1,6 @@
 ﻿
 
-namespace Hyper.Shared.Exceptions
+namespace CryptoWatcher.Shared.Exceptions
 {
     public class ValidationException : DomainException
     {

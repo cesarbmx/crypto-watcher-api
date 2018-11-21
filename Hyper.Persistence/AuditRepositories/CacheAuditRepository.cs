@@ -1,8 +1,8 @@
-﻿using Hyper.Domain.Models;
-using Hyper.Domain.Repositories;
-using Hyper.Shared.Providers;
+﻿using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Repositories;
+using CryptoWatcher.Shared.Providers;
 
-namespace Hyper.Persistence.AuditRepositories
+namespace CryptoWatcher.Persistence.AuditRepositories
 {
     public class CacheAuditRepository : AuditRepository<Cache>, ICacheRepository
     {

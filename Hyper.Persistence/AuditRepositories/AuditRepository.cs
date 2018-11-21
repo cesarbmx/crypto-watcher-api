@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hyper.Domain.Models;
-using Hyper.Domain.Repositories;
+using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Repositories;
 using System.Linq;
 using System.Threading.Tasks;
-using Hyper.Shared.Providers;
+using CryptoWatcher.Shared.Providers;
 
-namespace Hyper.Persistence.AuditRepositories
+namespace CryptoWatcher.Persistence.AuditRepositories
 {
     public abstract class AuditRepository<TEntity> : IRepository<TEntity> where TEntity: Entity
     {

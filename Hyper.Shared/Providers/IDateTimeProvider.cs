@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Hyper.Shared.Providers
+namespace CryptoWatcher.Shared.Providers
 {
     public interface IDateTimeProvider
     {

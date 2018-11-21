@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Converters;
 
-namespace Hyper.Shared.Converters
+namespace CryptoWatcher.Shared.Converters
 {
     public class OnlyDateConverter: IsoDateTimeConverter
     {

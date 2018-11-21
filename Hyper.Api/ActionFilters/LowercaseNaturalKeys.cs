@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 
 
-namespace Hyper.Api.ActionFilters
+namespace CryptoWatcher.Api.ActionFilters
 {
     public class LowercaseNaturalKeysAttribute : IActionFilter
     {

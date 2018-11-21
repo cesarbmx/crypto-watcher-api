@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace Hyper.Api.Responses
+namespace CryptoWatcher.Api.Responses
 {
     public class CurrencyResponse
     {

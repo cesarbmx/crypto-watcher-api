@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hyper.Api.Responses;
+using CryptoWatcher.Api.Responses;
 
-namespace Hyper.Api.FakeResponses
+namespace CryptoWatcher.Api.FakeResponses
 {
     public static class LogFakeResponse
     {

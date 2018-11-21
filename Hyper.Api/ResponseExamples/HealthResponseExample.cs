@@ -1,7 +1,7 @@
-﻿using Hyper.Api.Responses;
+﻿using CryptoWatcher.Api.Responses;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace Hyper.Api.ResponseExamples
+namespace CryptoWatcher.Api.ResponseExamples
 {
     public class HealthResponseExample : IExamplesProvider
     {

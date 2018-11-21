@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Hyper.Domain.Models;
+using CryptoWatcher.Domain.Models;
 
-namespace Hyper.Domain.Expressions
+namespace CryptoWatcher.Domain.Expressions
 {
     public static class EntityExpressions
     {

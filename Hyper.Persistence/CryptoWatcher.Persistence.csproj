@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hyper.Domain\Hyper.Domain.csproj" />
+    <ProjectReference Include="..\Hyper.Domain\CryptoWatcher.Domain.csproj" />
   </ItemGroup>
 
 </Project>

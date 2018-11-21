@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Hyper.Shared.Helpers;
+using CryptoWatcher.Shared.Helpers;
 
-namespace Hyper.Domain.Models
+namespace CryptoWatcher.Domain.Models
 {
     public class Cache: Entity
     {

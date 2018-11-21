@@ -1,7 +1,7 @@
-﻿using Hyper.Api.Responses;
-using Hyper.Domain.Messages;
+﻿using CryptoWatcher.Api.Responses;
+using CryptoWatcher.Domain.Messages;
 
-namespace Hyper.Api.FakeResponses
+namespace CryptoWatcher.Api.FakeResponses
 {
     public static class ErrorFakeResponse
     {

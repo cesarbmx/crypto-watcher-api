@@ -2,10 +2,10 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Hyper.Api.Responses;
-using Hyper.Domain.Messages;
+using CryptoWatcher.Api.Responses;
+using CryptoWatcher.Domain.Messages;
 
-namespace Hyper.Api.ActionFilters
+namespace CryptoWatcher.Api.ActionFilters
 {
 
     public class ValidateRequestAttribute : IActionFilter

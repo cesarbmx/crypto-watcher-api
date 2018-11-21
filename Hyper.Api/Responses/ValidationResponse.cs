@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace Hyper.Api.Responses
+namespace CryptoWatcher.Api.Responses
 {
     public class ValidationResponse
     {

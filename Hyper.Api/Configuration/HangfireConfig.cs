@@ -1,17 +1,17 @@
 ﻿using Hangfire;
 using Hangfire.MemoryStorage;
-using Hyper.Api.Jobs;
+using CryptoWatcher.Api.Jobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Hyper.Api.Configuration
+namespace CryptoWatcher.Api.Configuration
 {
     public static class HangfireConfig
     {
         public static IServiceCollection ConfigureHangfire(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("Hyper")));
+            //services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("CryptoWatcher")));
             var inMemoryStorage = GlobalConfiguration.Configuration.UseMemoryStorage();
             services.AddHangfire(x => x.UseStorage(inMemoryStorage));
 

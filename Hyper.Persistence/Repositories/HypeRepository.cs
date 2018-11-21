@@ -1,8 +1,8 @@
-﻿using Hyper.Domain.Models;
-using Hyper.Persistence.Contexts;
-using Hyper.Domain.Repositories;
+﻿using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Domain.Repositories;
 
-namespace Hyper.Persistence.Repositories
+namespace CryptoWatcher.Persistence.Repositories
 {
     public class HypeRepository : Repository<Hype>, IHypeRepository
     {

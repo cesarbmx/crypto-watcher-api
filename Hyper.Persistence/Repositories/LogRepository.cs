@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hyper.Domain.Models;
-using Hyper.Persistence.Contexts;
-using Hyper.Domain.Repositories;
+using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hyper.Persistence.Repositories
+namespace CryptoWatcher.Persistence.Repositories
 {
     public class LogRepository : Repository<Log>, ILogRepository
     {

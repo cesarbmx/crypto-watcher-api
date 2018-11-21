@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Hyper.Api.ResponseExamples;
-using Hyper.Api.Responses;
-using Hyper.Domain.Services;
+using CryptoWatcher.Api.ResponseExamples;
+using CryptoWatcher.Api.Responses;
+using CryptoWatcher.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace Hyper.Api.Controllers
+namespace CryptoWatcher.Api.Controllers
 {
     // ReSharper disable once InconsistentNaming
     public class B_LogControllerController : Controller

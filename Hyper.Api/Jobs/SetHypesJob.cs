@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Hangfire;
-using Hyper.Domain.Models;
+using CryptoWatcher.Domain.Models;
 using Microsoft.Extensions.Logging;
 
-namespace Hyper.Api.Jobs
+namespace CryptoWatcher.Api.Jobs
 {
     public class SetHypesJob
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hyper.Shared.Extensions
+namespace CryptoWatcher.Shared.Extensions
 {
     public static class DateTimeExtensions
     {

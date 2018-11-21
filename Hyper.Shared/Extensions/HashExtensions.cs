@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Hyper.Shared.Extensions
+namespace CryptoWatcher.Shared.Extensions
 {
     public static class HashExtensions
     {

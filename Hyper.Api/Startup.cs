@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Hyper.Api.Configuration;
+using CryptoWatcher.Api.Configuration;
 
-namespace Hyper.Api
+namespace CryptoWatcher.Api
 {
     public class Startup
     {

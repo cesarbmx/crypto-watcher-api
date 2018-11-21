@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hyper.Shared\Hyper.Shared.csproj" />
+    <ProjectReference Include="..\Hyper.Shared\CryptoWatcher.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Hyper.Domain.Models;
+using CryptoWatcher.Domain.Models;
 
-namespace Hyper.Persistence.Mappings
+namespace CryptoWatcher.Persistence.Mappings
 {
     public class CacheMap
     {

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hyper.Domain.Messages;
-using Hyper.Domain.Models;
-using Hyper.Shared.Exceptions;
+using CryptoWatcher.Domain.Messages;
+using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Shared.Exceptions;
 
-namespace Hyper.Domain.Services
+namespace CryptoWatcher.Domain.Services
 {
     public class CurrencyService
     {

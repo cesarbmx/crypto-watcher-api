@@ -1,6 +1,6 @@
 ﻿
 
-namespace Hyper.Shared.Exceptions
+namespace CryptoWatcher.Shared.Exceptions
 {
     public abstract class DomainException: System.Exception
     {

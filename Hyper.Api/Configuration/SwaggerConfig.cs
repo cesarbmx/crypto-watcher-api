@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace Hyper.Api.Configuration
+namespace CryptoWatcher.Api.Configuration
 {
     public static class SwaggerConfig
     {
@@ -26,7 +26,7 @@ namespace Hyper.Api.Configuration
                 //    AuthorizationUrl = $"{configuration["IdentityServer:Sts"]}connect/authorize",
                 //    Scopes = new Dictionary<string, string>
                 //    {
-                //        {configuration["IdentityServer:RequiredScopes"], "Hyper"}
+                //        {configuration["IdentityServer:RequiredScopes"], "CryptoWatcher"}
                 //    }
                 //});
 
@@ -41,7 +41,7 @@ namespace Hyper.Api.Configuration
                 c.SwaggerDoc("v1",
                     new Info
                     {
-                        Title = "Hyper API",
+                        Title = "CryptoWatcher API",
                         Version = "v1"
                     }); // Register the Swagger generator, defining one or more Swagger documents
                 c.ExampleFilters(); // [SwaggerRequestExample] & [SwaggerResponseExample]
@@ -74,7 +74,7 @@ namespace Hyper.Api.Configuration
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("swagger/v1/swagger.json", "Hyper");
+                c.SwaggerEndpoint("swagger/v1/swagger.json", "CryptoWatcher");
                 c.RoutePrefix = string.Empty; // Serve the Swagger UI at the app's root
                 c.OAuthClientId(configuration["IdentityServer:ClientId"]);
                 c.OAuth2RedirectUrl(configuration["Swagger:RootUrlFrom"] + "swagger/ui/o2c-html");

@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Hyper.Shared.ContractResolvers
+namespace CryptoWatcher.Shared.ContractResolvers
 {
 
     public class NonPublicPropertiesResolver : DefaultContractResolver

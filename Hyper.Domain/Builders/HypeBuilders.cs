@@ -1,7 +1,7 @@
 ﻿
 
 
-namespace Hyper.Domain.Builders
+namespace CryptoWatcher.Domain.Builders
 {
     public static class HypeBuilders
     {

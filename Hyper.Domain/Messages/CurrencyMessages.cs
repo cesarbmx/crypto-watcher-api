@@ -1,6 +1,6 @@
 ﻿
 
-namespace Hyper.Domain.Messages
+namespace CryptoWatcher.Domain.Messages
 {
     public static class CurrencyMessages
     {

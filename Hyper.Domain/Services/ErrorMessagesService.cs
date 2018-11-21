@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Hyper.Domain.Services
+namespace CryptoWatcher.Domain.Services
 {
     public class ErrorMessagesService
     {
@@ -11,7 +11,7 @@ namespace Hyper.Domain.Services
             var resources = new Dictionary<string, Dictionary<string, string>>();
 
             var query = from t in Assembly.GetExecutingAssembly().GetTypes()
-                        where t.IsClass && t.Namespace == "Hyper.Domain.Messages"
+                        where t.IsClass && t.Namespace == "CryptoWatcher.Domain.Messages"
                         select t;
             var types = query.ToList();
 

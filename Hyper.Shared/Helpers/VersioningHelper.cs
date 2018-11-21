@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace Hyper.Shared.Helpers
+namespace CryptoWatcher.Shared.Helpers
 {
     public static class VersioningHelper
     {

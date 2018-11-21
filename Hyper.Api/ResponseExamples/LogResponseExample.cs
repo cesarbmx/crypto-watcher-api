@@ -1,7 +1,7 @@
-﻿using Hyper.Api.FakeResponses;
+﻿using CryptoWatcher.Api.FakeResponses;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace Hyper.Api.ResponseExamples
+namespace CryptoWatcher.Api.ResponseExamples
 {
     public class LogResponseExample : IExamplesProvider
     {
