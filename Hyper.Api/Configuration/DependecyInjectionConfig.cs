@@ -31,11 +31,13 @@ namespace Hyper.Api.Configuration
             services.AddScoped<StatusService, StatusService>();
             services.AddScoped<ErrorMessagesService, ErrorMessagesService>();
             services.AddScoped<LogService, LogService>();
+            services.AddScoped<HypeService, HypeService>();
 
             // Repositories
             services.AddScoped<ICacheRepository, CacheRepository>(); // TODO: (Cesar) app settings switch for audit
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<ILogRepository, LogRepository>();
+            services.AddScoped<IHypeRepository, HypeRepository>();
 
             // Other
             services.AddScoped<HttpContextAccessor, HttpContextAccessor>();

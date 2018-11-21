@@ -41,7 +41,7 @@ namespace Hyper.Api.Jobs
             try
             {
                 // Get all currencies from CoinMarketCap
-                var result = await _coinMarketCapClient.GetTickerListAsync(5);
+                var result = await _coinMarketCapClient.GetTickerListAsync(10);
 
                 // Map to our Model
                 var currencies = _mapper.Map<List<Currency>>(result);

@@ -2,9 +2,8 @@
 
 namespace Hyper.Domain.Models
 {
-    public class Hype
+    public class Hype : Entity
     {
-        public string Id { get; private set; }
         public int Percentage { get; private set; }
         public int Trend { get; private set; }
 
