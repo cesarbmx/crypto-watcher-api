@@ -19,7 +19,7 @@ namespace CryptoWatcher.Domain.Services
         public async Task<List<Log>> GetLog()
         {
             // Get Log
-            return await _logRepository.GetAll();
+            return await _logRepository.Get();
         }
         public async Task<Log> GetLog(string id)
         {

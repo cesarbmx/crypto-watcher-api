@@ -40,7 +40,7 @@ namespace CryptoWatcher.Api.Jobs
         {
             try
             {
-                // Get all currencies from CoinMarketCap
+                // Get currencies from CoinMarketCap
                 var result = await _coinMarketCapClient.GetTickerListAsync(10);
 
                 // Map to our Model

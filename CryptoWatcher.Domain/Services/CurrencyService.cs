@@ -16,15 +16,15 @@ namespace CryptoWatcher.Domain.Services
             _cacheService = cacheService;
         }
 
-        public async Task<List<Currency>> GetAllCurrencies()
+        public async Task<List<Currency>> GetCurrencies()
         {
-            // Get all currencies
+            // Get currencies
             return await _cacheService.GetFromCache<Currency>();
         }
         public async Task<Currency> GetCurrency(string id)
         {
-            // Get all currencies
-            var allCurrencies = await GetAllCurrencies();
+            // Get currencies
+            var allCurrencies = await GetCurrencies();
 
             // Pick the required currency from the previous list
             var currency = allCurrencies.FirstOrDefault(x => x.Id == id);

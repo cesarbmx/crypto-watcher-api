@@ -16,9 +16,9 @@ namespace CryptoWatcher.Persistence.Repositories
             _dbSet = mainDbContext.Set<TEntity>();
         }
 
-        public async Task<List<TEntity>> GetAll()
+        public async Task<List<TEntity>> Get()
         {
-            // Get all
+            // Get
             return await _dbSet.ToListAsync();
         }
         public async Task<TEntity> GetById(string id)

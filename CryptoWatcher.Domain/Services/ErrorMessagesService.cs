@@ -6,7 +6,7 @@ namespace CryptoWatcher.Domain.Services
 {
     public class ErrorMessagesService
     {
-        public Dictionary<string, Dictionary<string, string>> GetAllErrorMessages()
+        public Dictionary<string, Dictionary<string, string>> GetErrorMessages()
         {
             var resources = new Dictionary<string, Dictionary<string, string>>();
 

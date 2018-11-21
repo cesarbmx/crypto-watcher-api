@@ -50,7 +50,7 @@ namespace CryptoWatcher.Persistence.AuditRepositories
             }
         }
 
-        public Task<List<TEntity>> GetAll()
+        public Task<List<TEntity>> Get()
         {
             return Task.FromResult(List);
         }

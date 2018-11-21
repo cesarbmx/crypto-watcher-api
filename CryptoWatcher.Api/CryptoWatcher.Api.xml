@@ -4,9 +4,9 @@
         <name>CryptoWatcher.Api</name>
     </assembly>
     <members>
-        <member name="M:CryptoWatcher.Api.Controllers.A_CurrenciesController.GetAllCurrencies">
+        <member name="M:CryptoWatcher.Api.Controllers.A_CurrenciesController.GetCurrencies">
             <summary>
-            Get all currencies
+            Get currencies
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.A_CurrenciesController.GetCurrency(System.String)">
@@ -39,9 +39,9 @@
             Get log
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.Y_ErrorMessagesController.GetAllErrorMessages">
+        <member name="M:CryptoWatcher.Api.Controllers.Y_ErrorMessagesController.GetErrorMessages">
             <summary>
-            Get all error messages
+            Get error messages
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.Z_ServiceStatusController.GetVersion">

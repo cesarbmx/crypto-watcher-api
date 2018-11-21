@@ -21,18 +21,18 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get all error messages
+        /// Get error messages
         /// </summary>
         [HttpGet]
         [Route("error-messages")]
         [SwaggerResponse(200, Type = typeof(Dictionary<string,string[]>))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Error messages" }, OperationId = "ErrorMessages_GetAllErrorMessages")]
-        public IActionResult GetAllErrorMessages()
+        [SwaggerOperation(Tags = new[] { "Error messages" }, OperationId = "ErrorMessages_GetErrorMessages")]
+        public IActionResult GetErrorMessages()
         {
-            // Get all error messages
-            var errorMessages = _errorMessagesService.GetAllErrorMessages();
+            // Get error messages
+            var errorMessages = _errorMessagesService.GetErrorMessages();
             
             // Return
             return Ok(errorMessages);

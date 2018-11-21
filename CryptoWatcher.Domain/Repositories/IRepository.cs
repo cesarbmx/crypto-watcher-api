@@ -6,7 +6,7 @@ namespace CryptoWatcher.Domain.Repositories
 {
     public interface IRepository<TEntity> where TEntity: Entity
     {
-        Task<List<TEntity>> GetAll();
+        Task<List<TEntity>> Get();
         Task<TEntity> GetById(string id);
         void Add(TEntity entity);
         void Remove(TEntity entity);

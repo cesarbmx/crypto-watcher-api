@@ -19,7 +19,7 @@ namespace CryptoWatcher.Domain.Services
         public async Task<List<Watcher>> GetWatchers(string userId)
         {
             // Get Watcher
-            return await _watcherRepository.GetAll();
+            return await _watcherRepository.Get();
         }
         public async Task<Watcher> GetWatcher(string watcherId)
         {
