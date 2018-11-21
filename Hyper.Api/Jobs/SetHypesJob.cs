@@ -6,13 +6,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Hyper.Api.Jobs
 {
-    public class SetHypedCurrencies
+    public class SetHypesJob
     {
-        readonly ILogger<SetHypedCurrencies> _logger;
+        readonly ILogger<SetHypesJob> _logger;
 
 
-        public SetHypedCurrencies(
-            ILogger<SetHypedCurrencies> logger)
+        public SetHypesJob(
+            ILogger<SetHypesJob> logger)
         {
             _logger = logger;
         }
