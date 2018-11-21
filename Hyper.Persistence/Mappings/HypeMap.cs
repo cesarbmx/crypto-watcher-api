@@ -8,6 +8,17 @@ namespace Hyper.Persistence.Mappings
     {
         public HypeMap(EntityTypeBuilder<Hype> entityBuilder)
         {
+            // Key
+            entityBuilder.HasKey(t => t.Id);
+
+            // Properties
+            entityBuilder.Property(t => t.Percentage)
+                .HasColumnType("smallint")
+                .IsRequired();
+
+            entityBuilder.Property(t => t.Trend)
+                .HasColumnType("smallint")
+                .IsRequired();
         }
     }
 }

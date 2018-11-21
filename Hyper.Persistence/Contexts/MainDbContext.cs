@@ -23,7 +23,8 @@ namespace Hyper.Persistence.Contexts
             new EntityMap(modelBuilder.Entity<Entity>());
             new CacheMap(modelBuilder.Entity<Cache>());
             new LogMap(modelBuilder.Entity<Log>());
-            new CurrencyMap(modelBuilder.Entity<Currency>());          
+            new CurrencyMap(modelBuilder.Entity<Currency>());
+            new HypeMap(modelBuilder.Entity<Hype>());
 
             base.OnModelCreating(modelBuilder);
         }

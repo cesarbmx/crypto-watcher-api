@@ -26,11 +26,11 @@ namespace Hyper.Domain.Services
             // Get all currencies
             var allCurrencies = await GetAllCurrencies();
 
-            // Pick the currency from the previous list
+            // Pick the required currency from the previous list
             var currency = allCurrencies.FirstOrDefault(x => x.Id == id);
 
-            // Throw NotFound exception if it does not exist
-            if(currency == null) throw new NotFoundException(CurrencyMessages.NotFound);
+            // Throw NotFound exception if the currency does not exist
+            if (currency == null) throw new NotFoundException(CurrencyMessages.NotFound);
 
             // Return
             return currency;

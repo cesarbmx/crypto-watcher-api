@@ -8,8 +8,7 @@ namespace Hyper.Shared.Helpers
     {
         public static string VersionNumber(Assembly assembly)
         {
-            var revisionNumbers = assembly.GetName().Version.ToString().Split('.');
-            return revisionNumbers[0] + "." + revisionNumbers[1];
+            return assembly.GetName().Version.ToString();
         }
         public static DateTime BuildDate(Assembly assembly)
         {

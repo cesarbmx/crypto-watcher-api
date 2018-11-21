@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Mappings\HypeMap.cs" />
     <Compile Remove="Repositories\CurrencyRepository.cs" />
   </ItemGroup>
 
