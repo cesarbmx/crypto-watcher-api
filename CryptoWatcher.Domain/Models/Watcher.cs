@@ -1,7 +1,6 @@
-﻿
-
-using CryptoWatcher.Domain.Builders;
+﻿using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Shared.Helpers;
+
 
 namespace CryptoWatcher.Domain.Models
 {

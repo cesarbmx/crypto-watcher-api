@@ -19,12 +19,21 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
+            entityBuilder.Property(t => t.CurrencyId)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
             entityBuilder.Property(t => t.WatcherType)
                 .HasColumnType("smallint")
                 .IsRequired();
 
             entityBuilder.Property(t => t.WatcherValue)
                 .HasColumnType("decimal")
+                .IsRequired();
+
+            entityBuilder.Property(t => t.WatcherEnabled)
+                .HasColumnType("bit")
                 .IsRequired();
 
             // Complex types

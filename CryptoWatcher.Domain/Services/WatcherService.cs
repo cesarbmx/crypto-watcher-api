@@ -60,7 +60,7 @@ namespace CryptoWatcher.Domain.Services
                 userWatchers.Add(priceWatcher);
             }
 
-            // Add price watcher
+            // Add hype watcher
             foreach (var currency in currencies)
             {
                 // Hype watcher
