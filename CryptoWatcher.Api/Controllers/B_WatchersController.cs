@@ -39,7 +39,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetWatchers(string userId)
         {
             // Get watcher
-            var watcher = await _watcherService.GetWatchers(userId);
+            var watcher = await _watcherService.GetUserWatchers(userId);
 
             // Response
             var response = _mapper.Map<List<WatcherResponse>>(watcher);

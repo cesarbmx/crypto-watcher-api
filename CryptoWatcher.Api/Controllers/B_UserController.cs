@@ -92,7 +92,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_AddUser")]
         public async Task<IActionResult> AddUser([FromBody]AddUserRequest request)
         {
-            // Update user settings
+            // Add user
             var userSettings = await _userService.AddUser(request.UserId);
 
             // Save

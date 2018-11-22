@@ -11,7 +11,7 @@ namespace CryptoWatcher.Api.FakeResponses
             return new WatcherResponse
             {
                 UserId = "cesarbmx",
-                Type = WatcherType.Price,
+                Type = WatcherType.PriceWatcher,
                 CurrencyId = "bitcoin",
                 CurrentValue = 5000,
                 Settings = WatcherSettingsFakeResponse.GetFake_PriceWatcher(),
@@ -23,7 +23,7 @@ namespace CryptoWatcher.Api.FakeResponses
             return new WatcherResponse
             {
                 UserId = "cesarbmx",
-                Type = WatcherType.Hype,
+                Type = WatcherType.HypeWatcher,
                 CurrencyId = "bitcoin",
                 CurrentValue = 2,
                 Settings = WatcherSettingsFakeResponse.GetFake_HypeWatcher(),

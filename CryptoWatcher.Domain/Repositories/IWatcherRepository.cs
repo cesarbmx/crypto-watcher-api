@@ -6,6 +6,6 @@ namespace CryptoWatcher.Domain.Repositories
 {
     public interface IWatcherRepository : IRepository<Watcher>
     {
-        Task<List<Watcher>> Get(string userId);
+        Task<List<Watcher>> GetByUserId(string userId);
     }
 }

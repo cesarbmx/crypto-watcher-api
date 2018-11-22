@@ -10,16 +10,51 @@ namespace CryptoWatcher.Domain.Services
     public class WatcherService
     {
         private readonly IWatcherRepository _watcherRepository;
+        private readonly CacheService _cacheService;
 
-        public WatcherService(IWatcherRepository watcherRepository)
+        public WatcherService(
+            IWatcherRepository watcherRepository,
+            CacheService cacheService)
         {
             _watcherRepository = watcherRepository;
+            _cacheService = cacheService;
         }
 
-        public async Task<List<Watcher>> GetWatchers(string userId)
+        public async Task<List<Watcher>> GetUserWatchers(string userId)
         {
-            // Get watcher
-            return await _watcherRepository.Get();
+            // Get user watchers
+            var userWatchers = await _watcherRepository.GetByUserId(userId);
+
+            // Add default watchers
+            var currencies = await _cacheService.GetFromCache<Currency>();
+            foreach (var currency in currencies)
+            {
+                // Price watcher
+                var priceWatcher = new Watcher(
+                    userId,
+                    WatcherType.PriceWatcher,
+                    currency.Id,
+                    currency.Price,
+                    new WatcherSettings(5, 5),
+                    new WatcherSettings(0, 0),
+                    false);
+                userWatchers.Add(priceWatcher);
+            }
+            foreach (var currency in currencies)
+            {
+                // Hype watcher
+                var hypeWatcher = new Watcher(
+                    userId,
+                    WatcherType.HypeWatcher,
+                    currency.Id,
+                    currency.Price,
+                    new WatcherSettings(5, 5),
+                    new WatcherSettings(0, 0),
+                    false);
+                userWatchers.Add(hypeWatcher);
+            }
+
+            return userWatchers;
         }
         public async Task<Watcher> GetWatcher(string watcherId)
         {

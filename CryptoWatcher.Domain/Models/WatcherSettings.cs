@@ -8,7 +8,7 @@ namespace CryptoWatcher.Domain.Models
         public decimal SellAt { get; private set; }
 
 
-        public WatcherSettings() { }
+        public WatcherSettings(){}
         public WatcherSettings(decimal buyAt, decimal sellAt)
         {
             BuyAt = buyAt;

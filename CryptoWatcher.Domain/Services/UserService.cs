@@ -24,7 +24,7 @@ namespace CryptoWatcher.Domain.Services
         public async Task<User> GetUser(string userId)
         {
             // Get user by id
-            var user = await _userRepository.GetById(userId);
+            var user = await _userRepository.GetByUserId(userId);
 
             // Throw NotFound exception if it does not exist
             if (user == null) throw new NotFoundException(UserMessages.NotFound);

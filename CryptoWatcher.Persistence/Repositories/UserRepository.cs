@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Domain.Repositories;
@@ -18,9 +16,9 @@ namespace CryptoWatcher.Persistence.Repositories
             _mainDbContext = mainDbContext;
         }
 
-        public async Task<List<User>> Get(string userId)
+        public async Task<User> GetByUserId(string userId)
         {
-            return await _mainDbContext.Users.Where(x => x.UserId == userId).ToListAsync();
+            return await _mainDbContext.Users.FirstOrDefaultAsync(x => x.UserId == userId);
         }
     }
 }
