@@ -48,7 +48,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get currency
         /// </summary>
         [HttpGet]
-        [Route("currencies/{currencyId}", Name = "Taxes_GetCurrency")]
+        [Route("currencies/{currencyId}", Name = "Currencies_GetCurrency")]
         [SwaggerResponse(200, Type = typeof(CurrencyResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
