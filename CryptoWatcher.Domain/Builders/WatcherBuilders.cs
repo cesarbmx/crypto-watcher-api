@@ -1,13 +1,21 @@
 ﻿
 
 
+using CryptoWatcher.Shared.Helpers;
+
 namespace CryptoWatcher.Domain.Builders
 {
     public static class WatcherBuilders
     {
-        public static decimal BuildPercentage(decimal percentageChange24H, decimal[] percentagesChange24H)
+        public static decimal BuildHype(decimal value, decimal[] values)
         {
-            return percentageChange24H;
+            var average = MathHelper.Average(values);
+            value += average;
+            return value;
+        }
+        public static bool BuildWatcherStatus(decimal setting, decimal value)
+        {
+            return setting >= value;
         }
     }
 }

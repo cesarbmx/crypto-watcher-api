@@ -23,7 +23,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("smallint")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.CurrencyPrice)
+            entityBuilder.Property(t => t.WatcherValue)
                 .HasColumnType("decimal")
                 .IsRequired();
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Repositories;
@@ -34,8 +35,17 @@ namespace CryptoWatcher.Domain.Services
             // Get user watchers
             var userWatchers = await _watcherRepository.GetByUserId(userId);
 
-            // Add default watchers
+            // Get currencies
             var currencies = await _cacheService.GetFromCache<Currency>();
+
+            // Collect percentages
+            var percentages = new decimal[currencies.Count];
+            for (var i = 0; i < currencies.Count; i++)
+            {
+                percentages[i] = currencies[i].CurrencyPercentageChange24H;
+            }
+
+            // Add price watcher
             foreach (var currency in currencies)
             {
                 // Price watcher
@@ -43,12 +53,14 @@ namespace CryptoWatcher.Domain.Services
                     userId,
                     currency.CurrencyId,
                     WatcherType.Price,
-                    currency.CurrencyPrice,
+                    currency.CurrencyPercentageChange24H,
                     new WatcherSettings(5, 5),
                     new WatcherSettings(0, 0),
                     false);
                 userWatchers.Add(priceWatcher);
             }
+
+            // Add price watcher
             foreach (var currency in currencies)
             {
                 // Hype watcher
@@ -56,13 +68,14 @@ namespace CryptoWatcher.Domain.Services
                     userId,
                     currency.CurrencyId,
                     WatcherType.Hype,
-                    currency.CurrencyPrice,
+                    WatcherBuilders.BuildHype(currency.CurrencyPercentageChange24H, percentages),
                     new WatcherSettings(5, 5),
                     new WatcherSettings(0, 0),
                     false);
                 userWatchers.Add(hypeWatcher);
             }
 
+            // Return
             return userWatchers;
         }
         public async Task<Watcher> GetWatcher(string watcherId)

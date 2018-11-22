@@ -1,5 +1,6 @@
 ﻿
 
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Shared.Helpers;
 
 namespace CryptoWatcher.Domain.Models
@@ -10,17 +11,18 @@ namespace CryptoWatcher.Domain.Models
         public string CurrencyId { get; private set; }
         public WatcherType WatcherType { get; private set; }
         public string WatcherId { get; private set; }
-        public decimal CurrencyPrice { get; private set; }
+        public decimal WatcherValue { get; private set; }
         public WatcherSettings WatcherSettings { get; private set; }
         public WatcherSettings WatcherSettingsTrend { get; private set; }
-        public bool Enabled { get; private set; }
+        public bool WatcherEnabled { get; private set; }
+        public bool WatcherStatus => WatcherBuilders.BuildWatcherStatus(WatcherSettings.BuyAt, WatcherValue);
 
         public Watcher() { }
         public Watcher(
             string userId, 
             string currencyId,
             WatcherType watcherType,
-            decimal currencyPrice,
+            decimal watcherValue,
             WatcherSettings watcherSettings,
             WatcherSettings watcherSettingsTrend,
             bool enabled)
@@ -29,10 +31,10 @@ namespace CryptoWatcher.Domain.Models
             CurrencyId = currencyId;
             WatcherType = watcherType;
             WatcherId = UrlHelper.BuildUrl(userId, currencyId, watcherType.ToString()); // Semantic id
-            CurrencyPrice = currencyPrice;
+            WatcherValue = watcherValue;
             WatcherSettings  = watcherSettings;
             WatcherSettingsTrend = watcherSettingsTrend;
-            Enabled = enabled;
+            WatcherEnabled = enabled;
         }
 
         public Watcher UpdateSettings(WatcherSettings settings)
