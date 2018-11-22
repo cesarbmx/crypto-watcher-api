@@ -1,7 +1,6 @@
-﻿
+﻿using System;
+using System.Linq;
 
-
-using CryptoWatcher.Shared.Helpers;
 
 namespace CryptoWatcher.Domain.Builders
 {
@@ -9,8 +8,23 @@ namespace CryptoWatcher.Domain.Builders
     {
         public static decimal BuildHype(decimal value, decimal[] values)
         {
-            var average = MathHelper.Average(values);
+            // Take the minimum value
+            var min = Math.Abs(values.Min());
+
+            // Add the minimum value to all values so that there are no negatives
+            value += min;
+            for (var i = 0; i < values.Length; i++)
+            {
+                values[i] += min;
+            }
+
+            // Calculate the verage
+            var average = values.Average();
+
+            // Sum up the average
             value += average;
+
+            // Return
             return value;
         }
         public static bool BuildWatcherStatus(decimal setting, decimal value)

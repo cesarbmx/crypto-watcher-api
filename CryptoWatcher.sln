@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Shared.Tests"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CryptoWatcher.Database", "CryptoWatcher.Database\CryptoWatcher.Database.sqlproj", "{9F3BEC90-3A50-41F0-AED1-DD734082AFA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoWatcher.Domain.Tests", "CryptoWatcher.Domain.Tests\CryptoWatcher.Domain.Tests.csproj", "{DC9A5294-D2AA-4DA6-9EE6-FD6252CB21F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{9F3BEC90-3A50-41F0-AED1-DD734082AFA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F3BEC90-3A50-41F0-AED1-DD734082AFA4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9F3BEC90-3A50-41F0-AED1-DD734082AFA4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DC9A5294-D2AA-4DA6-9EE6-FD6252CB21F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC9A5294-D2AA-4DA6-9EE6-FD6252CB21F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC9A5294-D2AA-4DA6-9EE6-FD6252CB21F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC9A5294-D2AA-4DA6-9EE6-FD6252CB21F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{89CCE7D2-81F9-4F03-B40D-84915167A4EB} = {1C3DE5BC-D4BF-437C-B9E2-FF1049025709}
 		{73B242C1-826F-4D15-A0CF-93A655EC6619} = {DDE064C9-097E-4D91-87A0-9F2F7891BC8F}
 		{9F3BEC90-3A50-41F0-AED1-DD734082AFA4} = {3BC58F9B-2BBB-47A9-9B07-47C766F20070}
+		{DC9A5294-D2AA-4DA6-9EE6-FD6252CB21F0} = {C6E9ABD6-381C-4BD2-A666-D52A953BE516}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7CCEAABE-45B4-414D-A0A5-108B4DDEC89E}
