@@ -8,9 +8,10 @@ namespace CryptoWatcher.Persistence.Contexts
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public class MainDbContext : DbContext
     {
-        public DbSet<Watcher> Watcher { get; set; }
-        public DbSet<Cache> Cache { get; set; }
-        public DbSet<Log> Log { get; set; }
+        public DbSet<Watcher> Watchers { get; set; }
+        public DbSet<Cache> Caches { get; set; }
+        public DbSet<Log> Logs { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public MainDbContext(DbContextOptions<MainDbContext> options)
            : base(options)
@@ -25,6 +26,7 @@ namespace CryptoWatcher.Persistence.Contexts
             new LogMap(modelBuilder.Entity<Log>());
             new CurrencyMap(modelBuilder.Entity<Currency>());
             new WatcherMap(modelBuilder.Entity<Watcher>());
+            new UserMap(modelBuilder.Entity<User>());
 
             base.OnModelCreating(modelBuilder);
         }

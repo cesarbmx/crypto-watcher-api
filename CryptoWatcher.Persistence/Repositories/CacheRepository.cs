@@ -18,7 +18,7 @@ namespace CryptoWatcher.Persistence.Repositories
 
         public async Task<Cache> GetByKey(string key)
         {
-            return await _mainDbContext.Cache.FirstOrDefaultAsync(x => x.Key == key);
+            return await _mainDbContext.Caches.FirstOrDefaultAsync(x => x.Key == key);
         }
     }
 }

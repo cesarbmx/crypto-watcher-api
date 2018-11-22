@@ -20,7 +20,7 @@ namespace CryptoWatcher.Persistence.Repositories
 
         public async Task<List<Watcher>> Get(string userId)
         {
-            return await _mainDbContext.Watcher.Where(x => x.UserId == userId).ToListAsync();
+            return await _mainDbContext.Watchers.Where(x => x.UserId == userId).ToListAsync();
         }
     }
 }

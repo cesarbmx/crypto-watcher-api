@@ -57,7 +57,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Requests\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 

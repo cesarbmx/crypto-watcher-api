@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Models;
@@ -9,19 +8,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public class LogRepository : Repository<Log>, ILogRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly MainDbContext _mainDbContext;
 
-        public LogRepository(MainDbContext mainDbContext)
-        : base(mainDbContext)
+        public UserRepository(MainDbContext mainDbContext)
+            : base(mainDbContext)
         {
             _mainDbContext = mainDbContext;
         }
 
-        public async Task<List<Log>> GetFromDate(DateTime dateTime)
+        public async Task<List<User>> Get(string userId)
         {
-            return await _mainDbContext.Logs.Where(x => x.CreationTime < dateTime).ToListAsync();
+            return await _mainDbContext.Users.Where(x => x.UserId == userId).ToListAsync();
         }
     }
 }
