@@ -14,9 +14,9 @@
             Get currency
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.GetUsers(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.GetUsers">
             <summary>
-            Get user users
+            Get users
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.GetUser(System.String)">
@@ -29,27 +29,27 @@
             Add user
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.B_WatchersController.GetWatchers(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.GetWatchers(System.String)">
             <summary>
             Get user watchers
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.B_WatchersController.GetWatcher(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.GetWatcher(System.String)">
             <summary>
             Get watcher
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.B_WatchersController.UpdateWatcherSettings(System.String,CryptoWatcher.Domain.Models.WatcherSettings)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.UpdateWatcherSettings(System.String,CryptoWatcher.Domain.Models.WatcherSettings)">
             <summary>
             Update watcher settings
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_LogController.GetLogs">
+        <member name="M:CryptoWatcher.Api.Controllers.D_LogController.GetLogs">
             <summary>
             Get logs
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_LogController.GetLog(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.D_LogController.GetLog(System.String)">
             <summary>
             Get log
             </summary>
