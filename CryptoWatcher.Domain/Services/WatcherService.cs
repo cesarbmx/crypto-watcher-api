@@ -10,18 +10,27 @@ namespace CryptoWatcher.Domain.Services
     public class WatcherService
     {
         private readonly IWatcherRepository _watcherRepository;
+        private readonly IUserRepository _userRepository;
         private readonly CacheService _cacheService;
 
         public WatcherService(
             IWatcherRepository watcherRepository,
+            IUserRepository userRepository,
             CacheService cacheService)
         {
             _watcherRepository = watcherRepository;
+            _userRepository = userRepository;
             _cacheService = cacheService;
         }
 
         public async Task<List<Watcher>> GetUserWatchers(string userId)
         {
+            // Get user
+            var user = await _userRepository.GetByUserId(userId);
+
+            // Throw NotFound exception if it does not exist
+            if (user == null) throw new NotFoundException(UserMessages.NotFound);
+
             // Get user watchers
             var userWatchers = await _watcherRepository.GetByUserId(userId);
 

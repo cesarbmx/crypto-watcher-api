@@ -14,9 +14,10 @@ namespace CryptoWatcher.Api.FakeResponses
                 CurrencyId = "bitcoin",
                 WatcherType = WatcherType.Price,
                 WatcherId = "cesarbmx-bitcoin-price",
-                WatcherCurrentPrice = 5000,
+                CurrencyPrice = 5000,
                 WatcherSettings = WatcherSettingsFakeResponse.GetFake_PriceWatcher(),
-                WatcherSettingsTrend = WatcherSettingsFakeResponse.GetFake_PriceWatcher()
+                WatcherSettingsTrend = WatcherSettingsFakeResponse.GetFake_PriceWatcher(),
+                Enabled = false
             };
         }
         public static WatcherResponse GetFake_HypeWatcher()
@@ -27,9 +28,10 @@ namespace CryptoWatcher.Api.FakeResponses
                 CurrencyId = "bitcoin",
                 WatcherType = WatcherType.Hype,
                 WatcherId = "cesarbmx-bitcoin-hype",
-                WatcherCurrentPrice = 2,
+                CurrencyPrice = 2,
                 WatcherSettings = WatcherSettingsFakeResponse.GetFake_HypeWatcher(),
-                WatcherSettingsTrend = WatcherSettingsFakeResponse.GetFake_HypeWatcher()
+                WatcherSettingsTrend = WatcherSettingsFakeResponse.GetFake_HypeWatcher(),
+                Enabled = false
             };
         }
         public static List<WatcherResponse> GetFake_List()

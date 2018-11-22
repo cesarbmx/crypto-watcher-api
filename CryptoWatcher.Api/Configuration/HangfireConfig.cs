@@ -28,6 +28,10 @@ namespace CryptoWatcher.Api.Configuration
             RecurringJob.AddOrUpdate<ImportCurrenciesJob>("Import currencies", x => x.Execute(), Cron.MinuteInterval(jobsIntervalInMinutes));
             RecurringJob.AddOrUpdate<UpdateWatchersJob>("Update watchers", x => x.Execute(), Cron.MinuteInterval(jobsIntervalInMinutes));
 
+            // Run them on startup
+            BackgroundJob.Enqueue<ImportCurrenciesJob>(x => x.Execute());
+            BackgroundJob.Enqueue<UpdateWatchersJob>(x => x.Execute());
+
             return app;
         }
     }

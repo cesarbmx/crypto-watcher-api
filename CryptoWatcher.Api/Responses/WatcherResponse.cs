@@ -9,8 +9,9 @@ namespace CryptoWatcher.Api.Responses
         public string CurrencyId { get; set; }
         public WatcherType WatcherType { get; set; }
         public string WatcherId { get; set; }
-        public decimal WatcherCurrentPrice { get; set; }
+        public decimal CurrencyPrice { get; set; }
         public WatcherSettings WatcherSettings { get; set; }
         public WatcherSettings WatcherSettingsTrend { get; set; }
+        public bool Enabled { get; set; }
     }
 }
