@@ -14,6 +14,21 @@
             Get currency
             </summary>
         </member>
+        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.GetUsers(System.String)">
+            <summary>
+            Get user users
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.GetUser(System.String)">
+            <summary>
+            Get user
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.AddUser(CryptoWatcher.Api.Requests.AddUserRequest)">
+            <summary>
+            Add user
+            </summary>
+        </member>
         <member name="M:CryptoWatcher.Api.Controllers.B_WatchersController.GetWatchers(System.String)">
             <summary>
             Get user watchers
