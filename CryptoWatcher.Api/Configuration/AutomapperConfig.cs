@@ -29,7 +29,7 @@ namespace CryptoWatcher.Api.Configuration
                     cfg.CreateMap<Watcher, WatcherResponse>();
                     cfg.CreateMap<User, UserResponse>();
 
-                    // Models
+                    // Others
                     cfg.CreateMap<TickerEntity, Currency>()
                         .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Convert.ToDecimal(src.PriceUsd)))
                         .ForMember(dest => dest.Volume24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.Volume24hUsd)))
