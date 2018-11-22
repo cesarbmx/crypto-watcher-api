@@ -8,24 +8,25 @@ namespace CryptoWatcher.Domain.Builders
     {
         public static decimal BuildHype(decimal value, decimal[] values)
         {
-            // Take the minimum value
-            var min = Math.Abs(values.Min());
+            // Take the minimum value and ensure it positive
+            var positiveMinum = Math.Abs(values.Min());
 
             // Add the minimum value to all values so that there are no negatives
-            value += min;
+            var positiveValue = value + positiveMinum;
+            var positiveValues = new decimal[values.Length];
             for (var i = 0; i < values.Length; i++)
             {
-                values[i] += min;
+                positiveValues[i] = values[i] + positiveMinum;
             }
 
-            // Calculate the verage
-            var average = values.Average();
+            // Calculate the average (which will obviously be positive)
+            var positiveAverage = positiveValues.Average();
 
             // Sum up the average
-            value += average;
+            positiveValue += positiveAverage;
 
             // Return
-            return value;
+            return positiveValue;
         }
         public static bool BuildWatcherStatus(decimal setting, decimal value)
         {
