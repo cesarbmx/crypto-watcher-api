@@ -10,13 +10,13 @@ namespace CryptoWatcher.Api.FakeResponses
             return new CurrencyResponse
             {              
                 CurrencyId = "bitcoin",
-                Symbol = "BTC",
-                Name = "Bitcoin",
-                Rank = 1,
-                Price = (decimal)7464.36,
-                MarketCap = 128056880679,
-                Volume24H = 6715040000,
-                PercentageChange24H = (decimal)10.93
+                CurrencySymbol = "BTC",
+                CurrencyName = "Bitcoin",
+                CurrencyRank = 1,
+                CurrencyPrice = (decimal)7464.36,
+                CurrencyMarketCap = 128056880679,
+                CurrencyVolume24H = 6715040000,
+                CurrencyPercentageChange24H = (decimal)10.93
             };
         }
         public static CurrencyResponse GetFake_Ethereum()
@@ -24,13 +24,13 @@ namespace CryptoWatcher.Api.FakeResponses
             return new CurrencyResponse
             {
                 CurrencyId = "ethereum",
-                Symbol = "ETH",
-                Name = "Ethereum",
-                Rank = 2,
-                Price = (decimal)497.108,
-                MarketCap = 50092420102,
-                Volume24H = 2513170000,
-                PercentageChange24H = (decimal)5.61
+                CurrencySymbol = "ETH",
+                CurrencyName = "Ethereum",
+                CurrencyRank = 2,
+                CurrencyPrice = (decimal)497.108,
+                CurrencyMarketCap = 50092420102,
+                CurrencyVolume24H = 2513170000,
+                CurrencyPercentageChange24H = (decimal)5.61
             };
         }
         public static List<CurrencyResponse> GetFake_List()

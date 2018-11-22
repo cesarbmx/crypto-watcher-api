@@ -19,16 +19,16 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Type)
+            entityBuilder.Property(t => t.WatcherType)
                 .HasColumnType("smallint")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.CurrentValue)
+            entityBuilder.Property(t => t.WatcherCurrentPrice)
                 .HasColumnType("decimal")
                 .IsRequired();
 
             // Complex types
-            entityBuilder.OwnsOne(t => t.UserSettings,
+            entityBuilder.OwnsOne(t => t.WatcherSettings,
                 p =>
                 {
                     p.Property(t => t.BuyAt)
@@ -40,7 +40,7 @@ namespace CryptoWatcher.Persistence.Mappings
                         .IsRequired();
                 });
 
-            entityBuilder.OwnsOne(t => t.TrendSettings,
+            entityBuilder.OwnsOne(t => t.WatcherSettingsTrend,
                 p =>
                 {
                     p.Property(t => t.BuyAt)

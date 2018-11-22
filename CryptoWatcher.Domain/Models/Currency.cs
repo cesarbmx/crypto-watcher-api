@@ -5,34 +5,34 @@ namespace CryptoWatcher.Domain.Models
     public class Currency
     {
         public string CurrencyId { get; private set; }
-        public string Symbol { get; private set; }
-        public string Name { get; private set; }
-        public short Rank { get; private set; }
-        public decimal Price { get; private set; }
-        public decimal MarketCap { get; private set; }
-        public decimal Volume24H { get; private set; }
-        public decimal PercentageChange24H { get; private set; }
+        public string CurrencySymbol { get; private set; }
+        public string CurrencyName { get; private set; }
+        public short CurrencyRank { get; private set; }
+        public decimal CurrencyPrice { get; private set; }
+        public decimal CurrencyMarketCap { get; private set; }
+        public decimal CurrencyVolume24H { get; private set; }
+        public decimal CurrencyPercentageChange24H { get; private set; }
 
         public Currency() { }
         public Currency(
             string currencyId,
-            string symbol,
-            string name,
-            short rank,
-            decimal price,
-            decimal volume24H,
-            decimal marketCap,
-            decimal percentageChange24H
+            string currencySymbol,
+            string currencyName,
+            short currencyRank,
+            decimal currencyPrice,
+            decimal currencyVolume24H,
+            decimal currencyMarketCap,
+            decimal currencyPercentageChange24H
         )
         {
             CurrencyId = currencyId;
-            Symbol = symbol;
-            Name = name;
-            Rank = rank;
-            Price = price;
-            Volume24H = volume24H;
-            MarketCap = marketCap;
-            PercentageChange24H = percentageChange24H;
+            CurrencySymbol = currencySymbol;
+            CurrencyName = currencyName;
+            CurrencyRank = currencyRank;
+            CurrencyPrice = currencyPrice;
+            CurrencyVolume24H = currencyVolume24H;
+            CurrencyMarketCap = currencyMarketCap;
+            CurrencyPercentageChange24H = currencyPercentageChange24H;
         }
     }
 }

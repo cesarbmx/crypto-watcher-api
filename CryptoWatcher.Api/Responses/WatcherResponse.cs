@@ -5,12 +5,12 @@ namespace CryptoWatcher.Api.Responses
 {
     public class WatcherResponse
     {
-        public string WatcherId { get; set; }
         public string UserId { get; set; }
         public string CurrencyId { get; set; }
-        public WatcherType Type { get; set; }
-        public decimal CurrentValue { get; set; }
-        public WatcherSettings UserSettings { get; set; }
-        public WatcherSettings TrendSettings { get; set; }
+        public WatcherType WatcherType { get; set; }
+        public string WatcherId { get; set; }
+        public decimal WatcherCurrentPrice { get; set; }
+        public WatcherSettings WatcherSettings { get; set; }
+        public WatcherSettings WatcherSettingsTrend { get; set; }
     }
 }

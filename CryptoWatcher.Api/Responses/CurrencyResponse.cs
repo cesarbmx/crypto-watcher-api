@@ -7,14 +7,14 @@ namespace CryptoWatcher.Api.Responses
     public class CurrencyResponse
     {
         public string CurrencyId { get; set; }
-        public string Symbol { get; set; }
-        public string Name { get; set; }
-        public short Rank { get; set; }
-        public decimal Price { get; set; }
-        public decimal MarketCap { get; set; }
-        [JsonProperty(PropertyName = "volume_24h")]
-        public decimal Volume24H { get; set; }
-        [JsonProperty(PropertyName = "percentage_change_24h")]
-        public decimal PercentageChange24H { get; set; }
+        public string CurrencySymbol { get; set; }
+        public string CurrencyName { get; set; }
+        public short CurrencyRank { get; set; }
+        public decimal CurrencyPrice { get; set; }
+        public decimal CurrencyMarketCap { get; set; }
+        [JsonProperty(PropertyName = "currency_volume_24h")]
+        public decimal CurrencyVolume24H { get; set; }
+        [JsonProperty(PropertyName = "currency_percentage_change_24h")]
+        public decimal CurrencyPercentageChange24H { get; set; }
     }
 }

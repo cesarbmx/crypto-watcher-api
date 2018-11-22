@@ -34,7 +34,7 @@ namespace CryptoWatcher.Domain.Services
                     userId,
                     currency.CurrencyId,
                     WatcherType.Price,
-                    currency.Price,
+                    currency.CurrencyPrice,
                     new WatcherSettings(5, 5),
                     new WatcherSettings(0, 0),
                     false);
@@ -47,7 +47,7 @@ namespace CryptoWatcher.Domain.Services
                     userId,
                     currency.CurrencyId,
                     WatcherType.Hype,
-                    currency.Price,
+                    currency.CurrencyPrice,
                     new WatcherSettings(5, 5),
                     new WatcherSettings(0, 0),
                     false);

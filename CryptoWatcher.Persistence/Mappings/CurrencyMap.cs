@@ -17,28 +17,28 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Rank)
+            entityBuilder.Property(t => t.CurrencyRank)
                 .HasColumnType("smallint")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Name)
+            entityBuilder.Property(t => t.CurrencyName)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.MarketCap)
+            entityBuilder.Property(t => t.CurrencyMarketCap)
                 .HasColumnType("decimal")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Price)
+            entityBuilder.Property(t => t.CurrencyPrice)
                 .HasColumnType("decimal")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Volume24H)
+            entityBuilder.Property(t => t.CurrencyVolume24H)
                 .HasColumnType("decimal")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.PercentageChange24H)
+            entityBuilder.Property(t => t.CurrencyPercentageChange24H)
                 .HasColumnType("decimal")
                 .IsRequired();
         }

@@ -9,27 +9,27 @@ namespace CryptoWatcher.Api.FakeResponses
         public static WatcherResponse GetFake_PriceWatcher()
         {
             return new WatcherResponse
-            {
-                WatcherId = "2779cf8051-381f-4834-93dc-ece6345dde33",
+            {             
                 UserId = "cesarbmx",
-                Type = WatcherType.Price,
                 CurrencyId = "bitcoin",
-                CurrentValue = 5000,
-                UserSettings = WatcherSettingsFakeResponse.GetFake_PriceWatcher(),
-                TrendSettings = WatcherSettingsFakeResponse.GetFake_PriceWatcher()
+                WatcherType = WatcherType.Price,
+                WatcherId = "cesarbmx-bitcoin-price",
+                WatcherCurrentPrice = 5000,
+                WatcherSettings = WatcherSettingsFakeResponse.GetFake_PriceWatcher(),
+                WatcherSettingsTrend = WatcherSettingsFakeResponse.GetFake_PriceWatcher()
             };
         }
         public static WatcherResponse GetFake_HypeWatcher()
         {
             return new WatcherResponse
             {
-                WatcherId = "2779cf8051-381f-4834-93dc-ece6345dde33",
                 UserId = "cesarbmx",
-                Type = WatcherType.Hype,
                 CurrencyId = "bitcoin",
-                CurrentValue = 2,
-                UserSettings = WatcherSettingsFakeResponse.GetFake_HypeWatcher(),
-                TrendSettings = WatcherSettingsFakeResponse.GetFake_HypeWatcher()
+                WatcherType = WatcherType.Hype,
+                WatcherId = "cesarbmx-bitcoin-hype",
+                WatcherCurrentPrice = 2,
+                WatcherSettings = WatcherSettingsFakeResponse.GetFake_HypeWatcher(),
+                WatcherSettingsTrend = WatcherSettingsFakeResponse.GetFake_HypeWatcher()
             };
         }
         public static List<WatcherResponse> GetFake_List()
