@@ -4,7 +4,7 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Currency
     {
-        public string Id { get; private set; }
+        public string CurrencyId { get; private set; }
         public string Symbol { get; private set; }
         public string Name { get; private set; }
         public short Rank { get; private set; }
@@ -15,7 +15,7 @@ namespace CryptoWatcher.Domain.Models
 
         public Currency() { }
         public Currency(
-            string id,
+            string currencyId,
             string symbol,
             string name,
             short rank,
@@ -25,7 +25,7 @@ namespace CryptoWatcher.Domain.Models
             decimal percentageChange24H
         )
         {
-            Id = id;
+            CurrencyId = currencyId;
             Symbol = symbol;
             Name = name;
             Rank = rank;

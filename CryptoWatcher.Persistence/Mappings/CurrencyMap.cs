@@ -9,10 +9,10 @@ namespace CryptoWatcher.Persistence.Mappings
         public CurrencyMap(EntityTypeBuilder<Currency> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.Id);
+            entityBuilder.HasKey(t => t.CurrencyId);
 
             // Properties
-            entityBuilder.Property(t => t.Id)
+            entityBuilder.Property(t => t.CurrencyId)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();

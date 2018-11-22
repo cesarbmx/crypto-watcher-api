@@ -10,11 +10,12 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new WatcherResponse
             {
+                WatcherId = "2779cf8051-381f-4834-93dc-ece6345dde33",
                 UserId = "cesarbmx",
-                Type = WatcherType.PriceWatcher,
+                WatcherType = WatcherType.PriceWatcher,
                 CurrencyId = "bitcoin",
                 CurrentValue = 5000,
-                Settings = WatcherSettingsFakeResponse.GetFake_PriceWatcher(),
+                UserSettings = WatcherSettingsFakeResponse.GetFake_PriceWatcher(),
                 TrendSettings = WatcherSettingsFakeResponse.GetFake_PriceWatcher()
             };
         }
@@ -22,11 +23,12 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new WatcherResponse
             {
+                WatcherId = "2779cf8051-381f-4834-93dc-ece6345dde33",
                 UserId = "cesarbmx",
-                Type = WatcherType.HypeWatcher,
+                WatcherType = WatcherType.HypeWatcher,
                 CurrencyId = "bitcoin",
                 CurrentValue = 2,
-                Settings = WatcherSettingsFakeResponse.GetFake_HypeWatcher(),
+                UserSettings = WatcherSettingsFakeResponse.GetFake_HypeWatcher(),
                 TrendSettings = WatcherSettingsFakeResponse.GetFake_HypeWatcher()
             };
         }

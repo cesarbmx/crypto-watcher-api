@@ -27,7 +27,7 @@ namespace CryptoWatcher.Domain.Services
             var allCurrencies = await GetCurrencies();
 
             // Pick the required currency from the previous list
-            var currency = allCurrencies.FirstOrDefault(x => x.Id == id);
+            var currency = allCurrencies.FirstOrDefault(x => x.CurrencyId == id);
 
             // Throw NotFound exception if the currency does not exist
             if (currency == null) throw new NotFoundException(CurrencyMessages.NotFound);

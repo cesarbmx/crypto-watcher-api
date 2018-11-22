@@ -14,7 +14,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             // Complex types
-            entityBuilder.OwnsOne(t => t.Settings,
+            entityBuilder.OwnsOne(t => t.UserSettings,
                 p =>
                 {
                     p.Property(t => t.BuyAt)

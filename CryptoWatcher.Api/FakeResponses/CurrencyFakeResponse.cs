@@ -9,7 +9,7 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new CurrencyResponse
             {              
-                Id = "bitcoin",
+                CurrencyId = "bitcoin",
                 Symbol = "BTC",
                 Name = "Bitcoin",
                 Rank = 1,
@@ -23,7 +23,7 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new CurrencyResponse
             {
-                Id = "ethereum",
+                CurrencyId = "ethereum",
                 Symbol = "ETH",
                 Name = "Ethereum",
                 Rank = 2,

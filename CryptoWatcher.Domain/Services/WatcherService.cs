@@ -33,7 +33,7 @@ namespace CryptoWatcher.Domain.Services
                 var priceWatcher = new Watcher(
                     userId,
                     WatcherType.PriceWatcher,
-                    currency.Id,
+                    currency.CurrencyId,
                     currency.Price,
                     new WatcherSettings(5, 5),
                     new WatcherSettings(0, 0),
@@ -46,7 +46,7 @@ namespace CryptoWatcher.Domain.Services
                 var hypeWatcher = new Watcher(
                     userId,
                     WatcherType.HypeWatcher,
-                    currency.Id,
+                    currency.CurrencyId,
                     currency.Price,
                     new WatcherSettings(5, 5),
                     new WatcherSettings(0, 0),
