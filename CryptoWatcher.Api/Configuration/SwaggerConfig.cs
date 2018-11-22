@@ -32,10 +32,8 @@ namespace CryptoWatcher.Api.Configuration
 
                 // Define the API Key scheme that's in use
                 c.AddSecurityDefinition("ApiKey", new ApiKeyScheme { In = "header", Description = "Please enter your API Key", Name = "X-API-Key", Type = "apiKey" });
-                c.AddSecurityDefinition("AuditDate", new ApiKeyScheme { In = "header", Description = "Please enter your date (e.g 2018-11-15)", Name = "X-Audit-Date", Type = "apiKey" });
                 c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
-                    { "ApiKey", Enumerable.Empty<string>() },
-                    { "AuditDate", Enumerable.Empty<string>() }
+                    { "ApiKey", Enumerable.Empty<string>() }
                 });
 
                 c.SwaggerDoc("v1",
