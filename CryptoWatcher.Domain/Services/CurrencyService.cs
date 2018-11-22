@@ -30,7 +30,7 @@ namespace CryptoWatcher.Domain.Services
             var currency = allCurrencies.FirstOrDefault(x => x.CurrencyId == id);
 
             // Throw NotFound exception if the currency does not exist
-            if (currency == null) throw new NotFoundException(CurrencyMessages.NotFound);
+            if (currency == null) throw new NotFoundException(CurrencyMessages.CurrencyNotFound);
 
             // Return
             return currency;

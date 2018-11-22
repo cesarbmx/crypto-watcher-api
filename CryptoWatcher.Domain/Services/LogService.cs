@@ -27,7 +27,7 @@ namespace CryptoWatcher.Domain.Services
             var log = await _logRepository.GetById(id);
 
             // Throw NotFound exception if it does not exist
-            if (log == null) throw new NotFoundException(LogMessages.NotFound);
+            if (log == null) throw new NotFoundException(LogMessages.LogNotFound);
 
             // Return
             return log;

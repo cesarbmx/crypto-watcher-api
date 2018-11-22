@@ -29,7 +29,7 @@ namespace CryptoWatcher.Domain.Services
             var user = await _userRepository.GetByUserId(userId);
 
             // Throw NotFound exception if it does not exist
-            if (user == null) throw new NotFoundException(UserMessages.NotFound);
+            if (user == null) throw new NotFoundException(UserMessages.UserNotFound);
 
             // Get user watchers
             var userWatchers = await _watcherRepository.GetByUserId(userId);
@@ -71,7 +71,7 @@ namespace CryptoWatcher.Domain.Services
             var watcher = await _watcherRepository.GetById(watcherId);
 
             // Throw NotFound exception if it does not exist
-            if (watcher == null) throw new NotFoundException(WatcherMessages.NotFound);
+            if (watcher == null) throw new NotFoundException(WatcherMessages.WatcherNotFound);
 
             // Return
             return watcher;
@@ -87,7 +87,7 @@ namespace CryptoWatcher.Domain.Services
             var watcher = await _watcherRepository.GetById(watcherId);
 
             // Throw NotFound exception if it does not exist
-            if (watcher == null) throw new NotFoundException(WatcherMessages.NotFound);
+            if (watcher == null) throw new NotFoundException(WatcherMessages.WatcherNotFound);
 
             // Update settings
             watcher.UpdateSettings(settings);

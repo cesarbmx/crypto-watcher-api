@@ -27,7 +27,7 @@ namespace CryptoWatcher.Domain.Services
             var user = await _userRepository.GetByUserId(userId);
 
             // Throw NotFound exception if it does not exist
-            if (user == null) throw new NotFoundException(UserMessages.NotFound);
+            if (user == null) throw new NotFoundException(UserMessages.UserNotFound);
 
             // Return
             return user;

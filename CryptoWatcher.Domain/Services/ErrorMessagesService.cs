@@ -30,22 +30,6 @@ namespace CryptoWatcher.Domain.Services
                 resources.Add(type.Name.Replace("Messages", ""), errorMessages);
             }
 
-            // Append common messages to each resource
-            var messages = resources.FirstOrDefault(x => x.Key == "").Value;
-            resources.Remove("");
-            foreach (var resource in resources)
-            {
-                foreach (var message in messages)
-                {
-                    if (!resource.Value.ContainsKey(message.Key))
-                    {
-                        resource.Value.Add(message.Key, message.Value);
-                    }
-                }
-            }
-
-
-
             return resources;
         }
 
