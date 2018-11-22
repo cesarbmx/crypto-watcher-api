@@ -12,7 +12,7 @@ namespace CryptoWatcher.Api.FakeResponses
             {
                 WatcherId = "2779cf8051-381f-4834-93dc-ece6345dde33",
                 UserId = "cesarbmx",
-                WatcherType = WatcherType.PriceWatcher,
+                Type = WatcherType.Price,
                 CurrencyId = "bitcoin",
                 CurrentValue = 5000,
                 UserSettings = WatcherSettingsFakeResponse.GetFake_PriceWatcher(),
@@ -25,7 +25,7 @@ namespace CryptoWatcher.Api.FakeResponses
             {
                 WatcherId = "2779cf8051-381f-4834-93dc-ece6345dde33",
                 UserId = "cesarbmx",
-                WatcherType = WatcherType.HypeWatcher,
+                Type = WatcherType.Hype,
                 CurrencyId = "bitcoin",
                 CurrentValue = 2,
                 UserSettings = WatcherSettingsFakeResponse.GetFake_HypeWatcher(),

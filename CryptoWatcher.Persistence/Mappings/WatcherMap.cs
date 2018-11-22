@@ -9,6 +9,20 @@ namespace CryptoWatcher.Persistence.Mappings
         public WatcherMap(EntityTypeBuilder<Watcher> entityBuilder)
         {
             // Properties
+            entityBuilder.Property(t => t.WatcherId)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entityBuilder.Property(t => t.UserId)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entityBuilder.Property(t => t.Type)
+                .HasColumnType("smallint")
+                .IsRequired();
+
             entityBuilder.Property(t => t.CurrentValue)
                 .HasColumnType("decimal")
                 .IsRequired();
