@@ -4,7 +4,7 @@ namespace CryptoWatcher.Api.FakeResponses
 {
     public static class WatcherSettingsFakeResponse
     {
-        public static WatcherSettings GetFake_PriceWatcher()
+        public static WatcherSettings GetFake_PriceChangeWatcher()
         {
             return new WatcherSettings(5000, 5500);
         }

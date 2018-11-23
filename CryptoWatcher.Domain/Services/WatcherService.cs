@@ -45,19 +45,19 @@ namespace CryptoWatcher.Domain.Services
                 percentages[i] = currencies[i].CurrencyPercentageChange24H;
             }
 
-            // Add price watcher
+            // Add price change watcher
             foreach (var currency in currencies)
             {
                 // Price watcher
-                var priceWatcher = new Watcher(
+                var priceChangeWatcher = new Watcher(
                     userId,
                     currency.CurrencyId,
-                    WatcherType.Price,
+                    WatcherType.PriceChange,
                     currency.CurrencyPercentageChange24H,
                     new WatcherSettings(5, 5),
                     new WatcherSettings(0, 0),
                     false);
-                userWatchers.Add(priceWatcher);
+                userWatchers.Add(priceChangeWatcher);
             }
 
             // Calculate all hypes
