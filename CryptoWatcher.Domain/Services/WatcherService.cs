@@ -60,7 +60,11 @@ namespace CryptoWatcher.Domain.Services
                 userWatchers.Add(priceWatcher);
             }
 
+            // Calculate all hypes
+            WatcherBuilders.BuildHypes(percentages);
+
             // Add hype watcher
+            var index = 0;
             foreach (var currency in currencies)
             {
                 // Hype watcher
@@ -68,11 +72,12 @@ namespace CryptoWatcher.Domain.Services
                     userId,
                     currency.CurrencyId,
                     WatcherType.Hype,
-                    WatcherBuilders.BuildHype(currency.CurrencyPercentageChange24H, percentages),
+                    percentages[index],
                     new WatcherSettings(5, 5),
                     new WatcherSettings(0, 0),
                     false);
                 userWatchers.Add(hypeWatcher);
+                index++;
             }
 
             // Return
