@@ -20,7 +20,7 @@ namespace CryptoWatcher.Domain.Builders
             // We calculate the average
             var average = values.Average();
 
-            // We want the values above the average
+            // We pick the values above the average
             for (var i = 0; i < values.Length; i++)
             {
                 values[i] -= average;
