@@ -7,8 +7,7 @@ namespace CryptoWatcher.Domain.Builders
     {
         public static void BuildHypes(decimal[] values)
         {
-            // If there are negatives, we move all values to the right
-            // In this way we deal with differences
+            // If there are negatives, we move all the values to the right so we only deal with positives
             var min = values.Min();
             if (min < 0)
             {
@@ -18,13 +17,14 @@ namespace CryptoWatcher.Domain.Builders
                 }
             }
 
-            // Calculate the average of these differences
+            // We calculate the average
             var average = values.Average();
 
-            // Eliminate those values below the average
+            // We want the values above the average
             for (var i = 0; i < values.Length; i++)
             {
                 values[i] -= average;
+                // We set to zero the values below the average
                 values[i] = values[i] < 0 ? 0 : values[i];
             }
         }
