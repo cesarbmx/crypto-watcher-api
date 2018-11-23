@@ -8,10 +8,10 @@ namespace CryptoWatcher.Domain.Tests.Builders
     public class WatcherBuildersTests
     {
         [TestMethod]
-        public void Hype_cannot_be_less_than_zero()
+        public void Hype_1()
         {
             // Arrange
-            var values = new decimal[] {-15, -10, -10, -10, 2};
+            var values = new decimal[] {2, -10, -10, -10, -15};
             var value = values[0];
 
             // Act
@@ -31,7 +31,7 @@ namespace CryptoWatcher.Domain.Tests.Builders
             var result1 = WatcherBuilders.BuildHype(value, values);
 
             // Assert
-            Assert.AreEqual(true, result1 >= 0);
+            Assert.AreEqual(true, result1 == 0);
         }
     }
 }

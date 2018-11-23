@@ -7,21 +7,20 @@ namespace CryptoWatcher.Domain.Builders
     {
         public static decimal BuildHype(decimal value, decimal[] values)
         {
-            // Take the minimum value
-            var minimum = values.Min() * -1;
-
-            // Move all values to the right so that there are no negatives
-            var positiveValue = value + minimum;
+            // Move negatives to zero so that we only look at positive values (price increases)
+            var positiveValue = value < 0 ? 0 : value;
             var positiveValues = new decimal[values.Length];
             for (var i = 0; i < values.Length; i++)
             {
-                positiveValues[i] = values[i] + minimum;
+                positiveValues[i] = values[i] < 0 ? 0 : values[i];
             }
 
-            // Substract the average to see what values are hyping up
+            // Substract the average to see what values are really hyping up
             var average = positiveValues.Average();
             positiveValue -= average;
-            if (positiveValue < 0) positiveValue = 0;
+
+            // Make the value zero if it does not surpass the average
+            positiveValue = positiveValue < 0 ? 0 : positiveValue;
 
             // Return
             return positiveValue;
