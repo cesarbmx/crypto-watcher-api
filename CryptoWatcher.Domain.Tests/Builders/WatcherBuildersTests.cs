@@ -20,5 +20,18 @@ namespace CryptoWatcher.Domain.Tests.Builders
             // Assert
             Assert.AreEqual(true, result1 >= 0);
         }
+        [TestMethod]
+        public void Hype_2()
+        {
+            // Arrange
+            var values = new decimal[] { -5, 1, 1, 1, 6 };
+            var value = values[0];
+
+            // Act
+            var result1 = WatcherBuilders.BuildHype(value, values);
+
+            // Assert
+            Assert.AreEqual(true, result1 >= 0);
+        }
     }
 }

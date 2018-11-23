@@ -42,6 +42,14 @@ namespace CryptoWatcher.Api.Jobs
             {
                 // Get currencies from CoinMarketCap
                 var result = await _coinMarketCapClient.GetTickerListAsync(10);
+                result = result.Where(x => 
+                    x.Id == "bitcoin" ||
+                    x.Id == "ripple" ||
+                    x.Id == "ethereum" ||
+                    x.Id == "bitcoin-cash" ||
+                    x.Id == "stellar" ||
+                    x.Id == "eos" ||
+                    x.Id == "cardano").ToList();
 
                 // Map to our Model
                 var currencies = _mapper.Map<List<Currency>>(result);
