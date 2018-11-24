@@ -47,7 +47,7 @@ namespace CryptoWatcher.Api.Jobs
                 }
 
                 // Log into Splunk
-                _logger.LogSplunkInformation(nameof(LoggingEvents.SendingWatchappsHasFailed));
+                _logger.LogSplunkInformation(nameof(LoggingEvents.WatchappsHaveBeenSent));
 
                 await Task.CompletedTask;
             }
