@@ -38,7 +38,7 @@ namespace CryptoWatcher.Api.Jobs
 
                 foreach (var pendingNotification in pendingNotifications)
                 {
-                    var message = MessageResource.Create(
+                    MessageResource.Create(
                         from: new PhoneNumber("whatsapp:" + pendingNotification.PhoneNumber),
                         to: new PhoneNumber("whatsapp:" + "+34666666666"),
                         body: pendingNotification.Message
