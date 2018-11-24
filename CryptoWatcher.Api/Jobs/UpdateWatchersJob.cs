@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Shared.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Api.Jobs
@@ -23,14 +24,14 @@ namespace CryptoWatcher.Api.Jobs
             try
             {
                 // Log into Splunk
-                _logger.LogInformation($"Event={nameof(LoggingEvents.WatchersHaveBeenSet)}");
+                _logger.LogSplunkInformation(nameof(LoggingEvents.WatchersHaveBeenSet));
 
                 await Task.CompletedTask;
             }
             catch (Exception ex)
             {
                // Log into Splunk 
-                _logger.LogError($"Event={nameof(LoggingEvents.UpdatingWatchersHasFailed)}, Exception={ex.Message}");
+                _logger.LogSplunkError(nameof(LoggingEvents.UpdatingWatchersHasFailed), ex.Message);
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Services;
+using CryptoWatcher.Shared.Extensions;
 using Microsoft.Extensions.Logging;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
@@ -46,14 +47,14 @@ namespace CryptoWatcher.Api.Jobs
                 }
 
                 // Log into Splunk
-                _logger.LogInformation($"Event={nameof(LoggingEvents.SendingWatchappsHasFailed)}");
+                _logger.LogSplunkInformation(nameof(LoggingEvents.SendingWatchappsHasFailed));
 
                 await Task.CompletedTask;
             }
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogError($"Event={nameof(LoggingEvents.SendingWatchappsHasFailed)}, Exception={ex.Message}");
+                _logger.LogSplunkError(nameof(LoggingEvents.SendingWatchappsHasFailed), ex.Message);
             }
         }
     }

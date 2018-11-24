@@ -9,6 +9,7 @@ using CryptoWatcher.Domain.Models;
 using Microsoft.Extensions.Logging;
 using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Shared.Extensions;
 
 namespace CryptoWatcher.Api.Jobs
 {
@@ -61,12 +62,12 @@ namespace CryptoWatcher.Api.Jobs
                 await _mainDbContext.SaveChangesAsync();
 
                 // Log into Splunk               
-                _logger.LogInformation($"Event={nameof(LoggingEvents.CurrenciesHaveBeenImported)}");
+                _logger.LogSplunkInformation(nameof(LoggingEvents.CurrenciesHaveBeenImported));
             }
             catch (Exception ex)
             {
                 // Log into Splunk              
-                _logger.LogError($"Event={nameof(LoggingEvents.ImportingCurrenciesHasFailed)}, Exception={ex.Message}");
+                _logger.LogSplunkError(nameof(LoggingEvents.ImportingCurrenciesHasFailed), ex.Message);
             }
         }
     }

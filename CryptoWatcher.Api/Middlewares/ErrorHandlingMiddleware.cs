@@ -9,6 +9,7 @@ using CryptoWatcher.Api.Responses;
 using CryptoWatcher.Shared.Exceptions;
 using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Shared.Extensions;
 
 namespace CryptoWatcher.Api.Middlewares
 {
@@ -72,7 +73,7 @@ namespace CryptoWatcher.Api.Middlewares
                     errorCode = 500;
                     errorResponse = new ErrorResponse(nameof(Messages.InternalServerError), errorCode, Messages.InternalServerError);
                     // Log error
-                    _logger.LogError(exception, $"Event={nameof(LoggingEvents.UnhandledException)}, Exception={exception.Message}");
+                    _logger.LogSplunkError(nameof(LoggingEvents.UnhandledException), exception);
                     break;
             }
 
