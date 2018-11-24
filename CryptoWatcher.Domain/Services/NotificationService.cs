@@ -34,6 +34,14 @@ namespace CryptoWatcher.Domain.Services
             // Return
             return notification;
         }
+        public async Task<List<Notification>> GetPendingNotifications()
+        {
+            // Get pending notifications
+            var notifications = await _notificationRepository.GetPendingNotifications();
+
+            // Return
+            return notifications;
+        }
         public async Task<Notification> AddNotification(string userId, string message)
         {
             // Get user

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Domain.Repositories;
@@ -19,6 +21,11 @@ namespace CryptoWatcher.Persistence.Repositories
         public async Task<Notification> GetByNotificationId(string notificationId)
         {
             return await _mainDbContext.Notifications.FirstOrDefaultAsync(x => x.NotificationId == notificationId);
+        }
+
+        public async Task<List<Notification>> GetPendingNotifications()
+        {
+            return await _mainDbContext.Notifications.Where(x => x.WhatsappSent == false).ToListAsync();
         }
     }
 }
