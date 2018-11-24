@@ -99,7 +99,7 @@ namespace CryptoWatcher.Domain.Services
             // Add watcher
             _watcherRepository.Add(watcher);
         }
-        public async Task<Watcher> UpdateWatcherSettings(string watcherId, WatcherSettings settings)
+        public async Task<Watcher> UpdateWatcherSettings(string watcherId, decimal buyAt, decimal sellAt)
         {
             // Get watcher by id
             var watcher = await _watcherRepository.GetById(watcherId);
@@ -108,6 +108,7 @@ namespace CryptoWatcher.Domain.Services
             if (watcher == null) throw new NotFoundException(WatcherMessages.WatcherNotFound);
 
             // Update settings
+            var settings = new WatcherSettings(buyAt,sellAt);
             watcher.UpdateSettings(settings);
 
             // Return

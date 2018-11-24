@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using CryptoWatcher.Api.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Api.Responses;
-using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.AspNetCore.Mvc;
@@ -90,10 +90,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(422, typeof(InvalidRequestExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_UpdateWatcherSettings")]
-        public async Task<IActionResult> UpdateWatcherSettings(string watcherId, [FromBody]WatcherSettings settings)
+        public async Task<IActionResult> UpdateWatcherSettings(string watcherId, [FromBody]UpdateWatcherSettingsRequest request)
         {
             // Update watcher settings
-            var watcher = await _watcherService.UpdateWatcherSettings(watcherId, settings);
+            var watcher = await _watcherService.UpdateWatcherSettings(watcherId, request.BuyAt, request.SellAt);
 
             // Save
             await _mainDbContext.SaveChangesAsync();
