@@ -46,14 +46,14 @@ namespace CryptoWatcher.Api.Jobs
                 }
 
                 // Log into Splunk
-                _logger.LogInformation(nameof(LoggingEvents.WatchappsHaveBeenSent), string.Format(LoggingEvents.WatchappsHaveBeenSent, pendingNotifications.Count));
+                _logger.LogInformation($"Event={nameof(LoggingEvents.SendingWatchappsHasFailed)}");
 
                 await Task.CompletedTask;
             }
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogError(nameof(LoggingEvents.UpdatingWatchersHasFailed), ex, LoggingEvents.UpdatingWatchersHasFailed);
+                _logger.LogError($"Event={nameof(LoggingEvents.SendingWatchappsHasFailed)}, Exception={ex.Message}");
             }
         }
     }

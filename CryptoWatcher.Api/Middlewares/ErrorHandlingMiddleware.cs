@@ -8,6 +8,7 @@ using Newtonsoft.Json.Serialization;
 using CryptoWatcher.Api.Responses;
 using CryptoWatcher.Shared.Exceptions;
 using CryptoWatcher.Domain.Messages;
+using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Api.Middlewares
 {
@@ -71,7 +72,7 @@ namespace CryptoWatcher.Api.Middlewares
                     errorCode = 500;
                     errorResponse = new ErrorResponse(nameof(Messages.InternalServerError), errorCode, Messages.InternalServerError);
                     // Log error
-                    _logger.LogError(exception, "Event:UnhandledException");
+                    _logger.LogError(exception, $"Event={nameof(LoggingEvents.UnhandledException)}, Exception={exception.Message}");
                     break;
             }
 

@@ -60,13 +60,13 @@ namespace CryptoWatcher.Api.Jobs
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
-                // Log into Splunk
-                _logger.LogInformation(nameof(LoggingEvents.CurrenciesHaveBeenImported), LoggingEvents.CurrenciesHaveBeenImported);
+                // Log into Splunk               
+                _logger.LogInformation($"Event={nameof(LoggingEvents.CurrenciesHaveBeenImported)}");
             }
             catch (Exception ex)
             {
-                // Log into Splunk
-                _logger.LogError(nameof(LoggingEvents.ImportingCurrenciesHasFailed), ex, LoggingEvents.ImportingCurrenciesHasFailed);
+                // Log into Splunk              
+                _logger.LogError($"Event={nameof(LoggingEvents.ImportingCurrenciesHasFailed)}, Exception={ex.Message}");
             }
         }
     }
