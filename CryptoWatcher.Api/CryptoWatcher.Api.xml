@@ -44,12 +44,27 @@
             Update watcher settings
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.D_LogController.GetLogs">
+        <member name="M:CryptoWatcher.Api.Controllers.D_NotificationsController.GetNotifications">
+            <summary>
+            Get notifications
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.D_NotificationsController.GetNotification(System.String)">
+            <summary>
+            Get notification
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.D_NotificationsController.AddNotification(CryptoWatcher.Api.Requests.AddNotificationRequest)">
+            <summary>
+            Add notification
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.E_LogController.GetLogs">
             <summary>
             Get logs
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.D_LogController.GetLog(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.E_LogController.GetLog(System.String)">
             <summary>
             Get log
             </summary>
