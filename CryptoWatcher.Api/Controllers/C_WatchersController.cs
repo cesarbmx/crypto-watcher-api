@@ -93,13 +93,13 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> UpdateWatcherSettings(string watcherId, [FromBody]WatcherSettings settings)
         {
             // Update watcher settings
-            var watcherSettings = await _watcherService.UpdateWatcherSettings(watcherId, settings);
+            var watcher = await _watcherService.UpdateWatcherSettings(watcherId, settings);
 
             // Save
             await _mainDbContext.SaveChangesAsync();
 
             // Response
-            var response = watcherSettings;
+            var response = _mapper.Map<WatcherResponse>(watcher);
 
             // Return
             return Ok(response);
