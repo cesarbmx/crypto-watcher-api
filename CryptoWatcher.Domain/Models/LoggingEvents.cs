@@ -8,5 +8,6 @@ namespace CryptoWatcher.Domain.Models
         public const string ImportingCurrenciesHasFailed = "Importing currencies has failed";
         public const string WatchersHaveBeenSet = "Watchers have been det";
         public const string UpdatingWatchersHasFailed = "Updating watchers has failed";
+        public const string WatchappsHaveBeenSent = "{count} whatsapps have been sent";
     }
 }

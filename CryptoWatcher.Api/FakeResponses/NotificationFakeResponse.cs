@@ -12,7 +12,7 @@ namespace CryptoWatcher.Api.FakeResponses
                 NotificationId = "2779cf8051-381f-4834-93dc-ece6345dde33",
                 UserId = "cesarbmx",
                 Message = "Test",
-                PhoneNumber = "+34636860935",
+                PhoneNumber = "+34666666666",
                 WhatsappSent = false,
                 WhatsappSentTime = null
             };

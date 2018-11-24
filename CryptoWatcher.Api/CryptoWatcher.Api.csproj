@@ -75,6 +75,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="4.3.1" />
+    <PackageReference Include="Twilio" Version="5.22.0" />
   </ItemGroup>
 
   <ItemGroup>
