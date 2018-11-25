@@ -11,12 +11,12 @@ namespace CryptoWatcher.Api.Responses
         public string Message { get; set; }
         public List<ValidationErrorResponse> ValidationErrors { get; set; }
 
-        public ValidationResponse(string code, int status, string message)
+        public ValidationResponse(string code, int status, string message, List<ValidationErrorResponse> validationErrors)
         {
             Code = code;
             Status = status;
             Message = message;
-            ValidationErrors = new List<ValidationErrorResponse>();
+            ValidationErrors = validationErrors;
         }
     }
 }

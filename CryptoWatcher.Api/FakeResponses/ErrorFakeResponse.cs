@@ -1,4 +1,5 @@
-﻿using CryptoWatcher.Api.Responses;
+﻿using System.Collections.Generic;
+using CryptoWatcher.Api.Responses;
 using CryptoWatcher.Domain.Messages;
 
 namespace CryptoWatcher.Api.FakeResponses
@@ -20,10 +21,12 @@ namespace CryptoWatcher.Api.FakeResponses
         }
         public static ValidationResponse GetFake_InvalidRequest()
         {
-            var validationResponse = new ValidationResponse(nameof(Messages.ValidationFailed), 422, Messages.ValidationFailed);
-            validationResponse.ValidationErrors.Add(
-                new ValidationErrorResponse("#0000", "FieldName", "Validation description")
-            );
+            var validationErrorResponseList = new List<ValidationErrorResponse>
+            {
+                new ValidationErrorResponse("Code", "FieldName", "Validation description")
+            };
+            var validationResponse = new ValidationResponse(nameof(Messages.ValidationFailed), 422, Messages.ValidationFailed, validationErrorResponseList);
+
             return validationResponse;
         }
         public static ErrorResponse GetFake_InternalServerError()

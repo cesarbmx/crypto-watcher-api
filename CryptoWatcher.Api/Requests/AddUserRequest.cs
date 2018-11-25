@@ -1,6 +1,5 @@
 ﻿
 
-
 namespace CryptoWatcher.Api.Requests
 {
     public class AddUserRequest
