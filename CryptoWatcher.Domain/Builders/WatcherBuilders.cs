@@ -8,13 +8,13 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class WatcherBuilders
     {
-        public static decimal BuildWatcherValue(Currency currency, WatcherType watcherType, List<Currency> currencies)
+        public static decimal BuildWatcherValue(Currency currency, Indicator indicator, List<Currency> currencies)
         {
-            switch (watcherType)
+            switch (indicator)
             {
-                case WatcherType.PriceChange:
+                case Indicator.PriceChange:
                     return currency.CurrencyPercentageChange24H;
-                case WatcherType.Hype:
+                case Indicator.Hype:
                     return BuildHype(currency, currencies);
                 default:
                     throw new NotImplementedException();

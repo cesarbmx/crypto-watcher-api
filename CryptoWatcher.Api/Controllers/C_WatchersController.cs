@@ -37,13 +37,13 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(200, typeof(WatcherListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetUserWatchers")]
-        public async Task<IActionResult> GetUserWatchers(string userId, WatcherType? watcherType = null)
+        public async Task<IActionResult> GetUserWatchers(string userId, Indicator? indicator = null)
         {
             // Get watchers
             List<Watcher> watchers;
-            if (watcherType.HasValue)
+            if (indicator.HasValue)
             {
-                watchers = await _watcherService.GetWatchers(userId, watcherType.Value);
+                watchers = await _watcherService.GetWatchers(userId, indicator.Value);
             }
             else
             {
@@ -102,7 +102,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> AddWatcher([FromBody]AddWatcherRequest request)
         {
             // Add watcher
-            var watcher = await _watcherService.AddWatcher(request.UserId, request.WatcherType, request.CurrencyId);
+            var watcher = await _watcherService.AddWatcher(request.UserId, request.Indicator, request.CurrencyId);
 
             // Save
             await _mainDbContext.SaveChangesAsync();

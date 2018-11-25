@@ -2,7 +2,7 @@
 
 namespace CryptoWatcher.Domain.Models
 {
-    public enum WatcherType
+    public enum Indicator
     {
         PriceChange,
         Hype

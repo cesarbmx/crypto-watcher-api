@@ -5,11 +5,11 @@ using CryptoWatcher.Shared.Helpers;
 namespace CryptoWatcher.Domain.Models
 {
     public class Watcher : Entity
-    {      
-        public string UserId { get; private set; }
-        public WatcherType WatcherType { get; private set; }
-        public string CurrencyId { get; private set; }
+    {
         public string WatcherId { get; private set; }
+        public string UserId { get; private set; }
+        public Indicator IndicatorId { get; private set; }
+        public string CurrencyId { get; private set; }
         public decimal WatcherValue { get; private set; }
         public WatcherSettings WatcherSettings { get; private set; }
         public WatcherSettings WatcherSettingsTrend { get; private set; }
@@ -19,17 +19,17 @@ namespace CryptoWatcher.Domain.Models
         public Watcher() { }
         public Watcher(
             string userId, 
-            WatcherType watcherType,
+            Indicator indicatorId,
             string currencyId,
             decimal watcherValue,
             WatcherSettings watcherSettings,
             WatcherSettings watcherSettingsTrend,
             bool enabled)
-        {           
+        {
+            WatcherId = UrlHelper.BuildUrl(userId, currencyId, indicatorId.ToString()); // Semantic id
             UserId = userId;
-            WatcherType = watcherType;
+            IndicatorId = indicatorId;
             CurrencyId = currencyId;
-            WatcherId = UrlHelper.BuildUrl(userId, currencyId, watcherType.ToString()); // Semantic id
             WatcherValue = watcherValue;
             WatcherSettings  = watcherSettings;
             WatcherSettingsTrend = watcherSettingsTrend;

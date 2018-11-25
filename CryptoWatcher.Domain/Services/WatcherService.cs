@@ -29,13 +29,13 @@ namespace CryptoWatcher.Domain.Services
         {
             // Get user watchers
             var userWatchers = new List<Watcher>();
-            userWatchers.AddRange(await GetWatchers(userId, WatcherType.PriceChange));
-            userWatchers.AddRange(await GetWatchers(userId, WatcherType.Hype));
+            userWatchers.AddRange(await GetWatchers(userId, Indicator.PriceChange));
+            userWatchers.AddRange(await GetWatchers(userId, Indicator.Hype));
 
             // Return
             return userWatchers;
         }
-        public async Task<List<Watcher>> GetWatchers(string userId, WatcherType watcherType)
+        public async Task<List<Watcher>> GetWatchers(string userId, Indicator indicator)
         {
             // Get user
             var user = await _userService.GetUser(userId);
@@ -52,16 +52,16 @@ namespace CryptoWatcher.Domain.Services
             {
                 // If the watcher exists, we add it
                 var watcher = userWatchers.FirstOrDefault(x =>
-                    x.WatcherType == watcherType && x.CurrencyId == currency.CurrencyId);
+                    x.IndicatorId == indicator && x.CurrencyId == currency.CurrencyId);
 
                 // If the watcher does not exist, we add a default one
                 if (watcher == null)
                 {
                     watcher = new Watcher(
                         user.UserId,
-                        watcherType,
+                        indicator,
                         currency.CurrencyId,
-                        WatcherBuilders.BuildWatcherValue(currency, watcherType, currencies),
+                        WatcherBuilders.BuildWatcherValue(currency, indicator, currencies),
                         new WatcherSettings(5, 5),
                         new WatcherSettings(0, 0),
                         false);
@@ -84,7 +84,7 @@ namespace CryptoWatcher.Domain.Services
             // Return
             return watcher;
         }
-        public async Task<Watcher> AddWatcher(string userId, WatcherType watcherType, string currencyId)
+        public async Task<Watcher> AddWatcher(string userId, Indicator indicator, string currencyId)
         {
             // Get user
             var user = await _userService.GetUser(userId);
@@ -98,9 +98,9 @@ namespace CryptoWatcher.Domain.Services
             // Add watcher
             var watcher = new Watcher(
                 user.UserId,
-                watcherType,
+                indicator,
                 currency.CurrencyId,
-                WatcherBuilders.BuildWatcherValue(currency, watcherType, currencies),
+                WatcherBuilders.BuildWatcherValue(currency, indicator, currencies),
                 new WatcherSettings(5,5),
                 new WatcherSettings(0,0),
                 false);
