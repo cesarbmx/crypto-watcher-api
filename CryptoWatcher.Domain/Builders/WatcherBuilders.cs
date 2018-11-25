@@ -1,10 +1,24 @@
 ﻿using System.Linq;
+using CryptoWatcher.Domain.Models;
 
 
 namespace CryptoWatcher.Domain.Builders
 {
     public static class WatcherBuilders
     {
+        public static void BuildWatcherValues(WatcherType watcherType, decimal[] values)
+        {
+            switch (watcherType)
+            {
+                case WatcherType.PriceChange:
+                    BuildHypes(values);
+                    break;
+                case WatcherType.Hype:
+                    break;
+                default:
+                    return;
+            }
+        }
         public static void BuildHypes(decimal[] values)
         {
             // If there are negatives, we move all the values to the right so we only deal with positives

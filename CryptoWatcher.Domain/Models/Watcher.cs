@@ -7,8 +7,8 @@ namespace CryptoWatcher.Domain.Models
     public class Watcher : Entity
     {      
         public string UserId { get; private set; }
-        public string CurrencyId { get; private set; }
         public WatcherType WatcherType { get; private set; }
+        public string CurrencyId { get; private set; }
         public string WatcherId { get; private set; }
         public decimal WatcherValue { get; private set; }
         public WatcherSettings WatcherSettings { get; private set; }
@@ -19,16 +19,16 @@ namespace CryptoWatcher.Domain.Models
         public Watcher() { }
         public Watcher(
             string userId, 
-            string currencyId,
             WatcherType watcherType,
+            string currencyId,
             decimal watcherValue,
             WatcherSettings watcherSettings,
             WatcherSettings watcherSettingsTrend,
             bool enabled)
         {           
             UserId = userId;
-            CurrencyId = currencyId;
             WatcherType = watcherType;
+            CurrencyId = currencyId;
             WatcherId = UrlHelper.BuildUrl(userId, currencyId, watcherType.ToString()); // Semantic id
             WatcherValue = watcherValue;
             WatcherSettings  = watcherSettings;

@@ -29,7 +29,7 @@
             Add user
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.GetWatchers(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.GetUserWatchers(System.String,System.Nullable{CryptoWatcher.Domain.Models.WatcherType})">
             <summary>
             Get user watchers
             </summary>
@@ -39,7 +39,12 @@
             Get watcher
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.UpdateWatcherSettings(System.String,CryptoWatcher.Domain.Models.WatcherSettings)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.AddWatcher(CryptoWatcher.Api.Requests.AddWatcherRequest)">
+            <summary>
+            Add watcher
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.UpdateWatcherSettings(System.String,CryptoWatcher.Api.Requests.UpdateWatcherSettingsRequest)">
             <summary>
             Update watcher settings
             </summary>
