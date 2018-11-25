@@ -61,7 +61,7 @@ namespace CryptoWatcher.Domain.Services
                         user.UserId,
                         indicator,
                         currency.CurrencyId,
-                        WatcherBuilders.BuildWatcherValue(currency, indicator, currencies),
+                        IndicatorBuilder.BuildIndicatorValue(currency, indicator, currencies),
                         new WatcherSettings(5, 5),
                         new WatcherSettings(0, 0),
                         false);
@@ -100,7 +100,7 @@ namespace CryptoWatcher.Domain.Services
                 user.UserId,
                 indicator,
                 currency.CurrencyId,
-                WatcherBuilders.BuildWatcherValue(currency, indicator, currencies),
+                IndicatorBuilder.BuildIndicatorValue(currency, indicator, currencies),
                 new WatcherSettings(5,5),
                 new WatcherSettings(0,0),
                 false);

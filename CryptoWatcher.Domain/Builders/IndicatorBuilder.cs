@@ -6,9 +6,9 @@ using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Domain.Builders
 {
-    public static class WatcherBuilders
+    public static class IndicatorBuilder
     {
-        public static decimal BuildWatcherValue(Currency currency, Indicator indicator, List<Currency> currencies)
+        public static decimal BuildIndicatorValue(Currency currency, Indicator indicator, List<Currency> currencies)
         {
             switch (indicator)
             {
@@ -57,12 +57,6 @@ namespace CryptoWatcher.Domain.Builders
                 // We set to zero the values below the average
                 values[i] = values[i] < 0 ? 0 : values[i];
             }
-        }
-
-        public static bool BuildWatcherStatus(WatcherSettings watcherSettings, decimal watcherValue)
-        {
-            // Return
-            return watcherValue >= watcherSettings.BuyAt;
         }
     }
 }
