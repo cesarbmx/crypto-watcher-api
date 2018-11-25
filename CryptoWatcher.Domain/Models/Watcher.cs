@@ -10,6 +10,7 @@ namespace CryptoWatcher.Domain.Models
         public string UserId { get; private set; }
         public Indicator IndicatorId { get; private set; }
         public string CurrencyId { get; private set; }
+        public string OrderId { get; private set; }
         public decimal IndicatorValue { get; private set; }
         public WatcherSettings WatcherSettings { get; private set; }
         public WatcherSettings WatcherSettingsTrend { get; private set; }
@@ -30,6 +31,7 @@ namespace CryptoWatcher.Domain.Models
             UserId = userId;
             IndicatorId = indicatorId;
             CurrencyId = currencyId;
+            OrderId = null;
             IndicatorValue = indicatorValue;
             WatcherSettings  = watcherSettings;
             WatcherSettingsTrend = watcherSettingsTrend;
