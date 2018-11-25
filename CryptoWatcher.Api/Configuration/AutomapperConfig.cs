@@ -29,6 +29,7 @@ namespace CryptoWatcher.Api.Configuration
                     cfg.CreateMap<Watcher, WatcherResponse>();
                     cfg.CreateMap<User, UserResponse>();
                     cfg.CreateMap<Notification, NotificationResponse>();
+                    cfg.CreateMap<Order, OrderResponse>();
 
                     // Others
                     cfg.CreateMap<TickerEntity, Currency>()

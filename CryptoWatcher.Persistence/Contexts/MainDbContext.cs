@@ -13,6 +13,7 @@ namespace CryptoWatcher.Persistence.Contexts
         public DbSet<Log> Logs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public MainDbContext(DbContextOptions<MainDbContext> options)
            : base(options)
@@ -29,6 +30,7 @@ namespace CryptoWatcher.Persistence.Contexts
             new WatcherMap(modelBuilder.Entity<Watcher>());
             new UserMap(modelBuilder.Entity<User>());
             new NotificationMap(modelBuilder.Entity<Notification>());
+            new OrderMap(modelBuilder.Entity<Order>());
 
             base.OnModelCreating(modelBuilder);
         }

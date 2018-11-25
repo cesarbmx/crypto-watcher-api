@@ -34,6 +34,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<WatcherService, WatcherService>();
             services.AddScoped<UserService, UserService>();
             services.AddScoped<NotificationService, NotificationService>();
+            services.AddScoped<OrderService, OrderService>();
 
             // Repositories
             services.AddScoped<ICacheRepository, CacheRepository>(); // TODO: (Cesar) app settings switch for audit
@@ -42,6 +43,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<IWatcherRepository, WatcherRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             // Other
             services.AddScoped<HttpContextAccessor, HttpContextAccessor>();
