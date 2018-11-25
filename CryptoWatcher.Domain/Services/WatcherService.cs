@@ -171,10 +171,7 @@ namespace CryptoWatcher.Domain.Services
         public async Task<Watcher> UpdateWatcherSettings(string watcherId, decimal buyAt, decimal sellAt)
         {
             // Get watcher by id
-            var watcher = await _watcherRepository.GetByWatcherId(watcherId);
-
-            // Throw NotFound exception if it does not exist
-            if (watcher == null) throw new NotFoundException(WatcherMessages.WatcherNotFound);
+            var watcher = await GetWatcher(watcherId);
 
             // Update settings
             var settings = new WatcherSettings(buyAt,sellAt);

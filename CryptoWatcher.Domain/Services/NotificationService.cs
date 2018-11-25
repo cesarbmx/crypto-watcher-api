@@ -47,11 +47,8 @@ namespace CryptoWatcher.Domain.Services
             // Get user
             var user = await _userService.GetUser(userId);
 
-            // Throw NotFound exception if it does not exist
-            if (user == null) throw new NotFoundException(UserMessages.UserNotFound);
-
             // Add notification
-            var notification = new Notification(userId, message);
+            var notification = new Notification(user.UserId, message);
             _notificationRepository.Add(notification);
 
             // Return

@@ -50,8 +50,6 @@ namespace CryptoWatcher.Api.Controllers
                 watchers = await _watcherService.GetWatchers(userId);
             }
 
-         
-
             // Response
             var response = _mapper.Map<List<WatcherResponse>>(watchers);
 
