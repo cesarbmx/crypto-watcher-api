@@ -17,7 +17,11 @@ namespace CryptoWatcher.Domain.Models
         public bool WatcherEnabled { get; private set; }
         public WatcherStatus WatcherStatus => WatcherBuilder.BuildWatcherStatus(IndicatorValue, WatcherSettings);
 
-        public Watcher() { }
+        public Watcher()
+        {
+            WatcherSettings = new WatcherSettings();
+            WatcherSettingsTrend = new WatcherSettings();
+        }
         public Watcher(
             string userId, 
             Indicator indicatorId,

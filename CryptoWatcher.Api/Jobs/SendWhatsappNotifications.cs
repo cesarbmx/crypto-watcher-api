@@ -13,12 +13,12 @@ namespace CryptoWatcher.Api.Jobs
 {
     public class SendWhatsappNotificationsJob
     {
-        readonly ILogger<UpdateWatchersJob> _logger;
-        readonly NotificationService _notificationService;
+        private readonly ILogger<MonitorWatchersJob> _logger;
+        private readonly NotificationService _notificationService;
 
 
         public SendWhatsappNotificationsJob(
-            ILogger<UpdateWatchersJob> logger,
+            ILogger<MonitorWatchersJob> logger,
             NotificationService notificationService)
         {
             _logger = logger;

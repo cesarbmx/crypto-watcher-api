@@ -11,11 +11,16 @@ namespace CryptoWatcher.Domain.Services
     {
         private readonly IOrderRepository _orderRepository;
         private readonly UserService _userService;
+        private readonly WatcherService _watcherService;
 
-        public OrderService(IOrderRepository orderRepository, UserService userService)
+        public OrderService(
+            IOrderRepository orderRepository,
+            UserService userService,
+            WatcherService watcherService)
         {
             _orderRepository = orderRepository;
             _userService = userService;
+            _watcherService = watcherService;
         }
 
         public async Task<List<Order>> GetOrders(string userId)
@@ -48,6 +53,24 @@ namespace CryptoWatcher.Domain.Services
 
             // Return
             return await Task.FromResult(order);
+        }
+        public async Task AddOrdersFromWatchers()
+        {
+            // Order buys
+            var watchersBuys = await _watcherService.GetWatchersReadyToBuy();
+            foreach (var watcher in watchersBuys)
+            {
+                var order = new Order(watcher.UserId, watcher.CurrencyId, 100);
+                _orderRepository.Add(order);
+            }
+
+            // Order sells
+            var watchersSells = await _watcherService.GetWatchersReadyToSell();
+            foreach (var watcher in watchersSells)
+            {
+                var order = new Order(watcher.UserId, watcher.CurrencyId, 100);
+                _orderRepository.Add(order);
+            }
         }
     }
 }

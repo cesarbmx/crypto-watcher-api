@@ -13,6 +13,24 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();
+
+            entityBuilder.Property(t => t.UserId)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entityBuilder.Property(t => t.CurrencyId)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entityBuilder.Property(t => t.Quantity)
+                .HasColumnType("decimal")
+                .IsRequired();
+
+            entityBuilder.Property(t => t.OrderStatus)
+                .HasColumnType("smallint")
+                .IsRequired();
         }
     }
 }

@@ -7,9 +7,11 @@ namespace CryptoWatcher.Domain.Models
         UnhandledException,
         CurrenciesHaveBeenImported,
         ImportingCurrenciesHasFailed,
-        WatchersHaveBeenSet,
+        WatchersHaveBeenUpdates,
         UpdatingWatchersHasFailed,
         WatchappsHaveBeenSent,
-        SendingWatchappsHasFailed
+        SendingWatchappsHasFailed,
+        OrdersHaveBeenAdded,
+        AddingOrdersHasFailed
     }
 }

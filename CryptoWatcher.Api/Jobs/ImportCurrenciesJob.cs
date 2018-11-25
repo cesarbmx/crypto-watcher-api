@@ -16,7 +16,7 @@ namespace CryptoWatcher.Api.Jobs
     public class ImportCurrenciesJob
     {
         private readonly IMapper _mapper;
-        readonly ILogger<ImportCurrenciesJob> _logger;
+        private readonly ILogger<ImportCurrenciesJob> _logger;
         private readonly MainDbContext _mainDbContext;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
         private readonly CurrencyService _currencyService;
