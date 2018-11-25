@@ -23,19 +23,19 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get orders
+        /// Get user orders
         /// </summary>
         [HttpGet]
-        [Route("orders")]
+        [Route("users/{userId}/orders")]
         [SwaggerResponse(200, Type = typeof(List<OrderResponse>))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(OrderListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetOrders")]
-        public async Task<IActionResult> GetOrders()
+        [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetUserOrders")]
+        public async Task<IActionResult> GetOrders(string userId)
         {
             // Get orders
-            var order = await _orderService.GetOrders();
+            var order = await _orderService.GetOrders(userId);
 
             // Response
             var response = _mapper.Map<List<OrderResponse>>(order);

@@ -10,16 +10,24 @@ namespace CryptoWatcher.Domain.Services
     public class OrderService
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly UserService _userService;
 
-        public OrderService(IOrderRepository orderRepository)
+        public OrderService(IOrderRepository orderRepository, UserService userService)
         {
             _orderRepository = orderRepository;
+            _userService = userService;
         }
 
-        public async Task<List<Order>> GetOrders()
+        public async Task<List<Order>> GetOrders(string userId)
         {
-            // Get order
-            return await _orderRepository.Get();
+            // Get user
+            var user = await _userService.GetUser(userId);
+
+            // Get user orders
+            var userOrders = await _orderRepository.GetByUserId(user.UserId);
+
+            // Return
+            return userOrders;
         }
         public async Task<Order> GetOrder(string orderId)
         {
@@ -35,7 +43,7 @@ namespace CryptoWatcher.Domain.Services
         public async Task<Order> AddOrder(string userId, string currencyId, decimal quantity)
         {
             // Add order
-            var order = new Order(userId, currencyId,quantity);
+            var order = new Order(userId, currencyId, quantity);
             _orderRepository.Add(order);
 
             // Return

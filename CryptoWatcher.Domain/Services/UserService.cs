@@ -18,7 +18,7 @@ namespace CryptoWatcher.Domain.Services
 
         public async Task<List<User>> GetUsers()
         {
-            // Get user
+            // Get users
             return await _userRepository.Get();
         }
         public async Task<User> GetUser(string userId)
