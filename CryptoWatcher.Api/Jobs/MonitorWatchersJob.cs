@@ -15,7 +15,6 @@ namespace CryptoWatcher.Api.Jobs
         private readonly ILogger<MonitorWatchersJob> _logger;
         private readonly OrderService _orderService;
 
-
         public MonitorWatchersJob(
             MainDbContext mainDbContext,
             ILogger<MonitorWatchersJob> logger,
