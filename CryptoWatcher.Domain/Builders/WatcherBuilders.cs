@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using CryptoWatcher.Domain.Models;
 
 
@@ -6,18 +8,32 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class WatcherBuilders
     {
-        public static void BuildWatcherValues(WatcherType watcherType, decimal[] values)
+        public static decimal BuildWatcherValue(Currency currency, WatcherType watcherType, List<Currency> currencies)
         {
             switch (watcherType)
             {
                 case WatcherType.PriceChange:
-                    BuildHypes(values);
-                    break;
+                    return currency.CurrencyPercentageChange24H;
                 case WatcherType.Hype:
-                    break;
+                    return BuildHype(currency, currencies);
                 default:
-                    return;
+                    throw new NotImplementedException();
+            }            
+        }
+        public static decimal BuildHype(Currency currency, List<Currency> currencies)
+        {
+            // Collect values
+            var values = new decimal[currencies.Count];
+            for (var i = 0; i < currencies.Count; i++)
+            {
+                values[i] = currencies[i].CurrencyPercentageChange24H;
             }
+
+            // Build hypes
+            BuildHypes(values);
+
+            // Return
+            return values[currencies.IndexOf(currency)];
         }
         public static void BuildHypes(decimal[] values)
         {
@@ -42,10 +58,11 @@ namespace CryptoWatcher.Domain.Builders
                 values[i] = values[i] < 0 ? 0 : values[i];
             }
         }
-        public static bool BuildWatcherStatus(decimal setting, decimal value)
+
+        public static bool BuildWatcherStatus(WatcherSettings watcherSettings, decimal watcherValue)
         {
             // Return
-            return value >= setting;
+            return watcherValue >= watcherSettings.BuyAt;
         }
     }
 }

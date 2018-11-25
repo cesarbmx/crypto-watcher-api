@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Messages;
@@ -26,56 +27,10 @@ namespace CryptoWatcher.Domain.Services
 
         public async Task<List<Watcher>> GetWatchers(string userId)
         {
-            // Get user
-            var user = await _userService.GetUser(userId);
-
             // Get user watchers
-            var userWatchers = await _watcherRepository.GetByUserId(userId);
-
-            // Get currencies
-            var currencies = await _currencyService.GetCurrencies();
-
-            // Collect percentages
-            var percentages = new decimal[currencies.Count];
-            for (var i = 0; i < currencies.Count; i++)
-            {
-                percentages[i] = currencies[i].CurrencyPercentageChange24H;
-            }
-
-            // Add price change watcher
-            foreach (var currency in currencies)
-            {
-                // Price watcher
-                var priceChangeWatcher = new Watcher(
-                    user.UserId,
-                    WatcherType.PriceChange,
-                    currency.CurrencyId,
-                    currency.CurrencyPercentageChange24H,
-                    new WatcherSettings(5, 5),
-                    new WatcherSettings(0, 0),
-                    false);
-                userWatchers.Add(priceChangeWatcher);
-            }
-
-            // Calculate all hypes
-            WatcherBuilders.BuildHypes(percentages);
-
-            // Add hype watcher
-            var index = 0;
-            foreach (var currency in currencies)
-            {
-                // Hype watcher
-                var hypeWatcher = new Watcher(
-                    userId,
-                    WatcherType.Hype,
-                    currency.CurrencyId,
-                    percentages[index],
-                    new WatcherSettings(5, 5),
-                    new WatcherSettings(0, 0),
-                    false);
-                userWatchers.Add(hypeWatcher);
-                index++;
-            }
+            var userWatchers = new List<Watcher>();
+            userWatchers.AddRange(await GetWatchers(userId, WatcherType.PriceChange));
+            userWatchers.AddRange(await GetWatchers(userId, WatcherType.Hype));
 
             // Return
             return userWatchers;
@@ -91,35 +46,32 @@ namespace CryptoWatcher.Domain.Services
             // Get currencies
             var currencies = await _currencyService.GetCurrencies();
 
-            // Collect percentages
-            var percentages = new decimal[currencies.Count];
-            for (var i = 0; i < currencies.Count; i++)
-            {
-                percentages[i] = currencies[i].CurrencyPercentageChange24H;
-            }
-
-            // Calculate WatcherValues
-            WatcherBuilders.BuildWatcherValues(watcherType, percentages);
-
             // For each currency
-            var index = 0;
+            var watchers = new List<Watcher>();
             foreach (var currency in currencies)
             {
-                // Add watcher
-                var watcher = new Watcher(
-                    user.UserId,
-                    watcherType,
-                    currency.CurrencyId,
-                    percentages[index],
-                    new WatcherSettings(5, 5),
-                    new WatcherSettings(0, 0),
-                    false);
-                userWatchers.Add(watcher);
-                index++;
+                // If the watcher exists, we add it
+                var watcher = userWatchers.FirstOrDefault(x =>
+                    x.WatcherType == watcherType && x.CurrencyId == currency.CurrencyId);
+
+                // If the watcher does not exist, we add a default one
+                if (watcher == null)
+                {
+                    watcher = new Watcher(
+                        user.UserId,
+                        watcherType,
+                        currency.CurrencyId,
+                        WatcherBuilders.BuildWatcherValue(currency, watcherType, currencies),
+                        new WatcherSettings(5, 5),
+                        new WatcherSettings(0, 0),
+                        false);
+                }
+
+                watchers.Add(watcher);
             }
 
             // Return
-            return userWatchers;
+            return watchers;
         }
         public async Task<Watcher> GetWatcher(string watcherId)
         {
@@ -143,24 +95,12 @@ namespace CryptoWatcher.Domain.Services
             // Get currencies
             var currencies = await _currencyService.GetCurrencies();
 
-            // Collect percentages
-            var percentages = new decimal[currencies.Count];
-            var find = 0;
-            for (var i = 0; i < currencies.Count; i++)
-            {
-                if (currencies[i].CurrencyId == currency.CurrencyId) find = i;
-                percentages[i] = currencies[i].CurrencyPercentageChange24H;
-            }
-
-            // Calculate WatcherValues
-            WatcherBuilders.BuildWatcherValues(watcherType, percentages);
-
             // Add watcher
             var watcher = new Watcher(
                 user.UserId,
                 watcherType,
                 currency.CurrencyId,
-                percentages[find],
+                WatcherBuilders.BuildWatcherValue(currency, watcherType, currencies),
                 new WatcherSettings(5,5),
                 new WatcherSettings(0,0),
                 false);
