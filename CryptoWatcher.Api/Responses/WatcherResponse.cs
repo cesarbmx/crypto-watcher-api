@@ -13,6 +13,6 @@ namespace CryptoWatcher.Api.Responses
         public WatcherSettings WatcherSettings { get; set; }
         public WatcherSettings WatcherSettingsTrend { get; set; }
         public bool WatcherEnabled { get; set; }
-        public bool WatcherStatus { get; set; }
+        public WatcherStatus WatcherStatus { get; set; }
     }
 }

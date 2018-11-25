@@ -5,10 +5,13 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class WatcherBuilder
     {
-        public static bool BuildWatcherStatus(WatcherSettings watcherSettings, decimal watcherValue)
+        public static WatcherStatus BuildWatcherStatus(decimal indicatorValue, WatcherSettings watcherSettings)
         {
+            // Evaluate
+            var watcherStatus = (indicatorValue >= watcherSettings.BuyAt) ? WatcherStatus.Buy : WatcherStatus.Sell;
+
             // Return
-            return watcherValue >= watcherSettings.BuyAt;
+            return watcherStatus;
         }
     }
 }
