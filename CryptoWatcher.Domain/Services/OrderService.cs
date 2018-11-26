@@ -64,7 +64,7 @@ namespace CryptoWatcher.Domain.Services
                 _orderRepository.Add(order);
             }
 
-            // Get watchers willing to buy
+            // Get watchers willing to sell
             var watchersSells = await _watcherService.GetWatchersWillingToSell();
             foreach (var watcher in watchersSells)
             {
