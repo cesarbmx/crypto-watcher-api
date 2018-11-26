@@ -13,8 +13,8 @@ namespace CryptoWatcher.Domain.Models
         public decimal IndicatorValue { get; private set; }
         public WatcherSettings WatcherSettings { get; private set; }
         public WatcherSettings WatcherSettingsTrend { get; private set; }
-        public bool WatcherEnabled { get; private set; }
-        public OperationType OperationType => WatcherBuilder.BuildOperationType(IndicatorValue, WatcherSettings);
+        public bool WatcherIsEnabled { get; private set; }
+        public WatcherStatus WatcherStatus => WatcherBuilder.BuildWatcherStatus(IndicatorValue, WatcherSettings);
 
         public Watcher()
         {
@@ -28,7 +28,7 @@ namespace CryptoWatcher.Domain.Models
             decimal indicatorValue,
             WatcherSettings watcherSettings,
             WatcherSettings watcherSettingsTrend,
-            bool enabled)
+            bool watcherIsEnabled)
         {
             WatcherId = UrlHelper.BuildUrl(userId, currencyId, indicatorId.ToString()); // Semantic id
             UserId = userId;
@@ -37,7 +37,7 @@ namespace CryptoWatcher.Domain.Models
             IndicatorValue = indicatorValue;
             WatcherSettings  = watcherSettings;
             WatcherSettingsTrend = watcherSettingsTrend;
-            WatcherEnabled = enabled;
+            WatcherIsEnabled = watcherIsEnabled;
         }
 
         public Watcher UpdateSettings(WatcherSettings settings)

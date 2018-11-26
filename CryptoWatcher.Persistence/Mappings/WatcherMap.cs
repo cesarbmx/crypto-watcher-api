@@ -32,7 +32,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("decimal")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.WatcherEnabled)
+            entityBuilder.Property(t => t.WatcherIsEnabled)
                 .HasColumnType("bit")
                 .IsRequired();
 

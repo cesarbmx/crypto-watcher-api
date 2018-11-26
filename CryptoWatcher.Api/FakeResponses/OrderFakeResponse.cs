@@ -14,7 +14,7 @@ namespace CryptoWatcher.Api.FakeResponses
                 UserId = "cesarbmx",
                 CurrencyId = "bitcoin",
                 OrderStatus = OrderStatus.Pending,
-                Quantity = 100
+                OrderQuantity = 100
             };
         }
         public static OrderResponse GetFake_eos()
@@ -25,7 +25,7 @@ namespace CryptoWatcher.Api.FakeResponses
                 UserId = "cesarbmx",
                 CurrencyId = "eos",
                 OrderStatus = OrderStatus.Pending,
-                Quantity = 100
+                OrderQuantity = 100
             };
         }
         public static List<OrderResponse> GetFake_List()

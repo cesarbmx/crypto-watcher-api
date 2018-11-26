@@ -45,10 +45,10 @@ namespace CryptoWatcher.Domain.Services
             // Return
             return order;
         }
-        public async Task<Order> AddOrder(OperationType operationType, string userId, string currencyId, string watcherId, decimal quantity)
+        public async Task<Order> AddOrder(OrderType operationType, string userId, string currencyId, string watcherId, decimal orderQuantity)
         {
             // Add order
-            var order = new Order(operationType, userId, currencyId, watcherId, quantity);
+            var order = new Order(operationType, userId, currencyId, watcherId, orderQuantity);
             _orderRepository.Add(order);
 
             // Return
@@ -66,7 +66,7 @@ namespace CryptoWatcher.Domain.Services
                 // Add order if there is no conflict
                 if (orders.Count == 0)
                 {
-                    var order = new Order(watcher.OperationType, watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
+                    var order = new Order(OrderType.BuyLimit, watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
                     _orderRepository.Add(order);
                 }
             }
@@ -81,7 +81,7 @@ namespace CryptoWatcher.Domain.Services
                 // Add order if there is no conflict
                 if (orders.Count == 0)
                 {
-                    var order = new Order(watcher.OperationType, watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
+                    var order = new Order(OrderType.SellLimit, watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
                     _orderRepository.Add(order);
                 }
             }

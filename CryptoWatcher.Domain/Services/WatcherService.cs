@@ -79,7 +79,7 @@ namespace CryptoWatcher.Domain.Services
             var watchers = await _watcherRepository.Get();
 
             // Select those willing to buy
-            watchers = watchers.Where(x => x.OperationType == OperationType.Buy).ToList();
+            watchers = watchers.Where(x => x.WatcherStatus == WatcherStatus.Buy).ToList();
 
             // Return
             return watchers;
@@ -90,7 +90,7 @@ namespace CryptoWatcher.Domain.Services
             var watchers = await _watcherRepository.Get();
 
             // Select those willing to sell
-            watchers = watchers.Where(x => x.OperationType == OperationType.Sell).ToList();
+            watchers = watchers.Where(x => x.WatcherStatus == WatcherStatus.Sell).ToList();
 
             // Return
             return watchers;

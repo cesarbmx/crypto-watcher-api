@@ -8,9 +8,8 @@ namespace CryptoWatcher.Domain.Specifications
     {
         public override Expression<Func<Watcher, bool>> ToExpression()
         {
-            return x => //x.WatcherEnabled && // it is enabled
-                    x.OperationType == OperationType.Sell;// && // it is willing to sell
-                //x.OrderId != null; // it has no order created yet
+            return x => //x.WatcherEnabled && // It is enabled
+                    x.WatcherStatus == WatcherStatus.Sell;// It is willing to sell
         }
     }
 }

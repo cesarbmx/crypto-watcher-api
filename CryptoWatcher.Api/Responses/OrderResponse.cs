@@ -10,7 +10,7 @@ namespace CryptoWatcher.Api.Responses
         public string OrderId { get; set; }
         public string UserId { get; set; }
         public string CurrencyId { get; set; }
-        public decimal Quantity { get; set; }
+        public decimal OrderQuantity { get; set; }
         public OrderStatus OrderStatus { get; set; }
     }
 }
