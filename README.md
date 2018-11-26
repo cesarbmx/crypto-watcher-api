@@ -17,10 +17,16 @@ _Microservice + DDD + .NET Core + Hangfire + Swagger + Automapper + Log4Net + EF
 Open it with VS2017 and just debug it. It uses the Entity Framework Core in-memory database. Therefore, no pre-steps are required.
 
 
+
+
+
 <!-- DUPLICHECKER Code START -->
+<center>
 <a href="https://www.duplichecker.com/website-visitor-hit-counter.php" target="_blank" title="free hit counter">
-<img src="https://www.duplichecker.com/seotools/imageaction?code=fa8aaa9dfccc3efc488be6f431adde0f&style=0003&pad=5&type=page&initCount=1000" title="free hit counter" Alt="www.duplichecker.com/website-visitor-hit-counter.php" border="0">
+<img src="https://www.duplichecker.com/seotools/imageaction?code=46f32579168fa7ba8c543a73889e4706&style=0008&pad=5&type=ip&initCount=354" title="free hit counter" Alt="www.duplichecker.com/website-visitor-hit-counter.php" border="0">
 </a>
+</center>
+
 
 
 
