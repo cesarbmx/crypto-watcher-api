@@ -19,7 +19,7 @@ Open it with VS2017 and just debug it. It uses the Entity Framework Core in-memo
 
 <center>
 <!-- Start of CuterCounter Code -->
-<a target="_blank" href="http://www.cutercounter.com/hit.php?id=gvfxqfa&nd=6&style=38"><img src="http://www.cutercounter.com/hit.php?id=gvfxqfa&nd=6&style=38" border="0" alt="visitor counter"></a>
+<a href="http://www.cutercounter.com/hit.php?id=gvfxqfa&nd=6&style=38" target="_blank"><img src="http://www.cutercounter.com/hit.php?id=gvfxqfa&nd=6&style=38" border="0" alt="visitor counter"></a>
 <!-- End of CuterCounter Code -->
 </center>
 
