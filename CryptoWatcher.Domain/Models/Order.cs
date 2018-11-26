@@ -7,6 +7,7 @@ namespace CryptoWatcher.Domain.Models
         public string OrderId { get; private set; }
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
+        public string WatcherId { get; private set; }
         public decimal Quantity { get; private set; }
         public OrderStatus OrderStatus { get; private set; }
 
@@ -14,11 +15,13 @@ namespace CryptoWatcher.Domain.Models
         public Order(
             string userId,
             string currencyId,
+            string watcherId,
             decimal quantity)
         {
             OrderId = Id;
             UserId = userId;
             CurrencyId = currencyId;
+            WatcherId = watcherId;
             Quantity = quantity;
             OrderStatus = OrderStatus.Pending;
         }

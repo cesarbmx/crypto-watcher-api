@@ -73,18 +73,18 @@ namespace CryptoWatcher.Domain.Services
             // Return
             return watchers;
         }
-        public async Task<List<Watcher>> GetWatchersReadyToBuy()
+        public async Task<List<Watcher>> GetWatchersWillingToBuy()
         {
             // Get watchers
-            var watchers = await _watcherRepository.GetBuysWithoutOrder();
+            var watchers = await _watcherRepository.GetByWatcherStatus(WatcherStatus.Buy);
 
             // Return
             return watchers;
         }
-        public async Task<List<Watcher>> GetWatchersReadyToSell()
+        public async Task<List<Watcher>> GetWatchersWillingToSell()
         {
             // Get watchers
-            var watchers = await _watcherRepository.GetSellsWithOrder();
+            var watchers = await _watcherRepository.GetByWatcherStatus(WatcherStatus.Sell);
 
             // Return
             return watchers;

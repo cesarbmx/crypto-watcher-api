@@ -27,13 +27,9 @@ namespace CryptoWatcher.Persistence.Repositories
         {
             return await _mainDbContext.Watchers.Where(x => x.UserId == userId).ToListAsync();
         }
-        public async Task<List<Watcher>> GetBuysWithoutOrder()
+        public async Task<List<Watcher>> GetByWatcherStatus(WatcherStatus watcherStatus)
         {
-            return await _mainDbContext.Watchers.Where(x => x.WatcherStatus == WatcherStatus.Buy && x.OrderId == null).ToListAsync();
-        }
-        public async Task<List<Watcher>> GetSellsWithOrder()
-        {
-            return await _mainDbContext.Watchers.Where(x => x.WatcherStatus == WatcherStatus.Sell && x.OrderId != null).ToListAsync();
+            return await _mainDbContext.Watchers.Where(x => x.WatcherStatus == watcherStatus).ToListAsync();
         }
     }
 }

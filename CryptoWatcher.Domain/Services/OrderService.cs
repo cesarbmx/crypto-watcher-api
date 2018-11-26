@@ -45,10 +45,10 @@ namespace CryptoWatcher.Domain.Services
             // Return
             return order;
         }
-        public async Task<Order> AddOrder(string userId, string currencyId, decimal quantity)
+        public async Task<Order> AddOrder(string userId, string currencyId, string watcherId, decimal quantity)
         {
             // Add order
-            var order = new Order(userId, currencyId, quantity);
+            var order = new Order(userId, currencyId, watcherId, quantity);
             _orderRepository.Add(order);
 
             // Return
@@ -56,19 +56,19 @@ namespace CryptoWatcher.Domain.Services
         }
         public async Task AddOrdersFromWatchers()
         {
-            // Order buys
-            var watchersBuys = await _watcherService.GetWatchersReadyToBuy();
+            // Get watchers willing to buy
+            var watchersBuys = await _watcherService.GetWatchersWillingToBuy();
             foreach (var watcher in watchersBuys)
             {
-                var order = new Order(watcher.UserId, watcher.CurrencyId, 100);
+                var order = new Order(watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
                 _orderRepository.Add(order);
             }
 
             // Order sells
-            var watchersSells = await _watcherService.GetWatchersReadyToSell();
+            var watchersSells = await _watcherService.GetWatchersWillingToSell();
             foreach (var watcher in watchersSells)
             {
-                var order = new Order(watcher.UserId, watcher.CurrencyId, 100);
+                var order = new Order(watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
                 _orderRepository.Add(order);
             }
         }
