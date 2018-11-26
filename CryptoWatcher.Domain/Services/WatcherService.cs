@@ -76,7 +76,10 @@ namespace CryptoWatcher.Domain.Services
         public async Task<List<Watcher>> GetWatchersWillingToBuy()
         {
             // Get watchers
-            var watchers = await _watcherRepository.GetByWatcherStatus(WatcherStatus.Buy);
+            var watchers = await _watcherRepository.Get();
+
+            // Select those willing to buy
+            watchers = watchers.Where(x => x.OperationType == OperationType.Buy).ToList();
 
             // Return
             return watchers;
@@ -84,7 +87,10 @@ namespace CryptoWatcher.Domain.Services
         public async Task<List<Watcher>> GetWatchersWillingToSell()
         {
             // Get watchers
-            var watchers = await _watcherRepository.GetByWatcherStatus(WatcherStatus.Sell);
+            var watchers = await _watcherRepository.Get();
+
+            // Select those willing to sell
+            watchers = watchers.Where(x => x.OperationType == OperationType.Sell).ToList();
 
             // Return
             return watchers;

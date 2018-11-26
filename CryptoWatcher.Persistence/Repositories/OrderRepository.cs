@@ -26,5 +26,9 @@ namespace CryptoWatcher.Persistence.Repositories
         {
             return await _mainDbContext.Orders.Where(x => x.UserId == userId).ToListAsync();
         }
+        public async Task<List<Order>> GetByUserIdAndCurrencId(string userId, string currencyId)
+        {
+            return await _mainDbContext.Orders.Where(x => x.UserId == userId && x.CurrencyId == currencyId).ToListAsync();
+        }
     }
 }

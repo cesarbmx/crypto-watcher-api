@@ -18,7 +18,7 @@ namespace CryptoWatcher.Api.FakeResponses
                 WatcherSettings = WatcherSettingsFakeResponse.GetFake_PriceChangeWatcher(),
                 WatcherSettingsTrend = WatcherSettingsFakeResponse.GetFake_PriceChangeWatcher(),
                 WatcherEnabled = false,
-                WatcherStatus = WatcherStatus.Buy
+                OperationType = OperationType.Buy
             };
         }
         public static WatcherResponse GetFake_HypeWatcher()
@@ -33,7 +33,7 @@ namespace CryptoWatcher.Api.FakeResponses
                 WatcherSettings = WatcherSettingsFakeResponse.GetFake_HypeWatcher(),
                 WatcherSettingsTrend = WatcherSettingsFakeResponse.GetFake_HypeWatcher(),
                 WatcherEnabled = false,
-                WatcherStatus = WatcherStatus.Sell
+                OperationType = OperationType.Sell
             };
         }
         public static List<WatcherResponse> GetFake_List()

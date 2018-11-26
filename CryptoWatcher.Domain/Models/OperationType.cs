@@ -2,7 +2,7 @@
 
 namespace CryptoWatcher.Domain.Models
 {
-    public enum WatcherStatus
+    public enum OperationType
     {
         Buy,
         Sell

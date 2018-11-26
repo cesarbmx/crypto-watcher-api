@@ -8,5 +8,6 @@ namespace CryptoWatcher.Domain.Repositories
     {
         Task<Order> GetByOrderId(string orderId);
         Task<List<Order>> GetByUserId(string userId);
+        Task<List<Order>> GetByUserIdAndCurrencId(string userId, string currencyId);
     }
 }

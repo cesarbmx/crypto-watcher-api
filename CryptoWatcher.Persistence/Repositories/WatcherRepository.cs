@@ -27,9 +27,5 @@ namespace CryptoWatcher.Persistence.Repositories
         {
             return await _mainDbContext.Watchers.Where(x => x.UserId == userId).ToListAsync();
         }
-        public async Task<List<Watcher>> GetByWatcherStatus(WatcherStatus watcherStatus)
-        {
-            return await _mainDbContext.Watchers.Where(x => x.WatcherStatus == watcherStatus).ToListAsync();
-        }
     }
 }

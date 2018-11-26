@@ -45,10 +45,10 @@ namespace CryptoWatcher.Domain.Services
             // Return
             return order;
         }
-        public async Task<Order> AddOrder(string userId, string currencyId, string watcherId, decimal quantity)
+        public async Task<Order> AddOrder(OperationType operationType, string userId, string currencyId, string watcherId, decimal quantity)
         {
             // Add order
-            var order = new Order(userId, currencyId, watcherId, quantity);
+            var order = new Order(operationType, userId, currencyId, watcherId, quantity);
             _orderRepository.Add(order);
 
             // Return
@@ -60,16 +60,30 @@ namespace CryptoWatcher.Domain.Services
             var watchersBuys = await _watcherService.GetWatchersWillingToBuy();
             foreach (var watcher in watchersBuys)
             {
-                var order = new Order(watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
-                _orderRepository.Add(order);
+                // Get ongoing orders
+                var orders = await _orderRepository.GetByUserIdAndCurrencId(watcher.UserId, watcher.CurrencyId);
+
+                // Add order if there is no conflict
+                if (orders.Count == 0)
+                {
+                    var order = new Order(watcher.OperationType, watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
+                    _orderRepository.Add(order);
+                }
             }
 
             // Get watchers willing to sell
             var watchersSells = await _watcherService.GetWatchersWillingToSell();
             foreach (var watcher in watchersSells)
             {
-                var order = new Order(watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
-                _orderRepository.Add(order);
+                // Get ongoing orders
+                var orders = await _orderRepository.GetByUserIdAndCurrencId(watcher.UserId, watcher.CurrencyId);
+
+                // Add order if there is no conflict
+                if (orders.Count == 0)
+                {
+                    var order = new Order(watcher.OperationType, watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
+                    _orderRepository.Add(order);
+                }
             }
         }
     }
