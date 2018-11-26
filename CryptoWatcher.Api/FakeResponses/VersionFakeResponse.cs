@@ -8,7 +8,7 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new VersionResponse
             {
-                VersionNumber = "1.0",
+                VersionNumber = "1.0.0.0",
                 BuildDateTime = "2017/08/30 06:20",
                 LastBuildOccurred = "40 seconds ago",
                 Environment = "Production"
