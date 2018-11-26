@@ -74,8 +74,6 @@ namespace CryptoWatcher.Api.Configuration
             {
                 c.SwaggerEndpoint("swagger/v1/swagger.json", "CryptoWatcher");
                 c.RoutePrefix = string.Empty; // Serve the Swagger UI at the app's root
-                c.OAuthClientId(configuration["IdentityServer:ClientId"]);
-                c.OAuth2RedirectUrl(configuration["Swagger:RootUrlFrom"] + "swagger/ui/o2c-html");
             });
 
             return app;
