@@ -128,6 +128,7 @@ namespace CryptoWatcher.Domain.Services
                 false);
             _watcherRepository.Add(watcher);
 
+            // Return
             return watcher;
         }
         public async Task<Watcher> UpdateWatcherSettings(string watcherId, decimal buyAt, decimal sellAt)
