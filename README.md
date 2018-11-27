@@ -14,7 +14,7 @@ _Microservice + DDD + .NET Core + Hangfire + Swagger + Automapper + Log4Net + EF
 - [ ]  **Phase #6** Reward system (**Reward**)
 
 ##### HOW TO RUN IT:
-Open it with VS2017 and just debug it. It uses the Entity Framework Core in-memory database. Therefore, no pre-steps are required.
+Open it with VS2017 and just debug it. It uses the Entity Framework Core in-memory database, therefore, no pre-steps are required.
 
 
 <!-- Start of CuterCounter Code -->
