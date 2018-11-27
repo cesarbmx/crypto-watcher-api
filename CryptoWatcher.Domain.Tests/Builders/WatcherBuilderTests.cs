@@ -5,7 +5,7 @@ using CryptoWatcher.Domain.Builders;
 namespace CryptoWatcher.Domain.Tests.Builders
 {
     [TestClass]
-    public class WatcherBuildersTests
+    public class WatcherBuilderTests
     {
         [TestMethod]
         public void Hype_1()
