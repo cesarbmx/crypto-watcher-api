@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\A_JurisdictionsController.cs" />
+    <Compile Remove="FakeResponses\WatcherSettingsFakeResponse.cs" />
     <Compile Remove="ResponseExamples\IProvideExamples.cs" />
     <Compile Remove="ResponseExamples\ValidationResponseExample.cs" />
   </ItemGroup>
