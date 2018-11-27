@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using CryptoWatcher.Api.RequestExamples;
 using CryptoWatcher.Api.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Api.Responses;
@@ -98,11 +99,12 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(409, typeof(ConflictExample))]
         [SwaggerResponseExample(422, typeof(InvalidRequestExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
+        [SwaggerRequestExample(typeof(AddWatcherRequest), typeof(AddWatcherRequestExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_AddWatcher")]
         public async Task<IActionResult> AddWatcher([FromBody]AddWatcherRequest request)
         {
             // Add watcher
-            var watcher = await _watcherService.AddWatcher(request.UserId, request.Indicator, request.CurrencyId);
+            var watcher = await _watcherService.AddWatcher(request.UserId, request.Indicator, request.CurrencyId, request.WatcherSettings);
 
             // Save
             await _mainDbContext.SaveChangesAsync();

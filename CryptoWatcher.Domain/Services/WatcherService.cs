@@ -106,7 +106,7 @@ namespace CryptoWatcher.Domain.Services
             // Return
             return watcher;
         }
-        public async Task<Watcher> AddWatcher(string userId, Indicator indicator, string currencyId)
+        public async Task<Watcher> AddWatcher(string userId, Indicator indicator, string currencyId, WatcherSettings watcherSettings)
         {
             // Get user
             var user = await _userService.GetUser(userId);
@@ -123,7 +123,7 @@ namespace CryptoWatcher.Domain.Services
                 indicator,
                 currency.CurrencyId,
                 IndicatorBuilder.BuildIndicatorValue(currency, indicator, currencies),
-                new WatcherSettings(5,5),
+                watcherSettings,
                 new WatcherSettings(0,0),
                 false);
             _watcherRepository.Add(watcher);
