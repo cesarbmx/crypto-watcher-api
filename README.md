@@ -21,6 +21,9 @@ Open it with VS2017 and just debug it. It uses the Entity Framework Core in-memo
 <a href="http://www.cutercounter.com/" target="_blank"><img src="http://www.cutercounter.com/hit.php?id=gvufxqfo&nd=6&style=38" border="0" alt="free counter"></a>
 <!-- End of CuterCounter Code -->
 
+![alt text](https://user-images.githubusercontent.com/1844530/49050909-02ec8200-f1bc-11e8-895c-254bc0c36ef5.png)
+
+
 
 
 
