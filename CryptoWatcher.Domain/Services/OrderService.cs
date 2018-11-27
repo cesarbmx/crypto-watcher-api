@@ -63,8 +63,8 @@ namespace CryptoWatcher.Domain.Services
                 // Get ongoing orders
                 var orders = await _orderRepository.GetByUserIdAndCurrencId(watcher.UserId, watcher.CurrencyId);
 
-                // Add order if there is no conflict
-                if (orders.Count == 0)
+                // if there are no orders yet or the one that exists is also a buy order, then we place it
+                if (orders.Count == 0 || orders[0].OperationType == OrderType.BuyLimit)
                 {
                     var order = new Order(OrderType.BuyLimit, watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
                     _orderRepository.Add(order);
@@ -78,10 +78,10 @@ namespace CryptoWatcher.Domain.Services
                 // Get ongoing orders
                 var orders = await _orderRepository.GetByUserIdAndCurrencId(watcher.UserId, watcher.CurrencyId);
 
-                // Add order if there is no conflict
-                if (orders.Count == 0)
+                // if there are no orders yet or the one that exists is also a sell order, then we place it
+                if (orders.Count == 0 || orders[0].OperationType == OrderType.BuyLimit)
                 {
-                    var order = new Order(OrderType.SellLimit, watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
+                    var order = new Order(OrderType.SellMarket, watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
                     _orderRepository.Add(order);
                 }
             }
