@@ -16,13 +16,6 @@ _C# .NET Core + DDD + Microservice + Hangfire + Swagger + Automapper + FluentVal
 ##### HOW TO RUN IT:
 Open it with VS2017 and just debug it. It uses the Entity Framework Core in-memory database, therefore, no pre-steps are required.
 
-
-<!-- Start of CuterCounter Code -->
-<a href="http://www.cutercounter.com/" target="_blank"><img src="http://www.cutercounter.com/hit.php?id=gvufxqfo&nd=6&style=38" border="0" alt="free counter"></a>
-<!-- End of CuterCounter Code -->
-
-![Hits](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https%3A%2F%2Fgithub.com%2Fcesarbmx%2Fcrypto-watcher-api)
-
 ![alt text](https://user-images.githubusercontent.com/1844530/49051063-8c03b900-f1bc-11e8-8e0d-ff24e7c620a2.png)
 
 
