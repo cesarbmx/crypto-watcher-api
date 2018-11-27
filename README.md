@@ -1,5 +1,5 @@
 # crypto-watcher
-_Microservice + DDD + .NET Core + Hangfire + Swagger + Automapper + Log4Net + EF7_
+_Microservice + DDD + .NET Core + Hangfire + Swagger + Automapper + + FluentValidation + Log4Net + EF7_
 
 ##### GOALS:
 * Foundation for any project following .Net Core, REST API, DDD and micro-service architecture  
