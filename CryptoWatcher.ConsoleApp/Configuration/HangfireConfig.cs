@@ -27,6 +27,7 @@ namespace CryptoWatcher.ConsoleApp.Configuration
             // Run them on startup
             BackgroundJob.Enqueue<ImportCurrenciesJob>(x => x.Run());
             BackgroundJob.Enqueue<MonitorWatchersJob>(x => x.Run());
+            //BackgroundJob.Enqueue<SendWhatsappNotificationsJob>(x => x.Run());
         }
       
     }
