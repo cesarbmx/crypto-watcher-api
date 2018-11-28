@@ -1,5 +1,6 @@
 ﻿using CoinMarketCap;
 using CoinMarketCap.Core;
+using CryptoWatcher.BackgroundJobs;
 using CryptoWatcher.Domain.Repositories;
 using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
@@ -21,26 +22,31 @@ namespace CryptoWatcher.ConsoleApp.Configuration
             services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("CryptoWatcher"));
 
             // Services
-            services.AddScoped<CacheService, CacheService>();
-            services.AddScoped<CurrencyService, CurrencyService>();
-            services.AddScoped<StatusService, StatusService>();
-            services.AddScoped<ErrorMessagesService, ErrorMessagesService>();
-            services.AddScoped<LogService, LogService>();
-            services.AddScoped<WatcherService, WatcherService>();
-            services.AddScoped<UserService, UserService>();
-            services.AddScoped<NotificationService, NotificationService>();
-            services.AddScoped<OrderService, OrderService>();
+            services.AddSingleton<CacheService, CacheService>();
+            services.AddSingleton<CurrencyService, CurrencyService>();
+            services.AddSingleton<StatusService, StatusService>();
+            services.AddSingleton<ErrorMessagesService, ErrorMessagesService>();
+            services.AddSingleton<LogService, LogService>();
+            services.AddSingleton<WatcherService, WatcherService>();
+            services.AddSingleton<UserService, UserService>();
+            services.AddSingleton<NotificationService, NotificationService>();
+            services.AddSingleton<OrderService, OrderService>();
 
             // Repositories
-            services.AddScoped<ICacheRepository, CacheRepository>(); // TODO: (Cesar) app settings switch for audit
-            services.AddScoped<ILogRepository, LogRepository>();
-            services.AddScoped<IWatcherRepository, WatcherRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<INotificationRepository, NotificationRepository>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddSingleton<ICacheRepository, CacheRepository>(); // TODO: (Cesar) app settings switch for audit
+            services.AddSingleton<ILogRepository, LogRepository>();
+            services.AddSingleton<IWatcherRepository, WatcherRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<INotificationRepository, NotificationRepository>();
+            services.AddSingleton<IOrderRepository, OrderRepository>();
+
+            // Jobs
+            services.AddSingleton<ImportCurrenciesJob, ImportCurrenciesJob>();
+            services.AddSingleton<MonitorWatchersJob, MonitorWatchersJob>();
+            services.AddSingleton<SendWhatsappNotificationsJob, SendWhatsappNotificationsJob>();
 
             // Other
-            services.AddScoped<ICoinMarketCapClient, CoinMarketCapClient>();
+            services.AddSingleton<ICoinMarketCapClient, CoinMarketCapClient>();
 
             return services;
         }

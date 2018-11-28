@@ -30,29 +30,38 @@ namespace CryptoWatcher.BackgroundJobs
         {
             try
             {
-                TwilioClient.Init(
-                    Environment.GetEnvironmentVariable("TWILIO_ACCOUNT_SID"),
-                    Environment.GetEnvironmentVariable("TWILIO_AUTH_TOKEN")
-                );
+
                 // Get pending notifications
                 var pendingNotifications = await _notificationService.GetPendingNotifications();
 
-                foreach (var pendingNotification in pendingNotifications)
+                // If there are pending notifications
+                if (pendingNotifications.Count > 0)
                 {
-                    try
+                    // Connect
+                    TwilioClient.Init(
+                        Environment.GetEnvironmentVariable("TWILIO_ACCOUNT_SID"),
+                        Environment.GetEnvironmentVariable("TWILIO_AUTH_TOKEN")
+                    );
+                    
+                    // For each notification
+                    foreach (var pendingNotification in pendingNotifications)
                     {
-                        MessageResource.Create(
-                            from: new PhoneNumber("whatsapp:" + pendingNotification.PhoneNumber),
-                            to: new PhoneNumber("whatsapp:" + "+34666666666"),
-                            body: pendingNotification.Message
-                        );
-                        pendingNotification.SendWhatsapp();
-                        _logger.LogSplunkInformation(nameof(LoggingEvents.WatchappsSent), pendingNotification);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Log into Splunk
-                        _logger.LogSplunkError(nameof(LoggingEvents.SendingWatchappFailed), pendingNotification, ex);
+                        try
+                        {
+                            // Send whatsapp
+                            MessageResource.Create(
+                                from: new PhoneNumber("whatsapp:" + pendingNotification.PhoneNumber),
+                                to: new PhoneNumber("whatsapp:" + "+34666666666"),
+                                body: pendingNotification.Message
+                            );
+                            pendingNotification.SendWhatsapp();
+                            _logger.LogSplunkInformation(nameof(LoggingEvents.WatchappsSent), pendingNotification);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Log into Splunk
+                            _logger.LogSplunkError(nameof(LoggingEvents.SendingWatchappFailed), pendingNotification, ex);
+                        }
                     }
                 }
 
