@@ -20,5 +20,11 @@ namespace CryptoWatcher.Domain.Models
             WhatsappSent = false;
             WhatsappSentTime = null;
         }
+
+        public void SendWhatsapp()
+        {
+            WhatsappSent = true;
+            WhatsappSentTime = DateTime.Now;
+        }
     }
 }

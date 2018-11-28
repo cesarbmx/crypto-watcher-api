@@ -39,22 +39,29 @@ namespace CryptoWatcher.BackgroundJobs
 
                 foreach (var pendingNotification in pendingNotifications)
                 {
-                    MessageResource.Create(
-                        from: new PhoneNumber("whatsapp:" + pendingNotification.PhoneNumber),
-                        to: new PhoneNumber("whatsapp:" + "+34666666666"),
-                        body: pendingNotification.Message
-                    );
+                    try
+                    {
+                        MessageResource.Create(
+                            from: new PhoneNumber("whatsapp:" + pendingNotification.PhoneNumber),
+                            to: new PhoneNumber("whatsapp:" + "+34666666666"),
+                            body: pendingNotification.Message
+                        );
+                        pendingNotification.SendWhatsapp();
+                        _logger.LogSplunkInformation(nameof(LoggingEvents.WatchappsSent), pendingNotification);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log into Splunk
+                        _logger.LogSplunkError(nameof(LoggingEvents.SendingWatchappsFailed), pendingNotification, ex);
+                    }
                 }
-
-                // Log into Splunk
-                _logger.LogSplunkInformation(nameof(LoggingEvents.WatchappsSent));
 
                 await Task.CompletedTask;
             }
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogSplunkError(nameof(LoggingEvents.SendingWatchappsFailed), ex.Message);
+                _logger.LogSplunkError(nameof(LoggingEvents.ConnectingToTwilioFailed), ex);
             }
         }
     }

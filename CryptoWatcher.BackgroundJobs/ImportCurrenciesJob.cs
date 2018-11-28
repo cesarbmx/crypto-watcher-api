@@ -67,7 +67,7 @@ namespace CryptoWatcher.BackgroundJobs
             catch (Exception ex)
             {
                 // Log into Splunk              
-                _logger.LogSplunkError(nameof(LoggingEvents.ImportingCurrenciesFailed), ex.Message);
+                _logger.LogSplunkError(nameof(LoggingEvents.ImportingCurrenciesFailed), ex);
             }
         }
     }

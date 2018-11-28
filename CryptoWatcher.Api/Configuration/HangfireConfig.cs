@@ -27,7 +27,7 @@ namespace CryptoWatcher.Api.Configuration
             var jobsIntervalInMinutes = int.Parse(configuration["JobsIntervalInMinutes"]);
             RecurringJob.AddOrUpdate<ImportCurrenciesJob>("Import currencies", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
             RecurringJob.AddOrUpdate<MonitorWatchersJob>("Monitor watchers", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            //RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Execute(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            //RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
 
             // Run them on startup
             BackgroundJob.Enqueue<ImportCurrenciesJob>(x => x.Run());

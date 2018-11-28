@@ -44,7 +44,7 @@ namespace CryptoWatcher.BackgroundJobs
             catch (Exception ex)
             {
                // Log into Splunk 
-                _logger.LogSplunkError(nameof(LoggingEvents.AddingOrdersFailed), ex.Message);
+                _logger.LogSplunkError(nameof(LoggingEvents.AddingOrdersFailed), ex);
             }
         }
     }

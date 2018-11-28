@@ -14,7 +14,24 @@ namespace CryptoWatcher.Shared.Tests.Extensions
             var dictionary = new Dictionary<string, object>
             {
                 {"ObjectId", "1"},
-                { "ObjectName", "MyObject"}
+                {"ObjectName", "MyObject"}
+            };
+
+            //Act
+            var str = dictionary.AsSplunkKeyValueString();
+
+            //Assert
+            Assert.AreEqual("ObjectId=1, ObjectName=MyObject", str);
+        }
+        [TestMethod]
+        public void AsSplunkKeyValueString_SkipSpaces()
+        {
+            //Arrange
+            var dictionary = new Dictionary<string, object>
+            {
+                {"ObjectId", "1"},
+                {"ObjectName", "MyObject"},
+                {"ObjectDescription", "Blah blah blah"}
             };
 
             //Act
