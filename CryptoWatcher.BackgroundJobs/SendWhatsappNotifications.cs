@@ -47,14 +47,14 @@ namespace CryptoWatcher.BackgroundJobs
                 }
 
                 // Log into Splunk
-                _logger.LogSplunkInformation(nameof(LoggingEvents.WatchappsHaveBeenSent));
+                _logger.LogSplunkInformation(nameof(LoggingEvents.WatchappsSent));
 
                 await Task.CompletedTask;
             }
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogSplunkError(nameof(LoggingEvents.SendingWatchappsHasFailed), ex.Message);
+                _logger.LogSplunkError(nameof(LoggingEvents.SendingWatchappsFailed), ex.Message);
             }
         }
     }

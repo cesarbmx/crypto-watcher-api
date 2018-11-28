@@ -62,12 +62,12 @@ namespace CryptoWatcher.BackgroundJobs
                 await _mainDbContext.SaveChangesAsync();
 
                 // Log into Splunk               
-                _logger.LogSplunkInformation(nameof(LoggingEvents.CurrenciesHaveBeenImported));
+                _logger.LogSplunkInformation(nameof(LoggingEvents.CurrenciesImported));
             }
             catch (Exception ex)
             {
                 // Log into Splunk              
-                _logger.LogSplunkError(nameof(LoggingEvents.ImportingCurrenciesHasFailed), ex.Message);
+                _logger.LogSplunkError(nameof(LoggingEvents.ImportingCurrenciesFailed), ex.Message);
             }
         }
     }

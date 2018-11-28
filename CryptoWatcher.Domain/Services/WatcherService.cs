@@ -6,6 +6,8 @@ using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Repositories;
 using CryptoWatcher.Shared.Exceptions;
+using CryptoWatcher.Shared.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Domain.Services
 {
@@ -14,15 +16,18 @@ namespace CryptoWatcher.Domain.Services
         private readonly IWatcherRepository _watcherRepository;
         private readonly UserService _userService;
         private readonly CurrencyService _currencyService;
+        private readonly ILogger<WatcherService> _logger;
 
         public WatcherService(
             IWatcherRepository watcherRepository,
             UserService userService,
-            CurrencyService currencyService)
+            CurrencyService currencyService,
+            ILogger<WatcherService> logger)
         {
             _watcherRepository = watcherRepository;
             _userService = userService;
             _currencyService = currencyService;
+            _logger = logger;
         }
 
         public async Task<List<Watcher>> GetWatchers(string userId)
@@ -127,6 +132,9 @@ namespace CryptoWatcher.Domain.Services
                 new WatcherSettings(0,0),
                 false);
             _watcherRepository.Add(watcher);
+
+            // Log
+            _logger.LogSplunkInformation(nameof(LoggingEvents.WatcherAdded), watcher);
 
             // Return
             return watcher;

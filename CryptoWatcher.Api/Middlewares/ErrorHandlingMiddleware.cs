@@ -73,7 +73,7 @@ namespace CryptoWatcher.Api.Middlewares
                     errorCode = 500;
                     errorResponse = new ErrorResponse(nameof(Messages.InternalServerError), errorCode, Messages.InternalServerError);
                     // Log error
-                    _logger.LogSplunkError(nameof(LoggingEvents.UnhandledException), exception);
+                    _logger.LogSplunkError(nameof(LoggingEvents.ExceptionUnhandled), exception);
                     break;
             }
 

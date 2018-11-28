@@ -37,14 +37,14 @@ namespace CryptoWatcher.BackgroundJobs
                 await _mainDbContext.SaveChangesAsync();
 
                 // Log into Splunk
-                _logger.LogSplunkInformation(nameof(LoggingEvents.OrdersHaveBeenAdded));
+                _logger.LogSplunkInformation(nameof(LoggingEvents.OrdersAdded));
 
                 await Task.CompletedTask;
             }
             catch (Exception ex)
             {
                // Log into Splunk 
-                _logger.LogSplunkError(nameof(LoggingEvents.AddingOrdersHasFailed), ex.Message);
+                _logger.LogSplunkError(nameof(LoggingEvents.AddingOrdersFailed), ex.Message);
             }
         }
     }
