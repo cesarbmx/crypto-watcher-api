@@ -8,7 +8,7 @@ namespace CryptoWatcher.Domain.Models
         CurrenciesImported,
         ImportingCurrenciesFailed,
         WatchappsSent,
-        SendingWatchappsFailed,
+        SendingWatchappFailed,
         OrdersAdded,
         AddingOrdersFailed,
         WatcherAdded,

@@ -52,7 +52,7 @@ namespace CryptoWatcher.BackgroundJobs
                     catch (Exception ex)
                     {
                         // Log into Splunk
-                        _logger.LogSplunkError(nameof(LoggingEvents.SendingWatchappsFailed), pendingNotification, ex);
+                        _logger.LogSplunkError(nameof(LoggingEvents.SendingWatchappFailed), pendingNotification, ex);
                     }
                 }
 

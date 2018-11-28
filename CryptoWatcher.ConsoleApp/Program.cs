@@ -4,7 +4,6 @@ using CryptoWatcher.ConsoleApp.Configuration;
 using Hangfire;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.ConsoleApp
 {

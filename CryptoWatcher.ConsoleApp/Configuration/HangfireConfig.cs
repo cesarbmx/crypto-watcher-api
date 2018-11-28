@@ -3,7 +3,6 @@ using Hangfire;
 using Hangfire.MemoryStorage;
 using CryptoWatcher.BackgroundJobs;
 using Hangfire.Logging;
-using Hangfire.Logging.LogProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
