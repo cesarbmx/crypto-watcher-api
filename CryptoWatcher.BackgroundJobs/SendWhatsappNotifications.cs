@@ -58,6 +58,8 @@ namespace CryptoWatcher.BackgroundJobs
                                 body: pendingNotification.Message
                             );
                             pendingNotification.SendWhatsapp();
+
+                            // Log into Splunk
                             _logger.LogSplunkInformation(nameof(LoggingEvents.WatchappsSent), pendingNotification);
                         }
                         catch (Exception ex)

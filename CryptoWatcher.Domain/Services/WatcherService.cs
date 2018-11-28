@@ -133,7 +133,7 @@ namespace CryptoWatcher.Domain.Services
                 false);
             _watcherRepository.Add(watcher);
 
-            // Log
+            // Log into Splunk
             _logger.LogSplunkInformation(nameof(LoggingEvents.WatcherAdded), watcher);
 
             // Return
