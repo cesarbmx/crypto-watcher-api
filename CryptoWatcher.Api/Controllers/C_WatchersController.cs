@@ -38,13 +38,13 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(200, typeof(WatcherListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetUserWatchers")]
-        public async Task<IActionResult> GetUserWatchers(string userId, Indicator? indicator = null)
+        public async Task<IActionResult> GetUserWatchers(string userId, IndicatorType? indicatorType = null)
         {
             // Get watchers
             List<Watcher> watchers;
-            if (indicator.HasValue)
+            if (indicatorType.HasValue)
             {
-                watchers = await _watcherService.GetWatchers(userId, indicator.Value);
+                watchers = await _watcherService.GetWatchers(userId, indicatorType.Value);
             }
             else
             {

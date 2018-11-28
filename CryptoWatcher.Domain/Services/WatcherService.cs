@@ -34,13 +34,13 @@ namespace CryptoWatcher.Domain.Services
         {
             // Get user watchers
             var userWatchers = new List<Watcher>();
-            userWatchers.AddRange(await GetWatchers(userId, Indicator.PriceChange));
-            userWatchers.AddRange(await GetWatchers(userId, Indicator.Hype));
+            userWatchers.AddRange(await GetWatchers(userId, IndicatorType.PriceChange));
+            userWatchers.AddRange(await GetWatchers(userId, IndicatorType.Hype));
 
             // Return
             return userWatchers;
         }
-        public async Task<List<Watcher>> GetWatchers(string userId, Indicator indicator)
+        public async Task<List<Watcher>> GetWatchers(string userId, IndicatorType indicator)
         {
             // Get user
             var user = await _userService.GetUser(userId);
@@ -57,7 +57,7 @@ namespace CryptoWatcher.Domain.Services
             {
                 // If the watcher exists, we add it
                 var watcher = userWatchers.FirstOrDefault(x =>
-                    x.IndicatorId == indicator && x.CurrencyId == currency.CurrencyId);
+                    x.IndicatorType == indicator && x.CurrencyId == currency.CurrencyId);
 
                 // If the watcher does not exist, we add a default one
                 if (watcher == null)
@@ -111,7 +111,7 @@ namespace CryptoWatcher.Domain.Services
             // Return
             return watcher;
         }
-        public async Task<Watcher> AddWatcher(string userId, Indicator indicator, string currencyId, WatcherSettings watcherSettings)
+        public async Task<Watcher> AddWatcher(string userId, IndicatorType indicator, string currencyId, WatcherSettings watcherSettings)
         {
             // Get user
             var user = await _userService.GetUser(userId);

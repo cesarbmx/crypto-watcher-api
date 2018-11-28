@@ -13,7 +13,7 @@ namespace CryptoWatcher.Api.FakeResponses
                 WatcherId = "cesarbmx-bitcoin-price-change",
                 UserId = "cesarbmx",
                 CurrencyId = "bitcoin",
-                IndicatorId = Indicator.PriceChange,
+                IndicatorType = IndicatorType.PriceChange,
                 IndicatorValue = 5000,
                 WatcherSettings = new WatcherSettings(2, 15),
                 WatcherSettingsTrend = 
@@ -29,7 +29,7 @@ namespace CryptoWatcher.Api.FakeResponses
                 WatcherId = "cesarbmx-bitcoin-hype",
                 UserId = "cesarbmx",
                 CurrencyId = "bitcoin",
-                IndicatorId = Indicator.Hype,
+                IndicatorType = IndicatorType.Hype,
                 IndicatorValue = 2,
                 WatcherSettings = new WatcherSettings(2, 15),
                 WatcherSettingsTrend = new WatcherSettings(2, 15),

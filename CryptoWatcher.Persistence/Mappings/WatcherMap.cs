@@ -24,7 +24,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.IndicatorId)
+            entityBuilder.Property(t => t.IndicatorType)
                 .HasColumnType("smallint")
                 .IsRequired();
 
