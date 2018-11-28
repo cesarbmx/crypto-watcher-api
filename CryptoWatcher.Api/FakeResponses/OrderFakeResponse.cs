@@ -13,6 +13,7 @@ namespace CryptoWatcher.Api.FakeResponses
                 OrderId = "2779cf8051-381f-4834-93dc-ece6345dde33",
                 UserId = "cesarbmx",
                 CurrencyId = "bitcoin",
+                OrderType = OrderType.BuyLimit,
                 OrderStatus = OrderStatus.Pending,
                 OrderQuantity = 100
             };
@@ -24,6 +25,7 @@ namespace CryptoWatcher.Api.FakeResponses
                 OrderId = "2779cf8051-381f-4834-93dc-ece6345dde44",
                 UserId = "cesarbmx",
                 CurrencyId = "eos",
+                OrderType = OrderType.BuyLimit,
                 OrderStatus = OrderStatus.Pending,
                 OrderQuantity = 100
             };

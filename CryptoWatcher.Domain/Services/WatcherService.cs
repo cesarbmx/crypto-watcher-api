@@ -64,8 +64,8 @@ namespace CryptoWatcher.Domain.Services
                 {
                     watcher = new Watcher(
                         user.UserId,
-                        indicator,
                         currency.CurrencyId,
+                        indicator,
                         IndicatorBuilder.BuildIndicatorValue(currency, indicator, currencies),
                         new WatcherSettings(5, 5),
                         new WatcherSettings(0, 0),
@@ -125,8 +125,8 @@ namespace CryptoWatcher.Domain.Services
             // Add watcher
             var watcher = new Watcher(
                 user.UserId,
-                indicator,
                 currency.CurrencyId,
+                indicator,
                 IndicatorBuilder.BuildIndicatorValue(currency, indicator, currencies),
                 watcherSettings,
                 new WatcherSettings(0,0),

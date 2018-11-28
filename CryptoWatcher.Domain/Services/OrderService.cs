@@ -45,10 +45,10 @@ namespace CryptoWatcher.Domain.Services
             // Return
             return order;
         }
-        public async Task<Order> AddOrder(OrderType operationType, string userId, string currencyId, string watcherId, decimal orderQuantity)
+        public async Task<Order> AddOrder(OrderType oorderType, string userId, string currencyId, string watcherId, decimal orderQuantity)
         {
             // Add order
-            var order = new Order(operationType, userId, currencyId, watcherId, orderQuantity);
+            var order = new Order(userId, currencyId, oorderType, orderQuantity);
             _orderRepository.Add(order);
 
             // Return
@@ -64,9 +64,9 @@ namespace CryptoWatcher.Domain.Services
                 var orders = await _orderRepository.GetByUserIdAndCurrencId(watcher.UserId, watcher.CurrencyId);
 
                 // if there are no orders yet or the one that exists is also a buy order, then we place it
-                if (orders.Count == 0 || orders[0].OperationType == OrderType.BuyLimit)
+                if (orders.Count == 0 || orders[0].OorderType == OrderType.BuyLimit)
                 {
-                    var order = new Order(OrderType.BuyLimit, watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
+                    var order = new Order(watcher.UserId, watcher.CurrencyId, OrderType.BuyLimit, 100);
                     _orderRepository.Add(order);
                 }
             }
@@ -79,9 +79,9 @@ namespace CryptoWatcher.Domain.Services
                 var orders = await _orderRepository.GetByUserIdAndCurrencId(watcher.UserId, watcher.CurrencyId);
 
                 // if there are no orders yet or the one that exists is also a sell order, then we place it
-                if (orders.Count == 0 || orders[0].OperationType == OrderType.BuyLimit)
+                if (orders.Count == 0 || orders[0].OorderType == OrderType.BuyLimit)
                 {
-                    var order = new Order(OrderType.SellMarket, watcher.UserId, watcher.CurrencyId, watcher.WatcherId, 100);
+                    var order = new Order( watcher.UserId, watcher.CurrencyId, OrderType.SellMarket, 100);
                     _orderRepository.Add(order);
                 }
             }
