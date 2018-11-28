@@ -72,7 +72,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="4.3.1" />
-    <PackageReference Include="Twilio" Version="5.22.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -80,6 +79,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CryptoWatcher.BackgroundJobs\CryptoWatcher.BackgroundJobs.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Domain\CryptoWatcher.Domain.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Persistence\CryptoWatcher.Persistence.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Shared\CryptoWatcher.Shared.csproj" />

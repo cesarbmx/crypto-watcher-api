@@ -7,7 +7,7 @@ using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;
 using Microsoft.Extensions.Logging;
 
-namespace CryptoWatcher.Api.Jobs
+namespace CryptoWatcher.BackgroundJobs
 {
     public class MonitorWatchersJob
     {

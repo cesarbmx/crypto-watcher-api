@@ -9,7 +9,7 @@ using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 
-namespace CryptoWatcher.Api.Jobs
+namespace CryptoWatcher.BackgroundJobs
 {
     public class SendWhatsappNotificationsJob
     {

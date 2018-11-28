@@ -1,6 +1,6 @@
 ﻿using Hangfire;
 using Hangfire.MemoryStorage;
-using CryptoWatcher.Api.Jobs;
+using CryptoWatcher.BackgroundJobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

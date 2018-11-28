@@ -11,7 +11,7 @@ using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;
 
-namespace CryptoWatcher.Api.Jobs
+namespace CryptoWatcher.BackgroundJobs
 {
     public class ImportCurrenciesJob
     {
