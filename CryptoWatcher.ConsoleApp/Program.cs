@@ -71,7 +71,7 @@ namespace CryptoWatcher.ConsoleApp
 
             // Register jobs
             var currencyJob = serviceProvider.GetService<ImportCurrenciesJob>();
-            RecurringJob.AddOrUpdate("Import currencies", () => currencyJob.Execute(), Cron.Minutely);
+            RecurringJob.AddOrUpdate("Import currencies", () => currencyJob.Run(), Cron.Minutely);
 
             using (new BackgroundJobServer())
             {

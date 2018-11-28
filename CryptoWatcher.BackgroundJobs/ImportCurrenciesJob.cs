@@ -37,7 +37,7 @@ namespace CryptoWatcher.BackgroundJobs
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
-        public async Task Execute()
+        public async Task Run()
         {
             try
             {
