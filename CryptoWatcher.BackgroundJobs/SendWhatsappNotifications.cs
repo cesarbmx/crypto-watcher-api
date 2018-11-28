@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Services;
+using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;
 using Microsoft.Extensions.Logging;
 using Twilio;
@@ -13,14 +14,17 @@ namespace CryptoWatcher.BackgroundJobs
 {
     public class SendWhatsappNotificationsJob
     {
+        private readonly MainDbContext _mainDbContext;
         private readonly ILogger<MonitorWatchersJob> _logger;
         private readonly NotificationService _notificationService;
 
 
         public SendWhatsappNotificationsJob(
+            MainDbContext mainDbContext,
             ILogger<MonitorWatchersJob> logger,
             NotificationService notificationService)
         {
+            _mainDbContext = mainDbContext;
             _logger = logger;
             _notificationService = notificationService;
         }
@@ -30,7 +34,6 @@ namespace CryptoWatcher.BackgroundJobs
         {
             try
             {
-
                 // Get pending notifications
                 var pendingNotifications = await _notificationService.GetPendingNotifications();
 
@@ -63,6 +66,9 @@ namespace CryptoWatcher.BackgroundJobs
                             _logger.LogSplunkError(nameof(LoggingEvents.SendingWatchappFailed), pendingNotification, ex);
                         }
                     }
+
+                    // Save
+                    await _mainDbContext.SaveChangesAsync();
                 }
 
                 await Task.CompletedTask;
