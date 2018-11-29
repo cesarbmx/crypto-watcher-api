@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Api.Requests;
 using CryptoWatcher.Api.Responses;
-using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Domain.Models;
@@ -13,6 +12,7 @@ using CryptoWatcher.Domain.Repositories;
 using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Shared.Exceptions;
 using MediatR;
+using CryptoWatcher.Domain.Builders;
 
 namespace CryptoWatcher.Api.Handlers
 {
@@ -48,63 +48,17 @@ namespace CryptoWatcher.Api.Handlers
             // Get currencies
             var currencies = await _cacheService.GetFromCache<Currency>();
 
-            // For each currency
-            var watchers = new List<Watcher>();
-            foreach (var currency in currencies)
+            // Build with defaults
+            userWatchers = userWatchers.BuildWithDefaults(currencies);
+
+            // Filter by indicator type
+            if (request.IndicatorType.HasValue)
             {
-                // Price change watcher
-                if (!request.IndicatorType.HasValue || request.IndicatorType == IndicatorType.PriceChange)
-                {
-                    // Get matching watcher
-                    var priceChangeWatcher = userWatchers.FirstOrDefault(x =>
-                        x.IndicatorType == IndicatorType.PriceChange &&
-                        x.CurrencyId == currency.Id);
-
-                    // If the watcher does not exist, we add the default one
-                    if (priceChangeWatcher == null)
-                    {
-                        priceChangeWatcher = new Watcher(
-                            "master",
-                            currency.Id,
-                            IndicatorType.PriceChange,
-                            IndicatorBuilder.BuildValue(currency, IndicatorType.PriceChange, currencies),
-                            new WatcherSettings(5, 5),
-                            new WatcherSettings(0, 0),
-                            false);
-                    }
-
-                    // Add
-                    watchers.Add(priceChangeWatcher);
-                }
-
-                // Price change watcher
-                if (!request.IndicatorType.HasValue || request.IndicatorType == IndicatorType.Hype)
-                {
-                    // Get matching watcher
-                    var hypeWatcher = userWatchers.FirstOrDefault(x =>
-                        x.IndicatorType == IndicatorType.Hype &&
-                        x.CurrencyId == currency.Id);
-
-                    // If the watcher does not exist, we add the default one
-                    if (hypeWatcher == null)
-                    {
-                        hypeWatcher = new Watcher(
-                            "master",
-                            currency.Id,
-                            IndicatorType.PriceChange,
-                            IndicatorBuilder.BuildValue(currency, IndicatorType.PriceChange, currencies),
-                            new WatcherSettings(5, 5),
-                            new WatcherSettings(0, 0),
-                            false);
-                    }
-
-                    // Add
-                    watchers.Add(hypeWatcher);
-                }
+                userWatchers = userWatchers.Where(x => x.IndicatorType == request.IndicatorType).ToList();
             }
 
             // Response
-            var response = _mapper.Map<List<WatcherResponse>>(watchers);
+            var response = _mapper.Map<List<WatcherResponse>>(userWatchers);
 
             // Return
             return response;
