@@ -4,9 +4,13 @@ using AutoMapper;
 using CryptoWatcher.Api.Requests;
 using CryptoWatcher.Api.Responses;
 using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.Expressions;
+using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Repositories;
 using CryptoWatcher.Domain.Services;
+using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Shared.Exceptions;
 using CryptoWatcher.Shared.Extensions;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -15,6 +19,7 @@ namespace CryptoWatcher.Api.Handlers
 {
     public class AddWatcherHandler : IRequestHandler<AddWatcherRequest, WatcherResponse>
     {
+        private readonly MainDbContext _mainDbContext;
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly UserService _userService;
         private readonly CurrencyService _currencyService;
@@ -22,12 +27,14 @@ namespace CryptoWatcher.Api.Handlers
         private readonly IMapper _mapper;
 
         public AddWatcherHandler(
+            MainDbContext mainDbContext,
             IRepository<Watcher> watcherRepository,
             UserService userService,
             CurrencyService currencyService,
             ILogger<AddWatcherHandler> logger,
             IMapper mapper)
         {
+            _mainDbContext = mainDbContext;
             _watcherRepository = watcherRepository;
             _userService = userService;
             _currencyService = currencyService;
@@ -43,11 +50,21 @@ namespace CryptoWatcher.Api.Handlers
             // Get currencies
             var currency = await _currencyService.GetCurrency(request.CurrencyId);
 
+            // Get user watchers
+            var watcher = await _watcherRepository.GetSingle(
+                WatcherExpression.UniqueWatcher(
+                    request.UserId,
+                    request.CurrencyId,
+                    request.IndicatorType));
+
+            // Check if watcher exists
+            if (watcher != null) throw new ConflictException(WatcherMessage.WatcherExists);
+
             // Get currencies
             var currencies = await _currencyService.GetCurrencies();
 
             // Add watcher
-            var watcher = new Watcher(
+             watcher = new Watcher(
                 user.Id,
                 currency.Id,
                 request.IndicatorType,
@@ -57,10 +74,11 @@ namespace CryptoWatcher.Api.Handlers
                 false);
             _watcherRepository.Add(watcher);
 
+            // Save
+            await _mainDbContext.SaveChangesAsync(cancellationToken);
+
             // Log into Splunk
             _logger.LogSplunkInformation(nameof(LoggingEvents.WatcherAdded), watcher);
-
-            // Return
 
             // Response
             var response = _mapper.Map<WatcherResponse>(watcher);

@@ -34,6 +34,11 @@ namespace CryptoWatcher.Persistence.Repositories
             // Get by id
             return await _dbSet.FindAsync(id);
         }
+        public async Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression)
+        {
+            // Get single by expression
+            return await _dbSet.FirstOrDefaultAsync(expression);
+        }
         public void Add(TEntity entity)
         {
             // Add

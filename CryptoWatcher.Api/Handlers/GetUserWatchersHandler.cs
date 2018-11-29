@@ -16,7 +16,7 @@ using MediatR;
 
 namespace CryptoWatcher.Api.Handlers
 {
-    public class GetUserWatchersHandler: IRequestHandler<GetUserWatchersRequest, List<WatcherResponse>>
+    public class GetUserWatchersHandler : IRequestHandler<GetUserWatchersRequest, List<WatcherResponse>>
     {
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly IRepository<User> _userRepository;
@@ -34,7 +34,6 @@ namespace CryptoWatcher.Api.Handlers
             _cacheService = cacheService;
             _mapper = mapper;
         }
-
         public async Task<List<WatcherResponse>> Handle(GetUserWatchersRequest request, CancellationToken cancellationToken)
         {
             // Get user
@@ -53,49 +52,55 @@ namespace CryptoWatcher.Api.Handlers
             var watchers = new List<Watcher>();
             foreach (var currency in currencies)
             {
-                // PriceChange watcher
-                // If the watcher exists, we add it
-                var priceChangeWatcher = userWatchers.FirstOrDefault(x => 
-                    x.IndicatorType == IndicatorType.PriceChange &&
-                    x.Id == currency.Id);
-
-                // If the watcher does not exist, we add a default one
-                if (priceChangeWatcher == null)
+                // Price change watcher
+                if (!request.IndicatorType.HasValue || request.IndicatorType == IndicatorType.PriceChange)
                 {
-                    priceChangeWatcher = new Watcher(
-                        user.Id,
-                        currency.Id,
-                        IndicatorType.PriceChange,
-                        IndicatorBuilder.BuildValue(currency, IndicatorType.PriceChange, currencies),
-                        new WatcherSettings(5, 5),
-                        new WatcherSettings(0, 0),
-                        false);
+                    // Get matching watcher
+                    var priceChangeWatcher = userWatchers.FirstOrDefault(x =>
+                        x.IndicatorType == IndicatorType.PriceChange &&
+                        x.Id == currency.Id);
+
+                    // If the watcher does not exist, we add the default one
+                    if (priceChangeWatcher == null)
+                    {
+                        priceChangeWatcher = new Watcher(
+                            "master",
+                            currency.Id,
+                            IndicatorType.PriceChange,
+                            IndicatorBuilder.BuildValue(currency, IndicatorType.PriceChange, currencies),
+                            new WatcherSettings(5, 5),
+                            new WatcherSettings(0, 0),
+                            false);
+                    }
+
+                    // Add
+                    watchers.Add(priceChangeWatcher);
                 }
 
-                // Add
-                watchers.Add(priceChangeWatcher);
-
-                // Hype watcher
-                // If the watcher exists, we add it
-                var hypeWatcher = userWatchers.FirstOrDefault(x =>
-                    x.IndicatorType == IndicatorType.PriceChange &&
-                    x.Id == currency.Id);
-
-                // If the watcher does not exist, we add a default one
-                if (hypeWatcher == null)
+                // Price change watcher
+                if (!request.IndicatorType.HasValue || request.IndicatorType == IndicatorType.Hype)
                 {
-                    hypeWatcher = new Watcher(
-                        user.Id,
-                        currency.Id,
-                        IndicatorType.PriceChange,
-                        IndicatorBuilder.BuildValue(currency, IndicatorType.PriceChange, currencies),
-                        new WatcherSettings(5, 5),
-                        new WatcherSettings(0, 0),
-                        false);
-                }
+                    // Get matching watcher
+                    var hypeWatcher = userWatchers.FirstOrDefault(x =>
+                        x.IndicatorType == IndicatorType.Hype &&
+                        x.Id == currency.Id);
 
-                // Add
-                watchers.Add(hypeWatcher);
+                    // If the watcher does not exist, we add the default one
+                    if (hypeWatcher == null)
+                    {
+                        hypeWatcher = new Watcher(
+                            "master",
+                            currency.Id,
+                            IndicatorType.PriceChange,
+                            IndicatorBuilder.BuildValue(currency, IndicatorType.PriceChange, currencies),
+                            new WatcherSettings(5, 5),
+                            new WatcherSettings(0, 0),
+                            false);
+                    }
+
+                    // Add
+                    watchers.Add(hypeWatcher);
+                }
             }
 
             // Response

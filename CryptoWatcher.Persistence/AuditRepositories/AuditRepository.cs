@@ -65,6 +65,10 @@ namespace CryptoWatcher.Persistence.AuditRepositories
         {
             return Task.FromResult(List.FirstOrDefault(x=>x.Id == id));
         }
+        public Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression)
+        {
+            return Task.FromResult(List.FirstOrDefault(expression.Compile()));
+        }
         public void Add(TEntity entity)
         {
             List.Add(entity);

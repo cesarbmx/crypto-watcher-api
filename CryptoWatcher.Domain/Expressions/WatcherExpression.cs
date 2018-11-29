@@ -18,6 +18,13 @@ namespace CryptoWatcher.Domain.Expressions
         {
             return x => x.Status == WatcherStatus.Sell;
         }
+        public static Expression<Func<Watcher, bool>> UniqueWatcher(string userId, string currencyId, IndicatorType indicatorType)
+        {
+            return x =>
+                x.UserId == userId &&
+                x.CurrencyId == currencyId &&
+                x.IndicatorType == indicatorType;
+        }
         public static Expression<Func<Watcher, bool>> Filter(string userId, string id)
         {
             return x =>

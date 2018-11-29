@@ -27,7 +27,7 @@ namespace CryptoWatcher.Domain.Models
             decimal indicatorValue,
             WatcherSettings settings,
             WatcherSettings settingsTrend,
-            bool watcherIsEnabled)
+            bool enabled)
         {
             UserId = UrlHelper.BuildUrl(userId, currencyId, indicatorType.ToString()); // Semantic id
             UserId = userId;
@@ -36,7 +36,7 @@ namespace CryptoWatcher.Domain.Models
             IndicatorValue = indicatorValue;
             Settings = settings;
             SettingsTrend = settingsTrend;
-            Enabled = watcherIsEnabled;
+            Enabled = enabled;
         }
 
         public Watcher Update(WatcherSettings settings)
