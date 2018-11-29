@@ -30,7 +30,6 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<CacheService, CacheService>();
             services.AddScoped<StatusService, StatusService>();
             services.AddScoped<ErrorMessagesService, ErrorMessagesService>();
-            services.AddScoped<LogService, LogService>();
             services.AddScoped<UserService, UserService>();
             services.AddScoped<NotificationService, NotificationService>();
             services.AddScoped<OrderService, OrderService>();
