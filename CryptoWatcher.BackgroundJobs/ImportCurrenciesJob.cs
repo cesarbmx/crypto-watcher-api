@@ -19,7 +19,7 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly ILogger<ImportCurrenciesJob> _logger;
         private readonly MainDbContext _mainDbContext;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
-        private readonly CurrencyService _currencyService;
+        private readonly CacheService _cacheService;
 
 
         public ImportCurrenciesJob(
@@ -27,13 +27,13 @@ namespace CryptoWatcher.BackgroundJobs
             ILogger<ImportCurrenciesJob> logger,
             MainDbContext mainDbContext,
             ICoinMarketCapClient coinMarketCapClient,
-            CurrencyService currencyService)
+            CacheService cacheService)
         {
             _mapper = mapper;
             _logger = logger;
             _mainDbContext = mainDbContext;
             _coinMarketCapClient = coinMarketCapClient;
-            _currencyService = currencyService;
+            _cacheService = cacheService;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -56,7 +56,7 @@ namespace CryptoWatcher.BackgroundJobs
                 var currencies = _mapper.Map<List<Currency>>(result);
 
                 // Set all currencies
-                await _currencyService.SetCurrencies(currencies.ToList());
+                await _cacheService.SetInCache(currencies);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

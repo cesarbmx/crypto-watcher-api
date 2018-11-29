@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Api.Requests;
@@ -22,7 +23,7 @@ namespace CryptoWatcher.Api.Handlers
         private readonly MainDbContext _mainDbContext;
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly UserService _userService;
-        private readonly CurrencyService _currencyService;
+        private readonly CacheService _cacheService;
         private readonly ILogger<AddWatcherHandler> _logger;
         private readonly IMapper _mapper;
 
@@ -30,14 +31,14 @@ namespace CryptoWatcher.Api.Handlers
             MainDbContext mainDbContext,
             IRepository<Watcher> watcherRepository,
             UserService userService,
-            CurrencyService currencyService,
+            CacheService cacheService,
             ILogger<AddWatcherHandler> logger,
             IMapper mapper)
         {
             _mainDbContext = mainDbContext;
             _watcherRepository = watcherRepository;
             _userService = userService;
-            _currencyService = currencyService;
+            _cacheService = cacheService;
             _logger = logger;
             _mapper = mapper;
         }
@@ -48,7 +49,13 @@ namespace CryptoWatcher.Api.Handlers
             var user = await _userService.GetUser(request.UserId);
 
             // Get currencies
-            var currency = await _currencyService.GetCurrency(request.CurrencyId);
+            var currencies = await _cacheService.GetFromCache<Currency>();
+
+            // Get currency
+            var currency =  currencies.FirstOrDefault(x => x.Id == request.CurrencyId);
+
+            // Throw NotFound exception if it does not exist
+            if (currency == null) throw new ConflictException(CurrencyMessage.CurrencyNotFound);
 
             // Get user watchers
             var watcher = await _watcherRepository.GetSingle(
@@ -59,9 +66,6 @@ namespace CryptoWatcher.Api.Handlers
 
             // Check if watcher exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherExists);
-
-            // Get currencies
-            var currencies = await _currencyService.GetCurrencies();
 
             // Add watcher
              watcher = new Watcher(

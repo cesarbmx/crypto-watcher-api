@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
+using CryptoWatcher.Api.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Api.Responses;
-using CryptoWatcher.Domain.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -13,13 +13,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class A_CurrenciesController : Controller
     {
-        private readonly IMapper _mapper;
-        private readonly CurrencyService _currencyService;
+        private readonly IMediator _mediator;
 
-        public A_CurrenciesController(IMapper mapper, CurrencyService currencyService)
+        public A_CurrenciesController(IMediator mediator)
         {
-            _mapper = mapper;
-            _currencyService = currencyService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -34,11 +32,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrencies")]
         public async Task<IActionResult> GetCurrencies()
         {
-            // Get currencies
-            var currencies = await _currencyService.GetCurrencies();
-
-            // Response
-            var response = _mapper.Map<List<CurrencyResponse>>(currencies);
+            // Reponse
+            var response = await _mediator.Send(new GetCurrenciesRequest());
 
             // Return
             return Ok(response);
@@ -58,11 +53,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrency")]
         public async Task<IActionResult> GetCurrency(string id)
         {
-            // Get currency
-            var currency = await _currencyService.GetCurrency(id);
-
-            // Response
-            var response = _mapper.Map<CurrencyResponse>(currency);
+            // Reponse
+            var response = await _mediator.Send(new GetCurrencyRequest { Id = id });
 
             // Return
             return Ok(response);
