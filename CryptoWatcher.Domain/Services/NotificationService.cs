@@ -24,10 +24,10 @@ namespace CryptoWatcher.Domain.Services
             // Get notification
             return await _notificationRepository.GetAll();
         }
-        public async Task<Notification> GetNotification(string notificationId)
+        public async Task<Notification> GetNotification(string id)
         {
             // Get notification
-            var notification = await _notificationRepository.GetById(notificationId);
+            var notification = await _notificationRepository.GetById(id);
 
             // Throw NotFound exception if it does not exist
             if (notification == null) throw new NotFoundException(NotificationMessage.NotificationNotFound);

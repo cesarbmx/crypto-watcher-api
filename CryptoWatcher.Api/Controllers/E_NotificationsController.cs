@@ -52,7 +52,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get notification
         /// </summary>
         [HttpGet]
-        [Route("notifications/{notificationId}", Name = "Notifications_GetNotification")]
+        [Route("notifications/{id}", Name = "Notifications_GetNotification")]
         [SwaggerResponse(200, Type = typeof(NotificationResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
@@ -60,10 +60,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetNotification")]
-        public async Task<IActionResult> GetNotification(string notificationId)
+        public async Task<IActionResult> GetNotification(string id)
         {
             // Get notification
-            var notification = await _notificationService.GetNotification(notificationId);
+            var notification = await _notificationService.GetNotification(id);
 
             // Response
             var response = _mapper.Map<NotificationResponse>(notification);
