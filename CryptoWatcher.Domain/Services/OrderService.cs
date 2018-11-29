@@ -12,16 +12,16 @@ namespace CryptoWatcher.Domain.Services
     {
         private readonly IRepository<Order> _orderRepository;
         private readonly UserService _userService;
-        private readonly WatcherService _watcherService;
+        private readonly IRepository<Watcher> _watcherRepository;
 
         public OrderService(
             IRepository<Order> orderRepository,
             UserService userService,
-            WatcherService watcherService)
+            IRepository<Watcher> watcherRepository)
         {
             _orderRepository = orderRepository;
             _userService = userService;
-            _watcherService = watcherService;
+            _watcherRepository = watcherRepository;
         }
 
         public async Task<List<Order>> GetUserOrders(string userId)
@@ -58,7 +58,7 @@ namespace CryptoWatcher.Domain.Services
         public async Task AddOrdersFromWatchers()
         {
             // Get watchers willing to buy
-            var watchersBuys = await _watcherService.GetWatchersWillingToBuy();
+            var watchersBuys = await _watcherRepository.Get(WatcherExpression.WatcherWillingToBuy());
             foreach (var watcher in watchersBuys)
             {
                 // Get ongoing orders
@@ -73,7 +73,7 @@ namespace CryptoWatcher.Domain.Services
             }
 
             // Get watchers willing to sell
-            var watchersSells = await _watcherService.GetWatchersWillingToSell();
+            var watchersSells = await _watcherRepository.Get(WatcherExpression.WatcherWillingToSell());
             foreach (var watcher in watchersSells)
             {
                 // Get ongoing orders

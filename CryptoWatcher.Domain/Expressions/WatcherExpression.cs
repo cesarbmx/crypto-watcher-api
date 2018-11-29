@@ -10,7 +10,11 @@ namespace CryptoWatcher.Domain.Expressions
         {
             return x => x.UserId == userId;
         }
-        public static Expression<Func<Watcher, bool>> WatcherReadyToBuy()
+        public static Expression<Func<Watcher, bool>> WatcherWillingToBuy()
+        {
+            return x => x.Status == WatcherStatus.Buy;
+        }
+        public static Expression<Func<Watcher, bool>> WatcherWillingToSell()
         {
             return x => x.Status == WatcherStatus.Sell;
         }
