@@ -5,7 +5,6 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Cache: Entity
     {
-        public string Key => Id;
         public string Value { get; private set; }
 
         public List<T> GetValue<T>()
