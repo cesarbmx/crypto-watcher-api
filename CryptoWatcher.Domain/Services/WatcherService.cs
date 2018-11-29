@@ -34,13 +34,13 @@ namespace CryptoWatcher.Domain.Services
         {
             // Get user watchers
             var userWatchers = new List<Watcher>();
-            userWatchers.AddRange(await GetWatchers(userId, IndicatorType.PriceChange));
-            userWatchers.AddRange(await GetWatchers(userId, IndicatorType.Hype));
+            userWatchers.AddRange(await GetUserWatchersByIndicatorType(userId, IndicatorType.PriceChange));
+            userWatchers.AddRange(await GetUserWatchersByIndicatorType(userId, IndicatorType.Hype));
 
             // Return
             return userWatchers;
         }
-        public async Task<List<Watcher>> GetWatchers(string userId, IndicatorType indicator)
+        public async Task<List<Watcher>> GetUserWatchersByIndicatorType(string userId, IndicatorType indicator)
         {
             // Get user
             var user = await _userService.GetUser(userId);

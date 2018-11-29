@@ -44,7 +44,7 @@ namespace CryptoWatcher.Api.Controllers
             List<Watcher> watchers;
             if (indicatorType.HasValue)
             {
-                watchers = await _watcherService.GetWatchers(userId, indicatorType.Value);
+                watchers = await _watcherService.GetUserWatchersByIndicatorType(userId, indicatorType.Value);
             }
             else
             {

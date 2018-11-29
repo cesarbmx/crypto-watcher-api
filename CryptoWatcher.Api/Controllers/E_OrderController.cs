@@ -32,10 +32,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(200, typeof(OrderListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetUserOrders")]
-        public async Task<IActionResult> GetOrders(string userId)
+        public async Task<IActionResult> GetUserOrders(string userId)
         {
             // Get orders
-            var order = await _orderService.GetOrders(userId);
+            var order = await _orderService.GetUserOrders(userId);
 
             // Response
             var response = _mapper.Map<List<OrderResponse>>(order);

@@ -23,7 +23,7 @@ namespace CryptoWatcher.Domain.Services
             _watcherService = watcherService;
         }
 
-        public async Task<List<Order>> GetOrders(string userId)
+        public async Task<List<Order>> GetUserOrders(string userId)
         {
             // Get user
             var user = await _userService.GetUser(userId);
