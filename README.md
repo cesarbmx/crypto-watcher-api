@@ -1,5 +1,5 @@
 # crypto-watcher-api
-_C# .NET Core + DDD + Microservice + Hangfire + Swagger + Automapper + FluentValidation + Log4Net + EF7_
+_C# .NET Core + DDD + MediatR + Hangfire + Swagger + Automapper + FluentValidation + Log4Net + EF7_
 
 ##### GOALS:
 * Foundation for any project following .Net Core, REST API, DDD and micro-service architecture  
@@ -16,7 +16,7 @@ _C# .NET Core + DDD + Microservice + Hangfire + Swagger + Automapper + FluentVal
 ##### HOW TO RUN IT:
 Open it with VS2017 and just debug it. It uses the Entity Framework Core in-memory database, therefore, no pre-steps are required.
 
-![alt text](https://user-images.githubusercontent.com/1844530/49051063-8c03b900-f1bc-11e8-8e0d-ff24e7c620a2.png)
+![image](https://user-images.githubusercontent.com/1844530/49256679-328eca80-f406-11e8-9e74-26ee9c9b55a6.png)
 
 
 
