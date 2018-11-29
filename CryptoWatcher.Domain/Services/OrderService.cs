@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Repositories;
@@ -9,12 +10,12 @@ namespace CryptoWatcher.Domain.Services
 {
     public class OrderService
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IRepository<Order> _orderRepository;
         private readonly UserService _userService;
         private readonly WatcherService _watcherService;
 
         public OrderService(
-            IOrderRepository orderRepository,
+            IRepository<Order> orderRepository,
             UserService userService,
             WatcherService watcherService)
         {
@@ -29,26 +30,26 @@ namespace CryptoWatcher.Domain.Services
             var user = await _userService.GetUser(userId);
 
             // Get user orders
-            var userOrders = await _orderRepository.GetByUserId(user.UserId);
+            var userOrders = await _orderRepository.Get(OrderExpression.UserOrder(user.Id));
 
             // Return
             return userOrders;
         }
-        public async Task<Order> GetOrder(string orderId)
+        public async Task<Order> GetOrder(string id)
         {
             // Get order
-            var order = await _orderRepository.GetByOrderId(orderId);
+            var order = await _orderRepository.GetById(id);
 
             // Throw NotFound exception if it does not exist
-            if (order == null) throw new NotFoundException(OrderMessages.OrderNotFound);
+            if (order == null) throw new NotFoundException(OrderMessage.OrderNotFound);
 
             // Return
             return order;
         }
-        public async Task<Order> AddOrder(OrderType oorderType, string userId, string currencyId, string watcherId, decimal orderQuantity)
+        public async Task<Order> AddOrder(string userId, string currencyId, OrderType type, decimal quantity)
         {
             // Add order
-            var order = new Order(userId, currencyId, oorderType, orderQuantity);
+            var order = new Order(userId, currencyId, type, quantity);
             _orderRepository.Add(order);
 
             // Return
@@ -61,12 +62,12 @@ namespace CryptoWatcher.Domain.Services
             foreach (var watcher in watchersBuys)
             {
                 // Get ongoing orders
-                var orders = await _orderRepository.GetByUserIdAndCurrencId(watcher.UserId, watcher.CurrencyId);
+                var orders = await _orderRepository.Get(OrderExpression.UserOrder(watcher.UserId, watcher.CurrencyId));
 
                 // if there are no orders yet or the one that exists is also a buy order, then we place it
-                if (orders.Count == 0 || orders[0].OorderType == OrderType.BuyLimit)
+                if (orders.Count == 0 || orders[0].Type == OrderType.BuyLimit)
                 {
-                    var order = new Order(watcher.UserId, watcher.CurrencyId, OrderType.BuyLimit, 100);
+                    var order = new Order(watcher.UserId, watcher.Id, OrderType.BuyLimit, 100);
                     _orderRepository.Add(order);
                 }
             }
@@ -76,12 +77,12 @@ namespace CryptoWatcher.Domain.Services
             foreach (var watcher in watchersSells)
             {
                 // Get ongoing orders
-                var orders = await _orderRepository.GetByUserIdAndCurrencId(watcher.UserId, watcher.CurrencyId);
+                var orders = await _orderRepository.Get(OrderExpression.UserOrder(watcher.UserId, watcher.CurrencyId));
 
                 // if there are no orders yet or the one that exists is also a sell order, then we place it
-                if (orders.Count == 0 || orders[0].OorderType == OrderType.BuyLimit)
+                if (orders.Count == 0 || orders[0].Type == OrderType.BuyLimit)
                 {
-                    var order = new Order( watcher.UserId, watcher.CurrencyId, OrderType.SellMarket, 100);
+                    var order = new Order( watcher.UserId, watcher.Id, OrderType.SellMarket, 100);
                     _orderRepository.Add(order);
                 }
             }

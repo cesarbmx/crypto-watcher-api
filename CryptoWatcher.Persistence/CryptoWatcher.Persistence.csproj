@@ -12,7 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="AuditRepositories\CacheAuditRepository.cs" />
+    <Compile Remove="Repositories\CacheRepository.cs" />
     <Compile Remove="Repositories\CurrencyRepository.cs" />
+    <Compile Remove="Repositories\LogRepository.cs" />
+    <Compile Remove="Repositories\NotificationRepository.cs" />
+    <Compile Remove="Repositories\OrderRepository.cs" />
+    <Compile Remove="Repositories\UserRepository.cs" />
+    <Compile Remove="Repositories\WatcherRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

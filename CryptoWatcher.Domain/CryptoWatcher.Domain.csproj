@@ -6,7 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Repositories\ICacheRepository.cs" />
     <Compile Remove="Repositories\ICurrencyRepository.cs" />
+    <Compile Remove="Repositories\ILogRepository.cs" />
+    <Compile Remove="Repositories\INotificationRepository.cs" />
+    <Compile Remove="Repositories\IOrderRepository.cs" />
+    <Compile Remove="Repositories\IUserRepository.cs" />
+    <Compile Remove="Repositories\IWatcherRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

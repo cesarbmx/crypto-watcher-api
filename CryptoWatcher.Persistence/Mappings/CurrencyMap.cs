@@ -8,37 +8,34 @@ namespace CryptoWatcher.Persistence.Mappings
     {
         public CurrencyMap(EntityTypeBuilder<Currency> entityBuilder)
         {
-            // Key
-            entityBuilder.HasKey(t => t.CurrencyId);
-
             // Properties
-            entityBuilder.Property(t => t.CurrencyId)
+            entityBuilder.Property(t => t.Id)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.CurrencyRank)
+            entityBuilder.Property(t => t.Rank)
                 .HasColumnType("smallint")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.CurrencyName)
+            entityBuilder.Property(t => t.Name)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.CurrencyMarketCap)
+            entityBuilder.Property(t => t.MarketCap)
                 .HasColumnType("decimal")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.CurrencyPrice)
+            entityBuilder.Property(t => t.Price)
                 .HasColumnType("decimal")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.CurrencyVolume24H)
+            entityBuilder.Property(t => t.Volume24H)
                 .HasColumnType("decimal")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.CurrencyPercentageChange24H)
+            entityBuilder.Property(t => t.PercentageChange24H)
                 .HasColumnType("decimal")
                 .IsRequired();
         }

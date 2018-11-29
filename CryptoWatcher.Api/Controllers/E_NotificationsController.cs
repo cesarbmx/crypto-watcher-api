@@ -13,13 +13,13 @@ using Swashbuckle.AspNetCore.Filters;
 namespace CryptoWatcher.Api.Controllers
 {
     // ReSharper disable once InconsistentNaming
-    public class D_NotificationsController : Controller
+    public class E_NotificationsController : Controller
     {
         private readonly MainDbContext _mainDbContext;
         private readonly IMapper _mapper;
         private readonly NotificationService _notificationService;
 
-        public D_NotificationsController(MainDbContext mainDbContext, IMapper mapper, NotificationService notificationService)
+        public E_NotificationsController(MainDbContext mainDbContext, IMapper mapper, NotificationService notificationService)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
@@ -91,7 +91,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> AddNotification([FromBody]AddNotificationRequest request)
         {
             // Add notification
-            var notification = await _notificationService.AddNotification(request.UserId, request.Message);
+            var notification = await _notificationService.AddNotification(request.Id, request.Message);
 
             // Save
             await _mainDbContext.SaveChangesAsync();
@@ -100,7 +100,7 @@ namespace CryptoWatcher.Api.Controllers
             var response = _mapper.Map<NotificationResponse>(notification);
 
             // Return
-            return CreatedAtRoute("Notifications_GetNotification", new { response.NotificationId }, response);
+            return CreatedAtRoute("Notifications_GetNotification", new { response.Id }, response);
         }
     }
 }

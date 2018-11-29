@@ -9,9 +9,9 @@ namespace CryptoWatcher.Domain.Services
 {
     public class UserService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }
@@ -19,23 +19,23 @@ namespace CryptoWatcher.Domain.Services
         public async Task<List<User>> GetUsers()
         {
             // Get users
-            return await _userRepository.Get();
+            return await _userRepository.GetAll();
         }
-        public async Task<User> GetUser(string userId)
+        public async Task<User> GetUser(string id)
         {
             // Get user
-            var user = await _userRepository.GetByUserId(userId);
+            var user = await _userRepository.GetById(id);
 
             // Throw NotFound exception if it does not exist
-            if (user == null) throw new NotFoundException(UserMessages.UserNotFound);
+            if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Return
             return user;
         }
-        public async Task<User> AddUser(string userId)
+        public async Task<User> AddUser(string id)
         {
             // Add user
-            var user = new User(userId);
+            var user = new User(id);
             _userRepository.Add(user);
 
             // Return

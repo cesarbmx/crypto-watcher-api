@@ -8,6 +8,7 @@ using CryptoWatcher.Api.Responses;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -20,39 +21,30 @@ namespace CryptoWatcher.Api.Controllers
         private readonly MainDbContext _mainDbContext;
         private readonly IMapper _mapper;
         private readonly WatcherService _watcherService;
+        private readonly IMediator _mediator;
 
-        public C_WatchersController(MainDbContext mainDbContext, IMapper mapper, WatcherService watcherService)
+        public C_WatchersController(MainDbContext mainDbContext, IMapper mapper, WatcherService watcherService, IMediator mediator)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
             _watcherService = watcherService;
+            _mediator = mediator;
         }
 
         /// <summary>
         /// Get user watchers
         /// </summary>
         [HttpGet]
-        [Route("users/{userId}/watchers")]
+        [Route("users/{id}/watchers")]
         [SwaggerResponse(200, Type = typeof(List<WatcherResponse>))]       
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(WatcherListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetUserWatchers")]
-        public async Task<IActionResult> GetUserWatchers(string userId, IndicatorType? indicatorType = null)
+        public async Task<IActionResult> GetUserWatchers(string id, IndicatorType? indicatorType)
         {
-            // Get watchers
-            List<Watcher> watchers;
-            if (indicatorType.HasValue)
-            {
-                watchers = await _watcherService.GetUserWatchersByIndicatorType(userId, indicatorType.Value);
-            }
-            else
-            {
-                watchers = await _watcherService.GetUserWatchers(userId);
-            }
-
-            // Response
-            var response = _mapper.Map<List<WatcherResponse>>(watchers);
+            // Reponse
+            var response = await _mediator.Send(new GetUserWatchersRequest{Id = id, IndicatorType = indicatorType});
 
             // Return
             return Ok(response);
@@ -62,7 +54,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get watcher
         /// </summary>
         [HttpGet]
-        [Route("watchers/{watcherId}", Name = "Watchers_GetWatcher")]
+        [Route("watchers/{id}", Name = "Watchers_GetWatcher")]
         [SwaggerResponse(200, Type = typeof(WatcherResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
@@ -70,10 +62,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetWatcher")]
-        public async Task<IActionResult> GetWatcher(string watcherId)
+        public async Task<IActionResult> GetWatcher(string id)
         {
             // Get watcher
-            var watcher = await _watcherService.GetWatcher(watcherId);
+            var watcher = await _watcherService.GetWatcher(id);
 
             // Response
             var response = _mapper.Map<WatcherResponse>(watcher);
@@ -104,7 +96,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> AddWatcher([FromBody]AddWatcherRequest request)
         {
             // Add watcher
-            var watcher = await _watcherService.AddWatcher(request.UserId, request.Indicator, request.CurrencyId, request.WatcherSettings);
+            var watcher = await _watcherService.AddWatcher(request.UserId, request.Indicator, request.CurrencyId, request.Settings);
 
             // Save
             await _mainDbContext.SaveChangesAsync();
@@ -113,14 +105,14 @@ namespace CryptoWatcher.Api.Controllers
             var response = _mapper.Map<WatcherResponse>(watcher);
 
             // Return
-            return CreatedAtRoute("Watchers_GetWatcher", new { response.WatcherId }, response);
+            return CreatedAtRoute("Watchers_GetWatcher", new { response.Id }, response);
         }
 
         /// <summary>
         /// Update watcher settings
         /// </summary>
         [HttpPut]
-        [Route("watchers/{watcherId}/settings")]
+        [Route("watchers/{id}/settings")]
         [SwaggerResponse(200, Type = typeof(WatcherResponse))]
         [SwaggerResponse(400, Type = typeof(ErrorResponse))]
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]
@@ -132,10 +124,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(422, typeof(InvalidRequestExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_UpdateWatcherSettings")]
-        public async Task<IActionResult> UpdateWatcherSettings(string watcherId, [FromBody]UpdateWatcherSettingsRequest request)
+        public async Task<IActionResult> UpdateWatcherSettings(string id, [FromBody]UpdateWatcherSettingsRequest request)
         {
             // Update watcher settings
-            var watcher = await _watcherService.UpdateWatcherSettings(watcherId, request.BuyAt, request.SellAt);
+            var watcher = await _watcherService.UpdateWatcherSettings(id, request.BuyAt, request.SellAt);
 
             // Save
             await _mainDbContext.SaveChangesAsync();

@@ -1,6 +1,7 @@
 ﻿using CoinMarketCap;
 using CoinMarketCap.Core;
 using CryptoWatcher.BackgroundJobs;
+using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Repositories;
 using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
@@ -33,12 +34,12 @@ namespace CryptoWatcher.ConsoleApp.Configuration
             services.AddSingleton<OrderService, OrderService>();
 
             // Repositories
-            services.AddSingleton<ICacheRepository, CacheRepository>(); // TODO: (Cesar) app settings switch for audit
-            services.AddSingleton<ILogRepository, LogRepository>();
-            services.AddSingleton<IWatcherRepository, WatcherRepository>();
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<INotificationRepository, NotificationRepository>();
-            services.AddSingleton<IOrderRepository, OrderRepository>();
+            services.AddScoped<IRepository<Cache>, Repository<Cache>>();
+            services.AddScoped<IRepository<Log>, Repository<Log>>();
+            services.AddScoped<IRepository<Watcher>, Repository<Watcher>>();
+            services.AddScoped<IRepository<User>, Repository<User>>();
+            services.AddScoped<IRepository<Notification>, Repository<Notification>>();
+            services.AddScoped<IRepository<Order>, Repository<Order>>();
 
             // Jobs
             services.AddSingleton<ImportCurrenciesJob, ImportCurrenciesJob>();

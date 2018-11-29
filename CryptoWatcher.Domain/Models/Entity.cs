@@ -4,7 +4,7 @@ namespace CryptoWatcher.Domain.Models
 {
     public abstract class Entity
     {
-        public string Id { get; private set; }
+        public string Id { get; protected set; }
         //public User CreatedBy { get; set; }
         public DateTime CreationTime { get; protected set; }
         //public User LastModifiedBy { get; set; }
@@ -12,7 +12,6 @@ namespace CryptoWatcher.Domain.Models
 
         protected Entity()
         {
-            Id = Guid.NewGuid().ToString();
             CreationTime = DateTime.Now;
         }
     }

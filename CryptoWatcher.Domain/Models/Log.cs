@@ -4,7 +4,6 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Log : Entity
     {
-        public string LogId => Id;
         public string Resource { get; private set; }
         public string Action { get; private set; }
         public string Json { get; private set; }

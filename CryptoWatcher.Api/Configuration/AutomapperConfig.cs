@@ -33,11 +33,11 @@ namespace CryptoWatcher.Api.Configuration
 
                     // Others
                     cfg.CreateMap<TickerEntity, Currency>()
-                        .ForMember(dest => dest.CurrencyId, opt => opt.MapFrom(src => src.Id))
-                        .ForMember(dest => dest.CurrencyPrice, opt => opt.MapFrom(src => Convert.ToDecimal(src.PriceUsd)))
-                        .ForMember(dest => dest.CurrencyVolume24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.Volume24hUsd)))
-                        .ForMember(dest => dest.CurrencyMarketCap, opt => opt.MapFrom(src => Convert.ToDecimal(src.MarketCapUsd)))
-                        .ForMember(dest => dest.CurrencyPercentageChange24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.PercentChange24h)));
+                        .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                        .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Convert.ToDecimal(src.PriceUsd)))
+                        .ForMember(dest => dest.Volume24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.Volume24hUsd)))
+                        .ForMember(dest => dest.MarketCap, opt => opt.MapFrom(src => Convert.ToDecimal(src.MarketCapUsd)))
+                        .ForMember(dest => dest.PercentageChange24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.PercentChange24h)));
                 });
 
             return services;

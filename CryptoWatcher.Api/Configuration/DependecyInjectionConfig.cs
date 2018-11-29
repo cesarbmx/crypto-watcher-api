@@ -2,6 +2,7 @@
 using System.Security.Principal;
 using CoinMarketCap;
 using CoinMarketCap.Core;
+using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Repositories;
 using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
@@ -37,15 +38,15 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<OrderService, OrderService>();
 
             // Repositories
-            services.AddScoped<ICacheRepository, CacheRepository>(); // TODO: (Cesar) app settings switch for audit
-            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
-            services.AddScoped<ILogRepository, LogRepository>();
-            services.AddScoped<IWatcherRepository, WatcherRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<INotificationRepository, NotificationRepository>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IRepository<Cache>, Repository<Cache>>();
+            services.AddScoped<IRepository<Log>, Repository<Log>>();
+            services.AddScoped<IRepository<Watcher>, Repository<Watcher>>();
+            services.AddScoped<IRepository<User>, Repository<User>>();
+            services.AddScoped<IRepository<Notification>, Repository<Notification>>();
+            services.AddScoped<IRepository<Order>, Repository<Order>>();
 
             // Other
+            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<HttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICoinMarketCapClient, CoinMarketCapClient>();
             services.AddScoped(factory => Assembly.GetExecutingAssembly());

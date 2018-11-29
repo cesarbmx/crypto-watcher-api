@@ -9,11 +9,10 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new NotificationResponse
             {
-                NotificationId = "2779cf8051-381f-4834-93dc-ece6345dde33",
+                Id = "2779cf8051-381f-4834-93dc-ece6345dde33",
                 UserId = "cesarbmx",
                 Message = "Test",
                 PhoneNumber = "+34666666666",
-                WhatsappSent = false,
                 WhatsappSentTime = null
             };
         }
@@ -21,11 +20,10 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new NotificationResponse
             {
-                NotificationId = "2779cf8051-381f-4834-93dc-ece6345dde33",
+                Id = "2779cf8051-381f-4834-93dc-ece6345dde33",
                 UserId = "johny.melavo",
                 Message = "Test",
                 PhoneNumber = "+34666666666",
-                WhatsappSent = false,
                 WhatsappSentTime = null
             };
         }

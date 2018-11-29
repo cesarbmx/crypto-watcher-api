@@ -52,7 +52,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get user
         /// </summary>
         [HttpGet]
-        [Route("users/{userId}", Name = "Users_GetUser")]
+        [Route("users/{id}", Name = "Users_GetUser")]
         [SwaggerResponse(200, Type = typeof(UserResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
@@ -60,10 +60,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_GetUser")]
-        public async Task<IActionResult> GetUser(string userId)
+        public async Task<IActionResult> GetUser(string id)
         {
             // Get user
-            var user = await _userService.GetUser(userId);
+            var user = await _userService.GetUser(id);
 
             // Response
             var response = _mapper.Map<UserResponse>(user);
@@ -91,7 +91,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> AddUser([FromBody]AddUserRequest request)
         {
             // Add user
-            var userSettings = await _userService.AddUser(request.UserId);
+            var userSettings = await _userService.AddUser(request.Id);
 
             // Save
             await _mainDbContext.SaveChangesAsync();
@@ -100,7 +100,7 @@ namespace CryptoWatcher.Api.Controllers
             var response = userSettings;
 
             // Return
-            return CreatedAtRoute("Users_GetUser", new { response.UserId }, response);
+            return CreatedAtRoute("Users_GetUser", new { response.Id }, response);
         }
     }
 }

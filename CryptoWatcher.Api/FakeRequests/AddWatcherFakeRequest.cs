@@ -12,7 +12,7 @@ namespace CryptoWatcher.Api.FakeRequests
                 UserId = "cesarbmx",
                 CurrencyId = "bitcoin",
                 Indicator = IndicatorType.PriceChange,
-                WatcherSettings = new WatcherSettings(15, 2)
+                Settings = new WatcherSettings(15, 2)
             };
         }       
     }

@@ -21,16 +21,16 @@ namespace CryptoWatcher.Domain.Services
             // Get currencies
             return await _cacheService.GetFromCache<Currency>();
         }
-        public async Task<Currency> GetCurrency(string currencyId)
+        public async Task<Currency> GetCurrency(string id)
         {
             // Get currencies
             var allCurrencies = await GetCurrencies();
 
             // Pick the required currency from the previous list
-            var currency = allCurrencies.FirstOrDefault(x => x.CurrencyId == currencyId);
+            var currency = allCurrencies.FirstOrDefault(x => x.Id == id);
 
             // Throw NotFound exception if the currency does not exist
-            if (currency == null) throw new NotFoundException(CurrencyMessages.CurrencyNotFound);
+            if (currency == null) throw new NotFoundException(CurrencyMessage.CurrencyNotFound);
 
             // Return
             return currency;

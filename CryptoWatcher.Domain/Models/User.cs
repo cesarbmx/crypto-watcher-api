@@ -4,12 +4,9 @@ namespace CryptoWatcher.Domain.Models
 {
     public class User : Entity
     {
-        public string UserId { get; private set; }
-       
-        public User() { }
-        public User(string userId)
+        public User(string id)
         {
-            UserId = userId;
+            Id = id;
         }
     }
 }

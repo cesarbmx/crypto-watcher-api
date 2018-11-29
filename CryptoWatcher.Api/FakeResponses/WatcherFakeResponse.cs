@@ -10,31 +10,31 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new WatcherResponse
             {
-                WatcherId = "cesarbmx-bitcoin-price-change",
+                Id = "cesarbmx-bitcoin-price-change",
                 UserId = "cesarbmx",
                 CurrencyId = "bitcoin",
                 IndicatorType = IndicatorType.PriceChange,
                 IndicatorValue = 5000,
-                WatcherSettings = new WatcherSettings(2, 15),
-                WatcherSettingsTrend = 
+                Settings = new WatcherSettings(2, 15),
+                SettingsTrend = 
                 new WatcherSettings(2, 15),
-                WatcherStatus = WatcherStatus.Buy,
-                WatcherEnabled = false
+                Status = WatcherStatus.Buy,
+                Enabled = false
             };
         }
         public static WatcherResponse GetFake_HypeWatcher()
         {
             return new WatcherResponse
             {
-                WatcherId = "cesarbmx-bitcoin-hype",
+                Id = "cesarbmx-bitcoin-hype",
                 UserId = "cesarbmx",
                 CurrencyId = "bitcoin",
                 IndicatorType = IndicatorType.Hype,
                 IndicatorValue = 2,
-                WatcherSettings = new WatcherSettings(2, 15),
-                WatcherSettingsTrend = new WatcherSettings(2, 15),
-                WatcherStatus = WatcherStatus.Sell,
-                WatcherEnabled = false
+                Settings = new WatcherSettings(2, 15),
+                SettingsTrend = new WatcherSettings(2, 15),
+                Status = WatcherStatus.Sell,
+                Enabled = false
             };
         }
         public static List<WatcherResponse> GetFake_List()

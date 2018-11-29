@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Repositories;
@@ -13,13 +14,13 @@ namespace CryptoWatcher.Domain.Services
 {
     public class WatcherService
     {
-        private readonly IWatcherRepository _watcherRepository;
+        private readonly IRepository<Watcher> _watcherRepository;
         private readonly UserService _userService;
         private readonly CurrencyService _currencyService;
         private readonly ILogger<WatcherService> _logger;
 
         public WatcherService(
-            IWatcherRepository watcherRepository,
+            IRepository<Watcher> watcherRepository,
             UserService userService,
             CurrencyService currencyService,
             ILogger<WatcherService> logger)
@@ -45,8 +46,11 @@ namespace CryptoWatcher.Domain.Services
             // Get user
             var user = await _userService.GetUser(userId);
 
+            // Throw NotFound exception if it does not exist
+            if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
+
             // Get user watchers
-            var userWatchers = await _watcherRepository.GetByUserId(userId);
+            var userWatchers = await _watcherRepository.Get(WatcherExpression.UserWatcher(user.Id));
 
             // Get currencies
             var currencies = await _currencyService.GetCurrencies();
@@ -57,16 +61,16 @@ namespace CryptoWatcher.Domain.Services
             {
                 // If the watcher exists, we add it
                 var watcher = userWatchers.FirstOrDefault(x =>
-                    x.IndicatorType == indicator && x.CurrencyId == currency.CurrencyId);
+                    x.IndicatorType == indicator && x.Id == currency.Id);
 
                 // If the watcher does not exist, we add a default one
                 if (watcher == null)
                 {
                     watcher = new Watcher(
-                        user.UserId,
-                        currency.CurrencyId,
+                        user.Id,
+                        currency.Id,
                         indicator,
-                        IndicatorBuilder.BuildIndicatorValue(currency, indicator, currencies),
+                        IndicatorBuilder.BuildValue(currency, indicator, currencies),
                         new WatcherSettings(5, 5),
                         new WatcherSettings(0, 0),
                         false);
@@ -81,10 +85,10 @@ namespace CryptoWatcher.Domain.Services
         public async Task<List<Watcher>> GetWatchersWillingToBuy()
         {
             // Get watchers
-            var watchers = await _watcherRepository.Get();
+            var watchers = await _watcherRepository.GetAll();
 
             // Select those willing to buy
-            watchers = watchers.Where(x => x.WatcherStatus == WatcherStatus.Buy).ToList();
+            watchers = watchers.Where(x => x.Status == WatcherStatus.Buy).ToList();
 
             // Return
             return watchers;
@@ -92,43 +96,43 @@ namespace CryptoWatcher.Domain.Services
         public async Task<List<Watcher>> GetWatchersWillingToSell()
         {
             // Get watchers
-            var watchers = await _watcherRepository.Get();
+            var watchers = await _watcherRepository.GetAll();
 
             // Select those willing to sell
-            watchers = watchers.Where(x => x.WatcherStatus == WatcherStatus.Sell).ToList();
+            watchers = watchers.Where(x => x.Status == WatcherStatus.Sell).ToList();
 
             // Return
             return watchers;
         }
-        public async Task<Watcher> GetWatcher(string watcherId)
+        public async Task<Watcher> GetWatcher(string id)
         {
             // Get watcher
-            var watcher = await _watcherRepository.GetByWatcherId(watcherId);
+            var watcher = await _watcherRepository.GetById(id);
 
             // Throw NotFound exception if it does not exist
-            if (watcher == null) throw new NotFoundException(WatcherMessages.WatcherNotFound);
+            if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Return
             return watcher;
         }
-        public async Task<Watcher> AddWatcher(string userId, IndicatorType indicator, string currencyId, WatcherSettings watcherSettings)
+        public async Task<Watcher> AddWatcher(string userId, IndicatorType indicator, string id, WatcherSettings settings)
         {
             // Get user
             var user = await _userService.GetUser(userId);
 
             // Get currencies
-            var currency = await _currencyService.GetCurrency(currencyId);
+            var currency = await _currencyService.GetCurrency(id);
 
             // Get currencies
             var currencies = await _currencyService.GetCurrencies();
 
             // Add watcher
             var watcher = new Watcher(
-                user.UserId,
-                currency.CurrencyId,
+                user.Id,
+                currency.Id,
                 indicator,
-                IndicatorBuilder.BuildIndicatorValue(currency, indicator, currencies),
-                watcherSettings,
+                IndicatorBuilder.BuildValue(currency, indicator, currencies),
+                settings,
                 new WatcherSettings(0,0),
                 false);
             _watcherRepository.Add(watcher);
@@ -139,10 +143,10 @@ namespace CryptoWatcher.Domain.Services
             // Return
             return watcher;
         }
-        public async Task<Watcher> UpdateWatcherSettings(string watcherId, decimal buyAt, decimal sellAt)
+        public async Task<Watcher> UpdateWatcherSettings(string id, decimal buyAt, decimal sellAt)
         {
             // Get watcher
-            var watcher = await GetWatcher(watcherId);
+            var watcher = await GetWatcher(id);
 
             // Update settings
             var settings = new WatcherSettings(buyAt,sellAt);

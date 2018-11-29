@@ -1,29 +1,31 @@
 ﻿
 
+using System;
+
 namespace CryptoWatcher.Domain.Models
 {
     public class Order : Entity
     {
-        public string OrderId { get; private set; }
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
-        public OrderType OorderType { get; private set; }
-        public decimal OrderQuantity { get; private set; }
-        public OrderStatus OrderStatus { get; private set; }
+        public OrderType Type { get; private set; }
+        public decimal Quantity { get; private set; }
+        public OrderStatus Status { get; private set; }
 
         public Order() { }
         public Order(
             string userId,
             string currencyId,
-            OrderType oorderType,
-            decimal orderQuantity)
+            OrderType type,
+            decimal quantity)
         {
-            OrderId = Id;
-            OorderType = oorderType;
+            Id = Guid.NewGuid().ToString();
             UserId = userId;
             CurrencyId = currencyId;
-            OrderQuantity = orderQuantity;
-            OrderStatus = OrderStatus.Pending;
+            Type = type;
+            UserId = userId;
+            Quantity = quantity;
+            Status = OrderStatus.Pending;
         }
     }
 }

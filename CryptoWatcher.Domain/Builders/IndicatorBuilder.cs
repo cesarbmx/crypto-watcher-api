@@ -8,12 +8,12 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class IndicatorBuilder
     {
-        public static decimal BuildIndicatorValue(Currency currency, IndicatorType indicator, List<Currency> currencies)
+        public static decimal BuildValue(Currency currency, IndicatorType indicator, List<Currency> currencies)
         {
             switch (indicator)
             {
                 case IndicatorType.PriceChange:
-                    return currency.CurrencyPercentageChange24H;
+                    return currency.PercentageChange24H;
                 case IndicatorType.Hype:
                     return BuildHype(currency, currencies);
                 default:
@@ -26,7 +26,7 @@ namespace CryptoWatcher.Domain.Builders
             var values = new decimal[currencies.Count];
             for (var i = 0; i < currencies.Count; i++)
             {
-                values[i] = currencies[i].CurrencyPercentageChange24H;
+                values[i] = currencies[i].PercentageChange24H;
             }
 
             // Build hypes

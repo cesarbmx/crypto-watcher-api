@@ -26,11 +26,11 @@ namespace CryptoWatcher.Api.Configuration
                 {
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore; // Ignore nulls
                     options.SerializerSettings.ContractResolver =
-                        new DefaultContractResolver()
-                        {
-                            NamingStrategy = new SnakeCaseNamingStrategy()
-                        };
-                    //new CamelCasePropertyNamesContractResolver(); // CamelCase properties
+                    //new DefaultContractResolver()
+                    //{
+                    //    NamingStrategy = new  SnakeCaseNamingStrategy()
+                    //};
+                    new CamelCasePropertyNamesContractResolver(); // CamelCase properties
                     options.SerializerSettings.Converters.Add(
                         new Newtonsoft.Json.Converters.StringEnumConverter()); // Enums as string
                 });

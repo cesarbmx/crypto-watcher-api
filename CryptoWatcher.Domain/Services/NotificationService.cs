@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Repositories;
@@ -9,10 +10,10 @@ namespace CryptoWatcher.Domain.Services
 {
     public class NotificationService
     {
-        private readonly INotificationRepository _notificationRepository;
+        private readonly IRepository<Notification> _notificationRepository;
         private readonly UserService _userService;
 
-        public NotificationService(INotificationRepository notificationRepository, UserService userService)
+        public NotificationService(IRepository<Notification> notificationRepository, UserService userService)
         {
             _notificationRepository = notificationRepository;
             _userService = userService;
@@ -21,15 +22,15 @@ namespace CryptoWatcher.Domain.Services
         public async Task<List<Notification>> GetNotifications()
         {
             // Get notification
-            return await _notificationRepository.Get();
+            return await _notificationRepository.GetAll();
         }
         public async Task<Notification> GetNotification(string notificationId)
         {
             // Get notification
-            var notification = await _notificationRepository.GetByNotificationId(notificationId);
+            var notification = await _notificationRepository.GetById(notificationId);
 
             // Throw NotFound exception if it does not exist
-            if (notification == null) throw new NotFoundException(NotificationMessages.NotificationNotFound);
+            if (notification == null) throw new NotFoundException(NotificationMessage.NotificationNotFound);
 
             // Return
             return notification;
@@ -37,7 +38,7 @@ namespace CryptoWatcher.Domain.Services
         public async Task<List<Notification>> GetPendingNotifications()
         {
             // Get pending notifications
-            var notifications = await _notificationRepository.GetPendingNotifications();
+            var notifications = await _notificationRepository.Get(NotificationExpression.PendingNotification());
 
             // Return
             return notifications;
@@ -48,7 +49,7 @@ namespace CryptoWatcher.Domain.Services
             var user = await _userService.GetUser(userId);
 
             // Add notification
-            var notification = new Notification(user.UserId, message);
+            var notification = new Notification(user.Id, message);
             _notificationRepository.Add(notification);
 
             // Return

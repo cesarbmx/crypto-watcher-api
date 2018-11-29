@@ -9,9 +9,9 @@ namespace CryptoWatcher.Domain.Services
 {
     public class LogService
     {
-        private readonly ILogRepository _logRepository;
+        private readonly IRepository<Log> _logRepository;
 
-        public LogService(ILogRepository logRepository)
+        public LogService(IRepository<Log> logRepository)
         {
             _logRepository = logRepository;
         }
@@ -19,7 +19,7 @@ namespace CryptoWatcher.Domain.Services
         public async Task<List<Log>> GetLog()
         {
             // Get log
-            return await _logRepository.Get();
+            return await _logRepository.GetAll();
         }
         public async Task<Log> GetLog(string id)
         {
@@ -27,7 +27,7 @@ namespace CryptoWatcher.Domain.Services
             var log = await _logRepository.GetById(id);
 
             // Throw NotFound exception if it does not exist
-            if (log == null) throw new NotFoundException(LogMessages.LogNotFound);
+            if (log == null) throw new NotFoundException(LogMessage.LogNotFound);
 
             // Return
             return log;

@@ -7,10 +7,10 @@ namespace CryptoWatcher.Domain.Services
 {
     public class CacheService
     {
-        private readonly ICacheRepository _cacheRepository;
+        private readonly IRepository<Cache> _cacheRepository;
         private readonly LogService _logService;
 
-        public CacheService(ICacheRepository cacheRepository, LogService logService)
+        public CacheService(IRepository<Cache> cacheRepository, LogService logService)
         {
             _cacheRepository = cacheRepository;
             _logService = logService;
@@ -19,7 +19,7 @@ namespace CryptoWatcher.Domain.Services
         public async Task<List<T>> GetFromCache<T>()
         {
             // Get cache
-            var cache = await _cacheRepository.GetByKey(typeof(T).Name);
+            var cache = await _cacheRepository.GetById(typeof(T).Name);
 
             // Return
             if (cache == null) return new List<T>();
@@ -28,7 +28,7 @@ namespace CryptoWatcher.Domain.Services
         public async Task SetInCache<T>(List<T> value)
         {
             // Set cache
-            var cache = await _cacheRepository.GetByKey(typeof(T).Name);
+            var cache = await _cacheRepository.GetById(typeof(T).Name);
             if (cache == null)
             {
                 // Add if it does not exist

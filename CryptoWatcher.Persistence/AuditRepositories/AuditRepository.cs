@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Repositories;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Shared.Providers;
 
 namespace CryptoWatcher.Persistence.AuditRepositories
 {
-    public abstract class AuditRepository<TEntity> : IRepository<TEntity> where TEntity: Entity
+    public class AuditRepository<TEntity> : IRepository<TEntity> where TEntity: Entity
     {
         protected readonly List<TEntity> List;
-        private readonly ILogRepository _logRepository;
+        private readonly IRepository<Log> _logRepository;
 
-        public AuditRepository(ILogRepository logRepository, IDateTimeProvider dateTimeProvider)
+        public AuditRepository(IRepository<Log> logRepository, IDateTimeProvider dateTimeProvider)
         {
             List = new List<TEntity>();
             _logRepository = logRepository;
@@ -23,7 +25,7 @@ namespace CryptoWatcher.Persistence.AuditRepositories
 
         private void LoadAudit(DateTime dateTime)
         {
-            var log = _logRepository.GetFromDate(dateTime).Result;
+            var log = _logRepository.Get(LogExpression.AuditLog(dateTime)).Result;
 
             foreach (var logEntry in log)
             {
@@ -50,9 +52,14 @@ namespace CryptoWatcher.Persistence.AuditRepositories
             }
         }
 
-        public Task<List<TEntity>> Get()
+        public Task<List<TEntity>> GetAll()
         {
             return Task.FromResult(List);
+        }
+
+        public Task<List<TEntity>> Get(Expression<Func<TEntity, bool>> expression)
+        {
+            return Task.FromResult(List.Where(expression.Compile()).ToList());
         }
         public Task<TEntity> GetById(string id)
         {
