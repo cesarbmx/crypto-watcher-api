@@ -48,7 +48,7 @@ namespace CryptoWatcher.Api.Controllers
             }
             else
             {
-                watchers = await _watcherService.GetWatchers(userId);
+                watchers = await _watcherService.GetUserWatchers(userId);
             }
 
             // Response

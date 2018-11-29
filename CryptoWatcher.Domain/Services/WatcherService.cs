@@ -30,7 +30,7 @@ namespace CryptoWatcher.Domain.Services
             _logger = logger;
         }
 
-        public async Task<List<Watcher>> GetWatchers(string userId)
+        public async Task<List<Watcher>> GetUserWatchers(string userId)
         {
             // Get user watchers
             var userWatchers = new List<Watcher>();
