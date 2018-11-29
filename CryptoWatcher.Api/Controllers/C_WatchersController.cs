@@ -91,7 +91,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Update watcher settings
+        /// Update watcher
         /// </summary>
         [HttpPut]
         [Route("watchers/{id}")]
