@@ -64,11 +64,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetWatcher")]
         public async Task<IActionResult> GetWatcher(string id)
         {
-            // Get watcher
-            var watcher = await _watcherService.GetWatcher(id);
-
-            // Response
-            var response = _mapper.Map<WatcherResponse>(watcher);
+            // Reponse
+            var response = await _mediator.Send(new GetWatcherRequest { Id = id });
 
             // Return
             return Ok(response);
