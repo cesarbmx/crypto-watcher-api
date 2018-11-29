@@ -14,7 +14,7 @@ _C# .NET Core + DDD + MediatR + Hangfire + Swagger + Automapper + FluentValidati
 - [ ]  **Phase #6** Reward system (**Reward**)
 
 ##### HOW TO RUN IT:
-Open it with VS2017 and just debug it. It uses the Entity Framework Core in-memory database, therefore, no pre-steps are required.
+Open it with VS2017 and debug the API. By default it uses an in-memory database, therefore, no pre-steps are required.
 
 ![image](https://user-images.githubusercontent.com/1844530/49256679-328eca80-f406-11e8-9e74-26ee9c9b55a6.png)
 
