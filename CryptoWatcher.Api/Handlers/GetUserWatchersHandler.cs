@@ -58,7 +58,7 @@ namespace CryptoWatcher.Api.Handlers
                     // Get matching watcher
                     var priceChangeWatcher = userWatchers.FirstOrDefault(x =>
                         x.IndicatorType == IndicatorType.PriceChange &&
-                        x.Id == currency.Id);
+                        x.CurrencyId == currency.Id);
 
                     // If the watcher does not exist, we add the default one
                     if (priceChangeWatcher == null)
@@ -83,7 +83,7 @@ namespace CryptoWatcher.Api.Handlers
                     // Get matching watcher
                     var hypeWatcher = userWatchers.FirstOrDefault(x =>
                         x.IndicatorType == IndicatorType.Hype &&
-                        x.Id == currency.Id);
+                        x.CurrencyId == currency.Id);
 
                     // If the watcher does not exist, we add the default one
                     if (hypeWatcher == null)
