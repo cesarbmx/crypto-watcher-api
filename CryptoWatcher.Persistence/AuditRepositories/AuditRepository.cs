@@ -73,6 +73,10 @@ namespace CryptoWatcher.Persistence.AuditRepositories
         {
             List.Add(entity);
         }
+        public void AddRange(List<TEntity> entities)
+        {
+            List.AddRange(entities);
+        }
         public void Update(TEntity entity)
         {
         }

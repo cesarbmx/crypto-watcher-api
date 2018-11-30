@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
+using CryptoWatcher.Api.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Api.Responses;
-using CryptoWatcher.Domain.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -13,32 +13,27 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class D_OrderController : Controller
     {
-        private readonly IMapper _mapper;
-        private readonly OrderService _orderService;
+        private readonly IMediator _mediator;
 
-        public D_OrderController(IMapper mapper, OrderService orderService)
+        public D_OrderController(IMediator mediator)
         {
-            _mapper = mapper;
-            _orderService = orderService;
+            _mediator = mediator;
         }
 
         /// <summary>
         /// Get user orders
         /// </summary>
         [HttpGet]
-        [Route("users/{userId}/orders")]
+        [Route("users/{id}/orders")]
         [SwaggerResponse(200, Type = typeof(List<OrderResponse>))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(OrderListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetUserOrders")]
-        public async Task<IActionResult> GetUserOrders(string userId)
+        public async Task<IActionResult> GetUserOrders(string id)
         {
-            // Get orders
-            var order = await _orderService.GetUserOrders(userId);
-
-            // Response
-            var response = _mapper.Map<List<OrderResponse>>(order);
+            // Reponse
+            var response = await _mediator.Send(new GetUserOrdersRequest { Id = id });
 
             // Return
             return Ok(response);
@@ -48,7 +43,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get order
         /// </summary>
         [HttpGet]
-        [Route("orders/{orderId}", Name = "Orders_GetOrder")]
+        [Route("orders/{id}", Name = "Orders_GetOrder")]
         [SwaggerResponse(200, Type = typeof(OrderResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
@@ -56,13 +51,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetOrder")]
-        public async Task<IActionResult> GetOrder(string orderId)
+        public async Task<IActionResult> GetOrder(string id)
         {
-            // Get order
-            var order = await _orderService.GetOrder(orderId);
-
-            // Response
-            var response = _mapper.Map<OrderResponse>(order);
+            // Reponse
+            var response = await _mediator.Send(new GetOrderRequest() { Id = id });
 
             // Return
             return Ok(response);

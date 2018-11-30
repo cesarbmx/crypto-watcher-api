@@ -44,6 +44,12 @@ namespace CryptoWatcher.Persistence.Repositories
             // Add
             _dbSet.Add(entity);
         }
+        public void AddRange(List<TEntity> entities)
+        {
+            // Add range
+            _dbSet.AddRange(entities);
+        }
+
         public void Remove(TEntity entity)
         {
             // Remove
