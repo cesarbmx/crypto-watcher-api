@@ -11,23 +11,26 @@ namespace CryptoWatcher.Domain.Services
     public class OrderService
     {
         private readonly IRepository<Order> _orderRepository;
-        private readonly UserService _userService;
+        private readonly IRepository<User> _userRepository;
         private readonly IRepository<Watcher> _watcherRepository;
 
         public OrderService(
             IRepository<Order> orderRepository,
-            UserService userService,
+            IRepository<User> userRepository,
             IRepository<Watcher> watcherRepository)
         {
             _orderRepository = orderRepository;
-            _userService = userService;
+            _userRepository = userRepository;
             _watcherRepository = watcherRepository;
         }
 
         public async Task<List<Order>> GetUserOrders(string userId)
         {
             // Get user
-            var user = await _userService.GetUser(userId);
+            var user = await _userRepository.GetById(userId);
+
+            // Check if user exists
+            if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get user orders
             var userOrders = await _orderRepository.Get(OrderExpression.UserOrder(user.Id));

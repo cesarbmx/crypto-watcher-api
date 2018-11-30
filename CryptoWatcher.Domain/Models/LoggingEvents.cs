@@ -13,6 +13,7 @@ namespace CryptoWatcher.Domain.Models
         AddingOrdersFailed,
         WatcherAdded,
         WatcherUpdated,
+        UserAdded,
         ConnectingToTwilioFailed
     }
 }

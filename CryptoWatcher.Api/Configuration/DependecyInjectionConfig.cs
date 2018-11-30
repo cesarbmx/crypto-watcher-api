@@ -29,7 +29,6 @@ namespace CryptoWatcher.Api.Configuration
             // Services
             services.AddScoped<CacheService, CacheService>();
             services.AddScoped<StatusService, StatusService>();
-            services.AddScoped<UserService, UserService>();
             services.AddScoped<OrderService, OrderService>();
 
             // Repositories

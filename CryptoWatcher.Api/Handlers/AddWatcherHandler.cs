@@ -22,7 +22,7 @@ namespace CryptoWatcher.Api.Handlers
     {
         private readonly MainDbContext _mainDbContext;
         private readonly IRepository<Watcher> _watcherRepository;
-        private readonly UserService _userService;
+        private readonly IRepository<User> _userRepository;
         private readonly CacheService _cacheService;
         private readonly ILogger<AddWatcherHandler> _logger;
         private readonly IMapper _mapper;
@@ -30,14 +30,14 @@ namespace CryptoWatcher.Api.Handlers
         public AddWatcherHandler(
             MainDbContext mainDbContext,
             IRepository<Watcher> watcherRepository,
-            UserService userService,
+            IRepository<User> userRepository,
             CacheService cacheService,
             ILogger<AddWatcherHandler> logger,
             IMapper mapper)
         {
             _mainDbContext = mainDbContext;
             _watcherRepository = watcherRepository;
-            _userService = userService;
+            _userRepository = userRepository;
             _cacheService = cacheService;
             _logger = logger;
             _mapper = mapper;
@@ -46,7 +46,7 @@ namespace CryptoWatcher.Api.Handlers
         public async Task<WatcherResponse> Handle(AddWatcherRequest request, CancellationToken cancellationToken)
         {
             // Get user
-            var user = await _userService.GetUser(request.UserId);
+            var user = await _userRepository.GetById(request.UserId);
 
             // Get currencies
             var currencies = await _cacheService.GetFromCache<Currency>();
