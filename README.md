@@ -2,8 +2,8 @@
 _C# .NET Core + DDD + MediatR + Hangfire + Swagger + Automapper + FluentValidation + Log4Net + EF7_
 
 ##### GOALS:
-* Foundation for any project following .Net Core, REST API, DDD and micro-service architecture  
-* Crypto Bot that combines analytical trading with people's behaviour
+* Foundation for any project following .Net Core, REST API, DDD and micro-services architecture  
+* Crypto bot that combines analytical trading with people's behaviour
 
 ##### PHASES:
 - [x]  **Phase #1** Whatsapp notification upon buy/sell orders (**Perception**)  
