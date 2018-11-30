@@ -31,7 +31,6 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return orders;
         }
-
         public static OrderType BuildOrderType(this WatcherStatus watcherStatus)
         {
             switch (watcherStatus)
