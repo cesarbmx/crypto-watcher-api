@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Shared.Providers;
 
-namespace CryptoWatcher.Persistence.AuditRepositories
+namespace CryptoWatcher.Persistence.Repositories
 {
     public class AuditRepository<TEntity> : IRepository<TEntity> where TEntity: Entity
     {
@@ -36,6 +36,10 @@ namespace CryptoWatcher.Persistence.AuditRepositories
                     case "Add":
                         newValue = logEntry.ModelJsonToObject<TEntity>();
                         List.Add(newValue);
+                        break;
+                    case "AddRange":
+                        var newValues = logEntry.ModelJsonToObject<List<TEntity>>();
+                        List.AddRange(newValues);
                         break;
                     case "Update":
                         newValue = logEntry.ModelJsonToObject<TEntity>();

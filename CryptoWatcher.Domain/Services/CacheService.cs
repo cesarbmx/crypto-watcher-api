@@ -8,12 +8,10 @@ namespace CryptoWatcher.Domain.Services
     public class CacheService
     {
         private readonly IRepository<Cache> _cacheRepository;
-        private readonly IRepository<Log> _logRepository;
 
-        public CacheService(IRepository<Cache> cacheRepository, IRepository<Log> logRepository)
+        public CacheService(IRepository<Cache> cacheRepository)
         {
             _cacheRepository = cacheRepository;
-            _logRepository = logRepository;
         }
 
         public async Task<List<T>> GetFromCache<T>()
@@ -35,17 +33,12 @@ namespace CryptoWatcher.Domain.Services
                 cache = new Cache();
                 cache.SetValue(value);
                 _cacheRepository.Add(cache);
-
-                // Add log
-                _logRepository.Add(new Log(cache, "Add"));
             }
             else
             {
                 // Update if it exists
                 cache.SetValue(value);
-
-                // Add log
-                _logRepository.Add(new Log(cache, "Update"));
+                _cacheRepository.Update(cache);
             }
         }
     }

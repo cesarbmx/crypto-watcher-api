@@ -25,12 +25,19 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<CacheService, CacheService>();
 
             // Repositories
-            services.AddScoped<IRepository<Cache>, Repository<Cache>>();
+            services.AddScoped<Repository<Cache>, Repository<Cache>>();
+            services.AddScoped<Repository<Log>, Repository<Log>>();
+            services.AddScoped<Repository<Watcher>, Repository<Watcher>>();
+            services.AddScoped<Repository<User>, Repository<User>>();
+            services.AddScoped<Repository<Notification>, Repository<Notification>>();
+            services.AddScoped<Repository<Order>, Repository<Order>>();
+
+            services.AddScoped<IRepository<Cache>, LoggerRepository<Cache>>();
             services.AddScoped<IRepository<Log>, Repository<Log>>();
-            services.AddScoped<IRepository<Watcher>, Repository<Watcher>>();
-            services.AddScoped<IRepository<User>, Repository<User>>();
-            services.AddScoped<IRepository<Notification>, Repository<Notification>>();
-            services.AddScoped<IRepository<Order>, Repository<Order>>();
+            services.AddScoped<IRepository<Watcher>, LoggerRepository<Watcher>>();
+            services.AddScoped<IRepository<User>, LoggerRepository<User>>();
+            services.AddScoped<IRepository<Notification>, LoggerRepository<Notification>>();
+            services.AddScoped<IRepository<Order>, LoggerRepository<Order>>();
 
             // Other
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();

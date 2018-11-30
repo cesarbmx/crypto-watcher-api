@@ -11,7 +11,13 @@ namespace CryptoWatcher.Domain.Models
         public Log() { }
         public Log(object resource, string action)
         {
-            Resource = resource.GetType().Name;
+            var resourceName = resource.GetType().Name;
+            if (resourceName == "List`1")
+            {
+                resourceName = resource.GetType().GetGenericArguments()[0].Name + "List";
+            }
+
+            Resource = resourceName;
             Action = action;
             Json = JsonConvertHelper.SerializeObjectRaw(resource);
         }

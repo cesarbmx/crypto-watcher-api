@@ -1,48 +1,50 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Domain.Repositories;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
+    public class LoggerRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
-        private readonly DbSet<TEntity> _dbSet;
+        private readonly Repository<TEntity> _repository;
+        private readonly IRepository<Log> _logRepository;
 
-        public Repository(MainDbContext mainDbContext)
+        public LoggerRepository(Repository<TEntity> repository, IRepository<Log> logRepository)
         {
-            _dbSet = mainDbContext.Set<TEntity>();
+            _repository = repository;
+            _logRepository = logRepository;
         }
 
         public async Task<List<TEntity>> GetAll()
         {
             // Get all
-            return await _dbSet.ToListAsync();
+            return await _repository.GetAll();
         }
         public async Task<List<TEntity>> Get(Expression<Func<TEntity, bool>> expression)
         {
             // Get all by expression
-            return await _dbSet.Where(expression).ToListAsync();
+            return await _repository.Get(expression);
         }
         public async Task<TEntity> GetById(string id)
         {
             // Get by id
-            return await _dbSet.FindAsync(id);
+            return await _repository.GetById(id);
         }
         public async Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression)
         {
             // Get single by expression
-            return await _dbSet.FirstOrDefaultAsync(expression);
+            return await _repository.GetSingle(expression);
         }
         public void Add(TEntity entity)
         {
             // Add
-            _dbSet.Add(entity);
+            _repository.Add(entity);
+
+            // Add log
+            _logRepository.Add(new Log(entity, "Add"));
         }
         public void AddRange(List<TEntity> entities)
         {
@@ -50,15 +52,23 @@ namespace CryptoWatcher.Persistence.Repositories
             if (entities.Count == 0) return;
 
             // Add range
-            _dbSet.AddRange(entities);
+            _repository.AddRange(entities);
+
+            // Add log
+            _logRepository.Add(new Log(entities, "AddRange"));
         }
         public void Update(TEntity entity)
         {
+            // Add log
+            _logRepository.Add(new Log(entity, "Update"));
         }
         public void Remove(TEntity entity)
         {
             // Remove
-            _dbSet.Remove(entity);
+            _repository.Remove(entity);
+
+            // Add log
+            _logRepository.Add(new Log(entity, "Remove"));
         }
     }
 }

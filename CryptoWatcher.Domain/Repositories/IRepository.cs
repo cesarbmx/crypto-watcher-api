@@ -14,6 +14,7 @@ namespace CryptoWatcher.Domain.Repositories
         Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression);
         void Add(TEntity entity);
         void AddRange(List<TEntity> entities);
+        void Update(TEntity entity);
         void Remove(TEntity entity);
     }
 }
