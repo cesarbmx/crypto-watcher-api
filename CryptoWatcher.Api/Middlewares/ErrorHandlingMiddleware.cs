@@ -8,7 +8,6 @@ using Newtonsoft.Json.Serialization;
 using CryptoWatcher.Api.Responses;
 using CryptoWatcher.Shared.Exceptions;
 using CryptoWatcher.Domain.Messages;
-using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Extensions;
 
 namespace CryptoWatcher.Api.Middlewares
@@ -73,7 +72,7 @@ namespace CryptoWatcher.Api.Middlewares
                     errorCode = 500;
                     errorResponse = new ErrorResponse(nameof(Message.InternalServerError), errorCode, Message.InternalServerError);
                     // Log error
-                    _logger.LogSplunkError(nameof(LoggingEvents.ExceptionUnhandled), exception);
+                    _logger.LogSplunkError("UnhandledException", exception);
                     break;
             }
 

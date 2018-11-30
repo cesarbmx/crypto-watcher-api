@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Repositories\CacheRepository.cs" />
     <Compile Remove="Repositories\CurrencyRepository.cs" />
     <Compile Remove="Repositories\LogRepository.cs" />
     <Compile Remove="Repositories\NotificationRepository.cs" />

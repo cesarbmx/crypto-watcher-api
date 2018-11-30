@@ -18,8 +18,7 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<MonitorWatchersJob> _logger;
         private readonly IRepository<Notification> _notificationRepository;
-
-
+        
         public SendWhatsappNotificationsJob(
             MainDbContext mainDbContext,
             ILogger<MonitorWatchersJob> logger,
@@ -59,14 +58,11 @@ namespace CryptoWatcher.BackgroundJobs
                                 body: pendingNotification.Message
                             );
                             pendingNotification.SendWhatsapp();
-
-                            // Log into Splunk
-                            _logger.LogSplunkInformation(nameof(LoggingEvents.WatchappsSent), pendingNotification);
                         }
                         catch (Exception ex)
                         {
                             // Log into Splunk
-                            _logger.LogSplunkError(nameof(LoggingEvents.SendingWatchappFailed), pendingNotification, ex);
+                            _logger.LogSplunkError(nameof(SendWhatsappNotificationsJob), pendingNotification, ex);
                         }
                     }
 
@@ -74,12 +70,15 @@ namespace CryptoWatcher.BackgroundJobs
                     await _mainDbContext.SaveChangesAsync();
                 }
 
+                // Log into Splunk
+                _logger.LogSplunkInformation(nameof(MonitorWatchersJob));
+
                 await Task.CompletedTask;
             }
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogSplunkError(nameof(LoggingEvents.ConnectingToTwilioFailed), ex);
+                _logger.LogSplunkError(nameof(SendWhatsappNotificationsJob), ex);
             }
         }
     }

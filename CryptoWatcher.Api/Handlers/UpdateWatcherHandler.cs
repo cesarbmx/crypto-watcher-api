@@ -49,7 +49,7 @@ namespace CryptoWatcher.Api.Handlers
             await _mainDbContext.SaveChangesAsync(cancellationToken);
 
             // Log into Splunk
-            _logger.LogSplunkInformation(nameof(LoggingEvents.WatcherUpdated), watcher);
+            _logger.LogSplunkInformation(nameof(UpdateWatcherRequest), request);
 
             // Response
             var response = _mapper.Map<WatcherResponse>(watcher);

@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\LoggingEvents.cs" />
     <Compile Remove="Repositories\ICacheRepository.cs" />
     <Compile Remove="Repositories\ICurrencyRepository.cs" />
     <Compile Remove="Repositories\ILogRepository.cs" />
