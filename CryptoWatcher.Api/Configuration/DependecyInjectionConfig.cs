@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using System.Security.Principal;
-using CoinMarketCap;
+﻿using CoinMarketCap;
 using CoinMarketCap.Core;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Repositories;
@@ -19,16 +17,12 @@ namespace CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-
-            //services.AddScoped<IPinnacleTokenService<CryptoWatcherPermission>, PinnacleTokenService<CryptoWatcherPermission>>();
-
             //Contexts (UOW)
             //services.AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("CryptoWatcher")));
             services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("CryptoWatcher"));
 
             // Services
             services.AddScoped<CacheService, CacheService>();
-            services.AddScoped<StatusService, StatusService>();
             services.AddScoped<OrderService, OrderService>();
 
             // Repositories
@@ -43,8 +37,6 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<HttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICoinMarketCapClient, CoinMarketCapClient>();
-            services.AddScoped(factory => Assembly.GetExecutingAssembly());
-            services.AddScoped<IPrincipal>( x => x.GetService<IHttpContextAccessor>().HttpContext.User);
 
             return services;
         }

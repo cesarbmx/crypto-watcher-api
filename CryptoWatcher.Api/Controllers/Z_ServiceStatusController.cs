@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
-using AutoMapper;
+using CryptoWatcher.Api.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Api.Responses;
 using CryptoWatcher.Domain.Messages;
-using CryptoWatcher.Domain.Services;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -16,15 +15,11 @@ namespace CryptoWatcher.Api.Controllers
     [AllowAnonymous]
     public class Z_ServiceStatusController : Controller
     {
-        private readonly IMapper _mapper;
-        private readonly StatusService _statusService;
-        private readonly IHostingEnvironment _env;
+        private readonly IMediator _mediator;
 
-        public Z_ServiceStatusController(IMapper mapper, StatusService statusService, IHostingEnvironment env)
+        public Z_ServiceStatusController(IMediator mediator)
         {
-            _mapper = mapper;
-            _statusService = statusService;
-            _env = env;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -48,11 +43,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Service status" }, OperationId = "ServiceStatus_GetVersion")]
         public async Task<IActionResult> GetVersion()
         {
-            // Get status
-            var version = await _statusService.GetVersion(_env.EnvironmentName);
-
-            // Response
-            var response = _mapper.Map<VersionResponse>(version);
+            // Reponse
+            var response = await _mediator.Send(new GetVersionRequest());
 
             // Return
             return Ok(response);
@@ -70,11 +62,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Service status" }, OperationId = "ServiceStatus_GetHealth")]
         public async Task<IActionResult> GetHealth()
         {
-            // Get health
-            var health = await _statusService.GetHealth();
-
-            // Response
-            var response = Mapper.Map<HealthResponse>(health);
+            // Reponse
+            var response = await _mediator.Send(new GetHealthRequest());
 
             // Return
             return Ok(response);

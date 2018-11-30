@@ -1,37 +1,27 @@
 ﻿using System.Diagnostics;
-using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using CryptoWatcher.Api.Requests;
+using CryptoWatcher.Api.Responses;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Shared.Helpers;
+using CryptoWatcher.Domain.Services;
+using MediatR;
 
-namespace CryptoWatcher.Domain.Services
+namespace CryptoWatcher.Api.Handlers
 {
-    public class StatusService
+    public class GetHealthHandler : IRequestHandler<GetHealthRequest, HealthResponse>
     {
-        private readonly Assembly _assembly;
         private readonly CacheService _cacheService;
+        private readonly IMapper _mapper;
 
-        public StatusService(
-            Assembly assembly,
-            CacheService cacheService)
+        public GetHealthHandler(CacheService cacheService, IMapper mapper)
         {
-            _assembly = assembly;
             _cacheService = cacheService;
+            _mapper = mapper;
         }
 
-        public  Task<Version> GetVersion(string environment)
-        {
-            return Task.FromResult(
-                new Version(
-                    // VersionNumber
-                    VersioningHelper.VersionNumber(_assembly),
-                    // LastBuildOccurred
-                    VersioningHelper.BuildDate(_assembly),
-                    // Environment
-                    environment
-                ));
-        }
-        public async Task<Health> GetHealth()
+        public async Task<HealthResponse> Handle(GetHealthRequest request, CancellationToken cancellationToken)
         {
             var isEverythingOk = true;
             var isConnectionToDatabaseOk = true;
@@ -58,9 +48,14 @@ namespace CryptoWatcher.Domain.Services
                 isResponseTimeAcceptable = false;
             }
 
-            // Return health
+            // Health
             var health = new Health(isEverythingOk, isConnectionToDatabaseOk, isResponseTimeAcceptable);
-            return health;
+
+            // Response
+            var response = _mapper.Map<HealthResponse>(health);
+
+            // Return
+            return response;
         }
     }
 }

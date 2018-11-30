@@ -24,7 +24,6 @@ namespace CryptoWatcher.ConsoleApp.Configuration
 
             // Services
             services.AddSingleton<CacheService, CacheService>();
-            services.AddSingleton<StatusService, StatusService>();
             services.AddSingleton<OrderService, OrderService>();
 
             // Repositories
