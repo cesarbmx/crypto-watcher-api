@@ -30,10 +30,10 @@ namespace CryptoWatcher.Domain.Builders
                 {
                     errorMessage.Add(constant.Name, constant.GetValue(null).ToString());
                 }
-                resources.Add(type.Name.Replace("Messages", ""), errorMessage);
+                resources.Add(type.Name.Replace("Message", ""), errorMessage);
             }
 
-            return resources;
+            return resources.OrderBy(x=>x.Key).ToDictionary(pair => pair.Key, pair => pair.Value);
         }
     }
 }

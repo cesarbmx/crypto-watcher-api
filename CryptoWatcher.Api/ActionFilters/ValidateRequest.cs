@@ -22,7 +22,7 @@ namespace CryptoWatcher.Api.ActionFilters
                     {
                         if (error.Exception != null)
                         {
-                            var errorResponse = new ErrorResponse(nameof(Messages.InvalidRequest), 400, Messages.InvalidRequest);
+                            var errorResponse = new ErrorResponse(nameof(Message.InvalidRequest), 400, Message.InvalidRequest);
                             filterContext.Result = new ObjectResult(errorResponse) { StatusCode = 400 };
                             return;
                         }
@@ -47,7 +47,7 @@ namespace CryptoWatcher.Api.ActionFilters
                         validationErrorsResponse.Add(new ValidationErrorResponse(code, error.Key, message));
                     }
                 }
-                var validationsResponse = new ValidationResponse(nameof(Messages.ValidationFailed), 422, Messages.ValidationFailed, validationErrorsResponse);
+                var validationsResponse = new ValidationResponse(nameof(Message.ValidationFailed), 422, Message.ValidationFailed, validationErrorsResponse);
 
                 filterContext.Result = new ObjectResult(validationsResponse) { StatusCode = 422 };
             }

@@ -27,7 +27,7 @@ namespace CryptoWatcher.Api.Controllers
         [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult ResourceNotFound()
         {
-            var errorResponse = new ErrorResponse(nameof(Messages.NotFound), 404, Messages.NotFound);
+            var errorResponse = new ErrorResponse(nameof(Message.NotFound), 404, Message.NotFound);
             return NotFound(errorResponse);
         }
 

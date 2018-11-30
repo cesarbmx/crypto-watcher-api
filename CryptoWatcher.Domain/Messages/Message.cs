@@ -2,7 +2,7 @@
 
 namespace CryptoWatcher.Domain.Messages
 {
-    public static class Messages
+    public static class Message
     {
         // Authentication
         public const string NotAuthenticated = "You must be authenticated";

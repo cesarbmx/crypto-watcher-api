@@ -9,15 +9,15 @@ namespace CryptoWatcher.Api.FakeResponses
         public static ErrorResponse GetFake_BadRequest()
         {
           
-            return new ErrorResponse(nameof(Messages.InvalidRequest), 400, Messages.InvalidRequest);
+            return new ErrorResponse(nameof(Message.InvalidRequest), 400, Message.InvalidRequest);
         }
         public static ErrorResponse GetFake_NotFound()
         {
-            return new ErrorResponse(nameof(Messages.NotFound), 404, Messages.NotFound);
+            return new ErrorResponse(nameof(Message.NotFound), 404, Message.NotFound);
         }
         public static ErrorResponse GetFake_Conflict()
         {
-            return new ErrorResponse(nameof(Messages.Conflict), 409, Messages.Conflict);
+            return new ErrorResponse(nameof(Message.Conflict), 409, Message.Conflict);
         }
         public static ValidationResponse GetFake_InvalidRequest()
         {
@@ -25,13 +25,13 @@ namespace CryptoWatcher.Api.FakeResponses
             {
                 new ValidationErrorResponse("Code", "FieldName", "Validation description")
             };
-            var validationResponse = new ValidationResponse(nameof(Messages.ValidationFailed), 422, Messages.ValidationFailed, validationErrorResponseList);
+            var validationResponse = new ValidationResponse(nameof(Message.ValidationFailed), 422, Message.ValidationFailed, validationErrorResponseList);
 
             return validationResponse;
         }
         public static ErrorResponse GetFake_InternalServerError()
         {
-            return new ErrorResponse(nameof(Messages.InternalServerError), 500, Messages.InternalServerError);
+            return new ErrorResponse(nameof(Message.InternalServerError), 500, Message.InternalServerError);
         }
     }
 }

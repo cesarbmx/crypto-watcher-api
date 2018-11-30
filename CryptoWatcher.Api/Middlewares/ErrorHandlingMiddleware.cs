@@ -47,31 +47,31 @@ namespace CryptoWatcher.Api.Middlewares
                 case UnauthorizedException _: // 401
                     var unauthorizedException = (UnauthorizedException)exception;
                     errorCode = 401;
-                    errorResponse = new ErrorResponse(nameof(Messages.NotAuthenticated), errorCode, unauthorizedException.Message);
+                    errorResponse = new ErrorResponse(nameof(Message.NotAuthenticated), errorCode, unauthorizedException.Message);
                     break;
                 case ForbiddenException _:    // 403
                     var forbiddenException = (ForbiddenException)exception;
                     errorCode = 401;
-                    errorResponse = new ErrorResponse(nameof(Messages.PermissionRequired), errorCode, forbiddenException.Message);
+                    errorResponse = new ErrorResponse(nameof(Message.PermissionRequired), errorCode, forbiddenException.Message);
                     break;
                 case NotFoundException _:     // 404
                     var notFoundException = (NotFoundException)exception;
                     errorCode = 404;
-                    errorResponse = new ErrorResponse(nameof(Messages.NotFound), errorCode, notFoundException.Message);
+                    errorResponse = new ErrorResponse(nameof(Message.NotFound), errorCode, notFoundException.Message);
                     break;
                 case ConflictException _:     // 409
                     var conflictException = (ConflictException)exception;
                     errorCode = 409;
-                    errorResponse = new ErrorResponse(nameof(Messages.Conflict), errorCode, conflictException.Message);
+                    errorResponse = new ErrorResponse(nameof(Message.Conflict), errorCode, conflictException.Message);
                     break;
                 case ValidationException _:    // 422
                     var validationException = (ValidationException)exception;
                     errorCode = 422;
-                    errorResponse = new ErrorResponse(nameof(Messages.ValidationFailed), errorCode, validationException.Message);
+                    errorResponse = new ErrorResponse(nameof(Message.ValidationFailed), errorCode, validationException.Message);
                     break;
                 default:                      // 500
                     errorCode = 500;
-                    errorResponse = new ErrorResponse(nameof(Messages.InternalServerError), errorCode, Messages.InternalServerError);
+                    errorResponse = new ErrorResponse(nameof(Message.InternalServerError), errorCode, Message.InternalServerError);
                     // Log error
                     _logger.LogSplunkError(nameof(LoggingEvents.ExceptionUnhandled), exception);
                     break;
