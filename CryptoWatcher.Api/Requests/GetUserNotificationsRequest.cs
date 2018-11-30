@@ -4,8 +4,8 @@ using MediatR;
 
 namespace CryptoWatcher.Api.Requests
 {
-    public class GetNotificationsRequest : IRequest<List<NotificationResponse>>
+    public class GetUserNotificationsRequest : IRequest<List<NotificationResponse>>
     {
-        
+        public string Id { get; set; }
     }
 }

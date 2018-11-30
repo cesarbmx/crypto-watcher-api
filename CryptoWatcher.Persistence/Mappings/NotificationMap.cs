@@ -9,6 +9,11 @@ namespace CryptoWatcher.Persistence.Mappings
         public NotificationMap(EntityTypeBuilder<Notification> entityBuilder)
         {
             // Properties
+            entityBuilder.Property(t => t.UserId)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
             entityBuilder.Property(t => t.PhoneNumber)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)

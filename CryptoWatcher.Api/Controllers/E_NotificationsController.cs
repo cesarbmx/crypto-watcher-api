@@ -24,16 +24,16 @@ namespace CryptoWatcher.Api.Controllers
         /// Get notifications
         /// </summary>
         [HttpGet]
-        [Route("notifications")]
+        [Route("users/{id}/notifications")]
         [SwaggerResponse(200, Type = typeof(List<NotificationResponse>))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(NotificationListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetNotifications")]
-        public async Task<IActionResult> GetNotifications()
+        [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetUserNotifications")]
+        public async Task<IActionResult> GetUserNotifications(string id)
         {
             // Reponse
-            var response = await _mediator.Send(new GetNotificationsRequest());
+            var response = await _mediator.Send(new GetUserNotificationsRequest {Id = id});
 
             // Return
             return Ok(response);

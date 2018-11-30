@@ -6,6 +6,10 @@ namespace CryptoWatcher.Domain.Expressions
 {
     public static class NotificationExpression
     {
+        public static Expression<Func<Notification, bool>> UserNotification(string userId)
+        {
+            return x => x.UserId == userId;
+        }
         public static Expression<Func<Notification, bool>> PendingNotification()
         {
             return x => !x.WhatsappSentTime.HasValue;
