@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Api.Responses;
-using CryptoWatcher.Domain.Services;
+using CryptoWatcher.Domain.Builders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,13 +13,6 @@ namespace CryptoWatcher.Api.Controllers
     [AllowAnonymous]
     public class Y_ErrorMessagesController : Controller
     {
-        private readonly ErrorMessagesService _errorMessagesService;
-
-        public Y_ErrorMessagesController(ErrorMessagesService errorMessagesService)
-        {
-            _errorMessagesService = errorMessagesService;
-        }
-
         /// <summary>
         /// Get error messages
         /// </summary>
@@ -32,7 +25,7 @@ namespace CryptoWatcher.Api.Controllers
         public IActionResult GetErrorMessages()
         {
             // Get error messages
-            var errorMessages = _errorMessagesService.GetErrorMessages();
+            var errorMessages = ErrorMessageBuilder.BuildErrorMessages();
             
             // Return
             return Ok(errorMessages);

@@ -1,18 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using CryptoWatcher.Domain.Models;
 
-namespace CryptoWatcher.Domain.Services
+
+namespace CryptoWatcher.Domain.Builders
 {
-    public class ErrorMessagesService
+    public static class ErrorMessageBuilder
     {
-        public Dictionary<string, Dictionary<string, string>> GetErrorMessages()
+
+        public static Dictionary<string, ErrorMessage> BuildErrorMessages()
         {
-            var resources = new Dictionary<string, Dictionary<string, string>>();
+            var resources = new Dictionary<string, ErrorMessage>();
 
             var query = from t in Assembly.GetExecutingAssembly().GetTypes()
-                        where t.IsClass && t.Namespace == "CryptoWatcher.Domain.Messages"
-                        select t;
+                where t.IsClass && t.Namespace == "CryptoWatcher.Domain.Messages"
+                select t;
             var types = query.ToList();
 
             foreach (var type in types)
@@ -21,17 +24,16 @@ namespace CryptoWatcher.Domain.Services
                                                BindingFlags.FlattenHierarchy)
                     .Where(fi => fi.IsLiteral && !fi.IsInitOnly).ToList();
 
-                var errorMessages = new Dictionary<string, string>();
+                var errorMessage = new ErrorMessage();
 
                 foreach (var constant in constants)
                 {
-                    errorMessages.Add(constant.Name, constant.GetValue(null).ToString());
+                    errorMessage.Add(constant.Name, constant.GetValue(null).ToString());
                 }
-                resources.Add(type.Name.Replace("Messages", ""), errorMessages);
+                resources.Add(type.Name.Replace("Messages", ""), errorMessage);
             }
 
             return resources;
         }
-
     }
 }
