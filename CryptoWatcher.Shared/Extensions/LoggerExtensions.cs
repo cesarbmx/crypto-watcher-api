@@ -13,7 +13,7 @@ namespace CryptoWatcher.Shared.Extensions
         {
             var dictionary = payload.AsDictionary();
             var keyValues = dictionary.AsSplunkKeyValueString();
-            if (keyValues.Length > 0) keyValues = " " + keyValues;
+            if (keyValues.Length > 0) keyValues = ", " + keyValues;
 
             logger.LogInformation($"Event={eventId}" + keyValues);
         }   
@@ -25,7 +25,7 @@ namespace CryptoWatcher.Shared.Extensions
         {
             var dictionary = payload.AsDictionary();
             var keyValues = dictionary.AsSplunkKeyValueString();
-            if (keyValues.Length > 0) keyValues = " " + keyValues;
+            if (keyValues.Length > 0) keyValues = ", " + keyValues;
 
             logger.LogError(ex, $"Event={eventId}" + keyValues);
         }

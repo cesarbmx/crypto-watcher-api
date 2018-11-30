@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -14,10 +15,11 @@ namespace CryptoWatcher.Shared.Extensions
                 propInfo => propInfo.GetValue(obj, null)
             );
             var result = new Dictionary<string, object>();
+            
             foreach (var item in dictionary)
             {
                 var fullName = item.Value.GetType().FullName;
-                if (fullName != null && !fullName.StartsWith("System."))
+                if (fullName != null && !fullName.StartsWith("System.") && !(item.Value is Enum))
                 {
                     result.Add(item.Key, item.Value.AsDictionary());
                 }
