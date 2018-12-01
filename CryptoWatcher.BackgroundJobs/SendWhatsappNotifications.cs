@@ -45,7 +45,7 @@ namespace CryptoWatcher.BackgroundJobs
                         Environment.GetEnvironmentVariable("TWILIO_ACCOUNT_SID"),
                         Environment.GetEnvironmentVariable("TWILIO_AUTH_TOKEN")
                     );
-                    
+
                     // For each notification
                     foreach (var pendingNotification in pendingNotifications)
                     {
@@ -62,7 +62,7 @@ namespace CryptoWatcher.BackgroundJobs
                         catch (Exception ex)
                         {
                             // Log into Splunk
-                            _logger.LogSplunkError(nameof(SendWhatsappNotificationsJob), pendingNotification, ex);
+                            _logger.LogSplunkError(pendingNotification, ex);
                         }
                     }
 
@@ -71,14 +71,14 @@ namespace CryptoWatcher.BackgroundJobs
                 }
 
                 // Log into Splunk
-                _logger.LogSplunkInformation(nameof(MonitorWatchersJob));
+                _logger.LogSplunkInformation();
 
                 await Task.CompletedTask;
             }
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogSplunkError(nameof(SendWhatsappNotificationsJob), ex);
+                _logger.LogSplunkError(ex);
             }
         }
     }

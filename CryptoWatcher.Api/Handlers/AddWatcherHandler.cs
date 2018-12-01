@@ -24,7 +24,7 @@ namespace CryptoWatcher.Api.Handlers
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly IRepository<User> _userRepository;
         private readonly CacheService _cacheService;
-        private readonly ILogger<AddWatcherHandler> _logger;
+        private readonly ILogger<AddWatcherRequest> _logger;
         private readonly IMapper _mapper;
 
         public AddWatcherHandler(
@@ -32,7 +32,7 @@ namespace CryptoWatcher.Api.Handlers
             IRepository<Watcher> watcherRepository,
             IRepository<User> userRepository,
             CacheService cacheService,
-            ILogger<AddWatcherHandler> logger,
+            ILogger<AddWatcherRequest> logger,
             IMapper mapper)
         {
             _mainDbContext = mainDbContext;
@@ -82,7 +82,7 @@ namespace CryptoWatcher.Api.Handlers
             await _mainDbContext.SaveChangesAsync(cancellationToken);
 
             // Log into Splunk
-            _logger.LogSplunkInformation(nameof(AddWatcherRequest), request);
+            _logger.LogSplunkInformation(request);
 
             // Response
             var response = _mapper.Map<WatcherResponse>(watcher);
