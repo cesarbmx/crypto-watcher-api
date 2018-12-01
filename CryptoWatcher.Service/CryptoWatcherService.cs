@@ -1,8 +1,4 @@
-﻿
-
-
-using System;
-using System.IO;
+﻿using System.IO;
 using CryptoWatcher.Service.Configuration;
 using Hangfire;
 using Microsoft.Extensions.Configuration;
@@ -12,10 +8,10 @@ namespace CryptoWatcher.Service
 {
     public class CryptoWatcherService
     {
+        private BackgroundJobServer _backgroundJobServer;
+
         public void Start()
         {
-            // write code here that runs when the Windows Service starts up.  
-
             // Configuration
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -32,16 +28,11 @@ namespace CryptoWatcher.Service
             // Configure hangfire
             serviceProvider.ConfigureHangfire(configuration);
 
-            // Start app
-            using (new BackgroundJobServer())
-            {
-                Console.WriteLine("Hangfire Server started. Press ENTER to exit...");
-                Console.ReadLine();
-            }
+            _backgroundJobServer = new BackgroundJobServer();
         }
         public void Stop()
         {
-            // write code here that runs when the Windows Service stops.  
+            _backgroundJobServer.Dispose();
         }
     }
 }
