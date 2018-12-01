@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CryptoWatcher.ConsoleApp.Configuration
+namespace CryptoWatcher.Service.Configuration
 {
     public static class DependecyInjectionConfig
     {

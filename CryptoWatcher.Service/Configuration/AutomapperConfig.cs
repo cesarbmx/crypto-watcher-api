@@ -4,7 +4,7 @@ using CoinMarketCap.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoWatcher.Domain.Models;
 
-namespace CryptoWatcher.ConsoleApp.Configuration
+namespace CryptoWatcher.Service.Configuration
 {
     public static class AutomapperConfig
     {

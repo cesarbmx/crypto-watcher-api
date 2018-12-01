@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using NoobsMuc.Coinmarketcap.Client;
 using Owin;
 
-namespace CryptoWatcher.ConsoleApp
+namespace CryptoWatcher.Service
 {
     public class Startup
     {

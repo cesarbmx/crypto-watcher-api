@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace CryptoWatcher.ConsoleApp.Configuration
+namespace CryptoWatcher.Service.Configuration
 {
     public static class Log4NetConfig
     {

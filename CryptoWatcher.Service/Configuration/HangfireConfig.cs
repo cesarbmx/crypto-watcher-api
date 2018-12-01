@@ -6,7 +6,7 @@ using Hangfire.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CryptoWatcher.ConsoleApp.Configuration
+namespace CryptoWatcher.Service.Configuration
 {
     public static class HangfireConfig
     {

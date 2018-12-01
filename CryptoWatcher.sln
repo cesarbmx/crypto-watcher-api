@@ -27,11 +27,11 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CryptoWatcher.Database", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Domain.Tests", "CryptoWatcher.Domain.Tests\CryptoWatcher.Domain.Tests.csproj", "{DC9A5294-D2AA-4DA6-9EE6-FD6252CB21F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoWatcher.BackgroundJobs", "CryptoWatcher.BackgroundJobs\CryptoWatcher.BackgroundJobs.csproj", "{E991C5D0-DDF6-47AD-BB06-68A898CDAFF9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.ConsoleApp", "CryptoWatcher.ConsoleApp\CryptoWatcher.ConsoleApp.csproj", "{C162F072-EFB3-4A6B-B4CF-1D7494E28E92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.BackgroundJobs", "CryptoWatcher.BackgroundJobs\CryptoWatcher.BackgroundJobs.csproj", "{E991C5D0-DDF6-47AD-BB06-68A898CDAFF9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{9D7A53C7-17CC-462B-A481-467E86A818B8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Service", "CryptoWatcher.Service\CryptoWatcher.Service.csproj", "{9B58540F-28EB-48CF-A0C8-A39721A32DD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,10 +77,10 @@ Global
 		{E991C5D0-DDF6-47AD-BB06-68A898CDAFF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E991C5D0-DDF6-47AD-BB06-68A898CDAFF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E991C5D0-DDF6-47AD-BB06-68A898CDAFF9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C162F072-EFB3-4A6B-B4CF-1D7494E28E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C162F072-EFB3-4A6B-B4CF-1D7494E28E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C162F072-EFB3-4A6B-B4CF-1D7494E28E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C162F072-EFB3-4A6B-B4CF-1D7494E28E92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B58540F-28EB-48CF-A0C8-A39721A32DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B58540F-28EB-48CF-A0C8-A39721A32DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B58540F-28EB-48CF-A0C8-A39721A32DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B58540F-28EB-48CF-A0C8-A39721A32DD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,7 +95,7 @@ Global
 		{9F3BEC90-3A50-41F0-AED1-DD734082AFA4} = {3BC58F9B-2BBB-47A9-9B07-47C766F20070}
 		{DC9A5294-D2AA-4DA6-9EE6-FD6252CB21F0} = {C6E9ABD6-381C-4BD2-A666-D52A953BE516}
 		{E991C5D0-DDF6-47AD-BB06-68A898CDAFF9} = {9D7A53C7-17CC-462B-A481-467E86A818B8}
-		{C162F072-EFB3-4A6B-B4CF-1D7494E28E92} = {1C3DE5BC-D4BF-437C-B9E2-FF1049025709}
+		{9B58540F-28EB-48CF-A0C8-A39721A32DD0} = {1C3DE5BC-D4BF-437C-B9E2-FF1049025709}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7CCEAABE-45B4-414D-A0A5-108B4DDEC89E}
