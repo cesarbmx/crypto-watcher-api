@@ -29,7 +29,7 @@
             Add a user
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.GetAllWatchers(System.String,System.Nullable{CryptoWatcher.Domain.Models.IndicatorType})">
+        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.GetAllWatchersFromUser(System.String,System.Nullable{CryptoWatcher.Domain.Models.IndicatorType})">
             <summary>
             Get all watchers from a user
             </summary>
@@ -49,7 +49,7 @@
             Update a watcher
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.D_OrderController.GetAllOrders(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.D_OrderController.GetAllOrdersFromUser(System.String)">
             <summary>
             Get all orders from a user
             </summary>
@@ -59,7 +59,7 @@
             Get an order
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.E_NotificationsController.GetAllNotifications(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.E_NotificationsController.GetAllNotificationsFromUser(System.String)">
             <summary>
             Get all notifications
             </summary>
@@ -79,19 +79,19 @@
             Get a log
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.Y_ErrorMessagesController.GetErrorMessages">
+        <member name="M:CryptoWatcher.Api.Controllers.Y_ErrorMessagesController.GetAllErrorMessages">
             <summary>
-            Get error messages
+            Get all error messages
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.Z_ServiceStatusController.GetVersion">
             <summary>
-            Get service version
+            Get the API version
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.Z_ServiceStatusController.GetHealth">
             <summary>
-            Get service health
+            Get the service health
             </summary>
         </member>
     </members>

@@ -16,14 +16,14 @@ using CryptoWatcher.Domain.Builders;
 
 namespace CryptoWatcher.Api.Handlers
 {
-    public class GetUserWatchersHandler : IRequestHandler<GetAllWatchersRequest, List<WatcherResponse>>
+    public class GetAllWatchersHandler : IRequestHandler<GetAllWatchersRequest, List<WatcherResponse>>
     {
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly IRepository<User> _userRepository;
         private readonly CacheService _cacheService;
         private readonly IMapper _mapper;
 
-        public GetUserWatchersHandler(
+        public GetAllWatchersHandler(
             IRepository<Watcher> watcherRepository,
             IRepository<User> userRepository,
             CacheService cacheService,
