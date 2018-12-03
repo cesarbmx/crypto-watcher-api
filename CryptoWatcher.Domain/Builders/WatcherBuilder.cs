@@ -15,7 +15,7 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return watcherStatus;
         }
-        public static List<Watcher> BuildWithDefaults(this List<Watcher> userWatchers, List<Currency> currencies)
+        public static List<Watcher> BuildWithDefaults(this List<Watcher> userWatchers, string userId, List<Currency> currencies)
         {
             var watchers = new List<Watcher>();
             foreach (var currency in currencies)
@@ -29,7 +29,7 @@ namespace CryptoWatcher.Domain.Builders
                 if (priceChangeWatcher == null)
                 {
                     priceChangeWatcher = new Watcher(
-                        "master",
+                        userId,
                         currency.Id,
                         IndicatorType.PriceChange,
                         IndicatorBuilder.BuildValue(currency, IndicatorType.PriceChange, currencies),
@@ -50,7 +50,7 @@ namespace CryptoWatcher.Domain.Builders
                 if (hypeWatcher == null)
                 {
                     hypeWatcher = new Watcher(
-                        "master",
+                        userId,
                         currency.Id,
                         IndicatorType.PriceChange,
                         IndicatorBuilder.BuildValue(currency, IndicatorType.PriceChange, currencies),

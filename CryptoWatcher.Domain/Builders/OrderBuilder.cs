@@ -15,7 +15,7 @@ namespace CryptoWatcher.Domain.Builders
 
             foreach (var watcher in watchers)
             {
-                // Add if there are no similar orders
+                // We add an order if there are no similar orders
                 var orderType = watcher.Status.BuildOrderType();
                 var userOrders = ongoingOrders.Where(OrderExpression.Filter(
                     watcher.UserId,
