@@ -36,7 +36,7 @@ namespace CryptoWatcher.Api.Handlers
         public async Task<WatcherResponse> Handle(UpdateWatcherRequest request, CancellationToken cancellationToken)
         {
             // Get user
-            var watcher = await _watcherRepository.GetById(request.Id);
+            var watcher = await _watcherRepository.GetById(request.WatcherId);
 
             // Throw NotFound exception if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);

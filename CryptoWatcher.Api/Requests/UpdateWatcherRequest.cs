@@ -8,7 +8,7 @@ namespace CryptoWatcher.Api.Requests
 {
     public class UpdateWatcherRequest : IRequest<WatcherResponse>
     {
-        public string Id { get; set; }
+        public string WatcherId { get; set; }
         public WatcherSettings Settings { get; set; }
     }
 }

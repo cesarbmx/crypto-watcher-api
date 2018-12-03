@@ -29,7 +29,7 @@ namespace CryptoWatcher.Domain.Models
             WatcherSettings settingsTrend,
             bool enabled)
         {
-            UserId = UrlHelper.BuildUrl(userId, currencyId, indicatorType.ToString()); // Semantic id
+            Id = UrlHelper.BuildUrl(userId, currencyId, indicatorType.ToString()); // Semantic id
             UserId = userId;
             CurrencyId = currencyId;
             IndicatorType = indicatorType;

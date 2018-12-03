@@ -7,7 +7,7 @@ namespace CryptoWatcher.Api.Requests
 {
     public class GetUserWatchersRequest: IRequest<List<WatcherResponse>>
     {
-        public string Id { get; set; }
+        public string UserId { get; set; }
         public IndicatorType? IndicatorType { get; set; }
     }
 }

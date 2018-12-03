@@ -36,13 +36,13 @@ namespace CryptoWatcher.Api.Handlers
         public async Task<UserResponse> Handle(AddUserRequest request, CancellationToken cancellationToken)
         {
             // Get user
-            var user = await _userRepository.GetById(request.Id);
+            var user = await _userRepository.GetById(request.UserId);
 
             // Check if user exists
             if (user != null) throw new ConflictException(UserMessage.UserExists);
            
             // Add user
-             user = new User(request.Id);
+             user = new User(request.UserId);
             _userRepository.Add(user);
 
             // Save

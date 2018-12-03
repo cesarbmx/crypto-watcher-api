@@ -37,13 +37,13 @@ namespace CryptoWatcher.Api.Handlers
         public async Task<List<WatcherResponse>> Handle(GetUserWatchersRequest request, CancellationToken cancellationToken)
         {
             // Get user
-            var user = await _userRepository.GetById(request.Id);
+            var user = await _userRepository.GetById(request.UserId);
 
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get user watchers
-            var userWatchers = await _watcherRepository.Get(WatcherExpression.UserWatcher(request.Id));
+            var userWatchers = await _watcherRepository.Get(WatcherExpression.UserWatcher(request.UserId));
 
             // Get currencies
             var currencies = await _cacheService.GetFromCache<Currency>();

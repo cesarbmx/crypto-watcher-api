@@ -8,7 +8,7 @@ namespace CryptoWatcher.Api.Validators
     {
         public AddUserValidator()
         {
-            RuleFor(x => x.Id)
+            RuleFor(x => x.UserId)
              .NotEmpty()
              .WithMessage(nameof(UserMessage.IdCannotBeEmpty) + " " + UserMessage.IdCannotBeEmpty);
 

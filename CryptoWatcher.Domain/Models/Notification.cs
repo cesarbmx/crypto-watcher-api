@@ -5,6 +5,7 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Notification : Entity
     {
+        public string NotificationId => Id;
         public string UserId { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Message { get; private set; }

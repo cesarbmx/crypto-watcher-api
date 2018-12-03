@@ -29,7 +29,7 @@ namespace CryptoWatcher.Api.Handlers
             var currencies = await _cacheService.GetFromCache<Currency>();
 
             // Get currency
-            var currency = currencies.FirstOrDefault(x => x.Id == request.Id);
+            var currency = currencies.FirstOrDefault(x => x.Id == request.CurrencyId);
 
             // Throw NotFound exception if the currency does not exist
             if (currency == null) throw new NotFoundException(CurrencyMessage.CurrencyNotFound);

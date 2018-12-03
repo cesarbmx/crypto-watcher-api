@@ -24,16 +24,16 @@ namespace CryptoWatcher.Api.Controllers
         /// Get user orders
         /// </summary>
         [HttpGet]
-        [Route("users/{id}/orders")]
+        [Route("users/{userId}/orders")]
         [SwaggerResponse(200, Type = typeof(List<OrderResponse>))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(OrderListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetUserOrders")]
-        public async Task<IActionResult> GetUserOrders(string id)
+        public async Task<IActionResult> GetUserOrders(string userId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetUserOrdersRequest { Id = id });
+            var response = await _mediator.Send(new GetUserOrdersRequest { UserId = userId });
 
             // Return
             return Ok(response);
@@ -43,7 +43,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get order
         /// </summary>
         [HttpGet]
-        [Route("orders/{id}", Name = "Orders_GetOrder")]
+        [Route("orders/{orderId}", Name = "Orders_GetOrder")]
         [SwaggerResponse(200, Type = typeof(OrderResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
@@ -51,10 +51,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetOrder")]
-        public async Task<IActionResult> GetOrder(string id)
+        public async Task<IActionResult> GetOrder(string orderId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetOrderRequest() { Id = id });
+            var response = await _mediator.Send(new GetOrderRequest() { OrderId = orderId });
 
             // Return
             return Ok(response);

@@ -24,16 +24,16 @@ namespace CryptoWatcher.Api.Controllers
         /// Get notifications
         /// </summary>
         [HttpGet]
-        [Route("users/{id}/notifications")]
+        [Route("users/{userId}/notifications")]
         [SwaggerResponse(200, Type = typeof(List<NotificationResponse>))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(NotificationListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetUserNotifications")]
-        public async Task<IActionResult> GetUserNotifications(string id)
+        public async Task<IActionResult> GetUserNotifications(string userId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetUserNotificationsRequest {Id = id});
+            var response = await _mediator.Send(new GetUserNotificationsRequest {UserId = userId });
 
             // Return
             return Ok(response);
@@ -43,7 +43,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get notification
         /// </summary>
         [HttpGet]
-        [Route("notifications/{id}", Name = "Notifications_GetNotification")]
+        [Route("notifications/{notificationId}", Name = "Notifications_GetNotification")]
         [SwaggerResponse(200, Type = typeof(NotificationResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
@@ -51,10 +51,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetNotification")]
-        public async Task<IActionResult> GetNotification(string id)
+        public async Task<IActionResult> GetNotification(string notificationId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetNotificationRequest() { Id = id });
+            var response = await _mediator.Send(new GetNotificationRequest() { NotificationId = notificationId });
 
             // Return
             return Ok(response);

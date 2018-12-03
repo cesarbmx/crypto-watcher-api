@@ -6,6 +6,6 @@ namespace CryptoWatcher.Api.Requests
 {
     public class GetUserNotificationsRequest : IRequest<List<NotificationResponse>>
     {
-        public string Id { get; set; }
+        public string UserId { get; set; }
     }
 }

@@ -32,13 +32,13 @@ namespace CryptoWatcher.Api.Handlers
         public async Task<List<OrderResponse>> Handle(GetUserOrdersRequest request, CancellationToken cancellationToken)
         {
             // Get user
-            var user = await _userRepository.GetById(request.Id);
+            var user = await _userRepository.GetById(request.UserId);
 
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get user orders
-            var orders = await _orderRepository.Get(OrderExpression.UserOrder(request.Id));
+            var orders = await _orderRepository.Get(OrderExpression.UserOrder(request.UserId));
 
             // Response
             var response = _mapper.Map<List<OrderResponse>>(orders);

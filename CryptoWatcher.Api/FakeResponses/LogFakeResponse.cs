@@ -10,7 +10,7 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new LogResponse
             {              
-                Id = "2779cf8051-381f-4834-93dc-ece6345dde33",
+                LogId = "2779cf8051-381f-4834-93dc-ece6345dde33",
                 Resource = "Cache",
                 Action = "Add",
                 Json = "{}",

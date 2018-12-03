@@ -5,6 +5,6 @@ namespace CryptoWatcher.Api.Requests
 {
     public class GetWatcherRequest : IRequest<WatcherResponse>
     {
-        public string Id { get; set; }
+        public string WatcherId { get; set; }
     }
 }

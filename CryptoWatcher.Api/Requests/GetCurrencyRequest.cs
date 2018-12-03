@@ -5,6 +5,6 @@ namespace CryptoWatcher.Api.Requests
 {
     public class GetCurrencyRequest : IRequest<CurrencyResponse>
     {
-        public string Id { get; set; }
+        public string CurrencyId { get; set; }
     }
 }

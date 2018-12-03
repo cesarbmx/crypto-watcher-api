@@ -16,7 +16,7 @@ namespace CryptoWatcher.Domain.Expressions
         }
         public static Expression<Func<Order, bool>> UserOrder(string userId, string currencyId, OrderType orderType)
         {
-            return x => x.UserId == userId && x.CurrencyId == currencyId && x.Type == orderType;
+            return x => x.UserId == userId && x.CurrencyId == currencyId && x.OrderType == orderType;
         }
     }
 }

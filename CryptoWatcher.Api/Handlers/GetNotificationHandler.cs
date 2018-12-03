@@ -25,7 +25,7 @@ namespace CryptoWatcher.Api.Handlers
         public async Task<NotificationResponse> Handle(GetNotificationRequest request, CancellationToken cancellationToken)
         {
             // Get notification
-            var notification = await _notificationRepository.GetById(request.Id);
+            var notification = await _notificationRepository.GetById(request.NotificationId);
 
             // Throw NotFound exception if the currency does not exist
             if (notification == null) throw new NotFoundException(NotificationMessage.NotificationNotFound);

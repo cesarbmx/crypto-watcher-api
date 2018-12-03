@@ -26,16 +26,16 @@ namespace CryptoWatcher.Api.Controllers
         /// Get user watchers
         /// </summary>
         [HttpGet]
-        [Route("users/{id}/watchers")]
+        [Route("users/{userId}/watchers")]
         [SwaggerResponse(200, Type = typeof(List<WatcherResponse>))]       
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(WatcherListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetUserWatchers")]
-        public async Task<IActionResult> GetUserWatchers(string id, IndicatorType? indicatorType)
+        public async Task<IActionResult> GetUserWatchers(string userId, IndicatorType? indicatorType)
         {
             // Reponse
-            var response = await _mediator.Send(new GetUserWatchersRequest{Id = id, IndicatorType = indicatorType});
+            var response = await _mediator.Send(new GetUserWatchersRequest{UserId = userId, IndicatorType = indicatorType});
 
             // Return
             return Ok(response);
@@ -45,7 +45,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get watcher
         /// </summary>
         [HttpGet]
-        [Route("watchers/{id}", Name = "Watchers_GetWatcher")]
+        [Route("watchers/{watcherId}", Name = "Watchers_GetWatcher")]
         [SwaggerResponse(200, Type = typeof(WatcherResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
@@ -53,10 +53,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetWatcher")]
-        public async Task<IActionResult> GetWatcher(string id)
+        public async Task<IActionResult> GetWatcher(string watcherId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetWatcherRequest { Id = id });
+            var response = await _mediator.Send(new GetWatcherRequest { WatcherId = watcherId });
 
             // Return
             return Ok(response);
@@ -87,14 +87,14 @@ namespace CryptoWatcher.Api.Controllers
             var response = await _mediator.Send(request);
 
             // Return
-            return CreatedAtRoute("Watchers_GetWatcher", new { response.Id }, response);
+            return CreatedAtRoute("Watchers_GetWatcher", new { response.WatcherId }, response);
         }
 
         /// <summary>
         /// Update watcher
         /// </summary>
         [HttpPut]
-        [Route("watchers/{id}")]
+        [Route("watchers/{watcherId}")]
         [SwaggerResponse(200, Type = typeof(WatcherResponse))]
         [SwaggerResponse(400, Type = typeof(ErrorResponse))]
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]
@@ -106,14 +106,14 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(422, typeof(InvalidRequestExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_UpdateWatcher")]
-        public async Task<IActionResult> UpdateWatcher(string id, [FromBody]UpdateWatcherRequest request)
+        public async Task<IActionResult> UpdateWatcher(string watcherId, [FromBody]UpdateWatcherRequest request)
         {
             // Reponse
-            request.Id = id;
+            request.WatcherId = watcherId;
             var response = await _mediator.Send(request);
 
             // Return
-            return CreatedAtRoute("Watchers_GetWatcher", new { response.Id }, response);
+            return Ok(response);
         }
     }
 }

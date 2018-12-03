@@ -32,13 +32,13 @@ namespace CryptoWatcher.Api.Handlers
         public async Task<List<NotificationResponse>> Handle(GetUserNotificationsRequest request, CancellationToken cancellationToken)
         {
             // Get user
-            var user = await _userRepository.GetById(request.Id);
+            var user = await _userRepository.GetById(request.UserId);
 
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get user notifications
-            var notifications = await _notificationRepository.Get(NotificationExpression.UserNotification(request.Id));
+            var notifications = await _notificationRepository.Get(NotificationExpression.UserNotification(request.UserId));
 
             // Response
             var response = _mapper.Map<List<NotificationResponse>>(notifications);

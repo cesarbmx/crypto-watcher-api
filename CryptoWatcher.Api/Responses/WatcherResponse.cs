@@ -5,7 +5,7 @@ namespace CryptoWatcher.Api.Responses
 {
     public class WatcherResponse
     {
-        public string Id { get; set; }
+        public string WatcherId { get; set; }
         public string UserId { get; set; }
         public string CurrencyId { get; set; }
         public IndicatorType IndicatorType { get; set; }
