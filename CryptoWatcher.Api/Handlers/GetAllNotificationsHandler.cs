@@ -13,35 +13,35 @@ using MediatR;
 
 namespace CryptoWatcher.Api.Handlers
 {
-    public class GetOrdersHandler : IRequestHandler<GetUserOrdersRequest, List<OrderResponse>>
+    public class GetAllNotificationsHandler : IRequestHandler<GetAllNotificationsRequest, List<NotificationResponse>>
     {
-        private readonly IRepository<Order> _orderRepository;
+        private readonly IRepository<Notification> _notificationRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IMapper _mapper;
 
-        public GetOrdersHandler(
-            IRepository<Order> orderRepository,
+        public GetAllNotificationsHandler(
+            IRepository<Notification> notificationRepository,
             IRepository<User> userRepository,
             IMapper mapper)
         {
-            _orderRepository = orderRepository;
+            _notificationRepository = notificationRepository;
             _userRepository = userRepository;
             _mapper = mapper;
         }
 
-        public async Task<List<OrderResponse>> Handle(GetUserOrdersRequest request, CancellationToken cancellationToken)
+        public async Task<List<NotificationResponse>> Handle(GetAllNotificationsRequest request, CancellationToken cancellationToken)
         {
             // Get user
-            var user = await _userRepository.GetById(request.UserId);
+            var user = await _userRepository.GetSingle(request.UserId);
 
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
-            // Get user orders
-            var orders = await _orderRepository.Get(OrderExpression.UserOrder(request.UserId));
+            // Get user notifications
+            var notifications = await _notificationRepository.GetAll(NotificationExpression.Filter(request.UserId));
 
             // Response
-            var response = _mapper.Map<List<OrderResponse>>(orders);
+            var response = _mapper.Map<List<NotificationResponse>>(notifications);
 
             // Return
             return response;

@@ -25,7 +25,7 @@ namespace CryptoWatcher.Api.Handlers
         public async Task<OrderResponse> Handle(GetOrderRequest request, CancellationToken cancellationToken)
         {
             // Get order
-            var order = await _orderRepository.GetById(request.OrderId);
+            var order = await _orderRepository.GetSingle(request.OrderId);
 
             // Throw NotFound exception if the currency does not exist
             if (order == null) throw new NotFoundException(OrderMessage.OrderNotFound);

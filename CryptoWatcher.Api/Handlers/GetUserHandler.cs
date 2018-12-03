@@ -25,7 +25,7 @@ namespace CryptoWatcher.Api.Handlers
         public async Task<UserResponse> Handle(GetUserRequest request, CancellationToken cancellationToken)
         {
             // Get user
-            var user = await _userRepository.GetById(request.UserId);
+            var user = await _userRepository.GetSingle(request.UserId);
 
             // Throw NotFound exception if the currency does not exist
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);

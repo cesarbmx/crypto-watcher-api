@@ -21,7 +21,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get logs
+        /// Get all logs
         /// </summary>
         [HttpGet]
         [Route("logs")]
@@ -29,18 +29,18 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(LogListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Logs" }, OperationId = "Logs_GetLogs")]
-        public async Task<IActionResult> GetLogs()
+        [SwaggerOperation(Tags = new[] { "Logs" }, OperationId = "Logs_GetAllLogs")]
+        public async Task<IActionResult> GetAllLogs()
         {
             // Reponse
-            var response = await _mediator.Send(new GetLogsRequest());
+            var response = await _mediator.Send(new GetAllLogsRequest());
 
             // Return
             return Ok(response);
         }
 
         /// <summary>
-        /// Get log
+        /// Get a log
         /// </summary>
         [HttpGet]
         [Route("logs/{logId}", Name = "Logs_GetLog")]

@@ -16,7 +16,7 @@ using CryptoWatcher.Domain.Builders;
 
 namespace CryptoWatcher.Api.Handlers
 {
-    public class GetUserWatchersHandler : IRequestHandler<GetUserWatchersRequest, List<WatcherResponse>>
+    public class GetUserWatchersHandler : IRequestHandler<GetAllWatchersRequest, List<WatcherResponse>>
     {
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly IRepository<User> _userRepository;
@@ -34,16 +34,16 @@ namespace CryptoWatcher.Api.Handlers
             _cacheService = cacheService;
             _mapper = mapper;
         }
-        public async Task<List<WatcherResponse>> Handle(GetUserWatchersRequest request, CancellationToken cancellationToken)
+        public async Task<List<WatcherResponse>> Handle(GetAllWatchersRequest request, CancellationToken cancellationToken)
         {
             // Get user
-            var user = await _userRepository.GetById(request.UserId);
+            var user = await _userRepository.GetSingle(request.UserId);
 
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get user watchers
-            var userWatchers = await _watcherRepository.Get(WatcherExpression.UserWatcher(request.UserId));
+            var userWatchers = await _watcherRepository.GetAll(WatcherExpression.Filter(request.UserId));
 
             // Get currencies
             var currencies = await _cacheService.GetFromCache<Currency>();

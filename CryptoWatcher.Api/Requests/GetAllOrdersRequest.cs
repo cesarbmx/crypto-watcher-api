@@ -4,8 +4,8 @@ using MediatR;
 
 namespace CryptoWatcher.Api.Requests
 {
-    public class GetLogsRequest : IRequest<List<LogResponse>>
+    public class GetAllOrdersRequest : IRequest<List<OrderResponse>>
     {
-        
+        public string UserId { get; set; }
     }
 }

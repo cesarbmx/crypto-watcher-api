@@ -25,7 +25,7 @@ namespace CryptoWatcher.Api.Handlers
         public async Task<LogResponse> Handle(GetLogRequest request, CancellationToken cancellationToken)
         {
             // Get log
-            var log = await _logRepository.GetById(request.LogId);
+            var log = await _logRepository.GetSingle(request.LogId);
 
             // Throw NotFound exception if the currency does not exist
             if (log == null) throw new NotFoundException(LogMessage.LogNotFound);

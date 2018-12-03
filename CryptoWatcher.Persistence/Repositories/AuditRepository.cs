@@ -25,7 +25,7 @@ namespace CryptoWatcher.Persistence.Repositories
 
         private void LoadAudit(DateTime dateTime)
         {
-            var log = _logRepository.Get(LogExpression.AuditLog(dateTime)).Result;
+            var log = _logRepository.GetAll(LogExpression.AuditLog(dateTime)).Result;
 
             foreach (var logEntry in log)
             {
@@ -43,13 +43,13 @@ namespace CryptoWatcher.Persistence.Repositories
                         break;
                     case "Update":
                         newValue = logEntry.ModelJsonToObject<TEntity>();
-                        originalValue = GetById(newValue.Id).Result;
+                        originalValue = GetSingle(newValue.Id).Result;
                         var index = List.IndexOf(originalValue);
                         if (index != -1) List[index] = newValue;
                         break;
                     case "Remove":
                         newValue = logEntry.ModelJsonToObject<TEntity>();
-                        originalValue = GetById(newValue.Id).Result;
+                        originalValue = GetSingle(newValue.Id).Result;
                         List.Remove(originalValue);
                         break;
                 }
@@ -61,11 +61,11 @@ namespace CryptoWatcher.Persistence.Repositories
             return Task.FromResult(List);
         }
 
-        public Task<List<TEntity>> Get(Expression<Func<TEntity, bool>> expression)
+        public Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression)
         {
             return Task.FromResult(List.Where(expression.Compile()).ToList());
         }
-        public Task<TEntity> GetById(string id)
+        public Task<TEntity> GetSingle(string id)
         {
             return Task.FromResult(List.FirstOrDefault(x=>x.Id == id));
         }

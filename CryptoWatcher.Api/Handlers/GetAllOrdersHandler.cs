@@ -13,35 +13,35 @@ using MediatR;
 
 namespace CryptoWatcher.Api.Handlers
 {
-    public class GetUserNotificationsHandler : IRequestHandler<GetUserNotificationsRequest, List<NotificationResponse>>
+    public class GetAllOrdersHandler : IRequestHandler<GetAllOrdersRequest, List<OrderResponse>>
     {
-        private readonly IRepository<Notification> _notificationRepository;
+        private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IMapper _mapper;
 
-        public GetUserNotificationsHandler(
-            IRepository<Notification> notificationRepository,
+        public GetAllOrdersHandler(
+            IRepository<Order> orderRepository,
             IRepository<User> userRepository,
             IMapper mapper)
         {
-            _notificationRepository = notificationRepository;
+            _orderRepository = orderRepository;
             _userRepository = userRepository;
             _mapper = mapper;
         }
 
-        public async Task<List<NotificationResponse>> Handle(GetUserNotificationsRequest request, CancellationToken cancellationToken)
+        public async Task<List<OrderResponse>> Handle(GetAllOrdersRequest request, CancellationToken cancellationToken)
         {
             // Get user
-            var user = await _userRepository.GetById(request.UserId);
+            var user = await _userRepository.GetSingle(request.UserId);
 
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
-            // Get user notifications
-            var notifications = await _notificationRepository.Get(NotificationExpression.UserNotification(request.UserId));
+            // Get user orders
+            var orders = await _orderRepository.GetAll(OrderExpression.Filter(request.UserId));
 
             // Response
-            var response = _mapper.Map<List<NotificationResponse>>(notifications);
+            var response = _mapper.Map<List<OrderResponse>>(orders);
 
             // Return
             return response;

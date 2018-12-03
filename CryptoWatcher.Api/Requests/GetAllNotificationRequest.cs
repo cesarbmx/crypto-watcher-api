@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CryptoWatcher.Api.Requests
 {
-    public class GetNotificationRequest : IRequest<NotificationResponse>
+    public class GetAllNotificationRequest : IRequest<NotificationResponse>
     {
         public string NotificationId { get; set; }
     }

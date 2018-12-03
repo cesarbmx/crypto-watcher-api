@@ -32,7 +32,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get service version
+        /// Get the API version
         /// </summary>
         [HttpGet]
         [Route("version")]
@@ -51,7 +51,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get service health
+        /// Get the service health
         /// </summary>
         [HttpGet]
         [Route("health")]

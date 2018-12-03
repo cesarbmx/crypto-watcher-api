@@ -6,7 +6,7 @@ namespace CryptoWatcher.Domain.Expressions
 {
     public static class WatcherExpression
     {
-        public static Expression<Func<Watcher, bool>> UserWatcher(string userId)
+        public static Expression<Func<Watcher, bool>> Filter(string userId)
         {
             return x => x.UserId == userId;
         }
@@ -18,7 +18,7 @@ namespace CryptoWatcher.Domain.Expressions
         {
             return x => x.Status == WatcherStatus.Sell;
         }
-        public static Expression<Func<Watcher, bool>> UniqueWatcher(string userId, string currencyId, IndicatorType indicatorType)
+        public static Expression<Func<Watcher, bool>> Watcher(string userId, string currencyId, IndicatorType indicatorType)
         {
             return x =>
                 x.UserId == userId &&

@@ -11,7 +11,7 @@ using MediatR;
 
 namespace CryptoWatcher.Api.Handlers
 {
-    public class GetNotificationHandler : IRequestHandler<GetNotificationRequest, NotificationResponse>
+    public class GetNotificationHandler : IRequestHandler<GetAllNotificationRequest, NotificationResponse>
     {
         private readonly IRepository<Notification> _notificationRepository;
         private readonly IMapper _mapper;
@@ -22,10 +22,10 @@ namespace CryptoWatcher.Api.Handlers
             _mapper = mapper;
         }
 
-        public async Task<NotificationResponse> Handle(GetNotificationRequest request, CancellationToken cancellationToken)
+        public async Task<NotificationResponse> Handle(GetAllNotificationRequest request, CancellationToken cancellationToken)
         {
             // Get notification
-            var notification = await _notificationRepository.GetById(request.NotificationId);
+            var notification = await _notificationRepository.GetSingle(request.NotificationId);
 
             // Throw NotFound exception if the currency does not exist
             if (notification == null) throw new NotFoundException(NotificationMessage.NotificationNotFound);

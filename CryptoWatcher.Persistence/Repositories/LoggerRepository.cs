@@ -23,15 +23,15 @@ namespace CryptoWatcher.Persistence.Repositories
             // Get all
             return await _repository.GetAll();
         }
-        public async Task<List<TEntity>> Get(Expression<Func<TEntity, bool>> expression)
+        public async Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression)
         {
             // Get all by expression
-            return await _repository.Get(expression);
+            return await _repository.GetAll(expression);
         }
-        public async Task<TEntity> GetById(string id)
+        public async Task<TEntity> GetSingle(string id)
         {
             // Get by id
-            return await _repository.GetById(id);
+            return await _repository.GetSingle(id);
         }
         public async Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression)
         {

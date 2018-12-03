@@ -24,12 +24,12 @@ namespace CryptoWatcher.Persistence.Repositories
             // Get all
             return await _dbSet.ToListAsync();
         }
-        public async Task<List<TEntity>> Get(Expression<Func<TEntity, bool>> expression)
+        public async Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression)
         {
             // Get all by expression
             return await _dbSet.Where(expression).ToListAsync();
         }
-        public async Task<TEntity> GetById(string id)
+        public async Task<TEntity> GetSingle(string id)
         {
             // Get by id
             return await _dbSet.FindAsync(id);

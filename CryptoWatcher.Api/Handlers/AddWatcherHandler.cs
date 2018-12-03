@@ -46,7 +46,7 @@ namespace CryptoWatcher.Api.Handlers
         public async Task<WatcherResponse> Handle(AddWatcherRequest request, CancellationToken cancellationToken)
         {
             // Get user
-            var user = await _userRepository.GetById(request.UserId);
+            var user = await _userRepository.GetSingle(request.UserId);
 
             // Get currencies
             var currencies = await _cacheService.GetFromCache<Currency>();
@@ -59,7 +59,7 @@ namespace CryptoWatcher.Api.Handlers
 
             // Get user watchers
             var watcher = await _watcherRepository.GetSingle(
-                WatcherExpression.UniqueWatcher(
+                WatcherExpression.Watcher(
                     request.UserId,
                     request.CurrencyId,
                     request.IndicatorType));
