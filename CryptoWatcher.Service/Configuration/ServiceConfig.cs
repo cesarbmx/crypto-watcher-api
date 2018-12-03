@@ -1,7 +1,7 @@
 ﻿using Topshelf;
 
 
-namespace CryptoWatcher.Service
+namespace CryptoWatcher.Service.Configuration
 {
     internal static class ServiceConfig
     {

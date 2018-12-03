@@ -1,4 +1,5 @@
 ﻿
+using CryptoWatcher.Service.Configuration;
 
 
 namespace CryptoWatcher.Service
