@@ -49,7 +49,7 @@ namespace CryptoWatcher.Api.Handlers
             var currencies = await _cacheService.GetFromCache<Currency>();
 
             // Build with defaults
-            userWatchers = userWatchers.BuildWithDefaults(request.UserId, currencies);
+            userWatchers = userWatchers.BuildUserWatchersWithDefaults(request.UserId, currencies);
 
             // Filter by indicator type
             if (request.IndicatorType.HasValue)
