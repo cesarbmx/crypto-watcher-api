@@ -2,9 +2,21 @@
 
 namespace CryptoWatcher.Domain.Models
 {
-    public enum IndicatorType
+    public class Indicator
     {
-        PriceChange,
-        Hype
+        public string CurrencyId { get; private set; }
+        public IndicatorType IndicatorType { get; private set; }
+        public decimal Value { get; private set; }
+
+        public Indicator() { }
+        public Indicator(
+            string currencyId,
+            IndicatorType indicatorType,
+            decimal value)
+        {
+            CurrencyId = currencyId;
+            IndicatorType = indicatorType;
+            Value = value;
+        } 
     }
 }
