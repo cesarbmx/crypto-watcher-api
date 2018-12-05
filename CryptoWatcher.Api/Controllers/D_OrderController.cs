@@ -21,7 +21,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get all orders from a user
+        /// Get all orders
         /// </summary>
         [HttpGet]
         [Route("users/{userId}/orders")]
@@ -29,8 +29,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(OrderListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetAllOrdersFromUser")]
-        public async Task<IActionResult> GetAllOrdersFromUser(string userId)
+        [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetAllOrders")]
+        public async Task<IActionResult> GetAllOrders(string userId)
         {
             // Reponse
             var response = await _mediator.Send(new GetAllOrdersRequest { UserId = userId });
@@ -54,7 +54,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetOrder(string orderId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetOrderRequest() { OrderId = orderId });
+            var response = await _mediator.Send(new GetOrderRequest { OrderId = orderId });
 
             // Return
             return Ok(response);

@@ -29,8 +29,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(NotificationListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetAllNotificationsFromUser")]
-        public async Task<IActionResult> GetAllNotificationsFromUser(string userId)
+        [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetAllNotifications")]
+        public async Task<IActionResult> GetAllNotifications(string userId)
         {
             // Reponse
             var response = await _mediator.Send(new GetAllNotificationsRequest {UserId = userId });
@@ -43,7 +43,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get a notification
         /// </summary>
         [HttpGet]
-        [Route("notifications/{notificationId}", Name = "Notifications_GetNotification")]
+        [Route("users/{userId}/notifications/{notificationId}", Name = "Notifications_GetNotification")]
         [SwaggerResponse(200, Type = typeof(NotificationResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
@@ -51,10 +51,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetNotification")]
-        public async Task<IActionResult> GetNotification(string notificationId)
+        public async Task<IActionResult> GetNotification(string userId, string notificationId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetAllNotificationRequest() { NotificationId = notificationId });
+            var response = await _mediator.Send(new GetNotificationRequest() { NotificationId = notificationId });
 
             // Return
             return Ok(response);

@@ -10,18 +10,18 @@ using MediatR;
 
 namespace CryptoWatcher.Api.Handlers
 {
-    public class GetAllLogsHandler : IRequestHandler<GetAllLogsRequest, List<LogResponse>>
+    public class GetLogsHandler : IRequestHandler<GetLogsRequest, List<LogResponse>>
     {
         private readonly IRepository<Log> _logRepository;
         private readonly IMapper _mapper;
 
-        public GetAllLogsHandler(IRepository<Log> logRepository, IMapper mapper)
+        public GetLogsHandler(IRepository<Log> logRepository, IMapper mapper)
         {
             _logRepository = logRepository;
             _mapper = mapper;
         }
 
-        public async Task<List<LogResponse>> Handle(GetAllLogsRequest request, CancellationToken cancellationToken)
+        public async Task<List<LogResponse>> Handle(GetLogsRequest request, CancellationToken cancellationToken)
         {
             // Get logs
             var logs = await _logRepository.GetAll();

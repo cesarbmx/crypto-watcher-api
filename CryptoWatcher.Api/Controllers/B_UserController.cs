@@ -30,10 +30,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(200, typeof(UserListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_GetAllUsers")]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetUsers()
         {
             // Reponse
-            var response = await _mediator.Send(new GetAllUsersRequest());
+            var response = await _mediator.Send(new GetUsersRequest());
 
             // Return
             return Ok(response);

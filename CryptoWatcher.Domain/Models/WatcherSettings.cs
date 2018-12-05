@@ -4,8 +4,8 @@ namespace CryptoWatcher.Domain.Models
 {
     public class WatcherSettings
     {
-        public decimal BuyAt { get; private set; }
-        public decimal SellAt { get; private set; }
+        public decimal BuyAt { get; set; }
+        public decimal SellAt { get; set; }
 
 
         public WatcherSettings(){}

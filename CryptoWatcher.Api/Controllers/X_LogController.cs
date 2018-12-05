@@ -33,7 +33,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetAllLogs()
         {
             // Reponse
-            var response = await _mediator.Send(new GetAllLogsRequest());
+            var response = await _mediator.Send(new GetLogsRequest());
 
             // Return
             return Ok(response);

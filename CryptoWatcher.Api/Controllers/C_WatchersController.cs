@@ -23,7 +23,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get all watchers from a user
+        /// Get all watchers
         /// </summary>
         [HttpGet]
         [Route("users/{userId}/watchers")]
@@ -31,8 +31,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(WatcherListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetAllWatchersFromUser")]
-        public async Task<IActionResult> GetAllWatchersFromUser(string userId, IndicatorType? indicatorType)
+        [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetAllWatchers")]
+        public async Task<IActionResult> GetAllWatchers(string userId, IndicatorType? indicatorType)
         {
             // Reponse
             var response = await _mediator.Send(new GetAllWatchersRequest{UserId = userId, IndicatorType = indicatorType});
@@ -105,6 +105,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(409, typeof(ConflictExample))]
         [SwaggerResponseExample(422, typeof(InvalidRequestExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
+        [SwaggerRequestExample(typeof(UpdateWatcherRequest), typeof(UpdateWatcherRequestExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_UpdateWatcher")]
         public async Task<IActionResult> UpdateWatcher(string watcherId, [FromBody]UpdateWatcherRequest request)
         {

@@ -26,6 +26,7 @@ namespace CryptoWatcher.Api.Handlers
 
         public async Task<WatcherResponse> Handle(GetWatcherRequest request, CancellationToken cancellationToken)
         {
+
             // Get watcher
             var watcher = await _watcherRepository.GetSingle(request.WatcherId);
 

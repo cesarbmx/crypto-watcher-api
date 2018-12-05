@@ -12,5 +12,6 @@ namespace CryptoWatcher.Api.Requests
         public IndicatorType IndicatorType { get; set; }
         public string CurrencyId { get; set; }
         public WatcherSettings Settings { get; set; }
+        public bool Enabled { get; set; }
     }
 }

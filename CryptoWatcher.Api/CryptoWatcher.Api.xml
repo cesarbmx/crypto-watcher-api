@@ -14,7 +14,7 @@
             Get a currency
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.GetAllUsers">
+        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.GetUsers">
             <summary>
             Get all users
             </summary>
@@ -29,9 +29,9 @@
             Add a user
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.GetAllWatchersFromUser(System.String,System.Nullable{CryptoWatcher.Domain.Models.IndicatorType})">
+        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.GetAllWatchers(System.String,System.Nullable{CryptoWatcher.Domain.Models.IndicatorType})">
             <summary>
-            Get all watchers from a user
+            Get all watchers
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.GetWatcher(System.String)">
@@ -49,9 +49,9 @@
             Update a watcher
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.D_OrderController.GetAllOrdersFromUser(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.D_OrderController.GetAllOrders(System.String)">
             <summary>
-            Get all orders from a user
+            Get all orders
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.D_OrderController.GetOrder(System.String)">
@@ -59,12 +59,12 @@
             Get an order
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.E_NotificationsController.GetAllNotificationsFromUser(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.E_NotificationsController.GetAllNotifications(System.String)">
             <summary>
             Get all notifications
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.E_NotificationsController.GetNotification(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.E_NotificationsController.GetNotification(System.String,System.String)">
             <summary>
             Get a notification
             </summary>

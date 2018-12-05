@@ -10,18 +10,18 @@ using MediatR;
 
 namespace CryptoWatcher.Api.Handlers
 {
-    public class GetAllCurrenciesHandler : IRequestHandler<GetAllCurrenciesRequest, List<CurrencyResponse>>
+    public class GetCurrenciesHandler : IRequestHandler<GetCurrenciesRequest, List<CurrencyResponse>>
     {
         private readonly CacheService _cacheService;
         private readonly IMapper _mapper;
 
-        public GetAllCurrenciesHandler(CacheService cacheService, IMapper mapper)
+        public GetCurrenciesHandler(CacheService cacheService, IMapper mapper)
         {
             _cacheService = cacheService;
             _mapper = mapper;
         }
 
-        public async Task<List<CurrencyResponse>> Handle(GetAllCurrenciesRequest request, CancellationToken cancellationToken)
+        public async Task<List<CurrencyResponse>> Handle(GetCurrenciesRequest request, CancellationToken cancellationToken)
         {
             // Get currencies
             var currencies = await _cacheService.GetFromCache<Currency>();

@@ -39,9 +39,10 @@ namespace CryptoWatcher.Domain.Models
             Enabled = enabled;
         }
 
-        public Watcher Update(WatcherSettings settings)
+        public Watcher Update(WatcherSettings settings, bool enabled)
         {
             Settings = settings;
+            Enabled = enabled;
 
             return this;
         }
