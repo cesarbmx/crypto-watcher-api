@@ -32,7 +32,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             // Complex types
-            entityBuilder.OwnsOne(t => t.Settings,
+            entityBuilder.OwnsOne(t => t.BuySell,
                 p =>
                 {
                     p.Property(t => t.BuyAt)
@@ -44,7 +44,7 @@ namespace CryptoWatcher.Persistence.Mappings
                         .IsRequired();
                 });
 
-            entityBuilder.OwnsOne(t => t.SettingsTrend,
+            entityBuilder.OwnsOne(t => t.RecomendedBuySell,
                 p =>
                 {
                     p.Property(t => t.BuyAt)

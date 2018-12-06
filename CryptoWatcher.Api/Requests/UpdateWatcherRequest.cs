@@ -11,7 +11,7 @@ namespace CryptoWatcher.Api.Requests
     {
         [JsonIgnore]
         public string WatcherId { get; set; }
-        public WatcherSettings Settings { get; set; }
+        public BuySell BuySell { get; set; }
         public bool Enabled { get; set; }
     }
 }

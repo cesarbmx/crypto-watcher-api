@@ -10,7 +10,7 @@ namespace CryptoWatcher.Api.FakeRequests
             return new UpdateWatcherRequest
             {
                 WatcherId = "cesarbmx-bitcoin-price-change",             
-                Settings = new WatcherSettings(15, 2),
+                BuySell = new BuySell(15, 2),
                 Enabled = true
             };
         }       

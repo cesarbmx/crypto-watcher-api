@@ -2,14 +2,14 @@
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class WatcherSettings
+    public class BuySell
     {
         public decimal BuyAt { get; set; }
         public decimal SellAt { get; set; }
 
 
-        public WatcherSettings(){}
-        public WatcherSettings(decimal buyAt, decimal sellAt)
+        public BuySell(){}
+        public BuySell(decimal buyAt, decimal sellAt)
         {
             BuyAt = buyAt;
             SellAt = sellAt;

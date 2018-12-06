@@ -7,10 +7,10 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class WatcherBuilder
     {
-        public static WatcherStatus BuildStatus(decimal indicatorValue, WatcherSettings settings)
+        public static WatcherStatus BuildStatus(decimal indicatorValue, BuySell buySell)
         {
             // Evaluate
-            var watcherStatus = (indicatorValue >= settings.BuyAt) ? WatcherStatus.Buy : WatcherStatus.Sell;
+            var watcherStatus = (indicatorValue >= buySell.BuyAt) ? WatcherStatus.Buy : WatcherStatus.Sell;
 
             // Return
             return watcherStatus;
@@ -33,8 +33,8 @@ namespace CryptoWatcher.Domain.Builders
                         currency.Id,
                         IndicatorType.PriceChange,
                         IndicatorBuilder.BuildValue(currency, IndicatorType.PriceChange, currencies),
-                        new WatcherSettings(5, 5),
-                        new WatcherSettings(0, 0),
+                        new BuySell(5, 5),
+                        new BuySell(0, 0),
                         false);
                 }
 
@@ -54,8 +54,8 @@ namespace CryptoWatcher.Domain.Builders
                         currency.Id,
                         IndicatorType.PriceChange,
                         IndicatorBuilder.BuildValue(currency, IndicatorType.PriceChange, currencies),
-                        new WatcherSettings(5, 5),
-                        new WatcherSettings(0, 0),
+                        new BuySell(5, 5),
+                        new BuySell(0, 0),
                         false);
                 }
 
@@ -76,8 +76,8 @@ namespace CryptoWatcher.Domain.Builders
                     currency.Id,
                     IndicatorType.PriceChange,
                     IndicatorBuilder.BuildValue(currency, IndicatorType.PriceChange, currencies),
-                    new WatcherSettings(5, 5),
-                    new WatcherSettings(0, 0),
+                    new BuySell(5, 5),
+                    new BuySell(0, 0),
                     false);
                 watchers.Add(priceChangeWatcher);
 
@@ -87,8 +87,8 @@ namespace CryptoWatcher.Domain.Builders
                     currency.Id,
                     IndicatorType.PriceChange,
                     IndicatorBuilder.BuildValue(currency, IndicatorType.PriceChange, currencies),
-                    new WatcherSettings(5, 5),
-                    new WatcherSettings(0, 0),
+                    new BuySell(5, 5),
+                    new BuySell(0, 0),
                     false);
                 watchers.Add(hypeWatcher);
             }

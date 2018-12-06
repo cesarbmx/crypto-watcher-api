@@ -15,9 +15,9 @@ namespace CryptoWatcher.Api.FakeResponses
                 CurrencyId = "bitcoin",
                 IndicatorType = IndicatorType.PriceChange,
                 IndicatorValue = 5000,
-                Settings = new WatcherSettings(2, 15),
-                SettingsTrend = 
-                new WatcherSettings(2, 15),
+                BuySell = new BuySell(2, 15),
+                RecommendedBuySell = 
+                new BuySell(2, 15),
                 Status = WatcherStatus.Buy,
                 Enabled = false
             };
@@ -31,8 +31,8 @@ namespace CryptoWatcher.Api.FakeResponses
                 CurrencyId = "bitcoin",
                 IndicatorType = IndicatorType.Hype,
                 IndicatorValue = 2,
-                Settings = new WatcherSettings(2, 15),
-                SettingsTrend = new WatcherSettings(2, 15),
+                BuySell = new BuySell(2, 15),
+                RecommendedBuySell = new BuySell(2, 15),
                 Status = WatcherStatus.Sell,
                 Enabled = false
             };

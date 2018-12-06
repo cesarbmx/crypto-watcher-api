@@ -10,23 +10,23 @@ namespace CryptoWatcher.Domain.Models
         public string CurrencyId { get; private set; }
         public IndicatorType IndicatorType { get; private set; }
         public decimal IndicatorValue { get; private set; }
-        public WatcherSettings Settings { get; private set; }
-        public WatcherSettings SettingsTrend { get; private set; }
+        public BuySell BuySell { get; private set; }
+        public BuySell RecomendedBuySell { get; private set; }
         public bool Enabled { get; private set; }
-        public WatcherStatus Status => WatcherBuilder.BuildStatus(IndicatorValue, Settings);
+        public WatcherStatus Status => WatcherBuilder.BuildStatus(IndicatorValue, BuySell);
 
         public Watcher()
         {
-            Settings = new WatcherSettings();
-            SettingsTrend = new WatcherSettings();
+            BuySell = new BuySell();
+            RecomendedBuySell = new BuySell();
         }
         public Watcher(
             string userId,
             string currencyId,
             IndicatorType indicatorType,
             decimal indicatorValue,
-            WatcherSettings settings,
-            WatcherSettings settingsTrend,
+            BuySell buySell,
+            BuySell recommendedBuySell,
             bool enabled)
         {
             Id = UrlHelper.BuildUrl(userId, currencyId, indicatorType.ToString()); // Semantic id
@@ -34,14 +34,14 @@ namespace CryptoWatcher.Domain.Models
             CurrencyId = currencyId;
             IndicatorType = indicatorType;
             IndicatorValue = indicatorValue;
-            Settings = settings;
-            SettingsTrend = settingsTrend;
+            BuySell = buySell;
+            RecomendedBuySell = recommendedBuySell;
             Enabled = enabled;
         }
 
-        public Watcher Update(WatcherSettings settings, bool enabled)
+        public Watcher Update(BuySell buySell, bool enabled)
         {
-            Settings = settings;
+            BuySell = buySell;
             Enabled = enabled;
 
             return this;

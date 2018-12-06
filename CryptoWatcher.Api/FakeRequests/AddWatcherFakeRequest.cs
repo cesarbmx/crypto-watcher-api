@@ -12,7 +12,7 @@ namespace CryptoWatcher.Api.FakeRequests
                 UserId = "cesarbmx",
                 CurrencyId = "bitcoin",
                 IndicatorType = IndicatorType.Hype,
-                Settings = new WatcherSettings(8,2),
+                BuySell = new BuySell(8,2),
                 Enabled = true
             };
         }       

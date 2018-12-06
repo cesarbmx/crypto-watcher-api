@@ -48,8 +48,8 @@ namespace CryptoWatcher.Api.Handlers
                 request.CurrencyId, 
                 request.IndicatorType,
                 16,
-                request.Settings,
-                new WatcherSettings(0,0),
+                request.BuySell,
+                new BuySell(0,0),
                 request.Enabled);
             _watcherRepository.Add(watcher);
 
