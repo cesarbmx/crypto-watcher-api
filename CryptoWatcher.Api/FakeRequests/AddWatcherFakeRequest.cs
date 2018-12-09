@@ -9,9 +9,9 @@ namespace CryptoWatcher.Api.FakeRequests
         {
             return new AddWatcherRequest
             {
-                UserId = "cesarbmx",
+                UserId = "johny.melavo",
                 CurrencyId = "bitcoin",
-                IndicatorId = "cesarbmx-hype",
+                IndicatorId = "johny.melavo-hype",
                 BuySell = new BuySell(8,2),
                 Enabled = true
             };

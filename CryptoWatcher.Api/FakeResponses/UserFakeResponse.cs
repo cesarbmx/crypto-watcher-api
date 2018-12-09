@@ -9,7 +9,7 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new UserResponse
             {
-                UserId = "cesarbmx"
+                UserId = "johny.melavo"
             };
         }
         public static UserResponse GetFake_Johny()

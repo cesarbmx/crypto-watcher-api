@@ -9,7 +9,8 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new IndicatorResponse
             {
-                UserId = "cesarbmx",
+                IndicatorId = "johny.melavo-price-change",
+                UserId = "johny.melavo",
                 Name = "Price Change 24 Hrs",
                 Description = "It identifies inmediate price changes within 24 Hrs in your portfolio",
                 Formula = "C# formula"
@@ -19,7 +20,8 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new IndicatorResponse
             {
-                UserId = "cesarbmx",
+                IndicatorId = "johny.melavo-hype",
+                UserId = "johny.melavo",
                 Name = "Hype",
                 Description = "It identifies inmediate hypes within 24 Hrs in your portfolio",
                 Formula = "C# formula"
