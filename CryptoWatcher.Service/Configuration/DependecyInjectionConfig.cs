@@ -34,8 +34,8 @@ namespace CryptoWatcher.Service.Configuration
             services.AddScoped<IRepository<Order>, Repository<Order>>();
 
             // Jobs
-            services.AddSingleton<ImportCurrenciesJob, ImportCurrenciesJob>();
-            services.AddSingleton<MonitorWatchersJob, MonitorWatchersJob>();
+            services.AddSingleton<UpdateCurrenciesJob, UpdateCurrenciesJob>();
+            services.AddSingleton<UpdateOrdersJob, UpdateOrdersJob>();
             services.AddSingleton<SendWhatsappNotificationsJob, SendWhatsappNotificationsJob>();
 
             // Other

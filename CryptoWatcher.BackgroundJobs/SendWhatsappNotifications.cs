@@ -16,12 +16,12 @@ namespace CryptoWatcher.BackgroundJobs
     public class SendWhatsappNotificationsJob
     {
         private readonly MainDbContext _mainDbContext;
-        private readonly ILogger<MonitorWatchersJob> _logger;
+        private readonly ILogger<UpdateOrdersJob> _logger;
         private readonly IRepository<Notification> _notificationRepository;
         
         public SendWhatsappNotificationsJob(
             MainDbContext mainDbContext,
-            ILogger<MonitorWatchersJob> logger,
+            ILogger<UpdateOrdersJob> logger,
             IRepository<Notification> notificationRepository)
         {
             _mainDbContext = mainDbContext;

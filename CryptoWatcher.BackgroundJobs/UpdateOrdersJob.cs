@@ -10,15 +10,15 @@ using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class MonitorWatchersJob
+    public class UpdateOrdersJob
     {
         private readonly MainDbContext _mainDbContext;
-        private readonly ILogger<MonitorWatchersJob> _logger;
+        private readonly ILogger<UpdateOrdersJob> _logger;
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly IRepository<Order> _orderRepository;
-        public MonitorWatchersJob(
+        public UpdateOrdersJob(
             MainDbContext mainDbContext,
-            ILogger<MonitorWatchersJob> logger,
+            ILogger<UpdateOrdersJob> logger,
             IRepository<Watcher> watcherRepository,
             IRepository<Order> orderRepository)
         {

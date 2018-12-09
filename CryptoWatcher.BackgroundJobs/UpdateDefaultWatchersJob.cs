@@ -13,11 +13,11 @@ namespace CryptoWatcher.BackgroundJobs
     public class UpdateDefaultWatchersJob
     {
         private readonly MainDbContext _mainDbContext;
-        private readonly ILogger<MonitorWatchersJob> _logger;
+        private readonly ILogger<UpdateOrdersJob> _logger;
         private readonly CacheService _cacheService;
         public UpdateDefaultWatchersJob(
             MainDbContext mainDbContext,
-            ILogger<MonitorWatchersJob> logger,
+            ILogger<UpdateOrdersJob> logger,
             CacheService cacheService)
         {
             _mainDbContext = mainDbContext;

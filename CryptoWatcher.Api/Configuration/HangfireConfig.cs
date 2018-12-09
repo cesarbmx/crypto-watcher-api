@@ -30,8 +30,8 @@ namespace CryptoWatcher.Api.Configuration
             //RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
 
             // Run them on startup
-            BackgroundJob.Enqueue<ImportCurrenciesJob>(x => x.Run());
-            BackgroundJob.Enqueue<MonitorWatchersJob>(x => x.Run());
+            BackgroundJob.Enqueue<UpdateCurrenciesJob>(x => x.Run());
+            BackgroundJob.Enqueue<UpdateOrdersJob>(x => x.Run());
             BackgroundJob.Enqueue<SendWhatsappNotificationsJob>(x => x.Run());
 
             return app;
