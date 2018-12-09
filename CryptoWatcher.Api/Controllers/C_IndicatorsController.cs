@@ -41,7 +41,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get a indicator
+        /// Get an indicator
         /// </summary>
         [HttpGet]
         [Route("indicators/{indicatorId}", Name = "Indicators_GetIndicator")]
@@ -62,7 +62,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Add a indicator
+        /// Add an indicator
         /// </summary>
         [HttpPost]
         [Route("indicators")]
@@ -90,7 +90,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Update a indicator
+        /// Update an indicator
         /// </summary>
         [HttpPut]
         [Route("indicators/{indicatorId}")]
