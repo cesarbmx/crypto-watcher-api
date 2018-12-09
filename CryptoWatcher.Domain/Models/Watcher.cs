@@ -25,12 +25,13 @@ namespace CryptoWatcher.Domain.Models
             string userId,
             string currencyId,
             string indicatorId,
+            string indicatorName,
             decimal indicatorValue,
             BuySell buySell,
             BuySell recommendedBuySell,
             bool enabled)
         {
-            Id = UrlHelper.BuildUrl(userId, currencyId, indicatorId); // Semantic id
+            Id = UrlHelper.BuildUrl(userId, currencyId, indicatorName); // Semantic id
             UserId = userId;
             CurrencyId = currencyId;
             IndicatorId = indicatorId;

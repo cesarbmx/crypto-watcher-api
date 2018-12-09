@@ -65,6 +65,7 @@ namespace CryptoWatcher.Api.Handlers
                 request.UserId, 
                 request.CurrencyId, 
                 request.IndicatorId,
+                indicator.Name,
                 16,
                 request.BuySell,
                 new BuySell(0,0),

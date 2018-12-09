@@ -12,9 +12,9 @@ namespace CryptoWatcher.Domain.Builders
         {
             switch (indicatorId)
             {
-                case "price-change":
+                case "cesarbmx-price-change":
                     return currency.PercentageChange24H;
-                case "hype":
+                case "cesarbmx-hype":
                     return BuildHype(currency, currencies);
                 default:
                     throw new NotImplementedException();

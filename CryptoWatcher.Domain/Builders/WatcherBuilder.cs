@@ -23,17 +23,18 @@ namespace CryptoWatcher.Domain.Builders
                 foreach (var indicator in indicators)
                 {
                     // Get matching watcher
-                    var priceChangeWatcher = userWatchers.FirstOrDefault(x =>
+                    var watcher = userWatchers.FirstOrDefault(x =>
                         x.IndicatorId == indicator.Id &&
                         x.CurrencyId == currency.Id);
 
                     // If the watcher does not exist, we add the default one
-                    if (priceChangeWatcher == null)
+                    if (watcher == null)
                     {
-                        priceChangeWatcher = new Watcher(
+                        watcher = new Watcher(
                             userId,
                             currency.Id,
                             indicator.Id,
+                            indicator.Name,
                             IndicatorBuilder.BuildValue(currency, indicator.Id, currencies),
                             new BuySell(5, 5),
                             new BuySell(0, 0),
@@ -41,7 +42,7 @@ namespace CryptoWatcher.Domain.Builders
                     }
 
                     // Add
-                    watchers.Add(priceChangeWatcher);
+                    watchers.Add(watcher);
                 }
             }
 
@@ -55,26 +56,16 @@ namespace CryptoWatcher.Domain.Builders
                 foreach (var indicator in indicators)
                 {
                     // Add price change watcher
-                    var priceChangeWatcher = new Watcher(
+                    var watcher = new Watcher(
                         "master",
                         currency.Id,
                         indicator.Id,
+                        indicator.Name,
                         IndicatorBuilder.BuildValue(currency, indicator.Id, currencies),
                         new BuySell(5, 5),
                         new BuySell(0, 0),
                         false);
-                    watchers.Add(priceChangeWatcher);
-
-                    // Add hyper watcher
-                    var hypeWatcher = new Watcher(
-                        "master",
-                        currency.Id,
-                        indicator.Id,
-                        IndicatorBuilder.BuildValue(currency, indicator.Id, currencies),
-                        new BuySell(5, 5),
-                        new BuySell(0, 0),
-                        false);
-                    watchers.Add(hypeWatcher);
+                    watchers.Add(watcher);
                 }
             }
 
