@@ -37,7 +37,7 @@ namespace CryptoWatcher.Api.Handlers
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
-            // Get user orders
+            // Get orders
             var orders = await _orderRepository.GetAll(OrderExpression.Filter(request.UserId));
 
             // Response

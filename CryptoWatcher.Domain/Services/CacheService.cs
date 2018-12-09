@@ -24,9 +24,11 @@ namespace CryptoWatcher.Domain.Services
         }
         public Task SetInCache<T>(List<T> value)
         {
+            // Set cache
             var cache = new Cache().SetValue(value);
             _cacheRepository.Update(cache);
 
+            // Return
             return Task.CompletedTask;
         }
     }

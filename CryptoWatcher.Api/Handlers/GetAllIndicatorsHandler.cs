@@ -36,7 +36,7 @@ namespace CryptoWatcher.Api.Handlers
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
-            // Get user indicators
+            // Get indicators
             var userIndicators = await _indicatorRepository.GetAll(IndicatorExpression.Filter(request.UserId));
 
             // Response
