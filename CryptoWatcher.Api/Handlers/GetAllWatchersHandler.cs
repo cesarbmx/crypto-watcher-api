@@ -20,17 +20,20 @@ namespace CryptoWatcher.Api.Handlers
     {
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Indicator> _indicatorRepository;
         private readonly CacheService _cacheService;
         private readonly IMapper _mapper;
 
         public GetAllWatchersHandler(
             IRepository<Watcher> watcherRepository,
             IRepository<User> userRepository,
+            IRepository<Indicator> indicatorRepository,
             CacheService cacheService,
             IMapper mapper)
         {
             _watcherRepository = watcherRepository;
             _userRepository = userRepository;
+            _indicatorRepository = indicatorRepository;
             _cacheService = cacheService;
             _mapper = mapper;
         }
@@ -42,23 +45,26 @@ namespace CryptoWatcher.Api.Handlers
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
-            // Get user watchers
-            var userWatchers = await _watcherRepository.GetAll(WatcherExpression.Filter(request.UserId));
+            // Get watchers
+            var watchers = await _watcherRepository.GetAll(WatcherExpression.Filter(request.UserId));
 
             // Get currencies
             var currencies = await _cacheService.GetFromCache<Currency>();
 
-            // Build with defaults
-            userWatchers = userWatchers.BuildUserWatchersWithDefaults(request.UserId, currencies);
+            // Get indicators
+            var indicators = await _indicatorRepository.GetAll();
 
-            // Filter by indicator type
-            if (request.IndicatorType.HasValue)
+            // Build with defaults
+            watchers = watchers.BuildUserWatchersWithDefaults(request.UserId, currencies, indicators);
+
+            // Filter by indicator
+            if (!string.IsNullOrEmpty(request.IndicatorId))
             {
-                userWatchers = userWatchers.Where(x => x.IndicatorType == request.IndicatorType).ToList();
+                watchers = watchers.Where(x => x.IndicatorId == request.IndicatorId).ToList();
             }
 
             // Response
-            var response = _mapper.Map<List<WatcherResponse>>(userWatchers);
+            var response = _mapper.Map<List<WatcherResponse>>(watchers);
 
             // Return
             return response;

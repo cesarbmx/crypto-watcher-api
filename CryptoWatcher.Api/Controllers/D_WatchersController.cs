@@ -4,7 +4,6 @@ using CryptoWatcher.Api.RequestExamples;
 using CryptoWatcher.Api.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Api.Responses;
-using CryptoWatcher.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +12,11 @@ using Swashbuckle.AspNetCore.Filters;
 namespace CryptoWatcher.Api.Controllers
 {
     // ReSharper disable once InconsistentNaming
-    public class C_WatchersController : Controller
+    public class D_WatchersController : Controller
     {
         private readonly IMediator _mediator;
 
-        public C_WatchersController(IMediator mediator)
+        public D_WatchersController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -32,10 +31,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(200, typeof(WatcherListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetAllWatchers")]
-        public async Task<IActionResult> GetAllWatchers(string userId, IndicatorType? indicatorType)
+        public async Task<IActionResult> GetAllWatchers(string userId, string indicatorId = null)
         {
             // Reponse
-            var response = await _mediator.Send(new GetAllWatchersRequest{UserId = userId, IndicatorType = indicatorType});
+            var response = await _mediator.Send(new GetAllWatchersRequest{UserId = userId, IndicatorId = indicatorId });
 
             // Return
             return Ok(response);

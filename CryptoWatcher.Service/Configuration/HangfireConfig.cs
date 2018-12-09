@@ -22,16 +22,16 @@ namespace CryptoWatcher.Service.Configuration
             var jobsIntervalInMinutes = int.Parse(configuration["JobsIntervalInMinutes"]);
 
             var importCurrenciesJob = serviceProvider.GetService<UpdateCurrenciesJob>();
-            var monitorWatchersJob = serviceProvider.GetService<UpdateOrdersJob>();
+            var updateDefaultWatchersJob = serviceProvider.GetService<UpdateDefaultWatchersJob>();
             //var sendWhatsappNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();
 
-            RecurringJob.AddOrUpdate("Import currencies", () => importCurrenciesJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            RecurringJob.AddOrUpdate("Monitor watchers", () => monitorWatchersJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate("Update currencies", () => importCurrenciesJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate("Update default watchers", () => updateDefaultWatchersJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
             //RecurringJob.AddOrUpdate("Send whatsapp notifications", () => sendWhatsappNotificationsJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
 
             // Run them on startup
             BackgroundJob.Enqueue(() => importCurrenciesJob.Run());
-            BackgroundJob.Enqueue(() => monitorWatchersJob.Run());
+            BackgroundJob.Enqueue(() => updateDefaultWatchersJob.Run());
             //BackgroundJob.Enqueue(() => sendWhatsappNotificationsJob.Run());
         }
       

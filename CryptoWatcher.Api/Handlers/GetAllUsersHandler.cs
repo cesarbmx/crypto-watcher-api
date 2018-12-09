@@ -10,12 +10,12 @@ using MediatR;
 
 namespace CryptoWatcher.Api.Handlers
 {
-    public class GetUsersHandler : IRequestHandler<GetUsersRequest, List<UserResponse>>
+    public class GetAllUsersHandler : IRequestHandler<GetUsersRequest, List<UserResponse>>
     {
         private readonly IRepository<User> _userRepository;
         private readonly IMapper _mapper;
 
-        public GetUsersHandler(IRepository<User> userRepository, IMapper mapper)
+        public GetAllUsersHandler(IRepository<User> userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;

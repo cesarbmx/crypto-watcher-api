@@ -11,25 +11,33 @@ namespace CryptoWatcher.Domain.Models
         {
             return JsonConvertHelper.DeserializeObjectRaw<List<T>>(Value);
         }
-        public void SetValue<T>(List<T> value)
-        {
-            Id = typeof(T).Name + "List";
-            Value = JsonConvertHelper.SerializeObjectRaw(value);
-        }
-        public void SetValue<T>(List<T> value, string key)
-        {
-            Id = key;
-            Value = JsonConvertHelper.SerializeObjectRaw(value);
-        }
-        public void SetValue<T>(T value)
+        public Cache SetValue<T>(List<T> value)
         {
             Id = typeof(T).Name;
             Value = JsonConvertHelper.SerializeObjectRaw(value);
+
+            return this;
         }
-        public void SetValue<T>(T value, string key)
+        public Cache SetValue<T>(List<T> value, string key)
         {
             Id = key;
             Value = JsonConvertHelper.SerializeObjectRaw(value);
+
+            return this;
+        }
+        public Cache SetValue<T>(T value)
+        {
+            Id = typeof(T).Name;
+            Value = JsonConvertHelper.SerializeObjectRaw(value);
+
+            return this;
+        }
+        public Cache SetValue<T>(T value, string key)
+        {
+            Id = key;
+            Value = JsonConvertHelper.SerializeObjectRaw(value);
+
+            return this;
         }
     }
 }

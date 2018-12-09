@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using CryptoWatcher.Api.Configuration;
+using CryptoWatcher.Persistence.Contexts;
 
 namespace CryptoWatcher.Api
 {
@@ -58,6 +59,15 @@ namespace CryptoWatcher.Api
 
             // Mvc
             app.ConfigureMvc();
+
+            // Data seeding
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var mainDbContext = serviceScope.ServiceProvider.GetService<MainDbContext>();
+                //mainDbContext.Database.Migrate();
+                mainDbContext.Database.EnsureCreated();
+                mainDbContext.SaveChanges();
+            }
         }
     }
 }

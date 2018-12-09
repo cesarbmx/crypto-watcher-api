@@ -18,17 +18,23 @@ namespace CryptoWatcher.Api.Handlers
     public class AddWatcherHandler : IRequestHandler<AddWatcherRequest, WatcherResponse>
     {
         private readonly MainDbContext _mainDbContext;
+        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly ILogger<AddWatcherRequest> _logger;
         private readonly IMapper _mapper;
 
         public AddWatcherHandler(
             MainDbContext mainDbContext,
+            IRepository<User> userRepository,
+            IRepository<Indicator> indicatorRepository,
             IRepository<Watcher> watcherRepository,
             ILogger<AddWatcherRequest> logger,
             IMapper mapper)
         {
             _mainDbContext = mainDbContext;
+            _userRepository = userRepository;
+            _indicatorRepository = indicatorRepository;
             _watcherRepository = watcherRepository;
             _logger = logger;
             _mapper = mapper;
@@ -36,17 +42,29 @@ namespace CryptoWatcher.Api.Handlers
 
         public async Task<WatcherResponse> Handle(AddWatcherRequest request, CancellationToken cancellationToken)
         {
-            // Check if it exists
-            var watcher = await _watcherRepository.GetSingle(WatcherExpression.Watcher(request.UserId, request.CurrencyId, request.IndicatorType));
+            // Get user
+            var user = await _userRepository.GetSingle(request.UserId);
 
-            // Throw NotFound exception if it does not exist
+            // Throw NotFound exception if the currency does not exist
+            if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
+
+            // Get indicator
+            var indicator = await _indicatorRepository.GetSingle(request.IndicatorId);
+
+            // Throw NotFound exception if the currency does not exist
+            if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
+
+            // Check if it exists
+            var watcher = await _watcherRepository.GetSingle(WatcherExpression.Watcher(request.UserId, request.CurrencyId, request.IndicatorId));
+
+            // Throw NotFound exception if it exists
             if (watcher != null) throw new NotFoundException(WatcherMessage.WatcherExists);
 
             // Add
             watcher = new Watcher(
                 request.UserId, 
                 request.CurrencyId, 
-                request.IndicatorType,
+                request.IndicatorId,
                 16,
                 request.BuySell,
                 new BuySell(0,0),

@@ -29,7 +29,7 @@
             Add a user
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.GetAllWatchers(System.String,System.Nullable{CryptoWatcher.Domain.Models.IndicatorType})">
+        <member name="M:CryptoWatcher.Api.Controllers.C_WatchersController.GetAllWatchers(System.String,System.Nullable{CryptoWatcher.Domain.Models.Indicator})">
             <summary>
             Get all watchers
             </summary>

@@ -4,29 +4,28 @@ using CryptoWatcher.Domain.Builders;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Repositories;
-using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class UpdateDefaultWatchersJob
+    public class UpdateIndicatorsJob
     {
         private readonly MainDbContext _mainDbContext;
+        private readonly ILogger<UpdateIndicatorsJob> _logger;
         private readonly IRepository<Indicator> _indicatorRepository;
-        private readonly ILogger<UpdateOrdersJob> _logger;
-        private readonly CacheService _cacheService;
-        public UpdateDefaultWatchersJob(
+        private readonly IRepository<Cache> _cacheRepository;
+        public UpdateIndicatorsJob(
             MainDbContext mainDbContext,
+            ILogger<UpdateIndicatorsJob> logger,
             IRepository<Indicator> indicatorRepository,
-            ILogger<UpdateOrdersJob> logger,
-            CacheService cacheService)
+            IRepository<Cache> cacheRepository)
         {
             _mainDbContext = mainDbContext;
-            _indicatorRepository = indicatorRepository;
             _logger = logger;
-            _cacheService = cacheService;
+            _indicatorRepository = indicatorRepository;
+            _cacheRepository = cacheRepository;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -35,16 +34,18 @@ namespace CryptoWatcher.BackgroundJobs
             try
             {
                 // Get all currencies
-                var currencies = await _cacheService.GetFromCache<Currency>();
+                var cache = await _cacheRepository.GetSingle(typeof(Currency).Name);
+                var currencies = cache.GetValue<Currency>();
 
-                // Get indicators
+                // Get all indicators
                 var indicators = await _indicatorRepository.GetAll();
 
                 // Get all default watchers
                 var defaultWatchers = WatcherBuilder.BuildDefaultWatchers(currencies, indicators);
 
                 // Set default watchers
-                await _cacheService.SetInCache(defaultWatchers);
+                cache = new Cache().SetValue(defaultWatchers);
+                _cacheRepository.Add(cache);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

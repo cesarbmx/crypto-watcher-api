@@ -20,26 +20,14 @@ namespace CryptoWatcher.Domain.Services
             var cache = await _cacheRepository.GetSingle(typeof(T).Name);
 
             // Return
-            if (cache == null) return new List<T>();
             return cache.GetValue<T>();
         }
-        public async Task SetInCache<T>(List<T> value)
+        public Task SetInCache<T>(List<T> value)
         {
-            // Set cache
-            var cache = await _cacheRepository.GetSingle(typeof(T).Name);
-            if (cache == null)
-            {
-                // Add if it does not exist
-                cache = new Cache();
-                cache.SetValue(value);
-                _cacheRepository.Add(cache);
-            }
-            else
-            {
-                // Update if it exists
-                cache.SetValue(value);
-                _cacheRepository.Update(cache);
-            }
+            var cache = new Cache().SetValue(value);
+            _cacheRepository.Update(cache);
+
+            return Task.CompletedTask;
         }
     }
 }

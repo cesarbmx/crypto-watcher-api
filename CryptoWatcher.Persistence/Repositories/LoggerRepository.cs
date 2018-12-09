@@ -59,6 +59,9 @@ namespace CryptoWatcher.Persistence.Repositories
         }
         public void Update(TEntity entity)
         {
+            // Update
+            _repository.Update(entity);
+
             // Add log
             _logRepository.Add(new Log(entity, "Update"));
         }

@@ -14,13 +14,14 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Id)
+            entityBuilder.Property(t => t.CurrencyId)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.IndicatorType)
-                .HasColumnType("smallint")
+            entityBuilder.Property(t => t.IndicatorId)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
                 .IsRequired();
 
             entityBuilder.Property(t => t.IndicatorValue)

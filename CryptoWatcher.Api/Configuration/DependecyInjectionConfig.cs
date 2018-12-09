@@ -31,6 +31,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<Repository<User>, Repository<User>>();
             services.AddScoped<Repository<Notification>, Repository<Notification>>();
             services.AddScoped<Repository<Order>, Repository<Order>>();
+            services.AddScoped<Repository<Indicator>, Repository<Indicator>>();
 
             services.AddScoped<IRepository<Cache>, LoggerRepository<Cache>>();
             services.AddScoped<IRepository<Log>, Repository<Log>>();
@@ -38,6 +39,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<IRepository<User>, LoggerRepository<User>>();
             services.AddScoped<IRepository<Notification>, LoggerRepository<Notification>>();
             services.AddScoped<IRepository<Order>, LoggerRepository<Order>>();
+            services.AddScoped<IRepository<Indicator>, LoggerRepository<Indicator>>();
 
             // Other
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();

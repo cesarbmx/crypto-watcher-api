@@ -8,13 +8,13 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class IndicatorBuilder
     {
-        public static decimal BuildValue(Currency currency, IndicatorType indicator, List<Currency> currencies)
+        public static decimal BuildValue(Currency currency, string indicatorId, List<Currency> currencies)
         {
-            switch (indicator)
+            switch (indicatorId)
             {
-                case IndicatorType.PriceChange:
+                case "price-change":
                     return currency.PercentageChange24H;
-                case IndicatorType.Hype:
+                case "hype":
                     return BuildHype(currency, currencies);
                 default:
                     throw new NotImplementedException();

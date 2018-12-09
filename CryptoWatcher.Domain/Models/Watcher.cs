@@ -6,9 +6,10 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Watcher : Entity
     {
+        public string WatcherId => Id;
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
-        public IndicatorType IndicatorType { get; private set; }
+        public string IndicatorId { get; private set; }
         public decimal IndicatorValue { get; private set; }
         public BuySell BuySell { get; private set; }
         public BuySell RecomendedBuySell { get; private set; }
@@ -23,16 +24,16 @@ namespace CryptoWatcher.Domain.Models
         public Watcher(
             string userId,
             string currencyId,
-            IndicatorType indicatorType,
+            string indicatorId,
             decimal indicatorValue,
             BuySell buySell,
             BuySell recommendedBuySell,
             bool enabled)
         {
-            Id = UrlHelper.BuildUrl(userId, currencyId, indicatorType.ToString()); // Semantic id
+            Id = UrlHelper.BuildUrl(userId, currencyId, indicatorId); // Semantic id
             UserId = userId;
             CurrencyId = currencyId;
-            IndicatorType = indicatorType;
+            IndicatorId = indicatorId;
             IndicatorValue = indicatorValue;
             BuySell = buySell;
             RecomendedBuySell = recommendedBuySell;

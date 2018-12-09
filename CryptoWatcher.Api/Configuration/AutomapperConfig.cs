@@ -24,18 +24,13 @@ namespace CryptoWatcher.Api.Configuration
                         .ForMember(dest => dest.BuildDateTime, opt => opt.MapFrom(src => src.LastBuild.ToString("yyyy/MM/dd HH:mm")))
                         .ForMember(dest => dest.LastBuildOccurred, opt => opt.MapFrom(src => src.LastBuild.DaysHoursMinutesAndSecondsSinceDate()));
                     cfg.CreateMap<Health, HealthResponse>();
-                    cfg.CreateMap<Currency, CurrencyResponse>()
-                        .ForMember(dest => dest.CurrencyId, opt => opt.MapFrom(src => src.Id));
-                    cfg.CreateMap<Log, LogResponse>()
-                        .ForMember(dest => dest.LogId, opt => opt.MapFrom(src => src.Id));
-                    cfg.CreateMap<Watcher, WatcherResponse>()
-                        .ForMember(dest => dest.WatcherId, opt => opt.MapFrom(src => src.Id));
-                    cfg.CreateMap<User, UserResponse>()
-                        .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id));
-                    cfg.CreateMap<Notification, NotificationResponse>()
-                        .ForMember(dest => dest.NotificationId, opt => opt.MapFrom(src => src.Id));
-                    cfg.CreateMap<Order, OrderResponse>()
-                        .ForMember(dest => dest.OrderId, opt => opt.MapFrom(src => src.Id));
+                    cfg.CreateMap<Currency, CurrencyResponse>();
+                    cfg.CreateMap<Log, LogResponse>();
+                    cfg.CreateMap<Watcher, WatcherResponse>();
+                    cfg.CreateMap<User, UserResponse>();
+                    cfg.CreateMap<Notification, NotificationResponse>();
+                    cfg.CreateMap<Order, OrderResponse>();
+                    cfg.CreateMap<Indicator, IndicatorResponse>();
 
                     // Others
                     cfg.CreateMap<TickerEntity, Currency>()

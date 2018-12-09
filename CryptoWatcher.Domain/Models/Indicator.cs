@@ -1,24 +1,34 @@
 ﻿
 
+using CryptoWatcher.Shared.Helpers;
+
 namespace CryptoWatcher.Domain.Models
 {
-    public class Indicator
+    public class Indicator : Entity
     {
-        public string CurrencyId { get; private set; }
-        public IndicatorType IndicatorType { get; private set; }
-        public decimal Value { get; private set; }
-        public BuySell RecommendedBuySell { get; private set; }
+        public string IndicatorId => Id;
+        public string UserId { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public string Formula { get; private set; }
 
-        public Indicator(){}
-        public Indicator(
-            string currencyId,
-            IndicatorType indicatorType,
-            decimal value, BuySell recommendedBuySell)
+        public Indicator() { }
+        public Indicator(string userId, string name, string description, string formula)
         {
-            CurrencyId = currencyId;
-            IndicatorType = indicatorType;
-            Value = value;
-            RecommendedBuySell = recommendedBuySell;
-        } 
+            Id = UrlHelper.BuildUrl(name);
+            UserId = userId;
+            Name = name;
+            Description = description;
+            Formula = formula;
+        }
+
+        public Indicator Update(string name, string description, string formula)
+        {
+            Name = name;
+            Description = description;
+            Formula = formula;
+
+            return this;
+        }
     }
 }

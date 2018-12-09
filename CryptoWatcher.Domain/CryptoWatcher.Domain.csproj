@@ -14,7 +14,6 @@
     <Compile Remove="Repositories\IOrderRepository.cs" />
     <Compile Remove="Repositories\IUserRepository.cs" />
     <Compile Remove="Repositories\IWatcherRepository.cs" />
-    <Compile Remove="Services\OrderService.cs" />
   </ItemGroup>
 
   <ItemGroup>

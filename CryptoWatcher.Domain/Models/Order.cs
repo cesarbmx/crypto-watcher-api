@@ -6,6 +6,7 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Order : Entity
     {
+        public string OrderId => Id;
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
         public OrderType OrderType { get; private set; }

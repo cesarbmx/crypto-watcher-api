@@ -54,6 +54,8 @@ namespace CryptoWatcher.Persistence.Repositories
         }
         public void Update(TEntity entity)
         {
+            // Update
+            _dbSet.Update(entity);
         }
         public void Remove(TEntity entity)
         {

@@ -24,9 +24,9 @@ namespace CryptoWatcher.Api.Configuration
             app.UseHangfireServer();
 
             //// Background jobs
-            //var jobsIntervalInMinutes = int.Parse(configuration["JobsIntervalInMinutes"]);
-            //RecurringJob.AddOrUpdate<ImportCurrenciesJob>("Import currencies", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            //RecurringJob.AddOrUpdate<MonitorWatchersJob>("Monitor watchers", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            var jobsIntervalInMinutes = int.Parse(configuration["JobsIntervalInMinutes"]);
+            RecurringJob.AddOrUpdate<UpdateCurrenciesJob>("Update currencies", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            //RecurringJob.AddOrUpdate<UpdateDefaultWatchersJob>("Update default watchers", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
             //RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
 
             // Run them on startup

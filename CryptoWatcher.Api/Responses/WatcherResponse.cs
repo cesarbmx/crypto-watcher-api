@@ -8,7 +8,7 @@ namespace CryptoWatcher.Api.Responses
         public string WatcherId { get; set; }
         public string UserId { get; set; }
         public string CurrencyId { get; set; }
-        public IndicatorType IndicatorType { get; set; }
+        public string IndicatorId { get; set; }
         public decimal IndicatorValue { get; set; }
         public BuySell BuySell { get; set; }
         public BuySell RecommendedBuySell { get; set; }
