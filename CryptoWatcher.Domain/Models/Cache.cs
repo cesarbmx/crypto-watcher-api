@@ -7,7 +7,7 @@ namespace CryptoWatcher.Domain.Models
     {
         public string Value { get; private set; }
 
-        public Cache() : base("system")
+        public Cache() : base(null)
         {}
 
         public List<T> Get<T>(CacheKey key)
