@@ -18,26 +18,5 @@ namespace CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Cache SetValue<T>(List<T> value, string key)
-        {
-            Id = key;
-            Value = JsonConvertHelper.SerializeObjectRaw(value);
-
-            return this;
-        }
-        public Cache SetValue<T>(T value)
-        {
-            Id = typeof(T).Name;
-            Value = JsonConvertHelper.SerializeObjectRaw(value);
-
-            return this;
-        }
-        public Cache SetValue<T>(T value, string key)
-        {
-            Id = key;
-            Value = JsonConvertHelper.SerializeObjectRaw(value);
-
-            return this;
-        }
     }
 }
