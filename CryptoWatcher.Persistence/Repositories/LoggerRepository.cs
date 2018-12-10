@@ -44,7 +44,7 @@ namespace CryptoWatcher.Persistence.Repositories
             _repository.Add(entity);
 
             // Add log
-            _logRepository.Add(new Log("Add", entity,  entity.Id, entity.CreatedBy));
+            _logRepository.Add(new Log("Add", entity,  entity.Id, entity.CreatedBy, entity.CreationTime));
         }
         public void AddRange(List<TEntity> entities)
         {
@@ -57,7 +57,7 @@ namespace CryptoWatcher.Persistence.Repositories
             foreach (var entity in entities)
             {
                 // Add log
-                _logRepository.Add(new Log("Add", entities, entity.Id, entity.CreatedBy));
+                _logRepository.Add(new Log("Add", entities, entity.Id, entity.CreatedBy, entity.CreationTime));
             }
         }
         public void Update(TEntity entity)
@@ -66,7 +66,7 @@ namespace CryptoWatcher.Persistence.Repositories
             _repository.Update(entity);
 
             // Add log
-            _logRepository.Add(new Log("Update", entity,  entity.Id, entity.CreatedBy));
+            _logRepository.Add(new Log("Update", entity,  entity.Id, entity.CreatedBy, entity.CreationTime));
         }
         public void Remove(TEntity entity)
         {
@@ -74,7 +74,7 @@ namespace CryptoWatcher.Persistence.Repositories
             _repository.Remove(entity);
 
             // Add log
-            _logRepository.Add(new Log("Remove", entity, entity.Id, entity.CreatedBy));
+            _logRepository.Add(new Log("Remove", entity, entity.Id, entity.CreatedBy, entity.CreationTime));
         }
     }
 }

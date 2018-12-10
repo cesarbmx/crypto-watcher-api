@@ -1,4 +1,5 @@
-﻿using CryptoWatcher.Shared.Helpers;
+﻿using System;
+using CryptoWatcher.Shared.Helpers;
 
 namespace CryptoWatcher.Domain.Models
 {
@@ -11,8 +12,8 @@ namespace CryptoWatcher.Domain.Models
         public string Json { get; private set; }
 
         public Log() { }
-        public Log(string action, object entity, string entityId, string userId)
-        : base(userId)
+        public Log(string action, object entity, string entityId, string createdBy, DateTime creationTime)
+        : base(createdBy)
         {
             var entityName = entity.GetType().Name;
             if (entityName == "List`1")
@@ -23,6 +24,8 @@ namespace CryptoWatcher.Domain.Models
             Action = action;
             Entity = entityName;
             EntityId = entityId;
+            CreatedBy = createdBy;
+            CreationTime = creationTime;
             Json = JsonConvertHelper.SerializeObjectRaw(entity);
         }
         public T ModelJsonToObject<T>()

@@ -6,7 +6,7 @@ namespace CryptoWatcher.Domain.Models
     {
         public string Id { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime CreationTime { get; private set; }
+        public DateTime CreationTime { get; set; }
         //public User LastModifiedBy { get; set; }
         //public DateTime LastModificationTime { get; set; }
 
