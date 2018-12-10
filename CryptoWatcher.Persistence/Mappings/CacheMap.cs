@@ -16,8 +16,9 @@ namespace CryptoWatcher.Persistence.Mappings
 
             // Data seeding
             entityBuilder.HasData(
-                new Cache().SetValue(new List<Currency>()),
-                new Cache().SetValue(new List<HistoricalData>())
+                new Cache().Set(CacheKey.Currencies, new List<Currency>()),
+                new Cache().Set(CacheKey.DefaultWatchers, new List<Watcher>()),
+                new Cache().Set(CacheKey.HistoricalData, new List<HistoricalData>())
             );
         }
     }

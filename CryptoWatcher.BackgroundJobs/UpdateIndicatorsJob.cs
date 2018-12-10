@@ -35,7 +35,7 @@ namespace CryptoWatcher.BackgroundJobs
             {
                 // Get all currencies
                 var cache = await _cacheRepository.GetSingle(typeof(Currency).Name);
-                var currencies = cache.GetValue<Currency>();
+                var currencies = cache.Get<Currency>(CacheKey.Currencies);
 
                 // Get all indicators
                 var indicators = await _indicatorRepository.GetAll();
@@ -44,7 +44,7 @@ namespace CryptoWatcher.BackgroundJobs
                 var defaultWatchers = WatcherBuilder.BuildDefaultWatchers(currencies, indicators);
 
                 // Set default watchers
-                cache = new Cache().SetValue(defaultWatchers);
+                cache = new Cache().Set(CacheKey.DefaultWatchers, defaultWatchers);
                 _cacheRepository.Add(cache);
 
                 // Save

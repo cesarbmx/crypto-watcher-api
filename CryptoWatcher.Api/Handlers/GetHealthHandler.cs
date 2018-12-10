@@ -32,7 +32,7 @@ namespace CryptoWatcher.Api.Handlers
             sw.Start();
             try
             {
-                await _cacheService.GetFromCache<Currency>();
+                await _cacheService.GetFromCache<Currency>(CacheKey.Currencies);
                 sw.Stop();
             }
             catch

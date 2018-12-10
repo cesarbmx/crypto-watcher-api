@@ -7,13 +7,13 @@ namespace CryptoWatcher.Domain.Models
     {
         public string Value { get; private set; }
 
-        public List<T> GetValue<T>()
+        public List<T> Get<T>(CacheKey key)
         {
             return JsonConvertHelper.DeserializeObjectRaw<List<T>>(Value);
         }
-        public Cache SetValue<T>(List<T> value)
+        public Cache Set<T>(CacheKey key, List<T> value)
         {
-            Id = typeof(T).Name;
+            Id = key.ToString();
             Value = JsonConvertHelper.SerializeObjectRaw(value);
 
             return this;

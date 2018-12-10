@@ -5,24 +5,24 @@ namespace CryptoWatcher.Domain.Models
     public class Log : Entity
     {
         public string LogId => Id;
-        public string Resource { get; private set; }
+        public string Entity { get; private set; }
         public string Action { get; private set; }
-        public string ResourceId { get; private set; }
+        public string EntityId { get; private set; }
         public string Json { get; private set; }
 
         public Log() { }
-        public Log(object resource, string action, string resourceId)
+        public Log(object entity, string action, string entityId)
         {
-            var resourceName = resource.GetType().Name;
-            if (resourceName == "List`1")
+            var entityName = entity.GetType().Name;
+            if (entityName == "List`1")
             {
-                resourceName = resource.GetType().GetGenericArguments()[0].Name + "List";
+                entityName = entity.GetType().GetGenericArguments()[0].Name;
             }
 
-            Resource = resourceName;
+            Entity = entityName;
             Action = action;
-            ResourceId = resourceId;
-            Json = JsonConvertHelper.SerializeObjectRaw(resource);
+            EntityId = entityId;
+            Json = JsonConvertHelper.SerializeObjectRaw(entity);
         }
         public T ModelJsonToObject<T>()
         {

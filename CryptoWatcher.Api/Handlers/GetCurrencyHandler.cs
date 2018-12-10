@@ -26,7 +26,7 @@ namespace CryptoWatcher.Api.Handlers
         public async Task<CurrencyResponse> Handle(GetCurrencyRequest request, CancellationToken cancellationToken)
         {
             // Get currencies
-            var currencies = await _cacheService.GetFromCache<Currency>();
+            var currencies = await _cacheService.GetFromCache<Currency>(CacheKey.Currencies);
 
             // Get currency
             var currency = currencies.FirstOrDefault(x => x.Id == request.CurrencyId);

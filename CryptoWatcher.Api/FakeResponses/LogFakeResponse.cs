@@ -11,8 +11,8 @@ namespace CryptoWatcher.Api.FakeResponses
             return new LogResponse
             {              
                 LogId = "2779cf8051-381f-4834-93dc-ece6345dde33",
-                Resource = "Cache",
-                ResourceId = "Currencies",
+                Entity = "Cache",
+                EntityId = "CurrencyList",
                 Action = "Add",
                 Json = "{}",
                 CreationTime = DateTime.Parse("2018-09-14T14:05")

@@ -56,7 +56,7 @@ namespace CryptoWatcher.BackgroundJobs
                 var currencies = _mapper.Map<List<Currency>>(result);
 
                 // Set all currencies
-                await _cacheService.SetInCache(currencies);
+                await _cacheService.SetInCache(CacheKey.Currencies, currencies);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

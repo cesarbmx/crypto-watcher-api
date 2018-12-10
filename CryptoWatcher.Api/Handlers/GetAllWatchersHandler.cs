@@ -49,7 +49,7 @@ namespace CryptoWatcher.Api.Handlers
             var watchers = await _watcherRepository.GetAll(WatcherExpression.Filter(request.UserId));
 
             // Get currencies
-            var currencies = await _cacheService.GetFromCache<Currency>();
+            var currencies = await _cacheService.GetFromCache<Currency>(CacheKey.Currencies);
 
             // Get indicators
             var indicators = await _indicatorRepository.GetAll();

@@ -14,18 +14,18 @@ namespace CryptoWatcher.Domain.Services
             _cacheRepository = cacheRepository;
         }
 
-        public async Task<List<T>> GetFromCache<T>()
+        public async Task<List<T>> GetFromCache<T>(CacheKey key)
         {
             // Get cache
-            var cache = await _cacheRepository.GetSingle(typeof(T).Name);
+            var cache = await _cacheRepository.GetSingle(key.ToString());
 
             // Return
-            return cache.GetValue<T>();
+            return cache.Get<T>(key);
         }
-        public Task SetInCache<T>(List<T> value)
+        public Task SetInCache<T>(CacheKey key, List<T> value)
         {
             // Set cache
-            var cache = new Cache().SetValue(value);
+            var cache = new Cache().Set(key, value);
             _cacheRepository.Update(cache);
 
             // Return
