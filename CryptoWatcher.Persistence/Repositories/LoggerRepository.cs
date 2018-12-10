@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Repositories;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace CryptoWatcher.Persistence.Repositories
@@ -44,7 +45,7 @@ namespace CryptoWatcher.Persistence.Repositories
             _repository.Add(entity);
 
             // Add log
-            _logRepository.Add(new Log(entity, "Add"));
+            _logRepository.Add(new Log(entity, "Add", entity.Id));
         }
         public void AddRange(List<TEntity> entities)
         {
@@ -55,7 +56,7 @@ namespace CryptoWatcher.Persistence.Repositories
             _repository.AddRange(entities);
 
             // Add log
-            _logRepository.Add(new Log(entities, "AddRange"));
+            _logRepository.Add(new Log(entities, "AddRange", string.Join(" ", entities.Select(x => x.Id))));
         }
         public void Update(TEntity entity)
         {
@@ -63,7 +64,7 @@ namespace CryptoWatcher.Persistence.Repositories
             _repository.Update(entity);
 
             // Add log
-            _logRepository.Add(new Log(entity, "Update"));
+            _logRepository.Add(new Log(entity, "Update", entity.Id));
         }
         public void Remove(TEntity entity)
         {
@@ -71,7 +72,7 @@ namespace CryptoWatcher.Persistence.Repositories
             _repository.Remove(entity);
 
             // Add log
-            _logRepository.Add(new Log(entity, "Remove"));
+            _logRepository.Add(new Log(entity, "Remove", entity.Id));
         }
     }
 }

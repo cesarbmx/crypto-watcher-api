@@ -7,10 +7,11 @@ namespace CryptoWatcher.Domain.Models
         public string LogId => Id;
         public string Resource { get; private set; }
         public string Action { get; private set; }
+        public string ResourceId { get; private set; }
         public string Json { get; private set; }
 
         public Log() { }
-        public Log(object resource, string action)
+        public Log(object resource, string action, string resourceId)
         {
             var resourceName = resource.GetType().Name;
             if (resourceName == "List`1")
@@ -20,6 +21,7 @@ namespace CryptoWatcher.Domain.Models
 
             Resource = resourceName;
             Action = action;
+            ResourceId = resourceId;
             Json = JsonConvertHelper.SerializeObjectRaw(resource);
         }
         public T ModelJsonToObject<T>()
