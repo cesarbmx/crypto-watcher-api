@@ -6,7 +6,7 @@ namespace CryptoWatcher.Domain.Models
     public class HistoricalData
     {
         public string CurrencyId { get; private set; }
-        public Indicator Indicator { get; private set; }
+        public string IndicatorId { get; private set; }
         public decimal Value { get; private set; }
         public BuySell RecommendedBuySell { get; private set; }
         public DateTime Time { get; private set; }
@@ -14,13 +14,13 @@ namespace CryptoWatcher.Domain.Models
         public HistoricalData() { }
         public HistoricalData(
             string currencyId,
-            Indicator indicator,
+            string indicatorId,
             decimal value, 
             BuySell recommendedBuySell,
             DateTime time)
         {
             CurrencyId = currencyId;
-            Indicator = indicator;
+            IndicatorId = indicatorId;
             Value = value;
             RecommendedBuySell = recommendedBuySell;
             Time = time;
