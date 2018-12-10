@@ -13,6 +13,7 @@ namespace CryptoWatcher.Domain.Models
 
         public Notification() { }
         public Notification(string userId, string phoneNumber, string message)
+        : base(userId)
         {
             Id = Guid.NewGuid().ToString();
             UserId = userId;

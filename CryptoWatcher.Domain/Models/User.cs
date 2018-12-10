@@ -6,9 +6,11 @@ namespace CryptoWatcher.Domain.Models
     {
         public string UserId => Id;
 
-        public User(string id)
+        public User() { }
+        public User(string userId)
+        : base(userId)
         {
-            Id = id;
+            Id = userId;
         }
     }
 }

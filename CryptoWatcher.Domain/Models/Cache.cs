@@ -7,6 +7,9 @@ namespace CryptoWatcher.Domain.Models
     {
         public string Value { get; private set; }
 
+        public Cache() : base("system")
+        {}
+
         public List<T> Get<T>(CacheKey key)
         {
             return JsonConvertHelper.DeserializeObjectRaw<List<T>>(Value);

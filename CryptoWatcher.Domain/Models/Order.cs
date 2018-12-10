@@ -19,6 +19,7 @@ namespace CryptoWatcher.Domain.Models
             string currencyId,
             OrderType orderType,
             decimal quantity)
+        : base(userId)
         {
             Id = Guid.NewGuid().ToString();
             UserId = userId;
