@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "89610315-54d7-46e9-8e69-d22ad1da7bc0",
+		"name": "CryptoWatcher",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all currencies",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6495/currencies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"currencies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get bitcoin",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6495/currencies/bitcoin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"currencies",
+						"bitcoin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1e51617b-218b-4135-a4a1-ea421bc57ffe",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": \"cesarbmx\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6495/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4933ea2a-95cb-4771-b75b-a90c858abf7e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": \"cesarbmx\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6495/users/cesarbmx",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"users",
+						"cesarbmx"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e1247a6-2029-4ee3-9b29-60a5cc235180",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": \"cesarbmx\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6495/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new indicator",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"Hype\",\r\n  \"description\": \"It identifies inmediate hypes within 24 Hrs in your portfolio\",\r\n  \"formula\": \"C# formula\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6495/indicators",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"indicators"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update the new indicator",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Hype\",\r\n  \"description\": \"It identifies inmediate hypes within 24 Hrs in your portfolio\",\r\n  \"formula\": \"C# formula\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6495/indicators/cesarbmx-hype",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"indicators",
+						"cesarbmx-hype"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the new indicator",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6495/indicators/cesarbmx-hype",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"indicators",
+						"cesarbmx-hype"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new watcher",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b8e43c30-1a4b-4ab9-af8f-1d95745395c3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"currencyId\": \"bitcoin\",\r\n  \"indicatorId\": \"cesarbmx-hype\",\r\n  \"buySell\": {\r\n    \"buyAt\": 0,\r\n    \"sellAt\": 0\r\n  },\r\n  \"enabled\": false\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6495/watchers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"watchers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update the new watcher",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"buySell\": {\r\n    \"buyAt\": 15,\r\n    \"sellAt\": 10\r\n  },\r\n  \"enabled\": true\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6495/watchers/cesarbmx-bitcoin-hype",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"watchers",
+						"cesarbmx-bitcoin-hype"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the new watcher",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c95f22e-a3e0-41cb-9480-3aaf82027db6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": \"cesarbmx\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6495/watchers/cesarbmx-bitcoin-hype",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"watchers",
+						"cesarbmx-bitcoin-hype"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get watchers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2b357845-cdf2-4aa9-8e81-ffa5826745a1",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6495/users/cesarbmx/watchers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"users",
+						"cesarbmx",
+						"watchers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
