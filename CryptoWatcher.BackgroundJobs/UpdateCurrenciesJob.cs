@@ -13,18 +13,18 @@ using CryptoWatcher.Shared.Extensions;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class ImportCurrenciesJob
+    public class UpdateCurrenciesJob
     {
         private readonly IMapper _mapper;
-        private readonly ILogger<ImportCurrenciesJob> _logger;
+        private readonly ILogger<UpdateCurrenciesJob> _logger;
         private readonly MainDbContext _mainDbContext;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
         private readonly CacheService _cacheService;
 
 
-        public ImportCurrenciesJob(
+        public UpdateCurrenciesJob(
             IMapper mapper,
-            ILogger<ImportCurrenciesJob> logger,
+            ILogger<UpdateCurrenciesJob> logger,
             MainDbContext mainDbContext,
             ICoinMarketCapClient coinMarketCapClient,
             CacheService cacheService)

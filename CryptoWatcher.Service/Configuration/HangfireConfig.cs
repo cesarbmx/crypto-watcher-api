@@ -21,18 +21,21 @@ namespace CryptoWatcher.Service.Configuration
             // Background jobs
             var jobsIntervalInMinutes = int.Parse(configuration["JobsIntervalInMinutes"]);
 
-            var importCurrenciesJob = serviceProvider.GetService<ImportCurrenciesJob>();
-            var updateDefaultWatchersJob = serviceProvider.GetService<UpdateDefaultWatchersJob>();
-            //var sendWhatsappNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();
+            var updateCacheJob = serviceProvider.GetService<UpdateCacheJob>();
+            var updateWatchersJob = serviceProvider.GetService<UpdateWatchersJob>();
+            var updateOrdersJob = serviceProvider.GetService<UpdateOrdersJob>();
+            var sendWhatsappNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();
 
-            RecurringJob.AddOrUpdate("Update currencies", () => importCurrenciesJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            RecurringJob.AddOrUpdate("Update default watchers", () => updateDefaultWatchersJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            //RecurringJob.AddOrUpdate("Send whatsapp notifications", () => sendWhatsappNotificationsJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate("Update cache", () => updateCacheJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate("Update watchers", () => updateWatchersJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate("Update orders", () => updateOrdersJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate("Send whatsapp notifications", () => sendWhatsappNotificationsJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
 
             // Run them on startup
-            BackgroundJob.Enqueue(() => importCurrenciesJob.Run());
-            BackgroundJob.Enqueue(() => updateDefaultWatchersJob.Run());
-            //BackgroundJob.Enqueue(() => sendWhatsappNotificationsJob.Run());
+            BackgroundJob.Enqueue(() => updateCacheJob.Run());
+            BackgroundJob.Enqueue(() => updateWatchersJob.Run());
+            BackgroundJob.Enqueue(() => updateOrdersJob.Run());
+            BackgroundJob.Enqueue(() => sendWhatsappNotificationsJob.Run());
         }
       
     }
