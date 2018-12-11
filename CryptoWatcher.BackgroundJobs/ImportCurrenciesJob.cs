@@ -13,18 +13,18 @@ using CryptoWatcher.Shared.Extensions;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class UpdateCurrenciesJob
+    public class ImportCurrenciesJob
     {
         private readonly IMapper _mapper;
-        private readonly ILogger<UpdateCurrenciesJob> _logger;
+        private readonly ILogger<ImportCurrenciesJob> _logger;
         private readonly MainDbContext _mainDbContext;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
         private readonly CacheService _cacheService;
 
 
-        public UpdateCurrenciesJob(
+        public ImportCurrenciesJob(
             IMapper mapper,
-            ILogger<UpdateCurrenciesJob> logger,
+            ILogger<ImportCurrenciesJob> logger,
             MainDbContext mainDbContext,
             ICoinMarketCapClient coinMarketCapClient,
             CacheService cacheService)
@@ -61,8 +61,11 @@ namespace CryptoWatcher.BackgroundJobs
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
-                // Log into Splunk               
-                _logger.LogSplunkInformation(new {currencies.Count});
+                // Log into Splunk
+                _logger.LogSplunkInformation(new
+                {
+                    CurrenciesImported = currencies.Count
+                });
             }
             catch (Exception ex)
             {

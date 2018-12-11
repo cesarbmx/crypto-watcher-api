@@ -51,11 +51,10 @@ namespace CryptoWatcher.BackgroundJobs
                 // Log into Splunk
                 _logger.LogSplunkInformation(new
                 {
-                    WatchersCount = watchers.Count,
-                    ExistingOrdersCount = watchers.Count,
-                    NewOrdersCount = newOrders.Count
+                    OrdersCreated = newOrders.Count
                 });
 
+                // Return
                 await Task.CompletedTask;
             }
             catch (Exception ex)

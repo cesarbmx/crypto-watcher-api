@@ -53,8 +53,12 @@ namespace CryptoWatcher.BackgroundJobs
                 await _mainDbContext.SaveChangesAsync();
 
                 // Log into Splunk
-                _logger.LogSplunkInformation();
+                _logger.LogSplunkInformation(new
+                {
+                    WatchersUpdated = watchers.Count
+                });
 
+                // Return
                 await Task.CompletedTask;
             }
             catch (Exception ex)

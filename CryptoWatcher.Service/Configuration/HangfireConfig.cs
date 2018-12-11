@@ -21,7 +21,7 @@ namespace CryptoWatcher.Service.Configuration
             // Background jobs
             var jobsIntervalInMinutes = int.Parse(configuration["JobsIntervalInMinutes"]);
 
-            var importCurrenciesJob = serviceProvider.GetService<UpdateCurrenciesJob>();
+            var importCurrenciesJob = serviceProvider.GetService<ImportCurrenciesJob>();
             var updateDefaultWatchersJob = serviceProvider.GetService<UpdateDefaultWatchersJob>();
             //var sendWhatsappNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();
 

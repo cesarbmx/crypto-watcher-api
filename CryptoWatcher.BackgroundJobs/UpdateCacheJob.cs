@@ -6,11 +6,11 @@ namespace CryptoWatcher.BackgroundJobs
 {
     public class UpdateCacheJob
     {
-        private readonly UpdateCurrenciesJob _updateCurrenciesJob;
+        private readonly ImportCurrenciesJob _updateCurrenciesJob;
         private readonly UpdateLinesJob _updateLinesJob;
         private readonly UpdateDefaultWatchersJob _updateDefaultWatchersJob;
         public UpdateCacheJob(
-            UpdateCurrenciesJob updateCurrenciesJob,
+            ImportCurrenciesJob updateCurrenciesJob,
             UpdateLinesJob updateLinesJob,
             UpdateDefaultWatchersJob updateDefaultWatchersJob)
         {

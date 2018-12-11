@@ -16,12 +16,12 @@ namespace CryptoWatcher.BackgroundJobs
     public class SendWhatsappNotificationsJob
     {
         private readonly MainDbContext _mainDbContext;
-        private readonly ILogger<UpdateOrdersJob> _logger;
+        private readonly ILogger<SendWhatsappNotificationsJob> _logger;
         private readonly IRepository<Notification> _notificationRepository;
-        
+
         public SendWhatsappNotificationsJob(
             MainDbContext mainDbContext,
-            ILogger<UpdateOrdersJob> logger,
+            ILogger<SendWhatsappNotificationsJob> logger,
             IRepository<Notification> notificationRepository)
         {
             _mainDbContext = mainDbContext;
@@ -47,6 +47,7 @@ namespace CryptoWatcher.BackgroundJobs
                     );
 
                     // For each notification
+                    var count = 0;
                     foreach (var pendingNotification in pendingNotifications)
                     {
                         try
@@ -58,6 +59,7 @@ namespace CryptoWatcher.BackgroundJobs
                                 body: pendingNotification.Message
                             );
                             pendingNotification.SendWhatsapp();
+                            count++;
                         }
                         catch (Exception ex)
                         {
@@ -68,12 +70,16 @@ namespace CryptoWatcher.BackgroundJobs
 
                     // Save
                     await _mainDbContext.SaveChangesAsync();
+
+                    // Log into Splunk
+                    _logger.LogSplunkInformation(new
+                    {
+                        WhatsappsSent = count
+                    });
+
+                    // Return
+                    await Task.CompletedTask;
                 }
-
-                // Log into Splunk
-                _logger.LogSplunkInformation();
-
-                await Task.CompletedTask;
             }
             catch (Exception ex)
             {
