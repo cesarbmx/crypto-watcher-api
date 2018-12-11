@@ -1,8 +1,6 @@
-﻿
+﻿using System;
 
 
-using System;
-using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Api.Responses
 {
@@ -11,7 +9,8 @@ namespace CryptoWatcher.Api.Responses
         public string CurrencyId { get; set; }
         public string IndicatorId { get; set; }
         public decimal Value { get; set; }
-        public BuySell RecommendedBuySell { get; set; }
+        public decimal RecommendedBuy { get; set; }
+        public decimal Recommendedell { get; set; }
         public DateTime Time { get; set; }
     }
 }

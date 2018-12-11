@@ -1,5 +1,6 @@
 ﻿using CryptoWatcher.Api.Requests;
-using CryptoWatcher.Domain.Models;
+
+
 
 namespace CryptoWatcher.Api.FakeRequests
 {
@@ -10,7 +11,8 @@ namespace CryptoWatcher.Api.FakeRequests
             return new UpdateWatcherRequest
             {
                 WatcherId = "master-price-change-24hrs-bitcoin",             
-                BuySell = new BuySell(15, 2),
+                Buy = 15,
+                Sell = 8,
                 Enabled = true
             };
         }       

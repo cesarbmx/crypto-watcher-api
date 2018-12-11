@@ -46,7 +46,7 @@ namespace CryptoWatcher.BackgroundJobs
                     var currencyId = watcher.CurrencyId;
                     var indicatorId = watcher.IndicatorId;
                     var line = lines.FirstOrDefault(x => x.CurrencyId == currencyId && x.IndicatorId == indicatorId);
-                    if(line != null) watcher.Sync(line.Value, line.RecommendedBuySell);
+                    if(line != null) watcher.Sync(line.Value, line.RecommendedBuy, line.RecommendedSell);
                 }
 
                 // Save

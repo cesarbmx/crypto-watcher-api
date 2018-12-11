@@ -7,10 +7,10 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class WatcherBuilder
     {
-        public static WatcherStatus BuildStatus(decimal indicatorValue, BuySell buySell)
+        public static WatcherStatus BuildStatus(decimal indicatorValue, decimal buy, decimal sell)
         {
             // Evaluate
-            var watcherStatus = (indicatorValue >= buySell.BuyAt) ? WatcherStatus.Buy : WatcherStatus.Sell;
+            var watcherStatus = (indicatorValue >= buy) ? WatcherStatus.Buy : WatcherStatus.Sell;
 
             // Return
             return watcherStatus;
@@ -35,8 +35,8 @@ namespace CryptoWatcher.Domain.Builders
                             currency.Id,
                             indicator.Id,
                             IndicatorBuilder.BuildValue(currency, indicator.Id, currencies),
-                            new BuySell(5, 5),
-                            new BuySell(0, 0),
+                            5,5,
+                            0,0,
                             false);
                     }
 
@@ -58,8 +58,10 @@ namespace CryptoWatcher.Domain.Builders
                         line.CurrencyId,
                         line.IndicatorId,
                         line.Value,
-                        line.RecommendedBuySell,
-                        line.RecommendedBuySell,
+                        line.RecommendedBuy,
+                        line.RecommendedSell,
+                        line.RecommendedBuy,
+                        line.RecommendedSell,
                         false);
                     watchers.Add(watcher);
             }

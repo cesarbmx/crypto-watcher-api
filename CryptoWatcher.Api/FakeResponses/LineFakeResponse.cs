@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CryptoWatcher.Api.Responses;
-using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Api.FakeResponses
 {
@@ -14,7 +13,8 @@ namespace CryptoWatcher.Api.FakeResponses
                 CurrencyId = "bitcoin",
                 IndicatorId = "johny.melavo-price-change-24hrs-bitcoin",
                 Value = 1.5m,
-                RecommendedBuySell = new BuySell(8,6),
+                RecommendedBuy = 15,
+                Recommendedell = 8,
                 Time = DateTime.Now.AddHours(-1)
             };
         }
@@ -25,7 +25,8 @@ namespace CryptoWatcher.Api.FakeResponses
                 CurrencyId = "bitcoin",
                 IndicatorId = "johny.melavo-bitcoin-hype",
                 Value = 1.5m,
-                RecommendedBuySell = new BuySell(9, 6),
+                RecommendedBuy = 9,
+                Recommendedell = 6,
                 Time = DateTime.Now
             };
         }

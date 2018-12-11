@@ -15,9 +15,10 @@ namespace CryptoWatcher.Api.FakeResponses
                 CurrencyId = "bitcoin",
                 IndicatorId = "johny.melavo-price-change",
                 Value = 5000,
-                BuySell = new BuySell(2, 15),
-                RecommendedBuySell = 
-                new BuySell(2, 15),
+                Buy = 15,
+                Sell = 8,
+                RecommendedBuy = 0,
+                RecommendedSell = 0,
                 Status = WatcherStatus.Buy,
                 Enabled = false
             };
@@ -31,8 +32,10 @@ namespace CryptoWatcher.Api.FakeResponses
                 CurrencyId = "bitcoin",
                 IndicatorId = "johny.melavo-hype",
                 Value = 2,
-                BuySell = new BuySell(2, 15),
-                RecommendedBuySell = new BuySell(2, 15),
+                Buy = 15,
+                Sell = 8,
+                RecommendedBuy = 0,
+                RecommendedSell = 0,
                 Status = WatcherStatus.Sell,
                 Enabled = false
             };

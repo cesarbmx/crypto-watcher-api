@@ -1,5 +1,6 @@
 ﻿using CryptoWatcher.Api.Requests;
-using CryptoWatcher.Domain.Models;
+
+
 
 namespace CryptoWatcher.Api.FakeRequests
 {
@@ -12,7 +13,8 @@ namespace CryptoWatcher.Api.FakeRequests
                 UserId = "johny.melavo",
                 CurrencyId = "bitcoin",
                 IndicatorId = "johny.melavo-hype",
-                BuySell = new BuySell(8,2),
+                Buy = 8m,
+                Sell = 2m,
                 Enabled = true
             };
         }       

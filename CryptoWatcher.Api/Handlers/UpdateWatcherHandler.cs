@@ -42,7 +42,7 @@ namespace CryptoWatcher.Api.Handlers
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Update
-            watcher.Update(request.BuySell, request.Enabled);
+            watcher.Update(request.Buy, request.Sell, request.Enabled);
 
             // Save
             await _mainDbContext.SaveChangesAsync(cancellationToken);

@@ -49,8 +49,9 @@ namespace CryptoWatcher.BackgroundJobs
                     foreach (var indicator in indicators)
                     {
                         var value = IndicatorBuilder.BuildValue(currency, indicator.Id, currencies);
-                        var recommendedBuySell = new BuySell(10,5);
-                        var line = new Line(currency.Id, indicator.Id, value, recommendedBuySell, time);
+                        var recommendedBuy = 0m;
+                        var recommendedSell = 0m;
+                        var line = new Line(currency.Id, indicator.Id, value, recommendedBuy, recommendedSell, time);
                         lines.Add(line);
                     }
                 }

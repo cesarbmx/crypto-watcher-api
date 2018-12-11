@@ -1,9 +1,6 @@
-﻿
-using CryptoWatcher.Api.Responses;
-using CryptoWatcher.Domain.Models;
+﻿using CryptoWatcher.Api.Responses;
 using MediatR;
 using Newtonsoft.Json;
-
 
 namespace CryptoWatcher.Api.Requests
 {
@@ -11,7 +8,8 @@ namespace CryptoWatcher.Api.Requests
     {
         [JsonIgnore]
         public string WatcherId { get; set; }
-        public BuySell BuySell { get; set; }
+        public decimal Buy { get; set; }
+        public decimal Sell { get; set; }
         public bool Enabled { get; set; }
     }
 }

@@ -32,30 +32,13 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("bit")
                 .IsRequired();
 
-            // Complex types
-            entityBuilder.OwnsOne(t => t.BuySell,
-                p =>
-                {
-                    p.Property(t => t.BuyAt)
-                        .HasColumnType("decimal")
-                        .IsRequired();
+            entityBuilder.Property(t => t.Buy)
+                .HasColumnType("decimal")
+                .IsRequired();
 
-                    p.Property(t => t.SellAt)
-                        .HasColumnType("decimal")
-                        .IsRequired();
-                });
-
-            entityBuilder.OwnsOne(t => t.RecomendedBuySell,
-                p =>
-                {
-                    p.Property(t => t.BuyAt)
-                        .HasColumnType("decimal")
-                        .IsRequired();
-
-                    p.Property(t => t.SellAt)
-                        .HasColumnType("decimal")
-                        .IsRequired();
-                });
+            entityBuilder.Property(t => t.Sell)
+                .HasColumnType("decimal")
+                .IsRequired();           
         }
     }
 }

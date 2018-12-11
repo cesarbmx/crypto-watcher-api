@@ -11,23 +11,23 @@ namespace CryptoWatcher.Domain.Models
         public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
         public decimal Value { get; private set; }
-        public BuySell BuySell { get; private set; }
-        public BuySell RecomendedBuySell { get; private set; }
+        public decimal Buy { get; private set; }
+        public decimal Sell { get; private set; }
+        public decimal RecommendedBuy { get; private set; }
+        public decimal RecommendedSell { get; private set; }
         public bool Enabled { get; private set; }
-        public WatcherStatus Status => WatcherBuilder.BuildStatus(Value, BuySell);
+        public WatcherStatus Status => WatcherBuilder.BuildStatus(Value, Buy, Sell);
 
-        public Watcher()
-        {
-            BuySell = new BuySell();
-            RecomendedBuySell = new BuySell();
-        }
+        public Watcher() { }
         public Watcher(
             string userId,
             string currencyId,
             string indicatorId,
             decimal value,
-            BuySell buySell,
-            BuySell recommendedBuySell,
+            decimal buy,
+            decimal sell,
+            decimal recommendedBuy,
+            decimal recommendedSell,
             bool enabled)
         : base(userId)
         {
@@ -36,22 +36,26 @@ namespace CryptoWatcher.Domain.Models
             CurrencyId = currencyId;
             IndicatorId = indicatorId;
             Value = value;
-            BuySell = buySell;
-            RecomendedBuySell = recommendedBuySell;
+            Buy = buy;
+            Sell = sell;
+            RecommendedBuy = recommendedBuy;
+            RecommendedSell = recommendedSell;
             Enabled = enabled;
         }
 
-        public Watcher Update(BuySell buySell, bool enabled)
+        public Watcher Update(decimal buy, decimal sell, bool enabled)
         {
-            BuySell = buySell;
+            Buy = buy;
+            Sell = sell;
             Enabled = enabled;
 
             return this;
         }
-        public Watcher Sync(decimal value, BuySell recomendedBuySell)
+        public Watcher Sync(decimal value, decimal recommendedBuy, decimal recommendedSell)
         {
             Value = value;
-            RecomendedBuySell = recomendedBuySell;
+            RecommendedBuy = recommendedBuy;
+            RecommendedSell = recommendedSell;
 
             return this;
         }

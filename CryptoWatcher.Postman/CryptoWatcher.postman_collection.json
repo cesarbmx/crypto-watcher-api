@@ -1,43 +1,10 @@
 {
 	"info": {
-		"_postman_id": "89610315-54d7-46e9-8e69-d22ad1da7bc0",
+		"_postman_id": "6052d0e4-40e6-4144-b398-0ff2ba534075",
 		"name": "CryptoWatcher",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "Get all currencies",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:6495/currencies",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "6495",
-					"path": [
-						"currencies"
-					]
-				}
-			},
-			"response": []
-		},
 		{
 			"name": "Get bitcoin",
 			"request": {
@@ -63,7 +30,33 @@
 			"response": []
 		},
 		{
-			"name": "Create a new user",
+			"name": "Get all currencies",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6495/currencies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"currencies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add user",
 			"event": [
 				{
 					"listen": "test",
@@ -105,7 +98,7 @@
 			"response": []
 		},
 		{
-			"name": "Get the new user",
+			"name": "Get user",
 			"event": [
 				{
 					"listen": "test",
@@ -118,22 +111,12 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"cesarbmx\"\r\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://localhost:6495/users/cesarbmx",
@@ -164,22 +147,12 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"cesarbmx\"\r\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://localhost:6495/users",
@@ -196,7 +169,7 @@
 			"response": []
 		},
 		{
-			"name": "Create a new indicator",
+			"name": "Add indicator",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -226,7 +199,7 @@
 			"response": []
 		},
 		{
-			"name": "Update the new indicator",
+			"name": "Update indicator",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -257,17 +230,10 @@
 			"response": []
 		},
 		{
-			"name": "Get the new indicator",
+			"name": "Get indicator",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -288,7 +254,32 @@
 			"response": []
 		},
 		{
-			"name": "Create a new watcher",
+			"name": "Get all indicators",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6495/users/cesarbmx/indicators",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6495",
+					"path": [
+						"users",
+						"cesarbmx",
+						"indicators"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add watcher",
 			"event": [
 				{
 					"listen": "test",
@@ -313,7 +304,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"currencyId\": \"bitcoin\",\r\n  \"indicatorId\": \"cesarbmx-hype\",\r\n  \"buySell\": {\r\n    \"buyAt\": 0,\r\n    \"sellAt\": 0\r\n  },\r\n  \"enabled\": false\r\n}"
+					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"currencyId\": \"bitcoin\",\r\n  \"indicatorId\": \"cesarbmx-hype\",\r\n  \"buy\": 0,\r\n  \"sell\": 0,\r\n  \"enabled\": false\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:6495/watchers",
@@ -330,7 +321,7 @@
 			"response": []
 		},
 		{
-			"name": "Update the new watcher",
+			"name": "Update watcher",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -343,7 +334,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"buySell\": {\r\n    \"buyAt\": 15,\r\n    \"sellAt\": 10\r\n  },\r\n  \"enabled\": true\r\n}"
+					"raw": "{\r\n  \"buy\": 0,\r\n  \"sell\": 0,\r\n  \"enabled\": true\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:6495/watchers/cesarbmx-hype-bitcoin",
@@ -361,7 +352,7 @@
 			"response": []
 		},
 		{
-			"name": "Get the new watcher",
+			"name": "Get watcher",
 			"event": [
 				{
 					"listen": "test",
@@ -374,22 +365,12 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"cesarbmx\"\r\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://localhost:6495/watchers/cesarbmx-hype-bitcoin",
@@ -407,7 +388,7 @@
 			"response": []
 		},
 		{
-			"name": "Get watchers",
+			"name": "Get all watchers",
 			"event": [
 				{
 					"listen": "test",
@@ -422,14 +403,7 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": ""
