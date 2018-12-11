@@ -3,7 +3,7 @@
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class HistoricalData
+    public class Line
     {
         public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
@@ -11,8 +11,8 @@ namespace CryptoWatcher.Domain.Models
         public BuySell RecommendedBuySell { get; private set; }
         public DateTime Time { get; private set; }
 
-        public HistoricalData() { }
-        public HistoricalData(
+        public Line() { }
+        public Line(
             string currencyId,
             string indicatorId,
             decimal value, 
