@@ -26,13 +26,13 @@ namespace CryptoWatcher.Api
             services.ConfigureAutomapper();
 
             // Hangfire
-            services.ConfigureHangfire(Configuration);
+            services.ConfigureHangfire();
 
             // Swagger
-            services.ConfigureSwagger(Configuration);
+            services.ConfigureSwagger();
 
             // DI
-            services.ConfigureDependencies(Configuration);
+            services.ConfigureDependencies();
 
             // MediatR
             services.ConfigureMediatR();
@@ -51,7 +51,7 @@ namespace CryptoWatcher.Api
             loggerfactory.ConfigureLog4Net(env);
 
             // Swagger
-            app.ConfigureSwagger(Configuration);
+            app.ConfigureSwagger();
 
             // Hangfire
             app.ConfigureHangfire(Configuration);

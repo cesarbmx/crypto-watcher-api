@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
@@ -13,8 +12,7 @@ namespace CryptoWatcher.Api.Configuration
 {
     public static class SwaggerConfig
     {
-        public static IServiceCollection ConfigureSwagger(this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {
@@ -64,7 +62,7 @@ namespace CryptoWatcher.Api.Configuration
             return services;
         }
 
-        public static IApplicationBuilder ConfigureSwagger(this IApplicationBuilder app, IConfiguration configuration)
+        public static IApplicationBuilder ConfigureSwagger(this IApplicationBuilder app)
         {
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
