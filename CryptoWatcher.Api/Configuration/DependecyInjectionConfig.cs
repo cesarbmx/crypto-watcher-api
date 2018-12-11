@@ -1,5 +1,6 @@
 ﻿using CoinMarketCap;
 using CoinMarketCap.Core;
+using CryptoWatcher.BackgroundJobs;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Domain.Services;
@@ -40,6 +41,11 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<IRepository<Notification>, LoggerRepository<Notification>>();
             services.AddScoped<IRepository<Order>, LoggerRepository<Order>>();
             services.AddScoped<IRepository<Indicator>, LoggerRepository<Indicator>>();
+
+            // Jobs
+            services.AddScoped<UpdateCurrenciesJob, UpdateCurrenciesJob>();
+            services.AddScoped<UpdateLinesJob, UpdateLinesJob>();
+            services.AddScoped<UpdateDefaultWatchersJob, UpdateDefaultWatchersJob>();
 
             // Other
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();

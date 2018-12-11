@@ -23,16 +23,18 @@ namespace CryptoWatcher.Api.Configuration
             app.UseHangfireDashboard();
             app.UseHangfireServer();
 
-            //// Background jobs
+            // Background jobs
             var jobsIntervalInMinutes = int.Parse(configuration["JobsIntervalInMinutes"]);
-            RecurringJob.AddOrUpdate<UpdateCurrenciesJob>("Update currencies", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            //RecurringJob.AddOrUpdate<UpdateDefaultWatchersJob>("Update default watchers", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            //RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate<UpdateCacheJob>("Update cache", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate<UpdateWatchersJob>("Update watchers", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate<UpdateOrdersJob>("Update orders", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
 
             // Run them on startup
-            BackgroundJob.Enqueue<UpdateCurrenciesJob>(x => x.Run());
-            //BackgroundJob.Enqueue<UpdateOrdersJob>(x => x.Run());
-            //BackgroundJob.Enqueue<SendWhatsappNotificationsJob>(x => x.Run());
+            BackgroundJob.Enqueue<UpdateCacheJob>(x => x.Run());
+            BackgroundJob.Enqueue<UpdateWatchersJob>(x => x.Run());
+            BackgroundJob.Enqueue<UpdateOrdersJob>(x => x.Run());
+            BackgroundJob.Enqueue<SendWhatsappNotificationsJob>(x => x.Run());
 
             return app;
         }

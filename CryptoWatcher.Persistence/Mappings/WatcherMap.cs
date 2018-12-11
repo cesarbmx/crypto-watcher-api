@@ -24,7 +24,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.IndicatorValue)
+            entityBuilder.Property(t => t.Value)
                 .HasColumnType("decimal")
                 .IsRequired();
 

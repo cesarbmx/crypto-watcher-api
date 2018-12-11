@@ -41,7 +41,7 @@ namespace CryptoWatcher.BackgroundJobs
         {
             try
             {
-                // Get currencies from CoinMarketCap
+                // Get all currencies from CoinMarketCap
                 var result = await _coinMarketCapClient.GetTickerListAsync(10);
                 result = result.Where(x => 
                     x.Id == "bitcoin" ||
@@ -52,10 +52,10 @@ namespace CryptoWatcher.BackgroundJobs
                     x.Id == "eos" ||
                     x.Id == "cardano").ToList();
 
-                // Map to our Model
+                // Build currencies
                 var currencies = _mapper.Map<List<Currency>>(result);
 
-                // Set all currencies
+                // Set currencies
                 await _cacheService.SetInCache(CacheKey.Currencies, currencies);
 
                 // Save

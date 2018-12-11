@@ -10,11 +10,11 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new WatcherResponse
             {
-                WatcherId = "johny.melavo-bitcoin-price-change",
+                WatcherId = "johny.melavo-price-change-bitcoin",
                 UserId = "johny.melavo",
                 CurrencyId = "bitcoin",
                 IndicatorId = "johny.melavo-price-change",
-                IndicatorValue = 5000,
+                Value = 5000,
                 BuySell = new BuySell(2, 15),
                 RecommendedBuySell = 
                 new BuySell(2, 15),
@@ -26,11 +26,11 @@ namespace CryptoWatcher.Api.FakeResponses
         {
             return new WatcherResponse
             {
-                WatcherId = "johny.melavo-bitcoin-hype",
+                WatcherId = "johny.melavo-hype-bitcoin",
                 UserId = "johny.melavo",
                 CurrencyId = "bitcoin",
                 IndicatorId = "johny.melavo-hype",
-                IndicatorValue = 2,
+                Value = 2,
                 BuySell = new BuySell(2, 15),
                 RecommendedBuySell = new BuySell(2, 15),
                 Status = WatcherStatus.Sell,

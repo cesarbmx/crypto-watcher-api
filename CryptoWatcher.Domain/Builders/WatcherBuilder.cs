@@ -34,7 +34,6 @@ namespace CryptoWatcher.Domain.Builders
                             userId,
                             currency.Id,
                             indicator.Id,
-                            indicator.Name,
                             IndicatorBuilder.BuildValue(currency, indicator.Id, currencies),
                             new BuySell(5, 5),
                             new BuySell(0, 0),
@@ -48,25 +47,21 @@ namespace CryptoWatcher.Domain.Builders
 
             return watchers;
         }
-        public static List<Watcher> BuildDefaultWatchers(List<Currency> currencies, List<Indicator> indicators)
+        public static List<Watcher> BuildDefaultWatchers(List<Line> lines)
         {
             var watchers = new List<Watcher>();
-            foreach (var currency in currencies)
+            foreach (var line in lines)
             {
-                foreach (var indicator in indicators)
-                {
-                    // Add price change watcher
+                    // Add default watcher
                     var watcher = new Watcher(
                         "master",
-                        currency.Id,
-                        indicator.Id,
-                        indicator.Name,
-                        IndicatorBuilder.BuildValue(currency, indicator.Id, currencies),
-                        new BuySell(5, 5),
-                        new BuySell(0, 0),
+                        line.CurrencyId,
+                        line.IndicatorId,
+                        line.Value,
+                        line.RecommendedBuySell,
+                        line.RecommendedBuySell,
                         false);
                     watchers.Add(watcher);
-                }
             }
 
             return watchers;

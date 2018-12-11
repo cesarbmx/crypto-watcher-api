@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;
@@ -15,17 +17,17 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UpdateLinesJob> _logger;
         private readonly IRepository<Indicator> _indicatorRepository;
-        private readonly IRepository<Cache> _cacheRepository;
+        private readonly CacheService _cacheService;
         public UpdateLinesJob(
             MainDbContext mainDbContext,
             ILogger<UpdateLinesJob> logger,
             IRepository<Indicator> indicatorRepository,
-            IRepository<Cache> cacheRepository)
+            CacheService cacheService)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
             _indicatorRepository = indicatorRepository;
-            _cacheRepository = cacheRepository;
+            _cacheService = cacheService;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -34,18 +36,27 @@ namespace CryptoWatcher.BackgroundJobs
             try
             {
                 // Get all currencies
-                var cache = await _cacheRepository.GetSingle(typeof(Currency).Name);
-                var currencies = cache.Get<Currency>(CacheKey.Currencies);
+                var currencies = await _cacheService.GetFromCache<Currency>(CacheKey.Currencies);
 
                 // Get all indicators
                 var indicators = await _indicatorRepository.GetAll();
 
-                // Get all default watchers
-                var defaultWatchers = WatcherBuilder.BuildDefaultWatchers(currencies, indicators);
+                // Build lines
+                var lines = new List<Line>();
+                var time = DateTime.UtcNow;
+                foreach (var currency in currencies)
+                {
+                    foreach (var indicator in indicators)
+                    {
+                        var value = IndicatorBuilder.BuildValue(currency, indicator.Id, currencies);
+                        var recommendedBuySell = new BuySell(10,5);
+                        var line = new Line(currency.Id, indicator.Id, value, recommendedBuySell, time);
+                        lines.Add(line);
+                    }
+                }
 
-                // Set default watchers
-                cache = new Cache().Set(CacheKey.DefaultWatchers, defaultWatchers);
-                _cacheRepository.Add(cache);
+                // Set lines
+                await _cacheService.SetInCache(CacheKey.Lines, lines);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

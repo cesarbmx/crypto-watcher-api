@@ -12,7 +12,7 @@ namespace CryptoWatcher.Api.FakeResponses
             return new LineResponse
             {
                 CurrencyId = "bitcoin",
-                IndicatorId = "johny.melavo-bitcoin-price-change-24hrs",
+                IndicatorId = "johny.melavo-price-change-24hrs-bitcoin",
                 Value = 1.5m,
                 RecommendedBuySell = new BuySell(8,6),
                 Time = DateTime.Now.AddHours(-1)

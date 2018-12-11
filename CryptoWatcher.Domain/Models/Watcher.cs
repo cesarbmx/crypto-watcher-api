@@ -10,11 +10,11 @@ namespace CryptoWatcher.Domain.Models
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
-        public decimal IndicatorValue { get; private set; }
+        public decimal Value { get; private set; }
         public BuySell BuySell { get; private set; }
         public BuySell RecomendedBuySell { get; private set; }
         public bool Enabled { get; private set; }
-        public WatcherStatus Status => WatcherBuilder.BuildStatus(IndicatorValue, BuySell);
+        public WatcherStatus Status => WatcherBuilder.BuildStatus(Value, BuySell);
 
         public Watcher()
         {
@@ -25,18 +25,17 @@ namespace CryptoWatcher.Domain.Models
             string userId,
             string currencyId,
             string indicatorId,
-            string indicatorName,
-            decimal indicatorValue,
+            decimal value,
             BuySell buySell,
             BuySell recommendedBuySell,
             bool enabled)
         : base(userId)
         {
-            Id = UrlHelper.BuildUrl(userId, currencyId, indicatorName); // Semantic id
+            Id = UrlHelper.BuildUrl(indicatorId, currencyId); // Semantic id
             UserId = userId;
             CurrencyId = currencyId;
             IndicatorId = indicatorId;
-            IndicatorValue = indicatorValue;
+            Value = value;
             BuySell = buySell;
             RecomendedBuySell = recommendedBuySell;
             Enabled = enabled;
@@ -46,6 +45,13 @@ namespace CryptoWatcher.Domain.Models
         {
             BuySell = buySell;
             Enabled = enabled;
+
+            return this;
+        }
+        public Watcher Sync(decimal value, BuySell recomendedBuySell)
+        {
+            Value = value;
+            RecomendedBuySell = recomendedBuySell;
 
             return this;
         }

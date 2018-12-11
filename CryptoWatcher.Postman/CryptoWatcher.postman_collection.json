@@ -346,7 +346,7 @@
 					"raw": "{\r\n  \"buySell\": {\r\n    \"buyAt\": 15,\r\n    \"sellAt\": 10\r\n  },\r\n  \"enabled\": true\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/watchers/cesarbmx-bitcoin-hype",
+					"raw": "http://localhost:6495/watchers/cesarbmx-hype-bitcoin",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -354,7 +354,7 @@
 					"port": "6495",
 					"path": [
 						"watchers",
-						"cesarbmx-bitcoin-hype"
+						"cesarbmx-hype-bitcoin"
 					]
 				}
 			},
@@ -392,7 +392,7 @@
 					"raw": "{\r\n  \"userId\": \"cesarbmx\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/watchers/cesarbmx-bitcoin-hype",
+					"raw": "http://localhost:6495/watchers/cesarbmx-hype-bitcoin",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -400,7 +400,7 @@
 					"port": "6495",
 					"path": [
 						"watchers",
-						"cesarbmx-bitcoin-hype"
+						"cesarbmx-hype-bitcoin"
 					]
 				}
 			},
