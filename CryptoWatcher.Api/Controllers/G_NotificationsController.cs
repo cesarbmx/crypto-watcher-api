@@ -11,11 +11,11 @@ using Swashbuckle.AspNetCore.Filters;
 namespace CryptoWatcher.Api.Controllers
 {
     // ReSharper disable once InconsistentNaming
-    public class E_NotificationsController : Controller
+    public class G_NotificationsController : Controller
     {
         private readonly IMediator _mediator;
 
-        public E_NotificationsController(IMediator mediator)
+        public G_NotificationsController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -40,7 +40,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get a notification
+        /// Get notification
         /// </summary>
         [HttpGet]
         [Route("users/{userId}/notifications/{notificationId}", Name = "Notifications_GetNotification")]

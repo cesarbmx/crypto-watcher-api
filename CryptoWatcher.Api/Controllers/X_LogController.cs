@@ -40,7 +40,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get a log
+        /// Get log
         /// </summary>
         [HttpGet]
         [Route("logs/{logId}", Name = "Logs_GetLog")]

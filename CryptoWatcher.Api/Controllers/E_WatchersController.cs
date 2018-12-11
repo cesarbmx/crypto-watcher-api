@@ -12,11 +12,11 @@ using Swashbuckle.AspNetCore.Filters;
 namespace CryptoWatcher.Api.Controllers
 {
     // ReSharper disable once InconsistentNaming
-    public class D_WatchersController : Controller
+    public class E_WatchersController : Controller
     {
         private readonly IMediator _mediator;
 
-        public D_WatchersController(IMediator mediator)
+        public E_WatchersController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -41,7 +41,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get a watcher
+        /// Get watcher
         /// </summary>
         [HttpGet]
         [Route("watchers/{watcherId}", Name = "Watchers_GetWatcher")]
@@ -62,7 +62,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Add a watcher
+        /// Add watcher
         /// </summary>
         [HttpPost]
         [Route("watchers")]
@@ -90,7 +90,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Update a watcher
+        /// Update watcher
         /// </summary>
         [HttpPut]
         [Route("watchers/{watcherId}")]

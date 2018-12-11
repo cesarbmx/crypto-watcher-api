@@ -6,6 +6,6 @@ namespace CryptoWatcher.Domain.Models
     {
         Currencies,
         DefaultWatchers,
-        HistoricalData
+        Lines
     }
 }

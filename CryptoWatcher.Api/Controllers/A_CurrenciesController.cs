@@ -40,7 +40,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get a currency
+        /// Get currency
         /// </summary>
         [HttpGet]
         [Route("currencies/{currencyId}", Name = "Currencies_GetCurrency")]

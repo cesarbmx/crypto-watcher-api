@@ -9,7 +9,7 @@ namespace CryptoWatcher.Api.FakeRequests
         {
             return new UpdateWatcherRequest
             {
-                WatcherId = "johny.melavo-bitcoin-price-change",             
+                WatcherId = "master-bitcoin-price-change-24hrs",             
                 BuySell = new BuySell(15, 2),
                 Enabled = true
             };

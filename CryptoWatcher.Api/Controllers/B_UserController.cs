@@ -30,7 +30,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(200, typeof(UserListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_GetAllUsers")]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetAllUsers()
         {
             // Reponse
             var response = await _mediator.Send(new GetUsersRequest());
@@ -40,7 +40,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get a user
+        /// Get user
         /// </summary>
         [HttpGet]
         [Route("users/{userId}", Name = "Users_GetUser")]
@@ -61,7 +61,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Add a user
+        /// Add user
         /// </summary>
         [HttpPost]
         [Route("users")]

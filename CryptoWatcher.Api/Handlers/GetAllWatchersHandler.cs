@@ -45,23 +45,21 @@ namespace CryptoWatcher.Api.Handlers
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
-            // Get watchers
+            // Get all watchers
             var watchers = await _watcherRepository.GetAll(WatcherExpression.Filter(request.UserId));
 
-            // Get currencies
+            // Get all currencies
             var currencies = await _cacheService.GetFromCache<Currency>(CacheKey.Currencies);
 
-            // Get indicators
+            // Get all indicators
             var indicators = await _indicatorRepository.GetAll();
 
             // Build with defaults
             watchers = watchers.BuildUserWatchersWithDefaults(request.UserId, currencies, indicators);
 
-            // Filter by indicator
+            // Filter
             if (!string.IsNullOrEmpty(request.IndicatorId))
-            {
                 watchers = watchers.Where(x => x.IndicatorId == request.IndicatorId).ToList();
-            }
 
             // Response
             var response = _mapper.Map<List<WatcherResponse>>(watchers);

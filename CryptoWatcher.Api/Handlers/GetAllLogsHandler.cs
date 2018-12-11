@@ -10,12 +10,12 @@ using MediatR;
 
 namespace CryptoWatcher.Api.Handlers
 {
-    public class GetLogsHandler : IRequestHandler<GetLogsRequest, List<LogResponse>>
+    public class GetAllLogsHandler : IRequestHandler<GetLogsRequest, List<LogResponse>>
     {
         private readonly IRepository<Log> _logRepository;
         private readonly IMapper _mapper;
 
-        public GetLogsHandler(IRepository<Log> logRepository, IMapper mapper)
+        public GetAllLogsHandler(IRepository<Log> logRepository, IMapper mapper)
         {
             _logRepository = logRepository;
             _mapper = mapper;

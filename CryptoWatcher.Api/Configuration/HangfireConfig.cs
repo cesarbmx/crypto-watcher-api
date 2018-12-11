@@ -31,8 +31,8 @@ namespace CryptoWatcher.Api.Configuration
 
             // Run them on startup
             BackgroundJob.Enqueue<UpdateCurrenciesJob>(x => x.Run());
-            BackgroundJob.Enqueue<UpdateOrdersJob>(x => x.Run());
-            BackgroundJob.Enqueue<SendWhatsappNotificationsJob>(x => x.Run());
+            //BackgroundJob.Enqueue<UpdateOrdersJob>(x => x.Run());
+            //BackgroundJob.Enqueue<SendWhatsappNotificationsJob>(x => x.Run());
 
             return app;
         }

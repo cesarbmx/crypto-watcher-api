@@ -40,7 +40,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get an order
+        /// Get order
         /// </summary>
         [HttpGet]
         [Route("orders/{orderId}", Name = "Orders_GetOrder")]
