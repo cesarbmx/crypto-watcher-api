@@ -1,6 +1,5 @@
-﻿
+﻿using System;
 
-using System;
 
 namespace CryptoWatcher.Domain.Models
 {

@@ -1,7 +1,7 @@
 ﻿using CoinMarketCap;
 using CoinMarketCap.Core;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Repositories;
+using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Persistence.Repositories;

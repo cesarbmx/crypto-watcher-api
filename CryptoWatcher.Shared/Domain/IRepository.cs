@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using CryptoWatcher.Domain.Models;
 
-namespace CryptoWatcher.Domain.Repositories
+namespace CryptoWatcher.Shared.Domain
 {
-    public interface IRepository<TEntity> where TEntity: Entity
+    public interface IRepository<TEntity> where TEntity: IEntity
     {
         Task<List<TEntity>> GetAll();
         Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression);

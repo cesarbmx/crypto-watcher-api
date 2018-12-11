@@ -1,5 +1,6 @@
 ﻿
 
+
 namespace CryptoWatcher.Domain.Models
 {
     public class User : Entity

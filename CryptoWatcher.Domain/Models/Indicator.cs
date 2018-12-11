@@ -1,6 +1,4 @@
-﻿
-
-using CryptoWatcher.Shared.Helpers;
+﻿using CryptoWatcher.Shared.Helpers;
 
 namespace CryptoWatcher.Domain.Models
 {

@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Domain.Repositories;
+using CryptoWatcher.Shared.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Persistence.Repositories
 {

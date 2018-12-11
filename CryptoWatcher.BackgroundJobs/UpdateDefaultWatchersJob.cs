@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Repositories;
+using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;

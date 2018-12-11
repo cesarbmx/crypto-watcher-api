@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Repositories;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Expressions;
+using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Shared.Providers;
 
 namespace CryptoWatcher.Persistence.Repositories

@@ -8,7 +8,7 @@ using CryptoWatcher.Api.Responses;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Repositories;
+using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Shared.Exceptions;
 using MediatR;

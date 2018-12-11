@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Repositories;
+using CryptoWatcher.Shared.Domain;
 
 namespace CryptoWatcher.Domain.Services
 {
