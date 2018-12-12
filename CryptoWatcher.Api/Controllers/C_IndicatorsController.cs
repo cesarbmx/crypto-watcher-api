@@ -31,10 +31,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(200, typeof(IndicatorListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetAllIndicators")]
-        public async Task<IActionResult> GetAllIndicators(string userId, string indicatorId = null)
+        public async Task<IActionResult> GetAllIndicators(string userId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetAllIndicatorsRequest{UserId = userId, IndicatorId = indicatorId });
+            var response = await _mediator.Send(new GetAllIndicatorsRequest{UserId = userId});
 
             // Return
             return Ok(response);
