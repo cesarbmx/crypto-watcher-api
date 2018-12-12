@@ -212,7 +212,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Hype\",\r\n  \"description\": \"It identifies inmediate hypes within 24 Hrs in your portfolio\",\r\n  \"formula\": \"C# formula\"\r\n}"
+					"raw": "{\r\n  \"name\": \"My Indicator\",\r\n  \"description\": \"It identifies inmediate hypes within 24 Hrs in your portfolio\",\r\n  \"formula\": \"C# formula\"\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:6495/indicators/cesarbmx-my-indicator",
