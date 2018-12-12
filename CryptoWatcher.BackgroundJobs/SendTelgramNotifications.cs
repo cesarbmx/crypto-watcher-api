@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Expressions;
 using Hangfire;
@@ -36,25 +37,29 @@ namespace CryptoWatcher.BackgroundJobs
         {
             try
             {
+                // Start watch
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
+
                 // Get pending notifications
                 var pendingNotifications = await _notificationRepository.GetAll(NotificationExpression.PendingNotification());
 
                 // If there are pending notifications
-                    if (pendingNotifications.Count > 0)
+                if (pendingNotifications.Count > 0)
                 {
                     // Connect
                     var apiToken = _configuration["TelegramApiToken"];
                     var bot = new TelegramBotClient(apiToken);
-                  
 
                     // For each notification
                     var count = 0;
+                    var failedCount = 0;
                     foreach (var pendingNotification in pendingNotifications)
                     {
                         try
                         {
                             // Send whatsapp
-                            await bot.SendTextMessageAsync("@crypto_watcher_official", "Hola");
+                            await bot.SendTextMessageAsync("@crypto_watcher_official", pendingNotification.Message);
                             pendingNotification.SendWhatsapp();
                             count++;
                         }
@@ -62,16 +67,22 @@ namespace CryptoWatcher.BackgroundJobs
                         {
                             // Log into Splunk
                             _logger.LogSplunkError(pendingNotification, ex);
+                            failedCount++;
                         }
                     }
 
                     // Save
                     await _mainDbContext.SaveChangesAsync();
 
+                    // Stpo watch
+                    stopwatch.Stop();
+
                     // Log into Splunk
                     _logger.LogSplunkInformation(new
                     {
-                        TelegramsSent = count
+                        Count = count,
+                        FailedCount = failedCount,
+                        stopwatch.Elapsed.TotalSeconds
                     });
 
                     // Return

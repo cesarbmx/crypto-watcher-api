@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Expressions;
 using Hangfire;
@@ -34,6 +35,10 @@ namespace CryptoWatcher.BackgroundJobs
         {
             try
             {
+                // Start watch
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
+
                 // Get pending notifications
                 var pendingNotifications = await _notificationRepository.GetAll(NotificationExpression.PendingNotification());
 
@@ -48,6 +53,7 @@ namespace CryptoWatcher.BackgroundJobs
 
                     // For each notification
                     var count = 0;
+                    var failedCount = 0;
                     foreach (var pendingNotification in pendingNotifications)
                     {
                         try
@@ -65,16 +71,22 @@ namespace CryptoWatcher.BackgroundJobs
                         {
                             // Log into Splunk
                             _logger.LogSplunkError(pendingNotification, ex);
+                            failedCount++;
                         }
                     }
 
                     // Save
                     await _mainDbContext.SaveChangesAsync();
 
+                    // Stpo watch
+                    stopwatch.Stop();
+
                     // Log into Splunk
                     _logger.LogSplunkInformation(new
                     {
-                        WhatsappsSent = count
+                        Count = count,
+                        FailedCount = failedCount,
+                        stopwatch.Elapsed.TotalSeconds
                     });
 
                     // Return
