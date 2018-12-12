@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using Hangfire;
@@ -42,19 +41,7 @@ namespace CryptoWatcher.BackgroundJobs
                 var indicators = await _indicatorRepository.GetAll();
 
                 // Build lines
-                var lines = new List<Line>();
-                var time = DateTime.UtcNow;
-                foreach (var currency in currencies)
-                {
-                    foreach (var indicator in indicators)
-                    {
-                        var value = IndicatorBuilder.BuildValue(currency, indicator.Id, currencies);
-                        var averageBuy = 0m;
-                        var averageSell = 0m;
-                        var line = new Line(currency.Id, indicator.Id, value, averageBuy, averageSell, time);
-                        lines.Add(line);
-                    }
-                }
+                var lines = LineBuilder.BuildLines(currencies, indicators);
 
                 // Set lines
                 await _cacheService.SetInCache(CacheKey.Lines, lines);

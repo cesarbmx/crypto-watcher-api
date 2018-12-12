@@ -25,7 +25,7 @@ namespace CryptoWatcher.Api.Controllers
         public IActionResult GetAllErrorMessages()
         {
             // Get error messages
-            var errorMessages = ErrorMessageBuilder.BuildAllErrorMessages();
+            var errorMessages = ErrorMessageBuilder.BuildErrorMessages();
             
             // Return
             return Ok(errorMessages);

@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using CryptoWatcher.Domain.Models;
+
+
+namespace CryptoWatcher.Domain.Builders
+{
+    public static class LineBuilder
+    {
+        public static List<Line> BuildLines(List<Currency> currencies, List<Indicator> indicators)
+        {
+            var lines = new List<Line>();
+            var time = DateTime.UtcNow;
+
+            foreach (var currency in currencies)
+            {
+                foreach (var indicator in indicators)
+                {
+                    var value = IndicatorBuilder.BuildValue(currency, indicator.Id, currencies);
+                    var averageBuy = 0m;
+                    var averageSell = 0m;
+                    var line = new Line(currency.Id, indicator.Id, value, averageBuy, averageSell, time);
+                    lines.Add(line);
+                }
+            }
+
+            // Return
+            return lines;
+        }
+    }
+}

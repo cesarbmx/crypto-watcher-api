@@ -8,7 +8,7 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class ErrorMessageBuilder
     {
-        public static Dictionary<string, ErrorMessage> BuildAllErrorMessages()
+        public static Dictionary<string, ErrorMessage> BuildErrorMessages()
         {
             var resources = new Dictionary<string, ErrorMessage>();
 
