@@ -26,7 +26,15 @@ namespace CryptoWatcher.Persistence.Mappings
 
             entityBuilder.Property(t => t.Formula)
                 .HasColumnType("nvarchar(MAX)")
-                .IsRequired();         
+                .IsRequired();
+
+            // Data seeding
+            entityBuilder.HasData(
+                new Indicator("master", "price-change-24hrs", "", ""),
+                new Indicator("master", "hype", "", ""),
+                new Indicator("master", "average-buy", "", ""),
+                new Indicator("master", "average-sell", "", "")
+            );
         }
     }
 }

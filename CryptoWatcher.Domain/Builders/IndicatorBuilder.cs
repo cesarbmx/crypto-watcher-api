@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CryptoWatcher.Domain.Models;
 
@@ -8,16 +7,20 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class IndicatorBuilder
     {
-        public static decimal BuildValue(Currency currency, string indicatorId, List<Currency> currencies)
+        public static decimal BuildValue(Currency currency, string indicatorId, List<Currency> currencies, List<Watcher> watchers)
         {
             switch (indicatorId)
             {
-                case "cesarbmx-price-change-24hrs":
+                case "master-price-change-24hrs":
                     return currency.PercentageChange24H;
-                case "cesarbmx-hype":
+                case "master-hype":
                     return BuildHype(currency, currencies);
+                case "master-average-buy":
+                    return BuildAverageBuy(watchers);
+                case "master-average-sell":
+                    return BuildAverageSell(watchers);
                 default:
-                    throw new NotImplementedException();
+                    return 666m;
             }            
         }
         public static decimal BuildHype(Currency currency, List<Currency> currencies)
@@ -57,6 +60,36 @@ namespace CryptoWatcher.Domain.Builders
                 // We set to zero the values below the average
                 values[i] = values[i] < 0 ? 0 : values[i];
             }
+        }
+        public static decimal BuildAverageBuy(List<Watcher> watchers)
+        {
+            // Return zero if there are no watchers
+            if (watchers.Count == 0) return 0m;
+
+            // Collect values
+            var values = new decimal[watchers.Count];
+            for (var i = 0; i < watchers.Count; i++)
+            {
+                values[i] = watchers[i].Buy;
+            }
+
+            // Return
+            return values.Average();
+        }
+        public static decimal BuildAverageSell(List<Watcher> watchers)
+        {
+            // Return zero if there are no watchers
+            if (watchers.Count == 0) return 0m;
+
+            // Collect values
+            var values = new decimal[watchers.Count];
+            for (var i = 0; i < watchers.Count; i++)
+            {
+                values[i] = watchers[i].Buy;
+            }
+
+            // Return
+            return values.Average();
         }
     }
 }

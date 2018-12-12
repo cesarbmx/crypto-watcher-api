@@ -36,7 +36,7 @@ namespace CryptoWatcher.Domain.Builders
                             "master",
                             currency.Id,
                             indicator.Id,
-                            IndicatorBuilder.BuildValue(currency, indicator.Id, currencies),
+                            IndicatorBuilder.BuildValue(currency, indicator.Id, currencies, watchers),
                             5,5,
                             0,0,
                             false);

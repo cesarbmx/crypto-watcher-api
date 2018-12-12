@@ -11,14 +11,19 @@ namespace CryptoWatcher.Shared.Helpers
             var url = string.Empty;
             foreach (var arg in args)
             {
-                url += "-" + arg.BuildFromCamelCaseToSnakeCase();
+                url += "-" + arg.BuildUrl();
             }
 
             return url.Substring(1);
         }
-        public static string BuildFromCamelCaseToSnakeCase(this string str)
+        public static string BuildUrl(this string str)
         {
-            return string.Concat(str.Select((x, i) => i > 0 && char.IsUpper(x) ? "-" + x.ToString() : x.ToString())).ToLower();
+            str = str.Replace(" ", "-");
+            str = string.Concat(str.Select((x, i) => i > 0 && char.IsUpper(x) ? "-" + x.ToString() : x.ToString())).ToLower();
+            str = str.Replace("--", "-");
+
+            return str;
         }
+
     }
 }

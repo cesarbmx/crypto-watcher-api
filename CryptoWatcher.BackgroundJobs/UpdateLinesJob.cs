@@ -16,16 +16,20 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UpdateLinesJob> _logger;
         private readonly IRepository<Indicator> _indicatorRepository;
+        private readonly IRepository<Watcher> _watcherRepository;
         private readonly CacheService _cacheService;
+
         public UpdateLinesJob(
             MainDbContext mainDbContext,
             ILogger<UpdateLinesJob> logger,
             IRepository<Indicator> indicatorRepository,
+            IRepository<Watcher> watcherRepository,
             CacheService cacheService)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
             _indicatorRepository = indicatorRepository;
+            _watcherRepository = watcherRepository;
             _cacheService = cacheService;
         }
 
@@ -40,8 +44,11 @@ namespace CryptoWatcher.BackgroundJobs
                 // Get all indicators
                 var indicators = await _indicatorRepository.GetAll();
 
+                // Get all watchers
+                var watchers = await _watcherRepository.GetAll();
+
                 // Build lines
-                var lines = LineBuilder.BuildLines(currencies, indicators);
+                var lines = LineBuilder.BuildLines(currencies, indicators, watchers);
 
                 // Set lines
                 await _cacheService.SetInCache(CacheKey.Lines, lines);
