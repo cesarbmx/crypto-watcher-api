@@ -42,21 +42,16 @@ namespace CryptoWatcher.Domain.Builders
             var watchers = new List<Watcher>();
             foreach (var line in lines)
             {
-                var lineAverageBuy = lines.FirstOrDefault(x => x.CurrencyId == line.CurrencyId && x.IndicatorId == "master-average-buy");
-                var lineAverageSell = lines.FirstOrDefault(x => x.CurrencyId == line.CurrencyId && x.IndicatorId == "master-average-sell");
-                var averageBuy = lineAverageBuy?.Value ?? 0m;
-                var averageSell = lineAverageSell?.Value ?? 0m;
-
                 // Add default watcher
                 var watcher = new Watcher(
                         "master",
                         line.CurrencyId,
                         line.IndicatorId,
                         line.Value,
-                        averageBuy,
-                        averageSell,
-                        averageBuy,
-                        averageSell,
+                        line.AverageBuy,
+                        line.AverageSell,
+                        line.AverageBuy,
+                        line.AverageSell,
                         false);
                     watchers.Add(watcher);
             }

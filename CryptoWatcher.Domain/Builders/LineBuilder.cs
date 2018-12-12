@@ -17,7 +17,9 @@ namespace CryptoWatcher.Domain.Builders
                 foreach (var indicator in indicators)
                 {
                     var value = IndicatorBuilder.BuildValue(currency, indicator, currencies, watchers);
-                    var line = new Line(currency.Id, indicator.Id, value, time);
+                    var averageBuy = IndicatorBuilder.BuildAverageBuy(currency, indicator, watchers);
+                    var averageSell = IndicatorBuilder.BuildAverageSell(currency, indicator, watchers);
+                    var line = new Line(currency.Id, indicator.Id, value, averageBuy, averageSell, time);
                     lines.Add(line);
                 }
             }

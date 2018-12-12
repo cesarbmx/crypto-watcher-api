@@ -15,10 +15,6 @@ namespace CryptoWatcher.Domain.Builders
                     return currency.PercentageChange24H;
                 case "master-hype":
                     return BuildHype(currency, currencies);
-                case "master-average-buy":                   
-                    return BuildAverageBuy(currency, indicator, watchers);
-                case "master-average-sell":
-                    return BuildAverageSell(currency, indicator, watchers);
                 default:
                     return 666m;
             }            
