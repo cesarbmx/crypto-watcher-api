@@ -12,8 +12,8 @@ namespace CryptoWatcher.Api.Responses
         public decimal Value { get; set; }
         public decimal Buy { get; set; }
         public decimal Sell { get; set; }
-        public decimal RecommendedBuy { get; set; }
-        public decimal RecommendedSell { get; set; }
+        public decimal AverageBuy { get; set; }
+        public decimal AverageSell { get; set; }
         public WatcherStatus Status { get; set; }
         public bool Enabled { get; set; }
     }

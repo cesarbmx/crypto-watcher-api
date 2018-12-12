@@ -13,8 +13,8 @@ namespace CryptoWatcher.Api.FakeResponses
                 CurrencyId = "bitcoin",
                 IndicatorId = "johny.melavo-price-change-24hrs-bitcoin",
                 Value = 1.5m,
-                RecommendedBuy = 15,
-                Recommendedell = 8,
+                AverageBuy = 15,
+                AverageSell = 8,
                 Time = DateTime.Now.AddHours(-1)
             };
         }
@@ -25,8 +25,8 @@ namespace CryptoWatcher.Api.FakeResponses
                 CurrencyId = "bitcoin",
                 IndicatorId = "johny.melavo-bitcoin-hype",
                 Value = 1.5m,
-                RecommendedBuy = 9,
-                Recommendedell = 6,
+                AverageBuy = 9,
+                AverageSell = 6,
                 Time = DateTime.Now
             };
         }

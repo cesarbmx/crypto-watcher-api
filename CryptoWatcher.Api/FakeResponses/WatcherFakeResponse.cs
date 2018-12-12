@@ -17,8 +17,8 @@ namespace CryptoWatcher.Api.FakeResponses
                 Value = 5000,
                 Buy = 15,
                 Sell = 8,
-                RecommendedBuy = 0,
-                RecommendedSell = 0,
+                AverageBuy = 0,
+                AverageSell = 0,
                 Status = WatcherStatus.Buy,
                 Enabled = false
             };
@@ -34,8 +34,8 @@ namespace CryptoWatcher.Api.FakeResponses
                 Value = 2,
                 Buy = 15,
                 Sell = 8,
-                RecommendedBuy = 0,
-                RecommendedSell = 0,
+                AverageBuy = 0,
+                AverageSell = 0,
                 Status = WatcherStatus.Sell,
                 Enabled = false
             };

@@ -8,8 +8,8 @@ namespace CryptoWatcher.Domain.Models
         public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
         public decimal Value { get; private set; }
-        public decimal RecommendedBuy { get; private set; }
-        public decimal RecommendedSell { get; private set; }
+        public decimal AverageBuy { get; private set; }
+        public decimal AverageSell { get; private set; }
         public DateTime Time { get; private set; }
 
         public Line() { }
@@ -17,15 +17,15 @@ namespace CryptoWatcher.Domain.Models
             string currencyId,
             string indicatorId,
             decimal value,
-            decimal recommendedBuy,
-            decimal recommendedSell,
+            decimal averageBuy,
+            decimal averageSell,
             DateTime time)
         {
             CurrencyId = currencyId;
             IndicatorId = indicatorId;
             Value = value;
-            RecommendedBuy = recommendedBuy;
-            RecommendedSell = recommendedSell;
+            AverageBuy = averageBuy;
+            AverageSell = averageSell;
             Time = time;
         } 
     }

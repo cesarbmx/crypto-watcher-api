@@ -60,10 +60,10 @@ namespace CryptoWatcher.Domain.Builders
                         line.CurrencyId,
                         line.IndicatorId,
                         line.Value,
-                        line.RecommendedBuy,
-                        line.RecommendedSell,
-                        line.RecommendedBuy,
-                        line.RecommendedSell,
+                        line.AverageBuy,
+                        line.AverageSell,
+                        line.AverageBuy,
+                        line.AverageSell,
                         false);
                     watchers.Add(watcher);
             }

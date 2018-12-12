@@ -13,8 +13,8 @@ namespace CryptoWatcher.Domain.Models
         public decimal Value { get; private set; }
         public decimal Buy { get; private set; }
         public decimal Sell { get; private set; }
-        public decimal RecommendedBuy { get; private set; }
-        public decimal RecommendedSell { get; private set; }
+        public decimal AverageBuy { get; private set; }
+        public decimal AverageSell { get; private set; }
         public bool Enabled { get; private set; }
         public WatcherStatus Status => WatcherBuilder.BuildStatus(Value, Buy, Sell);
 
@@ -26,8 +26,8 @@ namespace CryptoWatcher.Domain.Models
             decimal value,
             decimal buy,
             decimal sell,
-            decimal recommendedBuy,
-            decimal recommendedSell,
+            decimal averageBuy,
+            decimal averageSell,
             bool enabled)
         : base(userId)
         {
@@ -38,8 +38,8 @@ namespace CryptoWatcher.Domain.Models
             Value = value;
             Buy = buy;
             Sell = sell;
-            RecommendedBuy = recommendedBuy;
-            RecommendedSell = recommendedSell;
+            AverageBuy = averageBuy;
+            AverageSell = averageSell;
             Enabled = enabled;
         }
 
@@ -51,11 +51,11 @@ namespace CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Watcher Sync(decimal value, decimal recommendedBuy, decimal recommendedSell)
+        public Watcher Sync(decimal value, decimal averageBuy, decimal averageSell)
         {
             Value = value;
-            RecommendedBuy = recommendedBuy;
-            RecommendedSell = recommendedSell;
+            AverageBuy = averageBuy;
+            AverageSell = averageSell;
 
             return this;
         }

@@ -9,8 +9,8 @@ namespace CryptoWatcher.Api.Responses
         public string CurrencyId { get; set; }
         public string IndicatorId { get; set; }
         public decimal Value { get; set; }
-        public decimal RecommendedBuy { get; set; }
-        public decimal Recommendedell { get; set; }
+        public decimal AverageBuy { get; set; }
+        public decimal AverageSell { get; set; }
         public DateTime Time { get; set; }
     }
 }
