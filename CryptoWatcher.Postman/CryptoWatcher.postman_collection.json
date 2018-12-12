@@ -337,7 +337,7 @@
 					"raw": "{\r\n  \"buy\": 15,\r\n  \"sell\": 6,\r\n  \"enabled\": true\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/watchers/master-hype-bitcoin",
+					"raw": "http://localhost:6495/watchers/master-hype-bitcoin-cesarbmx",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -345,7 +345,7 @@
 					"port": "6495",
 					"path": [
 						"watchers",
-						"master-hype-bitcoin"
+						"master-hype-bitcoin-cesarbmx"
 					]
 				}
 			},
@@ -373,7 +373,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/watchers/master-hype-bitcoin",
+					"raw": "http://localhost:6495/watchers/master-hype-bitcoin-cesarbmx",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -381,7 +381,7 @@
 					"port": "6495",
 					"path": [
 						"watchers",
-						"master-hype-bitcoin"
+						"master-hype-bitcoin-cesarbmx"
 					]
 				}
 			},
