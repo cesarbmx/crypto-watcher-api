@@ -10,20 +10,22 @@ namespace CryptoWatcher.Domain.Builders
         public static WatcherStatus BuildStatus(decimal indicatorValue, decimal buy, decimal sell)
         {
             // Evaluate
-            var watcherStatus = (indicatorValue >= buy) ? WatcherStatus.Buy : WatcherStatus.Sell;
+            var watcherStatus = WatcherStatus.Hold;
+            if(indicatorValue >= buy) watcherStatus = WatcherStatus.Buy;
+            if (indicatorValue <= sell) watcherStatus = WatcherStatus.Sell;
 
             // Return
             return watcherStatus;
         }
-        public static List<Watcher> BuildUserWatchersWithDefaults(this List<Watcher> userWatchers, string userId, List<Currency> currencies, List<Indicator> indicators)
+        public static List<Watcher> BuildWatchersWithDefaults(string userId, List<Watcher> watchers, List<Currency> currencies, List<Indicator> indicators)
         {
-            var watchers = new List<Watcher>();
+            var watchersWithDefaults = new List<Watcher>();
             foreach (var currency in currencies)
             {
                 foreach (var indicator in indicators)
                 {
                     // Get matching watcher
-                    var watcher = userWatchers.FirstOrDefault(x =>
+                    var watcher = watchers.FirstOrDefault(x =>
                         x.IndicatorId == indicator.Id &&
                         x.CurrencyId == currency.Id);
 
@@ -41,11 +43,11 @@ namespace CryptoWatcher.Domain.Builders
                     }
 
                     // Add
-                    watchers.Add(watcher);
+                    watchersWithDefaults.Add(watcher);
                 }
             }
 
-            return watchers;
+            return watchersWithDefaults;
         }
         public static List<Watcher> BuildDefaultWatchers(List<Line> lines)
         {

@@ -10,7 +10,7 @@ namespace CryptoWatcher.Domain.Models
         public Cache() : base(null)
         {}
 
-        public List<T> Get<T>(CacheKey key)
+        public List<T> Get<T>()
         {
             return JsonConvertHelper.DeserializeObjectRaw<List<T>>(Value);
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Domain;
 
@@ -20,12 +21,12 @@ namespace CryptoWatcher.Domain.Services
             var cache = await _cacheRepository.GetSingle(key.ToString());
 
             // Return
-            return cache.Get<T>(key);
+            return cache.Get<T>();
         }
         public Task SetInCache<T>(CacheKey key, List<T> value)
         {
             // Set cache
-            var cache = new Cache().Set(key, value);
+            var cache = CacheBuilder.BuildCache(key, value);
             _cacheRepository.Update(cache);
 
             // Return

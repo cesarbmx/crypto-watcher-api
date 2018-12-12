@@ -9,14 +9,14 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class OrderBuilder
     {
-        public static List<Order> BuildNewOrders(this List<Watcher> watchers, List<Order> ongoingOrders)
+        public static List<Order> BuildNewOrders(List<Watcher> watchers, List<Order> ongoingOrders)
         {
-            var orders = new List<Order>();
+            var newOrders = new List<Order>();
 
             foreach (var watcher in watchers)
             {
                 // We add an order if there are no similar orders
-                var orderType = watcher.Status.BuildOrderType();
+                var orderType = BuildOrderType(watcher.Status);
                 var userOrders = ongoingOrders.Where(OrderExpression.Filter(
                     watcher.UserId,
                     watcher.CurrencyId,
@@ -24,14 +24,14 @@ namespace CryptoWatcher.Domain.Builders
                 if (userOrders.Count == 0)
                 {
                     var order = new Order(watcher.UserId, watcher.CurrencyId, orderType, 100);
-                    orders.Add(order);
+                    newOrders.Add(order);
                 }
             }
 
             // Return
-            return orders;
+            return newOrders;
         }
-        public static OrderType BuildOrderType(this WatcherStatus watcherStatus)
+        public static OrderType BuildOrderType(WatcherStatus watcherStatus)
         {
             switch (watcherStatus)
             {
