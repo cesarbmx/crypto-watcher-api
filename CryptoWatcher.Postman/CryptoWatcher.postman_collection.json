@@ -182,7 +182,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"Hype\",\r\n  \"description\": \"It identifies inmediate hypes within 24 Hrs in your portfolio\",\r\n  \"formula\": \"C# formula\"\r\n}"
+					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"My Indicator\",\r\n  \"description\": \"It identifies inmediate hypes within 24 Hrs in your portfolio\",\r\n  \"formula\": \"C# formula\"\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:6495/indicators",
@@ -215,7 +215,7 @@
 					"raw": "{\r\n  \"name\": \"Hype\",\r\n  \"description\": \"It identifies inmediate hypes within 24 Hrs in your portfolio\",\r\n  \"formula\": \"C# formula\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/indicators/cesarbmx-hype",
+					"raw": "http://localhost:6495/indicators/cesarbmx-my-indicator",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -223,7 +223,7 @@
 					"port": "6495",
 					"path": [
 						"indicators",
-						"cesarbmx-hype"
+						"cesarbmx-my-indicator"
 					]
 				}
 			},
@@ -239,7 +239,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/indicators/cesarbmx-hype",
+					"raw": "http://localhost:6495/indicators/cesarbmx-my-indicator",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -247,7 +247,7 @@
 					"port": "6495",
 					"path": [
 						"indicators",
-						"cesarbmx-hype"
+						"cesarbmx-my-indicator"
 					]
 				}
 			},
@@ -304,7 +304,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"currencyId\": \"bitcoin\",\r\n  \"indicatorId\": \"cesarbmx-hype\",\r\n  \"buy\": 0,\r\n  \"sell\": 0,\r\n  \"enabled\": false\r\n}"
+					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"currencyId\": \"bitcoin\",\r\n  \"indicatorId\": \"master-hype\",\r\n  \"buy\": 10,\r\n  \"sell\": 5,\r\n  \"enabled\": false\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:6495/watchers",
@@ -334,10 +334,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"buy\": 0,\r\n  \"sell\": 0,\r\n  \"enabled\": true\r\n}"
+					"raw": "{\r\n  \"buy\": 15,\r\n  \"sell\": 6,\r\n  \"enabled\": true\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/watchers/cesarbmx-hype-bitcoin",
+					"raw": "http://localhost:6495/watchers/master-hype-bitcoin",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -345,7 +345,7 @@
 					"port": "6495",
 					"path": [
 						"watchers",
-						"cesarbmx-hype-bitcoin"
+						"master-hype-bitcoin"
 					]
 				}
 			},
