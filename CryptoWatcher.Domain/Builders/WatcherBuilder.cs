@@ -33,7 +33,7 @@ namespace CryptoWatcher.Domain.Builders
                     if (watcher == null)
                     {
                         watcher = new Watcher(
-                            userId,
+                            "master",
                             currency.Id,
                             indicator.Id,
                             IndicatorBuilder.BuildValue(currency, indicator.Id, currencies),
