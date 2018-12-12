@@ -7,7 +7,7 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class IndicatorBuilder
     {
-        public static decimal BuildValue(Currency currency, Indicator indicator, List<Currency> currencies, List<Watcher> watchers)
+        public static decimal BuildValue(Currency currency, Indicator indicator, List<Currency> currencies)
         {
             switch (indicator.IndicatorId)
             {
