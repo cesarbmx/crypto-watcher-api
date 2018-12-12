@@ -17,13 +17,14 @@ namespace CryptoWatcher.Domain.Builders
             {
                 // We add an order if there are no similar orders
                 var orderType = BuildOrderType(watcher.Status);
-                var userOrders = ongoingOrders.Where(OrderExpression.Filter(
+                var userOrders = ongoingOrders.Where(OrderExpression.Order(
                     watcher.UserId,
                     watcher.CurrencyId,
+                    watcher.WatcherId,
                     orderType).Compile()).ToList();
                 if (userOrders.Count == 0)
                 {
-                    var order = new Order(watcher.UserId, watcher.CurrencyId, orderType, 100);
+                    var order = new Order(watcher.UserId, watcher.CurrencyId, watcher.WatcherId, orderType, 100);
                     newOrders.Add(order);
                 }
             }

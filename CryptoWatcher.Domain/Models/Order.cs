@@ -8,6 +8,7 @@ namespace CryptoWatcher.Domain.Models
         public string OrderId => Id;
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
+        public string WatcherId { get; private set; }
         public OrderType OrderType { get; private set; }
         public decimal Quantity { get; private set; }
         public OrderStatus Status { get; private set; }
@@ -16,6 +17,7 @@ namespace CryptoWatcher.Domain.Models
         public Order(
             string userId,
             string currencyId,
+            string watcherId,
             OrderType orderType,
             decimal quantity)
         : base(userId)
@@ -23,6 +25,7 @@ namespace CryptoWatcher.Domain.Models
             Id = Guid.NewGuid().ToString();
             UserId = userId;
             CurrencyId = currencyId;
+            WatcherId = watcherId;
             OrderType = orderType;
             UserId = userId;
             Quantity = quantity;
