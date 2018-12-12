@@ -20,20 +20,17 @@ namespace CryptoWatcher.Api.Handlers
     {
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly IRepository<User> _userRepository;
-        private readonly IRepository<Indicator> _indicatorRepository;
         private readonly CacheService _cacheService;
         private readonly IMapper _mapper;
 
         public GetAllWatchersHandler(
             IRepository<Watcher> watcherRepository,
             IRepository<User> userRepository,
-            IRepository<Indicator> indicatorRepository,
             CacheService cacheService,
             IMapper mapper)
         {
             _watcherRepository = watcherRepository;
             _userRepository = userRepository;
-            _indicatorRepository = indicatorRepository;
             _cacheService = cacheService;
             _mapper = mapper;
         }
@@ -48,14 +45,11 @@ namespace CryptoWatcher.Api.Handlers
             // Get all watchers
             var watchers = await _watcherRepository.GetAll(WatcherExpression.Filter(request.UserId));
 
-            // Get all currencies
-            var currencies = await _cacheService.GetFromCache<Currency>(CacheKey.Currencies);
-
-            // Get all indicators
-            var indicators = await _indicatorRepository.GetAll();
+            // Get default watchers
+            var defaultWatchers = await _cacheService.GetFromCache<Watcher>(CacheKey.DefaultWatchers);
 
             // Build with defaults
-            watchers = WatcherBuilder.BuildWatchersWithDefaults(watchers, currencies, indicators);
+            watchers = WatcherBuilder.BuildWatchersWithDefaults(watchers, defaultWatchers);
 
             // Filter
             if (!string.IsNullOrEmpty(request.IndicatorId))

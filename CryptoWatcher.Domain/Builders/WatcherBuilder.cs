@@ -18,34 +18,21 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return watcherStatus;
         }
-        public static List<Watcher> BuildWatchersWithDefaults(List<Watcher> watchers, List<Currency> currencies, List<Indicator> indicators)
+        public static List<Watcher> BuildWatchersWithDefaults(List<Watcher> watchers, List<Watcher> defaultWatchers)
         {
             var watchersWithDefaults = new List<Watcher>();
-            foreach (var currency in currencies)
+            foreach (var defaultWatcher in defaultWatchers)
             {
-                foreach (var indicator in indicators)
-                {
-                    // Get matching watcher
-                    var watcher = watchers.FirstOrDefault(x =>
-                        x.IndicatorId == indicator.Id &&
-                        x.CurrencyId == currency.Id);
+                // Get matching watcher
+                var watcher = watchers.FirstOrDefault(x =>
+                    x.IndicatorId == defaultWatcher.IndicatorId &&
+                    x.CurrencyId == defaultWatcher.CurrencyId);
 
-                    // If the watcher does not exist, we add the default one
-                    if (watcher == null)
-                    {
-                        watcher = new Watcher(
-                            "master",
-                            currency.Id,
-                            indicator.Id,
-                            IndicatorBuilder.BuildValue(currency, indicator.Id, currencies, watchers),
-                            5,5,
-                            0,0,
-                            false);
-                    }
+                // If the watcher does not exist, we use the default one
+                if (watcher == null) watcher = defaultWatcher;
 
-                    // Add
-                    watchersWithDefaults.Add(watcher);
-                }
+                // Add
+                watchersWithDefaults.Add(watcher);
             }
 
             return watchersWithDefaults;

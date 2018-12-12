@@ -7,18 +7,18 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class IndicatorBuilder
     {
-        public static decimal BuildValue(Currency currency, string indicatorId, List<Currency> currencies, List<Watcher> watchers)
+        public static decimal BuildValue(Currency currency, Indicator indicator, List<Currency> currencies, List<Watcher> watchers)
         {
-            switch (indicatorId)
+            switch (indicator.IndicatorId)
             {
                 case "master-price-change-24hrs":
                     return currency.PercentageChange24H;
                 case "master-hype":
                     return BuildHype(currency, currencies);
-                case "master-average-buy":
-                    return BuildAverageBuy(watchers);
+                case "master-average-buy":                   
+                    return BuildAverageBuy(currency, indicator, watchers);
                 case "master-average-sell":
-                    return BuildAverageSell(watchers);
+                    return BuildAverageSell(currency, indicator, watchers);
                 default:
                     return 666m;
             }            
@@ -61,8 +61,11 @@ namespace CryptoWatcher.Domain.Builders
                 values[i] = values[i] < 0 ? 0 : values[i];
             }
         }
-        public static decimal BuildAverageBuy(List<Watcher> watchers)
+        public static decimal BuildAverageBuy(Currency currency, Indicator indicator, List<Watcher> watchers)
         {
+            // Pick watchers for the given currency/indicator
+            watchers = watchers.Where(x => x.CurrencyId == currency.Id && x.IndicatorId == indicator.IndicatorId).ToList();
+
             // Return zero if there are no watchers
             if (watchers.Count == 0) return 0m;
 
@@ -76,8 +79,11 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return values.Average();
         }
-        public static decimal BuildAverageSell(List<Watcher> watchers)
+        public static decimal BuildAverageSell(Currency currency, Indicator indicator, List<Watcher> watchers)
         {
+            // Pick watchers for the given currency/indicator
+            watchers = watchers.Where(x => x.CurrencyId == currency.Id && x.IndicatorId == indicator.IndicatorId).ToList();
+
             // Return zero if there are no watchers
             if (watchers.Count == 0) return 0m;
 
