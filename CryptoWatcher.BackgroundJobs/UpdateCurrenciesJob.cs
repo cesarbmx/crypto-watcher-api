@@ -73,7 +73,7 @@ namespace CryptoWatcher.BackgroundJobs
                 _logger.LogSplunkInformation(new
                 {
                     currencies.Count,
-                    stopwatch.Elapsed.TotalSeconds
+                    ExecutionTime = stopwatch.Elapsed.TotalSeconds
                 });
             }
             catch (Exception ex)

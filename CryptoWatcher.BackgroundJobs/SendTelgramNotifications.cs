@@ -82,7 +82,7 @@ namespace CryptoWatcher.BackgroundJobs
                     {
                         Count = count,
                         FailedCount = failedCount,
-                        stopwatch.Elapsed.TotalSeconds
+                        ExecutionTime = stopwatch.Elapsed.TotalSeconds
                     });
 
                     // Return

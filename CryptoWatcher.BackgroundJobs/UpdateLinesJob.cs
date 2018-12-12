@@ -68,7 +68,7 @@ namespace CryptoWatcher.BackgroundJobs
                 _logger.LogSplunkInformation(new
                 {
                     lines.Count,
-                    stopwatch.Elapsed.TotalSeconds
+                    ExecutionTime = stopwatch.Elapsed.TotalSeconds
                 });
 
                 // Return
