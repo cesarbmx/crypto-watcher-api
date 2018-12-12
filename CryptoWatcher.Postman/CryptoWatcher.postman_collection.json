@@ -373,7 +373,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/watchers/cesarbmx-hype-bitcoin",
+					"raw": "http://localhost:6495/watchers/master-hype-bitcoin",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -381,7 +381,7 @@
 					"port": "6495",
 					"path": [
 						"watchers",
-						"cesarbmx-hype-bitcoin"
+						"master-hype-bitcoin"
 					]
 				}
 			},

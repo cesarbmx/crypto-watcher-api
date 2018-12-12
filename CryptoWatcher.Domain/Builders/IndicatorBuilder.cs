@@ -85,7 +85,7 @@ namespace CryptoWatcher.Domain.Builders
             var values = new decimal[watchers.Count];
             for (var i = 0; i < watchers.Count; i++)
             {
-                values[i] = watchers[i].Buy;
+                values[i] = watchers[i].Sell;
             }
 
             // Return

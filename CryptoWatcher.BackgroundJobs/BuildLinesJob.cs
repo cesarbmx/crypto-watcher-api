@@ -11,17 +11,17 @@ using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class UpdateLinesJob
+    public class BuildLinesJob
     {
         private readonly MainDbContext _mainDbContext;
-        private readonly ILogger<UpdateLinesJob> _logger;
+        private readonly ILogger<BuildLinesJob> _logger;
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly CacheService _cacheService;
 
-        public UpdateLinesJob(
+        public BuildLinesJob(
             MainDbContext mainDbContext,
-            ILogger<UpdateLinesJob> logger,
+            ILogger<BuildLinesJob> logger,
             IRepository<Indicator> indicatorRepository,
             IRepository<Watcher> watcherRepository,
             CacheService cacheService)

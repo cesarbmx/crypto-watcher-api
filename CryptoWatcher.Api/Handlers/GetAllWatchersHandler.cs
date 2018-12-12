@@ -55,7 +55,7 @@ namespace CryptoWatcher.Api.Handlers
             var indicators = await _indicatorRepository.GetAll();
 
             // Build with defaults
-            watchers = WatcherBuilder.BuildWatchersWithDefaults(request.UserId, watchers, currencies, indicators);
+            watchers = WatcherBuilder.BuildWatchersWithDefaults(watchers, currencies, indicators);
 
             // Filter
             if (!string.IsNullOrEmpty(request.IndicatorId))

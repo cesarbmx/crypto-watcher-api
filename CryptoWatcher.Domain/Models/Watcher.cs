@@ -31,7 +31,7 @@ namespace CryptoWatcher.Domain.Models
             bool enabled)
         : base(userId)
         {
-            Id = UrlHelper.BuildUrl(indicatorId, currencyId); // Semantic id
+            Id = UrlHelper.BuildUrl(indicatorId, currencyId, userId); // Semantic id
             UserId = userId;
             CurrencyId = currencyId;
             IndicatorId = indicatorId;

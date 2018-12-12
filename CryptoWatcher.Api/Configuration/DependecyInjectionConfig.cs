@@ -43,8 +43,12 @@ namespace CryptoWatcher.Api.Configuration
 
             // Jobs
             services.AddScoped<UpdateCurrenciesJob, UpdateCurrenciesJob>();
-            services.AddScoped<UpdateLinesJob, UpdateLinesJob>();
+            services.AddScoped<BuildLinesJob, BuildLinesJob>();
             services.AddScoped<UpdateDefaultWatchersJob, UpdateDefaultWatchersJob>();
+            services.AddScoped<UpdateWatchersJob, UpdateWatchersJob>();
+            services.AddScoped<UpdateOrdersJob, UpdateOrdersJob>();
+            services.AddScoped<SendWhatsappNotificationsJob, SendWhatsappNotificationsJob>();
+            services.AddScoped<SendTelgramNotifications, SendTelgramNotifications>();
 
             // Other
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();

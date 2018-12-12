@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
 
 
@@ -17,7 +18,7 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return watcherStatus;
         }
-        public static List<Watcher> BuildWatchersWithDefaults(string userId, List<Watcher> watchers, List<Currency> currencies, List<Indicator> indicators)
+        public static List<Watcher> BuildWatchersWithDefaults(List<Watcher> watchers, List<Currency> currencies, List<Indicator> indicators)
         {
             var watchersWithDefaults = new List<Watcher>();
             foreach (var currency in currencies)
@@ -54,20 +55,40 @@ namespace CryptoWatcher.Domain.Builders
             var watchers = new List<Watcher>();
             foreach (var line in lines)
             {
-                    // Add default watcher
-                    var watcher = new Watcher(
+                var lineAverageBuy = lines.FirstOrDefault(x => x.CurrencyId == line.CurrencyId && x.IndicatorId == "master-average-buy");
+                var lineAverageSell = lines.FirstOrDefault(x => x.CurrencyId == line.CurrencyId && x.IndicatorId == "master-average-sell");
+                var averageBuy = lineAverageBuy?.Value ?? 0m;
+                var averageSell = lineAverageSell?.Value ?? 0m;
+
+                // Add default watcher
+                var watcher = new Watcher(
                         "master",
                         line.CurrencyId,
                         line.IndicatorId,
                         line.Value,
-                        line.AverageBuy,
-                        line.AverageSell,
-                        line.AverageBuy,
-                        line.AverageSell,
+                        averageBuy,
+                        averageSell,
+                        averageBuy,
+                        averageSell,
                         false);
                     watchers.Add(watcher);
             }
 
+            // Return
+            return watchers;
+        }
+        public static List<Watcher> SyncWatchers(this List<Watcher> watchers, List<Watcher> defaultWatchers)
+        {
+            // Sync watcher
+            foreach (var watcher in watchers)
+            {
+                var currencyId = watcher.CurrencyId;
+                var indicatorId = watcher.IndicatorId;
+                var defaultWatcher = defaultWatchers.FirstOrDefault(WatcherExpression.Watcher("master", currencyId, indicatorId).Compile());
+                if (defaultWatcher != null) watcher.Sync(defaultWatcher.Value, defaultWatcher.AverageBuy, defaultWatcher.AverageSell);
+            }
+
+            // Return
             return watchers;
         }
     }

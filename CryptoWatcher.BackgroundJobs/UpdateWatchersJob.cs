@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
+using CryptoWatcher.Domain.Builders;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Domain;
@@ -37,17 +37,11 @@ namespace CryptoWatcher.BackgroundJobs
                 // Get all watchers
                 var watchers = await _watcherRepository.GetAll();
 
-                // Get all lines
-                var lines = await _cacheService.GetFromCache<Line>(CacheKey.Lines);
+                // Get all default watchers
+                var defaultWatchers = await _cacheService.GetFromCache<Watcher>(CacheKey.DefaultWatchers);
 
-                // Sync watcher
-                foreach (var watcher in watchers)
-                {
-                    var currencyId = watcher.CurrencyId;
-                    var indicatorId = watcher.IndicatorId;
-                    var line = lines.FirstOrDefault(x => x.CurrencyId == currencyId && x.IndicatorId == indicatorId);
-                    if(line != null) watcher.Sync(line.Value, line.AverageBuy, line.AverageSell);
-                }
+                // Sync watchers
+                watchers.SyncWatchers(defaultWatchers);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

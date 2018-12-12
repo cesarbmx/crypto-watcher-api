@@ -42,7 +42,7 @@ namespace CryptoWatcher.BackgroundJobs
                 // Build new orders from watchers
                 var newOrders = OrderBuilder.BuildNewOrders(watchers, orders);
 
-                // Add new orders
+                // Place new orders
                 _orderRepository.AddRange(newOrders);
 
                 // Save

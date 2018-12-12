@@ -43,7 +43,10 @@ namespace CryptoWatcher.BackgroundJobs
                 await _mainDbContext.SaveChangesAsync();
 
                 // Log into Splunk
-                _logger.LogSplunkInformation();
+                _logger.LogSplunkInformation(new
+                {
+                    DefaultWatchersUpdated = defaultWatchers.Count
+                });
 
                 // Return
                 await Task.CompletedTask;
