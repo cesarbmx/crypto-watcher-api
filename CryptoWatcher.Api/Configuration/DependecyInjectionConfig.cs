@@ -42,8 +42,9 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<IRepository<Indicator>, LoggerRepository<Indicator>>();
 
             // Jobs
+            services.AddScoped<MainJob, MainJob>();
             services.AddScoped<UpdateCurrenciesJob, UpdateCurrenciesJob>();
-            services.AddScoped<BuildLinesJob, BuildLinesJob>();
+            services.AddScoped<UpdateLinesJob, UpdateLinesJob>();
             services.AddScoped<UpdateDefaultWatchersJob, UpdateDefaultWatchersJob>();
             services.AddScoped<UpdateWatchersJob, UpdateWatchersJob>();
             services.AddScoped<UpdateOrdersJob, UpdateOrdersJob>();

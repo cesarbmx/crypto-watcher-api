@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using Hangfire;
@@ -11,17 +12,17 @@ using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class BuildLinesJob
+    public class UpdateLinesJob
     {
         private readonly MainDbContext _mainDbContext;
-        private readonly ILogger<BuildLinesJob> _logger;
+        private readonly ILogger<UpdateLinesJob> _logger;
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly CacheService _cacheService;
 
-        public BuildLinesJob(
+        public UpdateLinesJob(
             MainDbContext mainDbContext,
-            ILogger<BuildLinesJob> logger,
+            ILogger<UpdateLinesJob> logger,
             IRepository<Indicator> indicatorRepository,
             IRepository<Watcher> watcherRepository,
             CacheService cacheService)
@@ -38,6 +39,10 @@ namespace CryptoWatcher.BackgroundJobs
         {
             try
             {
+                // Start watch
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
+
                 // Get all currencies
                 var currencies = await _cacheService.GetFromCache<Currency>(CacheKey.Currencies);
 
@@ -56,10 +61,14 @@ namespace CryptoWatcher.BackgroundJobs
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
+                // Stpo watch
+                stopwatch.Stop();
+
                 // Log into Splunk
                 _logger.LogSplunkInformation(new
                 {
-                    LinesCreated = lines.Count
+                    lines.Count,
+                    stopwatch.Elapsed.TotalSeconds
                 });
 
                 // Return

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using Hangfire;
@@ -30,6 +31,10 @@ namespace CryptoWatcher.BackgroundJobs
         {
             try
             {
+                // Start watch
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
+
                 // Get all lines
                 var lines = await _cacheService.GetFromCache<Line>(CacheKey.Lines);
 
@@ -42,10 +47,14 @@ namespace CryptoWatcher.BackgroundJobs
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
+                // Stpo watch
+                stopwatch.Stop();
+
                 // Log into Splunk
                 _logger.LogSplunkInformation(new
                 {
-                    DefaultWatchersUpdated = defaultWatchers.Count
+                    defaultWatchers.Count,
+                    stopwatch.Elapsed.TotalSeconds
                 });
 
                 // Return

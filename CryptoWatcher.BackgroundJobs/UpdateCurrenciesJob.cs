@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -41,6 +42,10 @@ namespace CryptoWatcher.BackgroundJobs
         {
             try
             {
+                // Start watch
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
+
                 // Get all currencies from CoinMarketCap
                 var result = await _coinMarketCapClient.GetTickerListAsync(10);
                 result = result.Where(x => 
@@ -61,10 +66,14 @@ namespace CryptoWatcher.BackgroundJobs
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
+                // Stpo watch
+                stopwatch.Stop();
+
                 // Log into Splunk
                 _logger.LogSplunkInformation(new
                 {
-                    CurrenciesImported = currencies.Count
+                    currencies.Count,
+                    stopwatch.Elapsed.TotalSeconds
                 });
             }
             catch (Exception ex)

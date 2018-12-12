@@ -10,14 +10,14 @@ namespace CryptoWatcher.BackgroundJobs
     public class MainJob
     {
         private readonly UpdateCurrenciesJob _updateCurrenciesJob;
-        private readonly BuildLinesJob _updateLinesJob;
+        private readonly UpdateLinesJob _updateLinesJob;
         private readonly UpdateDefaultWatchersJob _updateDefaultWatchersJob;
         private readonly UpdateWatchersJob _updateWatchersJob;
         private readonly UpdateOrdersJob _updateOrdersJob;
         private readonly ILogger<MainJob> _logger;
         public MainJob(
             UpdateCurrenciesJob updateCurrenciesJob,
-            BuildLinesJob updateLinesJob,
+            UpdateLinesJob updateLinesJob,
             UpdateDefaultWatchersJob updateDefaultWatchersJob,
             UpdateWatchersJob updateWatchersJob,
             UpdateOrdersJob updateOrdersJob,
@@ -51,7 +51,7 @@ namespace CryptoWatcher.BackgroundJobs
             // Log into Splunk
             _logger.LogSplunkInformation(new
             {
-                MainJobExecutionTime = stopwatch.Elapsed.TotalSeconds
+                ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });
         }
     }
