@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Charts";
+    @model string
+}
+
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <partial name="_LineChart" model="@Model" />
+</head>
+<body>
+    <div id="chart_div" style="width: 900px; height: 500px"></div>
+</body>
+</html>
