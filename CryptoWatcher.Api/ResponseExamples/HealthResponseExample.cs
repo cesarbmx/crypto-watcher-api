@@ -1,4 +1,4 @@
-﻿using CryptoWatcher.Api.Responses;
+﻿using CryptoWatcher.Application.Responses;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.ResponseExamples

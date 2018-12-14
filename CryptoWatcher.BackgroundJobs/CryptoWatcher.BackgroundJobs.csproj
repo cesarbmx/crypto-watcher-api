@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hangfire.Core" Version="1.7.0-beta1" />
     <PackageReference Include="Telegram.Bot" Version="14.10.0" />
     <PackageReference Include="Twilio" Version="5.22.0" />
   </ItemGroup>

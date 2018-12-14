@@ -37,7 +37,6 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\A_JurisdictionsController.cs" />
-    <Compile Remove="FakeResponses\WatcherSettingsFakeResponse.cs" />
     <Compile Remove="ResponseExamples\IProvideExamples.cs" />
     <Compile Remove="ResponseExamples\ValidationResponseExample.cs" />
   </ItemGroup>
@@ -58,14 +57,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.1.1" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.0-beta1" />
     <PackageReference Include="Hangfire.Core" Version="1.7.0-beta1" />
     <PackageReference Include="Hangfire.MemoryStorage.Core" Version="1.4.0" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.0-beta1" />
-    <PackageReference Include="MediatR" Version="5.1.0" />
+    <PackageReference Include="MediatR" Version="6.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.1.4" />
@@ -81,6 +80,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CryptoWatcher.Application\CryptoWatcher.Application.csproj" />
     <ProjectReference Include="..\CryptoWatcher.BackgroundJobs\CryptoWatcher.BackgroundJobs.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Domain\CryptoWatcher.Domain.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Persistence\CryptoWatcher.Persistence.csproj" />

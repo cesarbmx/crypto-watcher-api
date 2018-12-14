@@ -20,31 +20,33 @@ namespace CryptoWatcher.Service.Configuration
 
             //Contexts (UOW)
             //services.AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("CryptoWatcher")));
-            services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("CryptoWatcher"));
+            services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("CryptoWatcher"), ServiceLifetime.Transient);
 
             // Services
-            services.AddSingleton<CacheService, CacheService>();
+            services.AddTransient<CacheService, CacheService>();
 
             // Repositories
-            services.AddScoped<IRepository<Cache>, Repository<Cache>>();
-            services.AddScoped<IRepository<Log>, Repository<Log>>();
-            services.AddScoped<IRepository<Watcher>, Repository<Watcher>>();
-            services.AddScoped<IRepository<User>, Repository<User>>();
-            services.AddScoped<IRepository<Notification>, Repository<Notification>>();
-            services.AddScoped<IRepository<Order>, Repository<Order>>();
+            services.AddTransient<IRepository<Cache>, Repository<Cache>>();
+            services.AddTransient<IRepository<Log>, Repository<Log>>();
+            services.AddTransient<IRepository<Watcher>, Repository<Watcher>>();
+            services.AddTransient<IRepository<User>, Repository<User>>();
+            services.AddTransient<IRepository<Notification>, Repository<Notification>>();
+            services.AddTransient<IRepository<Order>, Repository<Order>>();
+            services.AddTransient<IRepository<Indicator>, Repository<Indicator>>();
 
             // Jobs
-            services.AddScoped<MainJob, MainJob>();
-            services.AddScoped<UpdateCurrenciesJob, UpdateCurrenciesJob>();
-            services.AddScoped<UpdateLinesJob, UpdateLinesJob>();
-            services.AddScoped<UpdateDefaultWatchersJob, UpdateDefaultWatchersJob>();
-            services.AddScoped<UpdateWatchersJob, UpdateWatchersJob>();
-            services.AddScoped<UpdateOrdersJob, UpdateOrdersJob>();
-            services.AddScoped<SendWhatsappNotificationsJob, SendWhatsappNotificationsJob>();
-            services.AddScoped<SendTelgramNotifications, SendTelgramNotifications>();
+            services.AddTransient<MainJob, MainJob>();
+            services.AddTransient<UpdateCurrenciesJob, UpdateCurrenciesJob>();
+            services.AddTransient<UpdateLinesJob, UpdateLinesJob>();
+            services.AddTransient<UpdateDefaultWatchersJob, UpdateDefaultWatchersJob>();
+            services.AddTransient<UpdateWatchersJob, UpdateWatchersJob>();
+            services.AddTransient<UpdateOrdersJob, UpdateOrdersJob>();
+            services.AddTransient<SendWhatsappNotificationsJob, SendWhatsappNotificationsJob>();
+            services.AddTransient<SendTelgramNotifications, SendTelgramNotifications>();
 
             // Other
-            services.AddSingleton<ICoinMarketCapClient, CoinMarketCapClient>();
+            services.AddTransient<ICoinMarketCapClient, CoinMarketCapClient>();
+            services.AddSingleton(configuration);
 
             return services;
         }

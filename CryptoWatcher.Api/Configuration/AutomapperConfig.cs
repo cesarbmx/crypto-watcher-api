@@ -2,7 +2,7 @@
 using AutoMapper;
 using CoinMarketCap.Entities;
 using Microsoft.Extensions.DependencyInjection;
-using CryptoWatcher.Api.Responses;
+using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Extensions;
 using Version = CryptoWatcher.Domain.Models.Version;

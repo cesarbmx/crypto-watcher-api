@@ -28,6 +28,9 @@ namespace CryptoWatcher.Service
             // Configure hangfire
             serviceProvider.ConfigureHangfire(configuration);
 
+            // Data seeding
+            serviceProvider.ConfigureDataSeeding();
+
             _backgroundJobServer = new BackgroundJobServer();
         }
         public void Stop()

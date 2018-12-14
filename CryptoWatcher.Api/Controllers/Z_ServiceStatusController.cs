@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using CryptoWatcher.Api.Requests;
+using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Api.ResponseExamples;
-using CryptoWatcher.Api.Responses;
+using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Messages;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

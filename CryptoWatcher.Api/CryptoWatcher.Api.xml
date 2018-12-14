@@ -24,7 +24,7 @@
             Get user
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.AddUser(CryptoWatcher.Api.Requests.AddUserRequest)">
+        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.AddUser(CryptoWatcher.Application.Requests.AddUserRequest)">
             <summary>
             Add user
             </summary>
@@ -39,12 +39,12 @@
             Get indicator
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorsController.AddIndicator(CryptoWatcher.Api.Requests.AddIndicatorRequest)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorsController.AddIndicator(CryptoWatcher.Application.Requests.AddIndicatorRequest)">
             <summary>
             Add indicator
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorsController.UpdateIndicator(System.String,CryptoWatcher.Api.Requests.UpdateIndicatorRequest)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorsController.UpdateIndicator(System.String,CryptoWatcher.Application.Requests.UpdateIndicatorRequest)">
             <summary>
             Update indicator
             </summary>
@@ -64,12 +64,12 @@
             Get watcher
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.E_WatchersController.AddWatcher(CryptoWatcher.Api.Requests.AddWatcherRequest)">
+        <member name="M:CryptoWatcher.Api.Controllers.E_WatchersController.AddWatcher(CryptoWatcher.Application.Requests.AddWatcherRequest)">
             <summary>
             Add watcher
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.E_WatchersController.UpdateWatcher(System.String,CryptoWatcher.Api.Requests.UpdateWatcherRequest)">
+        <member name="M:CryptoWatcher.Api.Controllers.E_WatchersController.UpdateWatcher(System.String,CryptoWatcher.Application.Requests.UpdateWatcherRequest)">
             <summary>
             Update watcher
             </summary>

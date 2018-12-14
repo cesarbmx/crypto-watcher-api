@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CryptoWatcher.Application.Requests;
+using Microsoft.Extensions.DependencyInjection;
 using MediatR;
 
 namespace CryptoWatcher.Api.Configuration
@@ -8,6 +9,7 @@ namespace CryptoWatcher.Api.Configuration
         public static IServiceCollection ConfigureMediatR(this IServiceCollection services)
         {
             services.AddMediatR();
+            services.AddMediatR(typeof(AddUserRequest).Assembly);
 
             return services;
         }

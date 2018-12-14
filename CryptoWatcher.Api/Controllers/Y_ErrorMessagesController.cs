@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CryptoWatcher.Api.ResponseExamples;
-using CryptoWatcher.Api.Responses;
+using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
