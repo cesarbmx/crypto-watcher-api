@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;
@@ -16,22 +15,25 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UpdateLinesJob> _logger;
+        private readonly IRepository<Currency> _currencyRepository;
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<Watcher> _watcherRepository;
-        private readonly CacheService _cacheService;
+        private readonly IRepository<Line> _lineRepository;
 
         public UpdateLinesJob(
             MainDbContext mainDbContext,
             ILogger<UpdateLinesJob> logger,
+            IRepository<Currency> currencyRepository,
             IRepository<Indicator> indicatorRepository,
             IRepository<Watcher> watcherRepository,
-            CacheService cacheService)
+            IRepository<Line> lineRepository)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
+            _currencyRepository = currencyRepository;
             _indicatorRepository = indicatorRepository;
             _watcherRepository = watcherRepository;
-            _cacheService = cacheService;
+            _lineRepository = lineRepository;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -44,7 +46,7 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Start();
 
                 // Get all currencies
-                var currencies = await _cacheService.GetFromCache<Currency>(CacheKey.Currencies);
+                var currencies = await _currencyRepository.GetAll();
 
                 // Get all indicators
                 var indicators = await _indicatorRepository.GetAll();
@@ -56,12 +58,12 @@ namespace CryptoWatcher.BackgroundJobs
                 var lines = LineBuilder.BuildLines(currencies, indicators, watchers);
 
                 // Set lines
-                await _cacheService.SetInCache(CacheKey.Lines, lines);
+                _lineRepository.AddRange(lines);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
-                // Stpo watch
+                // Stop watch
                 stopwatch.Stop();
 
                 // Log into Splunk

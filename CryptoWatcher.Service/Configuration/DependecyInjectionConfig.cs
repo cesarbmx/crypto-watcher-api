@@ -3,7 +3,6 @@ using CoinMarketCap.Core;
 using CryptoWatcher.BackgroundJobs;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Domain;
-using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -22,17 +21,16 @@ namespace CryptoWatcher.Service.Configuration
             //services.AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("CryptoWatcher")));
             services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("CryptoWatcher"), ServiceLifetime.Transient);
 
-            // Services
-            services.AddTransient<CacheService, CacheService>();
 
             // Repositories
-            services.AddTransient<IRepository<Cache>, Repository<Cache>>();
             services.AddTransient<IRepository<Log>, Repository<Log>>();
+            services.AddTransient<IRepository<Currency>, Repository<Currency>>();
             services.AddTransient<IRepository<Watcher>, Repository<Watcher>>();
             services.AddTransient<IRepository<User>, Repository<User>>();
             services.AddTransient<IRepository<Notification>, Repository<Notification>>();
             services.AddTransient<IRepository<Order>, Repository<Order>>();
             services.AddTransient<IRepository<Indicator>, Repository<Indicator>>();
+            services.AddTransient<IRepository<Line>, Repository<Line>>();
 
             // Jobs
             services.AddTransient<MainJob, MainJob>();

@@ -68,6 +68,13 @@ namespace CryptoWatcher.Persistence.Repositories
             // Add log
             _logRepository.Add(new Log("Update", entity,  entity.Id, entity.CreatedBy, entity.CreationTime));
         }
+        public void UpdateRange(List<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                Update(entity);
+            }
+        }
         public void Remove(TEntity entity)
         {
             // Remove
@@ -75,6 +82,13 @@ namespace CryptoWatcher.Persistence.Repositories
 
             // Add log
             _logRepository.Add(new Log("Remove", entity, entity.Id, entity.CreatedBy, entity.CreationTime));
+        }
+        public void RemoveRange(List<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                Remove(entity);
+            }
         }
     }
 }

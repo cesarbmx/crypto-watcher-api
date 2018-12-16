@@ -5,19 +5,19 @@ using AutoMapper;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Services;
+using CryptoWatcher.Shared.Domain;
 using MediatR;
 
 namespace CryptoWatcher.Application.Handlers
 {
     public class GetHealthHandler : IRequestHandler<GetHealthRequest, HealthResponse>
     {
-        private readonly CacheService _cacheService;
+        private readonly IRepository<Currency> _currencyRepository;
         private readonly IMapper _mapper;
 
-        public GetHealthHandler(CacheService cacheService, IMapper mapper)
+        public GetHealthHandler(IRepository<Currency> currencyRepository, IMapper mapper)
         {
-            _cacheService = cacheService;
+            _currencyRepository = currencyRepository;
             _mapper = mapper;
         }
 
@@ -32,7 +32,8 @@ namespace CryptoWatcher.Application.Handlers
             sw.Start();
             try
             {
-                await _cacheService.GetFromCache<Currency>(CacheKey.Currencies);
+                // Get all currencies
+                await _currencyRepository.GetAll();
                 sw.Stop();
             }
             catch

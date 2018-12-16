@@ -15,7 +15,7 @@ namespace CryptoWatcher.Domain.Models
         protected Entity(string createdBy)
         {
             CreatedBy = createdBy;
-            CreationTime = DateTime.Now;
+            CreationTime = DateTime.UtcNow;
         }
     }
 }

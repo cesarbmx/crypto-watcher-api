@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Globalization;
+using CryptoWatcher.Shared.Helpers;
 
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Line
+    public class Line : Entity
     {
         public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
@@ -21,12 +23,13 @@ namespace CryptoWatcher.Domain.Models
             decimal averageSell,
             DateTime time)
         {
+            Id = UrlHelper.BuildUrl(currencyId, indicatorId, time.ToString("O"));
             CurrencyId = currencyId;
             IndicatorId = indicatorId;
             Value = value;
             AverageBuy = averageBuy;
             AverageSell = averageSell;
             Time = time;
-        } 
+        }
     }
 }

@@ -6,27 +6,25 @@ using AutoMapper;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Services;
+using CryptoWatcher.Shared.Domain;
 using MediatR;
 
 namespace CryptoWatcher.Application.Handlers
 {
     public class GetAllLinesHandler : IRequestHandler<GetAllLinesRequest, List<LineResponse>>
     {
-        private readonly CacheService _cacheService;
+        private readonly IRepository<Line> _lineRepository;
         private readonly IMapper _mapper;
 
-        public GetAllLinesHandler(
-            CacheService cacheService,
-            IMapper mapper)
+        public GetAllLinesHandler(IRepository<Line> lineRepository, IMapper mapper)
         {
-            _cacheService = cacheService;
+            _lineRepository = lineRepository;
             _mapper = mapper;
         }
         public async Task<List<LineResponse>> Handle(GetAllLinesRequest request, CancellationToken cancellationToken)
         {
             // Get all lines
-            var lines = await _cacheService.GetFromCache<Line>(CacheKey.Lines);
+            var lines = await _lineRepository.GetAll();
 
             // Filter
             if (!string.IsNullOrEmpty(request.CurrencyId))

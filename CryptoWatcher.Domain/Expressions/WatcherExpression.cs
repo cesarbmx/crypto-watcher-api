@@ -25,11 +25,9 @@ namespace CryptoWatcher.Domain.Expressions
                 x.CurrencyId == currencyId &&
                 x.IndicatorId == indicatorId;
         }
-        public static Expression<Func<Watcher, bool>> DefaultWatcher(string watcherId)
+        public static Expression<Func<Watcher, bool>> DefaultWatcher()
         {
-            return x =>
-                x.UserId == "master" &&
-                x.Id == watcherId;
+            return x => x.UserId == "master";
         }
     }
 }

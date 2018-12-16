@@ -5,26 +5,26 @@ using AutoMapper;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Services;
+using CryptoWatcher.Shared.Domain;
 using MediatR;
 
 namespace CryptoWatcher.Application.Handlers
 {
     public class GetAllCurrenciesHandler : IRequestHandler<GetCurrenciesRequest, List<CurrencyResponse>>
     {
-        private readonly CacheService _cacheService;
+        private readonly IRepository<Currency> _currencyRepository;
         private readonly IMapper _mapper;
 
-        public GetAllCurrenciesHandler(CacheService cacheService, IMapper mapper)
+        public GetAllCurrenciesHandler(IRepository<Currency> currencyRepository, IMapper mapper)
         {
-            _cacheService = cacheService;
+            _currencyRepository = currencyRepository;
             _mapper = mapper;
         }
 
         public async Task<List<CurrencyResponse>> Handle(GetCurrenciesRequest request, CancellationToken cancellationToken)
         {
-            // Get currencies
-            var currencies = await _cacheService.GetFromCache<Currency>(CacheKey.Currencies);
+            // Get all currencies
+            var currencies = await _currencyRepository.GetAll();
 
             // Response
             var response = _mapper.Map<List<CurrencyResponse>>(currencies);

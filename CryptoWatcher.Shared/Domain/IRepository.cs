@@ -14,6 +14,8 @@ namespace CryptoWatcher.Shared.Domain
         void Add(TEntity entity);
         void AddRange(List<TEntity> entities);
         void Update(TEntity entity);
+        void UpdateRange(List<TEntity> entities);
         void Remove(TEntity entity);
+        void RemoveRange(List<TEntity> entities);
     }
 }

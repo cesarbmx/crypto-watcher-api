@@ -83,10 +83,22 @@ namespace CryptoWatcher.Persistence.Repositories
         }
         public void Update(TEntity entity)
         {
+
+        }
+        public void UpdateRange(List<TEntity> entities)
+        {
+            
         }
         public void Remove(TEntity entity)
         {
             List.Remove(entity);
+        }
+        public void RemoveRange(List<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                Remove(entity);
+            }
         }
     }
 }

@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Shared.Extensions;
 using Microsoft.Extensions.Logging;
 
@@ -15,15 +15,19 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UpdateDefaultWatchersJob> _logger;
-        private readonly CacheService _cacheService;
+        private readonly IRepository<Line> _lineRepository;
+        private readonly IRepository<Watcher> _watcherRepository;
         public UpdateDefaultWatchersJob(
             MainDbContext mainDbContext,
             ILogger<UpdateDefaultWatchersJob> logger,
-            CacheService cacheService)
+            IRepository<Line> lineRepository,
+            IRepository<Watcher> watcherRepository)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
-            _cacheService = cacheService;
+            _lineRepository = lineRepository;
+            _watcherRepository = watcherRepository;
+
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -36,18 +40,21 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Start();
 
                 // Get all lines
-                var lines = await _cacheService.GetFromCache<Line>(CacheKey.Lines);
+                var lines = await _lineRepository.GetAll();
 
                 // Build default watchers
                 var defaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);
 
-                // Set default watchers
-                await _cacheService.SetInCache(CacheKey.DefaultWatchers, defaultWatchers);
+                // Update
+                var watcher = await _watcherRepository.GetAll();
+                _watcherRepository.AddRange(EntityBuilder.BuildEntitiesToAdd(watcher, defaultWatchers));
+                _watcherRepository.UpdateRange(EntityBuilder.BuildEntitiesToUpdate(watcher, defaultWatchers));
+                _watcherRepository.RemoveRange(EntityBuilder.BuildEntitiesToRemove(watcher, defaultWatchers));
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
-                // Stpo watch
+                // Stop watch
                 stopwatch.Stop();
 
                 // Log into Splunk

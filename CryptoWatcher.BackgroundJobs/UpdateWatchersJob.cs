@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.Expressions;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Domain;
-using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;
 using Microsoft.Extensions.Logging;
@@ -17,17 +17,14 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly MainDbContext _mainDbContext;
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly ILogger<UpdateWatchersJob> _logger;
-        private readonly CacheService _cacheService;
         public UpdateWatchersJob(
             MainDbContext mainDbContext,
             IRepository<Watcher> watcherRepository,
-            ILogger<UpdateWatchersJob> logger,
-            CacheService cacheService)
+            ILogger<UpdateWatchersJob> logger)
         {
             _mainDbContext = mainDbContext;
             _watcherRepository = watcherRepository;
             _logger = logger;
-            _cacheService = cacheService;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -43,7 +40,7 @@ namespace CryptoWatcher.BackgroundJobs
                 var watchers = await _watcherRepository.GetAll();
 
                 // Get all default watchers
-                var defaultWatchers = await _cacheService.GetFromCache<Watcher>(CacheKey.DefaultWatchers);
+                var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
 
                 // Sync watchers
                 watchers.SyncWatchers(defaultWatchers);
@@ -51,7 +48,7 @@ namespace CryptoWatcher.BackgroundJobs
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
-                // Stpo watch
+                // Stop watch
                 stopwatch.Stop();
 
                 // Log into Splunk

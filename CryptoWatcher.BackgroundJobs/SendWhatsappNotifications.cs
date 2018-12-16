@@ -78,7 +78,7 @@ namespace CryptoWatcher.BackgroundJobs
                     // Save
                     await _mainDbContext.SaveChangesAsync();
 
-                    // Stpo watch
+                    // Stop watch
                     stopwatch.Stop();
 
                     // Log into Splunk

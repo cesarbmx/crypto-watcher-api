@@ -2,9 +2,9 @@
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Currency
+    public class Currency: Entity
     {
-        public string Id { get; private set; }
+        public string CurrencyId => Id;
         public string Symbol { get; private set; }
         public string Name { get; private set; }
         public short Rank { get; private set; }

@@ -5,11 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CoinMarketCap.Core;
+using CryptoWatcher.Domain.Builders;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using Microsoft.Extensions.Logging;
-using CryptoWatcher.Domain.Services;
 using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Shared.Extensions;
 
 namespace CryptoWatcher.BackgroundJobs
@@ -20,7 +21,7 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly ILogger<UpdateCurrenciesJob> _logger;
         private readonly MainDbContext _mainDbContext;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
-        private readonly CacheService _cacheService;
+        private readonly IRepository<Currency> _currencyRepository;
 
 
         public UpdateCurrenciesJob(
@@ -28,13 +29,13 @@ namespace CryptoWatcher.BackgroundJobs
             ILogger<UpdateCurrenciesJob> logger,
             MainDbContext mainDbContext,
             ICoinMarketCapClient coinMarketCapClient,
-            CacheService cacheService)
+            IRepository<Currency> currencyRepository)
         {
             _mapper = mapper;
             _logger = logger;
             _mainDbContext = mainDbContext;
             _coinMarketCapClient = coinMarketCapClient;
-            _cacheService = cacheService;
+            _currencyRepository = currencyRepository;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -58,15 +59,18 @@ namespace CryptoWatcher.BackgroundJobs
                     x.Id == "cardano").ToList();
 
                 // Build currencies
-                var currencies = _mapper.Map<List<Currency>>(result);
+                var newCurrencies = _mapper.Map<List<Currency>>(result);
 
-                // Set currencies
-                await _cacheService.SetInCache(CacheKey.Currencies, currencies);
+                // Update
+                var currencies = await _currencyRepository.GetAll();
+                _currencyRepository.AddRange(EntityBuilder.BuildEntitiesToAdd(currencies, newCurrencies));
+                _currencyRepository.UpdateRange(EntityBuilder.BuildEntitiesToUpdate(currencies, newCurrencies));
+                _currencyRepository.RemoveRange(EntityBuilder.BuildEntitiesToRemove(currencies, newCurrencies));
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
-                // Stpo watch
+                // Stop watch
                 stopwatch.Stop();
 
                 // Log into Splunk

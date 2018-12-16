@@ -45,7 +45,7 @@ namespace CryptoWatcher.BackgroundJobs
             await _updateWatchersJob.Run();
             await _updateOrdersJob.Run();
 
-            // Stpo watch
+            // Stop watch
             stopwatch.Stop();
 
             // Log into Splunk
