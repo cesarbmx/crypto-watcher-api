@@ -33,7 +33,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetAllCurrencies()
         {
             // Reponse
-            var response = await _mediator.Send(new GetCurrenciesRequest());
+            var response = await _mediator.Send(new GetAllCurrenciesRequest());
 
             // Return
             return Ok(response);

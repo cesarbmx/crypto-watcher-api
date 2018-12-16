@@ -29,7 +29,7 @@
     <Content Update="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Views\Charts\_LineChart.cshtml">
+    <Content Update="Views\Charts\_Chart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Charts\Index.cshtml">

@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model Chart
 
 <script type="text/javascript">
     google.charts.load('current', { packages: ['corechart', 'line'] });
@@ -11,7 +11,7 @@
         data.addColumn('number', 'Buy');
         data.addColumn('number', 'Sell');
 
-        data.addRows([@Html.Raw(Model)]);
+        data.addRows([@Html.Raw(Model.Rows)]);
 
         var options = {
             curveType: 'function',
@@ -50,8 +50,10 @@
             colors: ['#a52714', '#097138', '#097158']
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div_@Model.Index'));
         chart.draw(data, options);
     }
 </script>
+
+<div id="chart_div_@Model.Index" style="width: 900px; height: 500px"></div>
 

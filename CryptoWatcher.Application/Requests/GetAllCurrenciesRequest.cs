@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CryptoWatcher.Application.Requests
 {
-    public class GetCurrenciesRequest: IRequest<List<CurrencyResponse>>
+    public class GetAllCurrenciesRequest: IRequest<List<CurrencyResponse>>
     {
         
     }

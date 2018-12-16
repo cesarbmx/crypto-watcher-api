@@ -7,7 +7,6 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.1.1" />
     <PackageReference Include="MediatR" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>

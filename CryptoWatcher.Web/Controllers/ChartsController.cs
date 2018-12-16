@@ -1,7 +1,7 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using CryptoWatcher.Application.Requests;
+using CryptoWatcher.Web.Builders;
 using Microsoft.AspNetCore.Mvc;
 using CryptoWatcher.Web.Models;
 using MediatR;
@@ -19,23 +19,20 @@ namespace CryptoWatcher.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // Reponse
-            var response = await _mediator.Send(new GetAllLinesRequest());
+            // Get all currrencies
+            var currencies = await _mediator.Send(new GetAllCurrenciesRequest());
 
-            var chartValue = string.Empty;
-            var index = 0;
-            foreach (var item in response)
-            {
-                item.Time = item.Time.AddMinutes(index);
-                var dateTime = $"new Date({item.Time.Year},{item.Time.Month},{item.Time.Day},{item.Time.Hour},{item.Time.Minute})";
-                chartValue += ", " + $"[{dateTime}, {item.Value}, {item.AverageBuy}, {item.AverageSell}]";
-                index = index + new Random().Next(60,90);
-            }
+            // Get all indicators
+            var indicators = await _mediator.Send(new GetAllIndicatorsRequest{UserId = "master"});
 
-            if (!string.IsNullOrEmpty(chartValue)) chartValue = chartValue.Substring(2);
+            // Get all lines
+            var lines = await _mediator.Send(new GetAllLinesRequest());
+
+           // ViewModel
+            var chartViewModel = ChartBuilder.BuildChartViewModel(currencies, indicators, lines);
 
             // Return
-            return View("Index", chartValue);
+            return View("Index", chartViewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
