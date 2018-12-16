@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using CryptoWatcher.Shared.Helpers;
 
 
@@ -23,7 +22,7 @@ namespace CryptoWatcher.Domain.Models
             decimal averageSell,
             DateTime time)
         {
-            Id = UrlHelper.BuildUrl(currencyId, indicatorId, time.ToString("O"));
+            Id = UrlHelper.BuildUrl(currencyId, indicatorId) + time.ToString("O");
             CurrencyId = currencyId;
             IndicatorId = indicatorId;
             Value = value;
