@@ -28,6 +28,11 @@ namespace CryptoWatcher.Persistence.Repositories
             // Get all by expression
             return await _repository.GetAll(expression);
         }
+        public async Task<List<TEntity>> GetAllNewest()
+        {
+            // Get newest
+            return await _repository.GetAllNewest();
+        }
         public async Task<TEntity> GetSingle(string id)
         {
             // Get by id

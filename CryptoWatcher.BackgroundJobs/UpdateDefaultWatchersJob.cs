@@ -41,7 +41,7 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Start();
 
                 // Get all lines
-                var lines = await _lineRepository.GetAll();
+                var lines = await _lineRepository.GetAllNewest();
 
                 // Build default watchers
                 var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);
