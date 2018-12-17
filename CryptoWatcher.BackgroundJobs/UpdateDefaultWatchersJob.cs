@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.Expressions;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
@@ -43,13 +44,13 @@ namespace CryptoWatcher.BackgroundJobs
                 var lines = await _lineRepository.GetAll();
 
                 // Build default watchers
-                var defaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);
+                var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);
 
                 // Update
-                var watcher = await _watcherRepository.GetAll();
-                _watcherRepository.AddRange(EntityBuilder.BuildEntitiesToAdd(watcher, defaultWatchers));
-                _watcherRepository.UpdateRange(EntityBuilder.BuildEntitiesToUpdate(watcher, defaultWatchers));
-                _watcherRepository.RemoveRange(EntityBuilder.BuildEntitiesToRemove(watcher, defaultWatchers));
+                var watchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
+                _watcherRepository.RemoveRange(watchers);
+                _watcherRepository.AddRange(newDefaultWatchers);
+              
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
@@ -60,7 +61,7 @@ namespace CryptoWatcher.BackgroundJobs
                 // Log into Splunk
                 _logger.LogSplunkInformation(new
                 {
-                    defaultWatchers.Count,
+                    newDefaultWatchers.Count,
                     ExecutionTime = stopwatch.Elapsed.TotalSeconds
                 });
 

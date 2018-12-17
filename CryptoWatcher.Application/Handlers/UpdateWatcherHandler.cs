@@ -43,6 +43,7 @@ namespace CryptoWatcher.Application.Handlers
 
             // Update
             watcher.Update(request.Buy, request.Sell, request.Enabled);
+            _watcherRepository.Update(watcher);
 
             // Save
             await _mainDbContext.SaveChangesAsync(cancellationToken);

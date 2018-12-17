@@ -44,7 +44,6 @@
 
   <ItemGroup>
     <Content Remove="appsettings.develop.json" />
-    <Content Remove="appsettings.release.json" />
   </ItemGroup>
 
   <ItemGroup>

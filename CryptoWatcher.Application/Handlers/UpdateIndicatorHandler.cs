@@ -43,6 +43,7 @@ namespace CryptoWatcher.Application.Handlers
 
             // Update
             indicator.Update(request.Name, request.Description, request.Formula);
+            _indicatorRepository.Update(indicator);
 
             // Save
             await _mainDbContext.SaveChangesAsync(cancellationToken);

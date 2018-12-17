@@ -37,10 +37,6 @@ namespace CryptoWatcher.Persistence.Repositories
                         newValue = logEntry.ModelJsonToObject<TEntity>();
                         List.Add(newValue);
                         break;
-                    case "AddRange":
-                        var newValues = logEntry.ModelJsonToObject<List<TEntity>>();
-                        List.AddRange(newValues);
-                        break;
                     case "Update":
                         newValue = logEntry.ModelJsonToObject<TEntity>();
                         originalValue = GetSingle(newValue.Id).Result;

@@ -43,33 +43,31 @@ namespace CryptoWatcher.Persistence.Repositories
             // Add
             _repository.Add(entity);
 
-            // Add log
-            _logRepository.Add(new Log("Add", entity,  entity.Id, entity.CreatedBy, entity.CreationTime));
+            // Log
+            _logRepository.Add(new Log("Add", entity, entity.Id, entity.CreatedBy, entity.CreationTime));
         }
         public void AddRange(List<TEntity> entities)
         {
             // Return if no entities
             if (entities.Count == 0) return;
 
-            // Add range
+            // Add
             _repository.AddRange(entities);
 
+            // Log
             foreach (var entity in entities)
             {
-                // Add log
-                _logRepository.Add(new Log("Add", entities, entity.Id, entity.CreatedBy, entity.CreationTime));
+                Add(entity);
             }
         }
         public void Update(TEntity entity)
         {
-            // Update
-            _repository.Update(entity);
-
-            // Add log
-            _logRepository.Add(new Log("Update", entity,  entity.Id, entity.CreatedBy, entity.CreationTime));
+            // Log
+            _logRepository.Add(new Log("Update", entity, entity.Id, entity.CreatedBy, entity.CreationTime));
         }
         public void UpdateRange(List<TEntity> entities)
         {
+            // Log
             foreach (var entity in entities)
             {
                 Update(entity);
@@ -80,11 +78,12 @@ namespace CryptoWatcher.Persistence.Repositories
             // Remove
             _repository.Remove(entity);
 
-            // Add log
+            // Log
             _logRepository.Add(new Log("Remove", entity, entity.Id, entity.CreatedBy, entity.CreationTime));
         }
         public void RemoveRange(List<TEntity> entities)
         {
+            // Remove
             foreach (var entity in entities)
             {
                 Remove(entity);
