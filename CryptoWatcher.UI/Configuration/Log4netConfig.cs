@@ -5,7 +5,7 @@ using log4net.Config;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace CryptoWatcher.Web.Configuration
+namespace CryptoWatcher.UI.Configuration
 {
     public static class Log4NetConfig
     {

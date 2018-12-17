@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using CryptoWatcher.Web.Models;
+using CryptoWatcher.UI.Models;
 
-namespace CryptoWatcher.Web.Controllers
+namespace CryptoWatcher.UI.Controllers
 {
     public class HomeController : Controller
     {

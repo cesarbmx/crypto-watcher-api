@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace CryptoWatcher.Web
+namespace CryptoWatcher.UI
 {
     public class Program
     {

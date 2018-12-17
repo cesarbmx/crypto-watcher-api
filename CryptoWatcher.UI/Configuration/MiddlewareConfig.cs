@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using CryptoWatcher.Web.Middlewares;
+using CryptoWatcher.UI.Middlewares;
 
-namespace CryptoWatcher.Web.Configuration
+namespace CryptoWatcher.UI.Configuration
 {
     public static class MiddlewareConfig
     {

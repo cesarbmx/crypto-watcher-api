@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 
-namespace CryptoWatcher.Web.Models
+namespace CryptoWatcher.UI.Models
 {
     public class ChartViewModel
     {

@@ -7,7 +7,7 @@ using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Extensions;
 using Version = CryptoWatcher.Domain.Models.Version;
 
-namespace CryptoWatcher.Web.Configuration
+namespace CryptoWatcher.UI.Configuration
 {
     public static class AutomapperConfig
     {

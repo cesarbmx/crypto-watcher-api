@@ -10,7 +10,7 @@ using CryptoWatcher.Shared.Exceptions;
 using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Shared.Extensions;
 
-namespace CryptoWatcher.Web.Middlewares
+namespace CryptoWatcher.UI.Middlewares
 {
     public class ErrorHandlingMiddleware
     {

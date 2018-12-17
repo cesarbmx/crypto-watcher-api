@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CryptoWatcher.Web.Configuration
+namespace CryptoWatcher.UI.Configuration
 {
     public static class DependecyInjectionConfig
     {

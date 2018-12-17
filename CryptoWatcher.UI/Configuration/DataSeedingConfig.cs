@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CryptoWatcher.Web.Configuration
+namespace CryptoWatcher.UI.Configuration
 {
     public static class DataSeedingConfig
     {

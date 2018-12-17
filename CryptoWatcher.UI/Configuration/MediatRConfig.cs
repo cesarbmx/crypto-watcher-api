@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
 
-namespace CryptoWatcher.Web.Configuration
+namespace CryptoWatcher.UI.Configuration
 {
     public static class MediatRConfig
     {

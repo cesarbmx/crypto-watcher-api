@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using CryptoWatcher.Application.Requests;
-using CryptoWatcher.Web.Builders;
+using CryptoWatcher.UI.Builders;
 using Microsoft.AspNetCore.Mvc;
-using CryptoWatcher.Web.Models;
+using CryptoWatcher.UI.Models;
 using MediatR;
 
-namespace CryptoWatcher.Web.Controllers
+namespace CryptoWatcher.UI.Controllers
 {
     public class ChartsController : Controller
     {

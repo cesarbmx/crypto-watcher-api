@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Web.Models;
+using CryptoWatcher.UI.Models;
 
 
-namespace CryptoWatcher.Web.Builders
+namespace CryptoWatcher.UI.Builders
 {
     public static class ChartBuilder
     {

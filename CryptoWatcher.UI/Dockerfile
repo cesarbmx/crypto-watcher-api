@@ -5,16 +5,16 @@ EXPOSE 443
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY ["CryptoWatcher.Web/CryptoWatcher.Web.csproj", "CryptoWatcher.Web/"]
-RUN dotnet restore "CryptoWatcher.Web/CryptoWatcher.Web.csproj"
+COPY ["CryptoWatcher.UI/CryptoWatcher.UI.csproj", "CryptoWatcher.UI/"]
+RUN dotnet restore "CryptoWatcher.UI/CryptoWatcher.UI.csproj"
 COPY . .
-WORKDIR "/src/CryptoWatcher.Web"
-RUN dotnet build "CryptoWatcher.Web.csproj" -c Release -o /app
+WORKDIR "/src/CryptoWatcher.UI"
+RUN dotnet build "CryptoWatcher.UI.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "CryptoWatcher.Web.csproj" -c Release -o /app
+RUN dotnet publish "CryptoWatcher.UI.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "CryptoWatcher.Web.dll"]
+ENTRYPOINT ["dotnet", "CryptoWatcher.UI.dll"]
