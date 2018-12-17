@@ -14,7 +14,7 @@ namespace CryptoWatcher.Domain.Expressions
         }
         public static Expression<Func<Line, bool>> OldLine()
         {
-            return x => x.CreationTime < DateTime.UtcNow.AddDays(-7);
+            return x => x.CreationTime < DateTime.Now.AddDays(-7);
         }
     }
 }

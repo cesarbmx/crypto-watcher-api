@@ -24,12 +24,10 @@ namespace CryptoWatcher.Domain.Builders
                     watcher.UserId,
                     watcher.CurrencyId,
                     watcher.WatcherId,
-                    orderType).Compile()).ToList();
-                if (userOrders.Count == 0)
-                {
-                    var order = new Order(watcher.UserId, watcher.CurrencyId, watcher.WatcherId, orderType, 100);
-                    newOrders.Add(order);
-                }
+                    orderType).Compile()).ToList();                
+                if (userOrders.Count != 0) continue;
+                var order = new Order(watcher.UserId, watcher.CurrencyId, watcher.WatcherId, orderType, 100);
+                newOrders.Add(order);
             }
 
             // Return

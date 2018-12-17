@@ -10,7 +10,7 @@ namespace CryptoWatcher.Domain.Builders
         public static List<Line> BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers)
         {
             var lines = new List<Line>();
-            var time = DateTime.UtcNow;
+            var time = DateTime.Now;
 
             foreach (var currency in currencies)
             {

@@ -15,7 +15,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 Value = 1.5m,
                 AverageBuy = 15,
                 AverageSell = 8,
-                Time = DateTime.UtcNow.AddHours(-1)
+                Time = DateTime.Now.AddHours(-1)
             };
         }
         public static LineResponse GetFake_2()

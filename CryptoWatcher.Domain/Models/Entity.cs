@@ -11,11 +11,14 @@ namespace CryptoWatcher.Domain.Models
         //public User LastModifiedBy { get; set; }
         //public DateTime LastModificationTime { get; set; }
 
-        protected Entity() { }
+        protected Entity()
+        {
+            CreationTime = DateTime.Now;
+        }
         protected Entity(string createdBy)
         {
             CreatedBy = createdBy;
-            CreationTime = DateTime.UtcNow;
+            CreationTime = DateTime.Now;
         }
     }
 }

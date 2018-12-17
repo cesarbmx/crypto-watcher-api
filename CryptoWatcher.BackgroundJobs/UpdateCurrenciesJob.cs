@@ -23,7 +23,6 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly ICoinMarketCapClient _coinMarketCapClient;
         private readonly IRepository<Currency> _currencyRepository;
 
-
         public UpdateCurrenciesJob(
             IMapper mapper,
             ILogger<UpdateCurrenciesJob> logger,
