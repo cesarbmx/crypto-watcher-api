@@ -66,14 +66,8 @@ namespace CryptoWatcher.BackgroundJobs
                 // Add
                 _currencyRepository.AddRange(EntityBuilder.BuildEntitiesToAdd(currencies, newCurrencies));
 
-                // Save
-                await _mainDbContext.SaveChangesAsync();
-
                 // Update
                 _currencyRepository.UpdateRange(EntityBuilder.BuildEntitiesToUpdate(currencies, newCurrencies));
-
-                // Save
-                await _mainDbContext.SaveChangesAsync();
 
                 // Remove
                 _currencyRepository.RemoveRange(EntityBuilder.BuildEntitiesToRemove(currencies, newCurrencies));
