@@ -54,15 +54,11 @@ namespace CryptoWatcher.Persistence.Repositories
         }
         public void Update(TEntity entity)
         {
-            // Update
-            _dbSet.Update(entity);
+            
         }
         public void UpdateRange(List<TEntity> entities)
         {
-            foreach (var entity in entities)
-            {
-                Update(entity);
-            }
+           
         }
         public void Remove(TEntity entity)
         {

@@ -46,11 +46,23 @@ namespace CryptoWatcher.BackgroundJobs
                 // Build default watchers
                 var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);
 
-                // Update
+                // Get all watchers
                 var watchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
-                _watcherRepository.RemoveRange(watchers);
-                _watcherRepository.AddRange(newDefaultWatchers);
-              
+
+                // Add
+                _watcherRepository.AddRange(EntityBuilder.BuildEntitiesToAdd(watchers, newDefaultWatchers));
+
+                // Save
+                await _mainDbContext.SaveChangesAsync();
+
+                // Update
+                _watcherRepository.UpdateRange(EntityBuilder.BuildEntitiesToUpdate(watchers, newDefaultWatchers));
+
+                // Save
+                await _mainDbContext.SaveChangesAsync();
+
+                // Remove
+                _watcherRepository.RemoveRange(EntityBuilder.BuildEntitiesToRemove(watchers, newDefaultWatchers));
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

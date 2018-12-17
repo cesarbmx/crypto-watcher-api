@@ -15,6 +15,9 @@ namespace CryptoWatcher.Domain.Builders
 
             foreach (var watcher in watchers)
             {
+                // We skip default watchers
+                if(watcher.UserId == "master") continue;
+
                 // We add an order if there are no similar orders
                 var orderType = BuildOrderType(watcher.Status);
                 var userOrders = ongoingOrders.Where(OrderExpression.Order(
