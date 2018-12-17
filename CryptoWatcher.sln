@@ -35,8 +35,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.BackgroundJob
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Application", "CryptoWatcher.Application\CryptoWatcher.Application.csproj", "{8D834433-08CF-4210-9689-3F900D659279}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoWatcher.Web", "CryptoWatcher.Web\CryptoWatcher.Web.csproj", "{2E0B43ED-AF02-4616-A9EC-CD48128AD2F9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,16 +149,6 @@ Global
 		{8D834433-08CF-4210-9689-3F900D659279}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8D834433-08CF-4210-9689-3F900D659279}.Staging|Any CPU.ActiveCfg = Debug|Any CPU
 		{8D834433-08CF-4210-9689-3F900D659279}.Staging|Any CPU.Build.0 = Debug|Any CPU
-		{2E0B43ED-AF02-4616-A9EC-CD48128AD2F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E0B43ED-AF02-4616-A9EC-CD48128AD2F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E0B43ED-AF02-4616-A9EC-CD48128AD2F9}.Develop|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E0B43ED-AF02-4616-A9EC-CD48128AD2F9}.Develop|Any CPU.Build.0 = Debug|Any CPU
-		{2E0B43ED-AF02-4616-A9EC-CD48128AD2F9}.Production|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E0B43ED-AF02-4616-A9EC-CD48128AD2F9}.Production|Any CPU.Build.0 = Debug|Any CPU
-		{2E0B43ED-AF02-4616-A9EC-CD48128AD2F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E0B43ED-AF02-4616-A9EC-CD48128AD2F9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E0B43ED-AF02-4616-A9EC-CD48128AD2F9}.Staging|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E0B43ED-AF02-4616-A9EC-CD48128AD2F9}.Staging|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -176,7 +164,6 @@ Global
 		{D5CC79ED-15ED-4DC5-BC63-C577D69BDA5A} = {71BFA55D-3DFE-4974-94FC-59A45F3A43D1}
 		{310AD7C4-805D-4C21-BC0C-A8ACCAAF9747} = {6D816786-75FE-4A8E-90ED-47E01BE80C02}
 		{8D834433-08CF-4210-9689-3F900D659279} = {1C3DE5BC-D4BF-437C-B9E2-FF1049025709}
-		{2E0B43ED-AF02-4616-A9EC-CD48128AD2F9} = {71BFA55D-3DFE-4974-94FC-59A45F3A43D1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7CCEAABE-45B4-414D-A0A5-108B4DDEC89E}

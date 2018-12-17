@@ -10,6 +10,7 @@
     <Product>CryptoWatcher API</Product>
     <PackageId>CryptoWatcherApi</PackageId>
     <Authors>cesarbmx</Authors>
+    <UserSecretsId>ecdec8ee-e25b-4673-8b1f-e48a1fd17e67</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

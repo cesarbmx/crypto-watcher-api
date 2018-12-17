@@ -24,15 +24,18 @@ namespace CryptoWatcher.Service.Configuration
             var mainJob = serviceProvider.GetService<MainJob>();
             var sendWhatsappNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();
             var sendTelegramNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();
+            var removeLinesJob = serviceProvider.GetService<RemoveLinesJob>();
 
             RecurringJob.AddOrUpdate("Main", () => mainJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));           
             RecurringJob.AddOrUpdate("Send whatsapp notifications", () => sendWhatsappNotificationsJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
             RecurringJob.AddOrUpdate("Send telegram notifications", () => sendTelegramNotificationsJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate("Remove lines", () => removeLinesJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
 
             // Run them on startup
             BackgroundJob.Enqueue(() => mainJob.Run());
             BackgroundJob.Enqueue(() => sendWhatsappNotificationsJob.Run());
             BackgroundJob.Enqueue(() => sendTelegramNotificationsJob.Run());
+            BackgroundJob.Enqueue(() => removeLinesJob.Run());
         }
     }
     public class HangfireActivator : JobActivator

@@ -28,11 +28,13 @@ namespace CryptoWatcher.Api.Configuration
             RecurringJob.AddOrUpdate<MainJob>("Main", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
             RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
             RecurringJob.AddOrUpdate<SendTelgramNotifications>("Send telegram notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate<RemoveLinesJob>("Remove lines", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
 
             // Run them on startup
             BackgroundJob.Enqueue<MainJob>(x => x.Run());
             BackgroundJob.Enqueue<SendWhatsappNotificationsJob>(x => x.Run());
             BackgroundJob.Enqueue<SendTelgramNotifications>(x => x.Run());
+            BackgroundJob.Enqueue<RemoveLinesJob>(x => x.Run());
 
             return app;
         }
