@@ -12,7 +12,7 @@ namespace CryptoWatcher.Domain.Expressions
                 x.CurrencyId == currencyId &&
                 x.IndicatorId == indicatorId;
         }
-        public static Expression<Func<Line, bool>> OldLine()
+        public static Expression<Func<Line, bool>> ObsoleteLine()
         {
             return x => x.CreationTime < DateTime.Now.AddDays(-7);
         }
