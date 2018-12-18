@@ -15,11 +15,13 @@ namespace CryptoWatcher.Service.Configuration
     {
         public static IServiceCollection ConfigureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddScoped<IPinnacleTokenService<CryptoWatcherPermission>, PinnacleTokenService<CryptoWatcherPermission>>();
-
             //Contexts (UOW)
-            //services.AddDbContext<MainDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("CryptoWatcher")));
-            services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("CryptoWatcher"), ServiceLifetime.Transient);
+            //services.AddDbContext<MainDbContext>(options => options
+            //    .UseSqlServer(configuration.GetConnectionString("CryptoWatcher"))
+            //    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+            services.AddDbContext<MainDbContext>(options => options
+                .UseInMemoryDatabase("CryptoWatcher")
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
 
             // Repositories

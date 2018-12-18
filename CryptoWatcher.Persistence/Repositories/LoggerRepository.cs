@@ -69,7 +69,7 @@ namespace CryptoWatcher.Persistence.Repositories
         }
         public void UpdateRange(List<TEntity> entities)
         {
-            // Log
+            // Update
             foreach (var entity in entities)
             {
                 Update(entity);
