@@ -46,11 +46,11 @@ namespace CryptoWatcher.BackgroundJobs
                 // Build default watchers
                 var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);
 
-                // Get all watchers
-                var watchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
+                // Get all default watchers
+                var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
 
                 // Remove
-                _watcherRepository.RemoveRange(watchers);
+                _watcherRepository.RemoveRange(defaultWatchers);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
