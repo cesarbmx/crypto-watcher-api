@@ -56,11 +56,11 @@ namespace CryptoWatcher.Persistence.Repositories
         }
         public void AddRange(List<TEntity> entities)
         {
-            // Return if no entities
-            if (entities.Count == 0) return;
-
-            // Add range
-            _dbSet.AddRange(entities);
+            // Add
+            foreach (var entity in entities)
+            {
+                Add(entity);
+            }
         }
         public void Update(TEntity entity)
         {
@@ -77,6 +77,7 @@ namespace CryptoWatcher.Persistence.Repositories
         }
         public void RemoveRange(List<TEntity> entities)
         {
+            // Remove
             foreach (var entity in entities)
             {
                 Remove(entity);

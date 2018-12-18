@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CoinMarketCap.Core;
-using CryptoWatcher.Domain.Builders;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using Microsoft.Extensions.Logging;
@@ -63,14 +62,14 @@ namespace CryptoWatcher.BackgroundJobs
                 // Get all currencies
                 var currencies = await _currencyRepository.GetAll();
 
+                // Remove 
+                _currencyRepository.RemoveRange(currencies);
+
+                // Save
+                await _mainDbContext.SaveChangesAsync();
+
                 // Add
-                _currencyRepository.AddRange(EntityBuilder.BuildEntitiesToAdd(currencies, newCurrencies));
-
-                // Update
-                _currencyRepository.UpdateRange(EntityBuilder.BuildEntitiesToUpdate(currencies, newCurrencies));
-
-                // Remove
-                _currencyRepository.RemoveRange(EntityBuilder.BuildEntitiesToRemove(currencies, newCurrencies));
+                _currencyRepository.AddRange(newCurrencies);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

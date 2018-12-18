@@ -44,10 +44,10 @@ namespace CryptoWatcher.BackgroundJobs
                 // Get all orders
                 var orders = await _orderRepository.GetAll();
 
-                // Build new orders from watchers
+                // Build new orders
                 var newOrders = OrderBuilder.BuildNewOrders(watchers, orders);
 
-                // Place new orders
+                // Add
                 _orderRepository.AddRange(newOrders);
 
                 // Save
