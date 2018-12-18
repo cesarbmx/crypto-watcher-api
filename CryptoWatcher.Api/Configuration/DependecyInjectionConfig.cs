@@ -8,13 +8,14 @@ using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Shared.Providers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CryptoWatcher.Api.Configuration
 {
     public static class DependecyInjectionConfig
     {
-        public static IServiceCollection ConfigureDependencies(this IServiceCollection services)
+        public static IServiceCollection ConfigureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             //Contexts (UOW)
             //services.AddDbContext<MainDbContext>(options => options

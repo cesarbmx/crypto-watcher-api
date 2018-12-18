@@ -1,9 +1,12 @@
-﻿
+﻿using System;
+using CryptoWatcher.Shared.Domain;
+
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Currency: Entity
+    public class Currency: IEntity
     {
+        public string Id { get; private set; }
         public string CurrencyId => Id;
         public string Symbol { get; private set; }
         public string Name { get; private set; }
@@ -12,6 +15,8 @@ namespace CryptoWatcher.Domain.Models
         public decimal MarketCap { get; private set; }
         public decimal Volume24H { get; private set; }
         public decimal PercentageChange24H { get; private set; }
+        public string CreatedBy { get; private set; }
+        public DateTime CreationTime { get; private set; }
 
         public Currency() { }
         public Currency(
@@ -33,6 +38,8 @@ namespace CryptoWatcher.Domain.Models
             Volume24H = volume24H;
             MarketCap = marketCap;
             PercentageChange24H = percentageChange24H;
+            CreatedBy = "system";
+            CreationTime = DateTime.Now;
         }
     }
 }

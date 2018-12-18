@@ -10,7 +10,7 @@ using CryptoWatcher.Shared.Providers;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public class AuditRepository<TEntity> : IRepository<TEntity> where TEntity: Entity
+    public class AuditRepository<TEntity> : IRepository<TEntity> where TEntity: IEntity
     {
         protected readonly List<TEntity> List;
         private readonly IRepository<Log> _logRepository;

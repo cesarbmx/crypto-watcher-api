@@ -8,7 +8,15 @@ namespace CryptoWatcher.Persistence.Mappings
     {
         public OrderMap(EntityTypeBuilder<Order> entityBuilder)
         {
+            // Key
+            entityBuilder.HasKey(t => t.Id);
+
             // Properties
+            entityBuilder.Property(t => t.Id)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
             entityBuilder.Property(t => t.UserId)
                     .HasColumnType("nvarchar")
                     .HasMaxLength(50)
@@ -34,6 +42,15 @@ namespace CryptoWatcher.Persistence.Mappings
 
             entityBuilder.Property(t => t.Status)
                 .HasColumnType("smallint")
+                .IsRequired();
+
+            entityBuilder.Property(t => t.CreatedBy)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entityBuilder.Property(t => t.CreationTime)
+                .HasColumnType("datetime")
                 .IsRequired();
         }
     }

@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CryptoWatcher.Domain.Expressions;
-using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Shared.Domain;
 
 
 namespace CryptoWatcher.Domain.Builders
 {
     public static class EntityBuilder
     {
-        public static List<T> BuildEntitiesToAdd<T>(List<T> entities, List<T> newEntities) where T : Entity
+        public static List<T> BuildEntitiesToAdd<T>(List<T> entities, List<T> newEntities) where T : class, IEntity
         {
             // Add those not found in the list
             var entitiesToAdd = new List<T>();
@@ -21,7 +21,7 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return entitiesToAdd;
         }
-        public static List<T> BuildEntitiesToUpdate<T>(List<T> entities, List<T> newEntities) where T : Entity
+        public static List<T> BuildEntitiesToUpdate<T>(List<T> entities, List<T> newEntities) where T : class, IEntity
         {
             // Update those found in the list
             var entitiesToUpdate= new List<T>();
@@ -34,7 +34,7 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return entitiesToUpdate;
         }
-        public static List<T> BuildEntitiesToRemove<T>(List<T> entities, List<T> newEntities) where T : Entity
+        public static List<T> BuildEntitiesToRemove<T>(List<T> entities, List<T> newEntities) where T : class, IEntity
         {
             // Remove those no longer in the list
             var entitiesToRemove = new List<T>();

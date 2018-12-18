@@ -8,7 +8,15 @@ namespace CryptoWatcher.Persistence.Mappings
     {
         public NotificationMap(EntityTypeBuilder<Notification> entityBuilder)
         {
+            // Key
+            entityBuilder.HasKey(t => t.Id);
+
             // Properties
+            entityBuilder.Property(t => t.Id)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
             entityBuilder.Property(t => t.UserId)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
@@ -25,6 +33,15 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.WhatsappSentTime)
+                .HasColumnType("datetime")
+                .IsRequired();
+
+            entityBuilder.Property(t => t.CreatedBy)
+                .HasColumnType("nvarchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entityBuilder.Property(t => t.CreationTime)
                 .HasColumnType("datetime")
                 .IsRequired();
         }

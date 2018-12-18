@@ -6,11 +6,10 @@ using CryptoWatcher.Shared.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly DbSet<TEntity> _dbSet;
 

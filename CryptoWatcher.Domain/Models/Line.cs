@@ -1,17 +1,20 @@
 ﻿using System;
+using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Shared.Helpers;
 
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Line : Entity
+    public class Line : IEntity
     {
+        public string Id { get; private set; }
         public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
         public decimal Value { get; private set; }
         public decimal AverageBuy { get; private set; }
         public decimal AverageSell { get; private set; }
-        public DateTime Time => CreationTime;
+        public string CreatedBy { get; private set; }
+        public DateTime CreationTime { get; private set; }
 
         public Line() { }
         public Line(
@@ -28,6 +31,7 @@ namespace CryptoWatcher.Domain.Models
             Value = value;
             AverageBuy = averageBuy;
             AverageSell = averageSell;
+            CreatedBy = "system";
             CreationTime = creationTime;
         }
     }

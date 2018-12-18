@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public class LoggerRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
+    public class LoggerRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly Repository<TEntity> _repository;
         private readonly IRepository<Log> _logRepository;

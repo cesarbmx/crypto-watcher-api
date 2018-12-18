@@ -1,10 +1,12 @@
 ﻿using System;
+using CryptoWatcher.Shared.Domain;
 
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Order : Entity
+    public class Order : IEntity
     {
+        public string Id { get; private set; }
         public string OrderId => Id;
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
@@ -12,6 +14,8 @@ namespace CryptoWatcher.Domain.Models
         public OrderType OrderType { get; private set; }
         public decimal Quantity { get; private set; }
         public OrderStatus Status { get; private set; }
+        public string CreatedBy { get; private set; }
+        public DateTime CreationTime { get; private set; }
 
         public Order() { }
         public Order(
@@ -30,6 +34,7 @@ namespace CryptoWatcher.Domain.Models
             Quantity = quantity;
             Status = OrderStatus.Pending;
             CreatedBy = userId;
+            CreationTime = DateTime.Now;
         }
     }
 }

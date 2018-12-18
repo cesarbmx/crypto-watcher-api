@@ -16,7 +16,6 @@ namespace CryptoWatcher.Persistence.Contexts
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new EntityMap(modelBuilder.Entity<Entity>());
             new LineMap(modelBuilder.Entity<Line>());
             new LogMap(modelBuilder.Entity<Log>());
             new CurrencyMap(modelBuilder.Entity<Currency>());

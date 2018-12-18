@@ -32,7 +32,7 @@ namespace CryptoWatcher.Api
             services.ConfigureSwagger();
 
             // DI
-            services.ConfigureDependencies();
+            services.ConfigureDependencies(Configuration);
 
             // MediatR
             services.ConfigureMediatR();

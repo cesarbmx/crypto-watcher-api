@@ -1,11 +1,14 @@
-﻿using CryptoWatcher.Domain.Builders;
+﻿using System;
+using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Shared.Helpers;
 
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Watcher : Entity
+    public class Watcher : IEntity
     {
+        public string Id { get; private set; }
         public string WatcherId => Id;
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
@@ -16,6 +19,9 @@ namespace CryptoWatcher.Domain.Models
         public decimal AverageBuy { get; private set; }
         public decimal AverageSell { get; private set; }
         public bool Enabled { get; private set; }
+        public string CreatedBy { get; private set; }
+        public DateTime CreationTime { get; private set; }
+
         public WatcherStatus Status => WatcherBuilder.BuildStatus(Value, Buy, Sell);
 
         public Watcher() { }
@@ -41,6 +47,7 @@ namespace CryptoWatcher.Domain.Models
             AverageSell = averageSell;
             Enabled = enabled;
             CreatedBy = userId;
+            CreationTime = DateTime.Now;
         }
 
         public Watcher Update(decimal buy, decimal sell, bool enabled)
