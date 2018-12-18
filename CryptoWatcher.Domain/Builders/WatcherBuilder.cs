@@ -76,5 +76,12 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return watchers;
         }
+        public static List<Watcher> FilterWatchers(this List<Watcher> watchers, string indicatorId)
+        {
+            if (!string.IsNullOrEmpty(indicatorId))
+                watchers = watchers.Where(x => x.IndicatorId == indicatorId).ToList();
+
+            return watchers;
+        }
     }
 }

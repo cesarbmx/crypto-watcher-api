@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CryptoWatcher.Domain.Models;
 
 
@@ -26,6 +27,15 @@ namespace CryptoWatcher.Domain.Builders
 
             // Return
             return lines;
-        }       
+        }
+        public static List<Line> FilterLines(this List<Line> lines, string currencyId, string indicatorId)
+        {
+            if (!string.IsNullOrEmpty(currencyId))
+                lines = lines.Where(x => x.CurrencyId == currencyId).ToList();
+            if (!string.IsNullOrEmpty(indicatorId))
+                lines = lines.Where(x => x.IndicatorId == indicatorId).ToList();
+
+            return lines;
+        }
     }
 }

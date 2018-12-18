@@ -6,10 +6,10 @@ namespace CryptoWatcher.Domain.Expressions
 {
     public static class LineExpression
     {
-        public static Expression<Func<Line, bool>> Line(string currencyId, string indicatorId)
+        public static Expression<Func<Line, bool>> Filter(string currencyId, string indicatorId)
         {
             return x =>
-                x.CurrencyId == currencyId &&
+                string.IsNullOrEmpty(currencyId) && x.CurrencyId == currencyId ||
                 x.IndicatorId == indicatorId;
         }
         public static Expression<Func<Line, bool>> ObsoleteLine()

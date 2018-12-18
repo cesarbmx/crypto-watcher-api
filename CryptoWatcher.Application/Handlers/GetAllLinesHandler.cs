@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Domain;
 using MediatR;
@@ -27,10 +27,7 @@ namespace CryptoWatcher.Application.Handlers
             var lines = await _lineRepository.GetAll();
 
             // Filter
-            if (!string.IsNullOrEmpty(request.CurrencyId))
-                lines = lines.Where(x => x.CurrencyId == request.CurrencyId).ToList();
-            if (!string.IsNullOrEmpty(request.IndicatorId))
-                lines = lines.Where(x => x.IndicatorId == request.IndicatorId).ToList();
+            lines.FilterLines(request.CurrencyId, request.IndicatorId);
 
             // Response
             var response = _mapper.Map<List<LineResponse>>(lines);

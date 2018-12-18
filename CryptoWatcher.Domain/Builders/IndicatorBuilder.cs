@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
 
 
@@ -60,7 +61,7 @@ namespace CryptoWatcher.Domain.Builders
         public static decimal BuildAverageBuy(Currency currency, Indicator indicator, List<Watcher> watchers)
         {
             // Pick watchers for the given currency/indicator
-            watchers = watchers.Where(x => x.CurrencyId == currency.CurrencyId && x.IndicatorId == indicator.IndicatorId).ToList();
+            watchers = watchers.Where(WatcherExpression.Filter(currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
 
             // Return zero if there are no watchers
             if (watchers.Count == 0) return 0m;

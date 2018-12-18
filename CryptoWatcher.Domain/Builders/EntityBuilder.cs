@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
 
 
@@ -13,7 +14,7 @@ namespace CryptoWatcher.Domain.Builders
             var entitiesToAdd = new List<T>();
             foreach (var newEntity in newEntities)
             {
-                if (entities.FirstOrDefault(x => x.Id == newEntity.Id) == null)
+                if (entities.FirstOrDefault(EntityExpression.Entity(newEntity.Id).Compile()) == null)
                     entitiesToAdd.Add(newEntity);
             }
 
@@ -26,7 +27,7 @@ namespace CryptoWatcher.Domain.Builders
             var entitiesToUpdate= new List<T>();
             foreach (var newEntity in newEntities)
             {
-                if (entities.FirstOrDefault(x => x.Id == newEntity.Id) != null)
+                if (entities.FirstOrDefault(EntityExpression.Entity(newEntity.Id).Compile()) != null)
                     entitiesToUpdate.Add(newEntity);
             }
 
@@ -39,7 +40,7 @@ namespace CryptoWatcher.Domain.Builders
             var entitiesToRemove = new List<T>();
             foreach (var entity in entities)
             {
-                if (newEntities.FirstOrDefault(x => x.Id == entity.Id) == null)
+                if (newEntities.FirstOrDefault(EntityExpression.Entity(entity.Id).Compile()) == null)
                     entitiesToRemove.Add(entity);
             }
 

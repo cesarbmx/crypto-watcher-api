@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -48,8 +47,7 @@ namespace CryptoWatcher.Application.Handlers
             watchers = WatcherBuilder.BuildWatchersWithDefaults(watchers, defaultWatchers);
 
             // Filter
-            if (!string.IsNullOrEmpty(request.IndicatorId))
-                watchers = watchers.Where(x => x.IndicatorId == request.IndicatorId).ToList();
+            watchers.FilterWatchers(request.IndicatorId);
 
             // Response
             var response = _mapper.Map<List<WatcherResponse>>(watchers);

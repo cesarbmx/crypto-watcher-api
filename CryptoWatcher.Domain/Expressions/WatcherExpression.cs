@@ -10,6 +10,10 @@ namespace CryptoWatcher.Domain.Expressions
         {
             return x => x.UserId == userId;
         }
+        public static Expression<Func<Watcher, bool>> Filter(string currencyId, string indicatorId)
+        {
+            return x => x.CurrencyId == currencyId && x.IndicatorId == indicatorId;
+        }
         public static Expression<Func<Watcher, bool>> WatcherWillingToBuy()
         {
             return x => x.Status == WatcherStatus.Buy;
