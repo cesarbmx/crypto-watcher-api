@@ -53,13 +53,7 @@ namespace CryptoWatcher.Persistence.Repositories
         }
         public void AddRange(List<TEntity> entities)
         {
-            // Return if no entities
-            if (entities.Count == 0) return;
-
             // Add
-            _repository.AddRange(entities);
-
-            // Log
             foreach (var entity in entities)
             {
                 Add(entity);
