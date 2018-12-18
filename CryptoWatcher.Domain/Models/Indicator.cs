@@ -12,13 +12,13 @@ namespace CryptoWatcher.Domain.Models
 
         public Indicator() { }
         public Indicator(string userId, string name, string description, string formula)
-        : base(userId)
         {
             Id = UrlHelper.BuildUrl(userId, name);
             UserId = userId;
             Name = name;
             Description = description;
             Formula = formula;
+            CreatedBy = userId;
         }
 
         public Indicator Update(string name, string description, string formula)

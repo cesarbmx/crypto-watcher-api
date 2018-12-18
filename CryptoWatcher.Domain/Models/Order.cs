@@ -20,7 +20,6 @@ namespace CryptoWatcher.Domain.Models
             string watcherId,
             OrderType orderType,
             decimal quantity)
-        : base(userId)
         {
             Id = Guid.NewGuid().ToString();
             UserId = userId;
@@ -30,6 +29,7 @@ namespace CryptoWatcher.Domain.Models
             UserId = userId;
             Quantity = quantity;
             Status = OrderStatus.Pending;
+            CreatedBy = userId;
         }
     }
 }

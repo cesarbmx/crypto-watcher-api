@@ -9,9 +9,9 @@ namespace CryptoWatcher.Domain.Models
 
         public User() { }
         public User(string userId)
-        : base(userId)
         {
             Id = userId;
+            CreatedBy = userId;
         }
     }
 }

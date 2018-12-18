@@ -29,7 +29,6 @@ namespace CryptoWatcher.Domain.Models
             decimal averageBuy,
             decimal averageSell,
             bool enabled)
-        : base(userId)
         {
             Id = UrlHelper.BuildUrl(indicatorId, currencyId, userId); // Semantic id
             UserId = userId;
@@ -41,6 +40,7 @@ namespace CryptoWatcher.Domain.Models
             AverageBuy = averageBuy;
             AverageSell = averageSell;
             Enabled = enabled;
+            CreatedBy = userId;
         }
 
         public Watcher Update(decimal buy, decimal sell, bool enabled)

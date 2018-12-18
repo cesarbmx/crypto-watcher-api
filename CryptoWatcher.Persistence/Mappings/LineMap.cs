@@ -22,10 +22,6 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.Value)
                 .HasColumnType("decimal")
                 .IsRequired();
-
-            entityBuilder.Property(t => t.Time)
-                .HasColumnType("datetime")
-                .IsRequired();
         }
     }
 }

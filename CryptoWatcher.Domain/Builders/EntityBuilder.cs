@@ -39,7 +39,7 @@ namespace CryptoWatcher.Domain.Builders
             var entitiesToRemove = new List<T>();
             foreach (var entity in entities)
             {
-                if (newEntities.FirstOrDefault(x => x.Id == entity.Id) != null)
+                if (newEntities.FirstOrDefault(x => x.Id == entity.Id) == null)
                     entitiesToRemove.Add(entity);
             }
 

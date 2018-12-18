@@ -13,7 +13,6 @@ namespace CryptoWatcher.Domain.Models
 
         public Log() { }
         public Log(string action, object entity, string entityId, string createdBy, DateTime creationTime)
-        : base(createdBy)
         {
             var entityName = entity.GetType().Name;
             if (entityName == "List`1")

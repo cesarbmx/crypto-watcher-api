@@ -31,13 +31,8 @@ namespace CryptoWatcher.Persistence.Repositories
         }
         public async Task<List<TEntity>> GetAllNewest()
         {
-            // Get newest
-            var query = from n in _dbSet
-                group n by n.Id into g
-                select g.OrderByDescending(t => t.CreationTime).FirstOrDefault();
-
-            // REturn
-            return await query.ToListAsync();
+            var maxDate = _dbSet.OrderByDescending(t => t.CreationTime).First().CreationTime;
+            return await _dbSet.Where(x => x.CreationTime == maxDate).ToListAsync();
         }
         public async Task<TEntity> GetSingle(string id)
         {
