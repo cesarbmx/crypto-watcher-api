@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.- Client", "1.- Client", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Service", "CryptoWatcher.Service\CryptoWatcher.Service.csproj", "{D5CC79ED-15ED-4DC5-BC63-C577D69BDA5A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.- Infrastructure", "4.- Infrastructure", "{6D816786-75FE-4A8E-90ED-47E01BE80C02}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.- BackgroundJobs", "4.- BackgroundJobs", "{6D816786-75FE-4A8E-90ED-47E01BE80C02}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.BackgroundJobs", "CryptoWatcher.BackgroundJobs\CryptoWatcher.BackgroundJobs.csproj", "{310AD7C4-805D-4C21-BC0C-A8ACCAAF9747}"
 EndProject
