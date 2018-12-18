@@ -6,6 +6,7 @@ namespace CryptoWatcher.Application.Responses
     {
         public bool IsEverythingOk { get; set; }
         public bool IsConnectionToDatabaseOk { get; set; }
+        public bool IsConnectionToCoinMarketCapOk { get; set; }
         public bool IsResponseTimeAcceptable { get; set; }
     }
 }

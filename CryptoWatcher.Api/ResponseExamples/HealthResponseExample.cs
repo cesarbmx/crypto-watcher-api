@@ -7,7 +7,13 @@ namespace CryptoWatcher.Api.ResponseExamples
     {
         public object GetExamples()
         {
-            return new HealthResponse { IsEverythingOk = true, IsConnectionToDatabaseOk = true, IsResponseTimeAcceptable = true};
+            return new HealthResponse
+            {
+                IsEverythingOk = true,
+                IsConnectionToDatabaseOk = true,
+                IsConnectionToCoinMarketCapOk = true,
+                IsResponseTimeAcceptable = true
+            };
         }
     }
 }
