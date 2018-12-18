@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
-using CryptoWatcher.Domain.Expressions;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Domain;
@@ -52,11 +51,11 @@ namespace CryptoWatcher.BackgroundJobs
                 // Get all indicators
                 var indicators = await _indicatorRepository.GetAll();
 
-                // Get all non default watchers
-                var nonDefaultWatchers = await _watcherRepository.GetAll(WatcherExpression.NonDefaultWatcher());
+                // Get all watchers
+                var watchers = await _watcherRepository.GetAll();
 
                 // Build lines
-                var lines = LineBuilder.BuildLines(currencies, indicators, nonDefaultWatchers);
+                var lines = LineBuilder.BuildLines(currencies, indicators, watchers);
 
                 // Set lines
                 _lineRepository.AddRange(lines);
