@@ -53,10 +53,10 @@ namespace CryptoWatcher.BackgroundJobs
                 var indicators = await _indicatorRepository.GetAll();
 
                 // Get all non default watchers
-                var watchers = await _watcherRepository.GetAll(WatcherExpression.NonDefaultWatcher());
+                var nonDefaultWatchers = await _watcherRepository.GetAll(WatcherExpression.NonDefaultWatcher());
 
                 // Build lines
-                var lines = LineBuilder.BuildLines(currencies, indicators, watchers);
+                var lines = LineBuilder.BuildLines(currencies, indicators, nonDefaultWatchers);
 
                 // Set lines
                 _lineRepository.AddRange(lines);
