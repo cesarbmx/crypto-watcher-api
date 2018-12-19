@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Shared.Domain;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public class LoggerRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
+    public class LoggerRepository<TEntity>: IRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly Repository<TEntity> _repository;
-        private readonly IRepository<Log> _logRepository;
+        private readonly Repository<Log> _logRepository;
 
-        public LoggerRepository(Repository<TEntity> repository, IRepository<Log> logRepository)
+        public LoggerRepository(Repository<TEntity> repository, Repository<Log> logRepository)
         {
             _repository = repository;
             _logRepository = logRepository;
@@ -27,11 +26,6 @@ namespace CryptoWatcher.Persistence.Repositories
         {
             // Get all by expression
             return await _repository.GetAll(expression);
-        }
-        public async Task<List<TEntity>> GetAllNewest()
-        {
-            // Get newest
-            return await _repository.GetAllNewest();
         }
         public async Task<TEntity> GetSingle(string id)
         {

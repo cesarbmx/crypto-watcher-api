@@ -1,21 +1,21 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Shared.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Persistence.Contexts;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
+    public class Repository<TEntity>: IRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly DbSet<TEntity> _dbSet;
 
-        public Repository(MainDbContext mainDbContext)
+        public Repository(MainDbContext dbContext)
         {
-            _dbSet = mainDbContext.Set<TEntity>();
+            _dbSet = dbContext.Set<TEntity>();
         }
 
         public async Task<List<TEntity>> GetAll()
@@ -27,11 +27,6 @@ namespace CryptoWatcher.Persistence.Repositories
         {
             // Get all by expression
             return await _dbSet.Where(expression).ToListAsync();
-        }
-        public async Task<List<TEntity>> GetAllNewest()
-        {
-            var maxDate = _dbSet.OrderByDescending(t => t.CreationTime).First().CreationTime;
-            return await _dbSet.Where(x => x.CreationTime == maxDate).ToListAsync();
         }
         public async Task<TEntity> GetSingle(string id)
         {

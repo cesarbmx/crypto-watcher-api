@@ -10,7 +10,7 @@ using Hangfire;
 using CryptoWatcher.Domain.Models;
 using Microsoft.Extensions.Logging;
 using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Shared.Domain;
+using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Shared.Extensions;
 
 namespace CryptoWatcher.BackgroundJobs

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using CryptoWatcher.Domain.Models;
 
-namespace CryptoWatcher.Shared.Domain
+namespace CryptoWatcher.Persistence.Repositories
 {
     public interface IRepository<TEntity> where TEntity: IEntity
     {
         Task<List<TEntity>> GetAll();
         Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression);
-        Task<List<TEntity>> GetAllNewest();
         Task<TEntity> GetSingle(string id);
         Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression);
         void Add(TEntity entity);

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CryptoWatcher.Domain.Expressions;
-using CryptoWatcher.Shared.Domain;
+using CryptoWatcher.Domain.Models;
 
 
 namespace CryptoWatcher.Domain.Builders

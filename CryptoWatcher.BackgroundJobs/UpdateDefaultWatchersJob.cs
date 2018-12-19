@@ -6,7 +6,7 @@ using CryptoWatcher.Domain.Expressions;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Shared.Domain;
+using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Shared.Extensions;
 using Microsoft.Extensions.Logging;
 
@@ -16,12 +16,12 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UpdateDefaultWatchersJob> _logger;
-        private readonly IRepository<Line> _lineRepository;
+        private readonly ILineRepository _lineRepository;
         private readonly IRepository<Watcher> _watcherRepository;
         public UpdateDefaultWatchersJob(
             MainDbContext mainDbContext,
             ILogger<UpdateDefaultWatchersJob> logger,
-            IRepository<Line> lineRepository,
+            ILineRepository lineRepository,
             IRepository<Watcher> watcherRepository)
         {
             _mainDbContext = mainDbContext;
@@ -40,8 +40,8 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Get all lines
-                var lines = await _lineRepository.GetAllNewest();
+                // Get all current lines
+                var lines = await _lineRepository.GetCurrentLines();
 
                 // Build default watchers
                 var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);

@@ -8,7 +8,6 @@ namespace CryptoWatcher.UI.Configuration
     {
         public static IServiceCollection ConfigureMediatR(this IServiceCollection services)
         {
-            services.AddMediatR();
             services.AddMediatR(typeof(AddUserRequest).Assembly);
 
             return services;

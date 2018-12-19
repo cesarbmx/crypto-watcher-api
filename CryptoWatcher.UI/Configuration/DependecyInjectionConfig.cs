@@ -2,7 +2,6 @@
 using CoinMarketCap.Core;
 using CryptoWatcher.BackgroundJobs;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Shared.Providers;
@@ -33,8 +32,10 @@ namespace CryptoWatcher.UI.Configuration
             services.AddScoped<Repository<Notification>, Repository<Notification>>();
             services.AddScoped<Repository<Order>, Repository<Order>>();
             services.AddScoped<Repository<Indicator>, Repository<Indicator>>();
-            services.AddScoped<Repository<Line>, Repository<Line>>();
+            services.AddScoped<Repository<Line>, LineRepository>();
+            services.AddScoped<LineRepository, LineRepository>();
 
+            // Logger repositories
             services.AddScoped<IRepository<Log>, Repository<Log>>();
             services.AddScoped<IRepository<Currency>, LoggerRepository<Currency>>();
             services.AddScoped<IRepository<Watcher>, LoggerRepository<Watcher>>();
@@ -43,6 +44,8 @@ namespace CryptoWatcher.UI.Configuration
             services.AddScoped<IRepository<Order>, LoggerRepository<Order>>();
             services.AddScoped<IRepository<Indicator>, LoggerRepository<Indicator>>();
             services.AddScoped<IRepository<Line>, LoggerRepository<Line>>();
+            services.AddScoped<ILineRepository, LineLoggerRepository>();
+
 
             // Jobs
             services.AddScoped<MainJob, MainJob>();

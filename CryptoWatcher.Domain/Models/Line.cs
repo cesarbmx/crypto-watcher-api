@@ -1,5 +1,4 @@
 ﻿using System;
-using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Shared.Helpers;
 
 

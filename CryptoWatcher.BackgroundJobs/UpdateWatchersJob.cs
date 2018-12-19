@@ -5,7 +5,7 @@ using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Shared.Domain;
+using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;
 using Microsoft.Extensions.Logging;

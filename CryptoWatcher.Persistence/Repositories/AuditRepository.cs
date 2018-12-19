@@ -5,17 +5,16 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Expressions;
-using CryptoWatcher.Shared.Domain;
 using CryptoWatcher.Shared.Providers;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public class AuditRepository<TEntity> : IRepository<TEntity> where TEntity: IEntity
+    public class AuditRepository<TEntity> where TEntity: IEntity
     {
         protected readonly List<TEntity> List;
-        private readonly IRepository<Log> _logRepository;
+        private readonly Repository<Log> _logRepository;
 
-        public AuditRepository(IRepository<Log> logRepository, IDateTimeProvider dateTimeProvider)
+        public AuditRepository(Repository<Log> logRepository, DateTimeProvider dateTimeProvider)
         {
             List = new List<TEntity>();
             _logRepository = logRepository;

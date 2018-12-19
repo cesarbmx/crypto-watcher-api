@@ -2,7 +2,7 @@
 using System;
 
 
-namespace CryptoWatcher.Shared.Domain
+namespace CryptoWatcher.Domain.Models
 {
     public interface IEntity
     {

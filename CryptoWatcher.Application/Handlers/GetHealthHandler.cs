@@ -6,7 +6,7 @@ using CoinMarketCap.Core;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Shared.Domain;
+using CryptoWatcher.Persistence.Repositories;
 using MediatR;
 
 namespace CryptoWatcher.Application.Handlers
