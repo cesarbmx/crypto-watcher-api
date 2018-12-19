@@ -33,7 +33,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.WhatsappSentTime)
-                .HasColumnType("datetime")
+                .HasColumnType("datetime2")
                 .IsRequired();
 
             entityBuilder.Property(t => t.CreatedBy)
@@ -42,7 +42,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.CreationTime)
-                .HasColumnType("datetime")
+                .HasColumnType("datetime2")
                 .IsRequired();
         }
     }

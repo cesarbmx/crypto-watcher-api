@@ -23,7 +23,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.CreationTime)
-                .HasColumnType("datetime")
+                .HasColumnType("datetime2")
                 .IsRequired();
 
             // Data seeding
