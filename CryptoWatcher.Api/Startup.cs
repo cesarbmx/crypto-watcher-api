@@ -26,7 +26,7 @@ namespace CryptoWatcher.Api
             services.ConfigureAutomapper();
 
             // Hangfire
-            services.ConfigureHangfire();
+            services.ConfigureHangfire(Configuration);
 
             // Swagger
             services.ConfigureSwagger();

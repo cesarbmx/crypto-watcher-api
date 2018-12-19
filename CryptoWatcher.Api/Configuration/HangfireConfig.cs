@@ -9,11 +9,10 @@ namespace CryptoWatcher.Api.Configuration
 {
     public static class HangfireConfig
     {
-        public static IServiceCollection ConfigureHangfire(this IServiceCollection services)
+        public static IServiceCollection ConfigureHangfire(this IServiceCollection services, IConfiguration configuration)
         {
             //services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("CryptoWatcher")));
-            var inMemoryStorage = GlobalConfiguration.Configuration.UseMemoryStorage();
-            services.AddHangfire(x => x.UseStorage(inMemoryStorage));
+            services.AddHangfire(x => x.UseStorage(GlobalConfiguration.Configuration.UseMemoryStorage()));
 
             return services;
         }
