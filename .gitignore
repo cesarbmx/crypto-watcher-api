@@ -329,3 +329,4 @@ ASALocalRun/
 .mfractor/
 /CryptoWatcher.Api/Properties/PublishProfiles
 CryptoWatcher.Api/appsettings.Development.json
+CryptoWatcher.Service/appsettings.Development.json

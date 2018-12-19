@@ -10,11 +10,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.Development.json" />
     <None Remove="appsettings.json" />
     <None Remove="log4net.config" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="appsettings.Development.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="appsettings.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

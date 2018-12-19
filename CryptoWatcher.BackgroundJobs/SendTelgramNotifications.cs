@@ -48,7 +48,7 @@ namespace CryptoWatcher.BackgroundJobs
                 if (pendingNotifications.Count > 0)
                 {
                     // Connect
-                    var apiToken = _configuration["TelegramApiToken"];
+                    var apiToken = _configuration["AppSettings:TelegramApiToken"];
                     var bot = new TelegramBotClient(apiToken);
 
                     // For each notification

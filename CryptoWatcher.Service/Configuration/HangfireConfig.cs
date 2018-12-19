@@ -19,7 +19,7 @@ namespace CryptoWatcher.Service.Configuration
             GlobalConfiguration.Configuration.UseLogProvider(new HangfireLoggerProvider());
 
             // Background jobs
-            var jobsIntervalInMinutes = int.Parse(configuration["JobsIntervalInMinutes"]);
+            var jobsIntervalInMinutes = int.Parse(configuration["AppSettings:JobsIntervalInMinutes"]);
 
             var mainJob = serviceProvider.GetService<MainJob>();
             var sendWhatsappNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();

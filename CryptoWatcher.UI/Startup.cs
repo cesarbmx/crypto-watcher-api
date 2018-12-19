@@ -38,10 +38,10 @@ namespace CryptoWatcher.UI
             services.ConfigureAutomapper();
 
             // Hangfire
-            services.ConfigureHangfire();
+            services.ConfigureHangfire(Configuration);
 
             // DI
-            services.ConfigureDependencies();
+            services.ConfigureDependencies(Configuration);
 
             // MediatR
             services.ConfigureMediatR();
