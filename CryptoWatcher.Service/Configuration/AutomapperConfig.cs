@@ -14,7 +14,7 @@ namespace CryptoWatcher.Service.Configuration
             var automapperConfig = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<TickerEntity, Currency>()
-                    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                    .ForMember(dest => dest.CurrencyId, opt => opt.MapFrom(src => src.Id))
                     .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Convert.ToDecimal(src.PriceUsd)))
                     .ForMember(dest => dest.Volume24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.Volume24hUsd)))
                     .ForMember(dest => dest.MarketCap, opt => opt.MapFrom(src => Convert.ToDecimal(src.MarketCapUsd)))
