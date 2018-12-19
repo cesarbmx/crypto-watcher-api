@@ -1,4 +1,4 @@
-# crypto-watcher-api
+# crypto-watcher
 _C# .NET Core + DDD + MediatR + Hangfire + Swagger + Automapper + FluentValidation + Log4Net + EF7_
 
 ##### GOALS:
