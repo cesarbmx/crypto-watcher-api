@@ -17,7 +17,11 @@ namespace CryptoWatcher.Domain.Models
         public string CreatedBy { get; private set; }
         public DateTime CreationTime { get; private set; }
 
-        public Currency() { }
+        public Currency()
+        {
+            CreatedBy = "system";
+            CreationTime = DateTime.Now;
+        }
         public Currency(
             string currencyId,
             string symbol,
