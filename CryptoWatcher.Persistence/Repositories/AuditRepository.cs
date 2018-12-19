@@ -59,16 +59,6 @@ namespace CryptoWatcher.Persistence.Repositories
         {
             return Task.FromResult(List.Where(expression.Compile()).ToList());
         }
-        public Task<List<TEntity>> GetAllNewest()
-        {
-            // Get newest
-            var query = from n in List
-                group n by n.Id into g
-                select g.OrderByDescending(t => t.CreationTime).FirstOrDefault();
-
-            // REturn
-            return Task.FromResult(query.ToList());
-        }
         public Task<TEntity> GetSingle(string id)
         {
             return Task.FromResult(List.FirstOrDefault(x=>x.Id == id));
