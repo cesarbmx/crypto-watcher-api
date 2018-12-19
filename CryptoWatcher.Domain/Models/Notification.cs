@@ -5,8 +5,8 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Notification : IEntity
     {
-        public string Id { get; private set; }
-        public string NotificationId => Id;
+        public string Id => NotificationId;
+        public string NotificationId { get; private set; }
         public string UserId { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Message { get; private set; }
@@ -17,7 +17,7 @@ namespace CryptoWatcher.Domain.Models
         public Notification() { }
         public Notification(string userId, string phoneNumber, string message)
         {
-            Id = Guid.NewGuid().ToString();
+            NotificationId = Guid.NewGuid().ToString();
             UserId = userId;
             PhoneNumber = phoneNumber;
             Message = message;

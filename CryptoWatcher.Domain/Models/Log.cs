@@ -5,8 +5,8 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Log : IEntity
     {
-        public string Id { get; private set; }
-        public string LogId => Id;
+        public string Id => LogId;
+        public string LogId { get; private set; }
         public string Action { get; private set; }
         public string Entity { get; private set; }
         public string EntityId { get; private set; }
@@ -23,7 +23,7 @@ namespace CryptoWatcher.Domain.Models
                 entityName = entity.GetType().GetGenericArguments()[0].Name + "List";
             }
 
-            Id = Guid.NewGuid().ToString();
+            LogId = Guid.NewGuid().ToString();
             Action = action;
             Entity = entityName;
             EntityId = entityId;

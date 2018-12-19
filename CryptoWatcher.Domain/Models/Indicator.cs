@@ -5,8 +5,8 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Indicator : IEntity
     {
-        public string Id { get; private set; }
-        public string IndicatorId => Id;
+        public string Id => IndicatorId;
+        public string IndicatorId { get; private set; }
         public string UserId { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
@@ -17,7 +17,7 @@ namespace CryptoWatcher.Domain.Models
         public Indicator() { }
         public Indicator(string userId, string name, string description, string formula)
         {
-            Id = UrlHelper.BuildUrl(userId, name);
+            IndicatorId = UrlHelper.BuildUrl(userId, name);
             UserId = userId;
             Name = name;
             Description = description;

@@ -9,10 +9,10 @@ namespace CryptoWatcher.Persistence.Mappings
         public LogMap(EntityTypeBuilder<Log> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.Id);
+            entityBuilder.HasKey(t => t.LogId);
 
             // Properties
-            entityBuilder.Property(t => t.Id)
+            entityBuilder.Property(t => t.LogId)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();

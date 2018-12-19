@@ -6,7 +6,8 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Line : IEntity
     {
-        public string Id { get; private set; }
+        public string Id => LineId;
+        public string LineId { get; private set; }
         public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
         public decimal Value { get; private set; }
@@ -24,7 +25,7 @@ namespace CryptoWatcher.Domain.Models
             decimal averageSell,
             DateTime creationTime)
         {
-            Id = UrlHelper.BuildUrl(currencyId, indicatorId) + creationTime.ToString("O");
+            LineId = UrlHelper.BuildUrl(currencyId, indicatorId) + creationTime.ToString("O");
             CurrencyId = currencyId;
             IndicatorId = indicatorId;
             Value = value;

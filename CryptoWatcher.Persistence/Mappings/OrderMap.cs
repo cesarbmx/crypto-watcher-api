@@ -9,10 +9,10 @@ namespace CryptoWatcher.Persistence.Mappings
         public OrderMap(EntityTypeBuilder<Order> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.Id);
+            entityBuilder.HasKey(t => t.OrderId);
 
             // Properties
-            entityBuilder.Property(t => t.Id)
+            entityBuilder.Property(t => t.OrderId)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();

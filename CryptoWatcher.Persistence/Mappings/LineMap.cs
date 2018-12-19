@@ -9,10 +9,10 @@ namespace CryptoWatcher.Persistence.Mappings
         public LineMap(EntityTypeBuilder<Line> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.Id);
+            entityBuilder.HasKey(t => t.LineId);
 
             // Properties
-            entityBuilder.Property(t => t.Id)
+            entityBuilder.Property(t => t.LineId)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();

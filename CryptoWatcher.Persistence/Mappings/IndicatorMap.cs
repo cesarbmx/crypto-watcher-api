@@ -9,10 +9,10 @@ namespace CryptoWatcher.Persistence.Mappings
         public IndicatorMap(EntityTypeBuilder<Indicator> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.Id);
+            entityBuilder.HasKey(t => t.IndicatorId);
 
             // Properties
-            entityBuilder.Property(t => t.Id)
+            entityBuilder.Property(t => t.IndicatorId)
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired();

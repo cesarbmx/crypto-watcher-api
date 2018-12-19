@@ -5,8 +5,8 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Order : IEntity
     {
-        public string Id { get; private set; }
-        public string OrderId => Id;
+        public string Id => OrderId;
+        public string OrderId { get; private set; }
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
         public string WatcherId { get; private set; }
@@ -24,7 +24,7 @@ namespace CryptoWatcher.Domain.Models
             OrderType orderType,
             decimal quantity)
         {
-            Id = Guid.NewGuid().ToString();
+            OrderId = Guid.NewGuid().ToString();
             UserId = userId;
             CurrencyId = currencyId;
             WatcherId = watcherId;
