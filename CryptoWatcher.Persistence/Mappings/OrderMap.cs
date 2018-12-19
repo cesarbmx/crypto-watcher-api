@@ -27,8 +27,8 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.WatcherId)
-                .HasColumnType("nvarchar(200)")
-                .HasMaxLength(200)
+                .HasColumnType("nvarchar(50)")
+                .HasMaxLength(50)
                 .IsRequired();
 
             entityBuilder.Property(t => t.OrderType)
