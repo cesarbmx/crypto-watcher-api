@@ -18,15 +18,18 @@ namespace CryptoWatcher.Persistence.Mappings
 
             entityBuilder.Property(t => t.Entity)
                 .HasColumnType("nvarchar(50)")
-                .HasMaxLength(50);
+                .HasMaxLength(50)
+                .IsRequired();
 
             entityBuilder.Property(t => t.EntityId)
-                .HasColumnType("nvarchar(50)")
-                .HasMaxLength(50);
+                .HasColumnType("nvarchar(170)")
+                .HasMaxLength(170)
+                .IsRequired();
 
             entityBuilder.Property(t => t.Action)
                 .HasColumnType("nvarchar(50)")
-                .HasMaxLength(50);
+                .HasMaxLength(50)
+                .IsRequired();
 
             entityBuilder.Property(t => t.Json)
                 .HasColumnType("nvarchar(max)")

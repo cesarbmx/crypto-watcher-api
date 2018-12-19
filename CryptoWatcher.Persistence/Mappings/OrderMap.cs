@@ -17,9 +17,9 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.UserId)
-                    .HasColumnType("nvarchar(50)")
-                    .HasMaxLength(50)
-                    .IsRequired();
+                .HasColumnType("nvarchar(50)")
+                .HasMaxLength(50)
+                .IsRequired();
 
             entityBuilder.Property(t => t.CurrencyId)
                 .HasColumnType("nvarchar(50)")
