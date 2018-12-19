@@ -17,12 +17,12 @@ namespace CryptoWatcher.Api.Configuration
         public static IServiceCollection ConfigureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             //Contexts (UOW)
-            //services.AddDbContext<MainDbContext>(options => options
-            //    .UseSqlServer(configuration.GetConnectionString("CryptoWatcher"))
-            //    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             services.AddDbContext<MainDbContext>(options => options
-                .UseInMemoryDatabase("CryptoWatcher")
+                .UseSqlServer(configuration.GetConnectionString("CryptoWatcher"))
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+            //services.AddDbContext<MainDbContext>(options => options
+            //    .UseInMemoryDatabase("CryptoWatcher")
+            //    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
 
             // Repositories

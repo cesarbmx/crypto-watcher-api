@@ -25,7 +25,7 @@ namespace CryptoWatcher.Domain.Models
             decimal averageSell,
             DateTime time)
         {
-            var iso8601TimeWithoutMilliseconds = time.ToString("O").Substring(0, 20);
+            var iso8601TimeWithoutMilliseconds = time.ToString("O").Substring(0, 19);
             LineId = UrlHelper.BuildSeoFriendlyUrl(currencyId, indicatorId) + iso8601TimeWithoutMilliseconds;
             CurrencyId = currencyId;
             IndicatorId = indicatorId;
