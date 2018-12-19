@@ -12,7 +12,7 @@ namespace CryptoWatcher.Domain.Models
         public string Description { get; private set; }
         public string Formula { get; private set; }
         public string CreatedBy { get; private set; }
-        public DateTime CreationTime { get; private set; }
+        public DateTime Time { get; private set; }
 
         public Indicator() { }
         public Indicator(string userId, string name, string description, string formula)
@@ -23,7 +23,7 @@ namespace CryptoWatcher.Domain.Models
             Description = description;
             Formula = formula;
             CreatedBy = userId;
-            CreationTime = DateTime.Now;
+            Time = DateTime.Now;
         }
 
         public Indicator Update(string name, string description, string formula)

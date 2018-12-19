@@ -6,6 +6,44 @@
 <html>
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    var options = {
+        curveType: 'function',
+        legend: {
+            position: 'none'
+        },
+        hAxis: {
+            textPosition: 'none',
+            titleTextStyle: {
+                color: '#FFFFFF'
+            },
+            minorGridlines: {
+                position: 'none'
+            },
+            gridlines: {
+                color: '#FFFFFF'
+            },
+            baselineColor: '#FFFFFF'
+        },
+        vAxis: {                
+            textPosition: 'none',
+            textStyle: {
+                color: '#FFFFFF'
+            },
+            titleTextStyle: {
+                color: '#FFFFFF'
+            },
+            minorGridlines: {
+                textPosition: 'none'
+            },
+            gridlines: {
+                color: '#FFFFFF'
+            },
+            baselineColor: '#FFFFFF'
+        },
+        colors: ['#F3D57A', '#A5C276', '#FC8C79']
+    };
+</script>
 </head>
 <body>
     @foreach (var chart in @Model.Charts)

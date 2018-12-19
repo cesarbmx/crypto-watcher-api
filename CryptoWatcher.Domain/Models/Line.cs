@@ -14,7 +14,7 @@ namespace CryptoWatcher.Domain.Models
         public decimal AverageBuy { get; private set; }
         public decimal AverageSell { get; private set; }
         public string CreatedBy { get; private set; }
-        public DateTime CreationTime { get; private set; }
+        public DateTime Time { get; private set; }
 
         public Line() { }
         public Line(
@@ -23,16 +23,16 @@ namespace CryptoWatcher.Domain.Models
             decimal value,
             decimal averageBuy,
             decimal averageSell,
-            DateTime creationTime)
+            DateTime time)
         {
-            LineId = UrlHelper.BuildUrl(currencyId, indicatorId) + creationTime.ToString("O");
+            LineId = UrlHelper.BuildUrl(currencyId, indicatorId) + time.ToString("O");
             CurrencyId = currencyId;
             IndicatorId = indicatorId;
             Value = value;
             AverageBuy = averageBuy;
             AverageSell = averageSell;
             CreatedBy = "system";
-            CreationTime = creationTime;
+            Time = time;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace CryptoWatcher.Domain.Expressions
     {
         public static Expression<Func<Line, bool>> ObsoleteLine()
         {
-            return x => x.CreationTime < DateTime.Now.AddDays(-7);
+            return x => x.Time < DateTime.Now.AddDays(-7);
         }
     }
 }

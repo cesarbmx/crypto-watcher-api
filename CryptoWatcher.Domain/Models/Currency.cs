@@ -15,12 +15,12 @@ namespace CryptoWatcher.Domain.Models
         public decimal Volume24H { get; private set; }
         public decimal PercentageChange24H { get; private set; }
         public string CreatedBy { get; private set; }
-        public DateTime CreationTime { get; private set; }
+        public DateTime Time { get; private set; }
 
         public Currency()
         {
             CreatedBy = "system";
-            CreationTime = DateTime.Now;
+            Time = DateTime.Now;
         }
         public Currency(
             string currencyId,
@@ -42,7 +42,7 @@ namespace CryptoWatcher.Domain.Models
             MarketCap = marketCap;
             PercentageChange24H = percentageChange24H;
             CreatedBy = "system";
-            CreationTime = DateTime.Now;
+            Time = DateTime.Now;
         }
     }
 }

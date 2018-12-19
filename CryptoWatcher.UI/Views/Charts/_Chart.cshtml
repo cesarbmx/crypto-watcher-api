@@ -13,43 +13,6 @@
 
         data.addRows([@Html.Raw(Model.Rows)]);
 
-        var options = {
-            curveType: 'function',
-            legend: {
-                position: 'none'
-            },
-            hAxis: {
-                textPosition: 'none',
-                titleTextStyle: {
-                    color: '#FFFFFF'
-                },
-                minorGridlines: {
-                    position: 'none'
-                },
-                gridlines: {
-                    color: '#FFFFFF'
-                },
-                baselineColor: '#FFFFFF'
-            },
-            vAxis: {                
-                textPosition: 'none',
-                textStyle: {
-                    color: '#FFFFFF'
-                },
-                titleTextStyle: {
-                    color: '#FFFFFF'
-                },
-                minorGridlines: {
-                    textPosition: 'none'
-                },
-                gridlines: {
-                    color: '#FFFFFF'
-                },
-                baselineColor: '#FFFFFF'
-            },
-            colors: ['#F3D57A', '#A5C276', '#FC8C79']
-        };
-
         var chart = new google.visualization.LineChart(document.getElementById('chart_div_@Model.Index'));
         chart.draw(data, options);
     }

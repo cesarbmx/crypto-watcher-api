@@ -8,6 +8,6 @@ namespace CryptoWatcher.Domain.Models
     {
         string Id { get;}
         string CreatedBy { get; }
-        DateTime CreationTime { get; }
+        DateTime Time { get; }
     }
 }

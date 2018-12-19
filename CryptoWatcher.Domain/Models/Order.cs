@@ -14,7 +14,7 @@ namespace CryptoWatcher.Domain.Models
         public decimal Quantity { get; private set; }
         public OrderStatus Status { get; private set; }
         public string CreatedBy { get; private set; }
-        public DateTime CreationTime { get; private set; }
+        public DateTime Time { get; private set; }
 
         public Order() { }
         public Order(
@@ -33,7 +33,7 @@ namespace CryptoWatcher.Domain.Models
             Quantity = quantity;
             Status = OrderStatus.Pending;
             CreatedBy = userId;
-            CreationTime = DateTime.Now;
+            Time = DateTime.Now;
         }
     }
 }
