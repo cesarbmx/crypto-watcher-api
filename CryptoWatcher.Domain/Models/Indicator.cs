@@ -1,5 +1,4 @@
 ﻿using System;
-using CryptoWatcher.Shared.Helpers;
 
 namespace CryptoWatcher.Domain.Models
 {
@@ -15,9 +14,9 @@ namespace CryptoWatcher.Domain.Models
         public DateTime Time { get; private set; }
 
         public Indicator() { }
-        public Indicator(string userId, string name, string description, string formula)
+        public Indicator(string indicatorId, string userId, string name, string description, string formula)
         {
-            IndicatorId = UrlHelper.BuildSeoFriendlyUrl(userId, name);
+            IndicatorId = indicatorId;
             UserId = userId;
             Name = name;
             Description = description;

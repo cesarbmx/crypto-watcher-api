@@ -44,6 +44,7 @@ namespace CryptoWatcher.Application.Handlers
 
             // Add
             indicator = new Indicator(
+                request.IndicatorId,
                 request.UserId, 
                 request.Name, 
                 request.Description,

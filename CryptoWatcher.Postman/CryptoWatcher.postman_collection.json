@@ -182,7 +182,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"My Indicator\",\r\n  \"description\": \"It identifies inmediate hypes within 24 Hrs in your portfolio\",\r\n  \"formula\": \"C# formula\"\r\n}"
+					"raw": "{\r\n  \"indicatorId\": \"rsi\",\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"RSI\",\r\n  \"description\": \"Relative strength index\",\r\n  \"formula\": \"C# formula\"\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:6495/indicators",
@@ -215,7 +215,7 @@
 					"raw": "{\r\n  \"name\": \"My Indicator\",\r\n  \"description\": \"It identifies inmediate hypes within 24 Hrs in your portfolio\",\r\n  \"formula\": \"C# formula\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/indicators/cesarbmx-my-indicator",
+					"raw": "http://localhost:6495/indicators/rsi",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -223,7 +223,7 @@
 					"port": "6495",
 					"path": [
 						"indicators",
-						"cesarbmx-my-indicator"
+						"rsi"
 					]
 				}
 			},
@@ -239,7 +239,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/indicators/cesarbmx-my-indicator",
+					"raw": "http://localhost:6495/indicators/rsi",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -247,7 +247,7 @@
 					"port": "6495",
 					"path": [
 						"indicators",
-						"cesarbmx-my-indicator"
+						"rsi"
 					]
 				}
 			},
@@ -308,7 +308,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"currencyId\": \"bitcoin\",\r\n  \"indicatorId\": \"master-hype\",\r\n  \"buy\": 10,\r\n  \"sell\": 5,\r\n  \"enabled\": false\r\n}"
+					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"currencyId\": \"bitcoin\",\r\n  \"indicatorId\": \"rsi\",\r\n  \"buy\": 10,\r\n  \"sell\": 5,\r\n  \"enabled\": false\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:6495/watchers",

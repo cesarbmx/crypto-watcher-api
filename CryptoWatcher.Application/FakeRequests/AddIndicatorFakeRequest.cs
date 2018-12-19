@@ -9,6 +9,7 @@ namespace CryptoWatcher.Application.FakeRequests
         {
             return new AddIndicatorRequest
             {
+                IndicatorId = "hype",
                 UserId = "johny.melavo",
                 Name = "Hype",
                 Description = "It identifies inmediate hypes within 24 Hrs in your portfolio",

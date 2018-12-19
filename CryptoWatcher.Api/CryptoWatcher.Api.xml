@@ -59,7 +59,7 @@
             Get all watchers
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.E_WatchersController.GetWatcher(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.E_WatchersController.GetWatcher(System.Guid)">
             <summary>
             Get watcher
             </summary>
@@ -69,7 +69,7 @@
             Add watcher
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.E_WatchersController.UpdateWatcher(System.String,CryptoWatcher.Application.Requests.UpdateWatcherRequest)">
+        <member name="M:CryptoWatcher.Api.Controllers.E_WatchersController.UpdateWatcher(System.Guid,CryptoWatcher.Application.Requests.UpdateWatcherRequest)">
             <summary>
             Update watcher
             </summary>
@@ -79,7 +79,7 @@
             Get all orders
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.F_OrdersController.GetOrder(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.F_OrdersController.GetOrder(System.Guid)">
             <summary>
             Get order
             </summary>
@@ -89,7 +89,7 @@
             Get all notifications
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.G_NotificationsController.GetNotification(System.String,System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.G_NotificationsController.GetNotification(System.String,System.Guid)">
             <summary>
             Get notification
             </summary>
@@ -99,7 +99,7 @@
             Get all logs
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.X_LogController.GetLog(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.X_LogController.GetLog(System.Guid)">
             <summary>
             Get log
             </summary>

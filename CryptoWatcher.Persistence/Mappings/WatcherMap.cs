@@ -9,7 +9,7 @@ namespace CryptoWatcher.Persistence.Mappings
         public WatcherMap(EntityTypeBuilder<Watcher> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.WatcherId);
+            entityBuilder.HasKey(t => new { t.UserId, t.WatcherId });
 
             // Properties
             entityBuilder.Property(t => t.WatcherId)
