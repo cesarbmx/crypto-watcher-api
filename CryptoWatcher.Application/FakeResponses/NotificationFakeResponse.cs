@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CryptoWatcher.Application.Responses;
 
 namespace CryptoWatcher.Application.FakeResponses
@@ -9,7 +10,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new NotificationResponse
             {
-                NotificationId = "2779cf8051-381f-4834-93dc-ece6345dde33",
+                NotificationId = Guid.NewGuid(),
                 UserId = "johny.melavo",
                 Message = "Test",
                 PhoneNumber = "+34666666666",
@@ -20,7 +21,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new NotificationResponse
             {
-                NotificationId = "2779cf8051-381f-4834-93dc-ece6345dde33",
+                NotificationId = Guid.NewGuid(),
                 UserId = "chin.champu",
                 Message = "Test",
                 PhoneNumber = "+34666666666",

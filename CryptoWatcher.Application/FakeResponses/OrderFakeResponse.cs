@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 
@@ -10,7 +11,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new OrderResponse
             {
-                OrderId = "2779cf8051-381f-4834-93dc-ece6345dde33",
+                OrderId = Guid.NewGuid(),
                 UserId = "johny.melavo",
                 CurrencyId = "bitcoin",
                 OrderType = OrderType.BuyLimit,
@@ -22,7 +23,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new OrderResponse
             {
-                OrderId = "2779cf8051-381f-4834-93dc-ece6345dde44",
+                OrderId = Guid.NewGuid(),
                 UserId = "johny.melavo",
                 CurrencyId = "eos",
                 OrderType = OrderType.BuyLimit,

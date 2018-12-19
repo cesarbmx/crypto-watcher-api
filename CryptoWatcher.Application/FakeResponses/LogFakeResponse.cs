@@ -10,7 +10,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new LogResponse
             {              
-                LogId = "2779cf8051-381f-4834-93dc-ece6345dde33",
+                LogId = Guid.NewGuid(),
                 Action = "Add",
                 Entity = "Cache",
                 EntityId = "Currencies",

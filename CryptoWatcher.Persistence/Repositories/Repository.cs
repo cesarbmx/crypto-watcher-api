@@ -28,7 +28,7 @@ namespace CryptoWatcher.Persistence.Repositories
             // Get all by expression
             return await _dbSet.Where(expression).ToListAsync();
         }
-        public async Task<TEntity> GetSingle(string id)
+        public async Task<TEntity> GetSingle(object id)
         {
             // Get by id
             return await _dbSet.FindAsync(id);

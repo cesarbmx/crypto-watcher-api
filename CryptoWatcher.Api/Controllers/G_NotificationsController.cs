@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Api.ResponseExamples;
@@ -51,7 +52,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetNotification")]
-        public async Task<IActionResult> GetNotification(string userId, string notificationId)
+        public async Task<IActionResult> GetNotification(string userId, Guid notificationId)
         {
             // Reponse
             var response = await _mediator.Send(new GetNotificationRequest() { NotificationId = notificationId });

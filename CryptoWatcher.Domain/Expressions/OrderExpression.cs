@@ -6,7 +6,7 @@ namespace CryptoWatcher.Domain.Expressions
 {
     public static class OrderExpression
     {
-        public static Expression<Func<Order, bool>> Order(string userId, string currencyId, string watcherId, OrderType orderType)
+        public static Expression<Func<Order, bool>> Order(string userId, string currencyId, Guid watcherId, OrderType orderType)
         {
             return x => 
                 x.UserId == userId &&

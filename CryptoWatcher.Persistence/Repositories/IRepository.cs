@@ -10,7 +10,7 @@ namespace CryptoWatcher.Persistence.Repositories
     {
         Task<List<TEntity>> GetAll();
         Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression);
-        Task<TEntity> GetSingle(string id);
+        Task<TEntity> GetSingle(object id);
         Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression);
         void Add(TEntity entity);
         void AddRange(List<TEntity> entities);

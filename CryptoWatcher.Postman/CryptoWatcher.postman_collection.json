@@ -286,6 +286,10 @@
 					"script": {
 						"id": "b8e43c30-1a4b-4ab9-af8f-1d95745395c3",
 						"exec": [
+							"let watcherId = pm.response.json().watcherId;",
+							"console.log(watcherId);",
+							"pm.globals.set(\"watcherId\", watcherId);",
+							"",
 							""
 						],
 						"type": "text/javascript"
@@ -337,7 +341,7 @@
 					"raw": "{\r\n  \"buy\": 15,\r\n  \"sell\": 6,\r\n  \"enabled\": true\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/watchers/master-hype-bitcoin-cesarbmx",
+					"raw": "http://localhost:6495/watchers/{{watcherId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -345,7 +349,7 @@
 					"port": "6495",
 					"path": [
 						"watchers",
-						"master-hype-bitcoin-cesarbmx"
+						"{{watcherId}}"
 					]
 				}
 			},
@@ -373,7 +377,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/watchers/master-hype-bitcoin-cesarbmx",
+					"raw": "http://localhost:6495/watchers/{{watcherId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -381,7 +385,7 @@
 					"port": "6495",
 					"path": [
 						"watchers",
-						"master-hype-bitcoin-cesarbmx"
+						"{{watcherId}}"
 					]
 				}
 			},
@@ -423,6 +427,28 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "7afa6704-9cad-49bf-9867-68bdb6ef08d0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0021e170-aaf0-4018-a586-79fa339f4ba1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

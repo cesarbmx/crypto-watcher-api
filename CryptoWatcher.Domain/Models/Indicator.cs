@@ -17,7 +17,7 @@ namespace CryptoWatcher.Domain.Models
         public Indicator() { }
         public Indicator(string userId, string name, string description, string formula)
         {
-            IndicatorId = UrlHelper.BuildUrl(userId, name);
+            IndicatorId = UrlHelper.BuildSeoFriendlyUrl(userId, name);
             UserId = userId;
             Name = name;
             Description = description;

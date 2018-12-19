@@ -1,14 +1,13 @@
 ﻿using System;
 using CryptoWatcher.Domain.Builders;
-using CryptoWatcher.Shared.Helpers;
 
 
 namespace CryptoWatcher.Domain.Models
 {
     public class Watcher : IEntity
     {
-        public string Id => WatcherId;
-        public string WatcherId { get; private set; }
+        public string Id => WatcherId.ToString();
+        public Guid WatcherId { get; private set; }
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
@@ -35,7 +34,7 @@ namespace CryptoWatcher.Domain.Models
             decimal averageSell,
             bool enabled)
         {
-            WatcherId = UrlHelper.BuildUrl(indicatorId, currencyId, userId); // Semantic id
+            WatcherId = Guid.NewGuid();
             UserId = userId;
             CurrencyId = currencyId;
             IndicatorId = indicatorId;
