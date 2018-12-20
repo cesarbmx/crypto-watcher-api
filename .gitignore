@@ -327,6 +327,8 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# Sensitive data in appsettings
 /CryptoWatcher.Api/Properties/PublishProfiles
 CryptoWatcher.Api/appsettings.Development.json
 CryptoWatcher.UI/appsettings.Development.json
