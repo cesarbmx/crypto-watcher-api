@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using CryptoWatcher.Api.Middlewares;
+using CryptoWatcher.Shared.Middlewares;
 
 namespace CryptoWatcher.Api.Configuration
 {

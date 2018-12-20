@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Persistence.Contexts
 {
-    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
-    public class MainDbContext : DbContext
+    public class MainDbContext : Shared.Contexts.MainDbContext
     {
         public MainDbContext(DbContextOptions<MainDbContext> options)
            : base(options)
@@ -17,7 +16,6 @@ namespace CryptoWatcher.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             new LineMap(modelBuilder.Entity<Line>());
-            new LogMap(modelBuilder.Entity<Log>());
             new CurrencyMap(modelBuilder.Entity<Currency>());
             new WatcherMap(modelBuilder.Entity<Watcher>());
             new UserMap(modelBuilder.Entity<User>());

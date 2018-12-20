@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Shared.Exceptions;
-using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Shared.Extensions;
+using CryptoWatcher.Shared.Messages;
+using CryptoWatcher.Shared.Responses;
 
 namespace CryptoWatcher.UI.Middlewares
 {

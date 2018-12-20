@@ -5,13 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CoinMarketCap.Core;
-using CryptoWatcher.Domain.Builders;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using Microsoft.Extensions.Logging;
-using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Persistence.Repositories;
+using CryptoWatcher.Shared.Contexts;
+using CryptoWatcher.Shared.Builders;
 using CryptoWatcher.Shared.Extensions;
+using CryptoWatcher.Shared.Repositories;
 
 namespace CryptoWatcher.BackgroundJobs
 {
@@ -19,20 +19,20 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly IMapper _mapper;
         private readonly ILogger<UpdateCurrenciesJob> _logger;
-        private readonly MainDbContext _mainDbContext;
+        private readonly IContext _context;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
         private readonly IRepository<Currency> _currencyRepository;
 
         public UpdateCurrenciesJob(
             IMapper mapper,
             ILogger<UpdateCurrenciesJob> logger,
-            MainDbContext mainDbContext,
+            IContext context,
             ICoinMarketCapClient coinMarketCapClient,
             IRepository<Currency> currencyRepository)
         {
             _mapper = mapper;
             _logger = logger;
-            _mainDbContext = mainDbContext;
+            _context = context;
             _coinMarketCapClient = coinMarketCapClient;
             _currencyRepository = currencyRepository;
         }
@@ -73,7 +73,7 @@ namespace CryptoWatcher.BackgroundJobs
                 _currencyRepository.RemoveRange(EntityBuilder.BuildEntitiesToRemove(currencies, newCurrencies));
 
                 // Save
-                await _mainDbContext.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
                 // Stop watch
                 stopwatch.Stop();

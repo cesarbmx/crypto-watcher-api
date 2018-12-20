@@ -2,9 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using CryptoWatcher.Application.Requests;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Shared.Requests;
+using CryptoWatcher.Shared.Responses;
 using MediatR;
 
 namespace CryptoWatcher.Application.Handlers

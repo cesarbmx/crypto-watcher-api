@@ -5,26 +5,28 @@ using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Shared.Contexts;
 using CryptoWatcher.Persistence.Repositories;
+using CryptoWatcher.Shared.Builders;
 using CryptoWatcher.Shared.Extensions;
+using CryptoWatcher.Shared.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
     public class UpdateDefaultWatchersJob
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly IContext _context;
         private readonly ILogger<UpdateDefaultWatchersJob> _logger;
         private readonly ILineRepository _lineRepository;
         private readonly IRepository<Watcher> _watcherRepository;
         public UpdateDefaultWatchersJob(
-            MainDbContext mainDbContext,
+            IContext context,
             ILogger<UpdateDefaultWatchersJob> logger,
             ILineRepository lineRepository,
             IRepository<Watcher> watcherRepository)
         {
-            _mainDbContext = mainDbContext;
+            _context = context;
             _logger = logger;
             _lineRepository = lineRepository;
             _watcherRepository = watcherRepository;
@@ -59,7 +61,7 @@ namespace CryptoWatcher.BackgroundJobs
                 _watcherRepository.RemoveRange(EntityBuilder.BuildEntitiesToRemove(defaultWatchers, newDefaultWatchers));
 
                 // Save
-                await _mainDbContext.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
                 // Stop watch
                 stopwatch.Stop();

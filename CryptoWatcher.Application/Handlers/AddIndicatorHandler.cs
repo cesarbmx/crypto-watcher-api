@@ -6,10 +6,10 @@ using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Persistence.Repositories;
+using CryptoWatcher.Shared.Contexts;
 using CryptoWatcher.Shared.Exceptions;
 using CryptoWatcher.Shared.Extensions;
+using CryptoWatcher.Shared.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -17,18 +17,18 @@ namespace CryptoWatcher.Application.Handlers
 {
     public class AddIndicatorHandler : IRequestHandler<AddIndicatorRequest, IndicatorResponse>
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly IContext _context;
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly ILogger<AddIndicatorRequest> _logger;
         private readonly IMapper _mapper;
 
         public AddIndicatorHandler(
-            MainDbContext mainDbContext,
+            IContext context,
             IRepository<Indicator> indicatorRepository,
             ILogger<AddIndicatorRequest> logger,
             IMapper mapper)
         {
-            _mainDbContext = mainDbContext;
+            _context = context;
             _indicatorRepository = indicatorRepository;
             _logger = logger;
             _mapper = mapper;
@@ -52,7 +52,7 @@ namespace CryptoWatcher.Application.Handlers
             _indicatorRepository.Add(indicator);
 
              // Save
-             await _mainDbContext.SaveChangesAsync(cancellationToken);
+             await _context.SaveChangesAsync(cancellationToken);
 
             // Log into Splunk
             _logger.LogSplunkInformation(request);

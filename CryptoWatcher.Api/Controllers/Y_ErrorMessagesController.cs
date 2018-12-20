@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using CryptoWatcher.Api.ResponseExamples;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Shared.ResponseExamples;
+using CryptoWatcher.Shared.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

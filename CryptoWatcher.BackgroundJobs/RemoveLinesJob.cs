@@ -4,25 +4,25 @@ using System.Threading.Tasks;
 using CryptoWatcher.Domain.Expressions;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
-using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Shared.Contexts;
 using CryptoWatcher.Shared.Extensions;
+using CryptoWatcher.Shared.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
     public class RemoveLinesJob
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly IContext _context;
         private readonly ILogger<RemoveLinesJob> _logger;
         private readonly IRepository<Line> _lineRepository;
 
         public RemoveLinesJob(
-            MainDbContext mainDbContext,
+            IContext context,
             ILogger<RemoveLinesJob> logger,
             IRepository<Line> lineRepository)
         {
-            _mainDbContext = mainDbContext;
+            _context = context;
             _logger = logger;
             _lineRepository = lineRepository;
         }
@@ -43,7 +43,7 @@ namespace CryptoWatcher.BackgroundJobs
                 _lineRepository.RemoveRange(lines);
 
                 // Save
-                await _mainDbContext.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
                 // Stop watch
                 stopwatch.Stop();

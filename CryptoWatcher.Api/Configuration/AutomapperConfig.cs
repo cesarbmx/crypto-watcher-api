@@ -5,7 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Extensions;
-using Version = CryptoWatcher.Domain.Models.Version;
+using CryptoWatcher.Shared.Models;
+using CryptoWatcher.Shared.Responses;
+using Version = CryptoWatcher.Shared.Models.Version;
 
 namespace CryptoWatcher.Api.Configuration
 {

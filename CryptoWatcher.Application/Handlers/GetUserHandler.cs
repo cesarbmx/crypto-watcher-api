@@ -5,8 +5,8 @@ using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Shared.Exceptions;
+using CryptoWatcher.Shared.Repositories;
 using MediatR;
 
 namespace CryptoWatcher.Application.Handlers

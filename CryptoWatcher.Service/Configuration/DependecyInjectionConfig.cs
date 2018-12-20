@@ -4,6 +4,8 @@ using CryptoWatcher.BackgroundJobs;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Persistence.Repositories;
+using CryptoWatcher.Shared.Models;
+using CryptoWatcher.Shared.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,13 +16,21 @@ namespace CryptoWatcher.Service.Configuration
     {
         public static IServiceCollection ConfigureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            //Contexts (UOW)
-            //services.AddDbContext<MainDbContext>(options => options
-            //    .UseSqlServer(configuration.GetConnectionString("CryptoWatcher"))
-            //    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
-            services.AddDbContext<MainDbContext>(options => options
-                .UseInMemoryDatabase("CryptoWatcher")
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+            // UseMemoryStorage
+            if (bool.Parse(configuration["AppSettings:UseMemoryStorage"]))
+            {
+                //Contexts (UOW)
+                services.AddDbContext<Shared.Contexts.IContext, MainDbContext>(options => options
+                    .UseInMemoryDatabase("CryptoWatcher")
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+            }
+            else
+            {
+                //Contexts (UOW)
+                services.AddDbContext<Shared.Contexts.IContext, MainDbContext>(options => options
+                    .UseSqlServer(configuration.GetConnectionString("CryptoWatcher"))
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+            }
 
 
             // Repositories

@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using CryptoWatcher.Persistence.Contexts;
 using System.Collections.Generic;
 using System.Linq;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Shared.Contexts;
+using CryptoWatcher.Shared.Repositories;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
@@ -11,7 +12,7 @@ namespace CryptoWatcher.Persistence.Repositories
     {
         private readonly DbSet<Line> _dbSet;
 
-        public LineRepository(MainDbContext mainDbContext)
+        public LineRepository(IContext mainDbContext)
             :base(mainDbContext)
         {
             _dbSet = mainDbContext.Set<Line>();

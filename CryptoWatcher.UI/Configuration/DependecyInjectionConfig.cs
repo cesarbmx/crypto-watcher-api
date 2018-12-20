@@ -4,7 +4,9 @@ using CryptoWatcher.BackgroundJobs;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Persistence.Repositories;
+using CryptoWatcher.Shared.Models;
 using CryptoWatcher.Shared.Providers;
+using CryptoWatcher.Shared.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,18 +22,17 @@ namespace CryptoWatcher.UI.Configuration
             if (bool.Parse(configuration["AppSettings:UseMemoryStorage"]))
             {
                 //Contexts (UOW)
-                services.AddDbContext<MainDbContext>(options => options
+                services.AddDbContext<Shared.Contexts.IContext, MainDbContext>(options => options
                     .UseInMemoryDatabase("CryptoWatcher")
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
             else
             {
                 //Contexts (UOW)
-                services.AddDbContext<MainDbContext>(options => options
+                services.AddDbContext<Shared.Contexts.IContext, MainDbContext>(options => options
                     .UseSqlServer(configuration.GetConnectionString("CryptoWatcher"))
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
-
 
             // Repositories
             services.AddScoped<Repository<Log>, Repository<Log>>();

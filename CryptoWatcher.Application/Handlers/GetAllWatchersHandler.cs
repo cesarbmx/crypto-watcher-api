@@ -10,7 +10,7 @@ using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Exceptions;
 using MediatR;
 using CryptoWatcher.Domain.Builders;
-using CryptoWatcher.Persistence.Repositories;
+using CryptoWatcher.Shared.Repositories;
 
 namespace CryptoWatcher.Application.Handlers
 {

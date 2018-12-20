@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CryptoWatcher.Domain\CryptoWatcher.Domain.csproj" />
+    <ProjectReference Include="..\CryptoWatcher.Shared\CryptoWatcher.Shared.csproj" />
   </ItemGroup>
 
 </Project>

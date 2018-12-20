@@ -1,6 +1,7 @@
-﻿using CryptoWatcher.Persistence.Contexts;
+﻿using CryptoWatcher.Shared.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using MainDbContext = CryptoWatcher.Persistence.Contexts.MainDbContext;
 
 namespace CryptoWatcher.UI.Configuration
 {
@@ -11,10 +12,10 @@ namespace CryptoWatcher.UI.Configuration
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var mainDbContext = serviceScope.ServiceProvider.GetService<MainDbContext>();
+                var mainDbContext = serviceScope.ServiceProvider.GetService<IContext>();
                 //mainDbContext.Database.Migrate();
-                mainDbContext.Database.EnsureCreated();
-                mainDbContext.SaveChanges();
+                (mainDbContext as MainDbContext)?.Database.EnsureCreated();
+                (mainDbContext as MainDbContext)?.SaveChanges();
             }
 
             return app;

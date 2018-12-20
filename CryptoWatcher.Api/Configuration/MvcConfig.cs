@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using CryptoWatcher.Api.ActionFilters;
 using CryptoWatcher.Api.Controllers;
+using CryptoWatcher.Shared.ActionFilters;
 
 namespace CryptoWatcher.Api.Configuration
 {

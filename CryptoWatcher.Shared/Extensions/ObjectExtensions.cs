@@ -7,6 +7,12 @@ namespace CryptoWatcher.Shared.Extensions
 {
     public static class ObjectExtensions
     {
+        /// <summary>
+        /// Converts a custom class (with its subclasses) to a dcitionary
+        /// </summary>
+        /// <param name="obj">Teh object to convert</param>
+        /// <param name="bindingAttr">A bitmask comprised of one or more <see cref="T:System.Reflection.BindingFlags"></see> that specify how the search is conducted.   -or-   Zero, to return null.</param>
+        /// <returns>A string/value dictionary</returns>
         public static Dictionary<string, object> AsDictionary(this object obj, BindingFlags bindingAttr = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
         {
             var dictionary = obj.GetType().GetProperties(bindingAttr).ToDictionary

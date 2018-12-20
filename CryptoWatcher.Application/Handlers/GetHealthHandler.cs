@@ -3,10 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using CoinMarketCap.Core;
-using CryptoWatcher.Application.Requests;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
+using CryptoWatcher.Shared.Models;
+using CryptoWatcher.Shared.Repositories;
+using CryptoWatcher.Shared.Requests;
+using CryptoWatcher.Shared.Responses;
 using MediatR;
 
 namespace CryptoWatcher.Application.Handlers

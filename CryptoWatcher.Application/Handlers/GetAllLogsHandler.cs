@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
+using CryptoWatcher.Shared.Models;
+using CryptoWatcher.Shared.Repositories;
 using MediatR;
 
 namespace CryptoWatcher.Application.Handlers

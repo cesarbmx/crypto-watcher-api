@@ -4,6 +4,11 @@ namespace CryptoWatcher.Shared.Extensions
 {
     public static class DateTimeExtensions
     {
+        /// <summary>
+        /// Convert datetime to a friendly human readable format
+        /// </summary>
+        /// <param name="dateTime">Datetime to convert</param>
+        /// <returns>A string</returns>
         public static string DaysHoursMinutesAndSecondsSinceDate(this DateTime dateTime)
         {
             var span = (DateTime.Now - dateTime);

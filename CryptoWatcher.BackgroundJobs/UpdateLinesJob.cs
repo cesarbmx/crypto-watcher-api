@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
-using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Shared.Contexts;
 using CryptoWatcher.Shared.Extensions;
+using CryptoWatcher.Shared.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
     public class UpdateLinesJob
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly IContext _context;
         private readonly ILogger<UpdateLinesJob> _logger;
         private readonly IRepository<Currency> _currencyRepository;
         private readonly IRepository<Indicator> _indicatorRepository;
@@ -21,14 +21,14 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly IRepository<Line> _lineRepository;
 
         public UpdateLinesJob(
-            MainDbContext mainDbContext,
+            IContext context,
             ILogger<UpdateLinesJob> logger,
             IRepository<Currency> currencyRepository,
             IRepository<Indicator> indicatorRepository,
             IRepository<Watcher> watcherRepository,
             IRepository<Line> lineRepository)
         {
-            _mainDbContext = mainDbContext;
+            _context = context;
             _logger = logger;
             _currencyRepository = currencyRepository;
             _indicatorRepository = indicatorRepository;
@@ -61,7 +61,7 @@ namespace CryptoWatcher.BackgroundJobs
                 _lineRepository.AddRange(lines);
 
                 // Save
-                await _mainDbContext.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
                 // Stop watch
                 stopwatch.Stop();

@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Shared.ResponseExamples;
+using CryptoWatcher.Shared.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

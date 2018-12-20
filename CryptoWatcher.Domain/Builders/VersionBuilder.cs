@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Helpers;
+using CryptoWatcher.Shared.Models;
 
 
 namespace CryptoWatcher.Domain.Builders

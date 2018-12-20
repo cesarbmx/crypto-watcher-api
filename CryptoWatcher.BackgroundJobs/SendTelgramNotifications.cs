@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using CryptoWatcher.Domain.Expressions;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
-using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Shared.Contexts;
 using CryptoWatcher.Shared.Extensions;
+using CryptoWatcher.Shared.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
@@ -15,18 +15,18 @@ namespace CryptoWatcher.BackgroundJobs
 {
     public class SendTelgramNotifications
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly IContext _context;
         private readonly ILogger<SendWhatsappNotificationsJob> _logger;
         private readonly IRepository<Notification> _notificationRepository;
         private readonly IConfiguration _configuration;
 
         public SendTelgramNotifications(
-            MainDbContext mainDbContext,
+            IContext context,
             ILogger<SendWhatsappNotificationsJob> logger,
             IRepository<Notification> notificationRepository,
             IConfiguration configuration)
         {
-            _mainDbContext = mainDbContext;
+            _context = context;
             _logger = logger;
             _notificationRepository = notificationRepository;
             _configuration = configuration;
@@ -72,7 +72,7 @@ namespace CryptoWatcher.BackgroundJobs
                     }
 
                     // Save
-                    await _mainDbContext.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
 
                     // Stop watch
                     stopwatch.Stop();
