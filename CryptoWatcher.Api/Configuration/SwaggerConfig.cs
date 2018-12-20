@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using MicroElements.Swashbuckle.FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Filters;
@@ -48,6 +49,10 @@ namespace CryptoWatcher.Api.Configuration
                 c.OperationFilter<AddResponseHeadersFilter>(); // [SwaggerResponseHeader]
                 c.OperationFilter<AppendAuthorizeToSummaryOperationFilter>(); // Adds "(Auth)" to the summary so that you can see which endpoints have Authorization                
                 c.EnableAnnotations(); // Enables the groupings (TAGs)
+                // c.AddFluentValidationRules(); // Throws Exception
+                //Doing the AddFluentValidationRules' calls manually, no exception
+                c.SchemaFilter<FluentValidationRules>();
+                c.OperationFilter<FluentValidationOperationFilter>();
 
                 // XML documentation file
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;

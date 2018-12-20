@@ -11,7 +11,6 @@ namespace CryptoWatcher.Application.Validators
             RuleFor(x => x.UserId)
              .NotEmpty()
              .WithMessage(nameof(UserMessage.IdCannotBeEmpty) + " " + UserMessage.IdCannotBeEmpty);
-
         }
     }
 }

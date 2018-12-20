@@ -1,11 +1,11 @@
-﻿using System.Reflection;
-using FluentValidation.AspNetCore;
+﻿using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using CryptoWatcher.Api.ActionFilters;
 using CryptoWatcher.Api.Controllers;
+using CryptoWatcher.Application.Validators;
+using CryptoWatcher.Shared.ActionFilters;
 
 namespace CryptoWatcher.Api.Configuration
 {
@@ -20,7 +20,7 @@ namespace CryptoWatcher.Api.Configuration
                         config.Filters.Add(typeof(LowercaseNaturalKeysAttribute));
                     })
                 .AddFluentValidation(fv => fv
-                    .RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly())
+                    .RegisterValidatorsFromAssembly(typeof(AddUserValidator).Assembly)
                     .RunDefaultMvcValidationAfterFluentValidationExecutes = false)
                 .AddJsonOptions(options =>
                 {
