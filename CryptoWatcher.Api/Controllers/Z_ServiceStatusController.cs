@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
-using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Application.Services;
 using CryptoWatcher.Domain.Messages;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -15,11 +14,11 @@ namespace CryptoWatcher.Api.Controllers
     [AllowAnonymous]
     public class Z_ServiceStatusController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly StatusService _statusService;
 
-        public Z_ServiceStatusController(IMediator mediator)
+        public Z_ServiceStatusController(StatusService statusService)
         {
-            _mediator = mediator;
+            _statusService = statusService;
         }
 
         [HttpGet]
@@ -44,8 +43,8 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetVersion()
         {
             // Reponse
-            var response = await _mediator.Send(new GetVersionRequest());
-
+            var response = await _statusService.GetVersion();
+                
             // Return
             return Ok(response);
         }
@@ -63,7 +62,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetHealth()
         {
             // Reponse
-            var response = await _mediator.Send(new GetHealthRequest());
+            var response = await _statusService.GetHealth();
 
             // Return
             return Ok(response);

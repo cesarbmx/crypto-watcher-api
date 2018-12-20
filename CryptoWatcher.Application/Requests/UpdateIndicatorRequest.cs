@@ -1,11 +1,9 @@
-﻿using CryptoWatcher.Application.Responses;
-using MediatR;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 
 namespace CryptoWatcher.Application.Requests
 {
-    public class UpdateIndicatorRequest : IRequest<IndicatorResponse>
+    public class UpdateIndicatorRequest
     {
         [JsonIgnore]
         public string IndicatorId { get; set; }

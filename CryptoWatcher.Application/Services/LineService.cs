@@ -1,33 +1,30 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Repositories;
-using MediatR;
 
-namespace CryptoWatcher.Application.Handlers
+namespace CryptoWatcher.Application.Services
 {
-    public class GetAllLinesHandler : IRequestHandler<GetAllLinesRequest, List<LineResponse>>
+    public class LineService
     {
         private readonly IRepository<Line> _lineRepository;
         private readonly IMapper _mapper;
 
-        public GetAllLinesHandler(IRepository<Line> lineRepository, IMapper mapper)
+        public LineService(IRepository<Line> lineRepository, IMapper mapper)
         {
             _lineRepository = lineRepository;
             _mapper = mapper;
         }
-        public async Task<List<LineResponse>> Handle(GetAllLinesRequest request, CancellationToken cancellationToken)
+        public async Task<List<LineResponse>> GetAllLines(string currencyId = null, string indicatorId = null)
         {
             // Get all lines
             var lines = await _lineRepository.GetAll();
 
             // Filter
-            lines.FilterLines(request.CurrencyId, request.IndicatorId);
+            lines.FilterLines(currencyId, indicatorId);
 
             // Response
             var response = _mapper.Map<List<LineResponse>>(lines);

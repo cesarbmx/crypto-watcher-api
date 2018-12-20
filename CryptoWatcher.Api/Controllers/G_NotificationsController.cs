@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
-using MediatR;
+using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -14,11 +13,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class G_NotificationsController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly NotificationService _notificationService;
 
-        public G_NotificationsController(IMediator mediator)
+        public G_NotificationsController(NotificationService notificationService)
         {
-            _mediator = mediator;
+            _notificationService = notificationService;
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetAllNotifications(string userId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetAllNotificationsRequest {UserId = userId });
+            var response = await _notificationService.GetAllNotifications(userId);
 
             // Return
             return Ok(response);
@@ -44,7 +43,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get notification
         /// </summary>
         [HttpGet]
-        [Route("users/{userId}/notifications/{notificationId}", Name = "Notifications_GetNotification")]
+        [Route("notifications/{notificationId}", Name = "Notifications_GetNotification")]
         [SwaggerResponse(200, Type = typeof(NotificationResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
@@ -52,10 +51,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetNotification")]
-        public async Task<IActionResult> GetNotification(string userId, Guid notificationId)
+        public async Task<IActionResult> GetNotification(Guid notificationId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetNotificationRequest() { NotificationId = notificationId });
+            var response = await _notificationService.GetNotification(notificationId);
 
             // Return
             return Ok(response);

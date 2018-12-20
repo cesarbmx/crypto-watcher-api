@@ -1,32 +1,38 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using CryptoWatcher.Application.Requests;
+using CryptoWatcher.Application.Services;
 using CryptoWatcher.UI.Builders;
 using Microsoft.AspNetCore.Mvc;
 using CryptoWatcher.UI.Models;
-using MediatR;
 
 namespace CryptoWatcher.UI.Controllers
 {
     public class ChartsController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly CurrencyService _currencyService;
+        private readonly IndicatorService _indicatorService;
+        private readonly LineService _linesService;
 
-        public ChartsController(IMediator mediator)
+        public ChartsController(
+            CurrencyService currencyService,
+            IndicatorService indicatorService,
+            LineService linesService)
         {
-            _mediator = mediator;
+            _currencyService = currencyService;
+            _indicatorService = indicatorService;
+            _linesService = linesService;
         }
 
         public async Task<IActionResult> Index()
         {
             // Get all currrencies
-            var currencies = await _mediator.Send(new GetAllCurrenciesRequest());
-
+            var currencies = await _currencyService.GetAllCurrencies();
+                
             // Get all indicators
-            var indicators = await _mediator.Send(new GetAllIndicatorsRequest{UserId = "master"});
+            var indicators = await _indicatorService.GetAllIndicators("master");
 
             // Get all lines
-            var lines = await _mediator.Send(new GetAllLinesRequest());
+            var lines = await _linesService.GetAllLines();
 
            // ViewModel
             var chartViewModel = ChartBuilder.BuildChartViewModel(currencies, indicators, lines);

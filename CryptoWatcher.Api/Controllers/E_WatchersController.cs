@@ -5,7 +5,7 @@ using CryptoWatcher.Api.RequestExamples;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
-using MediatR;
+using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -15,11 +15,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class E_WatchersController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly WatcherService _watcherService;
 
-        public E_WatchersController(IMediator mediator)
+        public E_WatchersController(WatcherService watcherService)
         {
-            _mediator = mediator;
+            _watcherService = watcherService;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetAllWatchers(string userId, string indicatorId = null)
         {
             // Reponse
-            var response = await _mediator.Send(new GetAllWatchersRequest{UserId = userId, IndicatorId = indicatorId });
+            var response = await _watcherService.GetAllWatchers(userId, indicatorId);
 
             // Return
             return Ok(response);
@@ -56,7 +56,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetWatcher(Guid watcherId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetWatcherRequest { WatcherId = watcherId });
+            var response = await _watcherService.GetWatcher(watcherId);
 
             // Return
             return Ok(response);
@@ -84,7 +84,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> AddWatcher([FromBody]AddWatcherRequest request)
         {
             // Reponse
-            var response = await _mediator.Send(request);
+            var response = await _watcherService.AddWatcher(request);
 
             // Return
             return CreatedAtRoute("Watchers_GetWatcher", new { response.WatcherId }, response);
@@ -111,7 +111,7 @@ namespace CryptoWatcher.Api.Controllers
         {
             // Reponse
             request.WatcherId = watcherId;
-            var response = await _mediator.Send(request);
+            var response = await _watcherService.UpdateWatcher(request);
 
             // Return
             return Ok(response);

@@ -1,23 +1,22 @@
 ﻿using System.Diagnostics;
-using System.Threading;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using CoinMarketCap.Core;
-using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Repositories;
-using MediatR;
 
-namespace CryptoWatcher.Application.Handlers
+namespace CryptoWatcher.Application.Services
 {
-    public class GetHealthHandler : IRequestHandler<GetHealthRequest, HealthResponse>
+    public class StatusService
     {
         private readonly IRepository<Currency> _currencyRepository;
         private readonly IMapper _mapper;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
 
-        public GetHealthHandler(
+        public StatusService(
             IRepository<Currency> currencyRepository,
             IMapper mapper,
             ICoinMarketCapClient coinMarketCapClient)
@@ -27,7 +26,18 @@ namespace CryptoWatcher.Application.Handlers
             _coinMarketCapClient = coinMarketCapClient;
         }
 
-        public async Task<HealthResponse> Handle(GetHealthRequest request, CancellationToken cancellationToken)
+        public Task<VersionResponse> GetVersion()
+        {
+            // Get version
+            var version = VersionBuilder.BuildVersion(Assembly.GetExecutingAssembly());
+
+            // Response
+            var response = _mapper.Map<VersionResponse>(version);
+
+            // Return
+            return Task.FromResult(response);
+        }
+        public async Task<HealthResponse> GetHealth()
         {
             var isEverythingOk = true;
             var isConnectionToDatabaseOk = true;

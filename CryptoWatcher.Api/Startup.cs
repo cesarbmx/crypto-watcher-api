@@ -34,9 +34,6 @@ namespace CryptoWatcher.Api
             // DI
             services.ConfigureDependencies(Configuration);
 
-            // MediatR
-            services.ConfigureMediatR();
-
             // Mvc
             services.ConfigureMvc();
         }

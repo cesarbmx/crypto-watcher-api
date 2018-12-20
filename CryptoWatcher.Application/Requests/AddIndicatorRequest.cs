@@ -1,10 +1,8 @@
-﻿using CryptoWatcher.Application.Responses;
-using MediatR;
-
+﻿
 
 namespace CryptoWatcher.Application.Requests
 {
-    public class AddIndicatorRequest : IRequest<IndicatorResponse>
+    public class AddIndicatorRequest
     {
         public string IndicatorId { get; set; }
         public string UserId { get; set; }

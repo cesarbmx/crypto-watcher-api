@@ -1,11 +1,9 @@
 ﻿using System;
-using CryptoWatcher.Application.Responses;
-using MediatR;
 using Newtonsoft.Json;
 
 namespace CryptoWatcher.Application.Requests
 {
-    public class UpdateWatcherRequest : IRequest<WatcherResponse>
+    public class UpdateWatcherRequest
     {
         [JsonIgnore]
         public Guid WatcherId { get; set; }

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CryptoWatcher.Api.RequestExamples;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
-using MediatR;
+using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -13,11 +14,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class B_UsersController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly UserService _userService;
 
-        public B_UsersController(IMediator mediator)
+        public B_UsersController(UserService userService)
         {
-            _mediator = mediator;
+            _userService = userService;
         }
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetAllUsers()
         {
             // Reponse
-            var response = await _mediator.Send(new GetUsersRequest());
+            var response = await _userService.GetAllUsers();
 
             // Return
             return Ok(response);
@@ -54,7 +55,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetUser(string userId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetUserRequest() { UserId = userId });
+            var response = await _userService.GetUser(userId);
 
             // Return
             return Ok(response);
@@ -75,11 +76,12 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(409, typeof(ConflictExample))]
         [SwaggerResponseExample(422, typeof(InvalidRequestExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
+        [SwaggerRequestExample(typeof(AddUserRequest), typeof(AddUserRequestExample))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_AddUser")]
         public async Task<IActionResult> AddUser([FromBody]AddUserRequest request)
         {
             // Reponse
-            var response = await _mediator.Send(request);
+            var response = await _userService.AddUser(request);
 
             // Return
             return CreatedAtRoute("Users_GetUser", new { response.UserId }, response);

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
-using MediatR;
+using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -14,11 +13,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class F_OrdersController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly OrderService _orderService;
 
-        public F_OrdersController(IMediator mediator)
+        public F_OrdersController(OrderService orderService)
         {
-            _mediator = mediator;
+            _orderService = orderService;
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetAllOrders(string userId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetAllOrdersRequest { UserId = userId });
+            var response = await _orderService.GetAllOrders(userId);
 
             // Return
             return Ok(response);
@@ -55,7 +54,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetOrder(Guid orderId)
         {
             // Reponse
-            var response = await _mediator.Send(new GetOrderRequest { OrderId = orderId });
+            var response = await _orderService.GetOrder(orderId);
 
             // Return
             return Ok(response);

@@ -22,7 +22,6 @@ namespace CryptoWatcher.Service.Configuration
                 .UseInMemoryDatabase("CryptoWatcher")
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
-
             // Repositories
             services.AddScoped<Repository<Log>, Repository<Log>>();
             services.AddScoped<Repository<Currency>, Repository<Currency>>();
