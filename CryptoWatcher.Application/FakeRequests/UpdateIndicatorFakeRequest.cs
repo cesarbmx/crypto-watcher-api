@@ -10,7 +10,7 @@ namespace CryptoWatcher.Application.FakeRequests
             {
                 IndicatorId = "johny.melavo-hype",
                 Name = "Hype",
-                Description = "It identifies inmediate hypes within 24 Hrs in your portfolio",
+                Description = "It identifies immediate hypes within 24 Hrs in your portfolio",
                 Formula = "C# formula"
             };
         }       

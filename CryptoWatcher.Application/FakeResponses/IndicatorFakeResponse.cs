@@ -12,7 +12,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 IndicatorId = "johny.melavo-price-change-24hrs",
                 UserId = "johny.melavo",
                 Name = "Price Change 24 Hrs",
-                Description = "It identifies inmediate price changes within 24 Hrs in your portfolio",
+                Description = "It identifies immediate price changes within 24 Hrs in your portfolio",
                 Formula = "C# formula"
             };
         }
@@ -23,7 +23,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 IndicatorId = "johny.melavo-hype",
                 UserId = "johny.melavo",
                 Name = "Hype",
-                Description = "It identifies inmediate hypes within 24 Hrs in your portfolio",
+                Description = "It identifies immediate hypes within 24 Hrs in your portfolio",
                 Formula = "C# formula"
             };
         }
