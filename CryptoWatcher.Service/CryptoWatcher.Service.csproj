@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="appsettings.Development.json" />
     <None Remove="appsettings.json" />
     <None Remove="log4net.config" />
   </ItemGroup>
