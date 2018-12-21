@@ -10,7 +10,7 @@ namespace CryptoWatcher.Persistence.Mappings
         {
             // Key
             entityBuilder.HasKey(t => t.OrderId)
-                .ForSqlServerIsClustered(false); ;
+                .ForSqlServerIsClustered(false);
 
             // Properties
             entityBuilder.Property(t => t.OrderId)

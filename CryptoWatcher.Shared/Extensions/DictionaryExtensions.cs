@@ -38,7 +38,7 @@ namespace CryptoWatcher.Shared.Extensions
                         var pref = prefix?.Length > 0 ? prefix + "_" : string.Empty;
                         // Cover scenarios like: Description=""
                         var value = (item.Value == null || item.Value.ToString() == string.Empty) ? "": item.Value;
-                        str += pref + item.Key + "=" + item.Value + ", ";
+                        str += pref + item.Key + "=" + value + ", ";
                     }
                 }
             }
