@@ -9,7 +9,8 @@ namespace CryptoWatcher.Persistence.Mappings
         public LineMap(EntityTypeBuilder<Line> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.LineId);
+            entityBuilder.HasKey(t => t.LineId).
+                ForSqlServerIsClustered(false);
 
             // Properties
             entityBuilder.Property(t => t.LineId)

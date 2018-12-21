@@ -9,7 +9,8 @@ namespace CryptoWatcher.Persistence.Mappings
         public LogMap(EntityTypeBuilder<Log> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.LogId);
+            entityBuilder.HasKey(t => t.LogId)
+                .ForSqlServerIsClustered(false);
 
             // Properties
             entityBuilder.Property(t => t.LogId)

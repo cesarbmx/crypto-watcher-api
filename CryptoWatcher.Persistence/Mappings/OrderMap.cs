@@ -9,7 +9,8 @@ namespace CryptoWatcher.Persistence.Mappings
         public OrderMap(EntityTypeBuilder<Order> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.OrderId);
+            entityBuilder.HasKey(t => t.OrderId)
+                .ForSqlServerIsClustered(false); ;
 
             // Properties
             entityBuilder.Property(t => t.OrderId)
