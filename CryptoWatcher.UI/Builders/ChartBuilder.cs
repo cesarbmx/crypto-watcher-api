@@ -41,7 +41,7 @@ namespace CryptoWatcher.UI.Builders
             foreach (var line in lines)
             {
                 var dateTime =
-                    $"new Date({line.Time.Year},{line.Time.Month},{line.Time.Day},{line.Time.Hour},{line.Time.Minute})";
+                    $"new Date({line.Time.Year},{line.Time.Month:D2},{line.Time.Day:D2},{line.Time.Hour:D2},{line.Time.Minute:D2})";
                 rows += ", " + $"[{dateTime}, {line.Value}, {line.AverageBuy}, {line.AverageSell}]";
             }
 
