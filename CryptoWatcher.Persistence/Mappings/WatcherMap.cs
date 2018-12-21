@@ -36,7 +36,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.Value)
-                .HasColumnType("decimal")
+                .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
             entityBuilder.Property(t => t.Enabled)
@@ -44,11 +44,11 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.Buy)
-                .HasColumnType("decimal")
+                .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
             entityBuilder.Property(t => t.Sell)
-                .HasColumnType("decimal")
+                .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
             entityBuilder.Property(t => t.CreatedBy)

@@ -32,19 +32,19 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.MarketCap)
-                .HasColumnType("decimal")
+                .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
             entityBuilder.Property(t => t.Price)
-                .HasColumnType("decimal")
+                .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
             entityBuilder.Property(t => t.Volume24H)
-                .HasColumnType("decimal")
+                .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
             entityBuilder.Property(t => t.PercentageChange24H)
-                .HasColumnType("decimal")
+                .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
             entityBuilder.Property(t => t.CreatedBy)

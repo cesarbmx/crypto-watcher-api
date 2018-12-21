@@ -37,7 +37,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.Quantity)
-                .HasColumnType("decimal")
+                .HasColumnType("decimal(18,4)")
                 .IsRequired();
 
             entityBuilder.Property(t => t.Status)
