@@ -13,7 +13,9 @@ namespace CryptoWatcher.Persistence.Mappings
                 ForSqlServerIsClustered(false);
 
             // Indexes
-            entityBuilder.HasIndex(b => new { b.CurrencyId, b.IndicatorId });
+            entityBuilder.HasIndex(t => new { t.CurrencyId, t.IndicatorId });
+            entityBuilder.HasIndex(t => t.Time)
+                .ForSqlServerIsClustered();
 
             // Properties
             entityBuilder.Property(t => t.LineId)
