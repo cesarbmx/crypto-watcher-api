@@ -12,6 +12,9 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.HasKey(t => t.LineId).
                 ForSqlServerIsClustered(false);
 
+            // Indexes
+            entityBuilder.HasIndex(b => new { b.CurrencyId, b.IndicatorId });
+
             // Properties
             entityBuilder.Property(t => t.LineId)
                 .HasColumnType("uniqueidentifier")
