@@ -13,8 +13,15 @@ namespace CryptoWatcher.Service.Configuration
         public static void ConfigureHangfire(this ServiceProvider serviceProvider, IConfiguration configuration)
         {
             // Hangfire
-            //GlobalConfiguration.Configuration.UseSqlServerStorage(configuration.GetConnectionString("CryptoWatcher"));
-            GlobalConfiguration.Configuration.UseMemoryStorage();
+            // UseMemoryStorage
+            if (bool.Parse(configuration["AppSettings:UseMemoryStorage"]))
+            {
+                GlobalConfiguration.Configuration.UseMemoryStorage();
+            }
+            else
+            {
+                GlobalConfiguration.Configuration.UseSqlServerStorage(configuration.GetConnectionString("CryptoWatcher"));
+            }
             GlobalConfiguration.Configuration.UseActivator(new HangfireActivator(serviceProvider));
             GlobalConfiguration.Configuration.UseLogProvider(new HangfireLoggerProvider());
 
