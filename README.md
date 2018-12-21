@@ -3,7 +3,7 @@ _C# .NET Core + DDD + MediatR + Hangfire + Swagger + Automapper + FluentValidati
 
 ##### GOALS:
 - [x] **#1** Foundation for any project following .Net Core, REST API, DDD and micro-services architecture  
-- [ ] **#2** Crypto bot that combines analytical trading with people's sentiment 
+- [ ] **#2** Crypto bot that combines analytical trading with people's accuracy 
 - [ ] **#3** Aim to reduce market volatility acting as a whole.
 
 ##### PHASES:
