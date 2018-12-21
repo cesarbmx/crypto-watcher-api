@@ -32,10 +32,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(200, typeof(WatcherListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetAllWatchers")]
-        public async Task<IActionResult> GetAllWatchers(string userId, string indicatorId = null)
+        public async Task<IActionResult> GetAllWatchers(string userId, string currencyId = null, string indicatorId = null)
         {
             // Reponse
-            var response = await _watcherService.GetAllWatchers(userId, indicatorId);
+            var response = await _watcherService.GetAllWatchers(userId, currencyId, indicatorId);
 
             // Return
             return Ok(response);

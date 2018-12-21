@@ -6,9 +6,9 @@ namespace CryptoWatcher.Domain.Expressions
 {
     public static class NotificationExpression
     {
-        public static Expression<Func<Notification, bool>> Filter(string userId)
+        public static Expression<Func<Notification, bool>> NotificationFilter(string userId)
         {
-            return x => x.UserId == userId;
+            return x => string.IsNullOrEmpty(userId) || x.UserId == userId;
         }
         public static Expression<Func<Notification, bool>> PendingNotification()
         {

@@ -59,7 +59,7 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return watchers;
         }
-        public static List<Watcher> SyncWatchers(this List<Watcher> watchers, List<Watcher> defaultWatchers)
+        public static void SyncWatchers(this List<Watcher> watchers, List<Watcher> defaultWatchers)
         {
             // Sync watcher
             foreach (var watcher in watchers)
@@ -72,16 +72,6 @@ namespace CryptoWatcher.Domain.Builders
                 var defaultWatcher = defaultWatchers.FirstOrDefault(WatcherExpression.DefaultWatcher(currencyId, indicatorId).Compile());
                 if (defaultWatcher != null) watcher.Sync(defaultWatcher.Value, defaultWatcher.AverageBuy, defaultWatcher.AverageSell);
             }
-
-            // Return
-            return watchers;
-        }
-        public static List<Watcher> FilterWatchers(this List<Watcher> watchers, string indicatorId)
-        {
-            if (!string.IsNullOrEmpty(indicatorId))
-                watchers = watchers.Where(x => x.IndicatorId == indicatorId).ToList();
-
-            return watchers;
         }
     }
 }

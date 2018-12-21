@@ -45,7 +45,7 @@ namespace CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get indicators
-            var userIndicators = await _indicatorRepository.GetAll(IndicatorExpression.Filter(userId));
+            var userIndicators = await _indicatorRepository.GetAll(IndicatorExpression.IndicatorFilter(userId));
 
             // Response
             var response = _mapper.Map<List<IndicatorResponse>>(userIndicators);

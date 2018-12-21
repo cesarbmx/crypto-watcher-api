@@ -14,9 +14,9 @@ namespace CryptoWatcher.Domain.Expressions
                 x.WatcherId == watcherId &&
                 x.OrderType == orderType;
         }
-        public static Expression<Func<Order, bool>> Filter(string userId)
+        public static Expression<Func<Order, bool>> OrderFilter(string userId)
         {
-            return x => x.UserId == userId;
+            return x => string.IsNullOrEmpty(userId) || x.UserId == userId;
         }
     }
 }

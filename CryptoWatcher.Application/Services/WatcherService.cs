@@ -41,7 +41,7 @@ namespace CryptoWatcher.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<WatcherResponse>> GetAllWatchers(string userId = null, string indicatorId = null)
+        public async Task<List<WatcherResponse>> GetAllWatchers(string userId = null, string currencyId = null, string indicatorId = null)
         {
             // Get user
             var user = await _userRepository.GetSingle(userId);
@@ -50,13 +50,10 @@ namespace CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get all watchers
-            var watchers = await _watcherRepository.GetAll(WatcherExpression.Filter(userId));
-
-            // Filter
-            watchers.FilterWatchers(indicatorId);
+            var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherFilter(userId, currencyId, indicatorId));
 
             // Get default watchers
-            var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
+            var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcherFilter(currencyId, indicatorId));
 
             // Build with defaults
             watchers = WatcherBuilder.BuildWatchersWithDefaults(watchers, defaultWatchers);
