@@ -37,11 +37,11 @@ namespace CryptoWatcher.UI
             // Automapper
             services.ConfigureAutomapper();
 
-            // Hangfire
-            services.ConfigureHangfire(Configuration);
-
             // DI
             services.ConfigureDependencies(Configuration);
+
+            // Hangfire
+            services.ConfigureHangfire(Configuration);
 
             // Mvc
             services.ConfigureMvc();
