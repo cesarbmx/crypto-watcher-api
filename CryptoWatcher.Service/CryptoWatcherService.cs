@@ -25,11 +25,11 @@ namespace CryptoWatcher.Service
                 .ConfigureLog4Net(configuration)
                 .BuildServiceProvider();
 
-            // Configure hangfire
-            serviceProvider.ConfigureHangfire(configuration);
-
             // Data seeding
             serviceProvider.ConfigureDataSeeding();
+
+            // Configure hangfire
+            serviceProvider.ConfigureHangfire(configuration);
 
             _backgroundJobServer = new BackgroundJobServer();
         }

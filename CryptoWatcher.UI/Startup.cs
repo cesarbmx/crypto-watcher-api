@@ -70,11 +70,11 @@ namespace CryptoWatcher.UI
             // Log4Net
             loggerfactory.ConfigureLog4Net(env);
 
-            // Hangfire
-            app.ConfigureHangfire(Configuration);
-
             // Data seeding
             app.ConfigureDataSeeding();
+
+            // Hangfire
+            app.ConfigureHangfire(Configuration);
 
             // Mvc
             app.ConfigureMvc();

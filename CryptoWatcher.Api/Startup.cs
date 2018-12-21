@@ -50,11 +50,11 @@ namespace CryptoWatcher.Api
             // Swagger
             app.ConfigureSwagger();
 
-            // Hangfire
-            app.ConfigureHangfire(Configuration);
-
             // Data seeding
             app.ConfigureDataSeeding();
+
+            // Hangfire
+            app.ConfigureHangfire(Configuration);
 
             // Mvc
             app.ConfigureMvc();
