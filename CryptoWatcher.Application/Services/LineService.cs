@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Repositories;
 
@@ -21,10 +21,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<List<LineResponse>> GetAllLines(string currencyId = null, string indicatorId = null)
         {
             // Get all lines
-            var lines = await _lineRepository.GetAll();
-
-            // Filter
-            lines.FilterLines(currencyId, indicatorId);
+            var lines = await _lineRepository.GetAll(LineExpression.Filter(currencyId, indicatorId));
 
             // Response
             var response = _mapper.Map<List<LineResponse>>(lines);
