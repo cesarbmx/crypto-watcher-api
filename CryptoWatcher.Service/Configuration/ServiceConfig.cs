@@ -18,7 +18,7 @@ namespace CryptoWatcher.Service.Configuration
                 //Setup Account that window service use to run.  
                 configure.RunAsLocalSystem();
                 configure.SetServiceName("CryptoWatcherService");
-                configure.SetDisplayName("CryptoWatcherService");
+                configure.SetDisplayName("CryptoWatcher Service");
                 configure.SetDescription("It runs the hangfire recurring jobs");
             });
         }

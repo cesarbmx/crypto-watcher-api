@@ -20,14 +20,14 @@ namespace CryptoWatcher.Service.Configuration
                 //Contexts (UOW)
                 services.AddDbContext<MainDbContext>(options => options
                     .UseInMemoryDatabase("CryptoWatcher")
-                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking), ServiceLifetime.Transient);
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
             else
             {
                 //Contexts (UOW)
                 services.AddDbContext<MainDbContext>(options => options
                     .UseSqlServer(configuration.GetConnectionString("CryptoWatcher"))
-                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking), ServiceLifetime.Transient);
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
 
             // Repositories
