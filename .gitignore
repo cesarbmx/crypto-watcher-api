@@ -329,6 +329,6 @@ ASALocalRun/
 .mfractor/
 
 # App Settings (Sensitive data)
-*.appsettings.Development.json
-*.appsettings.Staging.json
-*.appsettings.Production.json
+*appsettings.Development.json
+*appsettings.Staging.json
+*appsettings.Production.json
