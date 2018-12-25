@@ -2,9 +2,11 @@
 using Hangfire;
 using Hangfire.MemoryStorage;
 using CryptoWatcher.BackgroundJobs;
+using Hangfire.AspNetCore;
 using Hangfire.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using LogLevel = Hangfire.Logging.LogLevel;
 
 namespace CryptoWatcher.Service.Configuration
 {
@@ -22,7 +24,9 @@ namespace CryptoWatcher.Service.Configuration
             {
                 GlobalConfiguration.Configuration.UseSqlServerStorage(configuration.GetConnectionString("CryptoWatcher"));
             }
-            GlobalConfiguration.Configuration.UseActivator(new HangfireActivator(serviceProvider));
+
+            var scopeFactory = (IServiceScopeFactory)serviceProvider.GetService(typeof(IServiceScopeFactory));
+            GlobalConfiguration.Configuration.UseActivator(new AspNetCoreJobActivator(scopeFactory));
             GlobalConfiguration.Configuration.UseLogProvider(new HangfireLoggerProvider());
 
             // Background jobs
@@ -39,20 +43,6 @@ namespace CryptoWatcher.Service.Configuration
             RecurringJob.AddOrUpdate("Remove lines", () => removeLinesJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
         }
     }
-    public class HangfireActivator : JobActivator
-    {
-        private readonly IServiceProvider _serviceProvider;
-
-        public HangfireActivator(IServiceProvider serviceProvider)
-        {
-            _serviceProvider = serviceProvider;
-        }
-
-        public override object ActivateJob(Type type)
-        {
-            return _serviceProvider.GetService(type);
-        }
-    }
     public class HangfireLoggerProvider : ILogProvider
     {
         public ILog GetLogger(string name)
@@ -61,7 +51,7 @@ namespace CryptoWatcher.Service.Configuration
         }
 
         public class NoLogger : ILog
-        { 
+        {
             public bool Log(LogLevel logLevel, Func<string> messageFunc, Exception exception)
             {
                 return false;
