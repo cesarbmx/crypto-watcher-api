@@ -12,7 +12,6 @@ namespace CryptoWatcher.Domain.Models
         public decimal Value { get; private set; }
         public decimal AverageBuy { get; private set; }
         public decimal AverageSell { get; private set; }
-        public string CreatedBy { get; private set; }
         public DateTime Time { get; private set; }
 
         public Line() { }
@@ -30,7 +29,6 @@ namespace CryptoWatcher.Domain.Models
             Value = value;
             AverageBuy = averageBuy;
             AverageSell = averageSell;
-            CreatedBy = "system";
             Time = time;
         }
     }

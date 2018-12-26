@@ -11,11 +11,10 @@ namespace CryptoWatcher.Domain.Models
         public string Entity { get; private set; }
         public string EntityId { get; private set; }
         public string Json { get; private set; }
-        public string CreatedBy { get; private set; }
         public DateTime Time { get; private set; }
 
         public Log() { }
-        public Log(string action, object entity, string entityId, string createdBy, DateTime creationTime)
+        public Log(string action, object entity, string entityId)
         {
             var entityName = entity.GetType().Name;
             if (entityName == "List`1")
@@ -27,8 +26,7 @@ namespace CryptoWatcher.Domain.Models
             Action = action;
             Entity = entityName;
             EntityId = entityId;
-            CreatedBy = createdBy;
-            Time = creationTime;
+            Time = DateTime.Now;
             Json = JsonConvertHelper.SerializeObjectRaw(entity);
         }
         public T ModelJsonToObject<T>()

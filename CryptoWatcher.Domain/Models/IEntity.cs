@@ -1,5 +1,4 @@
 ﻿
-using System;
 
 
 namespace CryptoWatcher.Domain.Models
@@ -7,7 +6,5 @@ namespace CryptoWatcher.Domain.Models
     public interface IEntity
     {
         string Id { get;}
-        string CreatedBy { get; }
-        DateTime Time { get; }
     }
 }

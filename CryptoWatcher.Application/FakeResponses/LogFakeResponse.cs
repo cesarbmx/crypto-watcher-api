@@ -14,8 +14,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 Action = "Add",
                 Entity = "Cache",
                 EntityId = "Currencies",
-                CreatedBy = "system",
-                CreationTime = DateTime.Parse("2018-09-14T14:05"),
+                Time = DateTime.Now,
                 Json = "{}"
             };
         }
