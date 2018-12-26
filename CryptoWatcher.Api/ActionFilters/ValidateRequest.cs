@@ -22,7 +22,7 @@ namespace CryptoWatcher.Api.ActionFilters
                     {
                         if (error.Exception != null)
                         {
-                            var errorResponse = new ErrorResponse(nameof(Message.InvalidRequest), 400, Message.InvalidRequest);
+                            var errorResponse = new ErrorResponse(nameof(Message.BadRequest), 400, Message.BadRequest);
                             filterContext.Result = new ObjectResult(errorResponse) { StatusCode = 400 };
                             return;
                         }

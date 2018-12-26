@@ -10,7 +10,7 @@ namespace CryptoWatcher.Domain.Messages
         public const string Restricted = "You are restricted for this {0}: {1}";
 
         // Validation
-        public const string InvalidRequest = "The request is invalid";
+        public const string BadRequest = "The request is invalid";
         public const string ValidationFailed = "Validation failed";
         public const string NotFound = "The resource was not found";
         public const string Conflict = "There is a conflict with the current state";

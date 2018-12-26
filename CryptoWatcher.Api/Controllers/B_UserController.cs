@@ -74,7 +74,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(201, typeof(UserResponseExample))]
         [SwaggerResponseExample(400, typeof(BadRequestExample))]
         [SwaggerResponseExample(409, typeof(ConflictExample))]
-        [SwaggerResponseExample(422, typeof(InvalidRequestExample))]
+        [SwaggerResponseExample(422, typeof(ValidationFailedExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerRequestExample(typeof(AddUserRequest), typeof(AddUserRequestExample))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_AddUser")]

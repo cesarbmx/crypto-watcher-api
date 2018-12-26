@@ -9,7 +9,7 @@ namespace CryptoWatcher.Application.FakeResponses
         public static ErrorResponse GetFake_BadRequest()
         {
           
-            return new ErrorResponse(nameof(Message.InvalidRequest), 400, Message.InvalidRequest);
+            return new ErrorResponse(nameof(Message.BadRequest), 400, Message.BadRequest);
         }
         public static ErrorResponse GetFake_NotFound()
         {
@@ -19,7 +19,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new ErrorResponse(nameof(Message.Conflict), 409, Message.Conflict);
         }
-        public static ValidationResponse GetFake_InvalidRequest()
+        public static ValidationResponse GetFake_ValidationFailed()
         {
             var validationErrorResponseList = new List<ValidationErrorResponse>
             {

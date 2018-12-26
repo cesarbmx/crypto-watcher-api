@@ -24,11 +24,11 @@ namespace CryptoWatcher.Api.ResponseExamples
             return ErrorFakeResponse.GetFake_Conflict();
         }
     }
-    public class InvalidRequestExample : IExamplesProvider
+    public class ValidationFailedExample : IExamplesProvider
     {
         public object GetExamples()
         {
-            return ErrorFakeResponse.GetFake_InvalidRequest();
+            return ErrorFakeResponse.GetFake_ValidationFailed();
         }
     }
     public class InternalServerErrorExample : IExamplesProvider
