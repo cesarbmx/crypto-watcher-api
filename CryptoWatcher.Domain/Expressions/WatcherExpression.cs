@@ -13,6 +13,10 @@ namespace CryptoWatcher.Domain.Expressions
                 (string.IsNullOrEmpty(currencyId) || x.CurrencyId == currencyId) &&
                 (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId);
         }
+        public static Expression<Func<Watcher, bool>> WatcherWithBuySell()
+        {
+            return x => x.Buy.HasValue && x.Sell.HasValue;
+        }
         public static Expression<Func<Watcher, bool>> WatcherWillingToBuy()
         {
             return x => x.Status == WatcherStatus.Buy;

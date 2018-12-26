@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
@@ -70,7 +71,9 @@ namespace CryptoWatcher.Domain.Builders
             var values = new decimal[watchers.Count];
             for (var i = 0; i < watchers.Count; i++)
             {
-                values[i] = watchers[i].Buy;
+                var buy = watchers[i].Buy;
+                if (!buy.HasValue) throw new ArgumentException("We expect watchers with buy sells");
+                values[i] = buy.Value;
             }
 
             // Return
@@ -88,7 +91,9 @@ namespace CryptoWatcher.Domain.Builders
             var values = new decimal[watchers.Count];
             for (var i = 0; i < watchers.Count; i++)
             {
-                values[i] = watchers[i].Sell;
+                var sell = watchers[i].Sell;
+                if (!sell.HasValue) throw new ArgumentException("We expect watchers with buy sells");
+                values[i] = sell.Value;
             }
 
             // Return

@@ -12,8 +12,8 @@ namespace CryptoWatcher.Domain.Models
         public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
         public decimal Value { get; private set; }
-        public decimal Buy { get; private set; }
-        public decimal Sell { get; private set; }
+        public decimal? Buy { get; private set; }
+        public decimal? Sell { get; private set; }
         public decimal AverageBuy { get; private set; }
         public decimal AverageSell { get; private set; }
         public bool Enabled { get; private set; }
@@ -27,8 +27,8 @@ namespace CryptoWatcher.Domain.Models
             string currencyId,
             string indicatorId,
             decimal value,
-            decimal buy,
-            decimal sell,
+            decimal? buy,
+            decimal? sell,
             decimal averageBuy,
             decimal averageSell,
             bool enabled)
