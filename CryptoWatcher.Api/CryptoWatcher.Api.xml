@@ -54,7 +54,7 @@
             Get all lines
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.E_WatchersController.GetAllWatchers(System.String,System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.E_WatchersController.GetAllWatchers(System.String,System.String,System.String)">
             <summary>
             Get all watchers
             </summary>
@@ -89,9 +89,14 @@
             Get all notifications
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.G_NotificationsController.GetNotification(System.String,System.Guid)">
+        <member name="M:CryptoWatcher.Api.Controllers.G_NotificationsController.GetNotification(System.Guid)">
             <summary>
             Get notification
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.H_ChartsController.GetAllCharts(System.String,System.String)">
+            <summary>
+            Get all charts
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.X_LogController.GetAllLogs">
