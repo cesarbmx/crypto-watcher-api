@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Api.RequestExamples;
+using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Api.ResponseExamples;
-using CryptoWatcher.Application.Indicators.Requests;
-using CryptoWatcher.Application.Indicators.Responses;
-using CryptoWatcher.Application.System.Responses;
-using MediatR;
+using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -15,11 +14,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class C_IndicatorsController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly IndicatorService _indicatorService;
 
-        public C_IndicatorsController(IMediator mediator)
+        public C_IndicatorsController(IndicatorService indicatorService)
         {
-            _mediator = mediator;
+            _indicatorService = indicatorService;
         }
 
         /// <summary>
@@ -34,11 +33,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetAllIndicators")]
         public async Task<IActionResult> GetAllIndicators(string userId)
         {
-            // Request
-            var request = new GetAllIndicatorsRequest{UserId = userId };
-
             // Reponse
-            var response = await _mediator.Send(request);
+            var response = await _indicatorService.GetAllIndicators(userId);
 
             // Return
             return Ok(response);
@@ -58,11 +54,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetIndicator")]
         public async Task<IActionResult> GetIndicator(string indicatorId)
         {
-            // Request
-            var request = new GetIndicatorRequest { IndicatorId = indicatorId };
-
             // Reponse
-            var response = await _mediator.Send(request);
+            var response = await _indicatorService.GetIndicator(indicatorId);
 
             // Return
             return Ok(response);
@@ -90,7 +83,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> AddIndicator([FromBody]AddIndicatorRequest request)
         {
             // Reponse
-            var response = await _mediator.Send(request);
+            var response = await _indicatorService.AddIndicator(request);
 
             // Return
             return CreatedAtRoute("Indicators_GetIndicator", new { response.IndicatorId }, response);
@@ -115,11 +108,9 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_UpdateIndicator")]
         public async Task<IActionResult> UpdateIndicator(string indicatorId, [FromBody]UpdateIndicatorRequest request)
         {
-            // Request
-            request.IndicatorId = indicatorId;
-
             // Reponse
-            var response = await _mediator.Send(request);
+            request.IndicatorId = indicatorId;
+            var response = await _indicatorService.UpdateIndicator(request);
 
             // Return
             return Ok(response);

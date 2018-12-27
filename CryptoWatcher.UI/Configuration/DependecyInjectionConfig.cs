@@ -1,5 +1,6 @@
 ﻿using CoinMarketCap;
 using CoinMarketCap.Core;
+using CryptoWatcher.Application.Services;
 using CryptoWatcher.BackgroundJobs;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
@@ -31,6 +32,18 @@ namespace CryptoWatcher.UI.Configuration
                     .UseSqlServer(configuration.GetConnectionString("CryptoWatcher"))
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
+
+            // Services
+            services.AddScoped<LogService, LogService>();
+            services.AddScoped<CurrencyService, CurrencyService>();
+            services.AddScoped<WatcherService, WatcherService>();
+            services.AddScoped<UserService, UserService>();
+            services.AddScoped<NotificationService, NotificationService>();
+            services.AddScoped<OrderService, OrderService>();
+            services.AddScoped<IndicatorService, IndicatorService>();
+            services.AddScoped<LineService, LineService>();
+            services.AddScoped<StatusService, StatusService>();
+            services.AddScoped<ChartService, ChartService>();
 
             // Repositories
             services.AddScoped<Repository<Log>, Repository<Log>>();

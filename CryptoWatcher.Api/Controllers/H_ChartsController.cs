@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Api.ResponseExamples;
-using CryptoWatcher.Application.Charts.Requests;
-using CryptoWatcher.Application.Charts.Responses;
-using CryptoWatcher.Application.System.Responses;
-using MediatR;
+using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -14,11 +12,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class H_ChartsController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly ChartService _chartService;
 
-        public H_ChartsController(IMediator mediator)
+        public H_ChartsController(ChartService chartService)
         {
-            _mediator = mediator;
+            _chartService = chartService;
         }
 
         /// <summary>
@@ -33,11 +31,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Charts" }, OperationId = "Charts_GetAllCharts")]
         public async Task<IActionResult> GetAllCharts(string currencyId, string indicatorId)
         {
-            // Request
-            var request = new GetAllChartsRequest { CurrencyId = currencyId, IndicatorId = indicatorId};
-
             // Reponse
-            var response = await _mediator.Send(request);
+            var response = await _chartService.GetAllCharts(currencyId, indicatorId);
 
             // Return
             return Ok(response);

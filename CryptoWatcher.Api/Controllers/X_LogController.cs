@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Api.ResponseExamples;
-using CryptoWatcher.Application.Logs.Requests;
-using CryptoWatcher.Application.Logs.Responses;
-using CryptoWatcher.Application.System.Responses;
-using MediatR;
+using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -15,11 +13,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class X_LogController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly LogService _logService;
 
-        public X_LogController(IMediator mediator)
+        public X_LogController(LogService logService)
         {
-            _mediator = mediator;
+            _logService = logService;
         }
 
         /// <summary>
@@ -34,11 +32,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Logs" }, OperationId = "Logs_GetAllLogs")]
         public async Task<IActionResult> GetAllLogs()
         {
-            // Request
-            var request = new GetAllLogsRequest();
-
             // Reponse
-            var response = await _mediator.Send(request);
+            var response = await _logService.GetLogs();
 
             // Return
             return Ok(response);
@@ -58,11 +53,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Logs" }, OperationId = "Logs_GetLog")]
         public async Task<IActionResult> GetLog(Guid logId)
         {
-            // Request
-            var request = new GetLogRequest{LogId = logId};
-
             // Reponse
-            var response = await _mediator.Send(request);
+            var response = await _logService.GetLog(logId);
 
             // Return
             return Ok(response);

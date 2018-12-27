@@ -1,32 +1,28 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using CryptoWatcher.Application.Charts.Requests;
+using CryptoWatcher.Application.Services;
 using CryptoWatcher.UI.Builders;
 using Microsoft.AspNetCore.Mvc;
 using CryptoWatcher.UI.Models;
-using MediatR;
 
 namespace CryptoWatcher.UI.Controllers
 {
     public class ChartsController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly ChartService _chartService;
 
-        public ChartsController(IMediator mediator)
+        public ChartsController(ChartService chartService)
         {
-            _mediator = mediator;
+            _chartService = chartService;
         }
 
         public async Task<IActionResult> Index()
         {
-            // Request
-            var request = new GetAllChartsRequest();
-
-            // Reponse
-            var response = await _mediator.Send(request);
-
+            // Get all charts
+            var charts = await _chartService.GetAllCharts();
+                         
            // ViewModel
-            var chartViewModel = ChartBuilder.BuildChartViewModel(response);
+            var chartViewModel = ChartBuilder.BuildChartViewModel(charts);
 
             // Return
             return View("Index", chartViewModel);

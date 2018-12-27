@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Api.ResponseExamples;
-using CryptoWatcher.Application.Lines.Requests;
-using CryptoWatcher.Application.Lines.Responses;
-using CryptoWatcher.Application.System.Responses;
-using MediatR;
+using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -14,11 +12,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class D_LinesController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly LineService _lineService;
 
-        public D_LinesController(IMediator mediator)
+        public D_LinesController(LineService lineService)
         {
-            _mediator = mediator;
+            _lineService = lineService;
         }
 
         /// <summary>
@@ -33,11 +31,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Lines" }, OperationId = "Lines_GetAllLines")]
         public async Task<IActionResult> GetAllLines(string currencyId, string indicatorId)
         {
-            // Request
-            var request = new GetAllLinesRequest { CurrencyId = currencyId, IndicatorId = indicatorId };
-
             // Reponse
-            var response = await _mediator.Send(request);
+            var response = await _lineService.GetAllLines(currencyId, indicatorId);
 
             // Return
             return Ok(response);

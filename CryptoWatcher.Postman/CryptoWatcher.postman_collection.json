@@ -427,29 +427,6 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "Get ll charts",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:6495/charts",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "6495",
-					"path": [
-						"charts"
-					]
-				}
-			},
-			"response": []
 		}
 	],
 	"event": [

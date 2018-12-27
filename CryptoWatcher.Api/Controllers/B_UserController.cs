@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Api.RequestExamples;
+using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Api.ResponseExamples;
-using CryptoWatcher.Application.System.Responses;
-using CryptoWatcher.Application.Users.Requests;
-using CryptoWatcher.Application.Users.Responses;
-using MediatR;
+using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -15,11 +14,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class B_UsersController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly UserService _userService;
 
-        public B_UsersController(IMediator mediator)
+        public B_UsersController(UserService userService)
         {
-            _mediator = mediator;
+            _userService = userService;
         }
 
         /// <summary>
@@ -34,11 +33,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
-            // Request
-            var request = new GetAllUsersRequest();
-
             // Reponse
-            var response = await _mediator.Send(request);
+            var response = await _userService.GetAllUsers();
 
             // Return
             return Ok(response);
@@ -58,11 +54,8 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_GetUser")]
         public async Task<IActionResult> GetUser(string userId)
         {
-            // Request
-            var request = new GetUserRequest {UserId = userId };
-
             // Reponse
-            var response = await _mediator.Send(request);
+            var response = await _userService.GetUser(userId);
 
             // Return
             return Ok(response);
@@ -88,7 +81,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> AddUser([FromBody]AddUserRequest request)
         {
             // Reponse
-            var response = await _mediator.Send(request);
+            var response = await _userService.AddUser(request);
 
             // Return
             return CreatedAtRoute("Users_GetUser", new { response.UserId }, response);

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CryptoWatcher.Application.Charts.Responses;
+using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.UI.Models;
 using Chart = CryptoWatcher.UI.Models.Chart;
@@ -9,17 +9,17 @@ namespace CryptoWatcher.UI.Builders
 {
     public static class ChartBuilder
     {
-        public static ChartViewModel BuildChartViewModel(List<ChartResponse> response)
+        public static ChartViewModel BuildChartViewModel(List<ChartResponse> chartsResponse)
         {
             var chartViewModel = new ChartViewModel();
-            foreach (var item in response)
+            foreach (var chartResponse in chartsResponse)
             {
                     var chart = new Chart
                     {
-                        ChartId = item.ChartId,
-                        CurrencyName = item.CurrencyName,
-                        IndicatorName = item.IndicatorName,
-                        Rows = BuildRows(item.Rows)
+                        ChartId = chartResponse.ChartId,
+                        CurrencyName = chartResponse.CurrencyName,
+                        IndicatorName = chartResponse.IndicatorName,
+                        Rows = BuildRows(chartResponse.Rows)
                     };
                     chartViewModel.Charts.Add(chart);
             }

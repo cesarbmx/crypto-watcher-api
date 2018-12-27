@@ -34,9 +34,6 @@ namespace CryptoWatcher.Api
             // Hangfire
             services.ConfigureHangfire(Configuration);
 
-            // MediatR
-            services.ConfigureMediatR();
-
             // Mvc
             services.ConfigureMvc();
         }

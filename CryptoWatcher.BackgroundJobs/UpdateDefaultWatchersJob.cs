@@ -16,17 +16,17 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UpdateDefaultWatchersJob> _logger;
-        private readonly ILineRepository _chartRepository;
+        private readonly ILineRepository _lineRepository;
         private readonly IRepository<Watcher> _watcherRepository;
         public UpdateDefaultWatchersJob(
             MainDbContext mainDbContext,
             ILogger<UpdateDefaultWatchersJob> logger,
-            ILineRepository chartRepository,
+            ILineRepository lineRepository,
             IRepository<Watcher> watcherRepository)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
-            _chartRepository = chartRepository;
+            _lineRepository = lineRepository;
             _watcherRepository = watcherRepository;
 
         }
@@ -40,11 +40,11 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Get all current charts
-                var charts = await _chartRepository.GetCurrentLines();
+                // Get all current lines
+                var lines = await _lineRepository.GetCurrentLines();
 
                 // Build default watchers
-                var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(charts);
+                var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);
 
                 // Get all default watchers
                 var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
