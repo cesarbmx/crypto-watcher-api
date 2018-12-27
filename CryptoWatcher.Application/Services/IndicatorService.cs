@@ -44,11 +44,11 @@ namespace CryptoWatcher.Application.Services
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
-            // Get indicators
-            var userIndicators = await _indicatorRepository.GetAll(IndicatorExpression.IndicatorFilter(userId));
+            // Get all indicators
+            var indicators = await _indicatorRepository.GetAll(IndicatorExpression.IndicatorFilter(userId));
 
             // Response
-            var response = _mapper.Map<List<IndicatorResponse>>(userIndicators);
+            var response = _mapper.Map<List<IndicatorResponse>>(indicators);
 
             // Return
             return response;

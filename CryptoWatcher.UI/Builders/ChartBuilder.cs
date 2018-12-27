@@ -1,48 +1,46 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Domain.Models;
 using CryptoWatcher.UI.Models;
+using Chart = CryptoWatcher.UI.Models.Chart;
 
 
 namespace CryptoWatcher.UI.Builders
 {
     public static class ChartBuilder
     {
-        public static ChartViewModel BuildChartViewModel(List<CurrencyResponse> currencies, List<IndicatorResponse> indicators,  List<LineResponse> lines)
+        public static ChartViewModel BuildChartViewModel(List<ChartResponse> chartsResponse)
         {
             var chartViewModel = new ChartViewModel();
-            var index = 0;
-            foreach (var currency in currencies)
+            foreach (var chartResponse in chartsResponse)
             {
-                foreach (var indicator in indicators)
-                {
                     var chart = new Chart
                     {
-                        Index = index,
-                        CurrencyId = currency.CurrencyId,
-                        CurrencyName = currency.Name,
-                        IndicatorId = indicator.IndicatorId,
-                        IndicatorName = indicator.Name,
-                        Rows = BuildRows(lines.Where(x=>x.CurrencyId == currency.CurrencyId && x.IndicatorId == indicator.IndicatorId).ToList())
+                        ChartId = chartResponse.ChartId,
+                        CurrencyName = chartResponse.CurrencyName,
+                        IndicatorName = chartResponse.IndicatorName,
+                        Rows = BuildRows(chartResponse.Rows)
                     };
                     chartViewModel.Charts.Add(chart);
-                    index++;
-                }
             }
 
             // Return
             return chartViewModel;
         }
 
-        public static string BuildRows(List<LineResponse> lines)
+        public static string BuildRows(List<ChartRow> chartRows)
         {
             // Rows
             var rows = string.Empty;
-            foreach (var line in lines)
+            foreach (var chartRow in chartRows)
             {
-                var dateTime =
-                    $"new Date({line.Time.Year},{line.Time.Month:D2},{line.Time.Day:D2},{line.Time.Hour:D2},{line.Time.Minute:D2})";
-                rows += ", " + $"[{dateTime}, {line.Value}, {line.AverageBuy}, {line.AverageSell}]";
+                var time = chartRow.Time;
+                var value = chartRow.Value;
+                var averagebuy = chartRow.AverageBuy.HasValue ? chartRow.AverageBuy.ToString() : "null";
+                var averageSell = chartRow.AverageSell.HasValue ? chartRow.AverageSell.ToString() : "null";
+  
+                var dateTime = $"new Date({time.Year},{time.Month:D2},{time.Day:D2},{time.Hour:D2},{time.Minute:D2})";
+                rows += ", " + $"[{dateTime}, {value}, {averagebuy}, {averageSell}]";
             }
 
             if (!string.IsNullOrEmpty(rows)) rows = rows.Substring(2);

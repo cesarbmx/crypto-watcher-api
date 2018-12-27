@@ -14,8 +14,8 @@ namespace CryptoWatcher.Domain.Models
         public decimal Value { get; private set; }
         public decimal? Buy { get; private set; }
         public decimal? Sell { get; private set; }
-        public decimal AverageBuy { get; private set; }
-        public decimal AverageSell { get; private set; }
+        public decimal? AverageBuy { get; private set; }
+        public decimal? AverageSell { get; private set; }
         public bool Enabled { get; private set; }
         public DateTime Time { get; private set; }
 
@@ -29,8 +29,8 @@ namespace CryptoWatcher.Domain.Models
             decimal value,
             decimal? buy,
             decimal? sell,
-            decimal averageBuy,
-            decimal averageSell,
+            decimal? averageBuy,
+            decimal? averageSell,
             bool enabled)
         {
             WatcherId = Guid.NewGuid();
@@ -54,7 +54,7 @@ namespace CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Watcher Sync(decimal value, decimal averageBuy, decimal averageSell)
+        public Watcher Sync(decimal value, decimal? averageBuy, decimal? averageSell)
         {
             Value = value;
             AverageBuy = averageBuy;

@@ -43,6 +43,7 @@ namespace CryptoWatcher.UI.Configuration
             services.AddScoped<IndicatorService, IndicatorService>();
             services.AddScoped<LineService, LineService>();
             services.AddScoped<StatusService, StatusService>();
+            services.AddScoped<ChartService, ChartService>();
 
             // Repositories
             services.AddScoped<Repository<Log>, Repository<Log>>();

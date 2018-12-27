@@ -9,33 +9,20 @@ namespace CryptoWatcher.UI.Controllers
 {
     public class ChartsController : Controller
     {
-        private readonly CurrencyService _currencyService;
-        private readonly IndicatorService _indicatorService;
-        private readonly LineService _linesService;
+        private readonly ChartService _chartService;
 
-        public ChartsController(
-            CurrencyService currencyService,
-            IndicatorService indicatorService,
-            LineService linesService)
+        public ChartsController(ChartService chartService)
         {
-            _currencyService = currencyService;
-            _indicatorService = indicatorService;
-            _linesService = linesService;
+            _chartService = chartService;
         }
 
         public async Task<IActionResult> Index()
         {
-            // Get all currrencies
-            var currencies = await _currencyService.GetAllCurrencies();
-                
-            // Get all indicators
-            var indicators = await _indicatorService.GetAllIndicators("master");
-
-            // Get all lines
-            var lines = await _linesService.GetAllLines();
-
+            // Get all charts
+            var charts = await _chartService.GetAllCharts();
+                         
            // ViewModel
-            var chartViewModel = ChartBuilder.BuildChartViewModel(currencies, indicators, lines);
+            var chartViewModel = ChartBuilder.BuildChartViewModel(charts);
 
             // Return
             return View("Index", chartViewModel);
