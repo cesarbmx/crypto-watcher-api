@@ -52,7 +52,7 @@ namespace CryptoWatcher.BackgroundJobs
                 // Get all indicators
                 var indicators = await _indicatorRepository.GetAll();
 
-                // Get all watchers with buy-sell set
+                // Get none default watchers with buy or sell
                 var watchers = await _watcherRepository.GetAll(WatcherExpression.NonDefaultWatcherWithBuyOrSell());
 
                 // Build lines
