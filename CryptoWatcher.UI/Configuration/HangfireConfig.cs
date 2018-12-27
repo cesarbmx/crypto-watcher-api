@@ -35,7 +35,7 @@ namespace CryptoWatcher.UI.Configuration
             RecurringJob.AddOrUpdate<MainJob>("Main", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
             RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
             RecurringJob.AddOrUpdate<SendTelgramNotifications>("Send telegram notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            RecurringJob.AddOrUpdate<RemoveLinesJob>("Remove lines", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate<RemoveOldLinesJob>("Remove lines", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
 
             return app;
         }

@@ -11,15 +11,15 @@ using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class RemoveLinesJob
+    public class RemoveOldLinesJob
     {
         private readonly MainDbContext _mainDbContext;
-        private readonly ILogger<RemoveLinesJob> _logger;
+        private readonly ILogger<RemoveOldLinesJob> _logger;
         private readonly IRepository<Line> _lineRepository;
 
-        public RemoveLinesJob(
+        public RemoveOldLinesJob(
             MainDbContext mainDbContext,
-            ILogger<RemoveLinesJob> logger,
+            ILogger<RemoveOldLinesJob> logger,
             IRepository<Line> lineRepository)
         {
             _mainDbContext = mainDbContext;
@@ -36,8 +36,8 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Get all lines
-                var lines = await _lineRepository.GetAll(LineExpression.ObsoleteLine());
+                // Get old lines
+                var lines = await _lineRepository.GetAll(LineExpression.OldLine());
 
                 // Remove
                 _lineRepository.RemoveRange(lines);

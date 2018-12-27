@@ -14,6 +14,10 @@ namespace CryptoWatcher.Service.Configuration
     {
         public static void ConfigureHangfire(this ServiceProvider serviceProvider, IConfiguration configuration)
         {
+            var scopeFactory = (IServiceScopeFactory)serviceProvider.GetService(typeof(IServiceScopeFactory));
+            GlobalConfiguration.Configuration.UseLogProvider(new HangfireLoggerProvider());
+            GlobalConfiguration.Configuration.UseActivator(new AspNetCoreJobActivator(scopeFactory));
+
             // Hangfire
             // UseMemoryStorage
             if (bool.Parse(configuration["AppSettings:UseMemoryStorage"]))
@@ -25,17 +29,13 @@ namespace CryptoWatcher.Service.Configuration
                 GlobalConfiguration.Configuration.UseSqlServerStorage(configuration.GetConnectionString("CryptoWatcher"));
             }
 
-            var scopeFactory = (IServiceScopeFactory)serviceProvider.GetService(typeof(IServiceScopeFactory));
-            GlobalConfiguration.Configuration.UseActivator(new AspNetCoreJobActivator(scopeFactory));
-            GlobalConfiguration.Configuration.UseLogProvider(new HangfireLoggerProvider());
-
             // Background jobs
             var jobsIntervalInMinutes = int.Parse(configuration["AppSettings:JobsIntervalInMinutes"]);
 
             var mainJob = serviceProvider.GetService<MainJob>();
             var sendWhatsappNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();
             var sendTelegramNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();
-            var removeLinesJob = serviceProvider.GetService<RemoveLinesJob>();
+            var removeLinesJob = serviceProvider.GetService<RemoveOldLinesJob>();
 
             RecurringJob.AddOrUpdate("Main", () => mainJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));           
             RecurringJob.AddOrUpdate("Send whatsapp notifications", () => sendWhatsappNotificationsJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
