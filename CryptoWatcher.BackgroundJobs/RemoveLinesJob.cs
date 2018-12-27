@@ -15,16 +15,16 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<RemoveLinesJob> _logger;
-        private readonly IRepository<Line> _lineRepository;
+        private readonly IRepository<Line> _chartRepository;
 
         public RemoveLinesJob(
             MainDbContext mainDbContext,
             ILogger<RemoveLinesJob> logger,
-            IRepository<Line> lineRepository)
+            IRepository<Line> chartRepository)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
-            _lineRepository = lineRepository;
+            _chartRepository = chartRepository;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -36,11 +36,11 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Get old lines
-                var lines = await _lineRepository.GetAll(LineExpression.OldLine());
+                // Get all charts
+                var charts = await _chartRepository.GetAll(LineExpression.ObsoleteLine());
 
                 // Remove
-                _lineRepository.RemoveRange(lines);
+                _chartRepository.RemoveRange(charts);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
@@ -51,7 +51,7 @@ namespace CryptoWatcher.BackgroundJobs
                 // Log into Splunk
                 _logger.LogSplunkInformation(new
                 {
-                    lines.Count,
+                    charts.Count,
                     ExecutionTime = stopwatch.Elapsed.TotalSeconds
                 });
 
