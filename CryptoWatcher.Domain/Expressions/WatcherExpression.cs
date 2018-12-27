@@ -6,16 +6,18 @@ namespace CryptoWatcher.Domain.Expressions
 {
     public static class WatcherExpression
     {
-        public static Expression<Func<Watcher, bool>> WatcherFilter(string userId = null, string currencyId = null, string indicatorId = null)
+        public static Expression<Func<Watcher, bool>> Watcher(string userId, string currencyId, string indicatorId)
         {
             return x =>
-                (string.IsNullOrEmpty(userId) || x.UserId == userId) &&
-                (string.IsNullOrEmpty(currencyId) || x.CurrencyId == currencyId) &&
-                (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId);
+                x.UserId == userId &&
+                x.CurrencyId == currencyId &&
+                x.IndicatorId == indicatorId;
         }
-        public static Expression<Func<Watcher, bool>> WatcherWithBuySell()
+        public static Expression<Func<Watcher, bool>> WatcherFilter(string userId = null, string currencyId = null, string indicatorId = null)
         {
-            return x => x.Buy.HasValue && x.Sell.HasValue;
+            return x => (string.IsNullOrEmpty(userId) || x.UserId == userId) &&
+                        (string.IsNullOrEmpty(currencyId) || x.CurrencyId == currencyId) &&
+                        (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId);
         }
         public static Expression<Func<Watcher, bool>> WatcherWillingToBuy()
         {
@@ -25,34 +27,22 @@ namespace CryptoWatcher.Domain.Expressions
         {
             return x => x.Status == WatcherStatus.Sell;
         }
-        public static Expression<Func<Watcher, bool>> Watcher(string userId, string currencyId, string indicatorId)
-        {
-            return x =>
-                x.UserId == userId &&
-                x.CurrencyId == currencyId &&
-                x.IndicatorId == indicatorId;
-        }
+
         public static Expression<Func<Watcher, bool>> DefaultWatcher()
         {
             return x => x.UserId == "master";
         }
         public static Expression<Func<Watcher, bool>> DefaultWatcherFilter(string currencyId = null, string indicatorId = null)
         {
-            return x =>
-                x.UserId == "master" &&
-                (string.IsNullOrEmpty(currencyId) || x.CurrencyId == currencyId) &&
-                (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId);
+            return x => x.UserId == "master" &&
+                        (string.IsNullOrEmpty(currencyId) || x.CurrencyId == currencyId) &&
+                        (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId);
         }
-        public static Expression<Func<Watcher, bool>> NonDefaultWatcher()
+
+        public static Expression<Func<Watcher, bool>> NonDefaultWatcherWithBuyOrSell()
         {
-            return x => x.UserId != "master";
-        }
-        public static Expression<Func<Watcher, bool>> DefaultWatcher(string currencyId, string indicatorId)
-        {
-            return x =>
-                x.UserId == "master" &&
-                x.CurrencyId == currencyId &&
-                x.IndicatorId == indicatorId;
+            return x => x.UserId != "master" && 
+                        x.Buy.HasValue || x.Sell.HasValue;
         }
     }
 }

@@ -8,13 +8,12 @@ namespace CryptoWatcher.Domain.Expressions
     {
         public static Expression<Func<Order, bool>> Order(string userId, string currencyId, Guid watcherId, OrderType orderType)
         {
-            return x => 
-                x.UserId == userId &&
-                x.CurrencyId == currencyId &&
-                x.WatcherId == watcherId &&
-                x.OrderType == orderType;
+            return x => x.UserId == userId &&
+                        x.CurrencyId == currencyId &&
+                        x.WatcherId == watcherId &&
+                        x.OrderType == orderType;
         }
-        public static Expression<Func<Order, bool>> OrderFilter(string userId)
+        public static Expression<Func<Order, bool>> OrderFilter(string userId = null)
         {
             return x => string.IsNullOrEmpty(userId) || x.UserId == userId;
         }

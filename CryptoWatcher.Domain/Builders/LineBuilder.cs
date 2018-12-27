@@ -18,7 +18,7 @@ namespace CryptoWatcher.Domain.Builders
             {
                 foreach (var indicator in indicators)
                 {
-                    var filteredWatchers = watchers.Where(WatcherExpression.WatcherFilter(currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
+                    var filteredWatchers = watchers.Where(WatcherExpression.WatcherFilter(null, currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
                     var value = IndicatorBuilder.BuildValue(currency, indicator, currencies);
                     var averageBuy = IndicatorBuilder.BuildAverageBuy(currency, indicator, watchers);
                     var averageSell = IndicatorBuilder.BuildAverageSell(currency, indicator, filteredWatchers);
