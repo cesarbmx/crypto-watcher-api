@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
 
 
@@ -59,13 +58,10 @@ namespace CryptoWatcher.Domain.Builders
                 values[i] = values[i] < 0 ? 0 : values[i];
             }
         }
-        public static decimal BuildAverageBuy(Currency currency, Indicator indicator, List<Watcher> watchers)
+        public static decimal? BuildAverageBuy(Currency currency, Indicator indicator, List<Watcher> watchers)
         {
-            // Pick watchers for the given currency/indicator
-            watchers = watchers.Where(WatcherExpression.WatcherFilter(currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
-
-            // Return zero if there are no watchers
-            if (watchers.Count == 0) return 0m;
+            // Return null if there are no watchers
+            if (watchers.Count == 0) return null;
 
             // Collect values
             var values = new decimal[watchers.Count];
@@ -79,13 +75,10 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return values.Average();
         }
-        public static decimal BuildAverageSell(Currency currency, Indicator indicator, List<Watcher> watchers)
+        public static decimal? BuildAverageSell(Currency currency, Indicator indicator, List<Watcher> watchers)
         {
-            // Pick watchers for the given currency/indicator
-            watchers = watchers.Where(x => x.CurrencyId == currency.CurrencyId && x.IndicatorId == indicator.IndicatorId).ToList();
-
-            // Return zero if there are no watchers
-            if (watchers.Count == 0) return 0m;
+            // Return null if there are no watchers
+            if (watchers.Count == 0) return null;
 
             // Collect values
             var values = new decimal[watchers.Count];

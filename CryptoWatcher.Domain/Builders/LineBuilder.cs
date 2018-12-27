@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
 
 
@@ -16,9 +18,10 @@ namespace CryptoWatcher.Domain.Builders
             {
                 foreach (var indicator in indicators)
                 {
+                    var filteredWatchers = watchers.Where(WatcherExpression.WatcherFilter(currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
                     var value = IndicatorBuilder.BuildValue(currency, indicator, currencies);
                     var averageBuy = IndicatorBuilder.BuildAverageBuy(currency, indicator, watchers);
-                    var averageSell = IndicatorBuilder.BuildAverageSell(currency, indicator, watchers);
+                    var averageSell = IndicatorBuilder.BuildAverageSell(currency, indicator, filteredWatchers);
                     var line = new Line(currency.CurrencyId, indicator.IndicatorId, value, averageBuy, averageSell, time);
                     lines.Add(line);
                 }
