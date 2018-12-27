@@ -308,7 +308,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"currencyId\": \"bitcoin\",\r\n  \"indicatorId\": \"rsi\",\r\n  \"buy\": 10,\r\n  \"sell\": 5,\r\n  \"enabled\": false\r\n}"
+					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"currencyId\": \"bitcoin\",\r\n  \"indicatorId\": \"hype\",\r\n  \"buy\": 10,\r\n  \"sell\": 5,\r\n  \"enabled\": false\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:6495/watchers",

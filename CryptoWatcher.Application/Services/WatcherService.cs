@@ -107,7 +107,8 @@ namespace CryptoWatcher.Application.Services
                 16,
                 request.Buy,
                 request.Sell,
-                0, 0,
+                null,
+                null,
                 request.Enabled);
             _watcherRepository.Add(watcher);
 
