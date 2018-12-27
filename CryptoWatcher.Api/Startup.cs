@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using CryptoWatcher.Api.Configuration;
+using MediatR;
 
 namespace CryptoWatcher.Api
 {
@@ -42,7 +43,7 @@ namespace CryptoWatcher.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerfactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerfactory, IMediator mediator)
         {
             // Middlewares
             app.ConfigureMiddlewares();
@@ -57,7 +58,7 @@ namespace CryptoWatcher.Api
             app.ConfigureDataSeeding();
 
             // Hangfire
-            app.ConfigureHangfire(Configuration);
+            app.ConfigureHangfire(Configuration, mediator);
 
             // Mvc
             app.ConfigureMvc();

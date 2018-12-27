@@ -1,25 +1,27 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
+using CryptoWatcher.Application.Lines.Requests;
 using CryptoWatcher.Domain.Expressions;
-using Hangfire;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Shared.Extensions;
+using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace CryptoWatcher.BackgroundJobs
+namespace CryptoWatcher.Application.Lines.Handlers
 {
-    public class RemoveLinesJob
+    public class RemoveOldLinesHandler : IRequestHandler<RemoveOldLinesRequest>
     {
         private readonly MainDbContext _mainDbContext;
-        private readonly ILogger<RemoveLinesJob> _logger;
+        private readonly ILogger<RemoveOldLinesRequest> _logger;
         private readonly IRepository<Line> _lineRepository;
 
-        public RemoveLinesJob(
+        public RemoveOldLinesHandler(
             MainDbContext mainDbContext,
-            ILogger<RemoveLinesJob> logger,
+            ILogger<RemoveOldLinesRequest> logger,
             IRepository<Line> lineRepository)
         {
             _mainDbContext = mainDbContext;
@@ -27,8 +29,7 @@ namespace CryptoWatcher.BackgroundJobs
             _lineRepository = lineRepository;
         }
 
-        [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
-        public async Task Run()
+        public async Task<Unit> Handle(RemoveOldLinesRequest request, CancellationToken cancellationToken)
         {
             try
             {
@@ -43,7 +44,7 @@ namespace CryptoWatcher.BackgroundJobs
                 _lineRepository.RemoveRange(lines);
 
                 // Save
-                await _mainDbContext.SaveChangesAsync();
+                await _mainDbContext.SaveChangesAsync(cancellationToken);
 
                 // Stop watch
                 stopwatch.Stop();
@@ -54,15 +55,15 @@ namespace CryptoWatcher.BackgroundJobs
                     lines.Count,
                     ExecutionTime = stopwatch.Elapsed.TotalSeconds
                 });
-
-                // Return
-                await Task.CompletedTask;
             }
             catch (Exception ex)
             {
-               // Log into Splunk 
+                // Log into Splunk 
                 _logger.LogSplunkError(ex);
             }
+
+            // Return
+            return Unit.Value;
         }
     }
 }
