@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Threading.Tasks;
+using MediatR;
 
 namespace CryptoWatcher.Shared.Hangfire
 {
@@ -12,9 +13,14 @@ namespace CryptoWatcher.Shared.Hangfire
             _mediator = mediator;
         }
 
-        public void Send(IRequest request)
+        public async Task Send( IRequest request )
         {
-            _mediator.Send(request);
+            await _mediator.Send(request);
+        }
+        public async Task Send(params IRequest[] requests)
+        {
+            foreach (IRequest request in requests)
+                await _mediator.Send(request);
         }
     }
 }

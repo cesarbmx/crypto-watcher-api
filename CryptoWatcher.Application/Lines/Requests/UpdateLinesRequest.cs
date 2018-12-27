@@ -3,7 +3,7 @@
 
 namespace CryptoWatcher.Application.Lines.Requests
 {
-    public class RemoveOldLinesRequest : IRequest
+    public class UpdateLinesRequest : IRequest
     {
 
     }

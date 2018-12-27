@@ -61,7 +61,6 @@ namespace CryptoWatcher.Service.Configuration
             services.AddTransient<UpdateOrdersJob, UpdateOrdersJob>();
             services.AddTransient<SendWhatsappNotificationsJob, SendWhatsappNotificationsJob>();
             services.AddTransient<SendTelgramNotifications, SendTelgramNotifications>();
-            services.AddScoped<RemoveLinesJob, RemoveLinesJob>();
 
             // Other
             services.AddTransient<ICoinMarketCapClient, CoinMarketCapClient>();
