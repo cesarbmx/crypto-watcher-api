@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using CryptoWatcher.Api.Controllers;
-using CryptoWatcher.Application.Validators;
+using CryptoWatcher.Application.Users.Validators;
 
 namespace CryptoWatcher.Api.Configuration
 {
@@ -45,7 +45,7 @@ namespace CryptoWatcher.Api.Configuration
                 routes.MapRoute(
                     name: "default",
                     template: "{*uri}",
-                    defaults: new { controller = typeof(Z_ServiceStatusController).Name.Replace("Controller", ""), action = "ResourceNotFound" });
+                    defaults: new { controller = typeof(Z_SystemController).Name.Replace("Controller", ""), action = "ResourceNotFound" });
             });
 
             return app;

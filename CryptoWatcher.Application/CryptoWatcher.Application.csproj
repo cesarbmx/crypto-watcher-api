@@ -5,12 +5,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.1.2" />
+    <PackageReference Include="MediatR" Version="6.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CryptoWatcher.Domain\CryptoWatcher.Domain.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Persistence\CryptoWatcher.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Charts\FakeRequests\" />
+    <Folder Include="Charts\Validators\" />
+    <Folder Include="Logs\FakeRequests\" />
+    <Folder Include="Logs\Validators\" />
+    <Folder Include="Notifications\FakeRequests\" />
+    <Folder Include="Notifications\Validators\" />
+    <Folder Include="Orders\FakeRequests\" />
+    <Folder Include="Orders\Validators\" />
+    <Folder Include="System\FakeRequests\" />
+    <Folder Include="System\Validators\" />
+    <Folder Include="Lines\FakeRequests\" />
+    <Folder Include="Lines\Validators\" />
+    <Folder Include="Currencies\FakeRequests\" />
+    <Folder Include="Currencies\Validators\" />
   </ItemGroup>
 
 </Project>

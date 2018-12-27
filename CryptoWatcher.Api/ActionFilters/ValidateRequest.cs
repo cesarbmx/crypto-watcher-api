@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Application.System.Responses;
 using CryptoWatcher.Domain.Messages;
 
 namespace CryptoWatcher.Api.ActionFilters
@@ -36,7 +36,7 @@ namespace CryptoWatcher.Api.ActionFilters
                 );
 
                
-                var validationErrorsResponse = new List<ValidationErrorResponse>();
+                var validationErrors = new List<ValidationError>();
                 foreach (var error in errors)
                 {
                     foreach (var value in error.Value)
@@ -44,10 +44,10 @@ namespace CryptoWatcher.Api.ActionFilters
                         var index = value.IndexOf(" ", StringComparison.Ordinal);
                         var code = value.Substring(0, index);
                         var message = value.Substring(index + 1);
-                        validationErrorsResponse.Add(new ValidationErrorResponse(code, error.Key, message));
+                        validationErrors.Add(new ValidationError(code, error.Key, message));
                     }
                 }
-                var validationsResponse = new ValidationResponse(nameof(Message.ValidationFailed), 422, Message.ValidationFailed, validationErrorsResponse);
+                var validationsResponse = new ValidationResponse(nameof(Message.ValidationFailed), 422, Message.ValidationFailed, validationErrors);
 
                 filterContext.Result = new ObjectResult(validationsResponse) { StatusCode = 422 };
             }

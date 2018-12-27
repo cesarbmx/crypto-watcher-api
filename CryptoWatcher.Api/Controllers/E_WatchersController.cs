@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Api.RequestExamples;
-using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Api.ResponseExamples;
-using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Application.Services;
+using CryptoWatcher.Application.System.Responses;
+using CryptoWatcher.Application.Watchers.Requests;
+using CryptoWatcher.Application.Watchers.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -15,11 +16,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class E_WatchersController : Controller
     {
-        private readonly WatcherService _watcherService;
+        private readonly IMediator _mediator;
 
-        public E_WatchersController(WatcherService watcherService)
+        public E_WatchersController(IMediator mediator)
         {
-            _watcherService = watcherService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -34,8 +35,11 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetAllWatchers")]
         public async Task<IActionResult> GetAllWatchers(string userId, string currencyId = null, string indicatorId = null)
         {
+            // Request
+            var request = new GetAllWatchersRequest { UserId = userId, CurrencyId = currencyId, IndicatorId = indicatorId };
+
             // Reponse
-            var response = await _watcherService.GetAllWatchers(userId, currencyId, indicatorId);
+            var response = await _mediator.Send(request);
 
             // Return
             return Ok(response);
@@ -55,8 +59,11 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetWatcher")]
         public async Task<IActionResult> GetWatcher(Guid watcherId)
         {
+            // Request
+            var request = new GetWatcherRequest { WatcherId = watcherId };
+
             // Reponse
-            var response = await _watcherService.GetWatcher(watcherId);
+            var response = await _mediator.Send(request);
 
             // Return
             return Ok(response);
@@ -84,7 +91,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> AddWatcher([FromBody]AddWatcherRequest request)
         {
             // Reponse
-            var response = await _watcherService.AddWatcher(request);
+            var response = await _mediator.Send(request);
 
             // Return
             return CreatedAtRoute("Watchers_GetWatcher", new { response.WatcherId }, response);
@@ -108,10 +115,12 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerRequestExample(typeof(UpdateWatcherRequest), typeof(UpdateWatcherRequestExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_UpdateWatcher")]
         public async Task<IActionResult> UpdateWatcher(Guid watcherId, [FromBody]UpdateWatcherRequest request)
-        {
-            // Reponse
+        {            
+            // Request
             request.WatcherId = watcherId;
-            var response = await _watcherService.UpdateWatcher(request);
+
+            // Reponse
+            var response = await _mediator.Send(request);
 
             // Return
             return Ok(response);

@@ -1,8 +1,17 @@
 ﻿using System;
 using AutoMapper;
 using CoinMarketCap.Entities;
+using CryptoWatcher.Application.Charts.Responses;
+using CryptoWatcher.Application.Currencies.Responses;
+using CryptoWatcher.Application.Indicators.Responses;
+using CryptoWatcher.Application.Lines.Responses;
+using CryptoWatcher.Application.Logs.Responses;
+using CryptoWatcher.Application.Notifications.Responses;
+using CryptoWatcher.Application.Orders.Responses;
 using Microsoft.Extensions.DependencyInjection;
-using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Application.System.Responses;
+using CryptoWatcher.Application.Users.Responses;
+using CryptoWatcher.Application.Watchers.Responses;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Shared.Extensions;
 using Version = CryptoWatcher.Domain.Models.Version;

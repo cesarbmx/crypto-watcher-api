@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Api.ResponseExamples;
-using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Application.Services;
+using CryptoWatcher.Application.Notifications.Requests;
+using CryptoWatcher.Application.Notifications.Responses;
+using CryptoWatcher.Application.System.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -13,11 +15,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class G_NotificationsController : Controller
     {
-        private readonly NotificationService _notificationService;
+        private readonly IMediator _mediator;
 
-        public G_NotificationsController(NotificationService notificationService)
+        public G_NotificationsController(IMediator mediator)
         {
-            _notificationService = notificationService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -32,8 +34,11 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetAllNotifications")]
         public async Task<IActionResult> GetAllNotifications(string userId)
         {
+            // Request
+            var request = new GetAllNotificationsRequest { UserId = userId };
+
             // Reponse
-            var response = await _notificationService.GetAllNotifications(userId);
+            var response = await _mediator.Send(request);
 
             // Return
             return Ok(response);
@@ -53,8 +58,11 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetNotification")]
         public async Task<IActionResult> GetNotification(Guid notificationId)
         {
+            // Request
+            var request = new GetNotificationRequest { NotificationId = notificationId };
+
             // Reponse
-            var response = await _notificationService.GetNotification(notificationId);
+            var response = await _mediator.Send(request);
 
             // Return
             return Ok(response);

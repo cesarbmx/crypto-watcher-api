@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Api.ResponseExamples;
-using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Application.Services;
+using CryptoWatcher.Application.Orders.Requests;
+using CryptoWatcher.Application.Orders.Responses;
+using CryptoWatcher.Application.System.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -13,11 +15,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class F_OrdersController : Controller
     {
-        private readonly OrderService _orderService;
+        private readonly IMediator _mediator;
 
-        public F_OrdersController(OrderService orderService)
+        public F_OrdersController(IMediator mediator)
         {
-            _orderService = orderService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -32,8 +34,11 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetAllOrders")]
         public async Task<IActionResult> GetAllOrders(string userId)
         {
+            // Request
+            var request = new GetAllOrdersRequest { UserId = userId };
+
             // Reponse
-            var response = await _orderService.GetAllOrders(userId);
+            var response = await _mediator.Send(request);
 
             // Return
             return Ok(response);
@@ -53,8 +58,11 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetOrder")]
         public async Task<IActionResult> GetOrder(Guid orderId)
         {
+            // Request
+            var request = new GetOrderRequest { OrderId = orderId };
+
             // Reponse
-            var response = await _orderService.GetOrder(orderId);
+            var response = await _mediator.Send(request);
 
             // Return
             return Ok(response);

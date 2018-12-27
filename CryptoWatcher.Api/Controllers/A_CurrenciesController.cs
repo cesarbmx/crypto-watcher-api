@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Api.ResponseExamples;
-using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Application.Services;
+using CryptoWatcher.Application.Currencies.Requests;
+using CryptoWatcher.Application.Currencies.Responses;
+using CryptoWatcher.Application.System.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -12,11 +14,11 @@ namespace CryptoWatcher.Api.Controllers
     // ReSharper disable once InconsistentNaming
     public class A_CurrenciesController : Controller
     {
-        private readonly CurrencyService _currencyService;
+        private readonly IMediator _mediator;
 
-        public A_CurrenciesController(CurrencyService currencyService)
+        public A_CurrenciesController(IMediator mediator)
         {
-            _currencyService = currencyService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -31,8 +33,11 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetAllCurrencies")]
         public async Task<IActionResult> GetAllCurrencies()
         {
+            // Request
+            var request = new GetAllCurrenciesRequest();
+
             // Reponse
-            var response = await _currencyService.GetAllCurrencies();
+            var response = await _mediator.Send(request);
 
             // Return
             return Ok(response);
@@ -52,8 +57,11 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrency")]
         public async Task<IActionResult> GetCurrency(string currencyId)
         {
+            // Request
+            var request = new GetCurrencyRequest {CurrencyId = currencyId};
+
             // Reponse
-            var response = await _currencyService.GetCurrency(currencyId);
+            var response = await _mediator.Send(request);
 
             // Return
             return Ok(response);

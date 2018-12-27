@@ -19,7 +19,7 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly IRepository<Currency> _currencyRepository;
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<Watcher> _watcherRepository;
-        private readonly IRepository<Line> _lineRepository;
+        private readonly IRepository<Line> _chartRepository;
 
         public UpdateLinesJob(
             MainDbContext mainDbContext,
@@ -27,14 +27,14 @@ namespace CryptoWatcher.BackgroundJobs
             IRepository<Currency> currencyRepository,
             IRepository<Indicator> indicatorRepository,
             IRepository<Watcher> watcherRepository,
-            IRepository<Line> lineRepository)
+            IRepository<Line> chartRepository)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
             _currencyRepository = currencyRepository;
             _indicatorRepository = indicatorRepository;
             _watcherRepository = watcherRepository;
-            _lineRepository = lineRepository;
+            _chartRepository = chartRepository;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -55,11 +55,11 @@ namespace CryptoWatcher.BackgroundJobs
                 // Get all watchers with buy-sell set
                 var watchers = await _watcherRepository.GetAll(WatcherExpression.NonDefaultWatcherWithBuyOrSell());
 
-                // Build lines
-                var lines = LineBuilder.BuildLines(currencies, indicators, watchers);
+                // Build charts
+                var charts = LineBuilder.BuildLines(currencies, indicators, watchers);
 
-                // Set lines
-                _lineRepository.AddRange(lines);
+                // Set charts
+                _chartRepository.AddRange(charts);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
@@ -70,7 +70,7 @@ namespace CryptoWatcher.BackgroundJobs
                 // Log into Splunk
                 _logger.LogSplunkInformation(new
                 {
-                    lines.Count,
+                    charts.Count,
                     ExecutionTime = stopwatch.Elapsed.TotalSeconds
                 });
 
