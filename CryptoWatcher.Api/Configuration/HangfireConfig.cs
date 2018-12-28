@@ -33,10 +33,9 @@ namespace CryptoWatcher.Api.Configuration
             // Background jobs
             var jobsIntervalInMinutes = int.Parse(configuration["AppSettings:JobsIntervalInMinutes"]);
             RecurringJob.AddOrUpdate<MainJob>("Main", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            //RecurringJob.AddOrUpdate<HangfireMediator>("Main", x => x.Send(new UpdateLinesRequest(), new UpdateLinesRequest()), Cron.MinuteInterval(jobsIntervalInMinutes));
             RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
             RecurringJob.AddOrUpdate<SendTelgramNotifications>("Send telegram notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            RecurringJob.AddOrUpdate<RemoveOldLinesJob>("Remove lines", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate<RemoveOldLinesJob>("Remove old lines", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
 
             return app;
         }
