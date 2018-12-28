@@ -5,6 +5,7 @@ using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
+using CryptoWatcher.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -31,10 +32,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(200, typeof(IndicatorListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetAllIndicators")]
-        public async Task<IActionResult> GetAllIndicators(string userId)
+        public async Task<IActionResult> GetAllIndicators(string userId, IndicatorType indicatorType)
         {
             // Reponse
-            var response = await _indicatorService.GetAllIndicators(userId);
+            var response = await _indicatorService.GetAllIndicators(userId, indicatorType);
 
             // Return
             return Ok(response);
