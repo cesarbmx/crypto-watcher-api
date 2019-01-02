@@ -12,6 +12,8 @@ namespace CryptoWatcher.Domain.Builders
         {
             switch (indicator.IndicatorId)
             {
+                case "price":
+                    return currency.Price;
                 case "price-change-24hrs":
                     return currency.PercentageChange24H;
                 case "hype":
