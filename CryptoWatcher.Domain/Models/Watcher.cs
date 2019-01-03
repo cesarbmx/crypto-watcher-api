@@ -9,8 +9,8 @@ namespace CryptoWatcher.Domain.Models
         public string Id => WatcherId.ToString();
         public Guid WatcherId { get; private set; }
         public string UserId { get; private set; }
-        public string TargetId { get; private set; }
         public IndicatorType IndicatorType { get; private set; }
+        public string TargetId { get; private set; }
         public string IndicatorId { get; private set; }
         public decimal Value { get; private set; }
         public decimal? Buy { get; private set; }
