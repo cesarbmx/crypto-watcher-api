@@ -170,6 +170,21 @@
 		},
 		{
 			"name": "Add indicator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ec73716-3297-46fe-a4e8-dff1b3ed2f70",
+						"exec": [
+							"let indicatorId = pm.response.json().indicatorId;",
+							"console.log(indicatorId);",
+							"pm.globals.set(\"indicatorId\", indicatorId);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -182,7 +197,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"indicatorId\": \"rsi\",\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"RSI\",\r\n  \"description\": \"Relative strength index\",\r\n  \"formula\": \"C# formula\"\r\n}"
+					"raw": "{\r\n  \"indicatorType\": \"CurrencyIndicator\",\r\n  \"indicatorId\": \"rsi\",\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"RSI\",\r\n  \"description\": \"Blah blah\",\r\n  \"formula\": \"C# formula\"\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:6495/indicators",
@@ -212,10 +227,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"My Indicator\",\r\n  \"description\": \"It identifies inmediate hypes within 24 Hrs in your portfolio\",\r\n  \"formula\": \"C# formula\"\r\n}"
+					"raw": "{\r\n  \"name\": \"Relative strength index (RSI)\",\r\n  \"description\": \"It is a momentum oscillator that measures the speed and change of price movements\",\r\n  \"formula\": \"C# formula\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/indicators/rsi",
+					"raw": "http://localhost:6495/indicators/{{indicatorId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -223,7 +238,7 @@
 					"port": "6495",
 					"path": [
 						"indicators",
-						"rsi"
+						"{{indicatorId}}"
 					]
 				}
 			},
@@ -239,7 +254,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/indicators/rsi",
+					"raw": "http://localhost:6495/indicators/{{indicatorId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -247,7 +262,7 @@
 					"port": "6495",
 					"path": [
 						"indicators",
-						"rsi"
+						"{{indicatorId}}"
 					]
 				}
 			},
@@ -308,7 +323,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"currencyId\": \"bitcoin\",\r\n  \"indicatorId\": \"hype\",\r\n  \"buy\": 10,\r\n  \"sell\": 5,\r\n  \"enabled\": false\r\n}"
+					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"indicatorType\": \"CurrencyIndicator\",\r\n  \"indicatorId\": \"{{indicatorId}}\",\r\n  \"targetId\": \"bitcoin\",\r\n  \"buy\": 10,\r\n  \"sell\": 5,\r\n  \"enabled\": false\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:6495/watchers",
@@ -429,7 +444,7 @@
 			"response": []
 		},
 		{
-			"name": "Get ll charts",
+			"name": "Get all charts",
 			"request": {
 				"method": "GET",
 				"header": [],

@@ -26,7 +26,7 @@ namespace CryptoWatcher.Domain.Builders
                 // Get matching watcher
                 var watcher = watchers.FirstOrDefault(x =>
                     x.IndicatorId == defaultWatcher.IndicatorId &&
-                    x.CurrencyId == defaultWatcher.CurrencyId);
+                    x.TargetId == defaultWatcher.TargetId);
 
                 // If the watcher does not exist, we use the default one
                 if (watcher == null) watcher = defaultWatcher;
@@ -45,8 +45,9 @@ namespace CryptoWatcher.Domain.Builders
                 // Add default watcher
                 var watcher = new Watcher(
                         "master",
-                        line.CurrencyId,
+                        line.IndicatorType,
                         line.IndicatorId,
+                        line.TargetId,
                         line.Value,
                         line.AverageBuy,
                         line.AverageSell,
@@ -67,7 +68,7 @@ namespace CryptoWatcher.Domain.Builders
                 // We skip default watchers
                 if (watcher.UserId == "master") continue;
 
-                var currencyId = watcher.CurrencyId;
+                var currencyId = watcher.TargetId;
                 var indicatorId = watcher.IndicatorId;
                 var defaultWatcher = defaultWatchers.FirstOrDefault(WatcherExpression.DefaultWatcherFilter(currencyId, indicatorId).Compile());
                 if (defaultWatcher != null) watcher.Sync(defaultWatcher.Value, defaultWatcher.AverageBuy, defaultWatcher.AverageSell);

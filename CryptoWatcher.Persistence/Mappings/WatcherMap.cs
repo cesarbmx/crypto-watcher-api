@@ -13,7 +13,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .ForSqlServerIsClustered(false);
 
             // Indexes
-            entityBuilder.HasIndex(t => new { t.UserId, t.CurrencyId, t.IndicatorId })
+            entityBuilder.HasIndex(t => new { t.UserId, t.TargetId, t.IndicatorId })
                 .ForSqlServerIsClustered();
 
             // Properties
@@ -26,7 +26,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.CurrencyId)
+            entityBuilder.Property(t => t.TargetId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();

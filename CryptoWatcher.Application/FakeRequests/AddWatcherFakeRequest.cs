@@ -1,5 +1,5 @@
 ﻿using CryptoWatcher.Application.Requests;
-
+using CryptoWatcher.Domain.Models;
 
 
 namespace CryptoWatcher.Application.FakeRequests
@@ -11,8 +11,9 @@ namespace CryptoWatcher.Application.FakeRequests
             return new AddWatcherRequest
             {
                 UserId = "johny.melavo",
-                CurrencyId = "bitcoin",
-                IndicatorId = "johny.melavo-hype",
+                IndicatorType = IndicatorType.CurrencyIndicator,
+                IndicatorId = "hype",
+                TargetId = "bitcoin",
                 Buy = 8m,
                 Sell = 2m,
                 Enabled = true

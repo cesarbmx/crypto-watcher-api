@@ -22,7 +22,7 @@ namespace CryptoWatcher.Domain.Builders
                     var value = IndicatorBuilder.BuildValue(currency, indicator, currencies);
                     var averageBuy = IndicatorBuilder.BuildAverageBuy(currency, indicator, filteredWatchers);
                     var averageSell = IndicatorBuilder.BuildAverageSell(currency, indicator, filteredWatchers);
-                    var line = new Line(currency.CurrencyId, indicator.IndicatorId, value, averageBuy, averageSell, time);
+                    var line = new Line(indicator.IndicatorType, currency.CurrencyId, indicator.IndicatorId,  indicator.UserId, value, averageBuy, averageSell, time);
                     lines.Add(line);
                 }
             }

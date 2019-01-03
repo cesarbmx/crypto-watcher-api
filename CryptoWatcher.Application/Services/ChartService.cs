@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Repositories;
 
@@ -25,16 +26,16 @@ namespace CryptoWatcher.Application.Services
             _lineRepository = lineRepository;
             _mapper = mapper;
         }
-        public async Task<List<ChartResponse>> GetAllCharts(string currencyId = null, string indicatorId = null)
+        public async Task<List<ChartResponse>> GetAllCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Get all currencies
-            var currencies = await _currencyRepository.GetAll();
+            var currencies = await _currencyRepository.GetAll(CurrencyExpression.CurrencyFilter(currencyId));
 
             // Get all indicators
-            var indicators = await _indicatorRepository.GetAll();
+            var indicators = await _indicatorRepository.GetAll(IndicatorExpression.IndicatorFilter(indicatorType, indicatorId, userId));
 
             // Get all lines
-            var lines = await _lineRepository.GetAll();
+            var lines = await _lineRepository.GetAll(LineExpression.LineFilter());
 
             // Build charts
             var charts = ChartBuilder.BuildCharts(currencies, indicators, lines);

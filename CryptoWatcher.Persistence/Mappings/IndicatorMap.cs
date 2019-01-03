@@ -9,9 +9,18 @@ namespace CryptoWatcher.Persistence.Mappings
         public IndicatorMap(EntityTypeBuilder<Indicator> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.IndicatorId);
+            entityBuilder.HasKey(t => t.IndicatorId).
+                ForSqlServerIsClustered(false);
+
+            // Indexes
+            entityBuilder.HasIndex(t => new { t.Time, t.IndicatorType, t.IndicatorId, t.UserId})
+                .ForSqlServerIsClustered();
 
             // Properties
+            entityBuilder.Property(t => t.IndicatorType)
+                .HasColumnType("smallint")
+                .IsRequired();
+
             entityBuilder.Property(t => t.IndicatorId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(100)
@@ -20,10 +29,6 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.UserId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
-                .IsRequired();
-
-            entityBuilder.Property(t => t.IndicatorType)
-                .HasColumnType("smallint")
                 .IsRequired();
 
             entityBuilder.Property(t => t.Name)
@@ -51,9 +56,9 @@ namespace CryptoWatcher.Persistence.Mappings
 
             // Data seeding
             entityBuilder.HasData(
-                new Indicator("price", "master", IndicatorType.CurrencyIndicator, "Price", "", ""),
-                new Indicator("price-change-24hrs", "master", IndicatorType.CurrencyIndicator, "Price change 24Hrs", "", ""),
-                new Indicator("hype", "master", IndicatorType.CurrencyIndicator, "Hype", "", "")
+                new Indicator(IndicatorType.CurrencyIndicator, "price", "master",  "Price", "", ""),
+                new Indicator(IndicatorType.CurrencyIndicator, "price-change-24hrs", "master", "Price change 24Hrs", "", ""),
+                new Indicator(IndicatorType.CurrencyIndicator, "hype", "master", "Hype", "", "")
             );
         }
     }

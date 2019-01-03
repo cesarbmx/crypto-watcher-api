@@ -9,8 +9,9 @@ namespace CryptoWatcher.Domain.Models
         public string Id => WatcherId.ToString();
         public Guid WatcherId { get; private set; }
         public string UserId { get; private set; }
-        public string CurrencyId { get; private set; }
+        public IndicatorType IndicatorType { get; private set; }
         public string IndicatorId { get; private set; }
+        public string TargetId { get; private set; }
         public decimal Value { get; private set; }
         public decimal? Buy { get; private set; }
         public decimal? Sell { get; private set; }
@@ -24,8 +25,9 @@ namespace CryptoWatcher.Domain.Models
         public Watcher() { }
         public Watcher(
             string userId,
-            string currencyId,
+            IndicatorType indicatortype,
             string indicatorId,
+            string targetId,
             decimal value,
             decimal? buy,
             decimal? sell,
@@ -35,8 +37,9 @@ namespace CryptoWatcher.Domain.Models
         {
             WatcherId = Guid.NewGuid();
             UserId = userId;
-            CurrencyId = currencyId;
+            IndicatorType = indicatortype;
             IndicatorId = indicatorId;
+            TargetId = targetId;
             Value = value;
             Buy = buy;
             Sell = sell;

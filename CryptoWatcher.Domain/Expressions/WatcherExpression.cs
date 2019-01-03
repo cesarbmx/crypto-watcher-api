@@ -10,13 +10,13 @@ namespace CryptoWatcher.Domain.Expressions
         {
             return x =>
                 x.UserId == userId &&
-                x.CurrencyId == currencyId &&
+                x.TargetId == currencyId &&
                 x.IndicatorId == indicatorId;
         }
         public static Expression<Func<Watcher, bool>> WatcherFilter(string userId = null, string currencyId = null, string indicatorId = null)
         {
             return x => (string.IsNullOrEmpty(userId) || x.UserId == userId) &&
-                        (string.IsNullOrEmpty(currencyId) || x.CurrencyId == currencyId) &&
+                        (string.IsNullOrEmpty(currencyId) || x.TargetId == currencyId) &&
                         (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId);
         }
         public static Expression<Func<Watcher, bool>> WatcherWillingToBuy()
@@ -35,7 +35,7 @@ namespace CryptoWatcher.Domain.Expressions
         public static Expression<Func<Watcher, bool>> DefaultWatcherFilter(string currencyId = null, string indicatorId = null)
         {
             return x => x.UserId == "master" &&
-                        (string.IsNullOrEmpty(currencyId) || x.CurrencyId == currencyId) &&
+                        (string.IsNullOrEmpty(currencyId) || x.TargetId == currencyId) &&
                         (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId);
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 
@@ -6,14 +7,15 @@ namespace CryptoWatcher.Application.FakeResponses
 {
     public static class WatcherFakeResponse
     {
-        public static WatcherResponse GetFake_PriceChangeWatcher()
+        public static WatcherResponse GetFake_PriceChange24HrsWatcher()
         {
             return new WatcherResponse
             {
-                WatcherId = "johny.melavo-price-change-bitcoin",
+                WatcherId = Guid.NewGuid(),
                 UserId = "johny.melavo",
-                CurrencyId = "bitcoin",
-                IndicatorId = "johny.melavo-price-change",
+                IndicatorType = IndicatorType.CurrencyIndicator,
+                IndicatorId = "price-change-24hrs",
+                TargetId = "bitcoin",
                 Value = 5000,
                 Buy = 15,
                 Sell = 8,
@@ -27,10 +29,11 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new WatcherResponse
             {
-                WatcherId = "johny.melavo-hype-bitcoin",
+                WatcherId = Guid.NewGuid(),
                 UserId = "johny.melavo",
-                CurrencyId = "bitcoin",
-                IndicatorId = "johny.melavo-hype",
+                IndicatorType = IndicatorType.CurrencyIndicator,
+                IndicatorId = "hype",
+                TargetId = "bitcoin",
                 Value = 2,
                 Buy = 15,
                 Sell = 8,
@@ -44,7 +47,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new List<WatcherResponse>
             {
-                GetFake_PriceChangeWatcher(),
+                GetFake_PriceChange24HrsWatcher(),
                 GetFake_HypeWatcher()
             };
         }

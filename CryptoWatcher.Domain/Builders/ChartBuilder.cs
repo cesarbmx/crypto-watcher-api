@@ -14,7 +14,11 @@ namespace CryptoWatcher.Domain.Builders
             {
                 foreach (var indicator in indicators)
                 {
-                    var filteredLines = lines.Where(x =>  x.CurrencyId == currency.CurrencyId && x.IndicatorId == indicator.IndicatorId).ToList();
+                    var filteredLines = lines.Where(x =>  
+                        x.IndicatorType == indicator.IndicatorType &&
+                        x.IndicatorId == indicator.IndicatorId &&
+                        x.TargetId == currency.CurrencyId).ToList();
+
                     var chartColumns = BuildChartColumns();
                     var chartRows = BuildChartRows(filteredLines);
                     var chart = new Chart(currency.CurrencyId, currency.Name, indicator.IndicatorId, indicator.Name, chartColumns, chartRows);

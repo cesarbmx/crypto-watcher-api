@@ -10,10 +10,12 @@ namespace CryptoWatcher.Domain.Expressions
         {
             return x => x.Time < DateTime.Now.AddDays(-7);
         }
-        public static Expression<Func<Line, bool>> LineFilter(string currencyId = null, string indicatorId = null)
+        public static Expression<Func<Line, bool>> LineFilter(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
-            return x => (string.IsNullOrEmpty(currencyId) || x.CurrencyId == currencyId) &&
-                        (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId);
+            return x => (string.IsNullOrEmpty(currencyId) || x.TargetId == currencyId) &&
+                        (!indicatorType.HasValue || x.IndicatorType == indicatorType) &&
+                        (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId) &&
+                        (string.IsNullOrEmpty(userId) || x.UserId == userId);
         }
     }
 }

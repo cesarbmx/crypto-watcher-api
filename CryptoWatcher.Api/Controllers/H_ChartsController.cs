@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
+using CryptoWatcher.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -29,10 +30,10 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(200, typeof(ChartListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Charts" }, OperationId = "Charts_GetAllCharts")]
-        public async Task<IActionResult> GetAllCharts(string currencyId, string indicatorId)
+        public async Task<IActionResult> GetAllCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Reponse
-            var response = await _chartService.GetAllCharts(currencyId, indicatorId);
+            var response = await _chartService.GetAllCharts(currencyId, indicatorType, indicatorId, userId);
 
             // Return
             return Ok(response);

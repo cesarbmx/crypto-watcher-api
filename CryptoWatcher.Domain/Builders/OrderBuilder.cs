@@ -22,11 +22,11 @@ namespace CryptoWatcher.Domain.Builders
                 var orderType = BuildOrderType(watcher.Status);
                 var userOrders = ongoingOrders.Where(OrderExpression.Order(
                     watcher.UserId,
-                    watcher.CurrencyId,
+                    watcher.TargetId,
                     watcher.WatcherId,
                     orderType).Compile()).ToList();                
                 if (userOrders.Count != 0) continue;
-                var order = new Order(watcher.UserId, watcher.CurrencyId, watcher.WatcherId, orderType, 100);
+                var order = new Order(watcher.UserId, watcher.TargetId, watcher.WatcherId, orderType, 100);
                 newOrders.Add(order);
             }
 

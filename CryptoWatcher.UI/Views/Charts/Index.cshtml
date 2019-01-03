@@ -48,7 +48,7 @@
 <body>
     @foreach (var chart in @Model.Charts)
     {
-        @chart.CurrencyName<br />
+        @chart.TargetName<br />
         @chart.IndicatorName<br />
         <partial name="_Chart" model="@chart" />
     }

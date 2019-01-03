@@ -1,14 +1,16 @@
-﻿using CryptoWatcher.Domain.Models;
+﻿using System;
+using CryptoWatcher.Domain.Models;
 
 
 namespace CryptoWatcher.Application.Responses
 {
     public class WatcherResponse
     {
-        public string WatcherId { get; set; }
+        public Guid WatcherId { get; set; }
         public string UserId { get; set; }
-        public string CurrencyId { get; set; }
+        public IndicatorType IndicatorType { get; set; }
         public string IndicatorId { get; set; }
+        public string TargetId { get; set; }
         public decimal Value { get; set; }
         public decimal? Buy { get; set; }
         public decimal? Sell { get; set; }

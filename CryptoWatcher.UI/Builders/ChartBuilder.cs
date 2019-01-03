@@ -17,7 +17,7 @@ namespace CryptoWatcher.UI.Builders
                     var chart = new Chart
                     {
                         ChartId = chartResponse.ChartId,
-                        CurrencyName = chartResponse.CurrencyName,
+                        TargetName = chartResponse.TargetName,
                         IndicatorName = chartResponse.IndicatorName,
                         Rows = BuildRows(chartResponse.Rows)
                     };

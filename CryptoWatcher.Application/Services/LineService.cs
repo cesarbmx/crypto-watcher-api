@@ -18,10 +18,10 @@ namespace CryptoWatcher.Application.Services
             _lineRepository = lineRepository;
             _mapper = mapper;
         }
-        public async Task<List<LineResponse>> GetAllLines(string currencyId = null, string indicatorId = null)
+        public async Task<List<LineResponse>> GetAllLines(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Get all lines
-            var lines = await _lineRepository.GetAll(LineExpression.LineFilter(currencyId, indicatorId));
+            var lines = await _lineRepository.GetAll(LineExpression.LineFilter(currencyId, indicatorType, indicatorId, userId));
 
             // Response
             var response = _mapper.Map<List<LineResponse>>(lines);
