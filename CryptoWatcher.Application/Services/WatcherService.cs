@@ -102,9 +102,9 @@ namespace CryptoWatcher.Application.Services
             // Add
             watcher = new Watcher(
                 request.UserId,
-                request.IndicatorType,
-                request.IndicatorId,
                 request.TargetId,
+                request.IndicatorType,
+                request.IndicatorId,              
                 16,
                 request.Buy,
                 request.Sell,
