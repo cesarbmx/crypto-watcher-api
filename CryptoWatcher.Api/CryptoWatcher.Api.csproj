@@ -22,35 +22,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\**" />
-    <Compile Remove="ValidationMessages\**" />
-    <Compile Remove="wwwroot\**" />
-    <Content Remove="Services\**" />
-    <Content Remove="ValidationMessages\**" />
-    <Content Remove="wwwroot\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <EmbeddedResource Remove="ValidationMessages\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
-    <None Remove="Services\**" />
-    <None Remove="ValidationMessages\**" />
-    <None Remove="wwwroot\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Controllers\A_JurisdictionsController.cs" />
-    <Compile Remove="ResponseExamples\IProvideExamples.cs" />
-    <Compile Remove="ResponseExamples\ValidationResponseExample.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="appsettings.develop.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="CryptoWatcher.Api.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="CryptoWatcher.Api.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -87,6 +58,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

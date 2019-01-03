@@ -1,24 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Configurations>Debug</Configurations>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="CachingProviders\**" />
-    <EmbeddedResource Remove="CachingProviders\**" />
-    <None Remove="CachingProviders\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Repositories\CurrencyRepository.cs" />
-    <Compile Remove="Repositories\LogRepository.cs" />
-    <Compile Remove="Repositories\NotificationRepository.cs" />
-    <Compile Remove="Repositories\OrderRepository.cs" />
-    <Compile Remove="Repositories\UserRepository.cs" />
-    <Compile Remove="Repositories\WatcherRepository.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
