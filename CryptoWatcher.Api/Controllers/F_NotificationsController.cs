@@ -11,11 +11,11 @@ using Swashbuckle.AspNetCore.Filters;
 namespace CryptoWatcher.Api.Controllers
 {
     // ReSharper disable once InconsistentNaming
-    public class G_NotificationsController : Controller
+    public class F_NotificationsController : Controller
     {
         private readonly NotificationService _notificationService;
 
-        public G_NotificationsController(NotificationService notificationService)
+        public F_NotificationsController(NotificationService notificationService)
         {
             _notificationService = notificationService;
         }
