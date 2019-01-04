@@ -60,6 +60,43 @@ namespace CryptoWatcher.Domain.Builders
                 values[i] = values[i] < 0 ? 0 : values[i];
             }
         }
+        public static void BuildHypes(ScriptVariables scriptVariables)
+        {
+            // Arrange
+            var time = scriptVariables.Times[0];
+            var currencies = scriptVariables.Currencies;
+            var indicators = scriptVariables.Indicators;
+            var values = scriptVariables.Values[time];
+
+            var hypes = new decimal[currencies.Length];
+
+            var index = 0;
+            foreach (var currency in currencies)
+            {
+                foreach (var indicator in indicators)
+                {
+                    hypes[index] = values[IndicatorType.CurrencyIndicator][currency][indicator];
+                    index++;
+                }
+            }
+
+            // Calculate
+            var min = hypes.Min();
+            if (min < 0)   // If there are negatives, we move all the values to the right so we only deal with positives
+            {
+                for (var i = 0; i < hypes.Length; i++)
+                {
+                    hypes[i] = hypes[i] + min;
+                }
+            }
+            
+            var average = hypes.Average();// Average
+            for (var i = 0; i < hypes.Length; i++) // We pick the values above the average
+            {
+                hypes[i] -= average;
+                hypes[i] = hypes[i] < 0 ? 0 : hypes[i]; // We set to zero the values below the average
+            }
+        }
         public static decimal? BuildAverageBuy(Currency currency, Indicator indicator, List<Watcher> watchers)
         {
             // Return null if there are no watchers

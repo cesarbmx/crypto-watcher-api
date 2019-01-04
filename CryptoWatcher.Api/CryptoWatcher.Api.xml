@@ -99,9 +99,9 @@
             Get all line charts
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.I_ScriptVariablesController.GetAllScriptVariables">
+        <member name="M:CryptoWatcher.Api.Controllers.I_ScriptVariablesController.GetScriptVariables">
             <summary>
-            Get all script variables
+            Get script variables
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.X_LogController.GetAllLogs">

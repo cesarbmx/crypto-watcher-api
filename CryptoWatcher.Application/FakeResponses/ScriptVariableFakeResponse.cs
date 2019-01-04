@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
     public static class ScriptVariableFakeResponse
     {
-        public static Dictionary<DateTime, Dictionary<IndicatorType, Dictionary<string, Dictionary<string, decimal>>>> GetFake_List()
+        public static ScriptVariablesResponse GetFake_List()
         {
+           var scriptVariablesResponse = new ScriptVariablesResponse();
+
+           var now = DateTime.Now;
+           var times = new [] { now};
+           var currencies = new [] { "bitcoin", "ethereum", "master" };
+           var indicators = new [] { "price", "hype", "performance" };
+
             var level41 = new Dictionary<string, decimal>
             {
                 { "price", 3200m },
@@ -38,11 +46,16 @@ namespace CryptoWatcher.Application.FakeResponses
             };
             var level1 = new Dictionary<DateTime, Dictionary<IndicatorType, Dictionary<string, Dictionary<string, decimal>>>>
             {
-                {DateTime.Now, level2}
+                {now, level2}
             };
 
+            scriptVariablesResponse.Times = times;
+            scriptVariablesResponse.Currencies = currencies;
+            scriptVariablesResponse.Indicators = indicators;
+            scriptVariablesResponse.Values = level1;
+
             // Return
-            return level1;
+            return scriptVariablesResponse;
         }
     }
 }

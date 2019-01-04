@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Repositories;
@@ -16,13 +14,13 @@ namespace CryptoWatcher.Application.Services
             _lineRepository = lineRepository;
         }
 
-        public async Task<Dictionary<DateTime, Dictionary<IndicatorType, Dictionary<string, Dictionary<string, decimal>>>>> GetAllScriptVariables()
+        public async Task<ScriptVariables> GetScriptVariables()
         {
             // Get all lines
             var lines = await _lineRepository.GetAll();
 
             // Response
-            var response = ScriptVariableBuilder.BuildScriptVariables(lines);
+            var response = ScriptVariablesBuilder.BuildScriptVariables(lines);
 
             // Return
             return response;

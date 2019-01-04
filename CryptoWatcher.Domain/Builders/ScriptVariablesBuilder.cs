@@ -6,9 +6,34 @@ using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Domain.Builders
 {
-    public static class ScriptVariableBuilder
+    public static class ScriptVariablesBuilder
     {
-        public static Dictionary<DateTime, Dictionary<IndicatorType, Dictionary<string, Dictionary<string, decimal>>>> BuildScriptVariables(List<DataPoint> lines)
+        public static ScriptVariables BuildScriptVariables(List<DataPoint> lines)
+        {
+            var scriptVariables = new ScriptVariables(
+                BuildTimes(lines),
+                BuildCurrencies(lines),
+                BuildIndicators(lines),
+                BuildValues(lines)
+                );
+
+
+            // Return
+            return scriptVariables;
+        }
+        public static DateTime[] BuildTimes(List<DataPoint> lines)
+        {
+            return lines.Select(x=>x.Time).Distinct().ToArray();
+        }
+        public static string[] BuildCurrencies(List<DataPoint> lines)
+        {
+            return lines.Select(x => x.TargetId).Distinct().ToArray();
+        }
+        public static string[] BuildIndicators(List<DataPoint> lines)
+        {
+            return lines.Select(x => x.IndicatorId).Distinct().ToArray();
+        }
+        public static Dictionary<DateTime, Dictionary<IndicatorType, Dictionary<string, Dictionary<string, decimal>>>> BuildValues(List<DataPoint> lines)
         {
             // Distinct
             var time = lines.Select(x => x.Time).Distinct().ToList();
