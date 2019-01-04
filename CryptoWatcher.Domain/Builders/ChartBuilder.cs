@@ -5,11 +5,11 @@ using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Domain.Builders
 {
-    public static class ChartBuilder
+    public static class LineChartBuilder
     {
-        public static List<Chart> BuildCharts(List<Currency> currencies, List<Indicator> indicators, List<DataPoint> lines)
+        public static List<LineChart> BuildLineCharts(List<Currency> currencies, List<Indicator> indicators, List<DataPoint> lines)
         {
-            var charts = new List<Chart>();
+            var lineCharts = new List<LineChart>();
             foreach (var currency in currencies)
             {
                 foreach (var indicator in indicators)
@@ -19,38 +19,38 @@ namespace CryptoWatcher.Domain.Builders
                         x.IndicatorId == indicator.IndicatorId &&
                         x.TargetId == currency.CurrencyId).ToList();
 
-                    var chartColumns = BuildChartColumns();
-                    var chartRows = BuildChartRows(filteredLines);
-                    var chart = new Chart(currency.CurrencyId, currency.Name, indicator.IndicatorId, indicator.Name, chartColumns, chartRows);
-                    charts.Add(chart);
+                    var lineChartColumns = BuildLineChartColumns();
+                    var lineChartRows = BuildLineChartRows(filteredLines);
+                    var lineChart = new LineChart(currency.CurrencyId, currency.Name, indicator.IndicatorId, indicator.Name, lineChartColumns, lineChartRows);
+                    lineCharts.Add(lineChart);
                 }
             }
 
             // Return
-            return charts;
+            return lineCharts;
         }
-        public static List<ChartRow> BuildChartRows(List<DataPoint> lines)
+        public static List<LineChartRow> BuildLineChartRows(List<DataPoint> lines)
         {
-            // Chart rows
-            var chartRows = new List<ChartRow>();
+            // LineChart rows
+            var lineChartRows = new List<LineChartRow>();
             foreach (var line in lines)
             {
-                var chartRow = new ChartRow(line.Time, line.Value, line.AverageBuy, line.AverageSell);
-                chartRows.Add(chartRow);
+                var lineChartRow = new LineChartRow(line.Time, line.Value, line.AverageBuy, line.AverageSell);
+                lineChartRows.Add(lineChartRow);
             }
 
             // Return
-            return chartRows;
+            return lineChartRows;
         }
-        public static List<ChartColumn> BuildChartColumns()
+        public static List<LineChartColumn> BuildLineChartColumns()
         {           
             // Return
-            return new List<ChartColumn>
+            return new List<LineChartColumn>
             {
-                new ChartColumn("DateTime", "Time"),
-                new ChartColumn("string", "Hype"),
-                new ChartColumn("string", "Average buy"),
-                new ChartColumn("string", "Average sell")
+                new LineChartColumn("DateTime", "Time"),
+                new LineChartColumn("string", "Hype"),
+                new LineChartColumn("string", "Average buy"),
+                new LineChartColumn("string", "Average sell")
             };
         }
     }

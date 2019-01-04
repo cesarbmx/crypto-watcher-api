@@ -32,7 +32,7 @@ namespace CryptoWatcher.UI.Configuration
                     cfg.CreateMap<Order, OrderResponse>();
                     cfg.CreateMap<Indicator, IndicatorResponse>();
                     cfg.CreateMap<DataPoint, DataPointResponse>();
-                    cfg.CreateMap<Chart, ChartResponse>();
+                    cfg.CreateMap<LineChart, LineChartResponse>();
 
                     // Others
                     cfg.CreateMap<TickerEntity, Currency>()

@@ -7,25 +7,25 @@ using CryptoWatcher.UI.Models;
 
 namespace CryptoWatcher.UI.Controllers
 {
-    public class ChartsController : Controller
+    public class LineChartsController : Controller
     {
-        private readonly ChartService _chartService;
+        private readonly LineChartService _lineChartService;
 
-        public ChartsController(ChartService chartService)
+        public LineChartsController(LineChartService lineChartService)
         {
-            _chartService = chartService;
+            _lineChartService = lineChartService;
         }
 
         public async Task<IActionResult> Index()
         {
-            // Get all charts
-            var charts = await _chartService.GetAllCharts();
+            // Get all line charts
+            var lineCharts = await _lineChartService.GetAllLineCharts();
                          
            // ViewModel
-            var chartViewModel = ChartBuilder.BuildChartViewModel(charts);
+            var lineChartViewModel = LineChartBuilder.BuildLineChartViewModel(lineCharts);
 
             // Return
-            return View("Index", chartViewModel);
+            return View("Index", lineChartViewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

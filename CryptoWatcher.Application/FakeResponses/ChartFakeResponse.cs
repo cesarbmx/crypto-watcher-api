@@ -6,41 +6,41 @@ using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
-    public static class ChartFakeResponse
+    public static class LineChartFakeResponse
     {
-        public static ChartResponse GetFake_1()
+        public static LineChartResponse GetFake_1()
         {
-            return new ChartResponse
+            return new LineChartResponse
             {
-                ChartId = "bitcoin-hype",
+                LineChartId = "bitcoin-hype",
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 TargetId = "bitcoin",
                 TargetName = "Bitcoin",
                 IndicatorId = "hype",
                 IndicatorName = "Hype",
                 UserId = "master",
-                Columns = ChartBuilder.BuildChartColumns(),
-                Rows = new List<ChartRow> { new ChartRow(DateTime.Now, 6.4m, 8m, 4m), new ChartRow(DateTime.Now.AddMinutes(1), 6.6m, 8m, 4m) }
+                Columns = LineChartBuilder.BuildLineChartColumns(),
+                Rows = new List<LineChartRow> { new LineChartRow(DateTime.Now, 6.4m, 8m, 4m), new LineChartRow(DateTime.Now.AddMinutes(1), 6.6m, 8m, 4m) }
             };
         }
-        public static ChartResponse GetFake_2()
+        public static LineChartResponse GetFake_2()
         {
-            return new ChartResponse
+            return new LineChartResponse
             {
-                ChartId = "eos-hype",
+                LineChartId = "eos-hype",
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 TargetId = "eos",
                 TargetName = "EOS",
                 IndicatorId = "hype",
                 IndicatorName = "Hype",
                 UserId = "master",
-                Columns = ChartBuilder.BuildChartColumns(),
-                Rows = new List<ChartRow> { new ChartRow(DateTime.Now, 8.4m, 8m, 4m), new ChartRow(DateTime.Now.AddMinutes(1), 8.6m, 8m, 4m) }
+                Columns = LineChartBuilder.BuildLineChartColumns(),
+                Rows = new List<LineChartRow> { new LineChartRow(DateTime.Now, 8.4m, 8m, 4m), new LineChartRow(DateTime.Now.AddMinutes(1), 8.6m, 8m, 4m) }
             };
         }
-        public static List<ChartResponse> GetFake_List()
+        public static List<LineChartResponse> GetFake_List()
         {
-            return new List<ChartResponse>
+            return new List<LineChartResponse>
             {
                 GetFake_1(),
                 GetFake_2()

@@ -1,11 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Charts";
-    @model ChartViewModel
+    ViewData["Title"] = "LineCharts";
+    @model LineChartViewModel
 }
 
 <html>
 <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/lineCharts/loader.js"></script>
 <script type="text/javascript">
     var options = {
         curveType: 'function',
@@ -46,11 +46,11 @@
 </script>
 </head>
 <body>
-    @foreach (var chart in @Model.Charts)
+    @foreach (var lineChart in @Model.LineCharts)
     {
-        @chart.TargetName<br />
-        @chart.IndicatorName<br />
-        <partial name="_Chart" model="@chart" />
+        @lineChart.TargetName<br />
+        @lineChart.IndicatorName<br />
+        <partial name="_LineChart" model="@lineChart" />
     }
 </body>
 </html>

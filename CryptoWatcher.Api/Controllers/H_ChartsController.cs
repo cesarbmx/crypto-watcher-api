@@ -11,29 +11,29 @@ using Swashbuckle.AspNetCore.Filters;
 namespace CryptoWatcher.Api.Controllers
 {
     // ReSharper disable once InconsistentNaming
-    public class H_ChartsController : Controller
+    public class H_LineChartsController : Controller
     {
-        private readonly ChartService _chartService;
+        private readonly LineChartService _lineChartService;
 
-        public H_ChartsController(ChartService chartService)
+        public H_LineChartsController(LineChartService lineChartService)
         {
-            _chartService = chartService;
+            _lineChartService = lineChartService;
         }
 
         /// <summary>
-        /// Get all charts
+        /// Get all line charts
         /// </summary>
         [HttpGet]
-        [Route("charts")]
-        [SwaggerResponse(200, Type = typeof(List<ChartResponse>))]       
+        [Route("line-charts")]
+        [SwaggerResponse(200, Type = typeof(List<LineChartResponse>))]       
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(ChartListResponseExample))]
+        [SwaggerResponseExample(200, typeof(LineChartListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerOperation(Tags = new[] { "Charts" }, OperationId = "Charts_GetAllCharts")]
-        public async Task<IActionResult> GetAllCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
+        [SwaggerOperation(Tags = new[] { "Charts" }, OperationId = "LineCharts_GetAllLineCharts")]
+        public async Task<IActionResult> GetAllLineCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Reponse
-            var response = await _chartService.GetAllCharts(currencyId, indicatorType, indicatorId, userId);
+            var response = await _lineChartService.GetAllLineCharts(currencyId, indicatorType, indicatorId, userId);
 
             // Return
             return Ok(response);

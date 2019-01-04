@@ -2,42 +2,42 @@
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.UI.Models;
-using Chart = CryptoWatcher.UI.Models.Chart;
+using LineChart = CryptoWatcher.UI.Models.LineChart;
 
 
 namespace CryptoWatcher.UI.Builders
 {
-    public static class ChartBuilder
+    public static class LineChartBuilder
     {
-        public static ChartViewModel BuildChartViewModel(List<ChartResponse> chartsResponse)
+        public static LineChartViewModel BuildLineChartViewModel(List<LineChartResponse> lineChartsResponse)
         {
-            var chartViewModel = new ChartViewModel();
-            foreach (var chartResponse in chartsResponse)
+            var lineChartViewModel = new LineChartViewModel();
+            foreach (var lineChartResponse in lineChartsResponse)
             {
-                    var chart = new Chart
+                    var lineChart = new LineChart
                     {
-                        ChartId = chartResponse.ChartId,
-                        TargetName = chartResponse.TargetName,
-                        IndicatorName = chartResponse.IndicatorName,
-                        Rows = BuildRows(chartResponse.Rows)
+                        LineChartId = lineChartResponse.LineChartId,
+                        TargetName = lineChartResponse.TargetName,
+                        IndicatorName = lineChartResponse.IndicatorName,
+                        Rows = BuildRows(lineChartResponse.Rows)
                     };
-                    chartViewModel.Charts.Add(chart);
+                    lineChartViewModel.LineCharts.Add(lineChart);
             }
 
             // Return
-            return chartViewModel;
+            return lineChartViewModel;
         }
 
-        public static string BuildRows(List<ChartRow> chartRows)
+        public static string BuildRows(List<LineChartRow> lineChartRows)
         {
             // Rows
             var rows = string.Empty;
-            foreach (var chartRow in chartRows)
+            foreach (var lineChartRow in lineChartRows)
             {
-                var time = chartRow.Time;
-                var value = chartRow.Value;
-                var averagebuy = chartRow.AverageBuy.HasValue ? chartRow.AverageBuy.ToString() : "null";
-                var averageSell = chartRow.AverageSell.HasValue ? chartRow.AverageSell.ToString() : "null";
+                var time = lineChartRow.Time;
+                var value = lineChartRow.Value;
+                var averagebuy = lineChartRow.AverageBuy.HasValue ? lineChartRow.AverageBuy.ToString() : "null";
+                var averageSell = lineChartRow.AverageSell.HasValue ? lineChartRow.AverageSell.ToString() : "null";
   
                 var dateTime = $"new Date({time.Year},{time.Month:D2},{time.Day:D2},{time.Hour:D2},{time.Minute:D2})";
                 rows += ", " + $"[{dateTime}, {value}, {averagebuy}, {averageSell}]";

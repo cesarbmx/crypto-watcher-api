@@ -94,9 +94,9 @@
             Get all lines
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.H_ChartsController.GetAllCharts(System.String,System.Nullable{CryptoWatcher.Domain.Models.IndicatorType},System.String,System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.H_LineChartsController.GetAllLineCharts(System.String,System.Nullable{CryptoWatcher.Domain.Models.IndicatorType},System.String,System.String)">
             <summary>
-            Get all charts
+            Get all line charts
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.I_ScriptVariablesController.GetAllScriptVariables">

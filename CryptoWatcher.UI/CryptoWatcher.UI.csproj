@@ -29,10 +29,10 @@
     <Content Update="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Views\Charts\_Chart.cshtml">
+    <Content Update="Views\LineCharts\_LineChart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Charts\Index.cshtml">
+    <Content Update="Views\LineCharts\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

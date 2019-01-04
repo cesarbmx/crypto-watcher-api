@@ -9,14 +9,14 @@ using CryptoWatcher.Persistence.Repositories;
 
 namespace CryptoWatcher.Application.Services
 {
-    public class ChartService
+    public class LineChartService
     {
         private readonly IRepository<Currency> _currencyRepository;
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<DataPoint> _lineRepository;
         private readonly IMapper _mapper;
 
-        public ChartService(
+        public LineChartService(
             IRepository<Currency> currencyRepository,
             IRepository<Indicator> indicatorRepository,
             IRepository<DataPoint> lineRepository, IMapper mapper)
@@ -26,7 +26,7 @@ namespace CryptoWatcher.Application.Services
             _lineRepository = lineRepository;
             _mapper = mapper;
         }
-        public async Task<List<ChartResponse>> GetAllCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
+        public async Task<List<LineChartResponse>> GetAllLineCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Get all currencies
             var currencies = await _currencyRepository.GetAll(CurrencyExpression.CurrencyFilter(currencyId));
@@ -37,11 +37,11 @@ namespace CryptoWatcher.Application.Services
             // Get all lines
             var lines = await _lineRepository.GetAll(LineExpression.LineFilter());
 
-            // Build charts
-            var charts = ChartBuilder.BuildCharts(currencies, indicators, lines);
+            // Build lineCharts
+            var lineCharts = LineChartBuilder.BuildLineCharts(currencies, indicators, lines);
 
             // Response
-            var response = _mapper.Map<List<ChartResponse>>(charts);
+            var response = _mapper.Map<List<LineChartResponse>>(lineCharts);
 
             // Return
             return response;

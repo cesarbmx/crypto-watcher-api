@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace CryptoWatcher.UI.Models
 {
-    public class ChartViewModel
+    public class LineChartViewModel
     {
-        public List<Chart> Charts { get; set; }
+        public List<LineChart> LineCharts { get; set; }
 
-        public ChartViewModel()
+        public LineChartViewModel()
         {
-            Charts = new List<Chart>();
+            LineCharts = new List<LineChart>();
         }
     }
 }
