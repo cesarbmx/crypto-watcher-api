@@ -6,6 +6,12 @@ namespace CryptoWatcher.Domain.Expressions
 {
     public static class LineExpression
     {
+        public static Expression<Func<DataPoint, bool>> Line(DateTime time, string targetId, string indicatorId)
+        {
+            return x => x.Time == time &&
+                        x.TargetId == targetId &&
+                        x.IndicatorId == indicatorId;
+        }
         public static Expression<Func<DataPoint, bool>> OldLine()
         {
             return x => x.Time < DateTime.Now.AddDays(-7);

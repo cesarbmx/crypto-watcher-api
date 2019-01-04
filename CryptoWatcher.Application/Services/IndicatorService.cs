@@ -82,7 +82,9 @@ namespace CryptoWatcher.Application.Services
                 request.UserId,
                 request.Name, 
                 request.Description,
-                request.Formula);
+                request.Formula,
+                request.Dependencies,
+                1);
             _indicatorRepository.Add(indicator);
 
              // Save

@@ -12,7 +12,7 @@ namespace CryptoWatcher.Domain.Models
         public IndicatorType IndicatorType { get; private set; }
         public string TargetId { get; private set; }
         public string IndicatorId { get; private set; }
-        public decimal Value { get; private set; }
+        public decimal? Value { get; private set; }
         public decimal? Buy { get; private set; }
         public decimal? Sell { get; private set; }
         public decimal? AverageBuy { get; private set; }
@@ -28,7 +28,7 @@ namespace CryptoWatcher.Domain.Models
             string targetId,
             IndicatorType indicatortype,
             string indicatorId,
-            decimal value,
+            decimal? value,
             decimal? buy,
             decimal? sell,
             decimal? averageBuy,
@@ -57,7 +57,7 @@ namespace CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Watcher Sync(decimal value, decimal? averageBuy, decimal? averageSell)
+        public Watcher Sync(decimal? value, decimal? averageBuy, decimal? averageSell)
         {
             Value = value;
             AverageBuy = averageBuy;

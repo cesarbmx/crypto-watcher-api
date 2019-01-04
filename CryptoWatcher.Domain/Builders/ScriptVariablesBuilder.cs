@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
 
 
@@ -37,7 +38,7 @@ namespace CryptoWatcher.Domain.Builders
             return lines.Select(x => x.IndicatorId).Distinct().ToArray();
         }
 
-        public static Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal>>> BuildValues(
+        public static Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal?>>> BuildValues(
             List<DataPoint> lines)
         {
             // Distinct
@@ -46,19 +47,17 @@ namespace CryptoWatcher.Domain.Builders
             var indicators = lines.Select(x => x.IndicatorId).Distinct().ToList();
 
             // Loop
-            var level1 = new Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal>>>();
+            var level1 = new Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal?>>>();
             foreach (var time in times)
             {
-                var level2 = new Dictionary<string, Dictionary<string, decimal>>();
+                var level2 = new Dictionary<string, Dictionary<string, decimal?>>();
                 foreach (var target in targets)
                 {
-                    var level3 = new Dictionary<string, decimal>();
-                    foreach (var indicatorIdKey in indicators)
+                    var level3 = new Dictionary<string, decimal?>();
+                    foreach (var indicator in indicators)
                     {
-                        var line = lines.FirstOrDefault(x => x.Time == time &&
-                                                             x.TargetId == target &&
-                                                             x.IndicatorId == indicatorIdKey);
-                        if (line != null) level3.Add(indicatorIdKey, line.Value);
+                        var line = lines.FirstOrDefault(LineExpression.Line(time, target, indicator).Compile());
+                        level3.Add(indicator, line?.Value);
                     }
                     level2.Add(target, level3);
                 }

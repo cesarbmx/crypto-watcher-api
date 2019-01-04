@@ -197,7 +197,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"indicatorType\": \"CurrencyIndicator\",\r\n  \"indicatorId\": \"rsi\",\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"RSI\",\r\n  \"description\": \"Blah blah\",\r\n  \"formula\": \"C# formula\"\r\n}"
+					"raw": "{\r\n  \"indicatorType\": \"CurrencyIndicator\",\r\n  \"indicatorId\": \"rsi\",\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"RSI\",\r\n  \"description\": \"Blah blah\",\r\n  \"formula\": \"C# formula\",\r\n  \"dependencies\": \"\\\"price\\\"\"\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:6495/indicators",
@@ -444,7 +444,7 @@
 			"response": []
 		},
 		{
-			"name": "Get all charts",
+			"name": "Get all line charts",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -453,14 +453,14 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/charts",
+					"raw": "http://localhost:6495/line-charts",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6495",
 					"path": [
-						"charts"
+						"line-charts"
 					]
 				}
 			},

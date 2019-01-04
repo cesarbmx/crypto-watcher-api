@@ -11,7 +11,7 @@ namespace CryptoWatcher.Domain.Models
         public string TargetId { get; private set; }
         public string IndicatorId { get; private set; }
         public string UserId { get; private set; }
-        public decimal Value { get; private set; }
+        public decimal? Value { get; private set; }
         public decimal? AverageBuy { get; private set; }
         public decimal? AverageSell { get; private set; }
         public DateTime Time { get; private set; }
@@ -22,7 +22,7 @@ namespace CryptoWatcher.Domain.Models
             string targetId,
             string indicatorId,
             string userId,
-            decimal value,
+            decimal? value,
             decimal? averageBuy,
             decimal? averageSell,
             DateTime time)
@@ -36,6 +36,15 @@ namespace CryptoWatcher.Domain.Models
             AverageBuy = averageBuy;
             AverageSell = averageSell;
             Time = time;
+        }
+
+        public DataPoint Set(decimal? value, decimal? averageBuy, decimal? averageSell)
+        {
+            Value = value;
+            AverageBuy = averageBuy;
+            AverageSell = averageSell;
+
+            return this;
         }
     }
 }

@@ -8,12 +8,12 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class WatcherBuilder
     {
-        public static WatcherStatus BuildStatus(decimal indicatorValue, decimal? buy, decimal? sell)
+        public static WatcherStatus BuildStatus(decimal? value, decimal? buy, decimal? sell)
         {
             // Evaluate
             var watcherStatus = WatcherStatus.Hold;
-            if(indicatorValue >= buy) watcherStatus = WatcherStatus.Buy;
-            if (indicatorValue <= sell) watcherStatus = WatcherStatus.Sell;
+            if(value >= buy) watcherStatus = WatcherStatus.Buy;
+            if (value <= sell) watcherStatus = WatcherStatus.Sell;
 
             // Return
             return watcherStatus;

@@ -15,7 +15,8 @@ namespace CryptoWatcher.Application.FakeRequests
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 Name = "Hype",
                 Description = "It identifies immediate hypes within 24 Hrs in your portfolio",
-                Formula = "C# formula"
+                Formula = "C# formula",
+                Dependencies = "\"price-change=24hrs\" "
             };
         }       
     }

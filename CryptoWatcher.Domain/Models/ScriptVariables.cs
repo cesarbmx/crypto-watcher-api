@@ -9,14 +9,14 @@ namespace CryptoWatcher.Domain.Models
         public DateTime[] Times { get; private set; }
         public string[] Currencies { get; private set; }
         public string[] Indicators { get; private set; }
-        public Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal>>> Values { get; private set; }
+        public Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal?>>> Values { get; private set; }
 
         public ScriptVariables() { }
         public ScriptVariables(
             DateTime[] times,
             string[] currencies,
             string[] indicators,
-            Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal>>> values)
+            Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal?>>> values)
         {
             Times = times;
             Currencies = currencies;

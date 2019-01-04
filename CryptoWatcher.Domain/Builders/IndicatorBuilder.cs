@@ -8,7 +8,7 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class IndicatorBuilder
     {
-        public static decimal BuildValue(Currency currency, Indicator indicator, List<Currency> currencies)
+        public static decimal BuildValue(Currency currency, Indicator indicator)
         {
             switch (indicator.IndicatorId)
             {
@@ -16,13 +16,22 @@ namespace CryptoWatcher.Domain.Builders
                     return currency.Price;
                 case "price-change-24hrs":
                     return currency.PercentageChange24H;
-                case "hype":
-                    return BuildHype(currency, currencies);
                 default:
                     return 666m;
             }            
         }
-        public static decimal BuildHype(Currency currency, List<Currency> currencies)
+        public static decimal? BuildValue(Currency currency, Indicator indicator, List<DataPoint> lines)
+        {
+            var scriptVariables = ScriptVariablesBuilder.BuildScriptVariables(lines);
+            switch (indicator.IndicatorId)
+            {
+                case "hype":
+                    return BuildHypes(scriptVariables)[currency.CurrencyId];
+                default:
+                    return 666m;
+            }
+        }
+        public static decimal BuildHypes(Currency currency, List<Currency> currencies)
         {
             // Collect values
             var values = new decimal[currencies.Count];
@@ -60,42 +69,39 @@ namespace CryptoWatcher.Domain.Builders
                 values[i] = values[i] < 0 ? 0 : values[i];
             }
         }
-        public static void BuildHypes(ScriptVariables scriptVariables)
+        public static Dictionary<string, decimal?> BuildHypes(ScriptVariables scriptVariables)
         {
             // Arrange
             var time = scriptVariables.Times[0];
             var currencies = scriptVariables.Currencies;
-            var indicators = scriptVariables.Indicators;
             var values = scriptVariables.Values[time];
 
-            var hypes = new decimal[currencies.Length];
+            var hypes = new Dictionary<string, decimal?>();
 
-            var index = 0;
             foreach (var currency in currencies)
             {
-                foreach (var indicator in indicators)
-                {
-                    hypes[index] = values[currency][indicator];
-                    index++;
-                }
+                hypes.Add(currency, values[currency]["price-change-24hrs"]);
             }
 
             // Calculate
-            var min = hypes.Min();
+            var min = hypes.Values.Min();
             if (min < 0)   // If there are negatives, we move all the values to the right so we only deal with positives
             {
-                for (var i = 0; i < hypes.Length; i++)
+                foreach (var currency in currencies)
                 {
-                    hypes[i] = hypes[i] + min;
+                    hypes[currency] = hypes[currency] + min;
                 }
             }
             
-            var average = hypes.Average();// Average
-            for (var i = 0; i < hypes.Length; i++) // We pick the values above the average
+            var average = hypes.Values.Average(); // Average
+            foreach (var currency in currencies)  // We pick the values above the average
             {
-                hypes[i] -= average;
-                hypes[i] = hypes[i] < 0 ? 0 : hypes[i]; // We set to zero the values below the average
+                hypes[currency] -= average;
+                hypes[currency] = hypes[currency] < 0 ? 0 : hypes[currency]; // We set to zero the values below the average
             }
+
+            // Return
+            return hypes;
         }
         public static decimal? BuildAverageBuy(Currency currency, Indicator indicator, List<Watcher> watchers)
         {

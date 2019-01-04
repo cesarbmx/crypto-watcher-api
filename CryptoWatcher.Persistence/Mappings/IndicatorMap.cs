@@ -56,9 +56,9 @@ namespace CryptoWatcher.Persistence.Mappings
 
             // Data seeding
             entityBuilder.HasData(
-                new Indicator(IndicatorType.CurrencyIndicator, "price", "master",  "Price", "", ""),
-                new Indicator(IndicatorType.CurrencyIndicator, "price-change-24hrs", "master", "Price change 24Hrs", "", ""),
-                new Indicator(IndicatorType.CurrencyIndicator, "hype", "master", "Hype", "", "")
+                new Indicator(IndicatorType.CurrencyIndicator, "price", "master",  "Price", "", "", null, 0),
+                new Indicator(IndicatorType.CurrencyIndicator, "price-change-24hrs", "master", "Price change 24Hrs", "", "", null, 0),
+                new Indicator(IndicatorType.CurrencyIndicator, "hype", "master", "Hype", "", "", "\"price-change-24hrs\"", 1)
             );
         }
     }
