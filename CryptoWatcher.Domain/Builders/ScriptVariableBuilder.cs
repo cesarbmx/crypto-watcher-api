@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CryptoWatcher.Domain.Models;
 
@@ -7,32 +8,42 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class ScriptVariableBuilder
     {
-        public static Dictionary<string, Dictionary<string, Dictionary<string, decimal>>> BuildScriptVariables(List<DataPoint> lines)
+        public static Dictionary<DateTime, Dictionary<IndicatorType, Dictionary<string, Dictionary<string, decimal>>>> BuildScriptVariables(List<DataPoint> lines)
         {
-            var historicalData = new Dictionary<string, Dictionary<string, Dictionary<string, decimal>>>();
+            // Distinct
+            var time = lines.Select(x => x.Time).Distinct().ToList();
+            var indicatorType = lines.Select(x => x.IndicatorType).Distinct().ToList();
+            var targetId = lines.Select(x => x.TargetId).Distinct().ToList();
+            var indicatorId = lines.Select(x => x.IndicatorId).Distinct().ToList();
 
-            foreach (var indicatorType in lines.Select(x=>x.IndicatorType).Distinct())
+            // Loop
+            var level1 = new Dictionary<DateTime, Dictionary<IndicatorType, Dictionary<string, Dictionary<string, decimal>>>>();
+            foreach (var timeKey in time)
             {
-                var level1 = new Dictionary<string, Dictionary<string, decimal>>();
-                foreach (var targetId in lines.Select(x => x.TargetId).Distinct())
+                var level2 = new Dictionary<IndicatorType, Dictionary<string, Dictionary<string, decimal>>>();
+                foreach (var indicatorTypeKey in indicatorType)
                 {
-                    var level2 = new Dictionary<string, decimal>();
-                    foreach (var indicatorId in lines.Select(x => x.IndicatorId).Distinct())
+                    var level3 = new Dictionary<string, Dictionary<string, decimal>>();
+                    foreach (var targetIdKey in targetId)
                     {
-                        foreach (var line in lines.Where(x=>x.IndicatorType == indicatorType &&
-                                                             x.TargetId == targetId &&
-                                                             x.IndicatorId == indicatorId))
+                        var level4 = new Dictionary<string, decimal>();
+                        foreach (var indicatorIdKey in indicatorId)
                         {
-                            level2.Add(indicatorId, line.Value);
+                            var line = lines.FirstOrDefault(x => x.Time == timeKey &&
+                                                        x.IndicatorType == indicatorTypeKey &&
+                                                        x.TargetId == targetIdKey &&
+                                                        x.IndicatorId == indicatorIdKey);
+                            if (line != null) level4.Add(indicatorIdKey, line.Value);
                         }
+                        level3.Add(targetIdKey, level4);
                     }
-                    level1.Add(targetId, level2);
+                    level2.Add(indicatorTypeKey, level3);
                 }
-                historicalData.Add(indicatorType.ToString(), level1);
+                level1.Add(timeKey, level2);
             }
 
             // Return
-            return historicalData;
+            return level1;
         }
     }
 }
