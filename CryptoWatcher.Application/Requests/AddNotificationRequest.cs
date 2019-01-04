@@ -7,7 +7,7 @@ namespace CryptoWatcher.Application.Requests
 {
     public class AddNotificationRequest
     {
-        public string Id { get; set; }
-        public string Message { get; set; }
+        [Required] public string Id { get; set; }
+        [Required] public string Message { get; set; }
     }
 }

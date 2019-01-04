@@ -8,12 +8,12 @@ namespace CryptoWatcher.Application.Requests
 {
     public class AddWatcherRequest 
     {
-        public string UserId { get; set; }
-        public IndicatorType IndicatorType { get; set; }
-        public string IndicatorId { get; set; }
-        public string TargetId { get; set; }
+        [Required] public string UserId { get; set; }
+        [Required] public IndicatorType IndicatorType { get; set; }
+        [Required] public string IndicatorId { get; set; }
+        [Required] public string TargetId { get; set; }
         public decimal? Buy { get; set; }
         public decimal? Sell { get; set; }
-        public bool Enabled { get; set; }
+        [Required] public bool Enabled { get; set; }
     }
 }
