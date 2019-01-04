@@ -31,7 +31,7 @@ namespace CryptoWatcher.Api.Configuration
                     cfg.CreateMap<Notification, NotificationResponse>();
                     cfg.CreateMap<Order, OrderResponse>();
                     cfg.CreateMap<Indicator, IndicatorResponse>();
-                    cfg.CreateMap<Line, LineResponse>();
+                    cfg.CreateMap<DataPoint, DataPointResponse>();
                     cfg.CreateMap<Chart, ChartResponse>();
 
                     // Others

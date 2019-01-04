@@ -7,7 +7,7 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class ChartBuilder
     {
-        public static List<Chart> BuildCharts(List<Currency> currencies, List<Indicator> indicators, List<Line> lines)
+        public static List<Chart> BuildCharts(List<Currency> currencies, List<Indicator> indicators, List<DataPoint> lines)
         {
             var charts = new List<Chart>();
             foreach (var currency in currencies)
@@ -29,7 +29,7 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return charts;
         }
-        public static List<ChartRow> BuildChartRows(List<Line> lines)
+        public static List<ChartRow> BuildChartRows(List<DataPoint> lines)
         {
             // Chart rows
             var chartRows = new List<ChartRow>();

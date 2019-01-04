@@ -4,8 +4,8 @@ using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public interface ILineRepository: IRepository<Line>
+    public interface ILineRepository: IRepository<DataPoint>
     {
-        Task<List<Line>> GetCurrentLines();
+        Task<List<DataPoint>> GetCurrentLines();
     }
 }

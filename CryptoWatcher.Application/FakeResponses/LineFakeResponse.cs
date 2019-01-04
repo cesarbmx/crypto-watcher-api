@@ -7,9 +7,9 @@ namespace CryptoWatcher.Application.FakeResponses
 {
     public static class LineFakeResponse
     {
-        public static LineResponse GetFake_CurrencyIndicator_1()
+        public static DataPointResponse GetFake_CurrencyIndicator_1()
         {
-            return new LineResponse
+            return new DataPointResponse
             {
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 TargetId = "bitcoin",
@@ -21,9 +21,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Time = DateTime.Now.AddHours(-1)
             };
         }
-        public static LineResponse GetFake_CurrencyIndicator_2()
+        public static DataPointResponse GetFake_CurrencyIndicator_2()
         {
-            return new LineResponse
+            return new DataPointResponse
             {
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 TargetId = "bitcoin",
@@ -35,9 +35,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Time = DateTime.Now
             };
         }
-        public static List<LineResponse> GetFake_List()
+        public static List<DataPointResponse> GetFake_List()
         {
-            return new List<LineResponse>
+            return new List<DataPointResponse>
             {
                 GetFake_CurrencyIndicator_1(),
                 GetFake_CurrencyIndicator_2()

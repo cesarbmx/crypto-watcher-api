@@ -7,17 +7,17 @@ using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public class LineRepository : Repository<Line>
+    public class LineRepository : Repository<DataPoint>
     {
-        private readonly DbSet<Line> _dbSet;
+        private readonly DbSet<DataPoint> _dbSet;
 
         public LineRepository(MainDbContext mainDbContext)
             :base(mainDbContext)
         {
-            _dbSet = mainDbContext.Set<Line>();
+            _dbSet = mainDbContext.Set<DataPoint>();
         }
 
-        public async Task<List<Line>> GetCurrentLines()
+        public async Task<List<DataPoint>> GetCurrentLines()
         {
             var maxDate = _dbSet.OrderByDescending(t => t.Time).First().Time;
             return await _dbSet.Where(x => x.Time == maxDate).ToListAsync();

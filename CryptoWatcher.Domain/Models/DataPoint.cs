@@ -3,7 +3,7 @@
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Line : IEntity
+    public class DataPoint : IEntity
     {
         public string Id => LineId.ToString();
         public Guid LineId { get; private set; }
@@ -16,8 +16,8 @@ namespace CryptoWatcher.Domain.Models
         public decimal? AverageSell { get; private set; }
         public DateTime Time { get; private set; }
 
-        public Line() { }
-        public Line(
+        public DataPoint() { }
+        public DataPoint(
             IndicatorType indicatorType,
             string targetId,
             string indicatorId,

@@ -9,9 +9,9 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class LineBuilder
     {
-        public static List<Line> BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers)
+        public static List<DataPoint> BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers)
         {
-            var lines = new List<Line>();
+            var lines = new List<DataPoint>();
             var time = DateTime.Now;
 
             foreach (var currency in currencies)
@@ -22,8 +22,8 @@ namespace CryptoWatcher.Domain.Builders
                     var value = IndicatorBuilder.BuildValue(currency, indicator, currencies);
                     var averageBuy = IndicatorBuilder.BuildAverageBuy(currency, indicator, filteredWatchers);
                     var averageSell = IndicatorBuilder.BuildAverageSell(currency, indicator, filteredWatchers);
-                    var line = new Line(indicator.IndicatorType, currency.CurrencyId, indicator.IndicatorId,  indicator.UserId, value, averageBuy, averageSell, time);
-                    lines.Add(line);
+                    var dataPoint = new DataPoint(indicator.IndicatorType, currency.CurrencyId, indicator.IndicatorId,  indicator.UserId, value, averageBuy, averageSell, time);
+                    lines.Add(dataPoint);
                 }
             }
 

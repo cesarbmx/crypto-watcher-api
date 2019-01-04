@@ -37,7 +37,7 @@ namespace CryptoWatcher.Domain.Builders
 
             return watchersWithDefaults;
         }
-        public static List<Watcher> BuildDefaultWatchers(List<Line> lines)
+        public static List<Watcher> BuildDefaultWatchers(List<DataPoint> lines)
         {
             var watchers = new List<Watcher>();
             foreach (var line in lines)

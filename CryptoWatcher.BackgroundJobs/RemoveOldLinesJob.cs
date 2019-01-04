@@ -15,12 +15,12 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<RemoveOldLinesJob> _logger;
-        private readonly IRepository<Line> _lineRepository;
+        private readonly IRepository<DataPoint> _lineRepository;
 
         public RemoveOldLinesJob(
             MainDbContext mainDbContext,
             ILogger<RemoveOldLinesJob> logger,
-            IRepository<Line> lineRepository)
+            IRepository<DataPoint> lineRepository)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;

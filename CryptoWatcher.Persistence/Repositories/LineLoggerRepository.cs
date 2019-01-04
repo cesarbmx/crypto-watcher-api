@@ -5,7 +5,7 @@ using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public class LineLoggerRepository : LoggerRepository<Line>, ILineRepository
+    public class LineLoggerRepository : LoggerRepository<DataPoint>, ILineRepository
     {
         private readonly LineRepository _lineRepository;
 
@@ -15,7 +15,7 @@ namespace CryptoWatcher.Persistence.Repositories
             _lineRepository = repository;
         }
 
-        public Task<List<Line>> GetCurrentLines()
+        public Task<List<DataPoint>> GetCurrentLines()
         {
             return _lineRepository.GetCurrentLines();
         }

@@ -7,7 +7,7 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class ScriptVariableBuilder
     {
-        public static Dictionary<string, Dictionary<string, Dictionary<string, decimal>>> BuildScriptVariables(List<Line> lines)
+        public static Dictionary<string, Dictionary<string, Dictionary<string, decimal>>> BuildScriptVariables(List<DataPoint> lines)
         {
             var historicalData = new Dictionary<string, Dictionary<string, Dictionary<string, decimal>>>();
 

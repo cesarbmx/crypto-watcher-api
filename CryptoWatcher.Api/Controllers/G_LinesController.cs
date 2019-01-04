@@ -25,7 +25,7 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("lines")]
-        [SwaggerResponse(200, Type = typeof(List<LineResponse>))]       
+        [SwaggerResponse(200, Type = typeof(List<DataPointResponse>))]       
         [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerResponseExample(200, typeof(LineListResponseExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]

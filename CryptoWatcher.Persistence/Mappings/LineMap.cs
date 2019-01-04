@@ -6,7 +6,7 @@ namespace CryptoWatcher.Persistence.Mappings
 {
     public class LineMap
     {
-        public LineMap(EntityTypeBuilder<Line> entityBuilder)
+        public LineMap(EntityTypeBuilder<DataPoint> entityBuilder)
         {
             // Key
             entityBuilder.HasKey(t => t.LineId).

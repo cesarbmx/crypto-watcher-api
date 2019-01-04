@@ -13,13 +13,13 @@ namespace CryptoWatcher.Application.Services
     {
         private readonly IRepository<Currency> _currencyRepository;
         private readonly IRepository<Indicator> _indicatorRepository;
-        private readonly IRepository<Line> _lineRepository;
+        private readonly IRepository<DataPoint> _lineRepository;
         private readonly IMapper _mapper;
 
         public ChartService(
             IRepository<Currency> currencyRepository,
             IRepository<Indicator> indicatorRepository,
-            IRepository<Line> lineRepository, IMapper mapper)
+            IRepository<DataPoint> lineRepository, IMapper mapper)
         {
             _currencyRepository = currencyRepository;
             _indicatorRepository = indicatorRepository;
