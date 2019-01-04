@@ -20,7 +20,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get all scriptVariables
+        /// Get all script variables
         /// </summary>
         [HttpGet]
         [Route("script-variables")]
