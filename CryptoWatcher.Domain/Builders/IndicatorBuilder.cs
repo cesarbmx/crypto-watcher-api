@@ -75,7 +75,7 @@ namespace CryptoWatcher.Domain.Builders
             {
                 foreach (var indicator in indicators)
                 {
-                    hypes[index] = values[IndicatorType.CurrencyIndicator][currency][indicator];
+                    hypes[index] = values[currency][indicator];
                     index++;
                 }
             }
