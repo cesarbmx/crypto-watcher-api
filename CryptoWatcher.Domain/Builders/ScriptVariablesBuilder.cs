@@ -51,15 +51,15 @@ namespace CryptoWatcher.Domain.Builders
             foreach (var time in times)
             {
                 var level2 = new Dictionary<string, Dictionary<string, decimal?>>();
-                foreach (var target in targets)
+                foreach (var indicator in indicators)
                 {
                     var level3 = new Dictionary<string, decimal?>();
-                    foreach (var indicator in indicators)
+                    foreach (var target in targets)
                     {
                         var line = lines.FirstOrDefault(LineExpression.Line(time, target, indicator).Compile());
-                        level3.Add(indicator, line?.Value);
+                        level3.Add(target, line?.Value);
                     }
-                    level2.Add(target, level3);
+                    level2.Add(indicator, level3);
                 }
                 level1.Add(time, level2);
             }

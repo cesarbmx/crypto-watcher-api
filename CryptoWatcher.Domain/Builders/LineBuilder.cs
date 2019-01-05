@@ -27,8 +27,8 @@ namespace CryptoWatcher.Domain.Builders
                     if (indicator.DependencyLevel == 0) // We set only the first ones
                     {
                         value = IndicatorBuilder.BuildValue(currency, indicator);
-                        averageBuy = IndicatorBuilder.BuildAverageBuy(currency, indicator, filteredWatchers);
-                        averageSell = IndicatorBuilder.BuildAverageSell(currency, indicator, filteredWatchers);
+                        averageBuy = IndicatorBuilder.BuildAverageBuy(filteredWatchers);
+                        averageSell = IndicatorBuilder.BuildAverageSell(filteredWatchers);
                     }
 
                     var dataPoint = new DataPoint(indicator.IndicatorType, currency.CurrencyId, indicator.IndicatorId, indicator.UserId, value, averageBuy, averageSell, time);
@@ -54,8 +54,8 @@ namespace CryptoWatcher.Domain.Builders
                         var line = lines.FirstOrDefault(LineExpression.Line(lines[0].Time, currency.CurrencyId, indicator.IndicatorId).Compile());
                         var filteredWatchers = watchers.Where(WatcherExpression.WatcherFilter(null, currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
                         var value = IndicatorBuilder.BuildValue(currency, indicator, lines);
-                        var averageBuy = IndicatorBuilder.BuildAverageBuy(currency, indicator, filteredWatchers);
-                        var averageSell = IndicatorBuilder.BuildAverageSell(currency, indicator, filteredWatchers);
+                        var averageBuy = IndicatorBuilder.BuildAverageBuy(filteredWatchers);
+                        var averageSell = IndicatorBuilder.BuildAverageSell(filteredWatchers);
                         line?.Set(value, averageBuy, averageSell);
                     }
                 }
