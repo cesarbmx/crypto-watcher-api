@@ -45,14 +45,8 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("nvarchar(max)")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Dependencies)
-                .HasColumnType("nvarchar(50)")
-                .HasMaxLength(50)
-                .IsRequired();
-
             entityBuilder.Property(t => t.DependencyLevel)
-                .HasColumnType("smallint")
-                .IsRequired();
+                .HasColumnType("smallint");
 
             entityBuilder.Property(t => t.CreatedBy)
                 .HasColumnType("nvarchar(50)")
@@ -65,9 +59,9 @@ namespace CryptoWatcher.Persistence.Mappings
 
             // Data seeding
             entityBuilder.HasData(
-                new Indicator(IndicatorType.CurrencyIndicator, "price", "master",  "Price", "", "", null, 0),
-                new Indicator(IndicatorType.CurrencyIndicator, "price-change-24hrs", "master", "Price change 24Hrs", "", "", null, 0),
-                new Indicator(IndicatorType.CurrencyIndicator, "hype", "master", "Hype", "", "", "\"price-change-24hrs\"", 1)
+                new Indicator(IndicatorType.CurrencyIndicator, "price", "master", "Price", "", ""),
+                new Indicator(IndicatorType.CurrencyIndicator, "price-change-24hrs", "master", "Price change 24Hrs", "", ""),
+                new Indicator(IndicatorType.CurrencyIndicator, "hype", "master", "Hype", "", "")
             );
         }
     }

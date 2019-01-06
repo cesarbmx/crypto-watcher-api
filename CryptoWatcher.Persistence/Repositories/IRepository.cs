@@ -8,10 +8,10 @@ namespace CryptoWatcher.Persistence.Repositories
 {
     public interface IRepository<TEntity> where TEntity: IEntity
     {
-        Task<List<TEntity>> GetAll();
-        Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression);
-        Task<TEntity> GetSingle(object id);
-        Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression);
+        Task<List<TEntity>> GetAll(params Expression<Func<TEntity, object>>[] includeProperties);
+        Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includeProperties);
+        Task<TEntity> GetSingle(object id, params Expression<Func<TEntity, object>>[] includeProperties);
+        Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includeProperties);
         void Add(TEntity entity);
         void AddRange(List<TEntity> entities);
         void Update(TEntity entity);

@@ -13,5 +13,6 @@ namespace CryptoWatcher.Application.Responses
         public string Name { get; set; }
         public string Description { get; set; }
         public string Formula { get; set; }
+        public string[] Dependencies { get; set; }
     }
 }

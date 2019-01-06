@@ -24,6 +24,7 @@ namespace CryptoWatcher.Persistence.Contexts
             new NotificationMap(modelBuilder.Entity<Notification>());
             new OrderMap(modelBuilder.Entity<Order>());
             new IndicatorMap(modelBuilder.Entity<Indicator>());
+            new IndicatorDependencyMap(modelBuilder.Entity<IndicatorDependency>());
 
             base.OnModelCreating(modelBuilder);
         }

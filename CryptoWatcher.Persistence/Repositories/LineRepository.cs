@@ -19,7 +19,9 @@ namespace CryptoWatcher.Persistence.Repositories
 
         public async Task<List<DataPoint>> GetCurrentLines()
         {
-            var maxDate = _dbSet.OrderByDescending(t => t.Time).First().Time;
+            var row = await _dbSet.OrderByDescending(t => t.Time).FirstOrDefaultAsync();
+            if(row == null) return new List<DataPoint>();
+            var maxDate = row.Time;
             return await _dbSet.Where(x => x.Time == maxDate).ToListAsync();
         }
     }

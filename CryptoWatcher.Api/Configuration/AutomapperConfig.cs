@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AutoMapper;
 using CoinMarketCap.Entities;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +31,8 @@ namespace CryptoWatcher.Api.Configuration
                     cfg.CreateMap<User, UserResponse>();
                     cfg.CreateMap<Notification, NotificationResponse>();
                     cfg.CreateMap<Order, OrderResponse>();
-                    cfg.CreateMap<Indicator, IndicatorResponse>();
+                    cfg.CreateMap<Indicator, IndicatorResponse>()
+                        .ForMember(dest => dest.Dependencies, opt => opt.MapFrom(src => src.Dependencies.Select(x=>x.DependsOn).ToArray()));
                     cfg.CreateMap<DataPoint, DataPointResponse>();
                     cfg.CreateMap<LineChart, LineChartResponse>();
 

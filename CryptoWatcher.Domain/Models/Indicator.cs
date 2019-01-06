@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using CryptoWatcher.Domain.Builders;
 
 namespace CryptoWatcher.Domain.Models
 {
@@ -11,8 +13,8 @@ namespace CryptoWatcher.Domain.Models
         public string Name { get; private set; }
         public string Description { get; private set; }
         public string Formula { get; private set; }
-        public string Dependencies { get; private set; }
-        public int DependencyLevel { get; private set; }
+        public List<IndicatorDependency> Dependencies { get; private set; }
+        public int? DependencyLevel { get; private set; }
         public string CreatedBy { get; private set; }
         public DateTime Time { get; private set; }
 
@@ -23,9 +25,7 @@ namespace CryptoWatcher.Domain.Models
             string userId,
             string name, 
             string description,
-            string formula,
-            string dependencies,
-            int dependencyLevel)
+            string formula)
         {
             IndicatorType = indicatorType;
             IndicatorId = indicatorId;
@@ -33,12 +33,24 @@ namespace CryptoWatcher.Domain.Models
             Name = name;
             Description = description;
             Formula = formula;
-            Dependencies = dependencies;
-            DependencyLevel = dependencyLevel;
+            Dependencies = new List<IndicatorDependency>();
+            DependencyLevel = null;
             CreatedBy = userId;
             Time = DateTime.Now;
         }
 
+        public Indicator SetDependencies(string[] dependencies)
+        {
+            Dependencies = IndicatorBuilder.BuildDependencies(IndicatorId, dependencies);
+
+            return this;
+        }
+        public Indicator SetDependencyLevel(int dependencyLevel)
+        {
+            DependencyLevel = dependencyLevel;
+
+            return this;
+        }
         public Indicator Update(string name, string description, string formula)
         {
             Name = name;

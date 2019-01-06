@@ -16,7 +16,7 @@ namespace CryptoWatcher.Application.FakeRequests
                 Name = "Hype",
                 Description = "It identifies immediate hypes within 24 Hrs in your portfolio",
                 Formula = "C# formula",
-                Dependencies = "\"price-change=24hrs\" "
+                Dependencies = new [] {"price-change=24hrs"}
             };
         }       
     }

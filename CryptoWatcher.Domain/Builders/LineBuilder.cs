@@ -14,6 +14,7 @@ namespace CryptoWatcher.Domain.Builders
             var lines = new List<DataPoint>();
             var time = DateTime.Now;
             var stopAt = indicators.Max(x => x.DependencyLevel);
+            if (!stopAt.HasValue) return lines;
 
             foreach (var currency in currencies)
             {
@@ -37,7 +38,7 @@ namespace CryptoWatcher.Domain.Builders
             }
 
             // Go deeper           
-            BuildLines(currencies, indicators, watchers, lines, 1, stopAt);
+            BuildLines(currencies, indicators, watchers, lines, 1, stopAt.Value);
 
 
             // Return
