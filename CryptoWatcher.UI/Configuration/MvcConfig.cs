@@ -37,7 +37,7 @@ namespace CryptoWatcher.UI.Configuration
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=LineCharts}/{action=Index}/{id?}");
+                    template: "{controller=Charts}/{action=Index}/{id?}");
             });
 
             return app;

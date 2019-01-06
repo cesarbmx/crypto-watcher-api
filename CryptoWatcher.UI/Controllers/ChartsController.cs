@@ -7,11 +7,11 @@ using CryptoWatcher.UI.Models;
 
 namespace CryptoWatcher.UI.Controllers
 {
-    public class LineChartsController : Controller
+    public class ChartsController : Controller
     {
         private readonly LineChartService _lineChartService;
 
-        public LineChartsController(LineChartService lineChartService)
+        public ChartsController(LineChartService lineChartService)
         {
             _lineChartService = lineChartService;
         }
