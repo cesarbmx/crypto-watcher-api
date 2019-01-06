@@ -48,7 +48,7 @@ namespace CryptoWatcher.Domain.Builders
             return new List<LineChartColumn>
             {
                 new LineChartColumn("DateTime", "Time"),
-                new LineChartColumn("string", "Hype"),
+                new LineChartColumn("string", "Value"),
                 new LineChartColumn("string", "Average buy"),
                 new LineChartColumn("string", "Average sell")
             };
