@@ -14,15 +14,15 @@ namespace CryptoWatcher.Persistence.Mappings
             // Relationships
             entityBuilder
                 .HasOne<Indicator>()
-                .WithMany(x=>x.Dependencies)
+                .WithMany(x => x.Dependencies)
                 .HasForeignKey(x => x.IndicatorId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             entityBuilder
                 .HasOne<Indicator>()
-                .WithMany(x => x.Dependencies)
+                .WithMany()
                 .HasForeignKey(x => x.DependsOn)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Properties
             entityBuilder.Property(t => t.IndicatorId)

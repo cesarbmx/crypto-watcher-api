@@ -43,7 +43,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(200)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.WhatsappSentTime)
+            entityBuilder.Property(t => t.SentTime)
                 .HasColumnType("datetime2")
                 .IsRequired();
 

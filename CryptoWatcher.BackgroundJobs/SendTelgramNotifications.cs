@@ -60,7 +60,7 @@ namespace CryptoWatcher.BackgroundJobs
                         {
                             // Send whatsapp
                             await bot.SendTextMessageAsync("@crypto_watcher_official", pendingNotification.Message);
-                            pendingNotification.SendWhatsapp();
+                            pendingNotification.MarkAsSent();
                             count++;
                         }
                         catch (Exception ex)

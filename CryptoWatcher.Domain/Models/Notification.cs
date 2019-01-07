@@ -10,7 +10,7 @@ namespace CryptoWatcher.Domain.Models
         public string UserId { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Message { get; private set; }
-        public DateTime? WhatsappSentTime { get; private set; }
+        public DateTime? SentTime { get; private set; }
         public DateTime Time { get; private set; }
 
         public Notification() { }
@@ -20,13 +20,13 @@ namespace CryptoWatcher.Domain.Models
             UserId = userId;
             PhoneNumber = phoneNumber;
             Message = message;
-            WhatsappSentTime = null;
+            SentTime = null;
             Time = DateTime.Now;
         }
 
-        public void SendWhatsapp()
+        public void MarkAsSent()
         {
-            WhatsappSentTime = DateTime.Now;
+            SentTime = DateTime.Now;
         }
     }
 }

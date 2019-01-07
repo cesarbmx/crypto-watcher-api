@@ -64,7 +64,7 @@ namespace CryptoWatcher.BackgroundJobs
                                 to: new PhoneNumber("whatsapp:" + "+34666666666"),
                                 body: pendingNotification.Message
                             );
-                            pendingNotification.SendWhatsapp();
+                            pendingNotification.MarkAsSent();
                             count++;
                         }
                         catch (Exception ex)

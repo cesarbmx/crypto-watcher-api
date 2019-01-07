@@ -12,7 +12,7 @@ namespace CryptoWatcher.Domain.Expressions
         }
         public static Expression<Func<Notification, bool>> PendingNotification()
         {
-            return x => !x.WhatsappSentTime.HasValue;
+            return x => !x.SentTime.HasValue;
         }
     }
 }
