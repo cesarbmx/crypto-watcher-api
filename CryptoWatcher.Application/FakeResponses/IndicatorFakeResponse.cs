@@ -11,8 +11,8 @@ namespace CryptoWatcher.Application.FakeResponses
             return new IndicatorResponse
             {
                 IndicatorType = IndicatorType.CurrencyIndicator,
-                IndicatorId = "johny.melavo-price-change-24hrs",
-                UserId = "johny.melavo",
+                IndicatorId = "johny12-price-change-24hrs",
+                UserId = "johny12",
                 Name = "Price Change 24 Hrs",
                 Description = "It identifies immediate price changes within 24 Hrs in your portfolio",
                 Formula = "C# formula"
@@ -23,8 +23,8 @@ namespace CryptoWatcher.Application.FakeResponses
             return new IndicatorResponse
             {
                 IndicatorType = IndicatorType.CurrencyIndicator,
-                IndicatorId = "johny.melavo-hype",
-                UserId = "johny.melavo",
+                IndicatorId = "johny12-hype",
+                UserId = "johny12",
                 Name = "Hype",
                 Description = "It identifies immediate hypes within 24 Hrs in your portfolio",
                 Formula = "C# formula"

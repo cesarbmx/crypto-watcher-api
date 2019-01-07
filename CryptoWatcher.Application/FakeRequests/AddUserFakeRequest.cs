@@ -9,7 +9,7 @@ namespace CryptoWatcher.Application.FakeRequests
         {
             return new AddUserRequest
             {
-                UserId = "johny.melavo"
+                UserId = "johny12"
             };
         }       
     }

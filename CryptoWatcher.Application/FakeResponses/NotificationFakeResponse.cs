@@ -11,7 +11,7 @@ namespace CryptoWatcher.Application.FakeResponses
             return new NotificationResponse
             {
                 NotificationId = Guid.NewGuid(),
-                UserId = "johny.melavo",
+                UserId = "johny12",
                 Message = "Test",
                 PhoneNumber = "+34666666666",
                 WhatsappSentTime = null

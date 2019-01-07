@@ -12,7 +12,7 @@ namespace CryptoWatcher.Application.FakeResponses
             return new OrderResponse
             {
                 OrderId = Guid.NewGuid(),
-                UserId = "johny.melavo",
+                UserId = "johny12",
                 CurrencyId = "bitcoin",
                 OrderType = OrderType.BuyLimit,
                 Status = OrderStatus.Pending,
@@ -24,7 +24,7 @@ namespace CryptoWatcher.Application.FakeResponses
             return new OrderResponse
             {
                 OrderId = Guid.NewGuid(),
-                UserId = "johny.melavo",
+                UserId = "johny12",
                 CurrencyId = "eos",
                 OrderType = OrderType.BuyLimit,
                 Status = OrderStatus.Pending,

@@ -12,7 +12,7 @@ namespace CryptoWatcher.Application.FakeResponses
             return new WatcherResponse
             {
                 WatcherId = Guid.NewGuid(),
-                UserId = "johny.melavo",
+                UserId = "johny12",
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 IndicatorId = "price-change-24hrs",
                 TargetId = "bitcoin",
@@ -30,7 +30,7 @@ namespace CryptoWatcher.Application.FakeResponses
             return new WatcherResponse
             {
                 WatcherId = Guid.NewGuid(),
-                UserId = "johny.melavo",
+                UserId = "johny12",
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 IndicatorId = "hype",
                 TargetId = "bitcoin",

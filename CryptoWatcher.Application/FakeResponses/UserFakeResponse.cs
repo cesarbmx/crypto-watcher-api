@@ -9,14 +9,14 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new UserResponse
             {
-                UserId = "johny.melavo"
+                UserId = "johny12"
             };
         }
         public static UserResponse GetFake_Johny()
         {
             return new UserResponse
             {
-                UserId = "johny.melavo"
+                UserId = "johny12"
             };
         }
         public static List<UserResponse> GetFake_List()

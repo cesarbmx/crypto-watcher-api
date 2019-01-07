@@ -10,7 +10,7 @@ namespace CryptoWatcher.Application.FakeRequests
         {
             return new AddWatcherRequest
             {
-                UserId = "johny.melavo",
+                UserId = "johny12",
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 IndicatorId = "hype",
                 TargetId = "bitcoin",
