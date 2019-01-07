@@ -35,7 +35,7 @@ namespace CryptoWatcher.UI.Builders
             foreach (var lineChartRow in lineChartRows)
             {
                 var time = lineChartRow.Time;
-                var value = lineChartRow.Value;
+                var value = lineChartRow.Value.HasValue ? lineChartRow.Value.ToString() : "null";
                 var averagebuy = lineChartRow.AverageBuy.HasValue ? lineChartRow.AverageBuy.ToString() : "null";
                 var averageSell = lineChartRow.AverageSell.HasValue ? lineChartRow.AverageSell.ToString() : "null";
   

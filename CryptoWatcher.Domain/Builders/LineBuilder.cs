@@ -14,7 +14,7 @@ namespace CryptoWatcher.Domain.Builders
             var lines = new List<DataPoint>();
             var time = DateTime.Now;
             var stopAt = indicators.Max(x => x.DependencyLevel);
-            if (!stopAt.HasValue) return lines;
+
 
             foreach (var currency in currencies)
             {
@@ -25,7 +25,7 @@ namespace CryptoWatcher.Domain.Builders
                     decimal? averageBuy = null;
                     decimal? averageSell = null;
 
-                    if (indicator.DependencyLevel == 0) // We set only the first ones
+                    if (indicator.DependencyLevel == null || indicator.DependencyLevel == 0) // We set the first ones
                     {
                         value = IndicatorBuilder.BuildValue(currency, indicator);
                         averageBuy = IndicatorBuilder.BuildAverageBuy(filteredWatchers);
@@ -37,9 +37,8 @@ namespace CryptoWatcher.Domain.Builders
                 }
             }
 
-            // Go deeper           
-            BuildLines(currencies, indicators, watchers, lines, 1, stopAt.Value);
-
+            // Go deeper   
+            if (stopAt.HasValue) BuildLines(currencies, indicators, watchers, lines, 1, stopAt.Value);
 
             // Return
             return lines;
