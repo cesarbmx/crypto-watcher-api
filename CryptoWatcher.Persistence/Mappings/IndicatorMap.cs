@@ -16,6 +16,13 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.HasIndex(t => new { t.Time, t.IndicatorType, t.IndicatorId, t.UserId})
                 .ForSqlServerIsClustered();
 
+            // Relationships
+            entityBuilder
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // Properties
             entityBuilder.Property(t => t.IndicatorType)
                 .HasColumnType("smallint")

@@ -16,6 +16,13 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.HasIndex(t => new { t.UserId, t.IndicatorType, t.TargetId, t.IndicatorId })
                 .ForSqlServerIsClustered();
 
+            // Relationships
+            entityBuilder
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // Properties
             entityBuilder.Property(t => t.WatcherId)
                 .HasColumnType("uniqueidentifier")

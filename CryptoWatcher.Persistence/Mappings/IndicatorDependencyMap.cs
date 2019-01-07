@@ -18,6 +18,12 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasForeignKey(x => x.IndicatorId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            entityBuilder
+                .HasOne<Indicator>()
+                .WithMany(x => x.Dependencies)
+                .HasForeignKey(x => x.DependsOn)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // Properties
             entityBuilder.Property(t => t.IndicatorId)
                 .HasColumnType("nvarchar(50)")
