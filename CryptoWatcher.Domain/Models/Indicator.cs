@@ -15,7 +15,6 @@ namespace CryptoWatcher.Domain.Models
         public string Formula { get; private set; }
         public List<IndicatorDependency> Dependencies { get; private set; }
         public int? DependencyLevel { get; private set; }
-        public string CreatedBy { get; private set; }
         public DateTime Time { get; private set; }
 
         public Indicator() { }
@@ -35,7 +34,6 @@ namespace CryptoWatcher.Domain.Models
             Formula = formula;
             Dependencies = new List<IndicatorDependency>();
             DependencyLevel = null;
-            CreatedBy = userId;
             Time = DateTime.Now;
         }
 
