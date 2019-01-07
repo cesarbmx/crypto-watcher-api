@@ -9,7 +9,7 @@ using CryptoWatcher.Shared.Providers;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public class AuditRepository<TEntity> where TEntity: IEntity
+    public class AuditRepository<TEntity>: IRepository<TEntity> where TEntity: IEntity
     {
         protected readonly List<TEntity> List;
         private readonly Repository<Log> _logRepository;
@@ -51,19 +51,19 @@ namespace CryptoWatcher.Persistence.Repositories
             }
         }
 
-        public Task<List<TEntity>> GetAll()
+        public Task<List<TEntity>> GetAll(params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return Task.FromResult(List);
         }
-        public Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression)
+        public Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return Task.FromResult(List.Where(expression.Compile()).ToList());
         }
-        public Task<TEntity> GetSingle(string id)
+        public Task<TEntity> GetSingle(object id, params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            return Task.FromResult(List.FirstOrDefault(x=>x.Id == id));
+            return Task.FromResult(List.FirstOrDefault(x=>x.Id == (string)id));
         }
-        public Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression)
+        public Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return Task.FromResult(List.FirstOrDefault(expression.Compile()));
         }
