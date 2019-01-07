@@ -35,6 +35,9 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(100)
                 .IsRequired();
 
+            entityBuilder.Property(t => t.Level)
+                .HasColumnType("smallint");
+
             // Data seeding
             entityBuilder.HasData(new IndicatorDependency("hype", "price-change-24hrs"));
         }

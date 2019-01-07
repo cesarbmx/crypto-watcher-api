@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CryptoWatcher.Domain.Builders;
 
 
-namespace CryptoWatcher.Domain.Tests.Builders
+namespace CryptoWatcher.Domain.Tests.BuildersTests
 {
     [TestClass]
     public class IndicatorBuilderTests

@@ -52,9 +52,6 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("nvarchar(max)")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.DependencyLevel)
-                .HasColumnType("smallint");
-
             entityBuilder.Property(t => t.Time)
                 .HasColumnType("datetime2")
                 .IsRequired();

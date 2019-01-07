@@ -113,5 +113,9 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return indicatorDependencies;
         }
+        public static int BuildDependencyLevel(List<IndicatorDependency> dependencies)
+        {
+            return dependencies.Select(x => x.Level).Max() ?? 0;
+        }
     }
 }

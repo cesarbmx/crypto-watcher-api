@@ -6,6 +6,10 @@ namespace CryptoWatcher.Domain.Expressions
 {
     public static class IndicatorExpression
     {
+        public static Expression<Func<Indicator, bool>> Indicator(string indicatorId)
+        {
+            return x => x.IndicatorId == indicatorId;
+        }
         public static Expression<Func<Indicator, bool>> Indicator(string userId, string name)
         {
             return x => x.UserId == userId &&

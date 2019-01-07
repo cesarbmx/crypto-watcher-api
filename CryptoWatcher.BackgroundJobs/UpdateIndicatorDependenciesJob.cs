@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
-using CryptoWatcher.Domain.Expressions;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Repositories;
@@ -12,29 +12,20 @@ using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class UpdateLinesJob
+    public class UpdateIndicatorDependenciesJob
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UpdateLinesJob> _logger;
-        private readonly IRepository<Currency> _currencyRepository;
-        private readonly IRepository<Indicator> _indicatorRepository;
-        private readonly IRepository<Watcher> _watcherRepository;
-        private readonly IRepository<DataPoint> _lineRepository;
+        private readonly IRepository<IndicatorDependency> _indicatorDependencyRepository;
 
-        public UpdateLinesJob(
+        public UpdateIndicatorDependenciesJob(
             MainDbContext mainDbContext,
             ILogger<UpdateLinesJob> logger,
-            IRepository<Currency> currencyRepository,
-            IRepository<Indicator> indicatorRepository,
-            IRepository<Watcher> watcherRepository,
-            IRepository<DataPoint> lineRepository)
+            IRepository<IndicatorDependency> indicatorDependencyRepository)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
-            _currencyRepository = currencyRepository;
-            _indicatorRepository = indicatorRepository;
-            _watcherRepository = watcherRepository;
-            _lineRepository = lineRepository;
+            _indicatorDependencyRepository = indicatorDependencyRepository;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -46,20 +37,14 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Get all currencies
-                var currencies = await _currencyRepository.GetAll();
+                // Get all indicator dependencies
+                var indicatorDependencies = await _indicatorDependencyRepository.GetAll();
 
-                // Get all indicators
-                var indicators = await _indicatorRepository.GetAll(x => x.Dependencies);
+                // Build
+                IndicatorDependencyBuilder.BuildDependencyLevel(indicatorDependencies);
 
-                // Get none default watchers with buy or sell
-                var watchers = await _watcherRepository.GetAll(WatcherExpression.NonDefaultWatcherWithBuyOrSell());
-
-                // Build lines
-                var lines = LineBuilder.BuildLines(currencies, indicators, watchers);
-
-                // Set lines
-                _lineRepository.AddRange(lines);
+                // Update
+                _indicatorDependencyRepository.UpdateRange(indicatorDependencies);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
@@ -70,7 +55,7 @@ namespace CryptoWatcher.BackgroundJobs
                 // Log into Splunk
                 _logger.LogSplunkInformation(new
                 {
-                    lines.Count,
+                    MaxLevel = indicatorDependencies.Select(x=>x.Level).Max(),
                     ExecutionTime = stopwatch.Elapsed.TotalSeconds
                 });
 

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Domain.Models;
@@ -82,12 +83,18 @@ namespace CryptoWatcher.Application.Services
                 request.UserId,
                 request.Name,
                 request.Description,
-                request.Formula);
-            if (request.Dependencies != null && request.Dependencies.Length > 0) indicator.SetDependencies(request.Dependencies);
+                request.Formula);           
             _indicatorRepository.Add(indicator);
 
-             // Save
-             await _mainDbContext.SaveChangesAsync();
+            // Set dependencies
+            if (request.Dependencies != null)
+            {
+                var dependencies = IndicatorBuilder.BuildDependencies(request.IndicatorId, request.Dependencies);
+                indicator.SetDependencies(dependencies);
+            }
+
+            // Save
+            await _mainDbContext.SaveChangesAsync();
 
             // Log into Splunk
             _logger.LogSplunkInformation(request);
