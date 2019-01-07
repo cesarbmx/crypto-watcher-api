@@ -15,12 +15,12 @@ namespace CryptoWatcher.BackgroundJobs
     public class UpdateIndicatorDependenciesJob
     {
         private readonly MainDbContext _mainDbContext;
-        private readonly ILogger<UpdateLinesJob> _logger;
+        private readonly ILogger<UpdateIndicatorDependenciesJob> _logger;
         private readonly IRepository<IndicatorDependency> _indicatorDependencyRepository;
 
         public UpdateIndicatorDependenciesJob(
             MainDbContext mainDbContext,
-            ILogger<UpdateLinesJob> logger,
+            ILogger<UpdateIndicatorDependenciesJob> logger,
             IRepository<IndicatorDependency> indicatorDependencyRepository)
         {
             _mainDbContext = mainDbContext;
