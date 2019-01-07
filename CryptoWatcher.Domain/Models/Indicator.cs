@@ -24,7 +24,8 @@ namespace CryptoWatcher.Domain.Models
             string userId,
             string name, 
             string description,
-            string formula)
+            string formula,
+            List<IndicatorDependency> dependencies)
         {
             IndicatorType = indicatorType;
             IndicatorId = indicatorId;
@@ -32,7 +33,7 @@ namespace CryptoWatcher.Domain.Models
             Name = name;
             Description = description;
             Formula = formula;
-            Dependencies = new List<IndicatorDependency>();
+            Dependencies = dependencies;
             Time = DateTime.Now;
         }
 

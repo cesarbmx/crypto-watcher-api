@@ -83,16 +83,9 @@ namespace CryptoWatcher.Application.Services
                 request.UserId,
                 request.Name,
                 request.Description,
-                request.Formula);           
+                request.Formula,
+                IndicatorBuilder.BuildDependencies(request.IndicatorId, request.Dependencies));           
             _indicatorRepository.Add(indicator);
-
-            // Set dependencies
-            if (request.Dependencies != null)
-            {
-                var dependencies = IndicatorBuilder.BuildDependencies(request.IndicatorId, request.Dependencies);
-                indicator.SetDependencies(dependencies);
-            }
-
             // Save
             await _mainDbContext.SaveChangesAsync();
 
