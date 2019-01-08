@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace CryptoWatcher.Shared.Providers
 {
-    public class DateTimeProvider : IDateTimeProvider
+    public class DateTimeProvider: IDateTimeProvider
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -12,7 +12,7 @@ namespace CryptoWatcher.Shared.Providers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public DateTime GetDateFromHeader()
+        public DateTime GetDateTime()
         {
             var date = DateTime.Today.AddDays(1);
             var httpContext = _httpContextAccessor.HttpContext;
@@ -22,7 +22,7 @@ namespace CryptoWatcher.Shared.Providers
             var header = httpContext.Request.Headers["X-Audit-Date"];
             if (header.Count == 0 || !DateTime.TryParse(header, null, System.Globalization.DateTimeStyles.RoundtripKind, out date))
                 return date;
-            return date.AddDays(1);
+            return date;
         }
     }
 }

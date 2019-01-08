@@ -19,12 +19,12 @@ namespace CryptoWatcher.Persistence.Repositories
             List = new List<TEntity>();
             _logRepository = logRepository;
 
-            LoadAudit(dateTimeProvider.GetDateFromHeader());
+            LoadAudit(dateTimeProvider.GetDateTime());
         }
 
         private void LoadAudit(DateTime dateTime)
         {
-            var log = _logRepository.GetAll(LogExpression.AuditLog(dateTime)).Result;
+            var log = _logRepository.GetAll(LogExpression.AuditLog(typeof(TEntity).Name, dateTime)).Result;
 
             foreach (var logEntry in log)
             {

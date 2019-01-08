@@ -5,6 +5,6 @@ namespace CryptoWatcher.Shared.Providers
 {
     public interface IDateTimeProvider
     {
-        DateTime GetDateFromHeader();
+        DateTime GetDateTime();
     }
 }

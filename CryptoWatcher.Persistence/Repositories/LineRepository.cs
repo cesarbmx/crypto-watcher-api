@@ -7,7 +7,7 @@ using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
-    public class LineRepository : Repository<DataPoint>
+    public class LineRepository : Repository<DataPoint>, ILineRepository
     {
         private readonly DbSet<DataPoint> _dbSet;
 

@@ -83,7 +83,7 @@ namespace CryptoWatcher.UI.Configuration
             services.AddScoped<UpdateIndicatorDependenciesJob, UpdateIndicatorDependenciesJob>();
 
             // Other
-            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+            services.AddScoped<DateTimeProvider, DateTimeProvider>();
             services.AddScoped<HttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICoinMarketCapClient, CoinMarketCapClient>();
 

@@ -46,7 +46,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<LineChartService, LineChartService>();
             services.AddScoped<ScriptVariableService, ScriptVariableService>();
 
-            // Repositories
+            //// Repositories
             services.AddScoped<Repository<Log>, Repository<Log>>();
             services.AddScoped<Repository<Currency>, Repository<Currency>>();
             services.AddScoped<Repository<Watcher>, Repository<Watcher>>();
@@ -58,7 +58,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<Repository<IndicatorDependency>, Repository<IndicatorDependency>>();
             services.AddScoped<LineRepository, LineRepository>();
 
-            // Logger repositories
+            //// Logger repositories
             services.AddScoped<IRepository<Log>, Repository<Log>>();
             services.AddScoped<IRepository<Currency>, LoggerRepository<Currency>>();
             services.AddScoped<IRepository<Watcher>, LoggerRepository<Watcher>>();
@@ -69,6 +69,18 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<IRepository<DataPoint>, LoggerRepository<DataPoint>>();
             services.AddScoped<IRepository<IndicatorDependency>, LoggerRepository<IndicatorDependency>>();
             services.AddScoped<ILineRepository, LineLoggerRepository>();
+
+            // Audit repositories
+            //services.AddScoped<IRepository<Log>, Repository<Log>>();
+            //services.AddScoped<IRepository<Currency>, AuditRepository<Currency>>();
+            //services.AddScoped<IRepository<Watcher>, AuditRepository<Watcher>>();
+            //services.AddScoped<IRepository<User>, AuditRepository<User>>();
+            //services.AddScoped<IRepository<Notification>, AuditRepository<Notification>>();
+            //services.AddScoped<IRepository<Order>, AuditRepository<Order>>();
+            //services.AddScoped<IRepository<Indicator>, AuditRepository<Indicator>>();
+            //services.AddScoped<IRepository<DataPoint>, AuditRepository<DataPoint>>();
+            //services.AddScoped<IRepository<IndicatorDependency>, AuditRepository<IndicatorDependency>>();
+            //services.AddScoped<ILineRepository, LineAuditRepository>();
 
             // Jobs
             services.AddScoped<MainJob, MainJob>();
@@ -83,7 +95,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<UpdateIndicatorDependenciesJob, UpdateIndicatorDependenciesJob>();
 
             // Other
-            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+            services.AddScoped<DateTimeProvider, DateTimeProvider>();
             services.AddScoped<HttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICoinMarketCapClient, CoinMarketCapClient>();
 
