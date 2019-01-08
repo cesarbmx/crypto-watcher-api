@@ -13,7 +13,7 @@ namespace CryptoWatcher.Domain.Builders
         {
             var lines = new List<DataPoint>();
             var time = DateTime.Now;
-            var stopAt = indicators.Max(x => x.DependencyLevel);
+            var stopAt = indicators.Count > 0 ? indicators.Max(x => x.DependencyLevel) : 0;
 
             foreach (var currency in currencies)
             {
