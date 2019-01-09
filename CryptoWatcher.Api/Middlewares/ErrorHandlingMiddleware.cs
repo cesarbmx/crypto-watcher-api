@@ -9,6 +9,7 @@ using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Shared.Exceptions;
 using CryptoWatcher.Domain.Messages;
 using CryptoWatcher.Shared.Extensions;
+using ElmahCore;
 
 namespace CryptoWatcher.Api.Middlewares
 {
@@ -73,6 +74,7 @@ namespace CryptoWatcher.Api.Middlewares
                     errorResponse = new ErrorResponse(nameof(Message.InternalServerError), errorCode, Message.InternalServerError);
                     // Log error
                     _logger.LogSplunkError("UnhandledException", exception);
+                    context.RiseError(exception);
                     break;
             }
 
