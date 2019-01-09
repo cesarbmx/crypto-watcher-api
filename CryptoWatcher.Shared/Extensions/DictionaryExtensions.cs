@@ -39,7 +39,11 @@ namespace CryptoWatcher.Shared.Extensions
                     {
                         str += pref + item.Key + "=null, ";
                     }
-                    else if(!item.Value.ToString().Contains(" "))
+                    else if (item.Value is DateTime)
+                    {
+                        str += pref + item.Key + $"=\"{item.Value}\", ";
+                    }
+                    else if (!item.Value.ToString().Contains(" "))
                     {
                         str += pref + item.Key + "=" + value + ", ";
                     }

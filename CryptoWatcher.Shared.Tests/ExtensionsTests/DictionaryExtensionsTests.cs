@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CryptoWatcher.Shared.Extensions;
 
@@ -38,6 +39,22 @@ namespace CryptoWatcher.Shared.Tests.ExtensionsTests
 
             //Assert
             Assert.AreEqual("ObjectId=1, SubClass=null", str);
+        }
+        [TestMethod]
+        public void AsSplunkKeyValueString_WithDate()
+        {
+            //Arrange
+            var dictionary = new Dictionary<string, object>
+            {
+                {"ObjectId", "1"},
+                {"SubClass",  DateTime.MinValue}
+            };
+
+            //Act
+            var str = dictionary.AsSplunkKeyValueString();
+
+            //Assert
+            Assert.AreEqual($"ObjectId=1, SubClass=\"{DateTime.MinValue}\"", str);
         }
         [TestMethod]
         public void AsSplunkKeyValueString_WithSpaces()
