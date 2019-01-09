@@ -18,6 +18,7 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly ILogger<UpdateLinesJob> _logger;
         private readonly IRepository<Currency> _currencyRepository;
         private readonly IRepository<Indicator> _indicatorRepository;
+        private readonly IRepository<IndicatorDependency> _indicatorDependencyRepository;
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly IRepository<DataPoint> _lineRepository;
 
@@ -26,6 +27,7 @@ namespace CryptoWatcher.BackgroundJobs
             ILogger<UpdateLinesJob> logger,
             IRepository<Currency> currencyRepository,
             IRepository<Indicator> indicatorRepository,
+            IRepository<IndicatorDependency> indicatorDependencyRepository,
             IRepository<Watcher> watcherRepository,
             IRepository<DataPoint> lineRepository)
         {
@@ -33,6 +35,7 @@ namespace CryptoWatcher.BackgroundJobs
             _logger = logger;
             _currencyRepository = currencyRepository;
             _indicatorRepository = indicatorRepository;
+            _indicatorDependencyRepository = indicatorDependencyRepository;
             _watcherRepository = watcherRepository;
             _lineRepository = lineRepository;
         }
@@ -50,7 +53,14 @@ namespace CryptoWatcher.BackgroundJobs
                 var currencies = await _currencyRepository.GetAll();
 
                 // Get all indicators
-                var indicators = await _indicatorRepository.GetAll(x => x.Dependencies);
+                var indicators = await _indicatorRepository.GetAll();
+
+                // Get all indicators dependencies
+                foreach (var indicator in indicators)
+                {
+                    var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
+                    indicator.SetDependencies(dependencies);
+                }
 
                 // Get none default watchers with buy or sell
                 var watchers = await _watcherRepository.GetAll(WatcherExpression.NonDefaultWatcherWithBuyOrSell());

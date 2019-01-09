@@ -51,19 +51,19 @@ namespace CryptoWatcher.Persistence.Repositories
             }
         }
 
-        public Task<List<TEntity>> GetAll(params Expression<Func<TEntity, object>>[] includeProperties)
+        public Task<List<TEntity>> GetAll()
         {
             return Task.FromResult(List);
         }
-        public Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includeProperties)
+        public Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression)
         {
             return Task.FromResult(List.Where(expression.Compile()).ToList());
         }
-        public Task<TEntity> GetSingle(object id, params Expression<Func<TEntity, object>>[] includeProperties)
+        public Task<TEntity> GetSingle(object id)
         {
             return Task.FromResult(List.FirstOrDefault(x=>x.Id == (string)id));
         }
-        public Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includeProperties)
+        public Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression)
         {
             return Task.FromResult(List.FirstOrDefault(expression.Compile()));
         }

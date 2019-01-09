@@ -17,25 +17,25 @@ namespace CryptoWatcher.Persistence.Repositories
             _logRepository = logRepository;
         }
 
-        public async Task<List<TEntity>> GetAll(params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<List<TEntity>> GetAll()
         {
             // Get all
-            return await _repository.GetAll(includeProperties);
+            return await _repository.GetAll();
         }
-        public async Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression)
         {
             // Get all by expression
-            return await _repository.GetAll(expression, includeProperties);
+            return await _repository.GetAll(expression);
         }
-        public async Task<TEntity> GetSingle(object id, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<TEntity> GetSingle(object id)
         {
             // Get by id
-            return await _repository.GetSingle(id, includeProperties);
+            return await _repository.GetSingle(id);
         }
-        public async Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression)
         {
             // Get single by expression
-            return await _repository.GetSingle(expression, includeProperties);
+            return await _repository.GetSingle(expression);
         }
         public void Add(TEntity entity)
         {

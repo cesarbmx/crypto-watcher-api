@@ -97,7 +97,7 @@ namespace CryptoWatcher.Application.Services
             var watcher = await _watcherRepository.GetSingle(WatcherExpression.Watcher(request.UserId, request.TargetId, request.IndicatorId));
 
             // Throw NotFound exception if it exists
-            if (watcher != null) throw new NotFoundException(WatcherMessage.WatcherExists);
+            if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
 
             // Add
             watcher = new Watcher(

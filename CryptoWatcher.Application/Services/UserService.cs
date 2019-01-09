@@ -63,7 +63,7 @@ namespace CryptoWatcher.Application.Services
             var user = await _userRepository.GetSingle(request.UserId);
 
             // Check if user exists
-            if (user != null) throw new ConflictException(UserMessage.UserExists);
+            if (user != null) throw new ConflictException(UserMessage.UserAlreadyExists);
 
             // Add user
             user = new User(request.UserId);

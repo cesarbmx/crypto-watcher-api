@@ -18,63 +18,23 @@ namespace CryptoWatcher.Persistence.Repositories
             _dbSet = dbContext.Set<TEntity>();
         }
 
-        public async Task<List<TEntity>> GetAll(params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<List<TEntity>> GetAll()
         {
-            // Include
-            if (includeProperties.Any())
-            {
-                var set = includeProperties
-                    .Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>
-                        (_dbSet, (current, expr) => current.Include(expr));
-
-                return await set.ToListAsync();
-            }
-
             // Get all
             return await _dbSet.ToListAsync();
         }
-        public async Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<List<TEntity>> GetAll(Expression<Func<TEntity, bool>> expression)
         {
-            // Include
-            if (includeProperties.Any())
-            {
-                var set = includeProperties
-                    .Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>
-                        (_dbSet, (current, expr) => current.Include(expr));
-
-                return await set.Where(expression).ToListAsync();
-            }
-
             // Get all by expression
             return await _dbSet.Where(expression).ToListAsync();
         }
-        public async Task<TEntity> GetSingle(object id, Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<TEntity> GetSingle(object id)
         {
-            // Include
-            if (includeProperties.Any())
-            {
-                var set = includeProperties
-                    .Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>
-                        (_dbSet, (current, expr) => current.Include(expr));
-
-                return await set.SingleOrDefaultAsync(s => s.Id == (string) id);
-            }
-
             // Get by id
             return await _dbSet.FindAsync(id);
         }
-        public async Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression)
         {
-            // Include
-            if (includeProperties.Any())
-            {
-                var set = includeProperties
-                    .Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>
-                        (_dbSet, (current, expr) => current.Include(expr));
-
-                return await set.FirstOrDefaultAsync(expression);
-            }
-
             // Get single by expression
             return await _dbSet.FirstOrDefaultAsync(expression);
         }
