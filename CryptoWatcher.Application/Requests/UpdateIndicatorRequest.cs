@@ -10,5 +10,6 @@ namespace CryptoWatcher.Application.Requests
         [Required] public string Name { get; set; }
         [Required] public string Description { get; set; }
         [Required] public string Formula { get; set; }
+        [Required] public string[] Dependencies { get; set; }
     }
 }

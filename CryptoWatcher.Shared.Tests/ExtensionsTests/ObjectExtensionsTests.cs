@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CryptoWatcher.Shared.Extensions;
 
-namespace CryptoWatcher.Shared.Tests.Extensions
+namespace CryptoWatcher.Shared.Tests.ExtensionsTests
 {
     [TestClass]
     public class ObjectExtensionsTests
@@ -25,6 +25,20 @@ namespace CryptoWatcher.Shared.Tests.Extensions
             Assert.IsTrue(dictionary.Count == 2);
             Assert.AreEqual(1, dictionary["ObjectId"]);
             Assert.AreEqual("MyObject", dictionary["ObjectName"]);
+        }
+        [TestMethod]
+        public void AsDictionary_WithArray()
+        {
+            //Arrange
+            var obj = new { ObjectId = 1, ObjectName = new []{"A", "B"} };
+
+            //Act
+            var dictionary = obj.AsDictionary();
+
+            //Assert
+            Assert.IsTrue(dictionary.Count == 2);
+            Assert.AreEqual(1, dictionary["ObjectId"]);
+            Assert.AreEqual("[A,B]", dictionary["ObjectName"]);
         }
         [TestMethod]
         public void AsDictionary_WithSubClass()

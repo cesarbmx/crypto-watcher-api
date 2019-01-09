@@ -22,7 +22,7 @@ namespace CryptoWatcher.Application.Services
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<Watcher> _watcherRepository;
-        private readonly ILogger<AddWatcherRequest> _logger;
+        private readonly ILogger<WatcherService> _logger;
         private readonly IMapper _mapper;
 
         public WatcherService(
@@ -30,7 +30,7 @@ namespace CryptoWatcher.Application.Services
             IRepository<User> userRepository,
             IRepository<Indicator> indicatorRepository,
             IRepository<Watcher> watcherRepository,
-            ILogger<AddWatcherRequest> logger,
+            ILogger<WatcherService> logger,
             IMapper mapper)
         {
             _mainDbContext = mainDbContext;
@@ -117,7 +117,7 @@ namespace CryptoWatcher.Application.Services
             await _mainDbContext.SaveChangesAsync();
 
             // Log into Splunk
-            _logger.LogSplunkInformation(request);
+            _logger.LogSplunkRequest(request);
 
             // Response
             var response = _mapper.Map<WatcherResponse>(watcher);
@@ -141,7 +141,7 @@ namespace CryptoWatcher.Application.Services
             await _mainDbContext.SaveChangesAsync();
 
             // Log into Splunk
-            _logger.LogSplunkInformation(request);
+            _logger.LogSplunkRequest(request);
 
             // Response
             var response = _mapper.Map<WatcherResponse>(watcher);

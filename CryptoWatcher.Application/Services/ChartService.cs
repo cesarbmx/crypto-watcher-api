@@ -19,7 +19,8 @@ namespace CryptoWatcher.Application.Services
         public LineChartService(
             IRepository<Currency> currencyRepository,
             IRepository<Indicator> indicatorRepository,
-            IRepository<DataPoint> lineRepository, IMapper mapper)
+            IRepository<DataPoint> lineRepository,
+            IMapper mapper)
         {
             _currencyRepository = currencyRepository;
             _indicatorRepository = indicatorRepository;

@@ -15,12 +15,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/currencies/bitcoin",
-					"protocol": "http",
+					"raw": "{{url}}/currencies/bitcoin",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"currencies",
 						"bitcoin"
@@ -42,12 +40,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/currencies",
-					"protocol": "http",
+					"raw": "{{url}}/currencies",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"currencies"
 					]
@@ -84,12 +80,10 @@
 					"raw": "{\r\n  \"userId\": \"cesarbmx\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/users",
-					"protocol": "http",
+					"raw": "{{url}}/users",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"users"
 					]
@@ -119,12 +113,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/users/cesarbmx",
-					"protocol": "http",
+					"raw": "{{url}}/users/cesarbmx",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"users",
 						"cesarbmx"
@@ -155,12 +147,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/users",
-					"protocol": "http",
+					"raw": "{{url}}/users",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"users"
 					]
@@ -197,15 +187,13 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"indicatorType\": \"CurrencyIndicator\",\r\n  \"indicatorId\": \"rsi\",\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"RSI\",\r\n  \"description\": \"Blah blah\",\r\n  \"formula\": \"C# formula\",\r\n  \"dependencies\": \"\\\"price\\\"\"\r\n}"
+					"raw": "{\r\n  \"indicatorType\": \"CurrencyIndicator\",\r\n  \"indicatorId\": \"rsi\",\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"RSI\",\r\n  \"description\": \"Blah blah\",\r\n  \"formula\": \"C# formula\",\r\n  \"dependencies\": [\r\n  \t\"price\"\r\n  \t]\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/indicators",
-					"protocol": "http",
+					"raw": "{{url}}/indicators",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"indicators"
 					]
@@ -227,15 +215,13 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Relative strength index (RSI)\",\r\n  \"description\": \"It is a momentum oscillator that measures the speed and change of price movements\",\r\n  \"formula\": \"C# formula\"\r\n}"
+					"raw": "{\r\n  \"name\": \"Relative strength index (RSI)\",\r\n  \"description\": \"It is a momentum oscillator that measures the speed and change of price movements\",\r\n  \"formula\": \"C# formula\",\r\n  \"dependencies\": [\r\n  \t\"price\",\r\n  \t\"price-change-24hrs\"\r\n  \t]\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/indicators/{{indicatorId}}",
-					"protocol": "http",
+					"raw": "{{url}}/indicators/{{indicatorId}}",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"indicators",
 						"{{indicatorId}}"
@@ -254,12 +240,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/indicators/{{indicatorId}}",
-					"protocol": "http",
+					"raw": "{{url}}/indicators/{{indicatorId}}",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"indicators",
 						"{{indicatorId}}"
@@ -278,12 +262,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/users/cesarbmx/indicators",
-					"protocol": "http",
+					"raw": "{{url}}/users/cesarbmx/indicators",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"users",
 						"cesarbmx",
@@ -326,12 +308,10 @@
 					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"indicatorType\": \"CurrencyIndicator\",\r\n  \"indicatorId\": \"{{indicatorId}}\",\r\n  \"targetId\": \"bitcoin\",\r\n  \"buy\": 10,\r\n  \"sell\": 5,\r\n  \"enabled\": false\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/watchers",
-					"protocol": "http",
+					"raw": "{{url}}/watchers",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"watchers"
 					]
@@ -356,12 +336,10 @@
 					"raw": "{\r\n  \"buy\": 15,\r\n  \"sell\": 6,\r\n  \"enabled\": true\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:6495/watchers/{{watcherId}}",
-					"protocol": "http",
+					"raw": "{{url}}/watchers/{{watcherId}}",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"watchers",
 						"{{watcherId}}"
@@ -392,12 +370,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/watchers/{{watcherId}}",
-					"protocol": "http",
+					"raw": "{{url}}/watchers/{{watcherId}}",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"watchers",
 						"{{watcherId}}"
@@ -428,12 +404,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/users/cesarbmx/watchers",
-					"protocol": "http",
+					"raw": "{{url}}/users/cesarbmx/watchers",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"users",
 						"cesarbmx",
@@ -453,12 +427,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:6495/line-charts",
-					"protocol": "http",
+					"raw": "{{url}}/line-charts",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "6495",
 					"path": [
 						"line-charts"
 					]

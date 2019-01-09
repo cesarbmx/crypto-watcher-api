@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CryptoWatcher.Shared.Extensions;
 
-namespace CryptoWatcher.Shared.Tests.Extensions
+namespace CryptoWatcher.Shared.Tests.ExtensionsTests
 {
     [TestClass]
     public class DictionaryExtensionsTests
@@ -24,7 +24,23 @@ namespace CryptoWatcher.Shared.Tests.Extensions
             Assert.AreEqual("ObjectId=1, ObjectName=MyObject", str);
         }
         [TestMethod]
-        public void AsSplunkKeyValueString_SkipSpaces()
+        public void AsSplunkKeyValueString_WithNull()
+        {
+            //Arrange
+            var dictionary = new Dictionary<string, object>
+            {
+                {"ObjectId", "1"},
+                {"SubClass",  null}
+            };
+
+            //Act
+            var str = dictionary.AsSplunkKeyValueString();
+
+            //Assert
+            Assert.AreEqual("ObjectId=1, SubClass=null", str);
+        }
+        [TestMethod]
+        public void AsSplunkKeyValueString_WithSpaces()
         {
             //Arrange
             var dictionary = new Dictionary<string, object>
@@ -38,7 +54,7 @@ namespace CryptoWatcher.Shared.Tests.Extensions
             var str = dictionary.AsSplunkKeyValueString();
 
             //Assert
-            Assert.AreEqual("ObjectId=1, ObjectName=MyObject", str);
+            Assert.AreEqual("ObjectId=1, ObjectName=MyObject, ObjectDescription=\"{...}\"", str);
         }
         [TestMethod]
         public void AsSplunkKeyValueString_WithSubDirectory()

@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CryptoWatcher.Shared.Extensions;
 
-namespace CryptoWatcher.Shared.Tests.Extensions
+namespace CryptoWatcher.Shared.Tests.ExtensionsTests
 {
     [TestClass]
     public class UrlExtensionsTests

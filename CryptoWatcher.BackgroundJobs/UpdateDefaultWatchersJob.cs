@@ -65,7 +65,7 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Stop();
 
                 // Log into Splunk
-                _logger.LogSplunkInformation(new
+                _logger.LogSplunkJob(new
                 {
                     newDefaultWatchers.Count,
                     ExecutionTime = stopwatch.Elapsed.TotalSeconds

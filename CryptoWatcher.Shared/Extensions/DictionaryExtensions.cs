@@ -32,13 +32,20 @@ namespace CryptoWatcher.Shared.Extensions
                 }
                 else
                 {
-                    // We skip those properties with spaces
-                    if (!item.Value.ToString().Contains(" "))
+                    // Cover scenarios like: Description=""
+                    var pref = prefix?.Length > 0 ? prefix + "_" : string.Empty;
+                    var value = item.Value == null || item.Value.ToString() == string.Empty ? "" : item.Value;
+                    if (item.Value == null)
                     {
-                        var pref = prefix?.Length > 0 ? prefix + "_" : string.Empty;
-                        // Cover scenarios like: Description=""
-                        var value = (item.Value == null || item.Value.ToString() == string.Empty) ? "": item.Value;
+                        str += pref + item.Key + "=null, ";
+                    }
+                    else if(!item.Value.ToString().Contains(" "))
+                    {
                         str += pref + item.Key + "=" + value + ", ";
+                    }
+                    else
+                    {
+                        str += pref + item.Key + "=\"{...}\", ";
                     }
                 }
             }

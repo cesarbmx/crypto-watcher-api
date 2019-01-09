@@ -8,10 +8,11 @@ namespace CryptoWatcher.Application.FakeRequests
         {
             return new UpdateIndicatorRequest
             {
-                IndicatorId = "johny12-hype",
+                IndicatorId = "hype",
                 Name = "Hype",
                 Description = "It identifies immediate hypes within 24 Hrs in your portfolio",
-                Formula = "C# formula"
+                Formula = "C# formula",
+                Dependencies = new[] {"price", "price-change-24hrs" }
             };
         }       
     }

@@ -53,7 +53,7 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Stop();
 
                 // Log into Splunk
-                _logger.LogSplunkInformation(new
+                _logger.LogSplunkJob(new
                 {
                     MaxLevel = indicatorDependencies.Select(x=>x.Level).Max(),
                     ExecutionTime = stopwatch.Elapsed.TotalSeconds

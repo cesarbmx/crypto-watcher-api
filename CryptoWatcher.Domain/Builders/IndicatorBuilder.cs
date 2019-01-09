@@ -26,22 +26,30 @@ namespace CryptoWatcher.Domain.Builders
             switch (indicator.IndicatorId)
             {
                 case "hype":
-                    return BuildHypes(scriptVariables)[currency.Rank - 1];
+                    return BuildHypes(scriptVariables)[currency.CurrencyId];
                 default:
                     return 666m;
             }
         }
-        public static decimal?[] BuildHypes(ScriptVariables scriptVariables)
+        public static Dictionary<string, decimal?> BuildHypes(ScriptVariables scriptVariables)
         {
             // Arrange
+            var hypes = new Dictionary<string, decimal?>();
             var time = scriptVariables.Times[0];
-            var values = scriptVariables.Values[time]["price-change-24hrs"].Select(x=>x.Value).ToArray();
+            var currencies = scriptVariables.Values[time]["price-change-24hrs"];
+            var values = currencies.Select(x=>x.Value).ToArray();
 
             // Build
             BuildHypes(values);
+            var i = 0;
+            foreach (var currency in currencies)
+            {
+                hypes.Add(currency.Key, values[i]);
+                i++;
+            }
 
             // Return
-            return values;
+            return hypes;
         }
         public static void BuildHypes(decimal?[] values)
         {

@@ -18,14 +18,21 @@ namespace CryptoWatcher.Shared.Extensions
             
             foreach (var item in dictionary)
             {
-                var fullName = item.Value.GetType().FullName;
+                var fullName = item.Value?.GetType().FullName;
                 if (fullName != null && !fullName.StartsWith("System.") && !(item.Value is Enum))
                 {
                     result.Add(item.Key, item.Value.AsDictionary());
                 }
                 else
                 {
-                    result.Add(item.Key,item.Value);
+                    if (item.Value is Array array)
+                    {
+                        result.Add(item.Key, $"[{string.Join(",", (string[])array)}]");
+                    }
+                    else
+                    {
+                        result.Add(item.Key, item.Value);
+                    }
                 }
             }
             return result;

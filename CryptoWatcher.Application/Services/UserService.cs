@@ -17,13 +17,13 @@ namespace CryptoWatcher.Application.Services
     {
         private readonly MainDbContext _mainDbContext;
         private readonly IRepository<User> _userRepository;
-        private readonly ILogger<AddUserRequest> _logger;
+        private readonly ILogger<UserService> _logger;
         private readonly IMapper _mapper;
 
         public UserService(
             MainDbContext mainDbContext,
             IRepository<User> userRepository,
-            ILogger<AddUserRequest> logger,
+            ILogger<UserService> logger,
             IMapper mapper)
         {
             _mainDbContext = mainDbContext;
@@ -73,7 +73,7 @@ namespace CryptoWatcher.Application.Services
             await _mainDbContext.SaveChangesAsync();
 
             // Log into Splunk
-            _logger.LogSplunkInformation(request);
+            _logger.LogSplunkRequest(request);
 
             // Response
             var response = _mapper.Map<UserResponse>(user);
