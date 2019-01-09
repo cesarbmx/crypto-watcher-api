@@ -34,6 +34,9 @@ namespace CryptoWatcher.Api
             // Hangfire
             services.ConfigureHangfire(Configuration);
 
+            // Elmah
+            services.ConfigureElmah(Configuration);
+
             // Mvc
             services.ConfigureMvc();
         }
@@ -55,6 +58,9 @@ namespace CryptoWatcher.Api
 
             // Hangfire
             app.ConfigureHangfire(Configuration);
+
+            // Elmah
+            app.ConfigureElmah(Configuration);
 
             // Mvc
             app.ConfigureMvc();
