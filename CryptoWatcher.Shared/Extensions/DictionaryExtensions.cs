@@ -43,6 +43,10 @@ namespace CryptoWatcher.Shared.Extensions
                     {
                         str += pref + item.Key + $"=\"{item.Value}\", ";
                     }
+                    else if (item.Key == "Failed")
+                    {
+                        str += pref + item.Key + $"=\"{item.Value}\", ";
+                    }
                     else if (!item.Value.ToString().Contains(" "))
                     {
                         str += pref + item.Key + "=" + value + ", ";

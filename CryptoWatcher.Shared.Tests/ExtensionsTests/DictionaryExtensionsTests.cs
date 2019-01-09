@@ -57,6 +57,21 @@ namespace CryptoWatcher.Shared.Tests.ExtensionsTests
             Assert.AreEqual($"ObjectId=1, SubClass=\"{DateTime.MinValue}\"", str);
         }
         [TestMethod]
+        public void AsSplunkKeyValueString_WithFailed()
+        {
+            //Arrange
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Failed", "Exception message with spaces"}
+            };
+
+            //Act
+            var str = dictionary.AsSplunkKeyValueString();
+
+            //Assert
+            Assert.AreEqual("Failed=\"Exception message with spaces\"", str);
+        }
+        [TestMethod]
         public void AsSplunkKeyValueString_WithSpaces()
         {
             //Arrange

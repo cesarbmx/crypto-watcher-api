@@ -89,7 +89,11 @@ namespace CryptoWatcher.BackgroundJobs
             }
             catch (Exception ex)
             {
-               // Log into Splunk 
+                // Log into Splunk 
+                _logger.LogSplunkJob(new
+                {
+                    Failed = ex.Message
+                });
                 _logger.LogSplunkError(ex);
             }
         }
