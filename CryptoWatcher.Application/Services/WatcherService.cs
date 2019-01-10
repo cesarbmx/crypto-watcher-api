@@ -52,8 +52,8 @@ namespace CryptoWatcher.Application.Services
             // Get all watchers
             var userWatchers = await _watcherRepository.GetAll(WatcherExpression.WatcherFilter(userId, currencyId, indicatorId));
 
-            // Get default watchers
-            var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcherFilter(currencyId, indicatorId));
+            // Get all default watchers
+            var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher(currencyId, indicatorId));
 
             // Build with defaults
             userWatchers = WatcherBuilder.BuildWatchersWithDefaults(userWatchers, defaultWatchers);
@@ -98,17 +98,20 @@ namespace CryptoWatcher.Application.Services
             // Throw NotFound exception if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
 
+            // Get default watcher
+            var defaultWatcher = await _watcherRepository.GetSingle(WatcherExpression.DefaultWatcher(request.TargetId, request.IndicatorId));
+
             // Add
             watcher = new Watcher(
                 request.UserId,
                 request.TargetId,
                 request.IndicatorType,
-                request.IndicatorId,              
-                16,
+                request.IndicatorId,
+                defaultWatcher.Value,
                 request.Buy,
                 request.Sell,
-                null,
-                null,
+                defaultWatcher.AverageBuy,
+                defaultWatcher.AverageSell,
                 request.Enabled);
             _watcherRepository.Add(watcher);
 
