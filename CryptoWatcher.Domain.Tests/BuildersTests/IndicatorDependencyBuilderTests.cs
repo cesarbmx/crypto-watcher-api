@@ -23,7 +23,7 @@ namespace CryptoWatcher.Domain.Tests.BuildersTests
             };
 
             // Act
-            IndicatorDependencyBuilder.BuildDependencyLevel(dependencyLevels);
+            IndicatorDependencyBuilder.BuildLevel(dependencyLevels);
 
             // Assert
             Assert.AreEqual(true, dependencyLevels[0].Level == 1);

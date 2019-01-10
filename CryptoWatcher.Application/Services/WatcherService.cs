@@ -49,7 +49,7 @@ namespace CryptoWatcher.Application.Services
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
-            // Get all user watchers
+            // Get all watchers
             var userWatchers = await _watcherRepository.GetAll(WatcherExpression.WatcherFilter(userId, currencyId, indicatorId));
 
             // Get default watchers

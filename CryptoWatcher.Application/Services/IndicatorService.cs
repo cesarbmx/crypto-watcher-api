@@ -51,7 +51,7 @@ namespace CryptoWatcher.Application.Services
             // Get all indicators
             var indicators = await _indicatorRepository.GetAll(IndicatorExpression.IndicatorFilter(indicatorType, null, userId));
 
-            // Get all indicator dependencies
+            // Get all dependencies
             foreach (var indicator in indicators)
             {
                 var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
@@ -72,7 +72,7 @@ namespace CryptoWatcher.Application.Services
             // Throw NotFound exception if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
-            // Get indicator dependencies
+            // Get dependencies
             var indicatorsDependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
             indicator.SetDependencies(indicatorsDependencies);
 
@@ -91,7 +91,7 @@ namespace CryptoWatcher.Application.Services
             if (indicator != null) throw new ConflictException(IndicatorMessage.IndicatorAlreadyExists);
 
             // Add dependencies
-            var dependencies = IndicatorBuilder.BuildDependencies(request.IndicatorId, request.Dependencies);
+            var dependencies = IndicatorDependencyBuilder.BuildDependencies(request.IndicatorId, request.Dependencies);
             _indicatorDependencyRepository.AddRange(dependencies);
 
             // Add
@@ -125,9 +125,9 @@ namespace CryptoWatcher.Application.Services
             // Throw NotFound exception if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
-            // Update indicator dependencies
+            // Update dependencies
             var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
-            var newDependencies = IndicatorBuilder.BuildDependencies(request.IndicatorId, request.Dependencies);
+            var newDependencies = IndicatorDependencyBuilder.BuildDependencies(request.IndicatorId, request.Dependencies);
             _indicatorDependencyRepository.AddRange(EntityBuilder.BuildEntitiesToAdd(dependencies, newDependencies));
             _indicatorDependencyRepository.UpdateRange(EntityBuilder.BuildEntitiesToUpdate(dependencies, newDependencies));
             _indicatorDependencyRepository.RemoveRange(EntityBuilder.BuildEntitiesToRemove(dependencies, newDependencies));

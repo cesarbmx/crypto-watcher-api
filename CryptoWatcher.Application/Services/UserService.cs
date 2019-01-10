@@ -34,7 +34,7 @@ namespace CryptoWatcher.Application.Services
 
         public async Task<List<UserResponse>> GetAllUsers()
         {
-            // Get users
+            // Get all users
             var users = await _userRepository.GetAll();
 
             // Response

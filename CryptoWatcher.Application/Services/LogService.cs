@@ -23,7 +23,7 @@ namespace CryptoWatcher.Application.Services
 
         public async Task<List<LogResponse>> GetLogs()
         {
-            // Get logs
+            // Get all logs
             var logs = await _logRepository.GetAll();
 
             // Response

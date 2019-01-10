@@ -37,11 +37,11 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Get all indicator dependencies
+                // Get all dependencies
                 var indicatorDependencies = await _indicatorDependencyRepository.GetAll();
 
                 // Build
-                IndicatorDependencyBuilder.BuildDependencyLevel(indicatorDependencies);
+                IndicatorDependencyBuilder.BuildLevel(indicatorDependencies);
 
                 // Update
                 _indicatorDependencyRepository.UpdateRange(indicatorDependencies);

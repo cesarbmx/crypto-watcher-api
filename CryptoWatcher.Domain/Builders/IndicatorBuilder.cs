@@ -108,19 +108,6 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return values.Average();
         }
-        public static List<IndicatorDependency> BuildDependencies(string indicatorId, string[] dependencies)
-        {
-            var indicatorDependencies = new List<IndicatorDependency>();
-
-            // Build
-            foreach (var dependingIndicatorId in dependencies)
-            {
-                indicatorDependencies.Add(new IndicatorDependency(indicatorId, dependingIndicatorId));
-            }
-
-            // Return
-            return indicatorDependencies;
-        }
         public static int BuildDependencyLevel(List<IndicatorDependency> dependencies)
         {
             return dependencies.Select(x => x.Level).Max() ?? 0;

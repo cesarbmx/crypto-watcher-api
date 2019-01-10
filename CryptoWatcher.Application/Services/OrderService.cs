@@ -35,7 +35,7 @@ namespace CryptoWatcher.Application.Services
             // Check if user exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
-            // Get orders
+            // Get all orders
             var orders = await _orderRepository.GetAll(OrderExpression.OrderFilter(userId));
 
             // Response
