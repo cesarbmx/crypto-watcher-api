@@ -110,7 +110,7 @@ namespace CryptoWatcher.Domain.Builders
         }
         public static int BuildDependencyLevel(List<IndicatorDependency> dependencies)
         {
-            return dependencies.Select(x => x.Level).Max() ?? 0;
+            return dependencies?.Select(x => x.Level).Max() ?? 0;
         }
     }
 }

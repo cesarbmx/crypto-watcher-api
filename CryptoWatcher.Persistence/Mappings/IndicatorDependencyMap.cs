@@ -38,7 +38,7 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.Level)
                 .HasColumnType("smallint");
 
-            // Data seeding
+            // Seed data
             entityBuilder.HasData(new IndicatorDependency("hype", "price-change-24hrs"));
         }
     }
