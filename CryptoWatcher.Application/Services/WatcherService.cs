@@ -107,11 +107,11 @@ namespace CryptoWatcher.Application.Services
                 request.TargetId,
                 request.IndicatorType,
                 request.IndicatorId,
-                defaultWatcher.Value,
+                defaultWatcher?.Value,
                 request.Buy,
                 request.Sell,
-                defaultWatcher.AverageBuy,
-                defaultWatcher.AverageSell,
+                defaultWatcher?.AverageBuy,
+                defaultWatcher?.AverageSell,
                 request.Enabled);
             _watcherRepository.Add(watcher);
 
