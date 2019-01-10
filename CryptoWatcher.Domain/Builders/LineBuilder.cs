@@ -15,6 +15,7 @@ namespace CryptoWatcher.Domain.Builders
             var time = DateTime.Now;
             var stopAt = indicators.Count > 0 ? indicators.Max(x => x.DependencyLevel) : 0;
 
+            // We create the lines in the order that is given and we build the first level only
             foreach (var currency in currencies)
             {
                 foreach (var indicator in indicators)
@@ -23,7 +24,7 @@ namespace CryptoWatcher.Domain.Builders
                     decimal? averageBuy = null;
                     decimal? averageSell = null;
 
-                    if (indicator.DependencyLevel == 0) // We set the first ones
+                    if (indicator.DependencyLevel == 0) 
                     {
                         var filteredWatchers = watchers.Where(WatcherExpression.WatcherFilter(null, currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
                         value = IndicatorBuilder.BuildValue(currency, indicator);
@@ -36,7 +37,7 @@ namespace CryptoWatcher.Domain.Builders
                 }
             }
 
-            // Go deeper   
+            // Now we build the deper levels
             if (stopAt > 0) BuildLines(currencies, indicators, watchers, lines, 1, stopAt);
 
             // Return
