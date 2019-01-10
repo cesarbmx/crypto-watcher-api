@@ -1,6 +1,6 @@
 ﻿
 
-namespace CryptoWatcher.Domain.Messages
+namespace CryptoWatcher.Application.Messages
 {
     public static class CurrencyMessage
     {

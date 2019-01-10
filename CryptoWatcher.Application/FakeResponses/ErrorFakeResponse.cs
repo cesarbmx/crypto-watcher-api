@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Messages;
+using CryptoWatcher.Application.Messages;
 
 namespace CryptoWatcher.Application.FakeResponses
 {

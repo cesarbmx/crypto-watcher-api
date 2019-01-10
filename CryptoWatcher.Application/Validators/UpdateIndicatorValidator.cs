@@ -1,5 +1,5 @@
 ﻿using CryptoWatcher.Application.Requests;
-using CryptoWatcher.Domain.Messages;
+using CryptoWatcher.Application.Messages;
 using FluentValidation;
 
 namespace CryptoWatcher.Application.Validators

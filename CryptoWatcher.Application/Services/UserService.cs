@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Messages;
+using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Persistence.Repositories;

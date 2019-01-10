@@ -2,7 +2,7 @@
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
-using CryptoWatcher.Domain.Messages;
+using CryptoWatcher.Application.Messages;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

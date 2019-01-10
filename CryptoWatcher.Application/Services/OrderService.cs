@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Expressions;
-using CryptoWatcher.Domain.Messages;
+using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Shared.Exceptions;

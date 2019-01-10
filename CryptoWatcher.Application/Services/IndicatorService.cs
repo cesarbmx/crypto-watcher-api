@@ -5,7 +5,7 @@ using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
-using CryptoWatcher.Domain.Messages;
+using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Persistence.Repositories;

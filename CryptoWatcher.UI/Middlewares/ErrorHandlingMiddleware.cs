@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Shared.Exceptions;
-using CryptoWatcher.Domain.Messages;
+using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Shared.Extensions;
 
 namespace CryptoWatcher.UI.Middlewares

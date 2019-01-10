@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Messages;
+using CryptoWatcher.Application.Messages;
 
 namespace CryptoWatcher.Api.ActionFilters
 {

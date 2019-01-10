@@ -13,7 +13,7 @@ namespace CryptoWatcher.Domain.Builders
             var resources = new Dictionary<string, ErrorMessage>();
 
             var query = from t in Assembly.GetExecutingAssembly().GetTypes()
-                where t.IsClass && t.Namespace == "CryptoWatcher.Domain.Messages"
+                where t.IsClass && t.Namespace == "CryptoWatcher.Application.Messages"
                 select t;
             var types = query.ToList();
 
