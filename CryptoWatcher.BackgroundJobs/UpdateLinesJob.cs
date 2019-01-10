@@ -62,7 +62,7 @@ namespace CryptoWatcher.BackgroundJobs
                     indicator.SetDependencies(dependencies);
                 }
 
-                // Get none default watchers with buy or sell
+                // Get non-default watchers with buy or sell
                 var watchers = await _watcherRepository.GetAll(WatcherExpression.NonDefaultWatcherWithBuyOrSell());
 
                 // Build lines
