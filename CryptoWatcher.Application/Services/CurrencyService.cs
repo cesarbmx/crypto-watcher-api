@@ -36,7 +36,7 @@ namespace CryptoWatcher.Application.Services
             // Get currency
             var currency = await _currencyRepository.GetSingle(currencyId);
 
-            // Throw NotFound exception if the currency does not exist
+            // Throw NotFound exception if it does not exist
             if (currency == null) throw new NotFoundException(CurrencyMessage.CurrencyNotFound);
 
             // Response

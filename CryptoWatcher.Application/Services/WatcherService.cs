@@ -46,7 +46,7 @@ namespace CryptoWatcher.Application.Services
             // Get user
             var user = await _userRepository.GetSingle(userId);
 
-            // Check if user exists
+            // Check if it exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get all watchers
@@ -95,7 +95,7 @@ namespace CryptoWatcher.Application.Services
             // Check if it exists
             var watcher = await _watcherRepository.GetSingle(WatcherExpression.Watcher(request.UserId, request.TargetId, request.IndicatorId));
 
-            // Throw NotFound exception if it exists
+            // Throw ConflictException exception if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
 
             // Get default watcher

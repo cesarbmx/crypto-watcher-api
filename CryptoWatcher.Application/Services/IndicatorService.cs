@@ -45,7 +45,7 @@ namespace CryptoWatcher.Application.Services
             // Get user
             var user = await _userRepository.GetSingle(userId);
 
-            // Check if user exists
+            // Check if it exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get all indicators
@@ -87,7 +87,7 @@ namespace CryptoWatcher.Application.Services
             // Check if it exists
             var indicator = await _indicatorRepository.GetSingle(IndicatorExpression.Indicator(request.UserId, request.Name));
 
-            // Throw NotFound exception if it exists
+            // Throw ConflictException exception if it exists
             if (indicator != null) throw new ConflictException(IndicatorMessage.IndicatorAlreadyExists);
 
             // Add dependencies

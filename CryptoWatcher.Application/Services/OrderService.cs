@@ -32,7 +32,7 @@ namespace CryptoWatcher.Application.Services
             // Get user
             var user = await _userRepository.GetSingle(userId);
 
-            // Check if user exists
+            // Check if it exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get all orders
@@ -49,7 +49,7 @@ namespace CryptoWatcher.Application.Services
             // Get order
             var order = await _orderRepository.GetSingle(orderId);
 
-            // Throw NotFound exception if the currency does not exist
+            // Throw NotFound exception if it does not exist
             if (order == null) throw new NotFoundException(OrderMessage.OrderNotFound);
 
             // Response

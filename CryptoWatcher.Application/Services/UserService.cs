@@ -48,7 +48,7 @@ namespace CryptoWatcher.Application.Services
             // Get user
             var user = await _userRepository.GetSingle(userId);
 
-            // Throw NotFound exception if the currency does not exist
+            // Throw NotFound exception if it does not exist
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Response
@@ -62,7 +62,7 @@ namespace CryptoWatcher.Application.Services
             // Get user
             var user = await _userRepository.GetSingle(request.UserId);
 
-            // Check if user exists
+            // Check if it exists
             if (user != null) throw new ConflictException(UserMessage.UserAlreadyExists);
 
             // Add user
