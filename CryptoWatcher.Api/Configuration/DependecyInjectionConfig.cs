@@ -5,8 +5,6 @@ using CryptoWatcher.BackgroundJobs;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Persistence.Repositories;
-using CryptoWatcher.Shared.Providers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -95,8 +93,8 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<UpdateIndicatorDependenciesJob, UpdateIndicatorDependenciesJob>();
 
             // Other
-            services.AddScoped<DateTimeProvider, DateTimeProvider>();
-            services.AddScoped<HttpContextAccessor, HttpContextAccessor>();
+            //services.AddScoped<DateTimeProvider, DateTimeProvider>();
+            //services.AddScoped<HttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICoinMarketCapClient, CoinMarketCapClient>();
 
             return services;

@@ -132,7 +132,7 @@ namespace CryptoWatcher.Application.Services
             _indicatorDependencyRepository.UpdateRange(EntityBuilder.BuildEntitiesToUpdate(dependencies, newDependencies));
             _indicatorDependencyRepository.RemoveRange(EntityBuilder.BuildEntitiesToRemove(dependencies, newDependencies));
 
-            // Update
+            // Update indicator
             indicator.SetDependencies(newDependencies);
             indicator.Update(request.Name, request.Description, request.Formula);
             _indicatorRepository.Update(indicator);

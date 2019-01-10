@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace CryptoWatcher.Shared.Providers
 {
-    public class DateTimeProvider: IDateTimeProvider
+    public class DateTimeProvider
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 

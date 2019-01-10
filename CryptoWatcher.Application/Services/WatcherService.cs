@@ -66,7 +66,6 @@ namespace CryptoWatcher.Application.Services
         }
         public async Task<WatcherResponse> GetWatcher(Guid watcherId)
         {
-
             // Get watcher
             var watcher = await _watcherRepository.GetSingle(watcherId);
 
