@@ -43,7 +43,7 @@ namespace CryptoWatcher.Shared.Extensions
                     {
                         str += pref + item.Key + $"=\"{item.Value}\", ";
                     }
-                    else if (item.Key == "Failed")
+                    else if (item.Key == "JobFailed")
                     {
                         str += pref + item.Key + $"=\"{item.Value}\", ";
                     }

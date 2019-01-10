@@ -66,7 +66,7 @@ namespace CryptoWatcher.BackgroundJobs
                 // Log into Splunk 
                 _logger.LogSplunkJob(new
                 {
-                    Failed = ex.Message
+                    JobFailed = ex.Message
                 });
                 _logger.LogSplunkError(ex);
             }
