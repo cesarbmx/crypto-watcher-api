@@ -1,5 +1,4 @@
-﻿using System;
-using CryptoWatcher.Application.Requests;
+﻿using CryptoWatcher.Application.Requests;
 
 
 
@@ -11,7 +10,7 @@ namespace CryptoWatcher.Application.FakeRequests
         {
             return new UpdateWatcherRequest
             {
-                WatcherId = Guid.NewGuid(),             
+                WatcherId = "master_bitcoin_rsi",             
                 Buy = 15,
                 Sell = 8,
                 Enabled = true

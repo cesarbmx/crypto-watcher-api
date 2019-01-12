@@ -25,7 +25,8 @@ namespace CryptoWatcher.Persistence.Mappings
 
             // Properties
             entityBuilder.Property(t => t.WatcherId)
-                .HasColumnType("uniqueidentifier")
+                .HasColumnType("nvarchar(152)")
+                .HasMaxLength(152)
                 .IsRequired();
 
             entityBuilder.Property(t => t.UserId)
@@ -56,7 +57,8 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.Sell)
                 .HasColumnType("decimal(18,2)");
 
-            entityBuilder.Property(t => t.AverageBuy);
+            entityBuilder.Property(t => t.AverageBuy)
+                .HasColumnType("decimal(18,2)");
 
             entityBuilder.Property(t => t.AverageSell)
                 .HasColumnType("decimal(18,2)");

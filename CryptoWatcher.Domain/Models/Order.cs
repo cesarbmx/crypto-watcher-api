@@ -10,7 +10,7 @@ namespace CryptoWatcher.Domain.Models
         public OrderType OrderType { get; private set; }
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
-        public Guid WatcherId { get; private set; }
+        public string WatcherId { get; private set; }
         public decimal Quantity { get; private set; }
         public OrderStatus Status { get; private set; }
         public DateTime Time { get; private set; }
@@ -20,7 +20,7 @@ namespace CryptoWatcher.Domain.Models
             string userId,
             OrderType orderType,
             string currencyId,
-            Guid watcherId,
+            string watcherId,
             decimal quantity)
         {
             OrderId = Guid.NewGuid();

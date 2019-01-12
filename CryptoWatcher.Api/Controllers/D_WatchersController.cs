@@ -107,7 +107,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerRequestExample(typeof(UpdateWatcherRequest), typeof(UpdateWatcherRequestExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_UpdateWatcher")]
-        public async Task<IActionResult> UpdateWatcher(Guid watcherId, [FromBody]UpdateWatcherRequest request)
+        public async Task<IActionResult> UpdateWatcher(string watcherId, [FromBody]UpdateWatcherRequest request)
         {
             // Reponse
             request.WatcherId = watcherId;

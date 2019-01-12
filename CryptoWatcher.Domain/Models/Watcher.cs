@@ -6,8 +6,8 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Watcher : IEntity
     {
-        public string Id => WatcherId.ToString();
-        public Guid WatcherId { get; private set; }
+        public string Id => WatcherId;
+        public string WatcherId { get; private set; }
         public string UserId { get; private set; }
         public string TargetId { get; private set; }
         public string IndicatorId { get; private set; }
@@ -35,7 +35,7 @@ namespace CryptoWatcher.Domain.Models
             decimal? averageSell,
             bool enabled)
         {
-            WatcherId = Guid.NewGuid();
+            WatcherId = userId + "_" + targetId + "_" + indicatorId;
             UserId = userId;
             TargetId = targetId;
             IndicatorId = indicatorId;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 
@@ -7,11 +6,11 @@ namespace CryptoWatcher.Application.FakeResponses
 {
     public static class WatcherFakeResponse
     {
-        public static WatcherResponse GetFake_Price()
+        public static WatcherResponse GetFake_master_Bitcoin_Price()
         {
             return new WatcherResponse
             {
-                WatcherId = Guid.NewGuid(),
+                WatcherId = "master_bitcoin_price",
                 UserId = "master",
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 IndicatorId = "price",
@@ -29,7 +28,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new WatcherResponse
             {
-                WatcherId = Guid.NewGuid(),
+                WatcherId = "master_bitcoin_rsi",
                 UserId = "master",
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 IndicatorId = "RSI",
@@ -47,7 +46,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new List<WatcherResponse>
             {
-                GetFake_Price(),
+                GetFake_master_Bitcoin_Price(),
                 GetFake_master_Bitcoin_RSI()
             };
         }

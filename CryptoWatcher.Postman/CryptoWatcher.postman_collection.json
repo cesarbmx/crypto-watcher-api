@@ -187,7 +187,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"indicatorType\": \"CurrencyIndicator\",\r\n  \"indicatorId\": \"rsi\",\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"RSI\",\r\n  \"description\": \"Blah blah\",\r\n  \"formula\": \"C# formula\",\r\n  \"dependencies\": [\r\n  \t\"price\"\r\n  \t]\r\n}"
+					"raw": "{\r\n  \"indicatorId\": \"rsi\",\r\n  \"indicatorType\": \"CurrencyIndicator\",\r\n  \"userId\": \"cesarbmx\",\r\n  \"name\": \"RSI\",\r\n  \"description\": \"Blah blah\",\r\n  \"formula\": \"C# formula\",\r\n  \"dependencies\": [\r\n  \t\"price\"\r\n  \t]\r\n}"
 				},
 				"url": {
 					"raw": "{{url}}/indicators",
@@ -305,7 +305,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"indicatorType\": \"CurrencyIndicator\",\r\n  \"indicatorId\": \"{{indicatorId}}\",\r\n  \"targetId\": \"bitcoin\",\r\n  \"buy\": 10,\r\n  \"sell\": 5,\r\n  \"enabled\": false\r\n}"
+					"raw": "{\r\n  \"userId\": \"cesarbmx\",\r\n  \"targetId\": \"bitcoin\",\r\n  \"indicatorId\": \"{{indicatorId}}\",\r\n  \"indicatorType\": \"CurrencyIndicator\",\r\n  \"buy\": 10,\r\n  \"sell\": 5,\r\n  \"enabled\": false\r\n}"
 				},
 				"url": {
 					"raw": "{{url}}/watchers",

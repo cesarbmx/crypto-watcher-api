@@ -1,12 +1,11 @@
-﻿using System;
-using CryptoWatcher.Domain.Models;
+﻿using CryptoWatcher.Domain.Models;
 
 
 namespace CryptoWatcher.Application.Responses
 {
     public class WatcherResponse
     {
-        public Guid WatcherId { get; set; }
+        public string WatcherId { get; set; }
         public string UserId { get; set; }
         public IndicatorType IndicatorType { get; set; }
         public string TargetId { get; set; }
