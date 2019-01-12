@@ -46,9 +46,9 @@ namespace CryptoWatcher.Persistence.Mappings
 
             // Seed data
             var user1 = new User("master");
-            var indicator1 = new Indicator(IndicatorType.CurrencyIndicator, "price", "master", "Price", "", "", null);
-            var indicator2 = new Indicator(IndicatorType.CurrencyIndicator, "price-change-24hrs", "master", "Price change 24Hrs", "", "", null);
-            var indicator3 = new Indicator(IndicatorType.CurrencyIndicator, "hype", "master", "Hype", "", "", null);
+            var indicator1 = new Indicator("price", IndicatorType.CurrencyIndicator, "master", "Price", "", "", null);
+            var indicator2 = new Indicator("price-change-24hrs", IndicatorType.CurrencyIndicator, "master", "Price change 24Hrs", "", "", null);
+            var indicator3 = new Indicator("hype", IndicatorType.CurrencyIndicator, "master", "Hype", "", "", null);
             var indicatorDependencies1 = new IndicatorDependency("hype", "price-change-24hrs");
 
             entityBuilder.HasData(

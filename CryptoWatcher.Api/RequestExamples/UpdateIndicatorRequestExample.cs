@@ -7,7 +7,7 @@ namespace CryptoWatcher.Api.RequestExamples
     {
         public object GetExamples()
         {
-            return UpdateIndicatorFakeRequest.GetFake_1();
+            return UpdateIndicatorFakeRequest.GetFake_RSI();
         }
     }
 }

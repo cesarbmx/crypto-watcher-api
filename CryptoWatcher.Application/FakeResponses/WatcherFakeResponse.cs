@@ -7,14 +7,14 @@ namespace CryptoWatcher.Application.FakeResponses
 {
     public static class WatcherFakeResponse
     {
-        public static WatcherResponse GetFake_PriceChange24HrsWatcher()
+        public static WatcherResponse GetFake_Price()
         {
             return new WatcherResponse
             {
                 WatcherId = Guid.NewGuid(),
-                UserId = "johny12",
+                UserId = "master",
                 IndicatorType = IndicatorType.CurrencyIndicator,
-                IndicatorId = "price-change-24hrs",
+                IndicatorId = "price",
                 TargetId = "bitcoin",
                 Value = 5000,
                 Buy = 15,
@@ -25,14 +25,14 @@ namespace CryptoWatcher.Application.FakeResponses
                 Enabled = false
             };
         }
-        public static WatcherResponse GetFake_HypeWatcher()
+        public static WatcherResponse GetFake_master_Bitcoin_RSI()
         {
             return new WatcherResponse
             {
                 WatcherId = Guid.NewGuid(),
-                UserId = "johny12",
+                UserId = "master",
                 IndicatorType = IndicatorType.CurrencyIndicator,
-                IndicatorId = "hype",
+                IndicatorId = "RSI",
                 TargetId = "bitcoin",
                 Value = 2,
                 Buy = 15,
@@ -47,8 +47,8 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new List<WatcherResponse>
             {
-                GetFake_PriceChange24HrsWatcher(),
-                GetFake_HypeWatcher()
+                GetFake_Price(),
+                GetFake_master_Bitcoin_RSI()
             };
         }
     }

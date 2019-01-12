@@ -32,7 +32,7 @@ namespace CryptoWatcher.Domain.Builders
                         averageSell = IndicatorBuilder.BuildAverageSell(filteredWatchers);
                     }
 
-                    var dataPoint = new DataPoint(indicator.IndicatorType, currency.CurrencyId, indicator.IndicatorId, indicator.UserId, value, averageBuy, averageSell, time);
+                    var dataPoint = new DataPoint(currency.CurrencyId, indicator.IndicatorId, indicator.IndicatorType, indicator.UserId, value, averageBuy, averageSell, time);
                     lines.Add(dataPoint);
                 }
             }

@@ -96,8 +96,8 @@ namespace CryptoWatcher.Application.Services
 
             // Add
             indicator = new Indicator(
-                request.IndicatorType,
                 request.IndicatorId,
+                request.IndicatorType,
                 request.UserId,
                 request.Name,
                 request.Description,

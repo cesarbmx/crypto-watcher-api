@@ -7,7 +7,7 @@ namespace CryptoWatcher.Api.ResponseExamples
     {
         public object GetExamples()
         {
-            return LineChartFakeResponse.GetFake_1();
+            return LineChartFakeResponse.GetFake_Bitcoin_Price();
         }
     }
     public class LineChartListResponseExample : IExamplesProvider

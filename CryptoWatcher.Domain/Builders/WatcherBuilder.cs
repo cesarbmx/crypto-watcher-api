@@ -46,8 +46,8 @@ namespace CryptoWatcher.Domain.Builders
                 var watcher = new Watcher(
                         "master",
                         line.TargetId,
-                        line.IndicatorType,
                         line.IndicatorId,
+                        line.IndicatorType,
                         line.Value,
                         line.AverageBuy,
                         line.AverageSell,

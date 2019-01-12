@@ -105,8 +105,8 @@ namespace CryptoWatcher.Application.Services
             watcher = new Watcher(
                 request.UserId,
                 request.TargetId,
-                request.IndicatorType,
                 request.IndicatorId,
+                request.IndicatorType,
                 defaultWatcher?.Value,
                 request.Buy,
                 request.Sell,

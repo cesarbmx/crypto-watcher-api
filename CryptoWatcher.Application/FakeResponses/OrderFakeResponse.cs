@@ -7,26 +7,26 @@ namespace CryptoWatcher.Application.FakeResponses
 {
     public static class OrderFakeResponse
     {
-        public static OrderResponse GetFake_bitcoin()
+        public static OrderResponse GetFake_Bitcoin()
         {
             return new OrderResponse
             {
                 OrderId = Guid.NewGuid(),
-                UserId = "johny12",
-                CurrencyId = "bitcoin",
                 OrderType = OrderType.BuyLimit,
+                UserId = "master",
+                CurrencyId = "bitcoin",
                 Status = OrderStatus.Pending,
                 Quantity = 100
             };
         }
-        public static OrderResponse GetFake_eos()
+        public static OrderResponse GetFake_EOS()
         {
             return new OrderResponse
             {
                 OrderId = Guid.NewGuid(),
-                UserId = "johny12",
-                CurrencyId = "eos",
                 OrderType = OrderType.BuyLimit,
+                UserId = "master",
+                CurrencyId = "eos",
                 Status = OrderStatus.Pending,
                 Quantity = 100
             };
@@ -35,8 +35,8 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new List<OrderResponse>
             {
-                GetFake_bitcoin(),
-                GetFake_eos()
+                GetFake_Bitcoin(),
+                GetFake_EOS()
             };
         }
     }

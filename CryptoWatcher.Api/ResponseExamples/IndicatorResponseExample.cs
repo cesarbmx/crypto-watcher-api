@@ -7,7 +7,7 @@ namespace CryptoWatcher.Api.ResponseExamples
     {
         public object GetExamples()
         {
-            return IndicatorFakeResponse.GetFake_HypeIndicator();
+            return IndicatorFakeResponse.GetFake_RSI();
         }
     }
     public class IndicatorListResponseExample : IExamplesProvider

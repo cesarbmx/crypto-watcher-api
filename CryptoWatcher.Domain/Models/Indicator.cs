@@ -7,8 +7,8 @@ namespace CryptoWatcher.Domain.Models
     public class Indicator : IEntity
     {
         public string Id => IndicatorId;
-        public IndicatorType IndicatorType { get; private set; }
         public string IndicatorId { get; private set; }
+        public IndicatorType IndicatorType { get; private set; }
         public string UserId { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
@@ -19,16 +19,16 @@ namespace CryptoWatcher.Domain.Models
 
         public Indicator() { }
         public Indicator(
-            IndicatorType indicatorType,
             string indicatorId,
+            IndicatorType indicatorType,
             string userId,
             string name, 
             string description,
             string formula,
             List<IndicatorDependency> dependencies)
         {
-            IndicatorType = indicatorType;
             IndicatorId = indicatorId;
+            IndicatorType = indicatorType;
             UserId = userId;
             Name = name;
             Description = description;

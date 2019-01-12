@@ -8,7 +8,6 @@ namespace CryptoWatcher.Application.FakeResponses
     {
         public static ErrorResponse GetFake_BadRequest()
         {
-          
             return new ErrorResponse(nameof(Message.BadRequest), 400, Message.BadRequest);
         }
         public static ErrorResponse GetFake_NotFound()

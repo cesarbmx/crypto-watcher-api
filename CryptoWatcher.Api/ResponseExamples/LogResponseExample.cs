@@ -7,7 +7,7 @@ namespace CryptoWatcher.Api.ResponseExamples
     {
         public object GetExamples()
         {
-            return LogFakeResponse.GetFake_Log();
+            return LogFakeResponse.GetFake_Add_Indicator();
         }
     }
     public class LogListResponseExample : IExamplesProvider

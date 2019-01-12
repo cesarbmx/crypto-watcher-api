@@ -7,7 +7,7 @@ namespace CryptoWatcher.Api.RequestExamples
     {
         public object GetExamples()
         {
-            return AddUserFakeRequest.GetFake_1();
+            return AddUserFakeRequest.GetFake_master();
         }
     }
 }

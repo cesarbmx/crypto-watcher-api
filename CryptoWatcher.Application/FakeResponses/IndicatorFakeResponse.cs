@@ -6,27 +6,28 @@ namespace CryptoWatcher.Application.FakeResponses
 {
     public static class IndicatorFakeResponse
     {
-        public static IndicatorResponse GetFake_PriceChange24HrsIndicator()
+        public static IndicatorResponse GetFake_Price()
         {
             return new IndicatorResponse
             {
+                IndicatorId = "price",
                 IndicatorType = IndicatorType.CurrencyIndicator,
-                IndicatorId = "johny12-price-change-24hrs",
-                UserId = "johny12",
-                Name = "Price Change 24 Hrs",
-                Description = "It identifies immediate price changes within 24 Hrs in your portfolio",
+                UserId = "master",
+                Name = "Price",
+                Description = "Real time price indicator",
                 Formula = "C# formula"
             };
         }
-        public static IndicatorResponse GetFake_HypeIndicator()
+        public static IndicatorResponse GetFake_RSI()
         {
             return new IndicatorResponse
             {
+                IndicatorId = "rsi",
                 IndicatorType = IndicatorType.CurrencyIndicator,
-                IndicatorId = "johny12-hype",
-                UserId = "johny12",
-                Name = "Hype",
-                Description = "It identifies immediate hypes within 24 Hrs in your portfolio",
+                UserId = "master",
+                Name = "RSI",
+                Description = @"The Relative Strength Index (RSI) is a momentum oscillator that measures the speed and change of price movements.
+                                RSI oscillates between zero and 100. Traditionally, and according to Wilder, RSI is considered overbought when above 70 and oversold when below 30.",
                 Formula = "C# formula"
             };
         }
@@ -34,8 +35,8 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new List<IndicatorResponse>
             {
-                GetFake_PriceChange24HrsIndicator(),
-                GetFake_HypeIndicator()
+                GetFake_Price(),
+                GetFake_RSI()
             };
         }
     }

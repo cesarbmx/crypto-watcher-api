@@ -5,26 +5,26 @@ namespace CryptoWatcher.Application.FakeResponses
 {
     public static class UserFakeResponse
     {
-        public static UserResponse GetFake_Cesarbmx()
+        public static UserResponse GetFake_master()
         {
             return new UserResponse
             {
-                UserId = "johny12"
+                UserId = "master"
             };
         }
-        public static UserResponse GetFake_Johny()
+        public static UserResponse GetFake_cesar12()
         {
             return new UserResponse
             {
-                UserId = "johny12"
+                UserId = "cesar12"
             };
         }
         public static List<UserResponse> GetFake_List()
         {
             return new List<UserResponse>
             {
-                GetFake_Cesarbmx(),
-                GetFake_Johny()
+                GetFake_master(),
+                GetFake_cesar12()
             };
         }
     }

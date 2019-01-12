@@ -7,7 +7,7 @@ namespace CryptoWatcher.Api.ResponseExamples
     {
         public object GetExamples()
         {
-            return NotificationFakeResponse.GetFake_Cesarbmx();
+            return NotificationFakeResponse.GetFake_master();
         }
     }
     public class NotificationListResponseExample : IExamplesProvider

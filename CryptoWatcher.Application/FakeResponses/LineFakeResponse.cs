@@ -7,28 +7,28 @@ namespace CryptoWatcher.Application.FakeResponses
 {
     public static class LineFakeResponse
     {
-        public static DataPointResponse GetFake_CurrencyIndicator_1()
+        public static DataPointResponse GetFake_Bitcoin_Price()
         {
             return new DataPointResponse
             {
-                IndicatorType = IndicatorType.CurrencyIndicator,
                 TargetId = "bitcoin",
-                IndicatorId = "price-change-24hrs",
-                UserId = "johny12",
+                IndicatorId = "price",
+                IndicatorType = IndicatorType.CurrencyIndicator,
+                UserId = "master",
                 Value = 1.5m,
                 AverageBuy = 15,
                 AverageSell = 8,
                 Time = DateTime.Now.AddHours(-1)
             };
         }
-        public static DataPointResponse GetFake_CurrencyIndicator_2()
+        public static DataPointResponse GetFake_Bitcoin_RSI()
         {
             return new DataPointResponse
             {
-                IndicatorType = IndicatorType.CurrencyIndicator,
                 TargetId = "bitcoin",
-                IndicatorId = "hype",
-                UserId = "johny12",
+                IndicatorId = "rsi",
+                IndicatorType = IndicatorType.CurrencyIndicator,
+                UserId = "master",
                 Value = 1.5m,
                 AverageBuy = 9,
                 AverageSell = 6,
@@ -39,8 +39,8 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new List<DataPointResponse>
             {
-                GetFake_CurrencyIndicator_1(),
-                GetFake_CurrencyIndicator_2()
+                GetFake_Bitcoin_Price(),
+                GetFake_Bitcoin_RSI()
             };
         }
     }

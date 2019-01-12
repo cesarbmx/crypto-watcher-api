@@ -7,9 +7,9 @@ namespace CryptoWatcher.Domain.Models
     {
         public string Id => LineId.ToString();
         public Guid LineId { get; private set; }
-        public IndicatorType IndicatorType { get; private set; }
         public string TargetId { get; private set; }
         public string IndicatorId { get; private set; }
+        public IndicatorType IndicatorType { get; private set; }
         public string UserId { get; private set; }
         public decimal? Value { get; private set; }
         public decimal? AverageBuy { get; private set; }
@@ -18,9 +18,9 @@ namespace CryptoWatcher.Domain.Models
 
         public DataPoint() { }
         public DataPoint(
-            IndicatorType indicatorType,
             string targetId,
             string indicatorId,
+            IndicatorType indicatorType,
             string userId,
             decimal? value,
             decimal? averageBuy,
@@ -28,9 +28,9 @@ namespace CryptoWatcher.Domain.Models
             DateTime time)
         {
             LineId = Guid.NewGuid();
-            IndicatorType = indicatorType;
             TargetId = targetId;
             IndicatorId = indicatorId;
+            IndicatorType = indicatorType;
             UserId = userId;
             Value = value;
             AverageBuy = averageBuy;

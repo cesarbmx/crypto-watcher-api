@@ -6,14 +6,14 @@ namespace CryptoWatcher.Application.FakeResponses
 {
     public static class LogFakeResponse
     {
-        public static LogResponse GetFake_Log()
+        public static LogResponse GetFake_Add_Indicator()
         {
             return new LogResponse
             {              
                 LogId = Guid.NewGuid(),
                 Action = "Add",
-                Entity = "Cache",
-                EntityId = "Currencies",
+                Entity = "Indicator",
+                EntityId = "master_price",
                 Time = DateTime.Now,
                 Json = "{}"
             };
@@ -22,7 +22,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new List<LogResponse>
             {
-                GetFake_Log()
+                GetFake_Add_Indicator()
             };
         }
     }

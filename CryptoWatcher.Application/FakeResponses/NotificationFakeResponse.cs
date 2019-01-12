@@ -6,24 +6,24 @@ namespace CryptoWatcher.Application.FakeResponses
 {
     public static class NotificationFakeResponse
     {
-        public static NotificationResponse GetFake_Cesarbmx()
+        public static NotificationResponse GetFake_master()
         {
             return new NotificationResponse
             {
                 NotificationId = Guid.NewGuid(),
-                UserId = "johny12",
-                Message = "Test",
-                PhoneNumber = "+34666666666",
+                UserId = "master",
+                Message = "Test message",
+                PhoneNumber = "+34666555555",
                 WhatsappSentTime = null
             };
         }
-        public static NotificationResponse GetFake_Johny()
+        public static NotificationResponse GetFake_cesar12()
         {
             return new NotificationResponse
             {
                 NotificationId = Guid.NewGuid(),
-                UserId = "chin.champu",
-                Message = "Test",
+                UserId = "cesar12",
+                Message = "Test message",
                 PhoneNumber = "+34666666666",
                 WhatsappSentTime = null
             };
@@ -32,8 +32,8 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new List<NotificationResponse>
             {
-                GetFake_Cesarbmx(),
-                GetFake_Johny()
+                GetFake_master(),
+                GetFake_cesar12()
             };
         }
     }

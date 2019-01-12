@@ -7,7 +7,7 @@ namespace CryptoWatcher.Api.ResponseExamples
     {
         public object GetExamples()
         {
-            return OrderFakeResponse.GetFake_bitcoin();
+            return OrderFakeResponse.GetFake_Bitcoin();
         }
     }
     public class OrderListResponseExample : IExamplesProvider
