@@ -8,6 +8,16 @@ namespace CryptoWatcher.Persistence.Contexts
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public class MainDbContext : DbContext
     {
+        public DbSet<DataPoint> Lines { get; set; }
+        public DbSet<Log> Logs { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Watcher> Watchers { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Indicator> Indicators { get; set; }
+        public DbSet<IndicatorDependency> IndicatorDependencies { get; set; }
+
         public MainDbContext(DbContextOptions<MainDbContext> options)
            : base(options)
         {
