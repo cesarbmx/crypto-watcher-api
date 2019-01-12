@@ -128,13 +128,10 @@ namespace CryptoWatcher.Application.Services
             // Update dependencies
             var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
             var newDependencies = IndicatorDependencyBuilder.BuildDependencies(request.IndicatorId, request.Dependencies);
-            _indicatorDependencyRepository.AddRange(EntityBuilder.BuildEntitiesToAdd(dependencies, newDependencies));
-            _indicatorDependencyRepository.UpdateRange(EntityBuilder.BuildEntitiesToUpdate(dependencies, newDependencies));
-            _indicatorDependencyRepository.RemoveRange(EntityBuilder.BuildEntitiesToRemove(dependencies, newDependencies));
+            _indicatorDependencyRepository.UpdateCollection(dependencies, newDependencies);
 
             // Update indicator
-            indicator.SetDependencies(newDependencies);
-            indicator.Update(request.Name, request.Description, request.Formula);
+            indicator.Update(request.Name, request.Description, request.Formula, newDependencies);
             _indicatorRepository.Update(indicator);
 
             // Save

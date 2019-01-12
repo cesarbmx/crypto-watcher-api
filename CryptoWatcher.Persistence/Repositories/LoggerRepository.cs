@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CryptoWatcher.Domain.Models;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using CryptoWatcher.Domain.Builders;
 
 namespace CryptoWatcher.Persistence.Repositories
 {
@@ -84,6 +85,12 @@ namespace CryptoWatcher.Persistence.Repositories
             {
                 Remove(entity);
             }
+        }
+        public void UpdateCollection(List<TEntity> currentEntities, List<TEntity> newEntities)
+        {
+            AddRange(EntityBuilder.BuildEntitiesToAdd(currentEntities, newEntities));
+            UpdateRange(EntityBuilder.BuildEntitiesToUpdate(currentEntities, newEntities));
+            RemoveRange(EntityBuilder.BuildEntitiesToRemove(currentEntities, newEntities));
         }
     }
 }
