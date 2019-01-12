@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CryptoWatcher.Api.RequestExamples;
 using CryptoWatcher.Application.Requests;
@@ -53,7 +52,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponseExample(404, typeof(NotFoundExample))]
         [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetWatcher")]
-        public async Task<IActionResult> GetWatcher(Guid watcherId)
+        public async Task<IActionResult> GetWatcher(string watcherId)
         {
             // Reponse
             var response = await _watcherService.GetWatcher(watcherId);

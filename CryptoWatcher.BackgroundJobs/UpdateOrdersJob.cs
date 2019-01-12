@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.Expressions;
 using Hangfire;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Repositories;
@@ -38,8 +39,9 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Get all watchers
-                var watchers = await _watcherRepository.GetAll();
+                // Get all watchers with buy or sells
+                var expression = WatcherExpression.WatcherWillingToBuyOrSell();
+                var watchers = await _watcherRepository.GetAll(expression);
 
                 // Get all orders
                 var orders = await _orderRepository.GetAll();

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Application.Requests;
@@ -64,7 +63,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<WatcherResponse> GetWatcher(Guid watcherId)
+        public async Task<WatcherResponse> GetWatcher(string watcherId)
         {
             // Get watcher
             var watcher = await _watcherRepository.GetSingle(watcherId);

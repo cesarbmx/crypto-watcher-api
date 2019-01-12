@@ -19,15 +19,6 @@ namespace CryptoWatcher.Domain.Expressions
                         (string.IsNullOrEmpty(currencyId) || x.TargetId == currencyId) &&
                         (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId);
         }
-        public static Expression<Func<Watcher, bool>> WatcherWillingToBuy()
-        {
-            return x => x.Status == WatcherStatus.Buy;
-        }
-        public static Expression<Func<Watcher, bool>> WatcherWillingToSell()
-        {
-            return x => x.Status == WatcherStatus.Sell;
-        }
-
         public static Expression<Func<Watcher, bool>> DefaultWatcher()
         {
             return x => x.UserId == "master";
@@ -38,11 +29,9 @@ namespace CryptoWatcher.Domain.Expressions
                         (string.IsNullOrEmpty(targetId) || x.TargetId == targetId) &&
                         (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId);
         }
-
-        public static Expression<Func<Watcher, bool>> NonDefaultWatcherWithBuyOrSell()
+        public static Expression<Func<Watcher, bool>> WatcherWillingToBuyOrSell()
         {
-            return x => x.UserId != "master" && 
-                        x.Buy.HasValue || x.Sell.HasValue;
+            return x => x.Status != WatcherStatus.Hold;
         }
     }
 }
