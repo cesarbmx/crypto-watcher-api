@@ -40,8 +40,7 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Start();
 
                 // Get pending notifications
-                var pendingNotificationExpression = NotificationExpression.PendingNotification();
-                var pendingNotifications = await _notificationRepository.GetAll(pendingNotificationExpression);
+                var pendingNotifications = await _notificationRepository.GetAll(NotificationExpression.PendingNotification());
 
                 // If there are pending notifications
                 if (pendingNotifications.Count > 0)

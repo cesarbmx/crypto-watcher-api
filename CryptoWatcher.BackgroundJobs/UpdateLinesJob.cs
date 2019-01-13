@@ -58,14 +58,12 @@ namespace CryptoWatcher.BackgroundJobs
                 // Get all indicators dependencies
                 foreach (var indicator in indicators)
                 {
-                    var indicatorDependencyFilterExpression = IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null);
-                    var dependencies = await _indicatorDependencyRepository.GetAll(indicatorDependencyFilterExpression);
+                    var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
                     indicator.SetDependencies(dependencies);
                 }
 
                 // Get non-default watchers with buy or sell
-                var watcherWillingToBuyOrSellExpression = WatcherExpression.WatcherWillingToBuyOrSell();
-                var watchers = await _watcherRepository.GetAll(watcherWillingToBuyOrSellExpression);
+                var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherWillingToBuyOrSell());
 
                 // Build lines
                 var lines = LineBuilder.BuildLines(currencies, indicators, watchers);

@@ -21,8 +21,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<List<DataPointResponse>> GetAllLines(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Get all lines
-            var lineFilterExpression = LineExpression.LineFilter(currencyId, indicatorType, indicatorId, userId);
-            var lines = await _lineRepository.GetAll(lineFilterExpression);
+            var lines = await _lineRepository.GetAll(LineExpression.LineFilter(currencyId, indicatorType, indicatorId, userId));
 
             // Response
             var response = _mapper.Map<List<DataPointResponse>>(lines);

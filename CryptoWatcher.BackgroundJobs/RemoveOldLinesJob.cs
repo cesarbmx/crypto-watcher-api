@@ -37,8 +37,7 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Start();
 
                 // Get old lines
-                var oldLineExpression = LineExpression.OldLine();
-                var lines = await _lineRepository.GetAll(oldLineExpression);
+                var lines = await _lineRepository.GetAll(LineExpression.OldLine());
 
                 // Remove
                 _lineRepository.RemoveRange(lines);

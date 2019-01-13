@@ -34,12 +34,10 @@ namespace CryptoWatcher.Application.Services
             var currencies = await _currencyRepository.GetAll(currencyFilterExxpression);
 
             // Get all indicators
-            var indicatorFilterExpression = IndicatorExpression.IndicatorFilter(indicatorType, indicatorId, userId);
-            var indicators = await _indicatorRepository.GetAll(indicatorFilterExpression);
+            var indicators = await _indicatorRepository.GetAll(IndicatorExpression.IndicatorFilter(indicatorType, indicatorId, userId));
 
             // Get all lines
-            var lineFilterExpression = LineExpression.LineFilter(currencyId, indicatorType, indicatorId, userId);
-            var lines = await _lineRepository.GetAll(lineFilterExpression);
+            var lines = await _lineRepository.GetAll(LineExpression.LineFilter(currencyId, indicatorType, indicatorId, userId));
 
             // Build
             var lineCharts = LineChartBuilder.BuildLineCharts(currencies, indicators, lines);

@@ -36,8 +36,7 @@ namespace CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get all notifications
-            var notificationFilterExpression = NotificationExpression.NotificationFilter(userId);
-            var notifications = await _notificationRepository.GetAll(notificationFilterExpression);
+            var notifications = await _notificationRepository.GetAll(NotificationExpression.NotificationFilter(userId));
 
             // Response
             var response = _mapper.Map<List<NotificationResponse>>(notifications);

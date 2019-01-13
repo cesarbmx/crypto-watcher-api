@@ -48,14 +48,12 @@ namespace CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get all indicators
-            var indicatorFilterExpression = IndicatorExpression.IndicatorFilter(indicatorType, null, userId);
-            var indicators = await _indicatorRepository.GetAll(indicatorFilterExpression);
+            var indicators = await _indicatorRepository.GetAll(IndicatorExpression.IndicatorFilter(indicatorType, null, userId));
 
             // Get all dependencies
             foreach (var indicator in indicators)
             {
-                var indicatorDependencyFilterExpression = IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null);
-                var dependencies = await _indicatorDependencyRepository.GetAll(indicatorDependencyFilterExpression);
+                var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
                 indicator.SetDependencies(dependencies);
             }
 
@@ -74,8 +72,7 @@ namespace CryptoWatcher.Application.Services
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Get dependencies
-            var indicatorDependencyFilterExpression = IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null);
-            var indicatorsDependencies = await _indicatorDependencyRepository.GetAll(indicatorDependencyFilterExpression);
+            var indicatorsDependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
             indicator.SetDependencies(indicatorsDependencies);
 
             // Response
@@ -87,8 +84,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<IndicatorResponse> AddIndicator(AddIndicatorRequest request)
         {
             // Get indicator
-            var indicatorExpression = IndicatorExpression.Indicator(request.IndicatorId);
-            var indicator = await _indicatorRepository.GetSingle(indicatorExpression);
+            var indicator = await _indicatorRepository.GetSingle(IndicatorExpression.Indicator(request.IndicatorId));
 
             // Throw ConflictException if it exists
             if (indicator != null) throw new ConflictException(IndicatorMessage.IndicatorWithSameIdAlreadyExists);

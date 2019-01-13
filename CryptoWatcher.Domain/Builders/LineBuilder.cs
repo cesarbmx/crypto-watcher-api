@@ -27,8 +27,7 @@ namespace CryptoWatcher.Domain.Builders
                     if (indicator.DependencyLevel == 0) 
                     {
                         // Get all watchers for this currency indicator pair
-                        var watcherFilterExpression = WatcherExpression.WatcherFilter(null, currency.CurrencyId, indicator.IndicatorId);
-                        var filteredWatchers = watchers.Where(watcherFilterExpression.Compile()).ToList();
+                        var filteredWatchers = watchers.Where(WatcherExpression.WatcherFilter(null, currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
                         // Build
                         value = IndicatorBuilder.BuildValue(currency, indicator);
                         averageBuy = IndicatorBuilder.BuildAverageBuy(filteredWatchers);
@@ -56,11 +55,9 @@ namespace CryptoWatcher.Domain.Builders
                     if (indicator.DependencyLevel == dependencyLevel) // We set the consecutive ones
                     {
                         // Get latest line for this currency indicator pair
-                        var lineExpression = LineExpression.Line(lines[0].Time, currency.CurrencyId, indicator.IndicatorId);
-                        var line = lines.FirstOrDefault(lineExpression.Compile());
+                        var line = lines.FirstOrDefault(LineExpression.Line(lines[0].Time, currency.CurrencyId, indicator.IndicatorId).Compile());
                         // Get all watchers for this currency indicator pair
-                        var watcherFilterExpression = WatcherExpression.WatcherFilter(null, currency.CurrencyId, indicator.IndicatorId);
-                        var filteredWatchers = watchers.Where(watcherFilterExpression.Compile()).ToList();
+                        var filteredWatchers = watchers.Where(WatcherExpression.WatcherFilter(null, currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
                         // Build
                         var value = IndicatorBuilder.BuildValue(currency, indicator, lines);
                         var averageBuy = IndicatorBuilder.BuildAverageBuy(filteredWatchers);

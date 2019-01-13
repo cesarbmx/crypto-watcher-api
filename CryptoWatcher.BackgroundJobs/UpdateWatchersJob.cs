@@ -40,8 +40,7 @@ namespace CryptoWatcher.BackgroundJobs
                 var watchers = await _watcherRepository.GetAll();
 
                 // Get all default watchers
-                var defaultWatcherExpression = WatcherExpression.DefaultWatcher();
-                var defaultWatchers = await _watcherRepository.GetAll(defaultWatcherExpression);
+                var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
 
                 // Sync watchers
                 watchers.SyncWatchers(defaultWatchers);

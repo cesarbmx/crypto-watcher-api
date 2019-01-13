@@ -49,12 +49,10 @@ namespace CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get all watchers
-            var watcherFilterExpression = WatcherExpression.WatcherFilter(userId, currencyId, indicatorId);
-            var userWatchers = await _watcherRepository.GetAll(watcherFilterExpression);
+            var userWatchers = await _watcherRepository.GetAll(WatcherExpression.WatcherFilter(userId, currencyId, indicatorId));
 
             // Get all default watchers
-            var defaultWatcherExpression = WatcherExpression.DefaultWatcher(currencyId, indicatorId);
-            var defaultWatchers = await _watcherRepository.GetAll(defaultWatcherExpression);
+            var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher(currencyId, indicatorId));
 
             // Build with defaults
             userWatchers = WatcherBuilder.BuildWatchersWithDefaults(userWatchers, defaultWatchers);
@@ -94,15 +92,13 @@ namespace CryptoWatcher.Application.Services
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Check if it exists
-            var watcherExpression = WatcherExpression.Watcher(request.UserId, request.TargetId, request.IndicatorId);
-            var watcher = await _watcherRepository.GetSingle(watcherExpression);
+            var watcher = await _watcherRepository.GetSingle(WatcherExpression.Watcher(request.UserId, request.TargetId, request.IndicatorId));
 
             // Throw ConflictException if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
 
             // Get default watcher
-            var defaultWatcherExpression = WatcherExpression.DefaultWatcher(request.TargetId, request.IndicatorId);
-           var defaultWatcher = await _watcherRepository.GetSingle(defaultWatcherExpression);
+           var defaultWatcher = await _watcherRepository.GetSingle(WatcherExpression.DefaultWatcher(request.TargetId, request.IndicatorId));
 
             // Add
             watcher = new Watcher(
