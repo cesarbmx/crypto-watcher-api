@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
@@ -88,15 +87,27 @@ namespace CryptoWatcher.Application.Services
         public async Task<IndicatorResponse> AddIndicator(AddIndicatorRequest request)
         {
             // Check if it exists
-            var indicatorExpression = IndicatorExpression.Indicator(request.UserId, request.Name);
-            var indicator = await _indicatorRepository.GetSingle(indicatorExpression);
+            var indicatorUniqueExpression = IndicatorExpression.IndicatorUnique(request.UserId, request.Name);
+            var indicator = await _indicatorRepository.GetSingle(indicatorUniqueExpression);
 
             // Throw ConflictException if it exists
             if (indicator != null) throw new ConflictException(IndicatorMessage.IndicatorAlreadyExists);
 
             // Add dependencies
-            var dependencies = IndicatorDependencyBuilder.BuildDependencies(request.IndicatorId, request.Dependencies);
-            _indicatorDependencyRepository.AddRange(dependencies);
+            var indicatorDependencies = new List<IndicatorDependency>();
+            foreach (var dependencyId in request.Dependencies)
+            {
+                // Get indicator
+                var indicatorExpression = IndicatorExpression.Indicator(dependencyId);
+                var dependency = await _indicatorRepository.GetSingle(indicatorExpression);
+
+                // Throw ValidationException if it does not exist
+                if (dependency == null) throw new ValidationException(string.Format(IndicatorMessage.DepenedencyNotFound, dependencyId));
+                var indicatorDependency = new IndicatorDependency(request.IndicatorId, dependency.IndicatorId, dependency.DependencyLevel);
+
+                // Add
+                indicatorDependencies.Add(indicatorDependency);
+            }
 
             // Add
             indicator = new Indicator(
@@ -106,7 +117,7 @@ namespace CryptoWatcher.Application.Services
                 request.Name,
                 request.Description,
                 request.Formula,
-                dependencies);           
+                indicatorDependencies);           
             _indicatorRepository.Add(indicator);
 
             // Save
@@ -129,11 +140,26 @@ namespace CryptoWatcher.Application.Services
             // Throw NotFoundException if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
+            // Get dependencies
+            var newDependencies = new List<IndicatorDependency>();
+            foreach (var dependencyId in request.Dependencies)
+            {
+                // Get indicator
+                var indicatorExpression = IndicatorExpression.Indicator(dependencyId);
+                var dependency = await _indicatorRepository.GetSingle(indicatorExpression);
+
+                // Throw ValidationException if it does not exist
+                if (dependency == null) throw new ValidationException(string.Format(IndicatorMessage.DepenedencyNotFound, dependencyId));
+                var indicatorDependency = new IndicatorDependency(request.IndicatorId, dependency.IndicatorId, dependency.DependencyLevel);
+
+                // Add
+                newDependencies.Add(indicatorDependency);
+            }
+
             // Update dependencies
             var indicatorDependencyFilterExpression = IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null);
-            var dependencies = await _indicatorDependencyRepository.GetAll(indicatorDependencyFilterExpression);
-            var newDependencies = IndicatorDependencyBuilder.BuildDependencies(request.IndicatorId, request.Dependencies);
-            _indicatorDependencyRepository.UpdateCollection(dependencies, newDependencies);
+            var currentDependencies = await _indicatorDependencyRepository.GetAll(indicatorDependencyFilterExpression);
+            _indicatorDependencyRepository.UpdateCollection(currentDependencies, newDependencies);
 
             // Update indicator
             indicator.Update(request.Name, request.Description, request.Formula, newDependencies);

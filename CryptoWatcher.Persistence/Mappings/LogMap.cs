@@ -49,7 +49,7 @@ namespace CryptoWatcher.Persistence.Mappings
             var indicator1 = new Indicator("price", IndicatorType.CurrencyIndicator, "master", "Price", "", "", null);
             var indicator2 = new Indicator("price-change-24hrs", IndicatorType.CurrencyIndicator, "master", "Price change 24Hrs", "", "", null);
             var indicator3 = new Indicator("hype", IndicatorType.CurrencyIndicator, "master", "Hype", "", "", null);
-            var indicatorDependencies1 = new IndicatorDependency("hype", "price-change-24hrs");
+            var indicatorDependencies1 = new IndicatorDependency("hype", "price-change-24hrs", 0);
 
             entityBuilder.HasData(
                 new Log("Add", user1, user1.Id),

@@ -15,11 +15,11 @@ namespace CryptoWatcher.Domain.Tests.BuildersTests
             // Arrange
             var dependencyLevels = new List<IndicatorDependency>
             {
-                new IndicatorDependency("2", "1"),
-                new IndicatorDependency("3", "1"),
-                new IndicatorDependency("3", "2"),
-                new IndicatorDependency("4", "3"),
-                new IndicatorDependency("5", "3")
+                new IndicatorDependency("2", "1", 0),
+                new IndicatorDependency("3", "1", 0),
+                new IndicatorDependency("3", "2", 0),
+                new IndicatorDependency("4", "3", 0),
+                new IndicatorDependency("5", "3", 0)
             };
 
             // Act
