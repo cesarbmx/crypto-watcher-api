@@ -48,7 +48,7 @@ namespace CryptoWatcher.Application.Services
             // Get user
             var user = await _userRepository.GetSingle(userId);
 
-            // Throw NotFound exception if it does not exist
+            // Throw NotFoundException if it does not exist
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Response

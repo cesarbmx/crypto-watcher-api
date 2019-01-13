@@ -40,8 +40,8 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Start();
 
                 // Get all watchers with buy or sells
-                var expression = WatcherExpression.WatcherWillingToBuyOrSell();
-                var watchers = await _watcherRepository.GetAll(expression);
+                var watcherWillingToBuyOrSellExpression = WatcherExpression.WatcherWillingToBuyOrSell();
+                var watchers = await _watcherRepository.GetAll(watcherWillingToBuyOrSellExpression);
 
                 // Get all orders
                 var orders = await _orderRepository.GetAll();

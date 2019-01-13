@@ -49,10 +49,12 @@ namespace CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get all watchers
-            var userWatchers = await _watcherRepository.GetAll(WatcherExpression.WatcherFilter(userId, currencyId, indicatorId));
+            var watcherFilterExpression = WatcherExpression.WatcherFilter(userId, currencyId, indicatorId);
+            var userWatchers = await _watcherRepository.GetAll(watcherFilterExpression);
 
             // Get all default watchers
-            var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher(currencyId, indicatorId));
+            var defaultWatcherExpression = WatcherExpression.DefaultWatcher(currencyId, indicatorId);
+            var defaultWatchers = await _watcherRepository.GetAll(defaultWatcherExpression);
 
             // Build with defaults
             userWatchers = WatcherBuilder.BuildWatchersWithDefaults(userWatchers, defaultWatchers);
@@ -68,7 +70,7 @@ namespace CryptoWatcher.Application.Services
             // Get watcher
             var watcher = await _watcherRepository.GetSingle(watcherId);
 
-            // Throw NotFound exception if it does not exist
+            // Throw NotFoundException if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Response
@@ -82,23 +84,25 @@ namespace CryptoWatcher.Application.Services
             // Get user
             var user = await _userRepository.GetSingle(request.UserId);
 
-            // Throw NotFound exception if the currency does not exist
+            // Throw NotFoundException if the currency does not exist
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get indicator
             var indicator = await _indicatorRepository.GetSingle(request.IndicatorId);
 
-            // Throw NotFound exception if the currency does not exist
+            // Throw NotFoundException if the currency does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Check if it exists
-            var watcher = await _watcherRepository.GetSingle(WatcherExpression.Watcher(request.UserId, request.TargetId, request.IndicatorId));
+            var watcherExpression = WatcherExpression.Watcher(request.UserId, request.TargetId, request.IndicatorId);
+            var watcher = await _watcherRepository.GetSingle(watcherExpression);
 
-            // Throw ConflictException exception if it exists
+            // Throw ConflictException if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
 
             // Get default watcher
-            var defaultWatcher = await _watcherRepository.GetSingle(WatcherExpression.DefaultWatcher(request.TargetId, request.IndicatorId));
+            var defaultWatcherExpression = WatcherExpression.DefaultWatcher(request.TargetId, request.IndicatorId);
+           var defaultWatcher = await _watcherRepository.GetSingle(defaultWatcherExpression);
 
             // Add
             watcher = new Watcher(
@@ -131,7 +135,7 @@ namespace CryptoWatcher.Application.Services
             // Get watcher
             var watcher = await _watcherRepository.GetSingle(request.WatcherId);
 
-            // Throw NotFound exception if it does not exist
+            // Throw NotFoundException if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Update

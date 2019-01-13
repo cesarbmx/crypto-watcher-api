@@ -25,7 +25,8 @@ namespace CryptoWatcher.Persistence.Repositories
 
         private void LoadAudit(DateTime dateTime)
         {
-            var log = _logRepository.GetAll(LogExpression.AuditLog(typeof(TEntity).Name, dateTime)).Result;
+            var auditLogExpression = LogExpression.AuditLog(typeof(TEntity).Name, dateTime);
+            var log = _logRepository.GetAll(auditLogExpression).Result;
 
             foreach (var logEntry in log)
             {

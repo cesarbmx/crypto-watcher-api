@@ -37,7 +37,7 @@ namespace CryptoWatcher.Application.Services
             // Get log
             var log = await _logRepository.GetSingle(logId);
 
-            // Throw NotFound exception if the currency does not exist
+            // Throw NotFoundException if the currency does not exist
             if (log == null) throw new NotFoundException(LogMessage.LogNotFound);
 
             // Response

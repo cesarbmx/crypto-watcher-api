@@ -36,7 +36,8 @@ namespace CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get all notifications
-            var notifications = await _notificationRepository.GetAll(NotificationExpression.NotificationFilter(userId));
+            var notificationFilterExpression = NotificationExpression.NotificationFilter(userId);
+            var notifications = await _notificationRepository.GetAll(notificationFilterExpression);
 
             // Response
             var response = _mapper.Map<List<NotificationResponse>>(notifications);
@@ -49,7 +50,7 @@ namespace CryptoWatcher.Application.Services
             // Get notification
             var notification = await _notificationRepository.GetSingle(notificationId);
 
-            // Throw NotFound exception if the currency does not exist
+            // Throw NotFoundException if the currency does not exist
             if (notification == null) throw new NotFoundException(NotificationMessage.NotificationNotFound);
 
             // Response

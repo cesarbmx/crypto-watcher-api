@@ -70,7 +70,8 @@ namespace CryptoWatcher.Domain.Builders
 
                 var currencyId = watcher.TargetId;
                 var indicatorId = watcher.IndicatorId;
-                var defaultWatcher = defaultWatchers.FirstOrDefault(WatcherExpression.DefaultWatcher(currencyId, indicatorId).Compile());
+                var defaultWatcherExpression = WatcherExpression.DefaultWatcher(currencyId, indicatorId);
+                var defaultWatcher = defaultWatchers.FirstOrDefault(defaultWatcherExpression.Compile());
                 if (defaultWatcher != null) watcher.Sync(defaultWatcher.Value, defaultWatcher.AverageBuy, defaultWatcher.AverageSell);
             }
         }

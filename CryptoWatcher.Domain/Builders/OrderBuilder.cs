@@ -20,12 +20,12 @@ namespace CryptoWatcher.Domain.Builders
 
                 // We add an order if there are no similar orders
                 var orderType = BuildOrderType(watcher.Status);
-                var expression = OrderExpression.Order(
+                var orderExpression = OrderExpression.Order(
                     watcher.UserId,
                     watcher.TargetId,
                     watcher.WatcherId,
                     orderType);
-                var userOrders = ongoingOrders.Where(expression.Compile()).ToList();                
+                var userOrders = ongoingOrders.Where(orderExpression.Compile()).ToList();                
                 if (userOrders.Count != 0) continue;
                 var order = new Order(watcher.UserId, orderType, watcher.TargetId, watcher.WatcherId, 100);
                 newOrders.Add(order);

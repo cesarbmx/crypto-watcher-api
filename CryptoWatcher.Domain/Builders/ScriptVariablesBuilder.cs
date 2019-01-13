@@ -56,7 +56,8 @@ namespace CryptoWatcher.Domain.Builders
                     var level3 = new Dictionary<string, decimal?>();
                     foreach (var target in targets)
                     {
-                        var line = lines.FirstOrDefault(LineExpression.Line(time, target, indicator).Compile());
+                        var lineExpression = LineExpression.Line(time, target, indicator);
+                        var line = lines.FirstOrDefault(lineExpression.Compile());
                         level3.Add(target, line?.Value);
                     }
                     level2.Add(indicator, level3);
