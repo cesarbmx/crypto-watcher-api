@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6.- Exchanges", "6.- Exchan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Domain.Tests", "CryptoWatcher.Domain.Tests\CryptoWatcher.Domain.Tests.csproj", "{1B4B4F5D-5D7A-4DB5-8A22-2ED4006DF29A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoWatcher.Web", "CryptoWatcher.Web\CryptoWatcher.Web.csproj", "{83EBE6E6-987A-4E9A-8624-B4B4A7088E00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{1B4B4F5D-5D7A-4DB5-8A22-2ED4006DF29A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B4B4F5D-5D7A-4DB5-8A22-2ED4006DF29A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B4B4F5D-5D7A-4DB5-8A22-2ED4006DF29A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83EBE6E6-987A-4E9A-8624-B4B4A7088E00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83EBE6E6-987A-4E9A-8624-B4B4A7088E00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83EBE6E6-987A-4E9A-8624-B4B4A7088E00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83EBE6E6-987A-4E9A-8624-B4B4A7088E00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +127,7 @@ Global
 		{E69479FE-F761-4B2A-9F5B-8B873CE518A0} = {71BFA55D-3DFE-4974-94FC-59A45F3A43D1}
 		{2A5A40FF-7A4A-45EF-A638-B48C86E710A1} = {745423D1-AE67-4D3D-B81B-F05609E5F62A}
 		{1B4B4F5D-5D7A-4DB5-8A22-2ED4006DF29A} = {C6E9ABD6-381C-4BD2-A666-D52A953BE516}
+		{83EBE6E6-987A-4E9A-8624-B4B4A7088E00} = {71BFA55D-3DFE-4974-94FC-59A45F3A43D1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7CCEAABE-45B4-414D-A0A5-108B4DDEC89E}
