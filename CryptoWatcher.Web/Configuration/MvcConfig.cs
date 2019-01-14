@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace CryptoWatcher.UI.Configuration
+namespace CryptoWatcher.Web.Configuration
 {
     public static class MvcConfig
     {
@@ -28,7 +28,7 @@ namespace CryptoWatcher.UI.Configuration
                     options.SerializerSettings.Converters.Add(
                         new Newtonsoft.Json.Converters.StringEnumConverter()); // Enums as string
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             return services;
         }

@@ -11,7 +11,7 @@ using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Shared.Extensions;
 using ElmahCore;
 
-namespace CryptoWatcher.UI.Middlewares
+namespace CryptoWatcher.Web.Middlewares
 {
     public class ErrorHandlingMiddleware
     {

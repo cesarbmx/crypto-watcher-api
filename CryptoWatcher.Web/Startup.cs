@@ -1,9 +1,10 @@
+using CryptoWatcher.Web.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Web
 {
@@ -26,12 +27,27 @@ namespace CryptoWatcher.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // CORS
+            services.ConfigureCors();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            // Automapper
+            services.ConfigureAutomapper();
+
+            // DI
+            services.ConfigureDependencies(Configuration);
+
+            // Hangfire
+            services.ConfigureHangfire(Configuration);
+
+            // Elmah
+            services.ConfigureElmah(Configuration);
+
+            // Mvc
+            services.ConfigureMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerfactory)
         {
             if (env.IsDevelopment())
             {
@@ -45,7 +61,20 @@ namespace CryptoWatcher.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc();
+            // Middlewares
+            app.ConfigureMiddlewares();
+
+            // Log4Net
+            loggerfactory.ConfigureLog4Net(env);
+
+            // Data seeding
+            app.ConfigureDataSeeding();
+
+            // Hangfire
+            app.ConfigureHangfire(Configuration);
+
+            // Mvc
+            app.ConfigureMvc();
         }
     }
 }

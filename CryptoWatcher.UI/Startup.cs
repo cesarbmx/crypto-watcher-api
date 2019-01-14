@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -28,9 +27,6 @@ namespace CryptoWatcher.UI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             // CORS
             services.ConfigureCors();
 
@@ -42,6 +38,9 @@ namespace CryptoWatcher.UI
 
             // Hangfire
             services.ConfigureHangfire(Configuration);
+
+            // Elmah
+            services.ConfigureElmah(Configuration);
 
             // Mvc
             services.ConfigureMvc();
