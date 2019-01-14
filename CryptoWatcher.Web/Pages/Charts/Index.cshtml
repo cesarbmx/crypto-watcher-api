@@ -1,4 +1,5 @@
-﻿@model IndexModel
+﻿@page
+@model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
@@ -25,7 +26,7 @@
                 },
                 baselineColor: '#FFFFFF'
             },
-            vAxis: {                
+            vAxis: {
                 textPosition: 'none',
                 textStyle: {
                     color: '#FFFFFF'
@@ -46,11 +47,11 @@
     </script>
 </head>
 <body>
-@foreach (var chart in @Model.Charts)
-{
-    @chart.TargetName<br />
-    @chart.IndicatorName<br />
-    <partial name="_Chart" model="@chart" />
-}
+    @foreach (var chart in @Model.Charts)
+    {
+        @chart.TargetName<br />
+        @chart.IndicatorName<br />
+        <partial name="_Chart" model="@chart" />
+    }
 </body>
 </html>
