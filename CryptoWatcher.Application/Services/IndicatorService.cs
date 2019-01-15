@@ -98,7 +98,7 @@ namespace CryptoWatcher.Application.Services
             // Build dependencies
             var dependencies = await BuildDependencies(request.IndicatorId, request.Dependencies);
 
-            // Add
+            // Create
             indicator = new Indicator(
                 request.IndicatorId,
                 request.IndicatorType,
@@ -106,7 +106,9 @@ namespace CryptoWatcher.Application.Services
                 request.Name,
                 request.Description,
                 request.Formula,
-                dependencies);           
+                dependencies);
+
+            // Add
             _indicatorRepository.Add(indicator);
 
             // Save

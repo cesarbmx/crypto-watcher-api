@@ -65,8 +65,10 @@ namespace CryptoWatcher.Application.Services
             // Check if it exists
             if (user != null) throw new ConflictException(UserMessage.UserAlreadyExists);
 
-            // Add user
+            // Create
             user = new User(request.UserId);
+
+            // Add user
             _userRepository.Add(user);
 
             // Save
