@@ -51,11 +51,7 @@ namespace CryptoWatcher.Application.Services
             var indicators = await _indicatorRepository.GetAll(IndicatorExpression.IndicatorFilter(indicatorType, null, userId));
 
             // Get all dependencies
-            foreach (var indicator in indicators)
-            {
-                var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
-                indicator.SetDependencies(dependencies);
-            }
+            await GetDependencies(indicators);
 
             // Response
             var response = _mapper.Map<List<IndicatorResponse>>(indicators);
@@ -72,8 +68,7 @@ namespace CryptoWatcher.Application.Services
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Get dependencies
-            var indicatorsDependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
-            indicator.SetDependencies(indicatorsDependencies);
+            await GetDependencies(indicator);
 
             // Response
             var response = _mapper.Map<IndicatorResponse>(indicator);
@@ -153,6 +148,19 @@ namespace CryptoWatcher.Application.Services
 
             // Return
             return response;
+        }
+
+        private async Task GetDependencies(List<Indicator> indicators)
+        {
+            foreach (var indicator in indicators)
+            {
+                await GetDependencies(indicator);
+            }
+        }
+        private async Task GetDependencies(Indicator indicator)
+        {
+            var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
+            indicator.SetDependencies(dependencies);
         }
         private async Task<List<IndicatorDependency>> BuildDependencies(string indicatorId, string[] dependencies)
         {

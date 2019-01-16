@@ -100,6 +100,7 @@ namespace CryptoWatcher.BackgroundJobs
                 _logger.LogSplunkError(ex);
             }
         }
+
         private async Task SetIndicatorDependencies(List<Indicator> indicators)
         {
             foreach (var indicator in indicators)
