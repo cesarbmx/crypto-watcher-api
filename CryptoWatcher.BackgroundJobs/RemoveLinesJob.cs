@@ -11,15 +11,15 @@ using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class RemoveOldLinesJob
+    public class RemoveLinesJob
     {
         private readonly MainDbContext _mainDbContext;
-        private readonly ILogger<RemoveOldLinesJob> _logger;
+        private readonly ILogger<RemoveLinesJob> _logger;
         private readonly IRepository<DataPoint> _lineRepository;
 
-        public RemoveOldLinesJob(
+        public RemoveLinesJob(
             MainDbContext mainDbContext,
-            ILogger<RemoveOldLinesJob> logger,
+            ILogger<RemoveLinesJob> logger,
             IRepository<DataPoint> lineRepository)
         {
             _mainDbContext = mainDbContext;
@@ -36,8 +36,8 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Get old lines
-                var lines = await _lineRepository.GetAll(LineExpression.OldLine());
+                // Get lines to be removed
+                var lines = await _lineRepository.GetAll(LineExpression.ObsoleteLine());
 
                 // Remove
                 _lineRepository.RemoveRange(lines);
@@ -65,6 +65,8 @@ namespace CryptoWatcher.BackgroundJobs
                 {
                     JobFailed = ex.Message
                 });
+
+                // Log error into Splunk
                 _logger.LogSplunkError(ex);
             }
         }

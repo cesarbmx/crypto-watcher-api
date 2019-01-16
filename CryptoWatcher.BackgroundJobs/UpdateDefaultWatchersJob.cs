@@ -16,12 +16,12 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UpdateDefaultWatchersJob> _logger;
-        private readonly ILineRepository _lineRepository;
+        private readonly IRepository<DataPoint> _lineRepository;
         private readonly IRepository<Watcher> _watcherRepository;
         public UpdateDefaultWatchersJob(
             MainDbContext mainDbContext,
             ILogger<UpdateDefaultWatchersJob> logger,
-            ILineRepository lineRepository,
+            IRepository<DataPoint> lineRepository,
             IRepository<Watcher> watcherRepository)
         {
             _mainDbContext = mainDbContext;
@@ -40,11 +40,11 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Get all current lines
-                var lines = await _lineRepository.GetCurrentLines();
+                // Get current lines
+                var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine());
 
                 // Build default watchers
-                var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);
+                var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(currentLines);
 
                 // Get all default watchers
                 var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
@@ -75,6 +75,8 @@ namespace CryptoWatcher.BackgroundJobs
                 {
                     JobFailed = ex.Message
                 });
+
+                // Log error into Splunk
                 _logger.LogSplunkError(ex);
             }
         }

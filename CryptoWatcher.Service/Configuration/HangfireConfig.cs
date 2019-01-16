@@ -35,12 +35,12 @@ namespace CryptoWatcher.Service.Configuration
             var mainJob = serviceProvider.GetService<MainJob>();
             var sendWhatsappNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();
             var sendTelegramNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();
-            var removeLinesJob = serviceProvider.GetService<RemoveOldLinesJob>();
+            var removeLinesJob = serviceProvider.GetService<RemoveLinesJob>();
 
             RecurringJob.AddOrUpdate("Main", () => mainJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));           
             RecurringJob.AddOrUpdate("Send whatsapp notifications", () => sendWhatsappNotificationsJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
             RecurringJob.AddOrUpdate("Send telegram notifications", () => sendTelegramNotificationsJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            RecurringJob.AddOrUpdate("Remove old lines", () => removeLinesJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate("Remove lines", () => removeLinesJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
         }
     }
     public class HangfireLoggerProvider : ILogProvider

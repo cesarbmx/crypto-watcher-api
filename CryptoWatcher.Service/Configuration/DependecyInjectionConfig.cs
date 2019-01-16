@@ -38,9 +38,8 @@ namespace CryptoWatcher.Service.Configuration
             services.AddScoped<Repository<Notification>, Repository<Notification>>();
             services.AddScoped<Repository<Order>, Repository<Order>>();
             services.AddScoped<Repository<Indicator>, Repository<Indicator>>();
-            services.AddScoped<Repository<DataPoint>, LineRepository>();
             services.AddScoped<Repository<IndicatorDependency>, Repository<IndicatorDependency>>();
-            services.AddScoped<LineRepository, LineRepository>();
+            services.AddScoped<Repository<DataPoint>, Repository<DataPoint>>();
 
             // Logger repositories
             services.AddScoped<IRepository<Log>, Repository<Log>>();
@@ -52,7 +51,7 @@ namespace CryptoWatcher.Service.Configuration
             services.AddScoped<IRepository<Indicator>, LoggerRepository<Indicator>>();
             services.AddScoped<IRepository<DataPoint>, LoggerRepository<DataPoint>>();
             services.AddScoped<IRepository<IndicatorDependency>, LoggerRepository<IndicatorDependency>>();
-            services.AddScoped<ILineRepository, LineLoggerRepository>();
+            services.AddScoped<IRepository<DataPoint>, LoggerRepository<DataPoint>>();
 
             // Jobs
             services.AddTransient<MainJob, MainJob>();
@@ -63,7 +62,7 @@ namespace CryptoWatcher.Service.Configuration
             services.AddTransient<UpdateOrdersJob, UpdateOrdersJob>();
             services.AddTransient<SendWhatsappNotificationsJob, SendWhatsappNotificationsJob>();
             services.AddTransient<SendTelgramNotifications, SendTelgramNotifications>();
-            services.AddTransient<RemoveOldLinesJob, RemoveOldLinesJob>();
+            services.AddTransient<RemoveLinesJob, RemoveLinesJob>();
             services.AddScoped<UpdateIndicatorDependenciesJob, UpdateIndicatorDependenciesJob>();
 
             // Other

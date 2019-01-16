@@ -35,7 +35,7 @@ namespace CryptoWatcher.Domain.Builders
                     }
 
                     // Add
-                    var dataPoint = new DataPoint(currency.CurrencyId, indicator.IndicatorId, indicator.IndicatorType, indicator.UserId, value, averageBuy, averageSell, time);
+                    var dataPoint = new DataPoint(currency.CurrencyId, indicator.IndicatorId, indicator.IndicatorType, indicator.UserId, value, averageBuy, averageSell, true, time);
                     lines.Add(dataPoint);
                 }
             }
@@ -70,6 +70,14 @@ namespace CryptoWatcher.Domain.Builders
 
             // Do the same with the next level recursively
             if(dependencyLevel < stopAt)  BuildLines(currencies, indicators, watchers, lines, dependencyLevel + 1, stopAt);
+        }
+
+        public static void SetLinesAsNoLongerCurrent(List<DataPoint> currentLines)
+        {
+            foreach (var currentLine in currentLines)
+            {
+                currentLine.SetAsNoLongerCurrent();
+            }
         }
     }
 }

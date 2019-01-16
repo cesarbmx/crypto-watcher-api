@@ -51,9 +51,8 @@ namespace CryptoWatcher.UI.Configuration
             services.AddScoped<Repository<Notification>, Repository<Notification>>();
             services.AddScoped<Repository<Order>, Repository<Order>>();
             services.AddScoped<Repository<Indicator>, Repository<Indicator>>();
-            services.AddScoped<Repository<DataPoint>, LineRepository>();
             services.AddScoped<Repository<IndicatorDependency>, Repository<IndicatorDependency>>();
-            services.AddScoped<LineRepository, LineRepository>();
+            services.AddScoped<Repository<DataPoint>, Repository<DataPoint>>();
 
             // Logger repositories
             services.AddScoped<IRepository<Log>, Repository<Log>>();
@@ -65,7 +64,7 @@ namespace CryptoWatcher.UI.Configuration
             services.AddScoped<IRepository<Indicator>, LoggerRepository<Indicator>>();
             services.AddScoped<IRepository<DataPoint>, LoggerRepository<DataPoint>>();
             services.AddScoped<IRepository<IndicatorDependency>, LoggerRepository<IndicatorDependency>>();
-            services.AddScoped<ILineRepository, LineLoggerRepository>();
+            services.AddScoped<IRepository<DataPoint>, LoggerRepository<DataPoint>>();
 
 
             // Jobs
@@ -77,7 +76,7 @@ namespace CryptoWatcher.UI.Configuration
             services.AddScoped<UpdateOrdersJob, UpdateOrdersJob>();
             services.AddScoped<SendWhatsappNotificationsJob, SendWhatsappNotificationsJob>();
             services.AddScoped<SendTelgramNotifications, SendTelgramNotifications>();
-            services.AddScoped<RemoveOldLinesJob, RemoveOldLinesJob>();
+            services.AddScoped<RemoveLinesJob, RemoveLinesJob>();
             services.AddScoped<UpdateIndicatorDependenciesJob, UpdateIndicatorDependenciesJob>();
 
             // Other

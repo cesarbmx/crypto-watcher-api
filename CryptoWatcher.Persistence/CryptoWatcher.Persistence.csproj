@@ -6,7 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Repositories\ILineRepository.cs" />
     <Compile Remove="Repositories\IndicatorAuditRepository.cs" />
+    <Compile Remove="Repositories\LineAuditRepository.cs" />
+    <Compile Remove="Repositories\LineLoggerRepository.cs" />
+    <Compile Remove="Repositories\LineRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

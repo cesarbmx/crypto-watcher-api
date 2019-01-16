@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
@@ -46,6 +47,7 @@ namespace CryptoWatcher.BackgroundJobs
             try
             {
                 // Start watch
+
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
@@ -55,20 +57,19 @@ namespace CryptoWatcher.BackgroundJobs
                 // Get all indicators
                 var indicators = await _indicatorRepository.GetAll();
 
-                // Get all indicators dependencies
-                foreach (var indicator in indicators)
-                {
-                    var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
-                    indicator.SetDependencies(dependencies);
-                }
+                // Set all indicators dependencies
+                await SetIndicatorDependencies(indicators);
 
                 // Get non-default watchers with buy or sell
                 var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherWillingToBuyOrSell());
 
-                // Build lines
+                // Set current lines as no longer current
+                await SetCurrentLinesAsNoLongerCurrent();
+
+                // Build new lines
                 var lines = LineBuilder.BuildLines(currencies, indicators, watchers);
 
-                // Set lines
+                // Set new lines
                 _lineRepository.AddRange(lines);
 
                 // Save
@@ -94,8 +95,29 @@ namespace CryptoWatcher.BackgroundJobs
                 {
                     JobFailed = ex.Message
                 });
+
+                // Log error into Splunk
                 _logger.LogSplunkError(ex);
             }
+        }
+        private async Task SetIndicatorDependencies(List<Indicator> indicators)
+        {
+            foreach (var indicator in indicators)
+            {
+                var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
+                indicator.SetDependencies(dependencies);
+            }
+        }
+        private async Task SetCurrentLinesAsNoLongerCurrent()
+        {
+            // Get current lines
+            var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine());
+
+            // Set as no longer current
+            LineBuilder.SetLinesAsNoLongerCurrent(currentLines);
+
+            // Update
+            _lineRepository.UpdateRange(currentLines);
         }
     }
 }
