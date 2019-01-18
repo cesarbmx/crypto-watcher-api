@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CryptoWatcher.Api.Configuration
 {
@@ -20,6 +21,12 @@ namespace CryptoWatcher.Api.Configuration
             });
 
             return services;
+        }
+        public static IApplicationBuilder ConfigureCors(this IApplicationBuilder app)
+        {
+            app.UseCors("AllowAll");
+
+            return app;
         }
     }
 }
