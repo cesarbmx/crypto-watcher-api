@@ -48,11 +48,6 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.WatcherId)
-                .HasColumnType("nvarchar(152)")
-                .HasMaxLength(152)
-                .IsRequired();
-
             entityBuilder.Property(t => t.Quantity)
                 .HasColumnType("decimal(18,4)")
                 .IsRequired();
