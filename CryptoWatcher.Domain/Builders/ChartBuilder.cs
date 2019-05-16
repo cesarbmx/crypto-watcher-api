@@ -7,7 +7,7 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class LineChartBuilder
     {
-        public static List<LineChart> BuildLineCharts(List<Currency> currencies, List<Indicator> indicators, List<DataPoint> lines)
+        public static List<LineChart> BuildLineCharts(List<Currency> currencies, List<Indicator> indicators, List<Line> lines)
         {
             var lineCharts = new List<LineChart>();
             foreach (var currency in currencies)
@@ -29,7 +29,7 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return lineCharts;
         }
-        public static List<LineChartRow> BuildLineChartRows(List<DataPoint> lines)
+        public static List<LineChartRow> BuildLineChartRows(List<Line> lines)
         {
             // LineChart rows
             var lineChartRows = new List<LineChartRow>();

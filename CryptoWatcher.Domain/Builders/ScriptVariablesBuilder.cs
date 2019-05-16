@@ -9,7 +9,7 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class ScriptVariablesBuilder
     {
-        public static ScriptVariables BuildScriptVariables(List<DataPoint> lines)
+        public static ScriptVariables BuildScriptVariables(List<Line> lines)
         {
             var scriptVariables = new ScriptVariables(
                 BuildTimes(lines),
@@ -23,28 +23,28 @@ namespace CryptoWatcher.Domain.Builders
             return scriptVariables;
         }
 
-        public static DateTime[] BuildTimes(List<DataPoint> lines)
+        public static DateTime[] BuildTimes(List<Line> lines)
         {
             return lines.Select(x => x.Time).Distinct().ToArray();
         }
 
-        public static string[] BuildCurrencies(List<DataPoint> lines)
+        public static string[] BuildCurrencies(List<Line> lines)
         {
             return lines.Select(x => x.TargetId).Distinct().ToArray();
         }
 
-        public static string[] BuildIndicators(List<DataPoint> lines)
+        public static string[] BuildIndicators(List<Line> lines)
         {
             return lines.Select(x => x.IndicatorId).Distinct().ToArray();
         }
 
         public static Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal?>>> BuildValues(
-            List<DataPoint> lines)
+            List<Line> lines)
         {
             // Distinct
             var times = lines.Select(x => x.Time).Distinct().ToList();
-            var targets = lines.Select(x => x.TargetId).Distinct().ToList();
             var indicators = lines.Select(x => x.IndicatorId).Distinct().ToList();
+            var targets = lines.Select(x => x.TargetId).Distinct().ToList();
 
             // Loop
             var level1 = new Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal?>>>();

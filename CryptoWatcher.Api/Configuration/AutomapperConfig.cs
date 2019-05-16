@@ -33,7 +33,7 @@ namespace CryptoWatcher.Api.Configuration
                     cfg.CreateMap<Order, OrderResponse>();
                     cfg.CreateMap<Indicator, IndicatorResponse>()
                         .ForMember(dest => dest.Dependencies, opt => opt.MapFrom(src => src.Dependencies.Select(x=>x.DependsOn).ToArray()));
-                    cfg.CreateMap<DataPoint, DataPointResponse>();
+                    cfg.CreateMap<Line, LineResponse>();
                     cfg.CreateMap<LineChart, LineChartResponse>();
 
                     // Others

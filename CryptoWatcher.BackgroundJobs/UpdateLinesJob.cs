@@ -21,7 +21,7 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<IndicatorDependency> _indicatorDependencyRepository;
         private readonly IRepository<Watcher> _watcherRepository;
-        private readonly IRepository<DataPoint> _lineRepository;
+        private readonly IRepository<Line> _lineRepository;
 
         public UpdateLinesJob(
             MainDbContext mainDbContext,
@@ -30,7 +30,7 @@ namespace CryptoWatcher.BackgroundJobs
             IRepository<Indicator> indicatorRepository,
             IRepository<IndicatorDependency> indicatorDependencyRepository,
             IRepository<Watcher> watcherRepository,
-            IRepository<DataPoint> lineRepository)
+            IRepository<Line> lineRepository)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;

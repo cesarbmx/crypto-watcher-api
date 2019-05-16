@@ -31,7 +31,7 @@ namespace CryptoWatcher.UI.Configuration
                     cfg.CreateMap<Notification, NotificationResponse>();
                     cfg.CreateMap<Order, OrderResponse>();
                     cfg.CreateMap<Indicator, IndicatorResponse>();
-                    cfg.CreateMap<DataPoint, DataPointResponse>();
+                    cfg.CreateMap<Line, LineResponse>();
                     cfg.CreateMap<LineChart, LineChartResponse>();
 
                     // Others

@@ -6,14 +6,13 @@ namespace CryptoWatcher.Persistence.Mappings
 {
     public class LineMap
     {
-        public LineMap(EntityTypeBuilder<DataPoint> entityBuilder)
+        public LineMap(EntityTypeBuilder<Line> entityBuilder)
         {
             // Key
             entityBuilder.HasKey(t => t.LineId).
                 ForSqlServerIsClustered(false);
 
             // Indexes
-            entityBuilder.HasIndex(t => new { t.TargetId, t.IndicatorId });
             entityBuilder.HasIndex(t => new { t.Time, t.IndicatorType, t.TargetId, t.IndicatorId, t.UserId})
                 .ForSqlServerIsClustered();
 

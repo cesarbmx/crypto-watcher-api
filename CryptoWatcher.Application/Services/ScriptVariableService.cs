@@ -7,9 +7,9 @@ namespace CryptoWatcher.Application.Services
 {
     public class ScriptVariableService
     {
-        private readonly IRepository<DataPoint> _lineRepository;
+        private readonly IRepository<Line> _lineRepository;
 
-        public ScriptVariableService(IRepository<DataPoint> lineRepository)
+        public ScriptVariableService(IRepository<Line> lineRepository)
         {
             _lineRepository = lineRepository;
         }

@@ -4,7 +4,7 @@ using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Application.Responses
 {
-    public class DataPointResponse
+    public class LineResponse
     {
         public string TargetId { get; set; }
         public string IndicatorId { get; set; }

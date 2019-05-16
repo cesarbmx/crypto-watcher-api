@@ -52,7 +52,7 @@ namespace CryptoWatcher.Web.Configuration
             services.AddScoped<Repository<Order>, Repository<Order>>();
             services.AddScoped<Repository<Indicator>, Repository<Indicator>>();
             services.AddScoped<Repository<IndicatorDependency>, Repository<IndicatorDependency>>();
-            services.AddScoped<Repository<DataPoint>, Repository<DataPoint>>();
+            services.AddScoped<Repository<Line>, Repository<Line>>();
 
             // Logger repositories
             services.AddScoped<IRepository<Log>, Repository<Log>>();
@@ -62,9 +62,9 @@ namespace CryptoWatcher.Web.Configuration
             services.AddScoped<IRepository<Notification>, LoggerRepository<Notification>>();
             services.AddScoped<IRepository<Order>, LoggerRepository<Order>>();
             services.AddScoped<IRepository<Indicator>, LoggerRepository<Indicator>>();
-            services.AddScoped<IRepository<DataPoint>, LoggerRepository<DataPoint>>();
+            services.AddScoped<IRepository<Line>, LoggerRepository<Line>>();
             services.AddScoped<IRepository<IndicatorDependency>, LoggerRepository<IndicatorDependency>>();
-            services.AddScoped<IRepository<DataPoint>, LoggerRepository<DataPoint>>();
+            services.AddScoped<IRepository<Line>, LoggerRepository<Line>>();
 
 
             // Jobs

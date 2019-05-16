@@ -53,7 +53,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<Repository<Order>, Repository<Order>>();
             services.AddScoped<Repository<Indicator>, Repository<Indicator>>();
             services.AddScoped<Repository<IndicatorDependency>, Repository<IndicatorDependency>>();
-            services.AddScoped<Repository<DataPoint>, Repository<DataPoint>>();
+            services.AddScoped<Repository<Line>, Repository<Line>>();
 
             //// Logger repositories
             services.AddScoped<IRepository<Log>, Repository<Log>>();
@@ -63,9 +63,9 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<IRepository<Notification>, LoggerRepository<Notification>>();
             services.AddScoped<IRepository<Order>, LoggerRepository<Order>>();
             services.AddScoped<IRepository<Indicator>, LoggerRepository<Indicator>>();
-            services.AddScoped<IRepository<DataPoint>, LoggerRepository<DataPoint>>();
+            services.AddScoped<IRepository<Line>, LoggerRepository<Line>>();
             services.AddScoped<IRepository<IndicatorDependency>, LoggerRepository<IndicatorDependency>>();
-            services.AddScoped<IRepository<DataPoint>, LoggerRepository<DataPoint>>();
+            services.AddScoped<IRepository<Line>, LoggerRepository<Line>>();
 
             // Audit repositories
             //services.AddScoped<IRepository<Log>, Repository<Log>>();
@@ -75,9 +75,9 @@ namespace CryptoWatcher.Api.Configuration
             //services.AddScoped<IRepository<Notification>, AuditRepository<Notification>>();
             //services.AddScoped<IRepository<Order>, AuditRepository<Order>>();
             //services.AddScoped<IRepository<Indicator>, AuditRepository<Indicator>>();
-            //services.AddScoped<IRepository<DataPoint>, AuditRepository<DataPoint>>();
+            //services.AddScoped<IRepository<Line>, AuditRepository<Line>>();
             //services.AddScoped<IRepository<IndicatorDependency>, AuditRepository<IndicatorDependency>>();
-            //services.AddScoped<IRepository<DataPoint>, LineAuditRepository>();
+            //services.AddScoped<IRepository<Line>, LineAuditRepository>();
 
             // Jobs
             services.AddScoped<MainJob, MainJob>();

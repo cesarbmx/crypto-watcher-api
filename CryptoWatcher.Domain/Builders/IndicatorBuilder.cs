@@ -20,7 +20,7 @@ namespace CryptoWatcher.Domain.Builders
                     return 666m;
             }            
         }
-        public static decimal? BuildValue(Currency currency, Indicator indicator, List<DataPoint> lines)
+        public static decimal? BuildValue(Currency currency, Indicator indicator, List<Line> lines)
         {
             var scriptVariables = ScriptVariablesBuilder.BuildScriptVariables(lines);
             switch (indicator.IndicatorId)

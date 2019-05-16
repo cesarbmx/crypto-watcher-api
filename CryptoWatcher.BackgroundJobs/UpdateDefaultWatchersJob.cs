@@ -16,12 +16,12 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UpdateDefaultWatchersJob> _logger;
-        private readonly IRepository<DataPoint> _lineRepository;
+        private readonly IRepository<Line> _lineRepository;
         private readonly IRepository<Watcher> _watcherRepository;
         public UpdateDefaultWatchersJob(
             MainDbContext mainDbContext,
             ILogger<UpdateDefaultWatchersJob> logger,
-            IRepository<DataPoint> lineRepository,
+            IRepository<Line> lineRepository,
             IRepository<Watcher> watcherRepository)
         {
             _mainDbContext = mainDbContext;

@@ -9,9 +9,9 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class LineBuilder
     {
-        public static List<DataPoint> BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers)
+        public static List<Line> BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers)
         {
-            var lines = new List<DataPoint>();
+            var lines = new List<Line>();
             var time = DateTime.Now;
             var stopAt = indicators.Count > 0 ? indicators.Max(x => x.DependencyLevel) : 0;
 
@@ -35,8 +35,8 @@ namespace CryptoWatcher.Domain.Builders
                     }
 
                     // Add
-                    var dataPoint = new DataPoint(currency.CurrencyId, indicator.IndicatorId, indicator.IndicatorType, indicator.UserId, value, averageBuy, averageSell, true, time);
-                    lines.Add(dataPoint);
+                    var line = new Line(currency.CurrencyId, indicator.IndicatorId, indicator.IndicatorType, indicator.UserId, value, averageBuy, averageSell, true, time);
+                    lines.Add(line);
                 }
             }
 
@@ -46,7 +46,7 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return lines;
         }
-        public static void BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers, List<DataPoint> lines, int dependencyLevel, int stopAt)
+        public static void BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers, List<Line> lines, int dependencyLevel, int stopAt)
         {
             foreach (var currency in currencies)
             {
@@ -72,7 +72,7 @@ namespace CryptoWatcher.Domain.Builders
             if(dependencyLevel < stopAt)  BuildLines(currencies, indicators, watchers, lines, dependencyLevel + 1, stopAt);
         }
 
-        public static void SetLinesAsNoLongerCurrent(List<DataPoint> currentLines)
+        public static void SetLinesAsNoLongerCurrent(List<Line> currentLines)
         {
             foreach (var currentLine in currentLines)
             {

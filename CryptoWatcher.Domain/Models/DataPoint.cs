@@ -3,7 +3,7 @@
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class DataPoint : IEntity
+    public class Line : IEntity
     {
         public string Id => LineId.ToString();
         public Guid LineId { get; private set; }
@@ -17,8 +17,8 @@ namespace CryptoWatcher.Domain.Models
         public bool IsCurrent { get; private set; }
         public DateTime Time { get; private set; }
 
-        public DataPoint() { }
-        public DataPoint(
+        public Line() { }
+        public Line(
             string targetId,
             string indicatorId,
             IndicatorType indicatorType,
@@ -41,7 +41,7 @@ namespace CryptoWatcher.Domain.Models
             Time = time;
         }
 
-        public DataPoint Set(decimal? value, decimal? averageBuy, decimal? averageSell)
+        public Line Set(decimal? value, decimal? averageBuy, decimal? averageSell)
         {
             Value = value;
             AverageBuy = averageBuy;
@@ -49,7 +49,7 @@ namespace CryptoWatcher.Domain.Models
 
             return this;
         }
-        public DataPoint SetAsNoLongerCurrent()
+        public Line SetAsNoLongerCurrent()
         {
             IsCurrent = false;
 
