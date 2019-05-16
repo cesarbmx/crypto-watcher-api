@@ -35,7 +35,7 @@ namespace CryptoWatcher.Domain.Builders
                     }
 
                     // Add
-                    var line = new Line(currency.CurrencyId, indicator.IndicatorId, indicator.IndicatorType, indicator.UserId, value, averageBuy, averageSell, true, time);
+                    var line = new Line(currency.CurrencyId, indicator.IndicatorId, indicator.IndicatorType, indicator.UserId, value, averageBuy, averageSell, time);
                     lines.Add(line);
                 }
             }
@@ -70,14 +70,6 @@ namespace CryptoWatcher.Domain.Builders
 
             // Do the same with the next level recursively
             if(dependencyLevel < stopAt)  BuildLines(currencies, indicators, watchers, lines, dependencyLevel + 1, stopAt);
-        }
-
-        public static void SetLinesAsNoLongerCurrent(List<Line> currentLines)
-        {
-            foreach (var currentLine in currentLines)
-            {
-                currentLine.SetAsNoLongerCurrent();
-            }
         }
     }
 }

@@ -12,9 +12,9 @@ namespace CryptoWatcher.Domain.Expressions
                         x.TargetId == targetId &&
                         x.IndicatorId == indicatorId;
         }
-        public static Expression<Func<Line, bool>> CurrentLine()
+        public static Expression<Func<Line, bool>> CurrentLine(DateTime time)
         {
-            return x => x.IsCurrent;
+            return x => x.Time == time;
         }
         public static Expression<Func<Line, bool>> ObsoleteLine()
         {

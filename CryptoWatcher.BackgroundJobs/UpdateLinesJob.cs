@@ -63,9 +63,6 @@ namespace CryptoWatcher.BackgroundJobs
                 // Get non-default watchers with buy or sell
                 var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherWillingToBuyOrSell());
 
-                // Set current lines as no longer current
-                await SetCurrentLinesAsNoLongerCurrent();
-
                 // Build new lines
                 var lines = LineBuilder.BuildLines(currencies, indicators, watchers);
 
@@ -108,17 +105,6 @@ namespace CryptoWatcher.BackgroundJobs
                 var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
                 indicator.SetDependencies(dependencies);
             }
-        }
-        private async Task SetCurrentLinesAsNoLongerCurrent()
-        {
-            // Get current lines
-            var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine());
-
-            // Set as no longer current
-            LineBuilder.SetLinesAsNoLongerCurrent(currentLines);
-
-            // Update
-            _lineRepository.UpdateRange(currentLines);
         }
     }
 }

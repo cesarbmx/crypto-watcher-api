@@ -14,7 +14,6 @@ namespace CryptoWatcher.Domain.Models
         public decimal? Value { get; private set; }
         public decimal? AverageBuy { get; private set; }
         public decimal? AverageSell { get; private set; }
-        public bool IsCurrent { get; private set; }
         public DateTime Time { get; private set; }
 
         public Line() { }
@@ -26,7 +25,6 @@ namespace CryptoWatcher.Domain.Models
             decimal? value,
             decimal? averageBuy,
             decimal? averageSell,
-            bool isCurrent,
             DateTime time)
         {
             LineId = Guid.NewGuid();
@@ -37,7 +35,6 @@ namespace CryptoWatcher.Domain.Models
             Value = value;
             AverageBuy = averageBuy;
             AverageSell = averageSell;
-            IsCurrent = isCurrent;
             Time = time;
         }
 
@@ -46,12 +43,6 @@ namespace CryptoWatcher.Domain.Models
             Value = value;
             AverageBuy = averageBuy;
             AverageSell = averageSell;
-
-            return this;
-        }
-        public Line SetAsNoLongerCurrent()
-        {
-            IsCurrent = false;
 
             return this;
         }

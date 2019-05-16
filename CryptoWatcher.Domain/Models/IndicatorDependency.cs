@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+
 namespace CryptoWatcher.Domain.Models
 {
     public class IndicatorDependency: IEntity
@@ -8,6 +10,7 @@ namespace CryptoWatcher.Domain.Models
         public string IndicatorId { get; private set; }
         public string DependsOn { get; private set; }
         public int Level { get; private set; }
+        public DateTime Time { get; private set; }
 
         public IndicatorDependency() { }
         public IndicatorDependency(string indicatorId, string dependsOn, int level)
@@ -15,6 +18,7 @@ namespace CryptoWatcher.Domain.Models
             IndicatorId = indicatorId;
             DependsOn = dependsOn;
             Level = level;
+            Time = DateTime.Now;
         }
 
         public IndicatorDependency SetLevel(int level)

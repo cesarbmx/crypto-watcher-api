@@ -40,8 +40,11 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
+                // Get newst time
+                var newestTime = await  _lineRepository.GetNewestTime();
+
                 // Get current lines
-                var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine());
+                var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine(newestTime));
 
                 // Build default watchers
                 var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(currentLines);

@@ -39,6 +39,10 @@ namespace CryptoWatcher.Persistence.Repositories
             // Get single by expression
             return await _dbSet.FirstOrDefaultAsync(expression);
         }
+        public async Task<DateTime> GetNewestTime()
+        {
+           return  await _dbSet.MaxAsync(x=>x.Time);
+        }
         public void Add(TEntity entity)
         {
             // Add
