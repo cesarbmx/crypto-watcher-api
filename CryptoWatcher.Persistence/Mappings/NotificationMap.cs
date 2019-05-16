@@ -25,8 +25,9 @@ namespace CryptoWatcher.Persistence.Mappings
 
             // Properties
             entityBuilder.Property(t => t.NotificationId)
-                .HasColumnType("uniqueidentifier")
-                .IsRequired();
+                .HasColumnType("int")
+                .IsRequired()
+                .ValueGeneratedOnAdd();
 
             entityBuilder.Property(t => t.UserId)
                 .HasColumnType("nvarchar(50)")

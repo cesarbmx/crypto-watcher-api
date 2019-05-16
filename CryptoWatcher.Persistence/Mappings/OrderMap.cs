@@ -31,8 +31,9 @@ namespace CryptoWatcher.Persistence.Mappings
 
             // Properties
             entityBuilder.Property(t => t.OrderId)
-                .HasColumnType("uniqueidentifier")
-                .IsRequired();
+                .HasColumnType("int")
+                .IsRequired()
+                .ValueGeneratedOnAdd();
 
             entityBuilder.Property(t => t.OrderType)
                 .HasColumnType("smallint")
