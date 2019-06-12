@@ -31,7 +31,7 @@ namespace CryptoWatcher.Api.Configuration
                     cfg.CreateMap<Notification, NotificationResponse>();
                     cfg.CreateMap<Order, OrderResponse>();
                     cfg.CreateMap<Indicator, IndicatorResponse>()
-                        .ForMember(dest => dest.Dependencies, opt => opt.MapFrom(src => src.Dependencies.Select(x=>x.Dependency.IndicatorId)));
+                        .ForMember(dest => dest.Dependencies, opt => opt.MapFrom(src => src.Dependencies.Select(x=>x.DependencyId)));
                     cfg.CreateMap<Line, LineResponse>();
                     cfg.CreateMap<LineChart, LineChartResponse>();
 

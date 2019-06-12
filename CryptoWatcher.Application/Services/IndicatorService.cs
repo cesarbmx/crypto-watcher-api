@@ -58,7 +58,6 @@ namespace CryptoWatcher.Application.Services
             // Get indicator
             var indicator = await _mainDbContext.Indicators
                 .Include(x => x.Dependencies)
-                .ThenInclude(x=>x.Dependency)
                 .SingleOrDefaultAsync(IndicatorExpression.Indicator(indicatorId));
 
             // Throw NotFoundException if it does not exist

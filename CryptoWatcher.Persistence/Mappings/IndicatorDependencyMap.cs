@@ -19,7 +19,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .OnDelete(DeleteBehavior.Cascade);
 
             entityBuilder
-                .HasOne(x=>x.Dependency)
+                .HasOne<Indicator>()
                 .WithMany()
                 .HasForeignKey(x => x.DependencyId)
                 .OnDelete(DeleteBehavior.Cascade);

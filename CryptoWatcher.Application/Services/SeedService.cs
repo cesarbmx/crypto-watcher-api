@@ -28,12 +28,12 @@ namespace CryptoWatcher.Application.Services
             var priceChange24Hrs = new Indicator("price-change-24hrs", IndicatorType.CurrencyIndicator, "master", "Price change 24Hrs", "desc", "f()",
                 new List<IndicatorDependency>()
                 {
-                    new IndicatorDependency("price", price)
+                    new IndicatorDependency("price", "price")
                 }, 0);
             var hype = new Indicator("hype", IndicatorType.CurrencyIndicator, "master", "Hype", "desc", "f()",
                 new List<IndicatorDependency>()
                 {
-                    new IndicatorDependency("hype", priceChange24Hrs)
+                    new IndicatorDependency("hype", "price-change-24hrs")
                 }, 0);
 
 

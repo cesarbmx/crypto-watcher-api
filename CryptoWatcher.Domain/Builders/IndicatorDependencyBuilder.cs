@@ -15,7 +15,7 @@ namespace CryptoWatcher.Domain.Builders
             foreach (var dependency in dependencies)
             {
                 // Create
-                var indicatorDependency = new IndicatorDependency(indicatorId, dependency);
+                var indicatorDependency = new IndicatorDependency(indicatorId, dependency.IndicatorId);
 
                 // Add
                 indcatorDependencies.Add(indicatorDependency);
