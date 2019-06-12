@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
 using Hangfire;
-using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Shared.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
@@ -16,18 +16,12 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UpdateDefaultWatchersJob> _logger;
-        private readonly IRepository<Line> _lineRepository;
-        private readonly IRepository<Watcher> _watcherRepository;
         public UpdateDefaultWatchersJob(
             MainDbContext mainDbContext,
-            ILogger<UpdateDefaultWatchersJob> logger,
-            IRepository<Line> lineRepository,
-            IRepository<Watcher> watcherRepository)
+            ILogger<UpdateDefaultWatchersJob> logger)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
-            _lineRepository = lineRepository;
-            _watcherRepository = watcherRepository;
 
         }
 
@@ -41,19 +35,19 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Start();
 
                 // Get newst time
-                var newestTime = await  _lineRepository.GetNewestTime();
+                var newestTime = await _mainDbContext.Lines.MaxAsync(x => x.Time);
 
                 // Get current lines
-                var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine(newestTime));
+                var currentLines = await _mainDbContext.Lines.Where(LineExpression.CurrentLine(newestTime)).ToListAsync();
 
                 // Build default watchers
                 var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(currentLines);
 
                 // Get all default watchers
-                var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
+                var defaultWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.DefaultWatcher()).ToListAsync();
 
                 // Update 
-                _watcherRepository.UpdateCollection(defaultWatchers, newDefaultWatchers);
+                _mainDbContext.UpdateCollection(defaultWatchers, newDefaultWatchers);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

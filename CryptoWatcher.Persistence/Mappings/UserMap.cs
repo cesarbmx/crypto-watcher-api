@@ -20,11 +20,6 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.Time)
                 .HasColumnType("datetime2")
                 .IsRequired();
-
-            // Data seeding
-            entityBuilder.HasData(
-                new User("master")
-            );
         }
     }
 }

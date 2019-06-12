@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Expressions;
 using Hangfire;
-using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
@@ -18,16 +18,13 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<SendWhatsappNotificationsJob> _logger;
-        private readonly IRepository<Notification> _notificationRepository;
 
         public SendWhatsappNotificationsJob(
             MainDbContext mainDbContext,
-            ILogger<SendWhatsappNotificationsJob> logger,
-            IRepository<Notification> notificationRepository)
+            ILogger<SendWhatsappNotificationsJob> logger)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
-            _notificationRepository = notificationRepository;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -40,7 +37,7 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Start();
 
                 // Get pending notifications
-                var pendingNotifications = await _notificationRepository.GetAll(NotificationExpression.PendingNotification());
+                var pendingNotifications = await _mainDbContext.Notifications.Where(NotificationExpression.PendingNotification()).ToListAsync();
 
                 // If there are pending notifications
                 if (pendingNotifications.Count > 0)

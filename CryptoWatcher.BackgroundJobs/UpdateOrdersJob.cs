@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
 using Hangfire;
-using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
@@ -16,18 +16,12 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UpdateOrdersJob> _logger;
-        private readonly IRepository<Watcher> _watcherRepository;
-        private readonly IRepository<Order> _orderRepository;
         public UpdateOrdersJob(
             MainDbContext mainDbContext,
-            ILogger<UpdateOrdersJob> logger,
-            IRepository<Watcher> watcherRepository,
-            IRepository<Order> orderRepository)
+            ILogger<UpdateOrdersJob> logger)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
-            _watcherRepository = watcherRepository;
-            _orderRepository = orderRepository;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -40,16 +34,16 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Start();
 
                 // Get all watchers with buy or sells
-                var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherWillingToBuyOrSell());
+                var watchers = await _mainDbContext.Watchers.Where(WatcherExpression.WatcherWillingToBuyOrSell()).ToListAsync();
 
                 // Get all orders
-                var orders = await _orderRepository.GetAll();
+                var orders = await _mainDbContext.Orders.ToListAsync();
 
                 // Build new orders
                 var newOrders = OrderBuilder.BuildNewOrders(watchers, orders);
 
                 // Add
-                _orderRepository.AddRange(newOrders);
+                _mainDbContext.Orders.AddRange(newOrders);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

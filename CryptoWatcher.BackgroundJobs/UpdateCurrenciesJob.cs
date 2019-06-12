@@ -9,8 +9,8 @@ using Hangfire;
 using CryptoWatcher.Domain.Models;
 using Microsoft.Extensions.Logging;
 using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Shared.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.BackgroundJobs
 {
@@ -20,20 +20,17 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly ILogger<UpdateCurrenciesJob> _logger;
         private readonly MainDbContext _mainDbContext;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
-        private readonly IRepository<Currency> _currencyRepository;
 
         public UpdateCurrenciesJob(
             IMapper mapper,
             ILogger<UpdateCurrenciesJob> logger,
             MainDbContext mainDbContext,
-            ICoinMarketCapClient coinMarketCapClient,
-            IRepository<Currency> currencyRepository)
+            ICoinMarketCapClient coinMarketCapClient)
         {
             _mapper = mapper;
             _logger = logger;
             _mainDbContext = mainDbContext;
             _coinMarketCapClient = coinMarketCapClient;
-            _currencyRepository = currencyRepository;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -60,10 +57,10 @@ namespace CryptoWatcher.BackgroundJobs
                 var newCurrencies = _mapper.Map<List<Currency>>(result);
 
                 // Get all currencies
-                var currencies = await _currencyRepository.GetAll();
+                var currencies = await _mainDbContext.Currencies.ToListAsync();
 
                 // Update 
-                _currencyRepository.UpdateCollection(currencies, newCurrencies);
+                _mainDbContext.UpdateCollection(currencies, newCurrencies);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

@@ -1,23 +1,24 @@
 ﻿using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
+using CryptoWatcher.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Application.Services
 {
     public class ScriptVariableService
     {
-        private readonly IRepository<Line> _lineRepository;
+        private readonly MainDbContext _mainDbContext;
 
-        public ScriptVariableService(IRepository<Line> lineRepository)
+        public ScriptVariableService(MainDbContext mainDbContext)
         {
-            _lineRepository = lineRepository;
+            _mainDbContext = mainDbContext;
         }
 
         public async Task<ScriptVariables> GetScriptVariables()
         {
             // Get all lines
-            var lines = await _lineRepository.GetAll();
+            var lines = await _mainDbContext.Lines.ToListAsync();
 
             // Response
             var response = ScriptVariablesBuilder.BuildScriptVariables(lines);

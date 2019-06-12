@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CryptoWatcher.Domain.Builders;
 
 namespace CryptoWatcher.Domain.Models
 {
@@ -13,9 +12,9 @@ namespace CryptoWatcher.Domain.Models
         public string Name { get; private set; }
         public string Description { get; private set; }
         public string Formula { get; private set; }
-        public List<IndicatorDependency> Dependencies { get; private set; }
-        public int DependencyLevel => IndicatorBuilder.BuildDependencyLevel(Dependencies);
         public DateTime Time { get; private set; }
+        public List<IndicatorDependency> Dependencies { get; private set; }
+        public int DependencyLevel { get; private set; }
 
         public Indicator() { }
         public Indicator(
@@ -25,7 +24,8 @@ namespace CryptoWatcher.Domain.Models
             string name, 
             string description,
             string formula,
-            List<IndicatorDependency> dependencies)
+            List<IndicatorDependency> dependencies,
+            int dependencyLevel)
         {
             IndicatorId = indicatorId;
             IndicatorType = indicatorType;
@@ -33,8 +33,9 @@ namespace CryptoWatcher.Domain.Models
             Name = name;
             Description = description;
             Formula = formula;
-            Dependencies = dependencies;
             Time = DateTime.Now;
+            Dependencies = dependencies;
+            DependencyLevel = dependencyLevel;
         }
 
         public Indicator SetDependencies(List<IndicatorDependency> dependencies)
@@ -43,20 +44,18 @@ namespace CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Indicator Update(string name, string description, string formula, List<IndicatorDependency> dependencies)
+        public Indicator SetDependencyLevel(int dependencyLevel)
         {
-            Name = name;
-            Description = description;
-            Formula = formula;
-            Dependencies = dependencies;
+            DependencyLevel = dependencyLevel;
 
             return this;
         }
-        public Indicator UpdateDependencyTree(string name, string description, string formula)
+        public Indicator Update(string name, string description, string formula, int dependencyLevel)
         {
             Name = name;
             Description = description;
             Formula = formula;
+            DependencyLevel = dependencyLevel;
 
             return this;
         }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Expressions;
 using Hangfire;
-using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
@@ -15,16 +15,13 @@ namespace CryptoWatcher.BackgroundJobs
     {
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<RemoveLinesJob> _logger;
-        private readonly IRepository<Line> _lineRepository;
 
         public RemoveLinesJob(
             MainDbContext mainDbContext,
-            ILogger<RemoveLinesJob> logger,
-            IRepository<Line> lineRepository)
+            ILogger<RemoveLinesJob> logger)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
-            _lineRepository = lineRepository;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -37,10 +34,10 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Start();
 
                 // Get lines to be removed
-                var lines = await _lineRepository.GetAll(LineExpression.ObsoleteLine());
+                var lines = await _mainDbContext.Lines.Where(LineExpression.ObsoleteLine()).ToListAsync();
 
                 // Remove
-                _lineRepository.RemoveRange(lines);
+                _mainDbContext.Lines.RemoveRange(lines);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

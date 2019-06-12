@@ -25,7 +25,6 @@ namespace CryptoWatcher.Web.Configuration
                         .ForMember(dest => dest.LastBuildOccurred, opt => opt.MapFrom(src => src.LastBuild.DaysHoursMinutesAndSecondsSinceDate()));
                     cfg.CreateMap<Health, HealthResponse>();
                     cfg.CreateMap<Currency, CurrencyResponse>();
-                    cfg.CreateMap<Log, LogResponse>();
                     cfg.CreateMap<Watcher, WatcherResponse>();
                     cfg.CreateMap<User, UserResponse>();
                     cfg.CreateMap<Notification, NotificationResponse>();

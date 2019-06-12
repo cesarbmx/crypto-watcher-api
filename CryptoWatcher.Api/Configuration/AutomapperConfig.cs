@@ -26,13 +26,12 @@ namespace CryptoWatcher.Api.Configuration
                         .ForMember(dest => dest.LastBuildOccurred, opt => opt.MapFrom(src => src.LastBuild.DaysHoursMinutesAndSecondsSinceDate()));
                     cfg.CreateMap<Health, HealthResponse>();
                     cfg.CreateMap<Currency, CurrencyResponse>();
-                    cfg.CreateMap<Log, LogResponse>();
                     cfg.CreateMap<Watcher, WatcherResponse>();
                     cfg.CreateMap<User, UserResponse>();
                     cfg.CreateMap<Notification, NotificationResponse>();
                     cfg.CreateMap<Order, OrderResponse>();
                     cfg.CreateMap<Indicator, IndicatorResponse>()
-                        .ForMember(dest => dest.Dependencies, opt => opt.MapFrom(src => src.Dependencies.Select(x=>x.DependsOn).ToArray()));
+                        .ForMember(dest => dest.Dependencies, opt => opt.MapFrom(src => src.Dependencies.Select(x=>x.Dependency.IndicatorId)));
                     cfg.CreateMap<Line, LineResponse>();
                     cfg.CreateMap<LineChart, LineChartResponse>();
 

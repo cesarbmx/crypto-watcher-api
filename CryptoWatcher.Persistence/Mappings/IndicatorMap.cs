@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,13 +55,6 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.Time)
                 .HasColumnType("datetime2")
                 .IsRequired();
-
-            // Seed data
-            entityBuilder.HasData(
-                new Indicator("price", IndicatorType.CurrencyIndicator, "master", "Price", "", "", new List<IndicatorDependency>()),
-                new Indicator("price-change-24hrs", IndicatorType.CurrencyIndicator, "master", "Price change 24Hrs", "", "", new List<IndicatorDependency>()),
-                new Indicator("hype", IndicatorType.CurrencyIndicator, "master", "Hype", "", "", new List<IndicatorDependency>())
-            );
         }
     }
 }

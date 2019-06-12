@@ -6,22 +6,23 @@ using CoinMarketCap.Core;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
+using CryptoWatcher.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Application.Services
 {
     public class StatusService
     {
-        private readonly IRepository<Currency> _currencyRepository;
+        private readonly MainDbContext _mainDbContext;
         private readonly IMapper _mapper;
         private readonly ICoinMarketCapClient _coinMarketCapClient;
 
         public StatusService(
-            IRepository<Currency> currencyRepository,
+            MainDbContext mainDbContext,
             IMapper mapper,
             ICoinMarketCapClient coinMarketCapClient)
         {
-            _currencyRepository = currencyRepository;
+            _mainDbContext = mainDbContext;
             _mapper = mapper;
             _coinMarketCapClient = coinMarketCapClient;
         }
@@ -51,7 +52,7 @@ namespace CryptoWatcher.Application.Services
             // Check if connection to database is ok
             try
             {
-                await _currencyRepository.GetAll();
+                await _mainDbContext.Currencies.ToListAsync();
                 stopwatch.Stop();
             }
             catch
