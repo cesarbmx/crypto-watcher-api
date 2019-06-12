@@ -22,17 +22,17 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasOne<Indicator>()
                 .WithMany()
                 .HasForeignKey(x => x.DependencyId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Properties
             entityBuilder.Property(t => t.IndicatorId)
                 .HasColumnType("nvarchar(50)")
-                .HasMaxLength(100)
+                .HasMaxLength(50)
                 .IsRequired();
 
             entityBuilder.Property(t => t.DependencyId)
                 .HasColumnType("nvarchar(50)")
-                .HasMaxLength(100)
+                .HasMaxLength(50)
                 .IsRequired();
         }
     }

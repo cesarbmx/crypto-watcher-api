@@ -123,21 +123,17 @@ namespace CryptoWatcher.Application.Services
             // Build dependencies
             var newDependencies = await GetDependencies(request.Dependencies);
 
+            // Build new indicator dependencies
+            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(indicator.IndicatorId, newDependencies);
+
             // Build dependency level
             var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(newDependencies);
 
             // Update indicator
-            indicator.Update(request.Name, request.Description, request.Formula, dependencyLevel);
-            _mainDbContext.Indicators.Update(indicator);
+            indicator.Update(request.Name, request.Description, request.Formula, newIndicatorDependencies, dependencyLevel);
 
-            // Build new indicator dependencies
-            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(indicator.IndicatorId, newDependencies);
-
-            // Get current  indicator dependencies
-            var currentIndicatorDependencies = await _mainDbContext.IndicatorDependencies.Where(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId)).ToListAsync();
-
-            // Update indicator dependencies
-            _mainDbContext.UpdateCollection(currentIndicatorDependencies, newIndicatorDependencies);
+            // Update
+            _mainDbContext.Indicators.Update(indicator);         
 
             // Save
             await _mainDbContext.SaveChangesAsync();
