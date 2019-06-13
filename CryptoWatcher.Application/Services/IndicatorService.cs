@@ -155,10 +155,13 @@ namespace CryptoWatcher.Application.Services
             _indicatorDependencyRepository.UpdateCollection(currentIndicatorDependencies, newIndicatorDependencies, time);
 
             // Update indicator
-            indicator.Update(request.Name, request.Description, request.Formula, currentIndicatorDependencies);
+            indicator.Update(request.Name, request.Description, request.Formula);
 
             // Update
             _indicatorRepository.Update(indicator, time);
+
+            // Set dependencies
+            indicator.SetDependencies(newIndicatorDependencies);
 
             // Save
             await _mainDbContext.SaveChangesAsync();
