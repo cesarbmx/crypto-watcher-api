@@ -51,7 +51,7 @@ namespace CryptoWatcher.BackgroundJobs
                 var watchers = await _mainDbContext.Watchers.Where(WatcherExpression.WatcherWillingToBuyOrSell()).ToListAsync();
 
                 // Build new lines
-                var lines = LineBuilder.BuildLines(currencies, indicators, watchers);
+                var lines = LineBuilder.BuildLines(currencies, indicators, watchers, DateTime.Now);
 
                 // Set new lines
                 _mainDbContext.Lines.AddRange(lines);

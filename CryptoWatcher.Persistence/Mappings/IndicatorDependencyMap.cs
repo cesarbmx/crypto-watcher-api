@@ -9,17 +9,17 @@ namespace CryptoWatcher.Persistence.Mappings
         public IndicatorDependencyMap(EntityTypeBuilder<IndicatorDependency> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t=> new { t.IndicatorId, t.DependencyId});
+            entityBuilder.HasKey(t => new { t.IndicatorId, t.DependencyId });
 
             // Relationships
             entityBuilder
-                .HasOne<Indicator>()
+                .HasOne(x => x.Indicator)
                 .WithMany()
                 .HasForeignKey(x => x.IndicatorId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             entityBuilder
-                .HasOne<Indicator>()
+                .HasOne(x => x.Dependency)
                 .WithMany()
                 .HasForeignKey(x => x.DependencyId)
                 .OnDelete(DeleteBehavior.Restrict);

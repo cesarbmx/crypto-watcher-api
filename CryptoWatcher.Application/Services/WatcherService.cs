@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -103,7 +104,8 @@ namespace CryptoWatcher.Application.Services
                 request.Sell,
                 defaultWatcher?.AverageBuy,
                 defaultWatcher?.AverageSell,
-                request.Enabled);
+                request.Enabled, 
+                DateTime.Now);
 
             // Add
             _mainDbContext.Watchers.Add(watcher);

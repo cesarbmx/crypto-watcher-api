@@ -25,7 +25,8 @@ namespace CryptoWatcher.Domain.Models
             string description,
             string formula,
             List<IndicatorDependency> dependencies,
-            int dependencyLevel)
+            int dependencyLevel,
+            DateTime time)
         {
             IndicatorId = indicatorId;
             IndicatorType = indicatorType;
@@ -33,9 +34,9 @@ namespace CryptoWatcher.Domain.Models
             Name = name;
             Description = description;
             Formula = formula;
-            Time = DateTime.Now;
             Dependencies = dependencies;
             DependencyLevel = dependencyLevel;
+            Time = time;
         }
 
         public Indicator SetDependencies(List<IndicatorDependency> dependencies)
@@ -55,7 +56,8 @@ namespace CryptoWatcher.Domain.Models
             Name = name;
             Description = description;
             Formula = formula;
-            Dependencies = dependencies;
+            Dependencies.Clear();
+            Dependencies.AddRange(dependencies);
             DependencyLevel = dependencyLevel;
 
             return this;

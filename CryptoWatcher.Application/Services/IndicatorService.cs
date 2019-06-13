@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -77,11 +78,14 @@ namespace CryptoWatcher.Application.Services
             // Throw ConflictException if it exists
             if (indicator != null) throw new ConflictException(IndicatorMessage.IndicatorWithSameIdAlreadyExists);
 
+            // Time
+            var time = DateTime.Now;
+
             // Get dependencies
             var dependencies = await GetDependencies(request.Dependencies);
 
             // Build indicator dependencies
-            var indicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(request.IndicatorId, dependencies);
+            var indicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(request.IndicatorId, dependencies, time);
 
             // Build dependency level
             var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(dependencies);
@@ -95,7 +99,8 @@ namespace CryptoWatcher.Application.Services
                 request.Description,
                 request.Formula,
                 indicatorDependencies,
-                dependencyLevel);
+                dependencyLevel,
+                time);
 
             // Add
             _mainDbContext.Indicators.Add(indicator);
@@ -115,16 +120,21 @@ namespace CryptoWatcher.Application.Services
         public async Task<IndicatorResponse> UpdateIndicator(UpdateIndicatorRequest request)
         {
             // Get indicator
-            var indicator = await _mainDbContext.Indicators.SingleOrDefaultAsync(IndicatorExpression.Indicator(request.IndicatorId));
+            var indicator = await _mainDbContext.Indicators
+                .Include(x=>x.Dependencies)
+                .SingleOrDefaultAsync(IndicatorExpression.Indicator(request.IndicatorId));
 
             // Throw NotFoundException if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
+
+            // Time
+            var time = DateTime.Now;
 
             // Get dependencies
             var newDependencies = await GetDependencies(request.Dependencies);
 
             // Build new indicator dependencies
-            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(indicator.IndicatorId, newDependencies);
+            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(indicator.IndicatorId, newDependencies, time);
 
             // Build dependency level
             var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(newDependencies);

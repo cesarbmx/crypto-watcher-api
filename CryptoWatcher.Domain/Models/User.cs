@@ -10,10 +10,10 @@ namespace CryptoWatcher.Domain.Models
         public DateTime Time { get; private set; }
 
         public User() { }
-        public User(string userId)
+        public User(string userId, DateTime time)
         {
             UserId = userId;
-            Time = DateTime.Now;
+            Time = time;
         }
     }
 }

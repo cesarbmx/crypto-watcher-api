@@ -19,7 +19,8 @@ namespace CryptoWatcher.Domain.Models
             string userId,
             OrderType orderType,
             string currencyId,
-            decimal quantity)
+            decimal quantity,
+            DateTime time)
         {
             OrderId = 0;
             OrderType = orderType;
@@ -28,7 +29,7 @@ namespace CryptoWatcher.Domain.Models
             UserId = userId;
             Quantity = quantity;
             Status = OrderStatus.Pending;
-            Time = DateTime.Now;
+            Time = time;
         }
     }
 }

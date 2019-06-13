@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
@@ -53,7 +54,8 @@ namespace CryptoWatcher.Domain.Builders
                         line.AverageSell,
                         line.AverageBuy,
                         line.AverageSell,
-                        false);
+                        false, 
+                        DateTime.Now);
                     watchers.Add(watcher);
             }
 

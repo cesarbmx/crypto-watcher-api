@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Application.Requests;
@@ -63,7 +64,7 @@ namespace CryptoWatcher.Application.Services
             if (user != null) throw new ConflictException(UserMessage.UserAlreadyExists);
 
             // Create
-            user = new User(request.UserId);
+            user = new User(request.UserId, DateTime.Now);
 
             // Add user
             _mainDbContext.Users.Add(user);

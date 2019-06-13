@@ -25,7 +25,7 @@ namespace CryptoWatcher.Domain.Builders
                     watcher.TargetId,
                     orderType).Compile()).ToList();                
                 if (userOrders.Count != 0) continue;
-                var order = new Order(watcher.UserId, orderType, watcher.TargetId, 100);
+                var order = new Order(watcher.UserId, orderType, watcher.TargetId, 100, DateTime.Now);
                 newOrders.Add(order);
             }
 

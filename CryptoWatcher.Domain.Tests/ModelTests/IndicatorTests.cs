@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CryptoWatcher.Domain.Models;
@@ -14,18 +15,18 @@ namespace CryptoWatcher.Domain.Tests.ModelTests
             // Arrange
             var dependencies3 = new List<IndicatorDependency>
             {
-                new IndicatorDependency("3", "4")
+                new IndicatorDependency("3", "4", DateTime.Now)
             };
             var dependencies2 = new List<IndicatorDependency>
             {
-                new IndicatorDependency("2", "3")
+                new IndicatorDependency("2", "3", DateTime.Now)
             };
             var dependencies1 = new List<IndicatorDependency>
             {
-                new IndicatorDependency("1", "2")
+                new IndicatorDependency("1", "2", DateTime.Now)
             };
 
-            var indicator1 = new Indicator("1", IndicatorType.CurrencyIndicator, "master", "1", "1", "f()", dependencies1, 0);
+            var indicator1 = new Indicator("1", IndicatorType.CurrencyIndicator, "master", "1", "1", "f()", dependencies1, 0, DateTime.Now);
 
 
             // Act
