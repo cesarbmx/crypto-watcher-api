@@ -120,7 +120,7 @@ namespace CryptoWatcher.Application.Services
             // Throw NotFoundException if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
-            // Build dependencies
+            // Get dependencies
             var newDependencies = await GetDependencies(request.Dependencies);
 
             // Build new indicator dependencies
