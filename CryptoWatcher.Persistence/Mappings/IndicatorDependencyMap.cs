@@ -10,7 +10,7 @@ namespace CryptoWatcher.Persistence.Mappings
         public IndicatorDependencyMap(EntityTypeBuilder<IndicatorDependency> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t=> new { t.IndicatorId, t.DependsOn});
+            entityBuilder.HasKey(t=> new { t.IndicatorId, t.DependencyId});
 
             // Relationships
             entityBuilder
@@ -22,27 +22,23 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder
                 .HasOne<Indicator>()
                 .WithMany()
-                .HasForeignKey(x => x.DependsOn)
+                .HasForeignKey(x => x.DependencyId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Properties
             entityBuilder.Property(t => t.IndicatorId)
                 .HasColumnType("nvarchar(50)")
-                .HasMaxLength(100)
+                .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.DependsOn)
+            entityBuilder.Property(t => t.DependencyId)
                 .HasColumnType("nvarchar(50)")
-                .HasMaxLength(100)
-                .IsRequired();
-
-            entityBuilder.Property(t => t.Level)
-                .HasColumnType("smallint")
+                .HasMaxLength(50)
                 .IsRequired();
 
             // Seed data
             var time = DateTime.Now;
-            entityBuilder.HasData(new IndicatorDependency("hype", "price-change-24hrs", 0, time));
+            entityBuilder.HasData(new IndicatorDependency("hype", "price-change-24hrs", time));
         }
     }
 }

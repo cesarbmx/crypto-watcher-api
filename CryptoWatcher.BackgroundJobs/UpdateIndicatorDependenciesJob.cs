@@ -37,30 +37,30 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Time
-                var time = DateTime.Now;
+                //// Time
+                //var time = DateTime.Now;
 
-                // Get all dependencies
-                var indicatorDependencies = await _indicatorDependencyRepository.GetAll();
+                //// Get all dependencies
+                //var indicatorDependencies = await _indicatorDependencyRepository.GetAll();
 
-                // Build
-                IndicatorDependencyBuilder.BuildLevel(indicatorDependencies);
+                //// Build
+                //IndicatorDependencyBuilder.BuildLevel(indicatorDependencies);
 
-                // Update
-                _indicatorDependencyRepository.UpdateRange(indicatorDependencies, time);
+                //// Update
+                //_indicatorDependencyRepository.UpdateRange(indicatorDependencies, time);
 
-                // Save
-                await _mainDbContext.SaveChangesAsync();
+                //// Save
+                //await _mainDbContext.SaveChangesAsync();
 
-                // Stop watch
-                stopwatch.Stop();
+                //// Stop watch
+                //stopwatch.Stop();
 
-                // Log into Splunk
-                _logger.LogSplunkJob(new
-                {
-                    MaxLevel = indicatorDependencies.Select(x=>x.Level).Max(),
-                    ExecutionTime = stopwatch.Elapsed.TotalSeconds
-                });
+                //// Log into Splunk
+                //_logger.LogSplunkJob(new
+                //{
+                //    MaxLevel = indicatorDependencies.Select(x=>x.Level).Max(),
+                //    ExecutionTime = stopwatch.Elapsed.TotalSeconds
+                //});
 
                 // Return
                 await Task.CompletedTask;

@@ -6,6 +6,7 @@ using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Persistence.Repositories;
@@ -95,7 +96,13 @@ namespace CryptoWatcher.Application.Services
             var time = DateTime.Now;
 
             // Get dependencies
-            var dependencies = await GetDependencies(request.IndicatorId, request.Dependencies, time);
+            var dependencies = await GetDependencies(request.Dependencies);
+
+            // Build dependency level
+            var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(request.IndicatorId, dependencies);
+
+            // Build new indicator dependencies
+            var indicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(request.IndicatorId, dependencies, time);
 
             // Create
             indicator = new Indicator(
@@ -105,7 +112,8 @@ namespace CryptoWatcher.Application.Services
                 request.Name,
                 request.Description,
                 request.Formula,
-                dependencies,
+                indicatorDependencies,
+                dependencyLevel,
                 time);
 
             // Add
@@ -135,16 +143,19 @@ namespace CryptoWatcher.Application.Services
             var time = DateTime.Now;
 
             // Get dependencies
-            var newDependencies = await GetDependencies(request.IndicatorId, request.Dependencies, time);
+            var newDependencies = await GetDependencies(request.Dependencies);
 
-            // Get current dependencies 
-            var currentDependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
+            // Build new indicator dependencies
+            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(indicator.IndicatorId, newDependencies, time);
+
+            // Get current indicator dependencies 
+            var currentIndicatorDependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
 
             // Update dependencies
-            _indicatorDependencyRepository.UpdateCollection(currentDependencies, newDependencies, time);
+            _indicatorDependencyRepository.UpdateCollection(currentIndicatorDependencies, newIndicatorDependencies, time);
 
             // Update indicator
-            indicator.Update(request.Name, request.Description, request.Formula, newDependencies);
+            indicator.Update(request.Name, request.Description, request.Formula, currentIndicatorDependencies);
 
             // Update
             _indicatorRepository.Update(indicator, time);
@@ -174,10 +185,10 @@ namespace CryptoWatcher.Application.Services
             var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
             indicator.SetDependencies(dependencies);
         }
-        private async Task<List<IndicatorDependency>> GetDependencies(string indicatorId, string[] dependencies, DateTime time)
+        private async Task<List<Indicator>> GetDependencies(string[] dependencyIds)
         {
-            var indicatorDependencies = new List<IndicatorDependency>();
-            foreach (var dependencyId in dependencies)
+            var dependencies = new List<Indicator>();
+            foreach (var dependencyId in dependencyIds)
             {
                 // Get indicator
                 var dependency = await _indicatorRepository.GetSingle(IndicatorExpression.Indicator(dependencyId));
@@ -186,12 +197,11 @@ namespace CryptoWatcher.Application.Services
                 if (dependency == null) throw new ValidationException(string.Format(IndicatorMessage.DepenedencyNotFound, dependencyId));
 
                 // Add
-                var indicatorDependency = new IndicatorDependency(indicatorId, dependency.IndicatorId, dependency.DependencyLevel, time);
-                indicatorDependencies.Add(indicatorDependency);
+                dependencies.Add(dependency);
             }
 
             // Return
-            return indicatorDependencies;
+            return dependencies;
         }
     }
 }
