@@ -13,12 +13,12 @@ namespace CryptoWatcher.Domain.Models
         public DateTime Time { get; private set; }
 
         public IndicatorDependency() { }
-        public IndicatorDependency(string indicatorId, string dependsOn, int level)
+        public IndicatorDependency(string indicatorId, string dependsOn, int level,  DateTime time)
         {
             IndicatorId = indicatorId;
             DependsOn = dependsOn;
             Level = level;
-            Time = DateTime.Now;
+            Time = time;
         }
 
         public IndicatorDependency SetLevel(int level)

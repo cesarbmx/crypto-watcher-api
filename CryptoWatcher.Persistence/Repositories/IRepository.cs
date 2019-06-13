@@ -13,12 +13,12 @@ namespace CryptoWatcher.Persistence.Repositories
         Task<TEntity> GetSingle(object id);
         Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> expression);
         Task<DateTime> GetNewestTime();
-        void Add(TEntity entity);
-        void AddRange(List<TEntity> entities);
-        void Update(TEntity entity);
-        void UpdateRange(List<TEntity> entities);
-        void Remove(TEntity entity);
-        void RemoveRange(List<TEntity> entities);
-        void UpdateCollection(List<TEntity> currentEntities, List<TEntity> newEntities);
+        void Add(TEntity entity, DateTime time);
+        void AddRange(List<TEntity> entities, DateTime time);
+        void Update(TEntity entity, DateTime time);
+        void UpdateRange(List<TEntity> entities, DateTime time);
+        void Remove(TEntity entity, DateTime time);
+        void RemoveRange(List<TEntity> entities, DateTime time);
+        void UpdateCollection(List<TEntity> currentEntities, List<TEntity> newEntities, DateTime time);
     }
 }

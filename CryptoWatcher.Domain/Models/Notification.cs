@@ -14,14 +14,14 @@ namespace CryptoWatcher.Domain.Models
         public DateTime Time { get; private set; }
 
         public Notification() { }
-        public Notification(string userId, string phoneNumber, string message)
+        public Notification(string userId, string phoneNumber, string message, DateTime time)
         {
             NotificationId = 0;
             UserId = userId;
             PhoneNumber = phoneNumber;
             Message = message;
             SentTime = null;
-            Time = DateTime.Now;
+            Time = time;
         }
 
         public void MarkAsSent()

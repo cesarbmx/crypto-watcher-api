@@ -40,6 +40,9 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
+                // Time
+                var time = DateTime.Now;
+
                 // Get newst time
                 var newestTime = await  _lineRepository.GetNewestTime();
 
@@ -47,13 +50,13 @@ namespace CryptoWatcher.BackgroundJobs
                 var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine(newestTime));
 
                 // Build default watchers
-                var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(currentLines);
+                var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(currentLines, time);
 
                 // Get all default watchers
                 var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
 
                 // Update 
-                _watcherRepository.UpdateCollection(defaultWatchers, newDefaultWatchers);
+                _watcherRepository.UpdateCollection(defaultWatchers, newDefaultWatchers, time);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

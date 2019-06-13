@@ -39,6 +39,9 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
+                // Time
+                var time = DateTime.Now;
+
                 // Get all watchers with buy or sells
                 var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherWillingToBuyOrSell());
 
@@ -46,10 +49,10 @@ namespace CryptoWatcher.BackgroundJobs
                 var orders = await _orderRepository.GetAll();
 
                 // Build new orders
-                var newOrders = OrderBuilder.BuildNewOrders(watchers, orders);
+                var newOrders = OrderBuilder.BuildNewOrders(watchers, orders, time);
 
                 // Add
-                _orderRepository.AddRange(newOrders);
+                _orderRepository.AddRange(newOrders, time);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

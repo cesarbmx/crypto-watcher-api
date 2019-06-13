@@ -43,50 +43,50 @@ namespace CryptoWatcher.Persistence.Repositories
         {
            return  await _dbSet.MaxAsync(x=>x.Time);
         }
-        public void Add(TEntity entity)
+        public void Add(TEntity entity, DateTime time)
         {
             // Add
             _dbSet.Add(entity);
         }
-        public void AddRange(List<TEntity> entities)
+        public void AddRange(List<TEntity> entities, DateTime time)
         {
             // Add
             foreach (var entity in entities)
             {
-                Add(entity);
+                Add(entity, time);
             }
         }
-        public void Update(TEntity entity)
+        public void Update(TEntity entity, DateTime time)
         {
             // Update
             _dbSet.Update(entity);
         }
-        public void UpdateRange(List<TEntity> entities)
+        public void UpdateRange(List<TEntity> entities, DateTime time)
         {
             // Update
             foreach (var entity in entities)
             {
-                Update(entity);
+                Update(entity, time);
             }
         }
-        public void Remove(TEntity entity)
+        public void Remove(TEntity entity, DateTime time)
         {
             // Remove
             _dbSet.Remove(entity);
         }
-        public void RemoveRange(List<TEntity> entities)
+        public void RemoveRange(List<TEntity> entities, DateTime time)
         {
             // Remove
             foreach (var entity in entities)
             {
-                Remove(entity);
+                Remove(entity, time);
             }
         }
-        public void UpdateCollection(List<TEntity> currentEntities, List<TEntity> newEntities)
+        public void UpdateCollection(List<TEntity> currentEntities, List<TEntity> newEntities, DateTime time)
         {
-            AddRange(EntityBuilder.BuildEntitiesToAdd(currentEntities, newEntities));
-            UpdateRange(EntityBuilder.BuildEntitiesToUpdate(currentEntities, newEntities));
-            RemoveRange(EntityBuilder.BuildEntitiesToRemove(currentEntities, newEntities));
+            AddRange(EntityBuilder.BuildEntitiesToAdd(currentEntities, newEntities), time);
+            UpdateRange(EntityBuilder.BuildEntitiesToUpdate(currentEntities, newEntities), time);
+            RemoveRange(EntityBuilder.BuildEntitiesToRemove(currentEntities, newEntities), time);
         }
     }
 }

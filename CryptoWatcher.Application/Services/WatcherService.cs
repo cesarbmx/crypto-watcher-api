@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Application.Requests;
@@ -97,8 +98,11 @@ namespace CryptoWatcher.Application.Services
             // Throw ConflictException if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
 
+            // Time
+            var time = DateTime.Now;
+
             // Get default watcher
-           var defaultWatcher = await _watcherRepository.GetSingle(WatcherExpression.DefaultWatcher(request.TargetId, request.IndicatorId));
+            var defaultWatcher = await _watcherRepository.GetSingle(WatcherExpression.DefaultWatcher(request.TargetId, request.IndicatorId));
 
             // Add
             watcher = new Watcher(
@@ -111,8 +115,9 @@ namespace CryptoWatcher.Application.Services
                 request.Sell,
                 defaultWatcher?.AverageBuy,
                 defaultWatcher?.AverageSell,
-                request.Enabled);
-            _watcherRepository.Add(watcher);
+                request.Enabled,
+                time);
+            _watcherRepository.Add(watcher, time);
 
             // Save
             await _mainDbContext.SaveChangesAsync();
@@ -134,9 +139,14 @@ namespace CryptoWatcher.Application.Services
             // Throw NotFoundException if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
-            // Update
+            // Time
+            var time = DateTime.Now;
+
+            // Update watcher
             watcher.Update(request.Buy, request.Sell, request.Enabled);
-            _watcherRepository.Update(watcher);
+
+            // Update
+            _watcherRepository.Update(watcher, time);
 
             // Save
             await _mainDbContext.SaveChangesAsync();

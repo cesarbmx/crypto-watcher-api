@@ -9,10 +9,9 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class LineBuilder
     {
-        public static List<Line> BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers)
+        public static List<Line> BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers, DateTime time)
         {
             var lines = new List<Line>();
-            var time = DateTime.Now;
             var stopAt = indicators.Count > 0 ? indicators.Max(x => x.DependencyLevel) : 0;
 
             // We create the lines in the order that is given. We build the first level (DependencyLevel = 0) for now

@@ -18,7 +18,6 @@ namespace CryptoWatcher.Domain.Models
 
         public Currency()
         {
-            Time = DateTime.Now;
         }
         public Currency(
             string currencyId,
@@ -28,7 +27,8 @@ namespace CryptoWatcher.Domain.Models
             decimal price,
             decimal volume24H,
             decimal marketCap,
-            decimal percentageChange24H
+            decimal percentageChange24H,
+            DateTime time
         )
         {
             CurrencyId = currencyId;
@@ -39,7 +39,7 @@ namespace CryptoWatcher.Domain.Models
             Volume24H = volume24H;
             MarketCap = marketCap;
             PercentageChange24H = percentageChange24H;
-            Time = DateTime.Now;
+            Time = time;
         }
     }
 }

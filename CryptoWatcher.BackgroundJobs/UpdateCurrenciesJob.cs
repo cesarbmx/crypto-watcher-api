@@ -45,6 +45,9 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
+                // Time
+                var time = DateTime.Now;
+
                 // Get all currencies from CoinMarketCap
                 var result = await _coinMarketCapClient.GetTickerListAsync(10);
                 result = result.Where(x => 
@@ -63,7 +66,7 @@ namespace CryptoWatcher.BackgroundJobs
                 var currencies = await _currencyRepository.GetAll();
 
                 // Update 
-                _currencyRepository.UpdateCollection(currencies, newCurrencies);
+                _currencyRepository.UpdateCollection(currencies, newCurrencies, time);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CryptoWatcher.Domain.Builders;
@@ -12,14 +13,17 @@ namespace CryptoWatcher.Domain.Tests.BuildersTests
         [TestMethod]
         public void BuildDependencyLevel_1()
         {
+            // Time
+            var time = DateTime.Now;
+
             // Arrange
             var dependencyLevels = new List<IndicatorDependency>
             {
-                new IndicatorDependency("2", "1", 0),
-                new IndicatorDependency("3", "1", 0),
-                new IndicatorDependency("3", "2", 0),
-                new IndicatorDependency("4", "3", 0),
-                new IndicatorDependency("5", "3", 0)
+                new IndicatorDependency("2", "1", 0, time),
+                new IndicatorDependency("3", "1", 0, time),
+                new IndicatorDependency("3", "2", 0, time),
+                new IndicatorDependency("4", "3", 0, time),
+                new IndicatorDependency("5", "3", 0, time)
             };
 
             // Act

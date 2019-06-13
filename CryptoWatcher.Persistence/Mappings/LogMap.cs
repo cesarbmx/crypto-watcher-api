@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
 
@@ -45,18 +46,19 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             // Seed data
-            var user1 = new User("master");
-            var indicator1 = new Indicator("price", IndicatorType.CurrencyIndicator, "master", "Price", "", "", null);
-            var indicator2 = new Indicator("price-change-24hrs", IndicatorType.CurrencyIndicator, "master", "Price change 24Hrs", "", "", null);
-            var indicator3 = new Indicator("hype", IndicatorType.CurrencyIndicator, "master", "Hype", "", "", null);
-            var indicatorDependencies1 = new IndicatorDependency("hype", "price-change-24hrs", 0);
+            var time = DateTime.Now;
+            var user1 = new User("master", time);
+            var indicator1 = new Indicator("price", IndicatorType.CurrencyIndicator, "master", "Price", "", "", null, time);
+            var indicator2 = new Indicator("price-change-24hrs", IndicatorType.CurrencyIndicator, "master", "Price change 24Hrs", "", "", null, time);
+            var indicator3 = new Indicator("hype", IndicatorType.CurrencyIndicator, "master", "Hype", "", "", null, time);
+            var indicatorDependencies1 = new IndicatorDependency("hype", "price-change-24hrs", 0, time);
 
             entityBuilder.HasData(
-                new Log("Add", user1, user1.Id),
-                new Log("Add", indicator1, indicator1.Id),
-                new Log("Add", indicator2, indicator2.Id),
-                new Log("Add", indicator3, indicator3.Id),
-                new Log("Add", indicatorDependencies1, indicatorDependencies1.Id)
+                new Log("Add", user1, user1.Id, time),
+                new Log("Add", indicator1, indicator1.Id, time),
+                new Log("Add", indicator2, indicator2.Id, time),
+                new Log("Add", indicator3, indicator3.Id, time),
+                new Log("Add", indicatorDependencies1, indicatorDependencies1.Id, time)
             );
         }
     }

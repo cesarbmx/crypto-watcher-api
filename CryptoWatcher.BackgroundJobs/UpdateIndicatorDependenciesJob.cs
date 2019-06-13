@@ -37,6 +37,9 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
+                // Time
+                var time = DateTime.Now;
+
                 // Get all dependencies
                 var indicatorDependencies = await _indicatorDependencyRepository.GetAll();
 
@@ -44,7 +47,7 @@ namespace CryptoWatcher.BackgroundJobs
                 IndicatorDependencyBuilder.BuildLevel(indicatorDependencies);
 
                 // Update
-                _indicatorDependencyRepository.UpdateRange(indicatorDependencies);
+                _indicatorDependencyRepository.UpdateRange(indicatorDependencies, time);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

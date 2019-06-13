@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,7 +41,8 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             // Seed data
-            entityBuilder.HasData(new IndicatorDependency("hype", "price-change-24hrs", 0));
+            var time = DateTime.Now;
+            entityBuilder.HasData(new IndicatorDependency("hype", "price-change-24hrs", 0, time));
         }
     }
 }

@@ -51,6 +51,9 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
+                // Time
+                var time = DateTime.Now;
+
                 // Get all currencies
                 var currencies = await _currencyRepository.GetAll();
 
@@ -64,10 +67,10 @@ namespace CryptoWatcher.BackgroundJobs
                 var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherWillingToBuyOrSell());
 
                 // Build new lines
-                var lines = LineBuilder.BuildLines(currencies, indicators, watchers);
+                var lines = LineBuilder.BuildLines(currencies, indicators, watchers, time);
 
                 // Set new lines
-                _lineRepository.AddRange(lines);
+                _lineRepository.AddRange(lines, time);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

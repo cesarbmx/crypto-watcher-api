@@ -72,38 +72,38 @@ namespace CryptoWatcher.Persistence.Repositories
         {
             return Task.FromResult(List.Max(x => x.Time));
         }
-        public void Add(TEntity entity)
+        public void Add(TEntity entity, DateTime time)
         {
             List.Add(entity);
         }
-        public void AddRange(List<TEntity> entities)
+        public void AddRange(List<TEntity> entities, DateTime time)
         {
             List.AddRange(entities);
         }
-        public void Update(TEntity entity)
+        public void Update(TEntity entity, DateTime time)
         {
 
         }
-        public void UpdateRange(List<TEntity> entities)
+        public void UpdateRange(List<TEntity> entities, DateTime time)
         {
             
         }
-        public void Remove(TEntity entity)
+        public void Remove(TEntity entity, DateTime time)
         {
             List.Remove(entity);
         }
-        public void RemoveRange(List<TEntity> entities)
+        public void RemoveRange(List<TEntity> entities, DateTime time)
         {
             foreach (var entity in entities)
             {
-                Remove(entity);
+                Remove(entity, time);
             }
         }
-        public void UpdateCollection(List<TEntity> currentEntities, List<TEntity> newEntities)
+        public void UpdateCollection(List<TEntity> currentEntities, List<TEntity> newEntities, DateTime time)
         {
-            AddRange(EntityBuilder.BuildEntitiesToAdd(currentEntities, newEntities));
-            UpdateRange(EntityBuilder.BuildEntitiesToUpdate(currentEntities, newEntities));
-            RemoveRange(EntityBuilder.BuildEntitiesToRemove(currentEntities, newEntities));
+            AddRange(EntityBuilder.BuildEntitiesToAdd(currentEntities, newEntities), time);
+            UpdateRange(EntityBuilder.BuildEntitiesToUpdate(currentEntities, newEntities), time);
+            RemoveRange(EntityBuilder.BuildEntitiesToRemove(currentEntities, newEntities), time);
         }
     }
 }

@@ -36,11 +36,14 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
+                // Time
+                var time = DateTime.Now;
+
                 // Get lines to be removed
                 var lines = await _lineRepository.GetAll(LineExpression.ObsoleteLine());
 
                 // Remove
-                _lineRepository.RemoveRange(lines);
+                _lineRepository.RemoveRange(lines, time);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
