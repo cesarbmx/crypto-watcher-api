@@ -149,6 +149,9 @@ namespace CryptoWatcher.Application.Services
             // Update dependencies
             _mainDbContext.UpdateCollection(currentIndicatorDependencies, newIndicatorDependencies);
 
+            // Set dependencies
+            indicator.SetDependencies(newIndicatorDependencies);
+
             // Save
             await _mainDbContext.SaveChangesAsync();
 
