@@ -120,9 +120,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<IndicatorResponse> UpdateIndicator(UpdateIndicatorRequest request)
         {
             // Get indicator
-            var indicator = await _mainDbContext.Indicators
-                .Include(x=>x.Dependencies)
-                .SingleOrDefaultAsync(IndicatorExpression.Indicator(request.IndicatorId));
+            var indicator = await _mainDbContext.Indicators.SingleOrDefaultAsync(IndicatorExpression.Indicator(request.IndicatorId));
 
             // Throw NotFoundException if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
@@ -133,17 +131,23 @@ namespace CryptoWatcher.Application.Services
             // Get dependencies
             var newDependencies = await GetDependencies(request.Dependencies);
 
-            // Build new indicator dependencies
-            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(indicator.IndicatorId, newDependencies, time);
-
             // Build dependency level
             var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(newDependencies);
 
             // Update indicator
-            indicator.Update(request.Name, request.Description, request.Formula, newIndicatorDependencies, dependencyLevel);
+            indicator.Update(request.Name, request.Description, request.Formula, dependencyLevel);
 
             // Update
-            _mainDbContext.Indicators.Update(indicator);         
+            _mainDbContext.Indicators.Update(indicator);
+
+            // Get dependencies
+            var currentIndicatorDependencies = await _mainDbContext.IndicatorDependencies.Where(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId)).ToListAsync();
+
+            // Build new indicator dependencies
+            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(indicator.IndicatorId, newDependencies, time);
+
+            // Update dependencies
+            _mainDbContext.UpdateCollection(currentIndicatorDependencies, newIndicatorDependencies);
 
             // Save
             await _mainDbContext.SaveChangesAsync();

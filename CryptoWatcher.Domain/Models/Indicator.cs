@@ -51,13 +51,11 @@ namespace CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Indicator Update(string name, string description, string formula, List<IndicatorDependency> dependencies, int dependencyLevel)
+        public Indicator Update(string name, string description, string formula, int dependencyLevel)
         {
             Name = name;
             Description = description;
             Formula = formula;
-            Dependencies.Clear();
-            Dependencies.AddRange(dependencies);
             DependencyLevel = dependencyLevel;
 
             return this;
