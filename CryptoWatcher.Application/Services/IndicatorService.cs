@@ -90,8 +90,8 @@ namespace CryptoWatcher.Application.Services
             // Throw ConflictException if it exists
             if (indicator != null) throw new ConflictException(IndicatorMessage.IndicatorWithSameNameAlreadyExists);
 
-            // Build dependencies
-            var dependencies = await BuildDependencies(request.IndicatorId, request.Dependencies);
+            // Get dependencies
+            var dependencies = await GetDependencies(request.IndicatorId, request.Dependencies);
 
             // Create
             indicator = new Indicator(
@@ -126,15 +126,19 @@ namespace CryptoWatcher.Application.Services
             // Throw NotFoundException if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
-            // Build dependencies
-            var newDependencies = await BuildDependencies(request.IndicatorId, request.Dependencies);
+            // Get dependencies
+            var newDependencies = await GetDependencies(request.IndicatorId, request.Dependencies);
+
+            // Get current dependencies 
+            var currentDependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
 
             // Update dependencies
-            var currentDependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
             _indicatorDependencyRepository.UpdateCollection(currentDependencies, newDependencies);
 
             // Update indicator
             indicator.Update(request.Name, request.Description, request.Formula, newDependencies);
+
+            // Update
             _indicatorRepository.Update(indicator);
 
             // Save
@@ -162,7 +166,7 @@ namespace CryptoWatcher.Application.Services
             var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
             indicator.SetDependencies(dependencies);
         }
-        private async Task<List<IndicatorDependency>> BuildDependencies(string indicatorId, string[] dependencies)
+        private async Task<List<IndicatorDependency>> GetDependencies(string indicatorId, string[] dependencies)
         {
             var indicatorDependencies = new List<IndicatorDependency>();
             foreach (var dependencyId in dependencies)
