@@ -99,7 +99,7 @@ namespace CryptoWatcher.Application.Services
             var dependencies = await GetDependencies(request.Dependencies);
 
             // Build dependency level
-            var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(request.IndicatorId, dependencies);
+            var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(dependencies);
 
             // Build new indicator dependencies
             var indicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(request.IndicatorId, dependencies, time);

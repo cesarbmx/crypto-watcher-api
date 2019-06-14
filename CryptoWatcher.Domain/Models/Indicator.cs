@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CryptoWatcher.Domain.Builders;
 
 namespace CryptoWatcher.Domain.Models
 {
@@ -43,6 +42,12 @@ namespace CryptoWatcher.Domain.Models
         public Indicator SetDependencies(List<IndicatorDependency> dependencies)
         {
             Dependencies = dependencies;
+
+            return this;
+        }
+        public Indicator SetDependencyLevel(int dependencyLevel)
+        {
+            DependencyLevel = dependencyLevel;
 
             return this;
         }

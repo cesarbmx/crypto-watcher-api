@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.Tests.FakeModels;
 
 
 namespace CryptoWatcher.Domain.Tests.BuildersTests
@@ -102,6 +103,45 @@ namespace CryptoWatcher.Domain.Tests.BuildersTests
             Assert.AreEqual(true, values[2] == 0);
             Assert.AreEqual(true, values[3] == 0);
             Assert.AreEqual(true, values[4] == 0);
+        }
+        [TestMethod]
+        public void DependencyLevel_Hype()
+        {
+            // Arrange
+            var indicatorId = "hype";
+            var allIndicatorDependencies = FakeIndicatorDependencies.GetFakeIndicatorDependencies();
+
+            // Act
+            var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(indicatorId, allIndicatorDependencies);
+
+            // Assert
+            Assert.AreEqual(2, dependencyLevel);
+        }
+        [TestMethod]
+        public void DependencyLevel_PriceChange24Hrs()
+        {
+            // Arrange
+            var indicatorId = "price-change-24hrs";
+            var allIndicatorDependencies = FakeIndicatorDependencies.GetFakeIndicatorDependencies();
+
+            // Act
+            var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(indicatorId, allIndicatorDependencies);
+
+            // Assert
+            Assert.AreEqual(1, dependencyLevel);
+        }
+        [TestMethod]
+        public void DependencyLevel_Price()
+        {
+            // Arrange
+            var indicatorId = "price";
+            var allIndicatorDependencies = FakeIndicatorDependencies.GetFakeIndicatorDependencies();
+
+            // Act
+            var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(indicatorId, allIndicatorDependencies);
+
+            // Assert
+            Assert.AreEqual(0, dependencyLevel);
         }
     }
 }

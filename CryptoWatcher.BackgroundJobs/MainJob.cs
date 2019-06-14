@@ -10,7 +10,7 @@ namespace CryptoWatcher.BackgroundJobs
     public class MainJob
     {
         private readonly UpdateCurrenciesJob _updateCurrenciesJob;
-        private readonly UpdateIndicatorDependenciesJob _updateIndicatorDependenciesJob;
+        private readonly UpdateIndicatorDependencyLevelsJob _updateIndicatorDependenciesJob;
         private readonly UpdateLinesJob _updateLinesJob;
         private readonly UpdateDefaultWatchersJob _updateDefaultWatchersJob;
         private readonly UpdateWatchersJob _updateWatchersJob;
@@ -18,7 +18,7 @@ namespace CryptoWatcher.BackgroundJobs
         private readonly ILogger<MainJob> _logger;
         public MainJob(
             UpdateCurrenciesJob updateCurrenciesJob,
-            UpdateIndicatorDependenciesJob updateIndicatorDependenciesJob,
+            UpdateIndicatorDependencyLevelsJob updateIndicatorDependenciesJob,
             UpdateLinesJob updateLinesJob,
             UpdateDefaultWatchersJob updateDefaultWatchersJob,
             UpdateWatchersJob updateWatchersJob,
