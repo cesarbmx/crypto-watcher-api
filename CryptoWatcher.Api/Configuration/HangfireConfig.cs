@@ -1,4 +1,5 @@
-﻿using Hangfire;
+﻿using CryptoWatcher.Api.ActionFilters;
+using Hangfire;
 using Hangfire.MemoryStorage;
 using CryptoWatcher.BackgroundJobs;
 using Microsoft.AspNetCore.Builder;
@@ -27,7 +28,10 @@ namespace CryptoWatcher.Api.Configuration
         public static IApplicationBuilder ConfigureHangfire(this IApplicationBuilder app, IConfiguration configuration)
         {
             // Configure
-            app.UseHangfireDashboard();
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions
+            {
+                Authorization = new[] { new HangfireAuthorization() }
+            });
             app.UseHangfireServer();
 
             // Background jobs

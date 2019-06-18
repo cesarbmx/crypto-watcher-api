@@ -1,4 +1,5 @@
-﻿using ElmahCore.Mvc;
+﻿using CryptoWatcher.Api.ActionFilters;
+using ElmahCore.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,8 @@ namespace CryptoWatcher.Api.Configuration
         {
             services.AddElmah(options =>
             {
-                options.ConnectionString = configuration.GetConnectionString("CryptoWatcher");
+                //options.ConnectionString = configuration.GetConnectionString("CryptoWatcher");
+                options.Filters.Add(new ElmahFilter());
             });
 
             // Return
