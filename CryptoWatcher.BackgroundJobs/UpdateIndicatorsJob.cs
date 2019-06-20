@@ -11,16 +11,16 @@ using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class UpdateIndicatorDependencyLevelsJob
+    public class UpdateIndicatorsJob
     {
         private readonly MainDbContext _mainDbContext;
-        private readonly ILogger<UpdateIndicatorDependencyLevelsJob> _logger;
+        private readonly ILogger<UpdateIndicatorsJob> _logger;
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<IndicatorDependency> _indicatorDependencyRepository;
 
-        public UpdateIndicatorDependencyLevelsJob(
+        public UpdateIndicatorsJob(
             MainDbContext mainDbContext,
-            ILogger<UpdateIndicatorDependencyLevelsJob> logger,
+            ILogger<UpdateIndicatorsJob> logger,
             IRepository<Indicator> indicatorRepository,
             IRepository<IndicatorDependency> indicatorDependencyRepository)
         {
@@ -48,7 +48,10 @@ namespace CryptoWatcher.BackgroundJobs
                 // Get all indicator dependencies
                 var indicatorDependencies = await _indicatorDependencyRepository.GetAll();
 
-                // Build
+                // Build indicator dependencies
+                IndicatorBuilder.BuildDependencies(indicators, indicatorDependencies);
+
+                // Build dependency levels
                 IndicatorBuilder.BuildDependencyLevels(indicators, indicatorDependencies);
 
                 // Update
