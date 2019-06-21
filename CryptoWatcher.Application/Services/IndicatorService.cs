@@ -52,8 +52,11 @@ namespace CryptoWatcher.Application.Services
             // Get all indicators
             var indicators = await _indicatorRepository.GetAll(IndicatorExpression.IndicatorFilter(indicatorType, null, userId));
 
-            // Get all dependencies
-            await GetDependencies(indicators);
+            // Get all indicator dependencies
+            var indicatorDependencies = await _indicatorDependencyRepository.GetAll();
+
+            // Build indicator dependencies
+            IndicatorBuilder.BuildDependencies(indicators, indicatorDependencies);
 
             // Response
             var response = _mapper.Map<List<IndicatorResponse>>(indicators);
@@ -69,8 +72,11 @@ namespace CryptoWatcher.Application.Services
             // Throw NotFoundException if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
-            // Get dependencies
-            await GetDependencies(indicator);
+            // Get all indicator dependencies
+            var indicatorDependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicatorId));
+
+            // Set indicator dependencies
+            indicator.SetDependencies(indicatorDependencies);
 
             // Response
             var response = _mapper.Map<IndicatorResponse>(indicator);
@@ -149,7 +155,7 @@ namespace CryptoWatcher.Application.Services
             var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(indicator.IndicatorId, newDependencies, time);
 
             // Get current indicator dependencies 
-            var currentIndicatorDependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
+            var currentIndicatorDependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId));
 
             // Update dependencies
             _indicatorDependencyRepository.UpdateCollection(currentIndicatorDependencies, newIndicatorDependencies, time);
@@ -176,18 +182,6 @@ namespace CryptoWatcher.Application.Services
             return response;
         }
 
-        private async Task GetDependencies(List<Indicator> indicators)
-        {
-            foreach (var indicator in indicators)
-            {
-                await GetDependencies(indicator);
-            }
-        }
-        private async Task GetDependencies(Indicator indicator)
-        {
-            var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
-            indicator.SetDependencies(dependencies);
-        }
         private async Task<List<Indicator>> GetDependencies(string[] dependencyIds)
         {
             var dependencies = new List<Indicator>();
