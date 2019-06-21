@@ -60,8 +60,11 @@ namespace CryptoWatcher.BackgroundJobs
                 // Get all indicators
                 var indicators = await _indicatorRepository.GetAll();
 
-                // Set all indicators dependencies
-                await SetIndicatorDependencies(indicators);
+                // Get all indicator dependencies
+                var indicatorDependencies = await _indicatorDependencyRepository.GetAll();
+
+                // Build indicator dependencies
+                IndicatorBuilder.BuildDependencies(indicators, indicatorDependencies);
 
                 // Get non-default watchers with buy or sell
                 var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherWillingToBuyOrSell());
@@ -99,15 +102,6 @@ namespace CryptoWatcher.BackgroundJobs
                 // Log error into Splunk
                 _logger.LogSplunkError(ex);
             }
-        }
-
-        private async Task SetIndicatorDependencies(List<Indicator> indicators)
-        {
-            foreach (var indicator in indicators)
-            {
-                var dependencies = await _indicatorDependencyRepository.GetAll(IndicatorDependencyExpression.IndicatorDependencyFilter(indicator.IndicatorId, null));
-                indicator.SetDependencies(dependencies);
-            }
-        }
+        }        
     }
 }

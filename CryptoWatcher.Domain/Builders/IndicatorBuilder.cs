@@ -147,11 +147,11 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return maxDependencyLevel;
         }
-        public static void BuildDependencies(List<Indicator> indicators, List<IndicatorDependency> indicatorDependencys)
+        public static void BuildDependencies(List<Indicator> indicators, List<IndicatorDependency> indicatorDependencies)
         {
             foreach (var indicator in indicators)
             {
-                var dependencies = indicatorDependencys.Where(x => x.IndicatorId == indicator.IndicatorId).ToList();
+                var dependencies = indicatorDependencies.Where(x => x.IndicatorId == indicator.IndicatorId).ToList();
                 indicator.SetDependencies(dependencies);
             }
         }
