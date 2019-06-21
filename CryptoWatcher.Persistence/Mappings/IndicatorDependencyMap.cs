@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,17 +10,17 @@ namespace CryptoWatcher.Persistence.Mappings
         public IndicatorDependencyMap(EntityTypeBuilder<IndicatorDependency> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => new { t.IndicatorId, t.DependencyId });
+            entityBuilder.HasKey(t=> new { t.IndicatorId, t.DependencyId});
 
             // Relationships
             entityBuilder
-                .HasOne(x => x.Indicator)
-                .WithMany()
+                .HasOne<Indicator>()
+                .WithMany(x=>x.Dependencies)
                 .HasForeignKey(x => x.IndicatorId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             entityBuilder
-                .HasOne(x => x.Dependency)
+                .HasOne<Indicator>()
                 .WithMany()
                 .HasForeignKey(x => x.DependencyId)
                 .OnDelete(DeleteBehavior.Restrict);
@@ -34,6 +35,10 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();
+
+            // Seed data
+            var time = DateTime.Now;
+            entityBuilder.HasData(new IndicatorDependency("hype", "price-change-24hrs", time));
         }
     }
 }

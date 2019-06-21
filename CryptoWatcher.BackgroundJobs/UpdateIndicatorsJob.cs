@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using Hangfire;
@@ -12,19 +11,22 @@ using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class UpdateIndicatorDependenciesJob
+    public class UpdateIndicatorsJob
     {
         private readonly MainDbContext _mainDbContext;
-        private readonly ILogger<UpdateIndicatorDependenciesJob> _logger;
+        private readonly ILogger<UpdateIndicatorsJob> _logger;
+        private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<IndicatorDependency> _indicatorDependencyRepository;
 
-        public UpdateIndicatorDependenciesJob(
+        public UpdateIndicatorsJob(
             MainDbContext mainDbContext,
-            ILogger<UpdateIndicatorDependenciesJob> logger,
+            ILogger<UpdateIndicatorsJob> logger,
+            IRepository<Indicator> indicatorRepository,
             IRepository<IndicatorDependency> indicatorDependencyRepository)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
+            _indicatorRepository = indicatorRepository;
             _indicatorDependencyRepository = indicatorDependencyRepository;
         }
 
@@ -37,17 +39,29 @@ namespace CryptoWatcher.BackgroundJobs
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Get all dependencies
+                // Time
+                var time = DateTime.Now;
+
+                // Get all indicators
+                var indicators = await _indicatorRepository.GetAll();
+
+                // Get all indicator dependencies
                 var indicatorDependencies = await _indicatorDependencyRepository.GetAll();
 
-                // Build
-                IndicatorDependencyBuilder.BuildLevel(indicatorDependencies);
+                // Build indicator dependencies
+                IndicatorBuilder.BuildDependencies(indicators, indicatorDependencies);
+
+                // Build dependency levels
+                IndicatorBuilder.BuildDependencyLevels(indicators, indicatorDependencies);
 
                 // Update
-                _indicatorDependencyRepository.UpdateRange(indicatorDependencies);
+                _indicatorRepository.UpdateRange(indicators, time);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
+
+                // Build max dependency level
+                var maxDependencyLevel  = IndicatorBuilder.BuildMaxDependencyLevel(indicators);
 
                 // Stop watch
                 stopwatch.Stop();
@@ -55,7 +69,7 @@ namespace CryptoWatcher.BackgroundJobs
                 // Log into Splunk
                 _logger.LogSplunkJob(new
                 {
-                    MaxLevel = indicatorDependencies.Select(x=>x.Level).Max(),
+                    MaxLevel = maxDependencyLevel,
                     ExecutionTime = stopwatch.Elapsed.TotalSeconds
                 });
 

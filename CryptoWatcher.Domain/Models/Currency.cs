@@ -18,7 +18,6 @@ namespace CryptoWatcher.Domain.Models
 
         public Currency()
         {
-            Time = DateTime.Now;
         }
         public Currency(
             string currencyId,

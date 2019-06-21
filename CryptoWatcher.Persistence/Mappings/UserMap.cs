@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,12 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.Time)
                 .HasColumnType("datetime2")
                 .IsRequired();
+
+            // Data seeding
+            var time = DateTime.Now;
+            entityBuilder.HasData(
+                new User("master", time)
+            );
         }
     }
 }

@@ -9,21 +9,24 @@ namespace CryptoWatcher.Domain.Builders
     {
         public static List<IndicatorDependency> BuildIndicatorDependencies(string indicatorId, List<Indicator> dependencies, DateTime time)
         {
-            // New up list
-            var indcatorDependencies = new List<IndicatorDependency>();
+            // Prepare list
+            var indicatorDependencies = new List<IndicatorDependency>();
 
-            // For each dependency
+            // Build
             foreach (var dependency in dependencies)
             {
                 // Create
                 var indicatorDependency = new IndicatorDependency(indicatorId, dependency.IndicatorId, time);
 
                 // Add
-                indcatorDependencies.Add(indicatorDependency);
+                indicatorDependencies.Add(indicatorDependency);
             }
 
             // Return
-            return indcatorDependencies;
+            return indicatorDependencies;
         }
+
+
+       
     }
 }

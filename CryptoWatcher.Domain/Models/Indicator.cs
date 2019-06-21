@@ -12,9 +12,9 @@ namespace CryptoWatcher.Domain.Models
         public string Name { get; private set; }
         public string Description { get; private set; }
         public string Formula { get; private set; }
-        public DateTime Time { get; private set; }
         public List<IndicatorDependency> Dependencies { get; private set; }
         public int DependencyLevel { get; private set; }
+        public DateTime Time { get; private set; }
 
         public Indicator() { }
         public Indicator(
@@ -51,12 +51,11 @@ namespace CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Indicator Update(string name, string description, string formula, int dependencyLevel)
+        public Indicator Update(string name, string description, string formula)
         {
             Name = name;
             Description = description;
             Formula = formula;
-            DependencyLevel = dependencyLevel;
 
             return this;
         }

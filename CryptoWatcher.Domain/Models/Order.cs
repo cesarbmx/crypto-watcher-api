@@ -15,12 +15,7 @@ namespace CryptoWatcher.Domain.Models
         public DateTime Time { get; private set; }
 
         public Order() { }
-        public Order(
-            string userId,
-            OrderType orderType,
-            string currencyId,
-            decimal quantity,
-            DateTime time)
+        public Order(string userId, OrderType orderType, string currencyId, decimal quantity, DateTime time)
         {
             OrderId = 0;
             OrderType = orderType;

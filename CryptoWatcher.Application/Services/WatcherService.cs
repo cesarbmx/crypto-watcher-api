@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Application.Requests;
@@ -10,9 +9,9 @@ using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
+using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Shared.Exceptions;
 using CryptoWatcher.Shared.Extensions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Application.Services
@@ -20,15 +19,24 @@ namespace CryptoWatcher.Application.Services
     public class WatcherService
     {
         private readonly MainDbContext _mainDbContext;
+        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Indicator> _indicatorRepository;
+        private readonly IRepository<Watcher> _watcherRepository;
         private readonly ILogger<WatcherService> _logger;
         private readonly IMapper _mapper;
 
         public WatcherService(
             MainDbContext mainDbContext,
+            IRepository<User> userRepository,
+            IRepository<Indicator> indicatorRepository,
+            IRepository<Watcher> watcherRepository,
             ILogger<WatcherService> logger,
             IMapper mapper)
         {
             _mainDbContext = mainDbContext;
+            _userRepository = userRepository;
+            _indicatorRepository = indicatorRepository;
+            _watcherRepository = watcherRepository;
             _logger = logger;
             _mapper = mapper;
         }
@@ -36,16 +44,16 @@ namespace CryptoWatcher.Application.Services
         public async Task<List<WatcherResponse>> GetAllWatchers(string userId = null, string currencyId = null, string indicatorId = null)
         {
             // Get user
-            var user = await _mainDbContext.Users.FindAsync(userId);
+            var user = await _userRepository.GetSingle(userId);
 
             // Check if it exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get all watchers
-            var userWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.WatcherFilter(userId, currencyId, indicatorId)).ToListAsync();
+            var userWatchers = await _watcherRepository.GetAll(WatcherExpression.WatcherFilter(userId, currencyId, indicatorId));
 
             // Get all default watchers
-            var defaultWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.DefaultWatcher(currencyId, indicatorId)).ToListAsync();
+            var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher(currencyId, indicatorId));
 
             // Build with defaults
             userWatchers = WatcherBuilder.BuildWatchersWithDefaults(userWatchers, defaultWatchers);
@@ -59,7 +67,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<WatcherResponse> GetWatcher(string watcherId)
         {
             // Get watcher
-            var watcher = await _mainDbContext.Watchers.FindAsync(watcherId);
+            var watcher = await _watcherRepository.GetSingle(watcherId);
 
             // Throw NotFoundException if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
@@ -73,27 +81,30 @@ namespace CryptoWatcher.Application.Services
         public async Task<WatcherResponse> AddWatcher(AddWatcherRequest request)
         {
             // Get user
-            var user = await _mainDbContext.Users.FindAsync(request.UserId);
+            var user = await _userRepository.GetSingle(request.UserId);
 
             // Throw NotFoundException if the currency does not exist
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get indicator
-            var indicator = await _mainDbContext.Indicators.FindAsync(request.IndicatorId);
+            var indicator = await _indicatorRepository.GetSingle(request.IndicatorId);
 
             // Throw NotFoundException if the currency does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Check if it exists
-            var watcher = await _mainDbContext.Watchers.SingleOrDefaultAsync(WatcherExpression.Watcher(request.UserId, request.TargetId, request.IndicatorId));
+            var watcher = await _watcherRepository.GetSingle(WatcherExpression.Watcher(request.UserId, request.TargetId, request.IndicatorId));
 
             // Throw ConflictException if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
 
-            // Get default watcher
-           var defaultWatcher = await _mainDbContext.Watchers.SingleOrDefaultAsync(WatcherExpression.DefaultWatcher(request.TargetId, request.IndicatorId));
+            // Time
+            var time = DateTime.Now;
 
-            // Create
+            // Get default watcher
+            var defaultWatcher = await _watcherRepository.GetSingle(WatcherExpression.DefaultWatcher(request.TargetId, request.IndicatorId));
+
+            // Add
             watcher = new Watcher(
                 request.UserId,
                 request.TargetId,
@@ -104,11 +115,9 @@ namespace CryptoWatcher.Application.Services
                 request.Sell,
                 defaultWatcher?.AverageBuy,
                 defaultWatcher?.AverageSell,
-                request.Enabled, 
-                DateTime.Now);
-
-            // Add
-            _mainDbContext.Watchers.Add(watcher);
+                request.Enabled,
+                time);
+            _watcherRepository.Add(watcher, time);
 
             // Save
             await _mainDbContext.SaveChangesAsync();
@@ -125,16 +134,19 @@ namespace CryptoWatcher.Application.Services
         public async Task<WatcherResponse> UpdateWatcher(UpdateWatcherRequest request)
         {
             // Get watcher
-            var watcher = await _mainDbContext.Watchers.FindAsync(request.WatcherId);
+            var watcher = await _watcherRepository.GetSingle(request.WatcherId);
 
             // Throw NotFoundException if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
-            // Update watcer
+            // Time
+            var time = DateTime.Now;
+
+            // Update watcher
             watcher.Update(request.Buy, request.Sell, request.Enabled);
 
             // Update
-            _mainDbContext.Watchers.Update(watcher);
+            _watcherRepository.Update(watcher, time);
 
             // Save
             await _mainDbContext.SaveChangesAsync();

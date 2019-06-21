@@ -9,7 +9,7 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class OrderBuilder
     {
-        public static List<Order> BuildNewOrders(List<Watcher> watchers, List<Order> ongoingOrders)
+        public static List<Order> BuildNewOrders(List<Watcher> watchers, List<Order> ongoingOrders, DateTime time)
         {
             var newOrders = new List<Order>();
 
@@ -25,7 +25,7 @@ namespace CryptoWatcher.Domain.Builders
                     watcher.TargetId,
                     orderType).Compile()).ToList();                
                 if (userOrders.Count != 0) continue;
-                var order = new Order(watcher.UserId, orderType, watcher.TargetId, 100, DateTime.Now);
+                var order = new Order(watcher.UserId, orderType, watcher.TargetId, 100, time);
                 newOrders.Add(order);
             }
 

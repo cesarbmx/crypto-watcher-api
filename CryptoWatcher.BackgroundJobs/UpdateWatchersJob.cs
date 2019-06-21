@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
 using Hangfire;
+using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Persistence.Repositories;
 using CryptoWatcher.Persistence.Contexts;
 using CryptoWatcher.Shared.Extensions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
@@ -15,12 +15,15 @@ namespace CryptoWatcher.BackgroundJobs
     public class UpdateWatchersJob
     {
         private readonly MainDbContext _mainDbContext;
+        private readonly IRepository<Watcher> _watcherRepository;
         private readonly ILogger<UpdateWatchersJob> _logger;
         public UpdateWatchersJob(
             MainDbContext mainDbContext,
+            IRepository<Watcher> watcherRepository,
             ILogger<UpdateWatchersJob> logger)
         {
             _mainDbContext = mainDbContext;
+            _watcherRepository = watcherRepository;
             _logger = logger;
         }
 
@@ -34,10 +37,10 @@ namespace CryptoWatcher.BackgroundJobs
                 stopwatch.Start();
 
                 // Get all watchers
-                var watchers = await _mainDbContext.Watchers.ToListAsync();
+                var watchers = await _watcherRepository.GetAll();
 
                 // Get all default watchers
-                var defaultWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.DefaultWatcher()).ToListAsync();
+                var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
 
                 // Sync watchers
                 watchers.SyncWatchers(defaultWatchers);
