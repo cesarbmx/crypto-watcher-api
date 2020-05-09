@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CesarBmx.Shared.Api.ResponseExamples;
-using CryptoWatcher.Api.ResponseExamples;
+using CesarBmx.Shared.Application.Responses;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.Controllers
 {
+    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
+    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
+    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
     // ReSharper disable once InconsistentNaming
     public class E_OrdersController : Controller
     {
@@ -27,9 +28,6 @@ namespace CryptoWatcher.Api.Controllers
         [HttpGet]
         [Route("users/{userId}/orders")]
         [SwaggerResponse(200, Type = typeof(List<OrderResponse>))]
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(OrderListResponseExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetAllOrders")]
         public async Task<IActionResult> GetAllOrders(string userId)
         {
@@ -47,10 +45,6 @@ namespace CryptoWatcher.Api.Controllers
         [Route("orders/{orderId}", Name = "Orders_GetOrder")]
         [SwaggerResponse(200, Type = typeof(OrderResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(OrderResponseExample))]
-        [SwaggerResponseExample(404, typeof(NotFoundExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetOrder")]
         public async Task<IActionResult> GetOrder(Guid orderId)
         {

@@ -5,7 +5,6 @@ using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using ErrorResponse = CryptoWatcher.Application.Responses.ErrorResponse;
 
 namespace CryptoWatcher.Api.Controllers
 {
@@ -27,8 +26,7 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("currencies")]
-        [SwaggerResponse(200, Type = typeof(List<CurrencyResponse>))]       
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(200, Type = typeof(List<CurrencyResponse>))]  
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetAllCurrencies")]
         public async Task<IActionResult> GetAllCurrencies()
         {
@@ -46,7 +44,6 @@ namespace CryptoWatcher.Api.Controllers
         [Route("currencies/{currencyId}", Name = "Currencies_GetCurrency")]
         [SwaggerResponse(200, Type = typeof(CurrencyResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrency")]
         public async Task<IActionResult> GetCurrency(string currencyId)
         {

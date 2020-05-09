@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CesarBmx.Shared.Api.ResponseExamples;
-using CryptoWatcher.Api.ResponseExamples;
+using CesarBmx.Shared.Application.Responses;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.Controllers
 {
+    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
+    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
+    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
     // ReSharper disable once InconsistentNaming
     public class X_LogController : Controller
     {
@@ -26,10 +27,7 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("logs")]
-        [SwaggerResponse(200, Type = typeof(List<LogResponse>))]       
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(LogListResponseExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
+        [SwaggerResponse(200, Type = typeof(List<LogResponse>))]
         [SwaggerOperation(Tags = new[] { "Logs" }, OperationId = "Logs_GetAllLogs")]
         public async Task<IActionResult> GetAllLogs()
         {
@@ -47,10 +45,6 @@ namespace CryptoWatcher.Api.Controllers
         [Route("logs/{logId}", Name = "Logs_GetLog")]
         [SwaggerResponse(200, Type = typeof(LogResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(LogResponseExample))]
-        [SwaggerResponseExample(404, typeof(NotFoundExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Logs" }, OperationId = "Logs_GetLog")]
         public async Task<IActionResult> GetLog(Guid logId)
         {

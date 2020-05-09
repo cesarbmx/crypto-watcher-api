@@ -6,7 +6,6 @@ using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using ErrorResponse = CryptoWatcher.Application.Responses.ErrorResponse;
 
 namespace CryptoWatcher.Api.Controllers
 {
