@@ -1,18 +1,20 @@
-﻿using CryptoWatcher.Application.FakeResponses;
+﻿using System.Collections.Generic;
+using CryptoWatcher.Application.FakeResponses;
+using CryptoWatcher.Application.Responses;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.ResponseExamples
 {
-    public class LineChartResponseExample : IExamplesProvider
+    public class LineChartResponseExample : IExamplesProvider<LineChartResponse>
     {
-        public object GetExamples()
+        public LineChartResponse GetExamples()
         {
             return LineChartFakeResponse.GetFake_Bitcoin_Price();
         }
     }
-    public class LineChartListResponseExample : IExamplesProvider
+    public class LineChartListResponseExample : IExamplesProvider<List<LineChartResponse>>
     {
-        public object GetExamples()
+        public List<LineChartResponse> GetExamples()
         {
             return LineChartFakeResponse.GetFake_List();
         }

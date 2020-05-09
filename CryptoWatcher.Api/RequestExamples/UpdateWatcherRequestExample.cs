@@ -1,11 +1,12 @@
 ﻿using CryptoWatcher.Application.FakeRequests;
+using CryptoWatcher.Application.Requests;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.RequestExamples
 {
-    public class UpdateWatcherRequestExample : IExamplesProvider
+    public class UpdateWatcherRequestExample : IExamplesProvider<UpdateWatcherRequest>
     {
-        public object GetExamples()
+        public UpdateWatcherRequest GetExamples()
         {
             return UpdateWatcherFakeRequest.GetFake_1();
         }

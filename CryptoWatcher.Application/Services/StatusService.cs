@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
+using CesarBmx.Shared.Application.Responses;
 using CoinMarketCap.Core;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;

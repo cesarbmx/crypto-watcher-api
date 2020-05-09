@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Application.Services;

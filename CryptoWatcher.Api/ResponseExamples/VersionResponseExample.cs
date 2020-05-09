@@ -1,11 +1,12 @@
-﻿using CryptoWatcher.Application.FakeResponses;
+﻿using CesarBmx.Shared.Application.Responses;
+using CryptoWatcher.Application.FakeResponses;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.ResponseExamples
 {
-    public class VersionResponseExample : IExamplesProvider
+    public class VersionResponseExample : IExamplesProvider<VersionResponse>
     {
-        public object GetExamples()
+        public VersionResponse GetExamples()
         {
             return VersionFakeResponse.GetFake_Production();
         }

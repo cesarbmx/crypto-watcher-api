@@ -1,11 +1,12 @@
 ﻿using CryptoWatcher.Application.FakeResponses;
+using CryptoWatcher.Application.Responses;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.ResponseExamples
 {
-    public class ScriptVariableListExample : IExamplesProvider
+    public class ScriptVariableListExample : IExamplesProvider<ScriptVariablesResponse>
     {
-        public object GetExamples()
+        public ScriptVariablesResponse GetExamples()
         {
             return ScriptVariableFakeResponse.GetFake_List();
         }

@@ -1,4 +1,4 @@
-﻿using CryptoWatcher.Application.Responses;
+﻿using CesarBmx.Shared.Application.Responses;
 
 namespace CryptoWatcher.Application.FakeResponses
 {

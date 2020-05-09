@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using CesarBmx.Shared.Api.ResponseExamples;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;

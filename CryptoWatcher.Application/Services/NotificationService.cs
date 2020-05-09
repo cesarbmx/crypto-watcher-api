@@ -13,6 +13,10 @@ using CesarBmx.Shared.Persistence.Repositories;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Telegram.Bot;
+using Twilio;
+using Twilio.Types;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace CryptoWatcher.Application.Services
 {

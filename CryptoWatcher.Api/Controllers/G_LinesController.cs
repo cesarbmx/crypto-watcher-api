@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CesarBmx.Shared.Api.ResponseExamples;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
-using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;

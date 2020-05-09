@@ -1,52 +1,48 @@
-﻿using CryptoWatcher.Api.ActionFilters;
-using FluentValidation.AspNetCore;
+﻿using CesarBmx.Shared.Api.ActionFilters;
+using CesarBmx.Shared.Api.Configuration;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using CryptoWatcher.Api.Controllers;
 using CryptoWatcher.Application.Validators;
 
 namespace CryptoWatcher.Api.Configuration
 {
     public static class MvcConfig
     {
-        public static IServiceCollection ConfigureMvc(this IServiceCollection services)
+        public static IServiceCollection ConfigureMvc(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMvc(
+            services.AddControllers(
                     config =>
                     {
+                        // Authentication
+                        var policy = new AuthorizationPolicyBuilder()
+                            .RequireAuthenticatedUser()
+                            .Build();
+                        config.Filters.Add(new AuthorizeFilter(policy));
+
+                        // Filters
                         config.Filters.Add(typeof(ValidateRequestAttribute));
+                        config.Filters.Add(typeof(IdentityFilter));
                     })
-                .AddFluentValidation(fv => fv
-                    .RegisterValidatorsFromAssembly(typeof(AddUserValidator).Assembly)
-                    .RunDefaultMvcValidationAfterFluentValidationExecutes = false)
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore; // Ignore nulls
-                    options.SerializerSettings.ContractResolver =
-                    //new DefaultContractResolver()
-                    //{
-                    //    NamingStrategy = new  SnakeCaseNamingStrategy()
-                    //};
-                    new CamelCasePropertyNamesContractResolver(); // CamelCase properties
-                    options.SerializerSettings.Converters.Add(
-                        new Newtonsoft.Json.Converters.StringEnumConverter()); // Enums as string
-                });
+                .ConfigureFluentValidation(typeof(AddUserValidator).Assembly)
+                .ConfigureSharedSerialization();
+
+            // Allow synchronous IO (elmah css was not loading)
+            services.Configure<IISServerOptions>(options => { options.AllowSynchronousIO = true; });
 
             return services;
         }
 
         public static IApplicationBuilder ConfigureMvc(this IApplicationBuilder app)
         {
-            app.UseMvc(routes =>
-            {
-                // Avoid hosting custom 404 page
-                routes.MapRoute(
-                    name: "default",
-                    template: "{*uri}",
-                    defaults: new { controller = typeof(Z_ServiceStatusController).Name.Replace("Controller", ""), action = "ResourceNotFound" });
-            });
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseEndpoints(config =>
+                config.MapControllers()
+            );
 
             return app;
         }

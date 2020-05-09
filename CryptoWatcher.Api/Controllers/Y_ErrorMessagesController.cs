@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CryptoWatcher.Api.ResponseExamples;
+using CesarBmx.Shared.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;
 using Microsoft.AspNetCore.Authorization;

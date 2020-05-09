@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using CesarBmx.Shared.Api.ResponseExamples;
+using CesarBmx.Shared.Application.Responses;
 using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
@@ -7,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
+using ErrorResponse = CryptoWatcher.Application.Responses.ErrorResponse;
+using VersionResponseExample = CryptoWatcher.Api.ResponseExamples.VersionResponseExample;
 
 namespace CryptoWatcher.Api.Controllers
 {
