@@ -1,33 +1,23 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
-using CryptoWatcher.Domain.Builders;
-using CryptoWatcher.Domain.Expressions;
 using Hangfire;
-using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
-using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Shared.Extensions;
+using CesarBmx.Shared.Logging.Extensions;
+using CryptoWatcher.Application.Services;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
     public class UpdateOrdersJob
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly OrderService _orderService;
         private readonly ILogger<UpdateOrdersJob> _logger;
-        private readonly IRepository<Watcher> _watcherRepository;
-        private readonly IRepository<Order> _orderRepository;
+
         public UpdateOrdersJob(
-            MainDbContext mainDbContext,
-            ILogger<UpdateOrdersJob> logger,
-            IRepository<Watcher> watcherRepository,
-            IRepository<Order> orderRepository)
+            OrderService orderService,
+            ILogger<UpdateOrdersJob> logger)
         {
-            _mainDbContext = mainDbContext;
+            _orderService = orderService;
             _logger = logger;
-            _watcherRepository = watcherRepository;
-            _orderRepository = orderRepository;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -35,45 +25,12 @@ namespace CryptoWatcher.BackgroundJobs
         {
             try
             {
-                // Start watch
-                var stopwatch = new Stopwatch();
-                stopwatch.Start();
-
-                // Time
-                var time = DateTime.Now;
-
-                // Get all watchers with buy or sells
-                var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherWillingToBuyOrSell());
-
-                // Get all orders
-                var orders = await _orderRepository.GetAll();
-
-                // Build new orders
-                var newOrders = OrderBuilder.BuildNewOrders(watchers, orders, time);
-
-                // Add
-                _orderRepository.AddRange(newOrders, time);
-
-                // Save
-                await _mainDbContext.SaveChangesAsync();
-
-                // Stop watch
-                stopwatch.Stop();
-
-                // Log into Splunk
-                _logger.LogSplunkJob(new
-                {
-                    newOrders.Count,
-                    ExecutionTime = stopwatch.Elapsed.TotalSeconds
-                });
-
-                // Return
-                await Task.CompletedTask;
+                await _orderService.UpdateOrders();
             }
             catch (Exception ex)
             {
                 // Log into Splunk 
-                _logger.LogSplunkJob(new
+                _logger.LogSplunkInformation(new
                 {
                     JobFailed = ex.Message
                 });

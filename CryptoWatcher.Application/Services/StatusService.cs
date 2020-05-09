@@ -6,7 +6,7 @@ using CoinMarketCap.Core;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
+using CesarBmx.Shared.Persistence.Repositories;
 
 namespace CryptoWatcher.Application.Services
 {

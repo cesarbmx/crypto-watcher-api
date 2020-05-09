@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.FakeResponses
 {

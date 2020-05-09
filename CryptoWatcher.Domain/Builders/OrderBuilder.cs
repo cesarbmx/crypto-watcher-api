@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 
 
 namespace CryptoWatcher.Domain.Builders

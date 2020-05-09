@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
+using CesarBmx.Shared.Domain.Entities;
 using CoinMarketCap.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoWatcher.Application.Responses;

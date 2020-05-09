@@ -1,6 +1,6 @@
-﻿
+﻿using System;
+using CesarBmx.Shared.Domain.Entities;
 
-using System;
 
 namespace CryptoWatcher.Domain.Models
 {

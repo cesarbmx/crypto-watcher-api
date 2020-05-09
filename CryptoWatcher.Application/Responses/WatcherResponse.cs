@@ -1,4 +1,4 @@
-﻿using CryptoWatcher.Domain.Models;
+﻿using CryptoWatcher.Domain.Types;
 
 
 namespace CryptoWatcher.Application.Responses

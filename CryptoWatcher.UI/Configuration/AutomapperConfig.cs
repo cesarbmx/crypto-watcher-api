@@ -1,10 +1,10 @@
 ﻿using System;
 using AutoMapper;
+using CesarBmx.Shared.Common.Extensions;
 using CoinMarketCap.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Shared.Extensions;
 using Version = CryptoWatcher.Domain.Models.Version;
 
 namespace CryptoWatcher.UI.Configuration

@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-
 namespace CryptoWatcher.Application.Requests
 {
     public class UpdateIndicatorRequest

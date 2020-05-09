@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Application.Services;
@@ -7,15 +8,14 @@ using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class UpdateWatchersJob
+    public class RemoveObsoleteLinesJob
     {
-        private readonly WatcherService _watcherService;
-        private readonly ILogger<UpdateWatchersJob> _logger;
-        public UpdateWatchersJob(
-            WatcherService watcherService,
-            ILogger<UpdateWatchersJob> logger)
+        private readonly LineService _lineService;
+        private readonly ILogger<RemoveObsoleteLinesJob> _logger;
+
+        public RemoveObsoleteLinesJob( LineService lineService, ILogger<RemoveObsoleteLinesJob> logger)
         {
-            _watcherService = watcherService;
+            _lineService = lineService;
             _logger = logger;
         }
 
@@ -24,11 +24,11 @@ namespace CryptoWatcher.BackgroundJobs
         {
             try
             {
-                await _watcherService.UpdateWatchers();
+                await _lineService.RemoveObsoleteLines();
             }
             catch (Exception ex)
             {
-                // Log into Splunk 
+                // Log into Splunk
                 _logger.LogSplunkInformation(new
                 {
                     JobFailed = ex.Message

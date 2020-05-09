@@ -1,6 +1,5 @@
-﻿
-using System;
-using CryptoWatcher.Domain.Models;
+﻿using System;
+using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.Responses
 {

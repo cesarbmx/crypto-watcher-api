@@ -1,10 +1,11 @@
-﻿using CoinMarketCap;
+﻿using CesarBmx.Shared.Domain.Entities;
+using CesarBmx.Shared.Persistence.Repositories;
+using CoinMarketCap;
 using CoinMarketCap.Core;
 using CryptoWatcher.Application.Services;
 using CryptoWatcher.BackgroundJobs;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -86,9 +87,9 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<UpdateDefaultWatchersJob, UpdateDefaultWatchersJob>();
             services.AddScoped<UpdateWatchersJob, UpdateWatchersJob>();
             services.AddScoped<UpdateOrdersJob, UpdateOrdersJob>();
-            services.AddScoped<SendWhatsappNotificationsJob, SendWhatsappNotificationsJob>();
-            services.AddScoped<SendTelgramNotifications, SendTelgramNotifications>();
-            services.AddScoped<RemoveLinesJob, RemoveLinesJob>();
+            services.AddScoped<SendNotificationsViaWhatsappJob, SendNotificationsViaWhatsappJob>();
+            services.AddScoped<SendNotificationsViaTelgramJob, SendNotificationsViaTelgramJob>();
+            services.AddScoped<RemoveObsoleteLinesJob, RemoveObsoleteLinesJob>();
             services.AddScoped<UpdateIndicatorsJob, UpdateIndicatorsJob>();
 
             // Other

@@ -7,15 +7,16 @@ using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.BackgroundJobs
 {
-    public class UpdateWatchersJob
+    public class SendNotificationsViaWhatsappJob
     {
-        private readonly WatcherService _watcherService;
-        private readonly ILogger<UpdateWatchersJob> _logger;
-        public UpdateWatchersJob(
-            WatcherService watcherService,
-            ILogger<UpdateWatchersJob> logger)
+        private readonly NotificationService _notificationService;
+        private readonly ILogger<SendNotificationsViaWhatsappJob> _logger;
+
+        public SendNotificationsViaWhatsappJob(
+            NotificationService notificationService,
+            ILogger<SendNotificationsViaWhatsappJob> logger)
         {
-            _watcherService = watcherService;
+            _notificationService = notificationService;
             _logger = logger;
         }
 
@@ -24,11 +25,11 @@ namespace CryptoWatcher.BackgroundJobs
         {
             try
             {
-                await _watcherService.UpdateWatchers();
+                await _notificationService.SendNotificationsViaWhatsapp();
             }
             catch (Exception ex)
             {
-                // Log into Splunk 
+                // Log into Splunk
                 _logger.LogSplunkInformation(new
                 {
                     JobFailed = ex.Message

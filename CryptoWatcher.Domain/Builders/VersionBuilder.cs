@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
+using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Shared.Helpers;
 
 
 namespace CryptoWatcher.Domain.Builders
@@ -10,10 +10,10 @@ namespace CryptoWatcher.Domain.Builders
         public static Version BuildVersion(Assembly assembly)
         {
             return new Version(
-                 // VersionNumber
-                 VersioningHelper.VersionNumber(assembly),
-                 // LastBuildOccurred
-                 VersioningHelper.BuildDate(assembly)
+                // VersionNumber
+                assembly.VersionNumber(),
+                // LastBuildOccurred
+                assembly.Date()
              );
         }
     }

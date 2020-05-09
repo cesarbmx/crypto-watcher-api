@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Persistence.Mappings

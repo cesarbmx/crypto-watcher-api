@@ -1,6 +1,6 @@
 ﻿
 
-namespace CryptoWatcher.Domain.Models
+namespace CryptoWatcher.Domain.Types
 {
     public enum OrderType
     {

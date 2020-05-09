@@ -1,8 +1,6 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+using CryptoWatcher.Domain.Types;
 
-
-using System.ComponentModel.DataAnnotations;
-using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Application.Requests
 {

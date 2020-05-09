@@ -6,20 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Repositories\ILineRepository.cs" />
-    <Compile Remove="Repositories\IndicatorAuditRepository.cs" />
-    <Compile Remove="Repositories\LineAuditRepository.cs" />
-    <Compile Remove="Repositories\LineLoggerRepository.cs" />
-    <Compile Remove="Repositories\LineRepository.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="CoinMarketCapClient" Version="1.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Persistence\CesarBmx.Shared.Persistence.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Domain\CryptoWatcher.Domain.csproj" />
   </ItemGroup>
 

@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using CesarBmx.Shared.Persistence.Repositories;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Repositories;
+using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.Services
 {

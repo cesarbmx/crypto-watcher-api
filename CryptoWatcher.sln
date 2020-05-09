@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2015
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Domain", "CryptoWatcher.Domain\CryptoWatcher.Domain.csproj", "{B6DBBB9C-D0C5-43D5-AAED-B2556727684C}"
 EndProject
@@ -43,7 +43,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6.- Exchanges", "6.- Exchan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Domain.Tests", "CryptoWatcher.Domain.Tests\CryptoWatcher.Domain.Tests.csproj", "{1B4B4F5D-5D7A-4DB5-8A22-2ED4006DF29A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoWatcher.Web", "CryptoWatcher.Web\CryptoWatcher.Web.csproj", "{83EBE6E6-987A-4E9A-8624-B4B4A7088E00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Web", "CryptoWatcher.Web\CryptoWatcher.Web.csproj", "{83EBE6E6-987A-4E9A-8624-B4B4A7088E00}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Serialization", "..\Shared\CesarBmx.Shared.Serialization\CesarBmx.Shared.Serialization.csproj", "{B6F61434-98F8-4A0C-A5B8-5A4B076129FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Common", "..\Shared\CesarBmx.Shared.Common\CesarBmx.Shared.Common.csproj", "{673E5381-200F-4037-B390-AD03FB3DABA1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Logging", "..\Shared\CesarBmx.Shared.Logging\CesarBmx.Shared.Logging.csproj", "{6115AEB9-55F2-4962-810E-1F9CD8D6AF7B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Persistence", "..\Shared\CesarBmx.Shared.Persistence\CesarBmx.Shared.Persistence.csproj", "{8617E240-691D-4F27-8BA1-48DB5A1A1BBD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Application", "..\Shared\CesarBmx.Shared.Application\CesarBmx.Shared.Application.csproj", "{CA4B1A85-1B46-48B4-BA02-10D340C89894}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Domain", "..\Shared\CesarBmx.Shared.Domain\CesarBmx.Shared.Domain.csproj", "{66D096BC-0261-41DF-A729-0208566364D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +121,30 @@ Global
 		{83EBE6E6-987A-4E9A-8624-B4B4A7088E00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83EBE6E6-987A-4E9A-8624-B4B4A7088E00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83EBE6E6-987A-4E9A-8624-B4B4A7088E00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6F61434-98F8-4A0C-A5B8-5A4B076129FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6F61434-98F8-4A0C-A5B8-5A4B076129FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6F61434-98F8-4A0C-A5B8-5A4B076129FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6F61434-98F8-4A0C-A5B8-5A4B076129FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{673E5381-200F-4037-B390-AD03FB3DABA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{673E5381-200F-4037-B390-AD03FB3DABA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{673E5381-200F-4037-B390-AD03FB3DABA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{673E5381-200F-4037-B390-AD03FB3DABA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6115AEB9-55F2-4962-810E-1F9CD8D6AF7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6115AEB9-55F2-4962-810E-1F9CD8D6AF7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6115AEB9-55F2-4962-810E-1F9CD8D6AF7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6115AEB9-55F2-4962-810E-1F9CD8D6AF7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8617E240-691D-4F27-8BA1-48DB5A1A1BBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8617E240-691D-4F27-8BA1-48DB5A1A1BBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8617E240-691D-4F27-8BA1-48DB5A1A1BBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8617E240-691D-4F27-8BA1-48DB5A1A1BBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA4B1A85-1B46-48B4-BA02-10D340C89894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA4B1A85-1B46-48B4-BA02-10D340C89894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA4B1A85-1B46-48B4-BA02-10D340C89894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA4B1A85-1B46-48B4-BA02-10D340C89894}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66D096BC-0261-41DF-A729-0208566364D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D096BC-0261-41DF-A729-0208566364D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D096BC-0261-41DF-A729-0208566364D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D096BC-0261-41DF-A729-0208566364D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,6 +164,12 @@ Global
 		{2A5A40FF-7A4A-45EF-A638-B48C86E710A1} = {745423D1-AE67-4D3D-B81B-F05609E5F62A}
 		{1B4B4F5D-5D7A-4DB5-8A22-2ED4006DF29A} = {C6E9ABD6-381C-4BD2-A666-D52A953BE516}
 		{83EBE6E6-987A-4E9A-8624-B4B4A7088E00} = {71BFA55D-3DFE-4974-94FC-59A45F3A43D1}
+		{B6F61434-98F8-4A0C-A5B8-5A4B076129FE} = {DDE064C9-097E-4D91-87A0-9F2F7891BC8F}
+		{673E5381-200F-4037-B390-AD03FB3DABA1} = {DDE064C9-097E-4D91-87A0-9F2F7891BC8F}
+		{6115AEB9-55F2-4962-810E-1F9CD8D6AF7B} = {DDE064C9-097E-4D91-87A0-9F2F7891BC8F}
+		{8617E240-691D-4F27-8BA1-48DB5A1A1BBD} = {DDE064C9-097E-4D91-87A0-9F2F7891BC8F}
+		{CA4B1A85-1B46-48B4-BA02-10D340C89894} = {DDE064C9-097E-4D91-87A0-9F2F7891BC8F}
+		{66D096BC-0261-41DF-A729-0208566364D5} = {DDE064C9-097E-4D91-87A0-9F2F7891BC8F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7CCEAABE-45B4-414D-A0A5-108B4DDEC89E}

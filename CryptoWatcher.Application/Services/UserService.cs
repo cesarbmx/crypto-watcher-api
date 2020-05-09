@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using CesarBmx.Shared.Application.Exceptions;
+using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Persistence.Repositories;
-using CryptoWatcher.Shared.Exceptions;
-using CryptoWatcher.Shared.Extensions;
+using CesarBmx.Shared.Persistence.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Application.Services
@@ -79,7 +79,7 @@ namespace CryptoWatcher.Application.Services
             await _mainDbContext.SaveChangesAsync();
 
             // Log into Splunk
-            _logger.LogSplunkRequest(request);
+            _logger.LogSplunkInformation(request);
 
             // Response
             var response = _mapper.Map<UserResponse>(user);

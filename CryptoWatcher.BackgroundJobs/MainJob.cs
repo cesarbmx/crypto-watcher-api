@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using CryptoWatcher.Shared.Extensions;
+using CesarBmx.Shared.Logging.Extensions;
 using Hangfire;
 using Microsoft.Extensions.Logging;
 
@@ -53,7 +53,7 @@ namespace CryptoWatcher.BackgroundJobs
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkJob(new
+            _logger.LogSplunkInformation(new
             {
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });

@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CryptoWatcher.Shared\CryptoWatcher.Shared.csproj" />
+    <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Common\CesarBmx.Shared.Common.csproj" />
+    <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Domain\CesarBmx.Shared.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Serialization\CesarBmx.Shared.Serialization.csproj" />
   </ItemGroup>
 
 </Project>

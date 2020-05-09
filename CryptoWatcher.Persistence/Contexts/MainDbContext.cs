@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using CesarBmx.Shared.Domain.Entities;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Mappings;
 using Microsoft.EntityFrameworkCore;
