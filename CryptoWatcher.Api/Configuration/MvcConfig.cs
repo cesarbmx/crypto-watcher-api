@@ -32,6 +32,8 @@ namespace CryptoWatcher.Api.Configuration
 
             services.AddRazorPages();
 
+            services.AddRouting(options => options.LowercaseUrls = true);
+
             // Allow synchronous IO (elmah css was not loading)
             services.Configure<IISServerOptions>(options => { options.AllowSynchronousIO = true; });
             services.Configure<KestrelServerOptions>(options => { options.AllowSynchronousIO = true; });
