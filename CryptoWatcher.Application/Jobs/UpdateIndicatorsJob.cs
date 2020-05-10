@@ -30,7 +30,7 @@ namespace CryptoWatcher.Application.Jobs
             catch (Exception ex)
             {
                 // Log into Splunk 
-                _logger.LogSplunkInformation(new
+                _logger.LogSplunkInformation("UpdateIndicators", new
                 {
                     JobFailed = ex.Message
                 });

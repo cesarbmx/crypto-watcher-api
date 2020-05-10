@@ -53,7 +53,7 @@ namespace CryptoWatcher.Application.Jobs
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation(new
+            _logger.LogSplunkInformation("Main", new
             {
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });

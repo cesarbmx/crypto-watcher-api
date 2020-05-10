@@ -28,7 +28,7 @@ namespace CryptoWatcher.Application.Jobs
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogSplunkInformation(new
+                _logger.LogSplunkInformation("RemoveObsoleteLines", new
                 {
                     JobFailed = ex.Message
                 });

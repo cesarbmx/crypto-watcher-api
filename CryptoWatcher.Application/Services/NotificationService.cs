@@ -78,7 +78,7 @@ namespace CryptoWatcher.Application.Services
             return response;
         }
 
-        public async Task SendNotificationsViaTelegram()
+        public async Task SendTelegramNotifications()
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -122,7 +122,7 @@ namespace CryptoWatcher.Application.Services
                 stopwatch.Stop();
 
                 // Log into Splunk
-                _logger.LogSplunkInformation(new
+                _logger.LogSplunkInformation("SendTelegramNotifications", new
                 {
                     Count = count,
                     FailedCount = failedCount,
@@ -130,7 +130,7 @@ namespace CryptoWatcher.Application.Services
                 });
             }
         }
-        public async Task SendNotificationsViaWhatsapp()
+        public async Task SendWhatsappNotifications()
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -180,7 +180,7 @@ namespace CryptoWatcher.Application.Services
                 stopwatch.Stop();
 
                 // Log into Splunk
-                _logger.LogSplunkInformation(new
+                _logger.LogSplunkInformation("SendWhatsappNotifications", new
                 {
                     Count = count,
                     FailedCount = failedCount,

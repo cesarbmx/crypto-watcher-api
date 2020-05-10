@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Domain.Expressions
 {
@@ -32,7 +31,7 @@ namespace CryptoWatcher.Domain.Expressions
         }
         public static Expression<Func<Watcher, bool>> WatcherWillingToBuyOrSell()
         {
-            return x => x.Status != WatcherStatus.Hold;
+            return x =>  x.Value > x.Buy || x.Value < x.Sell;
         }
     }
 }

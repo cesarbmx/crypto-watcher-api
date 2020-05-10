@@ -83,8 +83,8 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<UpdateDefaultWatchersJob, UpdateDefaultWatchersJob>();
             services.AddScoped<UpdateWatchersJob, UpdateWatchersJob>();
             services.AddScoped<UpdateOrdersJob, UpdateOrdersJob>();
-            services.AddScoped<SendNotificationsViaWhatsappJob, SendNotificationsViaWhatsappJob>();
-            services.AddScoped<SendNotificationsViaTelgramJob, SendNotificationsViaTelgramJob>();
+            services.AddScoped<SendWhatsappNotificationsJob, SendWhatsappNotificationsJob>();
+            services.AddScoped<SendTelgramNotificationsJob, SendTelgramNotificationsJob>();
             services.AddScoped<RemoveObsoleteLinesJob, RemoveObsoleteLinesJob>();
             services.AddScoped<UpdateIndicatorsJob, UpdateIndicatorsJob>();
 
