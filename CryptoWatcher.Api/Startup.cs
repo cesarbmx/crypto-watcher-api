@@ -61,7 +61,7 @@ namespace CryptoWatcher.Api
         public void Configure(IApplicationBuilder app, IHostEnvironment env, ILoggerFactory loggerFactory)
         {
             // This for the reverse proxy
-            app.UsePathBase("/my-project");
+            app.UsePathBase("/crypto-watcher");
 
             // CORS
             app.ConfigureCors();
