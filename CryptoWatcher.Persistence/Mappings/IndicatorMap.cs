@@ -13,11 +13,11 @@ namespace CryptoWatcher.Persistence.Mappings
         {
             // Key
             entityBuilder.HasKey(t => t.IndicatorId).
-                ForSqlServerIsClustered(false);
+                IsClustered(false);
 
             // Indexes
             entityBuilder.HasIndex(t => new { t.Time, t.IndicatorType, t.IndicatorId, t.UserId})
-                .ForSqlServerIsClustered();
+                .IsClustered();
 
             // Relationships
             entityBuilder

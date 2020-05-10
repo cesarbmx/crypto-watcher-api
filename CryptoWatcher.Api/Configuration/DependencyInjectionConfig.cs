@@ -1,7 +1,5 @@
 ﻿using CesarBmx.Shared.Domain.Entities;
 using CesarBmx.Shared.Persistence.Repositories;
-using CoinMarketCap;
-using CoinMarketCap.Core;
 using CryptoWatcher.Application.Jobs;
 using CryptoWatcher.Application.Services;
 using CryptoWatcher.Domain.Models;
@@ -94,7 +92,7 @@ namespace CryptoWatcher.Api.Configuration
             // Other
             //services.AddScoped<DateTimeProvider, DateTimeProvider>();
             //services.AddScoped<HttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<ICoinMarketCapClient, CoinMarketCapClient>();
+            services.AddScoped<CoinpaprikaAPI.Client, CoinpaprikaAPI.Client>();
 
             return services;
         }

@@ -4,7 +4,7 @@ using AutoMapper;
 using CesarBmx.Shared.Application.Responses;
 using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Domain.Entities;
-using CoinMarketCap.Entities;
+using CoinpaprikaAPI.Entity;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
@@ -39,12 +39,12 @@ namespace CryptoWatcher.Api.Configuration
                      cfg.CreateMap<LineChart, LineChartResponse>();
 
                     // Others
-                    cfg.CreateMap<TickerEntity, Currency>()
+                    cfg.CreateMap<TickerWithQuotesInfo, Currency>()
                          .ForMember(dest => dest.CurrencyId, opt => opt.MapFrom(src => src.Id))
-                         .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Convert.ToDecimal(src.PriceUsd)))
-                         .ForMember(dest => dest.Volume24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.Volume24hUsd)))
-                         .ForMember(dest => dest.MarketCap, opt => opt.MapFrom(src => Convert.ToDecimal(src.MarketCapUsd)))
-                         .ForMember(dest => dest.PercentageChange24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.PercentChange24h)));
+                         .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].Price)))
+                         .ForMember(dest => dest.Volume24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].Volume24H)))
+                         .ForMember(dest => dest.MarketCap, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].MarketCap)))
+                         .ForMember(dest => dest.PercentageChange24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].PercentChange24H)));
                  }, typeof(Startup));
 
             return services;

@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CryptoWatcher.Api</name>
+    </assembly>
+    <members>
+        <member name="M:CryptoWatcher.Api.Controllers.A_CurrenciesController.GetAllCurrencies">
+            <summary>
+            Get all currencies
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.A_CurrenciesController.GetCurrency(System.String)">
+            <summary>
+            Get currency
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.GetAllUsers">
+            <summary>
+            Get all users
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.GetUser(System.String)">
+            <summary>
+            Get user
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.AddUser(CryptoWatcher.Application.Requests.AddUserRequest)">
+            <summary>
+            Add user
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorsController.GetAllIndicators(System.String,CryptoWatcher.Domain.Types.IndicatorType)">
+            <summary>
+            Get all indicators
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorsController.GetIndicator(System.String)">
+            <summary>
+            Get indicator
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorsController.AddIndicator(CryptoWatcher.Application.Requests.AddIndicatorRequest)">
+            <summary>
+            Add indicator
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorsController.UpdateIndicator(System.String,CryptoWatcher.Application.Requests.UpdateIndicatorRequest)">
+            <summary>
+            Update indicator
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.D_WatchersController.GetAllWatchers(System.String,System.String,System.String)">
+            <summary>
+            Get all watchers
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.D_WatchersController.GetWatcher(System.String)">
+            <summary>
+            Get watcher
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.D_WatchersController.AddWatcher(CryptoWatcher.Application.Requests.AddWatcherRequest)">
+            <summary>
+            Add watcher
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.D_WatchersController.UpdateWatcher(System.String,CryptoWatcher.Application.Requests.UpdateWatcherRequest)">
+            <summary>
+            Update watcher
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.E_OrdersController.GetAllOrders(System.String)">
+            <summary>
+            Get all orders
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.E_OrdersController.GetOrder(System.Guid)">
+            <summary>
+            Get order
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.F_NotificationsController.GetAllNotifications(System.String)">
+            <summary>
+            Get all notifications
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.F_NotificationsController.GetNotification(System.Guid)">
+            <summary>
+            Get notification
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.G_LinesController.GetAllLines(System.String,System.Nullable{CryptoWatcher.Domain.Types.IndicatorType},System.String,System.String)">
+            <summary>
+            Get all lines
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.H_LineChartsController.GetAllLineCharts(System.String,System.Nullable{CryptoWatcher.Domain.Types.IndicatorType},System.String,System.String)">
+            <summary>
+            Get all line charts
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.I_ScriptVariablesController.GetScriptVariables">
+            <summary>
+            Get script variables
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.X_LogController.GetAllLogs">
+            <summary>
+            Get all logs
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.X_LogController.GetLog(System.Guid)">
+            <summary>
+            Get log
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.Y_ErrorMessagesController.GetAllErrorMessages">
+            <summary>
+            Get all error messages
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.Z_ServiceStatusController.GetVersion">
+            <summary>
+            Get version
+            </summary>
+        </member>
+        <member name="M:CryptoWatcher.Api.Controllers.Z_ServiceStatusController.GetHealth">
+            <summary>
+            Get health
+            </summary>
+        </member>
+    </members>
+</doc>

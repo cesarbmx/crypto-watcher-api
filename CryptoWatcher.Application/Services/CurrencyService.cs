@@ -10,7 +10,6 @@ using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CesarBmx.Shared.Persistence.Repositories;
-using CoinMarketCap;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.Extensions.Logging;
 
@@ -21,21 +20,21 @@ namespace CryptoWatcher.Application.Services
         private readonly MainDbContext _mainDbContext;
         private readonly IRepository<Currency> _currencyRepository;
         private readonly IMapper _mapper;
-        private readonly Logger<CurrencyService> _logger;
-        private readonly CoinMarketCapClient _coinMarketCapClient;
+        private readonly ILogger<CurrencyService> _logger;
+        private readonly CoinpaprikaAPI.Client _coinpaprikaClient;
 
         public CurrencyService(
             MainDbContext mainDbContext,
             IRepository<Currency> currencyRepository,
             IMapper mapper,
-            Logger<CurrencyService> logger,
-            CoinMarketCapClient coinMarketCapClient)
+            ILogger<CurrencyService> logger,
+            CoinpaprikaAPI.Client coinpaprikaClient)
         {
             _mainDbContext = mainDbContext;
             _currencyRepository = currencyRepository;
             _mapper = mapper;
             _logger = logger;
-            _coinMarketCapClient = coinMarketCapClient;
+            _coinpaprikaClient = coinpaprikaClient;
         }
 
         public async Task<List<CurrencyResponse>> GetAllCurrencies()
@@ -73,18 +72,18 @@ namespace CryptoWatcher.Application.Services
             var time = DateTime.Now;
 
             // Get all currencies from CoinMarketCap
-            var result = await _coinMarketCapClient.GetTickerListAsync(10);
-            result = result.Where(x =>
-                x.Id == "bitcoin" ||
-                x.Id == "ripple" ||
-                x.Id == "ethereum" ||
-                x.Id == "bitcoin-cash" ||
-                x.Id == "stellar" ||
-                x.Id == "eos" ||
-                x.Id == "cardano").ToList();
+            var result = await _coinpaprikaClient.GetTickersAsync();
+            var curencies = result.Value.Where(x =>
+                x.Id == "btc-bitcoin" ||
+                x.Id == "xrp-xrp" ||
+                x.Id == "eth-ethereum" ||
+                x.Id == "bch-bitcoin-cash" ||
+                x.Id == "xlm-stellar" ||
+                x.Id == "eos-eos" ||
+                x.Id == "ada-cardano").ToList();
 
             // Build currencies
-            var newCurrencies = _mapper.Map<List<Currency>>(result);
+            var newCurrencies = _mapper.Map<List<Currency>>(curencies);
 
             // Get all currencies
             var currencies = await _currencyRepository.GetAll();

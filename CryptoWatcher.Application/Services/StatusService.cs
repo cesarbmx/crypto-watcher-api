@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Responses;
-using CoinMarketCap.Core;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
@@ -15,16 +14,16 @@ namespace CryptoWatcher.Application.Services
     {
         private readonly IRepository<Currency> _currencyRepository;
         private readonly IMapper _mapper;
-        private readonly ICoinMarketCapClient _coinMarketCapClient;
+        private readonly CoinpaprikaAPI.Client _coinpaprikaClient;
 
         public StatusService(
             IRepository<Currency> currencyRepository,
             IMapper mapper,
-            ICoinMarketCapClient coinMarketCapClient)
+            CoinpaprikaAPI.Client coinpaprikaClient)
         {
             _currencyRepository = currencyRepository;
             _mapper = mapper;
-            _coinMarketCapClient = coinMarketCapClient;
+            _coinpaprikaClient = coinpaprikaClient;
         }
 
         public Task<VersionResponse> GetVersion()
@@ -64,7 +63,7 @@ namespace CryptoWatcher.Application.Services
             // Check if connection to CoinMarketCap is ok
             try
             {
-                await _coinMarketCapClient.GetTickerListAsync(1);
+                await _coinpaprikaClient.GetClobalsAsync();
             }
             catch
             {

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CoinpaprikaAPI" Version="1.2.8" />
     <PackageReference Include="Telegram.Bot" Version="15.5.1" />
     <PackageReference Include="Twilio" Version="5.40.0" />
   </ItemGroup>

@@ -4,10 +4,20 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Api\CesarBmx.Shared.Api.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Application\CryptoWatcher.Application.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Persistence\CryptoWatcher.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CryptoWatcher.Api.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
