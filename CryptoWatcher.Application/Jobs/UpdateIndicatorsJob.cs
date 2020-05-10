@@ -32,7 +32,7 @@ namespace CryptoWatcher.Application.Jobs
                 // Log into Splunk 
                 _logger.LogSplunkInformation("UpdateIndicators", new
                 {
-                    JobFailed = ex.Message
+                    Failed = ex.Message
                 });
 
                 // Log error into Splunk
