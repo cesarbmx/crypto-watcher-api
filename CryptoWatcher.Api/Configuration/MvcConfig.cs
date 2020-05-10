@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoWatcher.Application.Validators;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace CryptoWatcher.Api.Configuration
 {
@@ -29,13 +30,11 @@ namespace CryptoWatcher.Api.Configuration
                 .ConfigureFluentValidation(typeof(AddUserValidator).Assembly)
                 .ConfigureSharedSerialization();
 
-            services.AddRazorPages(options =>
-            {
-                options.Conventions.AddPageRoute("/Index", "");
-            });
+            services.AddRazorPages();
 
             // Allow synchronous IO (elmah css was not loading)
             services.Configure<IISServerOptions>(options => { options.AllowSynchronousIO = true; });
+            services.Configure<KestrelServerOptions>(options => { options.AllowSynchronousIO = true; });
 
             return services;
         }
