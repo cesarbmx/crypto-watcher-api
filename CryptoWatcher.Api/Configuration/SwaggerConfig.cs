@@ -17,7 +17,7 @@ namespace CryptoWatcher.Api.Configuration
 
         public static IApplicationBuilder ConfigureSwagger(this IApplicationBuilder app, IConfiguration config)
         {
-            app.ConfigureSharedSwagger();
+            app.ConfigureSharedSwagger("CryptoWatcher API","api");
 
             return app;
         }

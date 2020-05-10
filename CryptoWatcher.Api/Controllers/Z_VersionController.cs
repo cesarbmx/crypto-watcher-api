@@ -18,7 +18,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get version
         /// </summary>
         [HttpGet]
-        [Route("version")]
+        [Route("api/version")]
         [SwaggerResponse(200, Type = typeof(VersionResponse))]
         [SwaggerOperation(Tags = new[] { "Version" }, OperationId = "Version_GetVersion")]
         public IActionResult GetVersion()

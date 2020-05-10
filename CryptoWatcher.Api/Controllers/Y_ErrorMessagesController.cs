@@ -18,7 +18,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get all error messages
         /// </summary>
         [HttpGet]
-        [Route("error-messages")]
+        [Route("api/error-messages")]
         [SwaggerResponse(200, Type = typeof(Dictionary<string,string[]>))]
         [SwaggerOperation(Tags = new[] { "Error messages" }, OperationId = "ErrorMessages_GetAllErrorMessages")]
         public IActionResult GetAllErrorMessages()

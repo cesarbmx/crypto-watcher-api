@@ -26,7 +26,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get all watchers
         /// </summary>
         [HttpGet]
-        [Route("users/{userId}/watchers")]
+        [Route("api/users/{userId}/watchers")]
         [SwaggerResponse(200, Type = typeof(List<WatcherResponse>))] 
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetAllWatchers")]
         public async Task<IActionResult> GetAllWatchers(string userId, string currencyId = null, string indicatorId = null)
@@ -42,7 +42,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get watcher
         /// </summary>
         [HttpGet]
-        [Route("watchers/{watcherId}", Name = "Watchers_GetWatcher")]
+        [Route("api/watchers/{watcherId}", Name = "Watchers_GetWatcher")]
         [SwaggerResponse(200, Type = typeof(WatcherResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetWatcher")]
@@ -59,7 +59,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Add watcher
         /// </summary>
         [HttpPost]
-        [Route("watchers")]
+        [Route("api/watchers")]
         [SwaggerResponse(201, Type = typeof(WatcherResponse))]
         [SwaggerResponse(400, Type = typeof(ErrorResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
@@ -79,7 +79,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Update watcher
         /// </summary>
         [HttpPut]
-        [Route("watchers/{watcherId}")]
+        [Route("api/watchers/{watcherId}")]
         [SwaggerResponse(200, Type = typeof(WatcherResponse))]
         [SwaggerResponse(400, Type = typeof(ErrorResponse))]
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]

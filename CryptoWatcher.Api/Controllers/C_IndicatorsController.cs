@@ -27,7 +27,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get all indicators
         /// </summary>
         [HttpGet]
-        [Route("users/{userId}/indicators")]
+        [Route("api/users/{userId}/indicators")]
         [SwaggerResponse(200, Type = typeof(List<IndicatorResponse>))]  
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetAllIndicators")]
         public async Task<IActionResult> GetAllIndicators(string userId, IndicatorType indicatorType)
@@ -43,7 +43,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get indicator
         /// </summary>
         [HttpGet]
-        [Route("indicators/{indicatorId}", Name = "Indicators_GetIndicator")]
+        [Route("api/indicators/{indicatorId}", Name = "Indicators_GetIndicator")]
         [SwaggerResponse(200, Type = typeof(IndicatorResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetIndicator")]
@@ -60,7 +60,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Add indicator
         /// </summary>
         [HttpPost]
-        [Route("indicators")]
+        [Route("api/indicators")]
         [SwaggerResponse(201, Type = typeof(IndicatorResponse))]
         [SwaggerResponse(400, Type = typeof(ErrorResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
@@ -80,7 +80,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Update indicator
         /// </summary>
         [HttpPut]
-        [Route("indicators/{indicatorId}")]
+        [Route("api/indicators/{indicatorId}")]
         [SwaggerResponse(200, Type = typeof(IndicatorResponse))]
         [SwaggerResponse(400, Type = typeof(ErrorResponse))]
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]

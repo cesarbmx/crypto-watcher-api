@@ -24,7 +24,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get script variables
         /// </summary>
         [HttpGet]
-        [Route("script-variables")]
+        [Route("api/script-variables")]
         [SwaggerResponse(200, Type = typeof(ScriptVariablesResponse))]
         [SwaggerOperation(Tags = new[] { "Script variables" }, OperationId = "ScriptVariables_GetScriptVariables")]
         public async Task<IActionResult> GetScriptVariables()

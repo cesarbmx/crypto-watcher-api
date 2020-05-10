@@ -26,7 +26,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get all lines
         /// </summary>
         [HttpGet]
-        [Route("lines")]
+        [Route("api/lines")]
         [SwaggerResponse(200, Type = typeof(List<LineResponse>))]
         [SwaggerOperation(Tags = new[] { "Lines" }, OperationId = "Lines_GetAllLines")]
         public async Task<IActionResult> GetAllLines(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)

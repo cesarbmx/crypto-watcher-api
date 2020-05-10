@@ -26,7 +26,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get all line charts
         /// </summary>
         [HttpGet]
-        [Route("line-charts")]
+        [Route("api/line-charts")]
         [SwaggerResponse(200, Type = typeof(List<LineChartResponse>))]
         [SwaggerOperation(Tags = new[] { "Charts" }, OperationId = "LineCharts_GetAllLineCharts")]
         public async Task<IActionResult> GetAllLineCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)

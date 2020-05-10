@@ -29,6 +29,8 @@ namespace CryptoWatcher.Api.Configuration
                 .ConfigureFluentValidation(typeof(AddUserValidator).Assembly)
                 .ConfigureSharedSerialization();
 
+            services.AddRazorPages();
+
             // Allow synchronous IO (elmah css was not loading)
             services.Configure<IISServerOptions>(options => { options.AllowSynchronousIO = true; });
 
@@ -40,9 +42,11 @@ namespace CryptoWatcher.Api.Configuration
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseEndpoints(config =>
-                config.MapControllers()
-            );
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+                endpoints.MapControllers();
+            });
 
             return app;
         }

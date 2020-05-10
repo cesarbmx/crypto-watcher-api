@@ -26,7 +26,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get all orders
         /// </summary>
         [HttpGet]
-        [Route("users/{userId}/orders")]
+        [Route("api/users/{userId}/orders")]
         [SwaggerResponse(200, Type = typeof(List<OrderResponse>))]
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetAllOrders")]
         public async Task<IActionResult> GetAllOrders(string userId)
@@ -42,7 +42,7 @@ namespace CryptoWatcher.Api.Controllers
         /// Get order
         /// </summary>
         [HttpGet]
-        [Route("orders/{orderId}", Name = "Orders_GetOrder")]
+        [Route("api/orders/{orderId}", Name = "Orders_GetOrder")]
         [SwaggerResponse(200, Type = typeof(OrderResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetOrder")]
