@@ -218,7 +218,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation(new
+            _logger.LogSplunkInformation("UpdateIndicators", new
             {
                 MaxLevel = maxDependencyLevel,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds

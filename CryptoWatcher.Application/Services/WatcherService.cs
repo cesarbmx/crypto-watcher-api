@@ -186,7 +186,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation(new
+            _logger.LogSplunkInformation("UpdateWatchers", new
             {
                 watchers.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
@@ -224,7 +224,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation(new
+            _logger.LogSplunkInformation("UpdateDefaultWatchers", new
             {
                 newDefaultWatchers.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
