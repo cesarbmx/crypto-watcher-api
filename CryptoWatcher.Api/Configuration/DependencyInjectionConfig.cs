@@ -16,21 +16,20 @@ namespace CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            // UseMemoryStorage
+            //Contexts
             if (bool.Parse(configuration["AppSettings:UseMemoryStorage"]))
             {
-                //Contexts (UOW)
                 services.AddDbContext<MainDbContext>(options => options
                     .UseInMemoryDatabase("CryptoWatcher")
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
             else
             {
-                //Contexts (UOW)
                 services.AddDbContext<MainDbContext>(options => options
                     .UseSqlServer(configuration.GetConnectionString("CryptoWatcher"))
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
+            services.AddScoped<DbContext, MainDbContext>();
 
             // Services
             services.AddScoped<LogService, LogService>();

@@ -66,6 +66,9 @@ namespace CryptoWatcher.Api
             // CORS
             app.ConfigureCors();
 
+            // Error handling
+            app.ConfigureErrorHandling();
+
             // Log4Net
             loggerFactory.ConfigureLog4Net(env, Configuration);
 

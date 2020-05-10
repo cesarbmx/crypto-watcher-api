@@ -24,8 +24,8 @@ namespace CryptoWatcher.Application.Services
         private readonly Logger<CurrencyService> _logger;
         private readonly CoinMarketCapClient _coinMarketCapClient;
 
-        public CurrencyService
-            (MainDbContext mainDbContext,
+        public CurrencyService(
+            MainDbContext mainDbContext,
             IRepository<Currency> currencyRepository,
             IMapper mapper,
             Logger<CurrencyService> logger,
