@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using CesarBmx.Shared.Application.Responses;
-using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Domain.Entities;
 using CoinpaprikaAPI.Entity;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
-using Version = CryptoWatcher.Domain.Models.Version;
 
 namespace CryptoWatcher.Api.Configuration
 {
@@ -21,13 +18,7 @@ namespace CryptoWatcher.Api.Configuration
                  cfg => {
 
                     // Responses
-                    cfg.CreateMap<Version, VersionResponse>();
-                     cfg.CreateMap<Health, HealthResponse>();
-                     cfg.CreateMap<Version, VersionResponse>()
-                         .ForMember(dest => dest.BuildDateTime, opt => opt.MapFrom(src => src.LastBuild.ToString("yyyy/MM/dd HH:mm")))
-                         .ForMember(dest => dest.LastBuildOccurred, opt => opt.MapFrom(src => src.LastBuild.DaysHoursMinutesAndSecondsSinceDate()));
-                     cfg.CreateMap<Health, HealthResponse>();
-                     cfg.CreateMap<Currency, CurrencyResponse>();
+                    cfg.CreateMap<Currency, CurrencyResponse>();
                      cfg.CreateMap<Log, LogResponse>();
                      cfg.CreateMap<Watcher, WatcherResponse>();
                      cfg.CreateMap<User, UserResponse>();
