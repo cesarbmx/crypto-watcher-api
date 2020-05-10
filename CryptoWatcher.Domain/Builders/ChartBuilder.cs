@@ -17,7 +17,7 @@ namespace CryptoWatcher.Domain.Builders
                     var filteredLines = lines.Where(x =>  
                         x.IndicatorType == indicator.IndicatorType &&
                         x.IndicatorId == indicator.IndicatorId &&
-                        x.TargetId == currency.CurrencyId).ToList();
+                        x.CurrencyId == currency.CurrencyId).ToList();
 
                     var lineChartColumns = BuildLineChartColumns();
                     var lineChartRows = BuildLineChartRows(filteredLines);

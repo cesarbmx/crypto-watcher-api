@@ -98,7 +98,7 @@ namespace CryptoWatcher.Application.Services
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Check if it exists
-            var watcher = await _watcherRepository.GetSingle(WatcherExpression.Watcher(request.UserId, request.TargetId, request.IndicatorId));
+            var watcher = await _watcherRepository.GetSingle(WatcherExpression.Watcher(request.UserId, request.CurrencyId, request.IndicatorId));
 
             // Throw ConflictException if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
@@ -107,12 +107,12 @@ namespace CryptoWatcher.Application.Services
             var time = DateTime.Now;
 
             // Get default watcher
-            var defaultWatcher = await _watcherRepository.GetSingle(WatcherExpression.DefaultWatcher(request.TargetId, request.IndicatorId));
+            var defaultWatcher = await _watcherRepository.GetSingle(WatcherExpression.DefaultWatcher(request.CurrencyId, request.IndicatorId));
 
             // Add
             watcher = new Watcher(
                 request.UserId,
-                request.TargetId,
+                request.CurrencyId,
                 request.IndicatorId,
                 request.IndicatorType,
                 defaultWatcher?.Value,

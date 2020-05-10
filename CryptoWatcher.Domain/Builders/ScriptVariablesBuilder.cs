@@ -30,7 +30,7 @@ namespace CryptoWatcher.Domain.Builders
 
         public static string[] BuildCurrencies(List<Line> lines)
         {
-            return lines.Select(x => x.TargetId).Distinct().ToArray();
+            return lines.Select(x => x.CurrencyId).Distinct().ToArray();
         }
 
         public static string[] BuildIndicators(List<Line> lines)
@@ -44,7 +44,7 @@ namespace CryptoWatcher.Domain.Builders
             // Distinct
             var times = lines.Select(x => x.Time).Distinct().ToList();
             var indicators = lines.Select(x => x.IndicatorId).Distinct().ToList();
-            var targets = lines.Select(x => x.TargetId).Distinct().ToList();
+            var targets = lines.Select(x => x.CurrencyId).Distinct().ToList();
 
             // Loop
             var level1 = new Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal?>>>();

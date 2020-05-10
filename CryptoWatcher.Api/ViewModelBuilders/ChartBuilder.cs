@@ -16,7 +16,7 @@ namespace CryptoWatcher.Api.ViewModelBuilders
                 var lineChart = new Chart
                 {
                     LineChartId = lineChartResponse.LineChartId,
-                    TargetName = lineChartResponse.TargetName,
+                    CurrencyName = lineChartResponse.CurrencyName,
                     IndicatorName = lineChartResponse.IndicatorName,
                     Rows = BuildRows(lineChartResponse.Rows)
                 };

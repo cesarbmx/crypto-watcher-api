@@ -11,7 +11,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new LineResponse
             {
-                TargetId = "bitcoin",
+                CurrencyId = "bitcoin",
                 IndicatorId = "price",
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 UserId = "master",
@@ -25,7 +25,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new LineResponse
             {
-                TargetId = "bitcoin",
+                CurrencyId = "bitcoin",
                 IndicatorId = "rsi",
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 UserId = "master",

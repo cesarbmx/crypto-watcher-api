@@ -6,7 +6,7 @@ namespace CryptoWatcher.Application.Responses
 {
     public class LineResponse
     {
-        public string TargetId { get; set; }
+        public string CurrencyId { get; set; }
         public string IndicatorId { get; set; }
         public IndicatorType IndicatorType { get; set; }
         public string UserId { get; set; }
