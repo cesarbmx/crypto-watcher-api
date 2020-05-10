@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
@@ -11,15 +12,15 @@ using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Contexts;
 using CesarBmx.Shared.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Application.Services
 {
     public class WatcherService
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly DbContext _dbContext;
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<Watcher> _watcherRepository;
@@ -28,7 +29,7 @@ namespace CryptoWatcher.Application.Services
         private readonly IMapper _mapper;
 
         public WatcherService(
-            MainDbContext mainDbContext,
+            DbContext dbContext,
             IRepository<User> userRepository,
             IRepository<Indicator> indicatorRepository,
             IRepository<Watcher> watcherRepository,
@@ -36,7 +37,7 @@ namespace CryptoWatcher.Application.Services
             ILogger<WatcherService> logger,
             IMapper mapper)
         {
-            _mainDbContext = mainDbContext;
+            _dbContext = dbContext;
             _userRepository = userRepository;
             _indicatorRepository = indicatorRepository;
             _watcherRepository = watcherRepository;
@@ -124,7 +125,7 @@ namespace CryptoWatcher.Application.Services
             _watcherRepository.Add(watcher, time);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Log into Splunk
             _logger.LogSplunkInformation(request);
@@ -153,7 +154,7 @@ namespace CryptoWatcher.Application.Services
             _watcherRepository.Update(watcher, time);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Log into Splunk
             _logger.LogSplunkInformation(request);
@@ -180,7 +181,7 @@ namespace CryptoWatcher.Application.Services
             watchers.SyncWatchers(defaultWatchers);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Stop watch
             stopwatch.Stop();
@@ -202,8 +203,14 @@ namespace CryptoWatcher.Application.Services
             // Time
             var time = DateTime.Now;
 
-            // Get newst time
-            var newestTime = await _lineRepository.GetNewestTime();
+            // Get al lines
+            var allLines = await _lineRepository.GetAll();
+
+            // Return if there are no lines
+            if (!allLines.Any()) return;
+
+            // Get newest time
+            var newestTime = allLines.Max(x => x.Time);
 
             // Get current lines
             var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine(newestTime));
@@ -218,7 +225,7 @@ namespace CryptoWatcher.Application.Services
             _watcherRepository.UpdateCollection(defaultWatchers, newDefaultWatchers, time);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Stop watch
             stopwatch.Stop();

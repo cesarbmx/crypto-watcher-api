@@ -7,14 +7,14 @@ using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Application.Jobs
 {
-    public class UpdateIndicatorsJob
+    public class UpdateIndicatorDependenciesJob
     {
         private readonly IndicatorService _indicatorService;
-        private readonly ILogger<UpdateIndicatorsJob> _logger;
+        private readonly ILogger<UpdateIndicatorDependenciesJob> _logger;
 
-        public UpdateIndicatorsJob(
+        public UpdateIndicatorDependenciesJob(
             IndicatorService indicatorService,
-            ILogger<UpdateIndicatorsJob> logger)
+            ILogger<UpdateIndicatorDependenciesJob> logger)
         {
             _indicatorService = indicatorService;
             _logger = logger;
@@ -25,12 +25,12 @@ namespace CryptoWatcher.Application.Jobs
         {
             try
             {
-                await _indicatorService.UpdateIndicators();
+                await _indicatorService.UpdateIndicatorDependencies();
             }
             catch (Exception ex)
             {
                 // Log into Splunk 
-                _logger.LogSplunkInformation("UpdateIndicators", new
+                _logger.LogSplunkInformation("UpdateIndicatorDependencies", new
                 {
                     Failed = ex.Message
                 });

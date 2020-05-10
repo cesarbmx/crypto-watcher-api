@@ -10,27 +10,27 @@ using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CesarBmx.Shared.Persistence.Repositories;
-using CryptoWatcher.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Application.Services
 {
     public class CurrencyService
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly DbContext _dbContext;
         private readonly IRepository<Currency> _currencyRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<CurrencyService> _logger;
         private readonly CoinpaprikaAPI.Client _coinpaprikaClient;
 
         public CurrencyService(
-            MainDbContext mainDbContext,
+            DbContext dbContext,
             IRepository<Currency> currencyRepository,
             IMapper mapper,
             ILogger<CurrencyService> logger,
             CoinpaprikaAPI.Client coinpaprikaClient)
         {
-            _mainDbContext = mainDbContext;
+            _dbContext = dbContext;
             _currencyRepository = currencyRepository;
             _mapper = mapper;
             _logger = logger;
@@ -92,7 +92,7 @@ namespace CryptoWatcher.Application.Services
             _currencyRepository.UpdateCollection(currencies, newCurrencies, time);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Stop watch
             stopwatch.Stop();
@@ -100,7 +100,7 @@ namespace CryptoWatcher.Application.Services
             // Log into Splunk
             _logger.LogSplunkInformation("UpdateCurrencies", new
             {
-                currencies.Count,
+                newCurrencies.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });
         }

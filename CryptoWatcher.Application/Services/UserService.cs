@@ -8,26 +8,26 @@ using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Contexts;
 using CesarBmx.Shared.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Application.Services
 {
     public class UserService
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly DbContext _dbContext;
         private readonly IRepository<User> _userRepository;
         private readonly ILogger<UserService> _logger;
         private readonly IMapper _mapper;
 
         public UserService(
-            MainDbContext mainDbContext,
+            DbContext dbContext,
             IRepository<User> userRepository,
             ILogger<UserService> logger,
             IMapper mapper)
         {
-            _mainDbContext = mainDbContext;
+            _dbContext = dbContext;
             _userRepository = userRepository;
             _logger = logger;
             _mapper = mapper;
@@ -76,7 +76,7 @@ namespace CryptoWatcher.Application.Services
             _userRepository.Add(user, time);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Log into Splunk
             _logger.LogSplunkInformation(request);

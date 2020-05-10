@@ -10,7 +10,7 @@ namespace CryptoWatcher.Application.Jobs
     public class MainJob
     {
         private readonly UpdateCurrenciesJob _updateCurrenciesJob;
-        private readonly UpdateIndicatorsJob _updateIndicatorsJob;
+        private readonly UpdateIndicatorDependenciesJob _updateIndicatorDependenciesJob;
         private readonly UpdateLinesJob _updateLinesJob;
         private readonly UpdateDefaultWatchersJob _updateDefaultWatchersJob;
         private readonly UpdateWatchersJob _updateWatchersJob;
@@ -18,7 +18,7 @@ namespace CryptoWatcher.Application.Jobs
         private readonly ILogger<MainJob> _logger;
         public MainJob(
             UpdateCurrenciesJob updateCurrenciesJob,
-            UpdateIndicatorsJob updateIndicatorsJob,
+            UpdateIndicatorDependenciesJob updateIndicatorDependenciesJob,
             UpdateLinesJob updateLinesJob,
             UpdateDefaultWatchersJob updateDefaultWatchersJob,
             UpdateWatchersJob updateWatchersJob,
@@ -26,7 +26,7 @@ namespace CryptoWatcher.Application.Jobs
             ILogger<MainJob> logger)
         {
             _updateCurrenciesJob = updateCurrenciesJob;
-            _updateIndicatorsJob = updateIndicatorsJob;
+            _updateIndicatorDependenciesJob = updateIndicatorDependenciesJob;
             _updateLinesJob = updateLinesJob;
             _updateDefaultWatchersJob = updateDefaultWatchersJob;
             _updateWatchersJob = updateWatchersJob;
@@ -43,7 +43,7 @@ namespace CryptoWatcher.Application.Jobs
 
             // Run
             await _updateCurrenciesJob.Run();
-            await _updateIndicatorsJob.Run();
+            await _updateIndicatorDependenciesJob.Run();
             await _updateLinesJob.Run();
             await _updateDefaultWatchersJob.Run();
             await _updateWatchersJob.Run();

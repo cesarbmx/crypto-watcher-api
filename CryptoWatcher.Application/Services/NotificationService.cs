@@ -10,7 +10,7 @@ using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CesarBmx.Shared.Persistence.Repositories;
-using CryptoWatcher.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
@@ -22,7 +22,7 @@ namespace CryptoWatcher.Application.Services
 {
     public class NotificationService
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly DbContext _dbContext;
         private readonly IRepository<Notification> _notificationRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IMapper _mapper;
@@ -30,14 +30,14 @@ namespace CryptoWatcher.Application.Services
         private readonly ILogger<NotificationService> _logger;
 
         public NotificationService(
-            MainDbContext mainDbContext,
+            DbContext dbContext,
             IRepository<Notification> notificationRepository,
             IRepository<User> userRepository,
             IMapper mapper,
             IConfiguration configuration,
             ILogger<NotificationService> logger)
         {
-            _mainDbContext = mainDbContext;
+            _dbContext = dbContext;
             _notificationRepository = notificationRepository;
             _userRepository = userRepository;
             _mapper = mapper;
@@ -116,7 +116,7 @@ namespace CryptoWatcher.Application.Services
                 }
 
                 // Save
-                await _mainDbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync();
 
                 // Stop watch
                 stopwatch.Stop();
@@ -174,7 +174,7 @@ namespace CryptoWatcher.Application.Services
                 }
 
                 // Save
-                await _mainDbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync();
 
                 // Stop watch
                 stopwatch.Stop();

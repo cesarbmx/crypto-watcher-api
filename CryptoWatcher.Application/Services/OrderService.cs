@@ -11,14 +11,14 @@ using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CesarBmx.Shared.Persistence.Repositories;
 using CryptoWatcher.Domain.Builders;
-using CryptoWatcher.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Application.Services
 {
     public class OrderService
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly DbContext _dbContext;
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Watcher> _watcherRepository;
@@ -26,14 +26,14 @@ namespace CryptoWatcher.Application.Services
         private readonly ILogger<OrderService> _logger;
 
         public OrderService(
-            MainDbContext mainDbContext,
+            DbContext dbContext,
             IRepository<Order> orderRepository,
             IRepository<User> userRepository,
             IRepository<Watcher> watcherRepository,
             IMapper mapper,
             ILogger<OrderService> logger)
         {
-            _mainDbContext = mainDbContext;
+            _dbContext = dbContext;
             _orderRepository = orderRepository;
             _userRepository = userRepository;
             _watcherRepository = watcherRepository;
@@ -94,7 +94,7 @@ namespace CryptoWatcher.Application.Services
             _orderRepository.AddRange(newOrders, time);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Stop watch
             stopwatch.Stop();

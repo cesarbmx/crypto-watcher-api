@@ -10,14 +10,14 @@ using CryptoWatcher.Domain.Models;
 using CesarBmx.Shared.Persistence.Repositories;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Types;
-using CryptoWatcher.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Application.Services
 {
     public class LineService
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly DbContext _dbContext;
         private readonly IRepository<Currency> _currencyRepository;
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<IndicatorDependency> _indicatorDependencyRepository;
@@ -27,7 +27,7 @@ namespace CryptoWatcher.Application.Services
         private readonly IMapper _mapper;
 
         public LineService(
-            MainDbContext mainDbContext,
+            DbContext dbContext,
             IRepository<Currency> currencyRepository,
             IRepository<Indicator> indicatorRepository,
             IRepository<IndicatorDependency> indicatorDependencyRepository,
@@ -36,7 +36,7 @@ namespace CryptoWatcher.Application.Services
             ILogger<LineService> logger, 
             IMapper mapper)
         {
-            _mainDbContext = mainDbContext;
+            _dbContext = dbContext;
             _currencyRepository = currencyRepository;
             _indicatorRepository = indicatorRepository;
             _indicatorDependencyRepository = indicatorDependencyRepository;
@@ -88,7 +88,7 @@ namespace CryptoWatcher.Application.Services
             _lineRepository.AddRange(lines, time);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Stop watch
             stopwatch.Stop();
@@ -116,7 +116,7 @@ namespace CryptoWatcher.Application.Services
             _lineRepository.RemoveRange(lines, time);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Stop watch
             stopwatch.Stop();

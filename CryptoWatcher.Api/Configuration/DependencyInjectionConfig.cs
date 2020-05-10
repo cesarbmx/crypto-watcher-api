@@ -17,17 +17,16 @@ namespace CryptoWatcher.Api.Configuration
             //Contexts
             if (bool.Parse(configuration["AppSettings:UseMemoryStorage"]))
             {
-                services.AddDbContext<MainDbContext>(options => options
-                    .UseInMemoryDatabase("CryptoWatcher")
-                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+                services.AddDbContext<DbContext, MainDbContext>(options => options
+                     .UseInMemoryDatabase("CryptoWatcher")
+                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
             else
             {
-                services.AddDbContext<MainDbContext>(options => options
+                services.AddDbContext<DbContext, MainDbContext>(options => options
                     .UseSqlServer(configuration.GetConnectionString("CryptoWatcher"))
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
-            services.AddScoped<DbContext, MainDbContext>();
 
             // Services
             services.AddScoped<LogService, LogService>();
@@ -86,7 +85,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<SendWhatsappNotificationsJob, SendWhatsappNotificationsJob>();
             services.AddScoped<SendTelgramNotificationsJob, SendTelgramNotificationsJob>();
             services.AddScoped<RemoveObsoleteLinesJob, RemoveObsoleteLinesJob>();
-            services.AddScoped<UpdateIndicatorsJob, UpdateIndicatorsJob>();
+            services.AddScoped<UpdateIndicatorDependenciesJob, UpdateIndicatorDependenciesJob>();
 
             // Other
             //services.AddScoped<DateTimeProvider, DateTimeProvider>();
