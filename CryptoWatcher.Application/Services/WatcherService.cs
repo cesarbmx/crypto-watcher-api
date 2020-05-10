@@ -191,9 +191,6 @@ namespace CryptoWatcher.Application.Services
                 watchers.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });
-
-            // Return
-            await Task.CompletedTask;
         }
 
         public async Task UpdateDefaultWatchers()
@@ -232,9 +229,6 @@ namespace CryptoWatcher.Application.Services
                 newDefaultWatchers.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });
-
-            // Return
-            await Task.CompletedTask;
         }
     }
 }

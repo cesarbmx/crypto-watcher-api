@@ -105,9 +105,6 @@ namespace CryptoWatcher.Application.Services
                 newOrders.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });
-
-            // Return
-            await Task.CompletedTask;
         }
     }
 }
