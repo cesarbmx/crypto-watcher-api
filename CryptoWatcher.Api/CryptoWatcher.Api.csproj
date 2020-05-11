@@ -9,7 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Api\CesarBmx.Shared.Api.csproj" />
+    <PackageReference Include="CesarBmx.Shared.Api" Version="1.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CryptoWatcher.Application\CryptoWatcher.Application.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Persistence\CryptoWatcher.Persistence.csproj" />
   </ItemGroup>

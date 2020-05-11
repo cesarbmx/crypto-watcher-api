@@ -5,14 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CesarBmx.Shared.Application" Version="1.0.4" />
     <PackageReference Include="CoinpaprikaAPI" Version="1.2.8" />
     <PackageReference Include="Telegram.Bot" Version="15.5.1" />
     <PackageReference Include="Twilio" Version="5.40.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Application\CesarBmx.Shared.Application.csproj" />
-    <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Logging\CesarBmx.Shared.Logging.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Domain\CryptoWatcher.Domain.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Persistence\CryptoWatcher.Persistence.csproj" />
   </ItemGroup>

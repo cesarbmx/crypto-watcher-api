@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CesarBmx.Shared.Persistence" Version="1.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Persistence\CesarBmx.Shared.Persistence.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Domain\CryptoWatcher.Domain.csproj" />
   </ItemGroup>
 
