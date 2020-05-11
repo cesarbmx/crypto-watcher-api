@@ -3,9 +3,9 @@
 
 namespace CryptoWatcher.Application.Responses
 {
-    public class LogResponse
+    public class AuditLogResponse
     {
-        public Guid LogId { get; set; }
+        public Guid AuditLogId { get; set; }
         public string Action { get; set; }
         public string Entity { get; set; }
         public string EntityId { get; set; }

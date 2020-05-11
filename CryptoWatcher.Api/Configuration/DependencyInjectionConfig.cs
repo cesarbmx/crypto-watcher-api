@@ -29,7 +29,7 @@ namespace CryptoWatcher.Api.Configuration
             }
 
             // Services
-            services.AddScoped<LogService, LogService>();
+            services.AddScoped<AuditLogService, AuditLogService>();
             services.AddScoped<CurrencyService, CurrencyService>();
             services.AddScoped<WatcherService, WatcherService>();
             services.AddScoped<UserService, UserService>();
@@ -41,7 +41,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<ScriptVariableService, ScriptVariableService>();
 
             //// Repositories
-            services.AddScoped<Repository<Log>, Repository<Log>>();
+            services.AddScoped<Repository<AuditLog>, Repository<AuditLog>>();
             services.AddScoped<Repository<Currency>, Repository<Currency>>();
             services.AddScoped<Repository<Watcher>, Repository<Watcher>>();
             services.AddScoped<Repository<User>, Repository<User>>();
@@ -52,7 +52,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<Repository<Line>, Repository<Line>>();
 
             //// Logger repositories
-            services.AddScoped<IRepository<Log>, Repository<Log>>();
+            services.AddScoped<IRepository<AuditLog>, Repository<AuditLog>>();
             services.AddScoped<IRepository<Currency>, LoggerRepository<Currency>>();
             services.AddScoped<IRepository<Watcher>, LoggerRepository<Watcher>>();
             services.AddScoped<IRepository<User>, LoggerRepository<User>>();

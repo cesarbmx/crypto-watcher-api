@@ -7,9 +7,9 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Persistence.Mappings
 {
-    public class LogMap
+    public class AuditLogMap
     {
-        public LogMap(EntityTypeBuilder<Log> entityBuilder)
+        public AuditLogMap(EntityTypeBuilder<AuditLog> entityBuilder)
         {
             // Key
             entityBuilder.HasKey(t => t.LogId)
@@ -56,11 +56,11 @@ namespace CryptoWatcher.Persistence.Mappings
             var indicatorDependencies1 = new IndicatorDependency("hype", "price-change-24hrs", time);
 
             entityBuilder.HasData(
-                new Log("Add", user1, user1.Id, time),
-                new Log("Add", indicator1, indicator1.Id, time),
-                new Log("Add", indicator2, indicator2.Id, time),
-                new Log("Add", indicator3, indicator3.Id, time),
-                new Log("Add", indicatorDependencies1, indicatorDependencies1.Id, time)
+                new AuditLog("Add", user1, user1.Id, time),
+                new AuditLog("Add", indicator1, indicator1.Id, time),
+                new AuditLog("Add", indicator2, indicator2.Id, time),
+                new AuditLog("Add", indicator3, indicator3.Id, time),
+                new AuditLog("Add", indicatorDependencies1, indicatorDependencies1.Id, time)
             );
         }
     }

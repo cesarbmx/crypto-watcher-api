@@ -18,7 +18,7 @@ namespace CryptoWatcher.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             new LineMap(modelBuilder.Entity<Line>());
-            new LogMap(modelBuilder.Entity<Log>());
+            new AuditLogMap(modelBuilder.Entity<AuditLog>());
             new CurrencyMap(modelBuilder.Entity<Currency>());
             new WatcherMap(modelBuilder.Entity<Watcher>());
             new UserMap(modelBuilder.Entity<User>());

@@ -10,38 +10,38 @@ using CesarBmx.Shared.Persistence.Repositories;
 
 namespace CryptoWatcher.Application.Services
 {
-    public class LogService
+    public class AuditLogService
     {
-        private readonly IRepository<Log> _logRepository;
+        private readonly IRepository<AuditLog> _logRepository;
         private readonly IMapper _mapper;
 
-        public LogService(IRepository<Log> logRepository, IMapper mapper)
+        public AuditLogService(IRepository<AuditLog> logRepository, IMapper mapper)
         {
             _logRepository = logRepository;
             _mapper = mapper;
         }
 
-        public async Task<List<LogResponse>> GetLogs()
+        public async Task<List<AuditLogResponse>> GetAuditLogs()
         {
-            // Get all logs
+            // Get all audit logs
             var logs = await _logRepository.GetAll();
 
             // Response
-            var response = _mapper.Map<List<LogResponse>>(logs);
+            var response = _mapper.Map<List<AuditLogResponse>>(logs);
 
             // Return
             return response;
         }
-        public async Task<LogResponse> GetLog(Guid logId)
+        public async Task<AuditLogResponse> GetAuditLog(Guid logId)
         {
-            // Get log
-            var log = await _logRepository.GetSingle(logId);
+            // Get audit log
+            var auditLog = await _logRepository.GetSingle(logId);
 
             // Throw NotFoundException if the currency does not exist
-            if (log == null) throw new NotFoundException(LogMessage.LogNotFound);
+            if (auditLog == null) throw new NotFoundException(AuditLogMessage.LogNotFound);
 
             // Response
-            var response = _mapper.Map<LogResponse>(log);
+            var response = _mapper.Map<AuditLogResponse>(auditLog);
 
             // Return
             return response;

@@ -13,43 +13,43 @@ namespace CryptoWatcher.Api.Controllers
     [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
     [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
     // ReSharper disable once InconsistentNaming
-    public class X_LogController : Controller
+    public class X_AuditLogController : Controller
     {
-        private readonly LogService _logService;
+        private readonly AuditLogService _logService;
 
-        public X_LogController(LogService logService)
+        public X_AuditLogController(AuditLogService logService)
         {
             _logService = logService;
         }
 
         /// <summary>
-        /// Get all logs
+        /// Get all audit logs
         /// </summary>
         [HttpGet]
-        [Route("api/logs")]
-        [SwaggerResponse(200, Type = typeof(List<LogResponse>))]
-        [SwaggerOperation(Tags = new[] { "Logs" }, OperationId = "Logs_GetAllLogs")]
-        public async Task<IActionResult> GetAllLogs()
+        [Route("api/audit-logs")]
+        [SwaggerResponse(200, Type = typeof(List<AuditLogResponse>))]
+        [SwaggerOperation(Tags = new[] { "Audit logs" }, OperationId = "Logs_GetAllAuditLogs")]
+        public async Task<IActionResult> GetAllAuditLogs()
         {
             // Reponse
-            var response = await _logService.GetLogs();
+            var response = await _logService.GetAuditLogs();
 
             // Return
             return Ok(response);
         }
 
         /// <summary>
-        /// Get log
+        /// Get audit log
         /// </summary>
         [HttpGet]
-        [Route("api/logs/{logId}", Name = "Logs_GetLog")]
-        [SwaggerResponse(200, Type = typeof(LogResponse))]
+        [Route("api/audit-logs/{logId}", Name = "Logs_GetLog")]
+        [SwaggerResponse(200, Type = typeof(AuditLogResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
-        [SwaggerOperation(Tags = new[] { "Logs" }, OperationId = "Logs_GetLog")]
-        public async Task<IActionResult> GetLog(Guid logId)
+        [SwaggerOperation(Tags = new[] { "Audit logs" }, OperationId = "Logs_GetAuditLog")]
+        public async Task<IActionResult> GetAuditLog(Guid logId)
         {
             // Reponse
-            var response = await _logService.GetLog(logId);
+            var response = await _logService.GetAuditLog(logId);
 
             // Return
             return Ok(response);

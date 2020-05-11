@@ -4,13 +4,13 @@ using CryptoWatcher.Application.Responses;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
-    public static class LogFakeResponse
+    public static class AuditLogFakeResponse
     {
-        public static LogResponse GetFake_Add_Indicator()
+        public static AuditLogResponse GetFake_Add_Indicator()
         {
-            return new LogResponse
+            return new AuditLogResponse
             {              
-                LogId = Guid.NewGuid(),
+                AuditLogId = Guid.NewGuid(),
                 Action = "Add",
                 Entity = "Indicator",
                 EntityId = "master_price",
@@ -18,9 +18,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Json = "{}"
             };
         }
-        public static List<LogResponse> GetFake_List()
+        public static List<AuditLogResponse> GetFake_List()
         {
-            return new List<LogResponse>
+            return new List<AuditLogResponse>
             {
                 GetFake_Add_Indicator()
             };
