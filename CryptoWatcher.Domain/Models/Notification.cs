@@ -20,14 +20,14 @@ namespace CryptoWatcher.Domain.Models
         public NotificationStatus NotificationStatus => NotificationBuilder.BuildNotificationStatus(SentTime);
 
         public Notification() { }
-        public Notification(string userId, string phoneNumber, string message, DateTime time)
+        public Notification(string userId, string phoneNumber, string message, DateTime createdAt)
         {
             NotificationId = 0;
             UserId = userId;
             PhoneNumber = phoneNumber;
             Message = message;
             SentTime = null;
-            CreatedAt = time;
+            CreatedAt = createdAt;
         }
 
         public void MarkAsSent()

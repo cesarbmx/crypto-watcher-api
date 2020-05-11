@@ -76,9 +76,6 @@ namespace CryptoWatcher.Application.Services
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            // Time
-            var time = DateTime.Now;
-
             // Grab watchers willing to buy or sell
              watchers = watchers.Where(WatcherExpression.WatcherWillingToBuyOrSell().Compile()).ToList();
 
@@ -86,10 +83,10 @@ namespace CryptoWatcher.Application.Services
             var orders = await _orderRepository.GetAll();
 
             // Build new orders
-            var newOrders = OrderBuilder.BuildNewOrders(watchers, orders, time);
+            var newOrders = OrderBuilder.BuildNewOrders(watchers, orders);
 
             // Add
-            _orderRepository.AddRange(newOrders, time);
+            _orderRepository.AddRange(newOrders);
 
             // Save
             await _dbContext.SaveChangesAsync();

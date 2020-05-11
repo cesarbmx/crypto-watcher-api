@@ -103,9 +103,6 @@ namespace CryptoWatcher.Application.Services
             // Throw ConflictException if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
 
-            // Time
-            var time = DateTime.Now;
-
             // Get default watcher
             var defaultWatcher = await _watcherRepository.GetSingle(WatcherExpression.DefaultWatcher(request.CurrencyId, request.IndicatorId));
 
@@ -121,8 +118,8 @@ namespace CryptoWatcher.Application.Services
                 defaultWatcher?.AverageBuy,
                 defaultWatcher?.AverageSell,
                 request.Enabled,
-                time);
-            _watcherRepository.Add(watcher, time);
+                DateTime.Now);
+            _watcherRepository.Add(watcher);
 
             // Save
             await _dbContext.SaveChangesAsync();
@@ -144,14 +141,11 @@ namespace CryptoWatcher.Application.Services
             // Throw NotFoundException if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
-            // Time
-            var time = DateTime.Now;
-
             // Update watcher
             watcher.Update(request.Buy, request.Sell, request.Enabled);
 
             // Update
-            _watcherRepository.Update(watcher, time);
+            _watcherRepository.Update(watcher);
 
             // Save
             await _dbContext.SaveChangesAsync();
@@ -203,9 +197,6 @@ namespace CryptoWatcher.Application.Services
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            // Time
-            var time = DateTime.Now;
-
             // Get newest time
             var newestTime = lines.Max(x => x.CreatedAt);
 
@@ -213,13 +204,13 @@ namespace CryptoWatcher.Application.Services
             var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine(newestTime));
 
             // Build default watchers
-            var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(currentLines, time);
+            var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(currentLines);
 
             // Get all default watchers
             var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
 
             // Update 
-            _watcherRepository.UpdateCollection(defaultWatchers, newDefaultWatchers, time);
+            _watcherRepository.UpdateCollection(defaultWatchers, newDefaultWatchers);
 
             // Save
             await _dbContext.SaveChangesAsync();

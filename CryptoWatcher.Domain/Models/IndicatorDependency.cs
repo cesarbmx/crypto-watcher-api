@@ -12,11 +12,11 @@ namespace CryptoWatcher.Domain.Models
         public DateTime CreatedAt { get; private set; }
 
         public IndicatorDependency() { }
-        public IndicatorDependency(string indicatorId, string dependencyId,  DateTime time)
+        public IndicatorDependency(string indicatorId, string dependencyId, DateTime createdAt)
         {
             IndicatorId = indicatorId;
             DependencyId = dependencyId;
-            CreatedAt = time;
+            CreatedAt = createdAt;
         }
     }
 }

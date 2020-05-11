@@ -36,7 +36,7 @@ namespace CryptoWatcher.Domain.Models
             decimal? averageBuy,
             decimal? averageSell,
             bool enabled,
-            DateTime time)
+            DateTime createdAt)
         {
             WatcherId = 0;
             UserId = userId;
@@ -49,7 +49,7 @@ namespace CryptoWatcher.Domain.Models
             AverageBuy = averageBuy;
             AverageSell = averageSell;
             Enabled = enabled;
-            CreatedAt = time;
+            CreatedAt = createdAt;
         }
 
         public Watcher Update(decimal buy, decimal sell, bool enabled)

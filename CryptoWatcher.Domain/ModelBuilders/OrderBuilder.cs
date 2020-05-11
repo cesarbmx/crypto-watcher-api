@@ -10,8 +10,11 @@ namespace CryptoWatcher.Domain.ModelBuilders
 {
     public static class OrderBuilder
     {
-        public static List<Order> BuildNewOrders(List<Watcher> watchers, List<Order> ongoingOrders, DateTime time)
+        public static List<Order> BuildNewOrders(List<Watcher> watchers, List<Order> ongoingOrders)
         {
+            // Now
+            var now = DateTime.Now;
+
             var newOrders = new List<Order>();
 
             foreach (var watcher in watchers)
@@ -26,7 +29,7 @@ namespace CryptoWatcher.Domain.ModelBuilders
                     watcher.CurrencyId,
                     orderType).Compile()).ToList();                
                 if (userOrders.Count != 0) continue;
-                var order = new Order(watcher.UserId, orderType, watcher.CurrencyId, 100, time);
+                var order = new Order(watcher.UserId, orderType, watcher.CurrencyId, 100, now);
                 newOrders.Add(order);
             }
 

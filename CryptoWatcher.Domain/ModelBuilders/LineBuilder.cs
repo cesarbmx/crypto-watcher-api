@@ -9,8 +9,9 @@ namespace CryptoWatcher.Domain.ModelBuilders
 {
     public static class LineBuilder
     {
-        public static List<Line> BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers, DateTime time)
+        public static List<Line> BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers)
         {
+            var time = DateTime.Now;
             var lines = new List<Line>();
             var stopAt = indicators.Count > 0 ? indicators.Max(x => x.DependencyLevel) : 0;
 

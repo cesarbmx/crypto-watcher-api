@@ -73,7 +73,7 @@ namespace CryptoWatcher.Application.Services
             user = new User(request.UserId, time);
 
             // Add user
-            _userRepository.Add(user, time);
+            _userRepository.Add(user);
 
             // Save
             await _dbContext.SaveChangesAsync();

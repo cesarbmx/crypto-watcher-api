@@ -27,7 +27,7 @@ namespace CryptoWatcher.Domain.Models
             decimal? value,
             decimal? averageBuy,
             decimal? averageSell,
-            DateTime time)
+            DateTime createdAt)
         {
             LineId = Guid.NewGuid();
             CurrencyId = currencyId;
@@ -37,7 +37,7 @@ namespace CryptoWatcher.Domain.Models
             Value = value;
             AverageBuy = averageBuy;
             AverageSell = averageSell;
-            CreatedAt = time;
+            CreatedAt = createdAt;
         }
 
         public Line Set(decimal? value, decimal? averageBuy, decimal? averageSell)

@@ -9,11 +9,10 @@ namespace CryptoWatcher.Tests.FakeModels
     {
         public static List<IndicatorDependency> GetFakeIndicatorDependencies()
         {
-            var time = DateTime.Now;
             var indicatorDependencies = new List<IndicatorDependency>()
             {
-                new IndicatorDependency("price-change-24hrs", "price", time),
-                new IndicatorDependency("hype", "price-change-24hrs", time),
+                new IndicatorDependency("price-change-24hrs", "price", DateTime.Now),
+                new IndicatorDependency("hype", "price-change-24hrs", DateTime.Now),
 
             };
             return indicatorDependencies;

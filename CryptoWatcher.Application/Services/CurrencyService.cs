@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -68,9 +67,6 @@ namespace CryptoWatcher.Application.Services
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            // Time
-            var time = DateTime.Now;
-
             // Get all currencies from CoinMarketCap
             var result = await _coinpaprikaClient.GetTickersAsync();
             var tickers = result.Value.Where(x =>
@@ -89,7 +85,7 @@ namespace CryptoWatcher.Application.Services
             var currencies = await _currencyRepository.GetAll();
 
             // Update 
-            _currencyRepository.UpdateCollection(currencies, newCurrencies, time);
+            _currencyRepository.UpdateCollection(currencies, newCurrencies);
 
             // Save
             await _dbContext.SaveChangesAsync();
