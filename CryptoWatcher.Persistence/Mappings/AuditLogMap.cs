@@ -12,7 +12,7 @@ namespace CryptoWatcher.Persistence.Mappings
         public AuditLogMap(EntityTypeBuilder<AuditLog> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.LogId)
+            entityBuilder.HasKey(t => t.AuditLogId)
                 .IsClustered(false);
 
             // Indexes
@@ -20,7 +20,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsClustered();
 
             // Properties
-            entityBuilder.Property(t => t.LogId)
+            entityBuilder.Property(t => t.AuditLogId)
                 .HasColumnType("uniqueidentifier")
                 .IsRequired();
 
