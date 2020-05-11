@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CesarBmx.Shared.Application.Responses;
-using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.ModelBuilders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

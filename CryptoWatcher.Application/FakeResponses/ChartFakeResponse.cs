@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.ModelBuilders;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Types;
 
