@@ -20,7 +20,7 @@ namespace CryptoWatcher.Domain.Models
 
         public Line() { }
         public Line(
-            string targetId,
+            string currencyId,
             string indicatorId,
             IndicatorType indicatorType,
             string userId,
@@ -30,7 +30,7 @@ namespace CryptoWatcher.Domain.Models
             DateTime time)
         {
             LineId = Guid.NewGuid();
-            CurrencyId = targetId;
+            CurrencyId = currencyId;
             IndicatorId = indicatorId;
             IndicatorType = indicatorType;
             UserId = userId;

@@ -7,10 +7,10 @@ namespace CryptoWatcher.Domain.Expressions
 {
     public static class LineExpression
     {
-        public static Expression<Func<Line, bool>> Line(DateTime time, string targetId, string indicatorId)
+        public static Expression<Func<Line, bool>> Line(DateTime time, string currencyId, string indicatorId)
         {
             return x => x.Time == time &&
-                        x.CurrencyId == targetId &&
+                        x.CurrencyId == currencyId &&
                         x.IndicatorId == indicatorId;
         }
         public static Expression<Func<Line, bool>> CurrentLine(DateTime time)

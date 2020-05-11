@@ -27,7 +27,7 @@ namespace CryptoWatcher.Domain.Models
         public Watcher() { }
         public Watcher(
             string userId,
-            string targetId,
+            string currencyId,
             string indicatorId,
             IndicatorType indicatortype,
             decimal? value,
@@ -40,7 +40,7 @@ namespace CryptoWatcher.Domain.Models
         {
             WatcherId = 0;
             UserId = userId;
-            CurrencyId = targetId;
+            CurrencyId = currencyId;
             IndicatorId = indicatorId;
             IndicatorType = indicatortype;
             Value = value;

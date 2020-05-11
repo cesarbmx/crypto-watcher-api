@@ -44,7 +44,7 @@ namespace CryptoWatcher.Domain.Builders
             // Distinct
             var times = lines.Select(x => x.Time).Distinct().ToList();
             var indicators = lines.Select(x => x.IndicatorId).Distinct().ToList();
-            var targets = lines.Select(x => x.CurrencyId).Distinct().ToList();
+            var currencies = lines.Select(x => x.CurrencyId).Distinct().ToList();
 
             // Loop
             var level1 = new Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal?>>>();
@@ -54,10 +54,10 @@ namespace CryptoWatcher.Domain.Builders
                 foreach (var indicator in indicators)
                 {
                     var level3 = new Dictionary<string, decimal?>();
-                    foreach (var target in targets)
+                    foreach (var currency in currencies)
                     {
-                        var line = lines.FirstOrDefault(LineExpression.Line(time, target, indicator).Compile());
-                        level3.Add(target, line?.Value);
+                        var line = lines.FirstOrDefault(LineExpression.Line(time, currency, indicator).Compile());
+                        level3.Add(currency, line?.Value);
                     }
                     level2.Add(indicator, level3);
                 }
