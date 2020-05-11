@@ -1,4 +1,4 @@
-﻿using CesarBmx.Shared.Domain.Entities;
+﻿using CesarBmx.Shared.Domain.Models;
 using CesarBmx.Shared.Persistence.Repositories;
 using CryptoWatcher.Application.Jobs;
 using CryptoWatcher.Application.Services;

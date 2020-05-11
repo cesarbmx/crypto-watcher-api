@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using CesarBmx.Shared.Domain.Entities;
+using CesarBmx.Shared.Domain.Models;
 using CoinpaprikaAPI.Entity;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoWatcher.Application.Responses;
