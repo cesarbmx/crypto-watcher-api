@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CryptoWatcher.Api.ResponseExamples;
+using CesarBmx.Shared.Application.Responses;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
-using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.Controllers
 {
+    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
+    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
+    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
     // ReSharper disable once InconsistentNaming
     public class H_LineChartsController : Controller
     {
@@ -24,11 +26,8 @@ namespace CryptoWatcher.Api.Controllers
         /// Get all line charts
         /// </summary>
         [HttpGet]
-        [Route("line-charts")]
-        [SwaggerResponse(200, Type = typeof(List<LineChartResponse>))]       
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(LineChartListResponseExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
+        [Route("api/line-charts")]
+        [SwaggerResponse(200, Type = typeof(List<LineChartResponse>))]
         [SwaggerOperation(Tags = new[] { "Charts" }, OperationId = "LineCharts_GetAllLineCharts")]
         public async Task<IActionResult> GetAllLineCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.ModelBuilders;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
@@ -14,8 +15,8 @@ namespace CryptoWatcher.Application.FakeResponses
             {
                 LineChartId = "bitcoin-price",
                 IndicatorType = IndicatorType.CurrencyIndicator,
-                TargetId = "bitcoin",
-                TargetName = "Bitcoin",
+                CurrencyId = "bitcoin",
+                CurrencyName = "Bitcoin",
                 IndicatorId = "price",
                 IndicatorName = "Price",
                 UserId = "master",
@@ -29,8 +30,8 @@ namespace CryptoWatcher.Application.FakeResponses
             {
                 LineChartId = "eos-price",
                 IndicatorType = IndicatorType.CurrencyIndicator,
-                TargetId = "eos",
-                TargetName = "EOS",
+                CurrencyId = "eos",
+                CurrencyName = "EOS",
                 IndicatorId = "price",
                 IndicatorName = "Price",
                 UserId = "master",

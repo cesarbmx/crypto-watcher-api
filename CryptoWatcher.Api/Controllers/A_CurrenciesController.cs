@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CryptoWatcher.Api.ResponseExamples;
+using CesarBmx.Shared.Application.Responses;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.Controllers
 {
+    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
+    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
+    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
     // ReSharper disable once InconsistentNaming
     public class A_CurrenciesController : Controller
     {
@@ -23,11 +25,8 @@ namespace CryptoWatcher.Api.Controllers
         /// Get all currencies
         /// </summary>
         [HttpGet]
-        [Route("currencies")]
-        [SwaggerResponse(200, Type = typeof(List<CurrencyResponse>))]       
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(CurrencyListResponseExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
+        [Route("api/currencies")]
+        [SwaggerResponse(200, Type = typeof(List<CurrencyResponse>))]  
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetAllCurrencies")]
         public async Task<IActionResult> GetAllCurrencies()
         {
@@ -42,13 +41,9 @@ namespace CryptoWatcher.Api.Controllers
         /// Get currency
         /// </summary>
         [HttpGet]
-        [Route("currencies/{currencyId}", Name = "Currencies_GetCurrency")]
+        [Route("api/currencies/{currencyId}", Name = "Currencies_GetCurrency")]
         [SwaggerResponse(200, Type = typeof(CurrencyResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(CurrencyResponseExample))]
-        [SwaggerResponseExample(404, typeof(NotFoundExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrency")]
         public async Task<IActionResult> GetCurrency(string currencyId)
         {

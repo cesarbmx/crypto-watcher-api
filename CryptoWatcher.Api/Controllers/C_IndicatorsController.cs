@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CryptoWatcher.Api.RequestExamples;
+using CesarBmx.Shared.Application.Responses;
 using CryptoWatcher.Application.Requests;
-using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
-using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.Controllers
 {
+    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
+    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
+    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
     // ReSharper disable once InconsistentNaming
     public class C_IndicatorsController : Controller
     {
@@ -26,11 +27,8 @@ namespace CryptoWatcher.Api.Controllers
         /// Get all indicators
         /// </summary>
         [HttpGet]
-        [Route("users/{userId}/indicators")]
-        [SwaggerResponse(200, Type = typeof(List<IndicatorResponse>))]       
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(IndicatorListResponseExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
+        [Route("api/users/{userId}/indicators")]
+        [SwaggerResponse(200, Type = typeof(List<IndicatorResponse>))]  
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetAllIndicators")]
         public async Task<IActionResult> GetAllIndicators(string userId, IndicatorType indicatorType)
         {
@@ -45,13 +43,9 @@ namespace CryptoWatcher.Api.Controllers
         /// Get indicator
         /// </summary>
         [HttpGet]
-        [Route("indicators/{indicatorId}", Name = "Indicators_GetIndicator")]
+        [Route("api/indicators/{indicatorId}", Name = "Indicators_GetIndicator")]
         [SwaggerResponse(200, Type = typeof(IndicatorResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(IndicatorResponseExample))]
-        [SwaggerResponseExample(404, typeof(NotFoundExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetIndicator")]
         public async Task<IActionResult> GetIndicator(string indicatorId)
         {
@@ -66,20 +60,12 @@ namespace CryptoWatcher.Api.Controllers
         /// Add indicator
         /// </summary>
         [HttpPost]
-        [Route("indicators")]
+        [Route("api/indicators")]
         [SwaggerResponse(201, Type = typeof(IndicatorResponse))]
         [SwaggerResponse(400, Type = typeof(ErrorResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(201, typeof(IndicatorResponseExample))]
-        [SwaggerResponseExample(400, typeof(BadRequestExample))]
-        [SwaggerResponseExample(404, typeof(NotFoundExample))]
-        [SwaggerResponseExample(409, typeof(ConflictExample))]
-        [SwaggerResponseExample(422, typeof(ValidationFailedExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerRequestExample(typeof(AddIndicatorRequest), typeof(AddIndicatorRequestExample))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_AddIndicator")]
         public async Task<IActionResult> AddIndicator([FromBody]AddIndicatorRequest request)
         {
@@ -94,18 +80,11 @@ namespace CryptoWatcher.Api.Controllers
         /// Update indicator
         /// </summary>
         [HttpPut]
-        [Route("indicators/{indicatorId}")]
+        [Route("api/indicators/{indicatorId}")]
         [SwaggerResponse(200, Type = typeof(IndicatorResponse))]
         [SwaggerResponse(400, Type = typeof(ErrorResponse))]
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(IndicatorResponseExample))]
-        [SwaggerResponseExample(400, typeof(BadRequestExample))]
-        [SwaggerResponseExample(409, typeof(ConflictExample))]
-        [SwaggerResponseExample(422, typeof(ValidationFailedExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerRequestExample(typeof(UpdateIndicatorRequest), typeof(UpdateIndicatorRequestExample))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_UpdateIndicator")]
         public async Task<IActionResult> UpdateIndicator(string indicatorId, [FromBody]UpdateIndicatorRequest request)
         {

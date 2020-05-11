@@ -29,7 +29,7 @@
             Add user
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorsController.GetAllIndicators(System.String,CryptoWatcher.Domain.Models.IndicatorType)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorsController.GetAllIndicators(System.String,CryptoWatcher.Domain.Types.IndicatorType)">
             <summary>
             Get all indicators
             </summary>
@@ -54,7 +54,7 @@
             Get all watchers
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.D_WatchersController.GetWatcher(System.Guid)">
+        <member name="M:CryptoWatcher.Api.Controllers.D_WatchersController.GetWatcher(System.String)">
             <summary>
             Get watcher
             </summary>
@@ -64,7 +64,7 @@
             Add watcher
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.D_WatchersController.UpdateWatcher(System.Guid,CryptoWatcher.Application.Requests.UpdateWatcherRequest)">
+        <member name="M:CryptoWatcher.Api.Controllers.D_WatchersController.UpdateWatcher(System.String,CryptoWatcher.Application.Requests.UpdateWatcherRequest)">
             <summary>
             Update watcher
             </summary>
@@ -89,12 +89,12 @@
             Get notification
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.G_LinesController.GetAllLines(System.String,System.Nullable{CryptoWatcher.Domain.Models.IndicatorType},System.String,System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.G_LinesController.GetAllLines(System.String,System.Nullable{CryptoWatcher.Domain.Types.IndicatorType},System.String,System.String)">
             <summary>
             Get all lines
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.H_LineChartsController.GetAllLineCharts(System.String,System.Nullable{CryptoWatcher.Domain.Models.IndicatorType},System.String,System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.H_LineChartsController.GetAllLineCharts(System.String,System.Nullable{CryptoWatcher.Domain.Types.IndicatorType},System.String,System.String)">
             <summary>
             Get all line charts
             </summary>

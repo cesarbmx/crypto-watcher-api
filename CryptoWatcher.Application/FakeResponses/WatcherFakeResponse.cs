@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
@@ -14,7 +14,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 UserId = "master",
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 IndicatorId = "price",
-                TargetId = "bitcoin",
+                CurrencyId = "bitcoin",
                 Value = 5000,
                 Buy = 15,
                 Sell = 8,
@@ -32,7 +32,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 UserId = "master",
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 IndicatorId = "RSI",
-                TargetId = "bitcoin",
+                CurrencyId = "bitcoin",
                 Value = 2,
                 Buy = 15,
                 Sell = 8,

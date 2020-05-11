@@ -1,5 +1,7 @@
 ﻿using System;
-using CryptoWatcher.Domain.Builders;
+using CesarBmx.Shared.Domain.Models;
+using CryptoWatcher.Domain.ModelBuilders;
+using CryptoWatcher.Domain.Types;
 
 
 namespace CryptoWatcher.Domain.Models
@@ -9,7 +11,7 @@ namespace CryptoWatcher.Domain.Models
         public string Id => WatcherId.ToString();
         public int WatcherId { get; private set; }
         public string UserId { get; private set; }
-        public string TargetId { get; private set; }
+        public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
         public IndicatorType IndicatorType { get; private set; }
         public decimal? Value { get; private set; }
@@ -18,14 +20,14 @@ namespace CryptoWatcher.Domain.Models
         public decimal? AverageBuy { get; private set; }
         public decimal? AverageSell { get; private set; }
         public bool Enabled { get; private set; }
-        public DateTime Time { get; private set; }
+        public DateTime CreatedAt { get; private set; }
 
         public WatcherStatus Status => WatcherBuilder.BuildStatus(Value, Buy, Sell);
 
         public Watcher() { }
         public Watcher(
             string userId,
-            string targetId,
+            string currencyId,
             string indicatorId,
             IndicatorType indicatortype,
             decimal? value,
@@ -38,7 +40,7 @@ namespace CryptoWatcher.Domain.Models
         {
             WatcherId = 0;
             UserId = userId;
-            TargetId = targetId;
+            CurrencyId = currencyId;
             IndicatorId = indicatorId;
             IndicatorType = indicatortype;
             Value = value;
@@ -47,7 +49,7 @@ namespace CryptoWatcher.Domain.Models
             AverageBuy = averageBuy;
             AverageSell = averageSell;
             Enabled = enabled;
-            Time = time;
+            CreatedAt = time;
         }
 
         public Watcher Update(decimal buy, decimal sell, bool enabled)

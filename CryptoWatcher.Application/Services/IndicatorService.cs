@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using AutoMapper;
+using CesarBmx.Shared.Application.Exceptions;
+using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
-using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.ModelBuilders;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Persistence.Repositories;
-using CryptoWatcher.Shared.Exceptions;
-using CryptoWatcher.Shared.Extensions;
+using CesarBmx.Shared.Persistence.Repositories;
+using CryptoWatcher.Domain.Types;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Application.Services
 {
     public class IndicatorService
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly DbContext _dbContext;
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<IndicatorDependency> _indicatorDependencyRepository;
@@ -26,14 +28,14 @@ namespace CryptoWatcher.Application.Services
         private readonly IMapper _mapper;
 
         public IndicatorService(
-            MainDbContext mainDbContext,
+            DbContext dbContext,
             IRepository<Indicator> indicatorRepository,
             Repository<IndicatorDependency> indicatorDependencyRepository,
             IRepository<User> userRepository,
             ILogger<IndicatorService> logger,
             IMapper mapper)
         {
-            _mainDbContext = mainDbContext;
+            _dbContext = dbContext;
             _indicatorRepository = indicatorRepository;
             _indicatorDependencyRepository = indicatorDependencyRepository;
             _userRepository = userRepository;
@@ -126,10 +128,10 @@ namespace CryptoWatcher.Application.Services
             _indicatorRepository.Add(indicator, time);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Log into Splunk
-            _logger.LogSplunkRequest(request);
+            _logger.LogSplunkInformation(request);
 
             // Response
             var response = _mapper.Map<IndicatorResponse>(indicator);
@@ -170,16 +172,60 @@ namespace CryptoWatcher.Application.Services
             indicator.SetDependencies(newIndicatorDependencies);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Log into Splunk
-            _logger.LogSplunkRequest(request);
+            _logger.LogSplunkInformation(request);
 
             // Response
             var response = _mapper.Map<IndicatorResponse>(indicator);
 
             // Return
             return response;
+        }
+
+        public async Task<List<Indicator>> UpdateIndicatorDependencies()
+        {
+            // Start watch
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Time
+            var time = DateTime.Now;
+
+            // Get all indicators
+            var indicators = await _indicatorRepository.GetAll();
+
+            // Get all indicator dependencies
+            var indicatorDependencies = await _indicatorDependencyRepository.GetAll();
+
+            // Build indicator dependencies
+            IndicatorBuilder.BuildDependencies(indicators, indicatorDependencies);
+
+            // Build dependency levels
+            IndicatorBuilder.BuildDependencyLevels(indicators, indicatorDependencies);
+
+            // Update
+            _indicatorRepository.UpdateRange(indicators, time);
+
+            // Save
+            await _dbContext.SaveChangesAsync();
+
+            // Build max dependency level
+            var maxDependencyLevel = IndicatorBuilder.BuildMaxDependencyLevel(indicators);
+
+            // Stop watch
+            stopwatch.Stop();
+
+            // Log into Splunk
+            _logger.LogSplunkInformation("UpdateIndicatorDependencies", new
+            {
+                MaxLevel = maxDependencyLevel,
+                ExecutionTime = stopwatch.Elapsed.TotalSeconds
+            });
+
+            // Return
+            return indicators;
         }
 
         private async Task<List<Indicator>> GetDependencies(string[] dependencyIds)

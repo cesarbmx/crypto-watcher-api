@@ -10,11 +10,11 @@ namespace CryptoWatcher.Persistence.Mappings
         {
             // Key
             entityBuilder.HasKey(t => t.WatcherId)
-                .ForSqlServerIsClustered(false);
+                .IsClustered(false);
 
             // Indexes
-            entityBuilder.HasIndex(t => new { t.UserId, t.IndicatorType, t.TargetId, t.IndicatorId })
-                .ForSqlServerIsClustered();
+            entityBuilder.HasIndex(t => new { t.UserId, t.IndicatorType, t.CurrencyId, t.IndicatorId })
+                .IsClustered();
 
             // Relationships
             entityBuilder
@@ -34,7 +34,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.TargetId)
+            entityBuilder.Property(t => t.CurrencyId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();
@@ -67,7 +67,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("bit")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Time)
+            entityBuilder.Property(t => t.CreatedAt)
                 .HasColumnType("datetime2")
                 .IsRequired();
         }

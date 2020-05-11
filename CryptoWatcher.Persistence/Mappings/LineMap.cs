@@ -10,18 +10,18 @@ namespace CryptoWatcher.Persistence.Mappings
         {
             // Key
             entityBuilder.HasKey(t => t.LineId).
-                ForSqlServerIsClustered(false);
+                IsClustered(false);
 
             // Indexes
-            entityBuilder.HasIndex(t => new { t.Time, t.IndicatorType, t.TargetId, t.IndicatorId, t.UserId})
-                .ForSqlServerIsClustered();
+            entityBuilder.HasIndex(t => new { t.CreatedAt, t.IndicatorType, t.CurrencyId, t.IndicatorId, t.UserId})
+                .IsClustered();
 
             // Properties
             entityBuilder.Property(t => t.LineId)
                 .HasColumnType("uniqueidentifier")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.TargetId)
+            entityBuilder.Property(t => t.CurrencyId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();
@@ -49,7 +49,7 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.AverageSell)
                 .HasColumnType("decimal(18,2)");
 
-            entityBuilder.Property(t => t.Time)
+            entityBuilder.Property(t => t.CreatedAt)
                 .HasColumnType("datetime2")
                 .IsRequired();
         }

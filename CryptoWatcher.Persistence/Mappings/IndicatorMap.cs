@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Persistence.Mappings
@@ -12,11 +13,11 @@ namespace CryptoWatcher.Persistence.Mappings
         {
             // Key
             entityBuilder.HasKey(t => t.IndicatorId).
-                ForSqlServerIsClustered(false);
+                IsClustered(false);
 
             // Indexes
-            entityBuilder.HasIndex(t => new { t.Time, t.IndicatorType, t.IndicatorId, t.UserId})
-                .ForSqlServerIsClustered();
+            entityBuilder.HasIndex(t => new { t.CreatedAt, t.IndicatorType, t.IndicatorId, t.UserId})
+                .IsClustered();
 
             // Relationships
             entityBuilder
@@ -58,7 +59,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("smallint")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Time)
+            entityBuilder.Property(t => t.CreatedAt)
                 .HasColumnType("datetime2")
                 .IsRequired();
 

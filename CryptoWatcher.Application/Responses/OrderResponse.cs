@@ -1,6 +1,5 @@
-﻿
-using System;
-using CryptoWatcher.Domain.Models;
+﻿using System;
+using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.Responses
 {
@@ -11,6 +10,6 @@ namespace CryptoWatcher.Application.Responses
         public string UserId { get; set; }
         public string CurrencyId { get; set; }
         public decimal Quantity { get; set; }
-        public OrderStatus Status { get; set; }
+        public OrderStatus OrderStatus { get; set; }
     }
 }

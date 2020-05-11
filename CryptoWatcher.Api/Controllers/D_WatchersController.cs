@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CryptoWatcher.Api.RequestExamples;
+using CesarBmx.Shared.Application.Responses;
 using CryptoWatcher.Application.Requests;
-using CryptoWatcher.Api.ResponseExamples;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.Controllers
 {
+    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
+    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
+    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
     // ReSharper disable once InconsistentNaming
     public class D_WatchersController : Controller
     {
@@ -25,11 +26,8 @@ namespace CryptoWatcher.Api.Controllers
         /// Get all watchers
         /// </summary>
         [HttpGet]
-        [Route("users/{userId}/watchers")]
-        [SwaggerResponse(200, Type = typeof(List<WatcherResponse>))]       
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(WatcherListResponseExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
+        [Route("api/users/{userId}/watchers")]
+        [SwaggerResponse(200, Type = typeof(List<WatcherResponse>))] 
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetAllWatchers")]
         public async Task<IActionResult> GetAllWatchers(string userId, string currencyId = null, string indicatorId = null)
         {
@@ -44,13 +42,9 @@ namespace CryptoWatcher.Api.Controllers
         /// Get watcher
         /// </summary>
         [HttpGet]
-        [Route("watchers/{watcherId}", Name = "Watchers_GetWatcher")]
+        [Route("api/watchers/{watcherId}", Name = "Watchers_GetWatcher")]
         [SwaggerResponse(200, Type = typeof(WatcherResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(WatcherResponseExample))]
-        [SwaggerResponseExample(404, typeof(NotFoundExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetWatcher")]
         public async Task<IActionResult> GetWatcher(string watcherId)
         {
@@ -65,20 +59,12 @@ namespace CryptoWatcher.Api.Controllers
         /// Add watcher
         /// </summary>
         [HttpPost]
-        [Route("watchers")]
+        [Route("api/watchers")]
         [SwaggerResponse(201, Type = typeof(WatcherResponse))]
         [SwaggerResponse(400, Type = typeof(ErrorResponse))]
         [SwaggerResponse(404, Type = typeof(ErrorResponse))]
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(201, typeof(WatcherResponseExample))]
-        [SwaggerResponseExample(400, typeof(BadRequestExample))]
-        [SwaggerResponseExample(404, typeof(NotFoundExample))]
-        [SwaggerResponseExample(409, typeof(ConflictExample))]
-        [SwaggerResponseExample(422, typeof(ValidationFailedExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerRequestExample(typeof(AddWatcherRequest), typeof(AddWatcherRequestExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_AddWatcher")]
         public async Task<IActionResult> AddWatcher([FromBody]AddWatcherRequest request)
         {
@@ -93,18 +79,11 @@ namespace CryptoWatcher.Api.Controllers
         /// Update watcher
         /// </summary>
         [HttpPut]
-        [Route("watchers/{watcherId}")]
+        [Route("api/watchers/{watcherId}")]
         [SwaggerResponse(200, Type = typeof(WatcherResponse))]
         [SwaggerResponse(400, Type = typeof(ErrorResponse))]
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(WatcherResponseExample))]
-        [SwaggerResponseExample(400, typeof(BadRequestExample))]
-        [SwaggerResponseExample(409, typeof(ConflictExample))]
-        [SwaggerResponseExample(422, typeof(ValidationFailedExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
-        [SwaggerRequestExample(typeof(UpdateWatcherRequest), typeof(UpdateWatcherRequestExample))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_UpdateWatcher")]
         public async Task<IActionResult> UpdateWatcher(string watcherId, [FromBody]UpdateWatcherRequest request)
         {

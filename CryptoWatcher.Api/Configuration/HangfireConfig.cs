@@ -1,10 +1,12 @@
-﻿using CryptoWatcher.Api.ActionFilters;
+﻿using CesarBmx.Shared.Api.Configuration;
+using CesarBmx.Shared.Api.Settings;
+using CryptoWatcher.Application.Jobs;
 using Hangfire;
 using Hangfire.MemoryStorage;
-using CryptoWatcher.BackgroundJobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace CryptoWatcher.Api.Configuration
 {
@@ -12,34 +14,29 @@ namespace CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureHangfire(this IServiceCollection services, IConfiguration configuration)
         {
-            // UseMemoryStorage
-            if (bool.Parse(configuration["AppSettings:UseMemoryStorage"]))
-            {
-                services.AddHangfire(x => x.UseStorage(GlobalConfiguration.Configuration.UseMemoryStorage()));
-            }
-            else
-            {
-                services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("CryptoWatcher")));
-            }
+            //services.ConfigurePinnacleHangfire();
+
+            services.AddHangfire(x => x.UseMemoryStorage());
+
 
             // Return
             return services;
         }
-        public static IApplicationBuilder ConfigureHangfire(this IApplicationBuilder app, IConfiguration configuration)
+        public static IApplicationBuilder ConfigureHangfire(this IApplicationBuilder app, IConfiguration configuration, IHostEnvironment env)
         {
-            // Configure
-            app.UseHangfireDashboard("/hangfire", new DashboardOptions
-            {
-                Authorization = new[] { new HangfireAuthorization() }
-            });
-            app.UseHangfireServer();
+            // Enable basic only for Staging/Production
+            app.ConfigureSharedHangfire(env.IsStaging() || env.IsProduction());
+
+            // Grab AppSettings
+            var appSettings = new AppSettings();
+            configuration.GetSection("AppSettings").Bind(appSettings);
 
             // Background jobs
             var jobsIntervalInMinutes = int.Parse(configuration["AppSettings:JobsIntervalInMinutes"]);
-            RecurringJob.AddOrUpdate<MainJob>("Main", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            RecurringJob.AddOrUpdate<SendTelgramNotifications>("Send telegram notifications", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
-            RecurringJob.AddOrUpdate<RemoveLinesJob>("Remove lines", x => x.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));
+            RecurringJob.AddOrUpdate<MainJob>("Main", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
+            RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
+            RecurringJob.AddOrUpdate<SendTelgramNotificationsJob>("Send telegram notifications", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
+            RecurringJob.AddOrUpdate<RemoveObsoleteLinesJob>("Remove obsolete lines", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
 
             return app;
         }

@@ -1,4 +1,6 @@
 ﻿using System;
+using CesarBmx.Shared.Domain.Models;
+using CryptoWatcher.Domain.Types;
 
 
 namespace CryptoWatcher.Domain.Models
@@ -11,8 +13,9 @@ namespace CryptoWatcher.Domain.Models
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
         public decimal Quantity { get; private set; }
-        public OrderStatus Status { get; private set; }
-        public DateTime Time { get; private set; }
+        public OrderStatus OrderStatus { get; private set; }
+        public DateTime? NotificationProcessedAt { get; private set; }
+        public DateTime CreatedAt { get; private set; }
 
         public Order() { }
         public Order(string userId, OrderType orderType, string currencyId, decimal quantity, DateTime time)
@@ -23,8 +26,9 @@ namespace CryptoWatcher.Domain.Models
             CurrencyId = currencyId;
             UserId = userId;
             Quantity = quantity;
-            Status = OrderStatus.Pending;
-            Time = time;
+            OrderStatus = OrderStatus.Pending;
+            NotificationProcessedAt =null;
+            CreatedAt = time;
         }
     }
 }

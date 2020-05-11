@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CryptoWatcher.Shared\CryptoWatcher.Shared.csproj" />
+    <PackageReference Include="CesarBmx.Shared.Domain" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

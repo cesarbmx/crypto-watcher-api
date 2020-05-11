@@ -1,5 +1,4 @@
-﻿using CryptoWatcher.Api.ActionFilters;
-using ElmahCore.Mvc;
+﻿using CesarBmx.Shared.Api.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,20 +7,16 @@ namespace CryptoWatcher.Api.Configuration
 {
     public static class ElmahConfig
     {
-        public static IServiceCollection ConfigureElmah(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureElmah(this IServiceCollection services)
         {
-            services.AddElmah(options =>
-            {
-                //options.ConnectionString = configuration.GetConnectionString("CryptoWatcher");
-                options.Filters.Add(new ElmahFilter());
-            });
+            services.ConfigureSharedElmah();
 
             // Return
             return services;
         }
         public static IApplicationBuilder ConfigureElmah(this IApplicationBuilder app, IConfiguration configuration)
         {
-            app.UseElmah();
+            app.ConfigureSharedElmah();
 
             return app;
         }

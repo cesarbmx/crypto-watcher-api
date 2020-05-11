@@ -1,13 +1,15 @@
 ﻿using System.Threading.Tasks;
-using CryptoWatcher.Api.ResponseExamples;
+using CesarBmx.Shared.Application.Responses;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.Controllers
 {
+    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
+    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
+    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
     // ReSharper disable once InconsistentNaming
     public class I_ScriptVariablesController : Controller
     {
@@ -22,11 +24,8 @@ namespace CryptoWatcher.Api.Controllers
         /// Get script variables
         /// </summary>
         [HttpGet]
-        [Route("script-variables")]
-        [SwaggerResponse(200, Type = typeof(ScriptVariablesResponse))]       
-        [SwaggerResponse(500, Type = typeof(ErrorResponse))]
-        [SwaggerResponseExample(200, typeof(ScriptVariableListExample))]
-        [SwaggerResponseExample(500, typeof(InternalServerErrorExample))]
+        [Route("api/script-variables")]
+        [SwaggerResponse(200, Type = typeof(ScriptVariablesResponse))]
         [SwaggerOperation(Tags = new[] { "Script variables" }, OperationId = "ScriptVariables_GetScriptVariables")]
         public async Task<IActionResult> GetScriptVariables()
         {

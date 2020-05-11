@@ -33,9 +33,9 @@ namespace CryptoWatcher.Service.Configuration
             var jobsIntervalInMinutes = int.Parse(configuration["AppSettings:JobsIntervalInMinutes"]);
 
             var mainJob = serviceProvider.GetService<MainJob>();
-            var sendWhatsappNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();
-            var sendTelegramNotificationsJob = serviceProvider.GetService<SendWhatsappNotificationsJob>();
-            var removeLinesJob = serviceProvider.GetService<RemoveLinesJob>();
+            var sendWhatsappNotificationsJob = serviceProvider.GetService<SendNotificationsViaWhatsappJob>();
+            var sendTelegramNotificationsJob = serviceProvider.GetService<SendNotificationsViaWhatsappJob>();
+            var removeLinesJob = serviceProvider.GetService<RemoveObsoleteLinesJob>();
 
             RecurringJob.AddOrUpdate("Main", () => mainJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));           
             RecurringJob.AddOrUpdate("Send whatsapp notifications", () => sendWhatsappNotificationsJob.Run(), Cron.MinuteInterval(jobsIntervalInMinutes));

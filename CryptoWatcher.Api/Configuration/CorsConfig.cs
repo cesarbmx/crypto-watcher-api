@@ -12,11 +12,13 @@ namespace CryptoWatcher.Api.Configuration
                 options.AddPolicy("AllowAll",
                     builder =>
                     {
-                        builder
+                        builder 
+                            //.WithOrigins()
                             .AllowAnyOrigin()
                             .AllowAnyMethod()
                             .AllowAnyHeader()
-                            .AllowCredentials();
+                            //.AllowCredentials()
+                            ;
                     });
             });
 

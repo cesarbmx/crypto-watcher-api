@@ -1,18 +1,20 @@
-﻿using CryptoWatcher.Application.FakeResponses;
+﻿using System.Collections.Generic;
+using CryptoWatcher.Application.FakeResponses;
+using CryptoWatcher.Application.Responses;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.ResponseExamples
 {
-    public class IndicatorResponseExample : IExamplesProvider
+    public class IndicatorResponseExample : IExamplesProvider<IndicatorResponse>
     {
-        public object GetExamples()
+        public IndicatorResponse GetExamples()
         {
             return IndicatorFakeResponse.GetFake_RSI();
         }
     }
-    public class IndicatorListResponseExample : IExamplesProvider
+    public class IndicatorListResponseExample : IExamplesProvider<List<IndicatorResponse>>
     {
-        public object GetExamples()
+        public List<IndicatorResponse> GetExamples()
         {
             return IndicatorFakeResponse.GetFake_List();
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
@@ -15,7 +15,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 OrderType = OrderType.BuyLimit,
                 UserId = "master",
                 CurrencyId = "bitcoin",
-                Status = OrderStatus.Pending,
+                OrderStatus = OrderStatus.Pending,
                 Quantity = 100
             };
         }
@@ -27,7 +27,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 OrderType = OrderType.BuyLimit,
                 UserId = "master",
                 CurrencyId = "eos",
-                Status = OrderStatus.Pending,
+                OrderStatus = OrderStatus.Pending,
                 Quantity = 100
             };
         }

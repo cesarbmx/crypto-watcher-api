@@ -1,42 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CesarBmx.Shared.Application.Exceptions;
+using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.ModelBuilders;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Persistence.Contexts;
-using CryptoWatcher.Persistence.Repositories;
-using CryptoWatcher.Shared.Exceptions;
-using CryptoWatcher.Shared.Extensions;
+using CesarBmx.Shared.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoWatcher.Application.Services
 {
     public class WatcherService
     {
-        private readonly MainDbContext _mainDbContext;
+        private readonly DbContext _dbContext;
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Indicator> _indicatorRepository;
         private readonly IRepository<Watcher> _watcherRepository;
+        private readonly IRepository<Line> _lineRepository;
         private readonly ILogger<WatcherService> _logger;
         private readonly IMapper _mapper;
 
         public WatcherService(
-            MainDbContext mainDbContext,
+            DbContext dbContext,
             IRepository<User> userRepository,
             IRepository<Indicator> indicatorRepository,
             IRepository<Watcher> watcherRepository,
+            IRepository<Line> lineRepository,
             ILogger<WatcherService> logger,
             IMapper mapper)
         {
-            _mainDbContext = mainDbContext;
+            _dbContext = dbContext;
             _userRepository = userRepository;
             _indicatorRepository = indicatorRepository;
             _watcherRepository = watcherRepository;
+            _lineRepository = lineRepository;
             _logger = logger;
             _mapper = mapper;
         }
@@ -93,7 +98,7 @@ namespace CryptoWatcher.Application.Services
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Check if it exists
-            var watcher = await _watcherRepository.GetSingle(WatcherExpression.Watcher(request.UserId, request.TargetId, request.IndicatorId));
+            var watcher = await _watcherRepository.GetSingle(WatcherExpression.Watcher(request.UserId, request.CurrencyId, request.IndicatorId));
 
             // Throw ConflictException if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
@@ -102,12 +107,12 @@ namespace CryptoWatcher.Application.Services
             var time = DateTime.Now;
 
             // Get default watcher
-            var defaultWatcher = await _watcherRepository.GetSingle(WatcherExpression.DefaultWatcher(request.TargetId, request.IndicatorId));
+            var defaultWatcher = await _watcherRepository.GetSingle(WatcherExpression.DefaultWatcher(request.CurrencyId, request.IndicatorId));
 
             // Add
             watcher = new Watcher(
                 request.UserId,
-                request.TargetId,
+                request.CurrencyId,
                 request.IndicatorId,
                 request.IndicatorType,
                 defaultWatcher?.Value,
@@ -120,10 +125,10 @@ namespace CryptoWatcher.Application.Services
             _watcherRepository.Add(watcher, time);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Log into Splunk
-            _logger.LogSplunkRequest(request);
+            _logger.LogSplunkInformation(request);
 
             // Response
             var response = _mapper.Map<WatcherResponse>(watcher);
@@ -149,16 +154,88 @@ namespace CryptoWatcher.Application.Services
             _watcherRepository.Update(watcher, time);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             // Log into Splunk
-            _logger.LogSplunkRequest(request);
+            _logger.LogSplunkInformation(request);
 
             // Response
             var response = _mapper.Map<WatcherResponse>(watcher);
 
             // Return
             return response;
+        }
+        public async Task<List<Watcher>> UpdateWatchers(List<Watcher> defaultWatchers, List<Line> lines)
+        {
+            // Start watch
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Get all watchers
+            var watchers = await _watcherRepository.GetAll();
+
+            // Sync watchers
+            watchers.SyncWatchers(defaultWatchers);
+
+            // Save
+            await _dbContext.SaveChangesAsync();
+
+            // Stop watch
+            stopwatch.Stop();
+
+            // Log into Splunk
+            _logger.LogSplunkInformation("UpdateWatchers", new
+            {
+                watchers.Count,
+                ExecutionTime = stopwatch.Elapsed.TotalSeconds
+            });
+
+            // Return
+            return watchers;
+        }
+
+        public async Task<List<Watcher>> UpdateDefaultWatchers(List<Line> lines)
+        {
+            // Return if there are no lines
+            if (lines.Count == 0) return new List<Watcher>();
+
+            // Start watch
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Time
+            var time = DateTime.Now;
+
+            // Get newest time
+            var newestTime = lines.Max(x => x.CreatedAt);
+
+            // Get current lines
+            var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine(newestTime));
+
+            // Build default watchers
+            var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(currentLines, time);
+
+            // Get all default watchers
+            var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
+
+            // Update 
+            _watcherRepository.UpdateCollection(defaultWatchers, newDefaultWatchers, time);
+
+            // Save
+            await _dbContext.SaveChangesAsync();
+
+            // Stop watch
+            stopwatch.Stop();
+
+            // Log into Splunk
+            _logger.LogSplunkInformation("UpdateDefaultWatchers", new
+            {
+                newDefaultWatchers.Count,
+                ExecutionTime = stopwatch.Elapsed.TotalSeconds
+            });
+
+            // Return 
+            return defaultWatchers;
         }
     }
 }

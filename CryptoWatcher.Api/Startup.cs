@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+﻿using CryptoWatcher.Api.Configuration;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using CryptoWatcher.Api.Configuration;
+
 
 namespace CryptoWatcher.Api
 {
@@ -19,6 +20,9 @@ namespace CryptoWatcher.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Settings
+            services.ConfigureSettings(Configuration);
+
             // CORS
             services.ConfigureCors();
 
@@ -35,38 +39,56 @@ namespace CryptoWatcher.Api
             services.ConfigureHangfire(Configuration);
 
             // Elmah
-            services.ConfigureElmah(Configuration);
+            services.ConfigureElmah();
+
+            // Authentication
+            services.ConfigureAuthentication(Configuration);
+
+            // Authorization
+            services.ConfigureAuthorization();
+
+            // Distributed caching
+            services.ConfigureCaching();
 
             // Mvc
-            services.ConfigureMvc();
+            services.ConfigureMvc(Configuration);
+
+            // Health
+            services.ConfigureHealth(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerfactory)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            // This for the reverse proxy
+            app.UsePathBase("/crypto-watcher");
+
             // CORS
             app.ConfigureCors();
 
-            // Middlewares
-            app.ConfigureMiddlewares();
+            // Error handling
+            app.ConfigureErrorHandling();
 
             // Log4Net
-            loggerfactory.ConfigureLog4Net(env);
+            loggerFactory.ConfigureLog4Net(env, Configuration);
 
             // Swagger
-            app.ConfigureSwagger();
-
-            // Data seeding
-            app.ConfigureDataSeeding();
+            app.ConfigureSwagger(Configuration);
 
             // Hangfire
-            app.ConfigureHangfire(Configuration);
+            app.ConfigureHangfire(Configuration, env);
 
             // Elmah
             app.ConfigureElmah(Configuration);
 
+            // Data migration
+            app.ConfigureDataMigration(Configuration);
+
             // Mvc
             app.ConfigureMvc();
+
+            // Health
+            app.ConfigureHealth();
         }
     }
 }

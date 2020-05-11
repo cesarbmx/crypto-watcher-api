@@ -1,7 +1,9 @@
 ﻿using System;
+using CesarBmx.Shared.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Persistence.Mappings
 {
@@ -11,11 +13,11 @@ namespace CryptoWatcher.Persistence.Mappings
         {
             // Key
             entityBuilder.HasKey(t => t.LogId)
-                .ForSqlServerIsClustered(false);
+                .IsClustered(false);
 
             // Indexes
-            entityBuilder.HasIndex(t => t.Time)
-                .ForSqlServerIsClustered();
+            entityBuilder.HasIndex(t => t.CreatedAt)
+                .IsClustered();
 
             // Properties
             entityBuilder.Property(t => t.LogId)
@@ -41,7 +43,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("nvarchar(max)")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Time)
+            entityBuilder.Property(t => t.CreatedAt)
                 .HasColumnType("datetime2")
                 .IsRequired();
 

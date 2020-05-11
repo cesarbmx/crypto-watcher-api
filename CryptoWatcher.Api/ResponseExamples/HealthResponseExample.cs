@@ -3,9 +3,9 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.ResponseExamples
 {
-    public class HealthResponseExample : IExamplesProvider
+    public class HealthResponseExample : IExamplesProvider<HealthResponse>
     {
-        public object GetExamples()
+        public HealthResponse GetExamples()
         {
             return new HealthResponse
             {
