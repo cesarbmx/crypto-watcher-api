@@ -15,7 +15,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 OrderType = OrderType.BuyLimit,
                 UserId = "master",
                 CurrencyId = "bitcoin",
-                Status = OrderStatus.Pending,
+                OrderStatus = OrderStatus.Pending,
                 Quantity = 100
             };
         }
@@ -27,7 +27,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 OrderType = OrderType.BuyLimit,
                 UserId = "master",
                 CurrencyId = "eos",
-                Status = OrderStatus.Pending,
+                OrderStatus = OrderStatus.Pending,
                 Quantity = 100
             };
         }

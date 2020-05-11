@@ -35,7 +35,7 @@ namespace CryptoWatcher.Domain.Builders
             var lineChartRows = new List<LineChartRow>();
             foreach (var line in lines)
             {
-                var lineChartRow = new LineChartRow(line.Time, line.Value, line.AverageBuy, line.AverageSell);
+                var lineChartRow = new LineChartRow(line.CreatedAt, line.Value, line.AverageBuy, line.AverageSell);
                 lineChartRows.Add(lineChartRow);
             }
 

@@ -77,7 +77,6 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-
         public async Task SendTelegramNotifications()
         {
             // Start watch
@@ -85,50 +84,48 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Get pending notifications
-            var pendingNotifications =
-                await _notificationRepository.GetAll(NotificationExpression.PendingNotification());
+            var pendingNotifications = await _notificationRepository.GetAll(NotificationExpression.PendingNotification());
 
             // If there are pending notifications
-            if (pendingNotifications.Count > 0)
+            if (pendingNotifications.Count == 0) return;
+
+            // Connect
+            var apiToken = _configuration["AppSettings:TelegramApiToken"];
+            var bot = new TelegramBotClient(apiToken);
+
+            // For each notification
+            var count = 0;
+            var failedCount = 0;
+            foreach (var pendingNotification in pendingNotifications)
             {
-                // Connect
-                var apiToken = _configuration["AppSettings:TelegramApiToken"];
-                var bot = new TelegramBotClient(apiToken);
-
-                // For each notification
-                var count = 0;
-                var failedCount = 0;
-                foreach (var pendingNotification in pendingNotifications)
+                try
                 {
-                    try
-                    {
-                        // Send whatsapp
-                        await bot.SendTextMessageAsync("@crypto_watcher_official", pendingNotification.Message);
-                        pendingNotification.MarkAsSent();
-                        count++;
-                    }
-                    catch (Exception ex)
-                    {
-                        // Log into Splunk
-                        _logger.LogSplunkError(ex);
-                        failedCount++;
-                    }
+                    // Send whatsapp
+                    await bot.SendTextMessageAsync("@crypto_watcher_official", pendingNotification.Message);
+                    pendingNotification.MarkAsSent();
+                    count++;
                 }
-
-                // Save
-                await _dbContext.SaveChangesAsync();
-
-                // Stop watch
-                stopwatch.Stop();
-
-                // Log into Splunk
-                _logger.LogSplunkInformation("SendTelegramNotifications", new
+                catch (Exception ex)
                 {
-                    Count = count,
-                    FailedCount = failedCount,
-                    ExecutionTime = stopwatch.Elapsed.TotalSeconds
-                });
+                    // Log into Splunk
+                    _logger.LogSplunkError(ex);
+                    failedCount++;
+                }
             }
+
+            // Save
+            await _dbContext.SaveChangesAsync();
+
+            // Stop watch
+            stopwatch.Stop();
+
+            // Log into Splunk
+            _logger.LogSplunkInformation("SendTelegramNotifications", new
+            {
+                Count = count,
+                FailedCount = failedCount,
+                ExecutionTime = stopwatch.Elapsed.TotalSeconds
+            });
         }
         public async Task SendWhatsappNotifications()
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
@@ -21,7 +22,6 @@ namespace CryptoWatcher.Application.Services
         private readonly DbContext _dbContext;
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<User> _userRepository;
-        private readonly IRepository<Watcher> _watcherRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<OrderService> _logger;
 
@@ -29,14 +29,12 @@ namespace CryptoWatcher.Application.Services
             DbContext dbContext,
             IRepository<Order> orderRepository,
             IRepository<User> userRepository,
-            IRepository<Watcher> watcherRepository,
             IMapper mapper,
             ILogger<OrderService> logger)
         {
             _dbContext = dbContext;
             _orderRepository = orderRepository;
             _userRepository = userRepository;
-            _watcherRepository = watcherRepository;
             _mapper = mapper;
             _logger = logger;
         }
@@ -72,7 +70,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task UpdateOrders()
+        public async Task<List<Order>> UpdateOrders(List<Watcher> watchers)
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -81,8 +79,8 @@ namespace CryptoWatcher.Application.Services
             // Time
             var time = DateTime.Now;
 
-            // Get all watchers with buy or sells
-            var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherWillingToBuyOrSell());
+            // Grab watchers willing to buy or sell
+             watchers = watchers.Where(WatcherExpression.WatcherWillingToBuyOrSell().Compile()).ToList();
 
             // Get all orders
             var orders = await _orderRepository.GetAll();
@@ -105,6 +103,9 @@ namespace CryptoWatcher.Application.Services
                 newOrders.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });
+
+            // Return
+            return newOrders;
         }
     }
 }

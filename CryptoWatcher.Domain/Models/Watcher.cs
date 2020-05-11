@@ -20,7 +20,7 @@ namespace CryptoWatcher.Domain.Models
         public decimal? AverageBuy { get; private set; }
         public decimal? AverageSell { get; private set; }
         public bool Enabled { get; private set; }
-        public DateTime Time { get; private set; }
+        public DateTime CreatedAt { get; private set; }
 
         public WatcherStatus Status => WatcherBuilder.BuildStatus(Value, Buy, Sell);
 
@@ -49,7 +49,7 @@ namespace CryptoWatcher.Domain.Models
             AverageBuy = averageBuy;
             AverageSell = averageSell;
             Enabled = enabled;
-            Time = time;
+            CreatedAt = time;
         }
 
         public Watcher Update(decimal buy, decimal sell, bool enabled)

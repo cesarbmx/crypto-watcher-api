@@ -165,7 +165,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task UpdateWatchers()
+        public async Task<List<Watcher>> UpdateWatchers(List<Watcher> defaultWatchers, List<Line> lines)
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -173,9 +173,6 @@ namespace CryptoWatcher.Application.Services
 
             // Get all watchers
             var watchers = await _watcherRepository.GetAll();
-
-            // Get all default watchers
-            var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
 
             // Sync watchers
             watchers.SyncWatchers(defaultWatchers);
@@ -192,10 +189,16 @@ namespace CryptoWatcher.Application.Services
                 watchers.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });
+
+            // Return
+            return watchers;
         }
 
-        public async Task UpdateDefaultWatchers()
+        public async Task<List<Watcher>> UpdateDefaultWatchers(List<Line> lines)
         {
+            // Return if there are no lines
+            if (lines.Count == 0) return new List<Watcher>();
+
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -203,14 +206,8 @@ namespace CryptoWatcher.Application.Services
             // Time
             var time = DateTime.Now;
 
-            // Get al lines
-            var allLines = await _lineRepository.GetAll();
-
-            // Return if there are no lines
-            if (!allLines.Any()) return;
-
             // Get newest time
-            var newestTime = allLines.Max(x => x.Time);
+            var newestTime = lines.Max(x => x.CreatedAt);
 
             // Get current lines
             var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine(newestTime));
@@ -236,6 +233,9 @@ namespace CryptoWatcher.Application.Services
                 newDefaultWatchers.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });
+
+            // Return 
+            return defaultWatchers;
         }
     }
 }

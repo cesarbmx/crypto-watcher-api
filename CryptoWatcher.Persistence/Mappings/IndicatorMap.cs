@@ -16,7 +16,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 IsClustered(false);
 
             // Indexes
-            entityBuilder.HasIndex(t => new { t.Time, t.IndicatorType, t.IndicatorId, t.UserId})
+            entityBuilder.HasIndex(t => new { t.CreatedAt, t.IndicatorType, t.IndicatorId, t.UserId})
                 .IsClustered();
 
             // Relationships
@@ -59,7 +59,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("smallint")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Time)
+            entityBuilder.Property(t => t.CreatedAt)
                 .HasColumnType("datetime2")
                 .IsRequired();
 

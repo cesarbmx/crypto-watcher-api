@@ -18,7 +18,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Time)
+            entityBuilder.Property(t => t.CreatedAt)
                 .HasColumnType("datetime2")
                 .IsRequired();
 

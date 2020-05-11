@@ -184,7 +184,7 @@ namespace CryptoWatcher.Application.Services
             return response;
         }
 
-        public async Task UpdateIndicatorDependencies()
+        public async Task<List<Indicator>> UpdateIndicatorDependencies()
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -223,6 +223,9 @@ namespace CryptoWatcher.Application.Services
                 MaxLevel = maxDependencyLevel,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });
+
+            // Return
+            return indicators;
         }
 
         private async Task<List<Indicator>> GetDependencies(string[] dependencyIds)

@@ -54,7 +54,7 @@ namespace CryptoWatcher.Domain.Builders
                     if (indicator.DependencyLevel == dependencyLevel) // We set the consecutive ones
                     {
                         // Get latest line for this currency indicator pair
-                        var line = lines.FirstOrDefault(LineExpression.Line(lines[0].Time, currency.CurrencyId, indicator.IndicatorId).Compile());
+                        var line = lines.FirstOrDefault(LineExpression.Line(lines[0].CreatedAt, currency.CurrencyId, indicator.IndicatorId).Compile());
                         // Get all watchers for this currency indicator pair
                         var filteredWatchers = watchers.Where(WatcherExpression.WatcherFilter(null, currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
                         // Build

@@ -18,9 +18,6 @@ namespace CryptoWatcher.Application.Services
     public class LineService
     {
         private readonly DbContext _dbContext;
-        private readonly IRepository<Currency> _currencyRepository;
-        private readonly IRepository<Indicator> _indicatorRepository;
-        private readonly IRepository<IndicatorDependency> _indicatorDependencyRepository;
         private readonly IRepository<Watcher> _watcherRepository;
         private readonly IRepository<Line> _lineRepository;
         private readonly ILogger<LineService> _logger;
@@ -28,18 +25,12 @@ namespace CryptoWatcher.Application.Services
 
         public LineService(
             DbContext dbContext,
-            IRepository<Currency> currencyRepository,
-            IRepository<Indicator> indicatorRepository,
-            IRepository<IndicatorDependency> indicatorDependencyRepository,
             IRepository<Watcher> watcherRepository,
             IRepository<Line> lineRepository,
             ILogger<LineService> logger, 
             IMapper mapper)
         {
             _dbContext = dbContext;
-            _currencyRepository = currencyRepository;
-            _indicatorRepository = indicatorRepository;
-            _indicatorDependencyRepository = indicatorDependencyRepository;
             _watcherRepository = watcherRepository;
             _lineRepository = lineRepository;
             _logger = logger;
@@ -56,29 +47,16 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task UpdateLines()
+        public async Task<List<Line>> UpdateLines(List<Currency> currencies, List<Indicator> indicators)
         {
             // Start watch
-
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
             // Time
             var time = DateTime.Now;
 
-            // Get all currencies
-            var currencies = await _currencyRepository.GetAll();
-
-            // Get all indicators
-            var indicators = await _indicatorRepository.GetAll();
-
-            // Get all indicator dependencies
-            var indicatorDependencies = await _indicatorDependencyRepository.GetAll();
-
-            // Build indicator dependencies
-            IndicatorBuilder.BuildDependencies(indicators, indicatorDependencies);
-
-            // Get non-default watchers with buy or sell
+            // Get watchers willing to buy or sell
             var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherWillingToBuyOrSell());
 
             // Build new lines
@@ -99,6 +77,9 @@ namespace CryptoWatcher.Application.Services
                 lines.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });
+
+            // Return
+            return lines;
         }
         public async Task RemoveObsoleteLines()
         {

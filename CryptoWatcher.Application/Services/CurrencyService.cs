@@ -62,7 +62,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task UpdateCurrencies()
+        public async Task<List<Currency>> UpdateCurrencies()
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -73,7 +73,7 @@ namespace CryptoWatcher.Application.Services
 
             // Get all currencies from CoinMarketCap
             var result = await _coinpaprikaClient.GetTickersAsync();
-            var curencies = result.Value.Where(x =>
+            var tickers = result.Value.Where(x =>
                 x.Id == "btc-bitcoin" ||
                 x.Id == "xrp-xrp" ||
                 x.Id == "eth-ethereum" ||
@@ -83,7 +83,7 @@ namespace CryptoWatcher.Application.Services
                 x.Id == "ada-cardano").ToList();
 
             // Build currencies
-            var newCurrencies = _mapper.Map<List<Currency>>(curencies);
+            var newCurrencies = _mapper.Map<List<Currency>>(tickers);
 
             // Get all currencies
             var currencies = await _currencyRepository.GetAll();
@@ -103,6 +103,9 @@ namespace CryptoWatcher.Application.Services
                 newCurrencies.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });
+
+            // Return
+            return newCurrencies;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using CesarBmx.Shared.Logging.Extensions;
+using CryptoWatcher.Application.Services;
 using Hangfire;
 using Microsoft.Extensions.Logging;
 
@@ -9,28 +10,28 @@ namespace CryptoWatcher.Application.Jobs
 {
     public class MainJob
     {
-        private readonly UpdateCurrenciesJob _updateCurrenciesJob;
-        private readonly UpdateIndicatorDependenciesJob _updateIndicatorDependenciesJob;
-        private readonly UpdateLinesJob _updateLinesJob;
-        private readonly UpdateDefaultWatchersJob _updateDefaultWatchersJob;
-        private readonly UpdateWatchersJob _updateWatchersJob;
-        private readonly UpdateOrdersJob _updateOrdersJob;
+        private readonly CurrencyService _currencyService;
+        private readonly IndicatorService _indicatorService;
+        private readonly LineService _lineService;
+        private readonly WatcherService _watcherService;
+        private readonly OrderService _orderService;
+        private readonly NotificationService _notificationService;
         private readonly ILogger<MainJob> _logger;
         public MainJob(
-            UpdateCurrenciesJob updateCurrenciesJob,
-            UpdateIndicatorDependenciesJob updateIndicatorDependenciesJob,
-            UpdateLinesJob updateLinesJob,
-            UpdateDefaultWatchersJob updateDefaultWatchersJob,
-            UpdateWatchersJob updateWatchersJob,
-            UpdateOrdersJob updateOrdersJob,
+            CurrencyService currencyService,
+            IndicatorService indicatorService,
+            LineService lineService,
+            WatcherService watcherService,
+            OrderService orderService,
+            NotificationService notificationService,
             ILogger<MainJob> logger)
         {
-            _updateCurrenciesJob = updateCurrenciesJob;
-            _updateIndicatorDependenciesJob = updateIndicatorDependenciesJob;
-            _updateLinesJob = updateLinesJob;
-            _updateDefaultWatchersJob = updateDefaultWatchersJob;
-            _updateWatchersJob = updateWatchersJob;
-            _updateOrdersJob = updateOrdersJob;
+            _currencyService = currencyService;
+            _indicatorService = indicatorService;
+            _lineService = lineService;
+            _watcherService = watcherService;
+            _orderService = orderService;
+            _notificationService = notificationService;
             _logger = logger;
         }
 
@@ -42,14 +43,16 @@ namespace CryptoWatcher.Application.Jobs
             stopwatch.Start();
 
             // Run
-            await _updateCurrenciesJob.Run();
-            await _updateIndicatorDependenciesJob.Run();
-            await _updateLinesJob.Run();
-            await _updateDefaultWatchersJob.Run();
-            await _updateWatchersJob.Run();
-            await _updateOrdersJob.Run();
+           var currencies =  await _currencyService.UpdateCurrencies();
+           var indicators = await _indicatorService.UpdateIndicatorDependencies();
+           var lines =  await _lineService.UpdateLines(currencies, indicators);
+           var defaultWatchers = await _watcherService.UpdateDefaultWatchers(lines);
+           var watchers = await _watcherService.UpdateWatchers(defaultWatchers, lines);
+           await _orderService.UpdateOrders(watchers); 
+           //await _notificationService.CreateNotifications();
+           await _notificationService.SendTelegramNotifications();
 
-            // Stop watch
+           // Stop watch
             stopwatch.Stop();
 
             // Log into Splunk
