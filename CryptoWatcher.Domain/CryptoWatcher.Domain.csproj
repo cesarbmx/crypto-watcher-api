@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CesarBmx.Shared.Domain" Version="1.0.0" />
+    <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Domain\CesarBmx.Shared.Domain.csproj" />
   </ItemGroup>
 
 </Project>
