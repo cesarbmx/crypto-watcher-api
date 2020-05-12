@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
+using CesarBmx.Shared.Application.Messages;
+using CesarBmx.Shared.Application.Responses;
 using CesarBmx.Shared.Domain.Models;
-using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Application.Messages;
 using CesarBmx.Shared.Persistence.Repositories;
 
 namespace CryptoWatcher.Application.Services

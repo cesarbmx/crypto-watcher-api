@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
+using CesarBmx.Shared.Application.Responses;
 using CesarBmx.Shared.Domain.Models;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoWatcher.Application.Responses;

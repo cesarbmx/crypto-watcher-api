@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using CesarBmx.Shared.Application.ResponseBuilders;
 using CesarBmx.Shared.Application.Responses;
-using CryptoWatcher.Domain.ModelBuilders;
+using CryptoWatcher.Application.Messages;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -24,7 +25,7 @@ namespace CryptoWatcher.Api.Controllers
         public IActionResult GetAllErrorMessages()
         {
             // Get error messages
-            var errorMessages = ErrorMessageBuilder.BuildErrorMessages();
+            var errorMessages = ErrorMessageResponseBuilder.BuildErrorMessages(typeof(CurrencyMessage).Assembly);
             
             // Return
             return Ok(errorMessages);
