@@ -1,4 +1,6 @@
-﻿using CesarBmx.Shared.Domain.Models;
+﻿using CesarBmx.Shared.Api.Helpers;
+using CesarBmx.Shared.Common.Providers;
+using CesarBmx.Shared.Domain.Models;
 using CesarBmx.Shared.Persistence.Repositories;
 using CryptoWatcher.Application.Jobs;
 using CryptoWatcher.Application.Services;
@@ -64,16 +66,16 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<IRepository<Line>, LoggerRepository<Line>>();
 
             // Audit repositories
-            //services.AddScoped<IRepository<Log>, Repository<Log>>();
-            //services.AddScoped<IRepository<Currency>, AuditRepository<Currency>>();
-            //services.AddScoped<IRepository<Watcher>, AuditRepository<Watcher>>();
-            //services.AddScoped<IRepository<User>, AuditRepository<User>>();
-            //services.AddScoped<IRepository<Notification>, AuditRepository<Notification>>();
-            //services.AddScoped<IRepository<Order>, AuditRepository<Order>>();
-            //services.AddScoped<IRepository<Indicator>, AuditRepository<Indicator>>();
-            //services.AddScoped<IRepository<Line>, AuditRepository<Line>>();
-            //services.AddScoped<IRepository<IndicatorDependency>, AuditRepository<IndicatorDependency>>();
-            //services.AddScoped<IRepository<Line>, LineAuditRepository>();
+            services.AddScoped<AuditRepository<AuditLog>, AuditRepository<AuditLog>>();
+            services.AddScoped<AuditRepository<Currency>, AuditRepository<Currency>>();
+            services.AddScoped<AuditRepository<Watcher>, AuditRepository<Watcher>>();
+            services.AddScoped<AuditRepository<User>, AuditRepository<User>>();
+            services.AddScoped<AuditRepository<Notification>, AuditRepository<Notification>>();
+            services.AddScoped<AuditRepository<Order>, AuditRepository<Order>>();
+            services.AddScoped<AuditRepository<Indicator>, AuditRepository<Indicator>>();
+            services.AddScoped<AuditRepository<Line>, AuditRepository<Line>>();
+            services.AddScoped<AuditRepository<IndicatorDependency>, AuditRepository<IndicatorDependency>>();
+            services.AddScoped<AuditRepository<Line>, AuditRepository<Line>>();
 
             // Jobs
             services.AddScoped<MainJob, MainJob>();
@@ -82,8 +84,8 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<RemoveObsoleteLinesJob, RemoveObsoleteLinesJob>();
 
             // Other
-            //services.AddScoped<DateTimeProvider, DateTimeProvider>();
-            //services.AddScoped<HttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+            services.AddHttpContextAccessor();
             services.AddScoped<CoinpaprikaAPI.Client, CoinpaprikaAPI.Client>();
 
             return services;

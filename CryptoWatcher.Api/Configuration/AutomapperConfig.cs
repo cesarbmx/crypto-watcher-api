@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AutoMapper;
 using CesarBmx.Shared.Domain.Models;
-using CoinpaprikaAPI.Entity;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
@@ -15,9 +13,9 @@ namespace CryptoWatcher.Api.Configuration
         {
             services.AddAutoMapper(
 
-                 cfg => {
-
-                    // Responses
+                 cfg =>
+                 {
+                     // Responses
                     cfg.CreateMap<Currency, CurrencyResponse>();
                      cfg.CreateMap<AuditLog, AuditLogResponse>();
                      cfg.CreateMap<Watcher, WatcherResponse>();
@@ -29,13 +27,6 @@ namespace CryptoWatcher.Api.Configuration
                      cfg.CreateMap<Line, LineResponse>();
                      cfg.CreateMap<LineChart, LineChartResponse>();
 
-                    // Others
-                    cfg.CreateMap<TickerWithQuotesInfo, Currency>()
-                         .ForMember(dest => dest.CurrencyId, opt => opt.MapFrom(src => src.Id))
-                         .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].Price)))
-                         .ForMember(dest => dest.Volume24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].Volume24H)))
-                         .ForMember(dest => dest.MarketCap, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].MarketCap)))
-                         .ForMember(dest => dest.PercentageChange24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].PercentChange24H)));
                  }, typeof(Startup));
 
             return services;

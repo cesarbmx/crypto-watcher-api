@@ -9,6 +9,7 @@ using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CesarBmx.Shared.Persistence.Repositories;
+using CryptoWatcher.Application.Factories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -79,7 +80,7 @@ namespace CryptoWatcher.Application.Services
                 x.Id == "ada-cardano").ToList();
 
             // Build currencies
-            var newCurrencies = _mapper.Map<List<Currency>>(tickers);
+            var newCurrencies = CurrencyFactory.Create(tickers);
 
             // Get all currencies
             var currencies = await _currencyRepository.GetAll();

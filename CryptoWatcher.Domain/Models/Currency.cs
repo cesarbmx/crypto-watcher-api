@@ -17,9 +17,7 @@ namespace CryptoWatcher.Domain.Models
         public decimal PercentageChange24H { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
-        public Currency()
-        {
-        }
+        public Currency() {}
         public Currency(
             string currencyId,
             string symbol,
