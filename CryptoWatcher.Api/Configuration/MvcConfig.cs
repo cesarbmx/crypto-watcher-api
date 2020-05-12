@@ -1,5 +1,6 @@
 ﻿using CesarBmx.Shared.Api.ActionFilters;
 using CesarBmx.Shared.Api.Configuration;
+using CesarBmx.Shared.Api.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -37,6 +38,8 @@ namespace CryptoWatcher.Api.Configuration
             // Allow synchronous IO (elmah css was not loading)
             services.Configure<IISServerOptions>(options => { options.AllowSynchronousIO = true; });
             services.Configure<KestrelServerOptions>(options => { options.AllowSynchronousIO = true; });
+
+            services.AddControllers().AddApplicationPart(typeof(Z_VersionController).Assembly);
 
             return services;
         }
