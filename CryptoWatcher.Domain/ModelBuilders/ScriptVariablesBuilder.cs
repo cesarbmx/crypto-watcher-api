@@ -25,7 +25,7 @@ namespace CryptoWatcher.Domain.ModelBuilders
 
         public static DateTime[] BuildTimes(List<Line> lines)
         {
-            return lines.Select(x => x.CreatedAt).Distinct().ToArray();
+            return lines.Select(x => x.Time).Distinct().ToArray();
         }
 
         public static string[] BuildCurrencies(List<Line> lines)
@@ -42,7 +42,7 @@ namespace CryptoWatcher.Domain.ModelBuilders
             List<Line> lines)
         {
             // Distinct
-            var times = lines.Select(x => x.CreatedAt).Distinct().ToList();
+            var times = lines.Select(x => x.Time).Distinct().ToList();
             var indicators = lines.Select(x => x.IndicatorId).Distinct().ToList();
             var currencies = lines.Select(x => x.CurrencyId).Distinct().ToList();
 

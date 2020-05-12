@@ -15,7 +15,7 @@ namespace CryptoWatcher.Domain.Models
         public decimal MarketCap { get; private set; }
         public decimal Volume24H { get; private set; }
         public decimal PercentageChange24H { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        public DateTime Time { get; private set; }
 
         public Currency() {}
         public Currency(
@@ -27,7 +27,7 @@ namespace CryptoWatcher.Domain.Models
             decimal volume24H,
             decimal marketCap,
             decimal percentageChange24H,
-            DateTime createdAt)
+            DateTime time)
         {
             CurrencyId = currencyId;
             Symbol = symbol;
@@ -37,7 +37,7 @@ namespace CryptoWatcher.Domain.Models
             Volume24H = volume24H;
             MarketCap = marketCap;
             PercentageChange24H = percentageChange24H;
-            CreatedAt = createdAt;
+            Time = time;
         }
     }
 }

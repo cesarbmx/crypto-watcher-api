@@ -18,7 +18,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 Value = 1.5m,
                 AverageBuy = 15,
                 AverageSell = 8,
-                CreatedAt = DateTime.Now.AddHours(-1)
+                Time = DateTime.Now.AddHours(-1)
             };
         }
         public static LineResponse GetFake_Bitcoin_RSI()
@@ -32,7 +32,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 Value = 1.5m,
                 AverageBuy = 9,
                 AverageSell = 6,
-                CreatedAt = DateTime.Now
+                Time = DateTime.Now
             };
         }
         public static List<LineResponse> GetFake_List()

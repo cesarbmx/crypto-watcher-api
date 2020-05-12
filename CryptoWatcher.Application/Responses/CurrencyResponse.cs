@@ -15,6 +15,6 @@ namespace CryptoWatcher.Application.Responses
         public decimal MarketCap { get; set; }
         public decimal Volume24H { get; set; }
         public decimal PercentageChange24H { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime Time { get; set; }
     }
 }

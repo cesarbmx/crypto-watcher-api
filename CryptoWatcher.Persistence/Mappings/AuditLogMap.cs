@@ -16,7 +16,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsClustered(false);
 
             // Indexes
-            entityBuilder.HasIndex(t => t.CreatedAt)
+            entityBuilder.HasIndex(t => t.Time)
                 .IsClustered();
 
             // Properties
@@ -43,7 +43,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("nvarchar(max)")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.CreatedAt)
+            entityBuilder.Property(t => t.Time)
                 .HasColumnType("datetime2")
                 .IsRequired();
 

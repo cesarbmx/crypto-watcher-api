@@ -14,7 +14,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 Action = "Add",
                 Entity = "Indicator",
                 EntityId = "master_price",
-                CreatedAt = DateTime.Now,
+                Time = DateTime.Now,
                 Json = "{}"
             };
         }

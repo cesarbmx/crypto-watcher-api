@@ -198,7 +198,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Get newest time
-            var newestTime = lines.Max(x => x.CreatedAt);
+            var newestTime = lines.Max(x => x.Time);
 
             // Get current lines
             var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine(newestTime));
