@@ -4,7 +4,7 @@ using CoinpaprikaAPI.Entity;
 using CryptoWatcher.Domain.Models;
 
 
-namespace CryptoWatcher.Application.Factories
+namespace CryptoWatcher.Application.ModelFactories
 {
     public static class CurrencyFactory
     {

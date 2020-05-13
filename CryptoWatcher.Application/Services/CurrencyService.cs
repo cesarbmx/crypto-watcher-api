@@ -9,7 +9,7 @@ using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CesarBmx.Shared.Persistence.Repositories;
-using CryptoWatcher.Application.Factories;
+using CryptoWatcher.Application.ModelFactories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
