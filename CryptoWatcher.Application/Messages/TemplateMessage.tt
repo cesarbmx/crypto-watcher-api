@@ -1,0 +1,41 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" #>
+<#@ assembly name="$(TargetDir)CesarBmx.Shared.Domain.dll" #>
+<#@ assembly name="$(TargetDir)CesarBmx.Shared.Common.dll" #>
+<#@ assembly name="$(TargetDir)CryptoWatcher.Domain.dll" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="CesarBmx.Shared.Common.Helpers" #>
+<#@ import namespace="CesarBmx.Shared.Common.Extensions" #>
+<#@ import namespace="CesarBmx.Shared.Domain.Models" #>
+<#@ output extension=".txt" #>
+<#
+var types = FileHelper.GetTypes(typeof(IEntity),Assembly.LoadFrom(typeof(IEntity).Assembly.CodeBase.Replace("CesarBmx.Shared.Domain.dll","") +  "CryptoWatcher.Domain.dll"));
+foreach (var type in types) {
+////////////////////////////////////////////// Your code //////////////////////////////////////////////
+#>
+namespace CryptoWatcher.Application.Messages
+{
+    public static class <#=type.Name#>Message
+    {
+        public const string <#=type.Name#>NotFound = "The <#=type.Name.ToReadable()#> does not exist";
+        public const string <#=type.Name#>AlreadyExists = "The <#=type.Name.ToReadable()#> already exists";
+    }
+}
+
+<#
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+    // End of file.
+SaveOutput(type.Name + "Message.cs");
+}
+#>
+<#+
+private void SaveOutput(string outputFileName) {
+var templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+if (templateDirectory == null) return;
+var outputFilePath = Path.Combine(templateDirectory, outputFileName);
+if(!File.Exists(outputFilePath)) File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+GenerationEnvironment.Remove(0, GenerationEnvironment.Length);
+}
+#>
