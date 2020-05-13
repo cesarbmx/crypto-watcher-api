@@ -51,7 +51,7 @@ namespace CryptoWatcher.Api
             services.ConfigureCaching();
 
             // Mvc
-            services.ConfigureMvc(Configuration);
+            services.ConfigureMvc();
 
             // Health
             services.ConfigureHealth(Configuration);

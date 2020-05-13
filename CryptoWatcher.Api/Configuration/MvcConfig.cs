@@ -1,60 +1,24 @@
-﻿using CesarBmx.Shared.Api.ActionFilters;
-using CesarBmx.Shared.Api.Configuration;
-using CesarBmx.Shared.Api.Controllers;
-using Microsoft.AspNetCore.Authorization;
+﻿using CesarBmx.Shared.Api.Configuration;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoWatcher.Application.Validators;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace CryptoWatcher.Api.Configuration
 {
     public static class MvcConfig
     {
-        public static IServiceCollection ConfigureMvc(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureMvc(this IServiceCollection services)
         {
-            services.AddControllers(
-                    config =>
-                    {
-                        // Authentication
-                        var policy = new AuthorizationPolicyBuilder()
-                            .RequireAuthenticatedUser()
-                            .Build();
-                        config.Filters.Add(new AuthorizeFilter(policy));
+            services.ConfigureSharedMvc(typeof(AddUserValidator), true);
 
-                        // Filters
-                        config.Filters.Add(typeof(ValidateRequestAttribute));
-                        config.Filters.Add(typeof(IdentityFilter));
-                    })
-                .ConfigureFluentValidation(typeof(AddUserValidator).Assembly)
-                .ConfigureSharedSerialization();
-
-            services.AddRazorPages();
-
-            services.AddRouting(options => options.LowercaseUrls = true);
-
-            // Allow synchronous IO (elmah css was not loading)
-            services.Configure<IISServerOptions>(options => { options.AllowSynchronousIO = true; });
-            services.Configure<KestrelServerOptions>(options => { options.AllowSynchronousIO = true; });
-
-            services.AddControllers().AddApplicationPart(typeof(Z_VersionController).Assembly);
+     
 
             return services;
         }
 
         public static IApplicationBuilder ConfigureMvc(this IApplicationBuilder app)
         {
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-                endpoints.MapControllers();
-            });
-            app.UseStaticFiles();
+            app.ConfigureSharedMvc(true);
 
             return app;
         }
