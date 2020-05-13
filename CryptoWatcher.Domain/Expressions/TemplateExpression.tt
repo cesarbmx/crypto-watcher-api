@@ -14,10 +14,12 @@
 
 <#@ output extension=".txt" #>
 
-
 <#
 var types = FileHelper.GetTypes(typeof(IEntity),Assembly.LoadFrom(typeof(IEntity).Assembly.CodeBase.Replace("CesarBmx.Shared.Domain.dll","") +  "CryptoWatcher.Domain.dll"));
 foreach (var type in types) {
+
+
+////////////////////////////////////////////// Your code //////////////////////////////////////////////
 #>
 using System;
 using System.Linq.Expressions;
@@ -34,6 +36,9 @@ namespace CryptoWatcher.Domain.Expressions
     }
 }
 <#
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 // End of file.
 SaveOutput(type.Name + "Expression.cs");
 }
