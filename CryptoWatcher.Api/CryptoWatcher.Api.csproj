@@ -9,6 +9,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Controllers\TemplateController.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TemplateController.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Controllers\TemplateController.cs">
+      <DependentUpon>TemplateController.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Api\CesarBmx.Shared.Api.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Application\CryptoWatcher.Application.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Persistence\CryptoWatcher.Persistence.csproj" />
@@ -21,9 +37,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Controllers\TemplateController.tt">
+      <LastGenOutput>TemplateController.txt</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Controllers\TemplateController.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TemplateController.tt</DependentUpon>
+    </None>
     <None Update="CryptoWatcher.Api.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
 </Project>

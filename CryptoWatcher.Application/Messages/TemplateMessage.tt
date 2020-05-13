@@ -23,7 +23,6 @@ namespace CryptoWatcher.Application.Messages
         public const string <#=type.Name#>AlreadyExists = "The <#=type.Name.ToReadable()#> already exists";
     }
 }
-
 <#
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // End of file.

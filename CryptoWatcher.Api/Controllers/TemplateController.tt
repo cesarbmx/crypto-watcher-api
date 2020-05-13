@@ -1,0 +1,130 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" #>
+<#@ assembly name="$(TargetDir)CesarBmx.Shared.Domain.dll" #>
+<#@ assembly name="$(TargetDir)CesarBmx.Shared.Common.dll" #>
+<#@ assembly name="$(TargetDir)CryptoWatcher.Domain.dll" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="CesarBmx.Shared.Common.Helpers" #>
+<#@ import namespace="CesarBmx.Shared.Common.Extensions" #>
+<#@ import namespace="CesarBmx.Shared.Domain.Models" #>
+<#@ output extension=".txt" #>
+<#
+var types = FileHelper.GetTypes(typeof(IEntity),Assembly.LoadFrom(typeof(IEntity).Assembly.CodeBase.Replace("CesarBmx.Shared.Domain.dll","") +  "CryptoWatcher.Domain.dll"));
+foreach (var type in types) {
+////////////////////////////////////////////// Your code //////////////////////////////////////////////
+#>
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using CesarBmx.Shared.Application.Responses;
+using CryptoWatcher.Application.Requests;
+using CryptoWatcher.Application.Responses;
+using CryptoWatcher.Application.Services;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+
+namespace CryptoWatcher.Api.Controllers
+{
+    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
+    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
+    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
+    // ReSharper disable once InconsistentNaming
+    public class <#=type.Name#>sController : Controller
+    {
+        private readonly <#=type.Name#>Service _<#=type.Name.ToFirstLetterLower()#>Service;
+
+        public <#=type.Name#>sController(<#=type.Name#>Service <#=type.Name.ToFirstLetterLower()#>Service)
+        {
+            _<#=type.Name.ToFirstLetterLower()#>Service = <#=type.Name.ToFirstLetterLower()#>Service;
+        }
+
+        /// <summary>
+        /// Get all <#=type.Name.ToFirstLetterLower()#>s
+        /// </summary>
+        [HttpGet]
+        [Route("api/users/{userId}/<#=type.Name.ToFirstLetterLower()#>s")]
+        [SwaggerResponse(200, Type = typeof(List<<#=type.Name#>Response>))] 
+        [SwaggerOperation(Tags = new[] { "<#=type.Name#>s" }, OperationId = "<#=type.Name#>s_GetAll<#=type.Name#>s")]
+        public async Task<IActionResult> GetAll<#=type.Name#>s(string userId, string currencyId = null, string indicatorId = null)
+        {
+            // Reponse
+            var response = await _<#=type.Name.ToFirstLetterLower()#>Service.GetAll<#=type.Name#>s(userId, currencyId, indicatorId);
+
+            // Return
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Get <#=type.Name.ToFirstLetterLower()#>
+        /// </summary>
+        [HttpGet]
+        [Route("api/<#=type.Name.ToFirstLetterLower()#>s/{<#=type.Name.ToFirstLetterLower()#>Id}", Name = "<#=type.Name#>s_Get<#=type.Name#>")]
+        [SwaggerResponse(200, Type = typeof(<#=type.Name#>Response))]
+        [SwaggerResponse(404, Type = typeof(ErrorResponse))]
+        [SwaggerOperation(Tags = new[] { "<#=type.Name#>s" }, OperationId = "<#=type.Name#>s_Get<#=type.Name#>")]
+        public async Task<IActionResult> Get<#=type.Name#>(string <#=type.Name.ToFirstLetterLower()#>Id)
+        {
+            // Reponse
+            var response = await _<#=type.Name.ToFirstLetterLower()#>Service.Get<#=type.Name#>(<#=type.Name.ToFirstLetterLower()#>Id);
+
+            // Return
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Add <#=type.Name.ToFirstLetterLower()#>
+        /// </summary>
+        [HttpPost]
+        [Route("api/<#=type.Name.ToFirstLetterLower()#>s")]
+        [SwaggerResponse(201, Type = typeof(<#=type.Name#>Response))]
+        [SwaggerResponse(400, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(404, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(409, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(422, Type = typeof(ValidationResponse))]
+        [SwaggerOperation(Tags = new[] { "<#=type.Name#>s" }, OperationId = "<#=type.Name#>s_Add<#=type.Name#>")]
+        public async Task<IActionResult> Add<#=type.Name#>([FromBody]Add<#=type.Name#>Request request)
+        {
+            // Reponse
+            var response = await _<#=type.Name.ToFirstLetterLower()#>Service.Add<#=type.Name#>(request);
+
+            // Return
+            return CreatedAtRoute("<#=type.Name#>s_Get<#=type.Name#>", new { response.<#=type.Name#>Id }, response);
+        }
+
+        /// <summary>
+        /// Update <#=type.Name.ToFirstLetterLower()#>
+        /// </summary>
+        [HttpPut]
+        [Route("api/<#=type.Name.ToFirstLetterLower()#>s/{<#=type.Name.ToFirstLetterLower()#>Id}")]
+        [SwaggerResponse(200, Type = typeof(<#=type.Name#>Response))]
+        [SwaggerResponse(400, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(409, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(422, Type = typeof(ValidationResponse))]
+        [SwaggerOperation(Tags = new[] { "<#=type.Name#>s" }, OperationId = "<#=type.Name#>s_Update<#=type.Name#>")]
+        public async Task<IActionResult> Update<#=type.Name#>(string <#=type.Name.ToFirstLetterLower()#>Id, [FromBody]Update<#=type.Name#>Request request)
+        {
+            // Reponse
+            request.<#=type.Name#>Id = <#=type.Name.ToFirstLetterLower()#>Id;
+            var response = await _<#=type.Name.ToFirstLetterLower()#>Service.Update<#=type.Name#>(request);
+
+            // Return
+            return Ok(response);
+        }
+    }
+}
+<#
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+    // End of file.
+SaveOutput(type.Name + "Controller.cs");
+}
+#>
+<#+
+private void SaveOutput(string outputFileName) {
+var templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+if (templateDirectory == null) return;
+var outputFilePath = Path.Combine(templateDirectory, outputFileName);
+if(!File.Exists(outputFilePath)) File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+GenerationEnvironment.Remove(0, GenerationEnvironment.Length);
+}
+#>
