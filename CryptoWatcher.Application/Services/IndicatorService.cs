@@ -71,7 +71,7 @@ namespace CryptoWatcher.Application.Services
             // Get indicator
             var indicator = await _indicatorRepository.GetSingle(indicatorId);
 
-            // Throw NotFoundException if it does not exist
+            // Throw NotFound if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Get all indicator dependencies
@@ -141,7 +141,7 @@ namespace CryptoWatcher.Application.Services
             // Get indicator
             var indicator = await _indicatorRepository.GetSingle(request.IndicatorId);
 
-            // Throw NotFoundException if it does not exist
+            // Throw NotFound if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Get dependencies

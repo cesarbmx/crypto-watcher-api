@@ -14,7 +14,7 @@
 <#
 var types = FileHelper.GetTypes(typeof(IEntity),Assembly.LoadFrom(typeof(IEntity).Assembly.CodeBase.Replace("CesarBmx.Shared.Domain.dll","") +  "CryptoWatcher.Domain.dll"));
 foreach (var type in types) {
-        
+
     if(new[]
 {
     //////// Exclude ////////

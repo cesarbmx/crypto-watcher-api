@@ -61,7 +61,7 @@ namespace CryptoWatcher.Application.Services
             // Get order
             var order = await _orderRepository.GetSingle(orderId);
 
-            // Throw NotFoundException if it does not exist
+            // Throw NotFound if it does not exist
             if (order == null) throw new NotFoundException(OrderMessage.OrderNotFound);
 
             // Response

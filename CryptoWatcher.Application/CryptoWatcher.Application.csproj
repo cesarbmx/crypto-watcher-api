@@ -5,6 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Services\TemplateExpression.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TemplateExpression.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Services\TemplateExpression.cs">
+      <DependentUpon>TemplateExpression.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CoinpaprikaAPI" Version="1.2.8" />
     <PackageReference Include="Telegram.Bot" Version="15.5.1" />
     <PackageReference Include="Twilio" Version="5.40.0" />
@@ -47,6 +63,15 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TemplateMessage.tt</DependentUpon>
+    </None>
+    <None Update="Services\TemplateExpression.tt">
+      <LastGenOutput>TemplateExpression.txt</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Services\TemplateExpression.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TemplateExpression.tt</DependentUpon>
     </None>
   </ItemGroup>
 
