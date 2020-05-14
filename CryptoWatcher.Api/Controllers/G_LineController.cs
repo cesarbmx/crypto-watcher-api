@@ -13,11 +13,11 @@ namespace CryptoWatcher.Api.Controllers
     [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
     [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
     // ReSharper disable once InconsistentNaming
-    public class G_LinesController : Controller
+    public class G_LineController : Controller
     {
         private readonly LineService _lineService;
 
-        public G_LinesController(LineService lineService)
+        public G_LineController(LineService lineService)
         {
             _lineService = lineService;
         }

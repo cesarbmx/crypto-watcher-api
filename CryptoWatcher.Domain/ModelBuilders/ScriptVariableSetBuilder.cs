@@ -7,11 +7,11 @@ using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Domain.ModelBuilders
 {
-    public static class ScriptVariablesBuilder
+    public static class ScriptVariableSetBuilder
     {
-        public static ScriptVariables BuildScriptVariables(List<Line> lines)
+        public static ScriptVariableSet BuildScriptVariableSet(List<Line> lines)
         {
-            var scriptVariables = new ScriptVariables(
+            var scriptVariableSet = new ScriptVariableSet(
                 BuildTimes(lines),
                 BuildCurrencies(lines),
                 BuildIndicators(lines),
@@ -20,7 +20,7 @@ namespace CryptoWatcher.Domain.ModelBuilders
 
 
             // Return
-            return scriptVariables;
+            return scriptVariableSet;
         }
 
         public static DateTime[] BuildTimes(List<Line> lines)

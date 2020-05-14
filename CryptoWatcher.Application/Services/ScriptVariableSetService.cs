@@ -5,22 +5,22 @@ using CesarBmx.Shared.Persistence.Repositories;
 
 namespace CryptoWatcher.Application.Services
 {
-    public class ScriptVariableService
+    public class ScriptVariableSetService
     {
         private readonly IRepository<Line> _lineRepository;
 
-        public ScriptVariableService(IRepository<Line> lineRepository)
+        public ScriptVariableSetService(IRepository<Line> lineRepository)
         {
             _lineRepository = lineRepository;
         }
 
-        public async Task<ScriptVariables> GetScriptVariables()
+        public async Task<ScriptVariableSet> GetScriptVariableSet()
         {
             // Get all lines
             var lines = await _lineRepository.GetAll();
 
             // Response
-            var response = ScriptVariablesBuilder.BuildScriptVariables(lines);
+            var response = ScriptVariableSetBuilder.BuildScriptVariableSet(lines);
 
             // Return
             return response;

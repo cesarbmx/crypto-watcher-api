@@ -11,11 +11,11 @@ namespace CryptoWatcher.Api.Controllers
     [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
     [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
     // ReSharper disable once InconsistentNaming
-    public class I_ScriptVariablesController : Controller
+    public class I_ScriptVariableSetController : Controller
     {
-        private readonly ScriptVariableService _scriptVariableService;
+        private readonly ScriptVariableSetService _scriptVariableService;
 
-        public I_ScriptVariablesController(ScriptVariableService scriptVariableService)
+        public I_ScriptVariableSetController(ScriptVariableSetService scriptVariableService)
         {
             _scriptVariableService = scriptVariableService;
         }
@@ -25,12 +25,12 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/script-variables")]
-        [SwaggerResponse(200, Type = typeof(ScriptVariablesResponse))]
-        [SwaggerOperation(Tags = new[] { "Script variables" }, OperationId = "ScriptVariables_GetScriptVariables")]
-        public async Task<IActionResult> GetScriptVariables()
+        [SwaggerResponse(200, Type = typeof(ScriptVariableSetResponse))]
+        [SwaggerOperation(Tags = new[] { "Script variables" }, OperationId = "ScriptVariableSet_GetScriptVariableSet")]
+        public async Task<IActionResult> GetScriptVariableSet()
         {
             // Reponse
-            var response = await _scriptVariableService.GetScriptVariables();
+            var response = await _scriptVariableService.GetScriptVariableSet();
 
             // Return
             return Ok(response);

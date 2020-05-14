@@ -99,7 +99,7 @@
             Get all line charts
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.I_ScriptVariablesController.GetScriptVariables">
+        <member name="M:CryptoWatcher.Api.Controllers.I_ScriptVariableSetController.GetScriptVariableSet">
             <summary>
             Get script variables
             </summary>

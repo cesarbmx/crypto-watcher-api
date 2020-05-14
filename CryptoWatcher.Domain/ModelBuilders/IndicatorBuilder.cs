@@ -22,21 +22,21 @@ namespace CryptoWatcher.Domain.ModelBuilders
         }
         public static decimal? BuildValue(Currency currency, Indicator indicator, List<Line> lines)
         {
-            var scriptVariables = ScriptVariablesBuilder.BuildScriptVariables(lines);
+            var scriptVariableSet = ScriptVariableSetBuilder.BuildScriptVariableSet(lines);
             switch (indicator.IndicatorId)
             {
                 case "hype":
-                    return BuildHypes(scriptVariables)[currency.CurrencyId];
+                    return BuildHypes(scriptVariableSet)[currency.CurrencyId];
                 default:
                     return 666m;
             }
         }
-        public static Dictionary<string, decimal?> BuildHypes(ScriptVariables scriptVariables)
+        public static Dictionary<string, decimal?> BuildHypes(ScriptVariableSet scriptVariableSet)
         {
             // Arrange
             var hypes = new Dictionary<string, decimal?>();
-            var time = scriptVariables.Times[0];
-            var currencies = scriptVariables.Values[time]["price-change-24hrs"];
+            var time = scriptVariableSet.Times[0];
+            var currencies = scriptVariableSet.Values[time]["price-change-24hrs"];
             var values = currencies.Select(x=>x.Value).ToArray();
 
             // Build

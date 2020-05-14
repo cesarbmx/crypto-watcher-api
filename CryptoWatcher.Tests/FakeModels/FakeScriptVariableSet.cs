@@ -5,9 +5,9 @@ using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Tests.FakeModels
 {
-    public class FakeScriptVariables : ScriptVariables
+    public class FakeScriptVariableSet : ScriptVariableSet
     {
-        public FakeScriptVariables()
+        public FakeScriptVariableSet()
         {
             var now = DateTime.Now;
             Times = new [] { now };

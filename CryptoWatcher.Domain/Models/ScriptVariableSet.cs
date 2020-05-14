@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class ScriptVariables
+    public class ScriptVariableSet
     {
         public DateTime[] Times { get; protected set; }
         public string[] Currencies { get; protected set; }
         public string[] Indicators { get; protected set; }
         public Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal?>>> Values { get; protected set; }
 
-        public ScriptVariables() { }
-        public ScriptVariables(
+        public ScriptVariableSet() { }
+        public ScriptVariableSet(
             DateTime[] times,
             string[] currencies,
             string[] indicators,

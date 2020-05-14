@@ -13,11 +13,11 @@ namespace CryptoWatcher.Api.Controllers
     [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
     [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
     // ReSharper disable once InconsistentNaming
-    public class F_NotificationsController : Controller
+    public class F_NotificationController : Controller
     {
         private readonly NotificationService _notificationService;
 
-        public F_NotificationsController(NotificationService notificationService)
+        public F_NotificationController(NotificationService notificationService)
         {
             _notificationService = notificationService;
         }

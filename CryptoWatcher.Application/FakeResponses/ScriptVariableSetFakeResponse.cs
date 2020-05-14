@@ -4,11 +4,11 @@ using CryptoWatcher.Application.Responses;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
-    public static class ScriptVariableFakeResponse
+    public static class ScriptVariableSetFakeResponse
     {
-        public static ScriptVariablesResponse GetFake_List()
+        public static ScriptVariableSetResponse GetFake_List()
         {
-           var scriptVariablesResponse = new ScriptVariablesResponse();
+           var scriptVariableSetResponse = new ScriptVariableSetResponse();
 
            var now = DateTime.Now;
            var times = new [] { now};
@@ -40,13 +40,13 @@ namespace CryptoWatcher.Application.FakeResponses
                 {now, level2}
             };
 
-            scriptVariablesResponse.Times = times;
-            scriptVariablesResponse.Currencies = currencies;
-            scriptVariablesResponse.Indicators = indicators;
-            scriptVariablesResponse.Values = level1;
+            scriptVariableSetResponse.Times = times;
+            scriptVariableSetResponse.Currencies = currencies;
+            scriptVariableSetResponse.Indicators = indicators;
+            scriptVariableSetResponse.Values = level1;
 
             // Return
-            return scriptVariablesResponse;
+            return scriptVariableSetResponse;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Reflection;
 using AutoMapper;
 using CesarBmx.Shared.Application.Responses;
 using CesarBmx.Shared.Domain.Models;
@@ -12,12 +13,12 @@ namespace CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureAutomapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(
+            services.AddAutoMapper(Assembly.Load("CryptoWatcher.Application.dll"));
+           services.AddAutoMapper(
 
                  cfg =>
                  {
                      // Responses
-                    cfg.CreateMap<Currency, CurrencyResponse>();
                      cfg.CreateMap<AuditLog, AuditLogResponse>();
                      cfg.CreateMap<Watcher, WatcherResponse>();
                      cfg.CreateMap<User, UserResponse>();

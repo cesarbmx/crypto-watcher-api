@@ -124,7 +124,7 @@ private void SaveOutput(string outputFileName) {
 var templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
 if (templateDirectory == null) return;
 var outputFilePath = Path.Combine(templateDirectory, outputFileName);
-if(!File.Exists(outputFilePath)) File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+if(Directory.GetFiles(templateDirectory, "*" + outputFileName).Length == 0) File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
 GenerationEnvironment.Remove(0, GenerationEnvironment.Length);
 }
 #>

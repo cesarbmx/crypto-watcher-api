@@ -13,11 +13,11 @@ namespace CryptoWatcher.Api.Controllers
     [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
     [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
     // ReSharper disable once InconsistentNaming
-    public class D_WatchersController : Controller
+    public class D_WatcherController : Controller
     {
         private readonly WatcherService _watcherService;
 
-        public D_WatchersController(WatcherService watcherService)
+        public D_WatcherController(WatcherService watcherService)
         {
             _watcherService = watcherService;
         }

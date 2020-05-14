@@ -40,7 +40,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<IndicatorService>();
             services.AddScoped<LineService>();
             services.AddScoped<LineChartService>();
-            services.AddScoped<ScriptVariableService>();
+            services.AddScoped<ScriptVariableSetService>();
 
             // Audit repositories
             services.AddAudit<AuditLog>();
