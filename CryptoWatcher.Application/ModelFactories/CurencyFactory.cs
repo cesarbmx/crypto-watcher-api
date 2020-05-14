@@ -19,21 +19,28 @@ namespace CryptoWatcher.Application.ModelFactories
             // For each ticker
             foreach (var ticker in tickers)
             {
-                currencies.Add(new Currency(
-                    ticker.Id,
-                    ticker.Symbol,
-                    ticker.Name, 
-                    Convert.ToInt16(ticker.Rank),
-                    ticker.Quotes["USD"].Price,
-                    ticker.Quotes["USD"].Volume24H,
-                    ticker.Quotes["USD"].MarketCap,
-                    ticker.Quotes["USD"].PercentChange24H,
-                    now));
+                currencies.Add(Create(now, ticker));
             }
 
             // Return
             return currencies;
         }
-       
+        public static Currency Create(DateTime now, TickerWithQuotesInfo ticker)
+        {
+            // Currency
+            var currency = new Currency(
+                    ticker.Id,
+                    ticker.Symbol,
+                    ticker.Name,
+                    Convert.ToInt16(ticker.Rank),
+                    ticker.Quotes["USD"].Price,
+                    ticker.Quotes["USD"].Volume24H,
+                    ticker.Quotes["USD"].MarketCap,
+                    ticker.Quotes["USD"].PercentChange24H,
+                    now);
+
+            // Return
+            return currency;
+        }
     }
 }
