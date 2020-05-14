@@ -37,12 +37,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Automapper\TemplateMessage.tt">
-      <LastGenOutput>TemplateMessage.txt</LastGenOutput>
+    <None Update="Automapper\TemplateMapping.tt">
+      <LastGenOutput>TemplateMapping.txt</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
-    <None Update="Automapper\TemplateMessage.txt">
-      <DependentUpon>TemplateMessage.tt</DependentUpon>
+    <None Update="Automapper\TemplateMapping.txt">
+      <DependentUpon>TemplateMapping.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </None>

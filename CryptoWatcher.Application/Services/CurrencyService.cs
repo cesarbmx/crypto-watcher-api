@@ -9,7 +9,6 @@ using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CesarBmx.Shared.Persistence.Repositories;
-using CryptoWatcher.Application.ModelFactories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -70,6 +69,7 @@ namespace CryptoWatcher.Application.Services
 
             // Get all currencies from CoinMarketCap
             var result = await _coinpaprikaClient.GetTickersAsync();
+
             var tickers = result.Value.Where(x =>
                 x.Id == "btc-bitcoin" ||
                 x.Id == "xrp-xrp" ||
@@ -80,7 +80,7 @@ namespace CryptoWatcher.Application.Services
                 x.Id == "ada-cardano").ToList();
 
             // Build currencies
-            var newCurrencies = CurrencyFactory.Create(tickers);
+            var newCurrencies = _mapper.Map<List<Currency>>(tickers);
 
             // Get all currencies
             var currencies = await _currencyRepository.GetAll();
