@@ -1,5 +1,5 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
+using CryptoWatcher.Application.Automapper;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CryptoWatcher.Api.Configuration
@@ -8,7 +8,7 @@ namespace CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureAutomapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(typeof(CurrencyMapping).Assembly);
 
             return services;
         }
