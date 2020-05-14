@@ -7,33 +7,44 @@
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Reflection" #>
 <#@ import namespace="CesarBmx.Shared.Common.Helpers" #>
-<#@ import namespace="CesarBmx.Shared.Common.Extensions" #>
 <#@ import namespace="CesarBmx.Shared.Domain.Models" #>
 <#@ output extension=".txt" #>
+<#@ import namespace="System.Linq" #>
 <#
 var types = FileHelper.GetTypes(typeof(IEntity),Assembly.LoadFrom(typeof(IEntity).Assembly.CodeBase.Replace("CesarBmx.Shared.Domain.dll","") +  "CryptoWatcher.Domain.dll"));
 foreach (var type in types) {
+
+if(new[]
+{
+    //////// Exclude ////////
+    "IndicatorDependency"
+    //, "b"
+    //, "c"
+    /////////////////////////
+}.Any(c => type.Name.Contains(c))) continue;
+
+
 ////////////////////////////////////////////// Your code //////////////////////////////////////////////
 #>
-using System;
-using System.Linq.Expressions;
+using AutoMapper;
+using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 
-namespace CryptoWatcher.Domain.Expressions
+namespace CryptoWatcher.Application.Automapper
 {
-    public static class <#=type.Name#>Expression
+    public class <#=type.Name#>Mapping : Profile
     {
-        public static Expression<Func<<#=type.Name#>, bool>> <#=type.Name#>(string <#=type.Name.ToFirstLetterLower()#>Id = null)
+        public <#=type.Name#>Mapping()
         {
-            return x =>  string.IsNullOrEmpty(<#=type.Name.ToFirstLetterLower()#>Id) || x.<#=type.Name#>Id == <#=type.Name.ToFirstLetterLower()#>Id;
-        }       
+            CreateMap<<#=type.Name#>, <#=type.Name#>Response>();
+        }
     }
 }
 <#
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-SaveOutput(type.Name + "Expression.cs");
+SaveOutput(type.Name + "Mapping.cs");
 }
 #>
 <#+

@@ -10,9 +10,21 @@
 <#@ import namespace="CesarBmx.Shared.Common.Extensions" #>
 <#@ import namespace="CesarBmx.Shared.Domain.Models" #>
 <#@ output extension=".txt" #>
+<#@ import namespace="System.Linq" #>
 <#
 var types = FileHelper.GetTypes(typeof(IEntity),Assembly.LoadFrom(typeof(IEntity).Assembly.CodeBase.Replace("CesarBmx.Shared.Domain.dll","") +  "CryptoWatcher.Domain.dll"));
 foreach (var type in types) {
+    
+if(new[]
+{
+    //////// Exclude ////////
+    "IndicatorDependency"
+    //, "b"
+    //, "c"
+    /////////////////////////
+}.Any(c => type.Name.Contains(c))) continue;
+
+
 ////////////////////////////////////////////// Your code //////////////////////////////////////////////
 #>
 using System.Collections.Generic;
@@ -115,7 +127,8 @@ namespace CryptoWatcher.Api.Controllers
 }
 <#
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    // End of file.
+
+
 SaveOutput(type.Name + "Controller.cs");
 }
 #>
