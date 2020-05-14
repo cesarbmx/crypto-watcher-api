@@ -31,8 +31,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<List<LineChartResponse>> GetAllLineCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Get all currencies
-            var currencyFilterExxpression = CurrencyExpression.CurrencyFilter(currencyId);
-            var currencies = await _currencyRepository.GetAll(currencyFilterExxpression);
+            var currencies = await _currencyRepository.GetAll(CurrencyExpression.CurrencyFilter(currencyId));
 
             // Get all indicators
             var indicators = await _indicatorRepository.GetAll(IndicatorExpression.IndicatorFilter(indicatorType, indicatorId, userId));
