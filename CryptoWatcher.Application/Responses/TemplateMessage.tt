@@ -15,7 +15,7 @@
 var types = FileHelper.GetTypes(typeof(IEntity),Assembly.LoadFrom(typeof(IEntity).Assembly.CodeBase.Replace("CesarBmx.Shared.Domain.dll","") +  "CryptoWatcher.Domain.dll"));
 foreach (var type in types) {
         
-    if(new[]
+if(new[]
 {
     //////// Exclude ////////
     "IndicatorDependency"
@@ -28,24 +28,22 @@ foreach (var type in types) {
 ////////////////////////////////////////////// Your code //////////////////////////////////////////////
 #>
 using System;
-using System.Linq.Expressions;
-using CryptoWatcher.Domain.Models;
 
-namespace CryptoWatcher.Domain.Expressions
+
+namespace CryptoWatcher.Application.Responses
 {
-    public static class <#=type.Name#>Expression
+    public class <#=type.Name#>Response
     {
-        public static Expression<Func<<#=type.Name#>, bool>> <#=type.Name#>(string <#=type.Name.ToFirstLetterLower()#>Id = null)
-        {
-            return x =>  string.IsNullOrEmpty(<#=type.Name.ToFirstLetterLower()#>Id) || x.<#=type.Name#>Id == <#=type.Name.ToFirstLetterLower()#>Id;
-        }       
+<#foreach(var property in type.GetProperties()){#>
+        public <#=property.PropertyType.ToAlias()#> <#=property.Name#> { get; set; }
+<#}#>
     }
 }
 <#
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-SaveOutput(type.Name + "Expression.cs");
+SaveOutput(type.Name + "Response.cs");
 }
 #>
 <#+
