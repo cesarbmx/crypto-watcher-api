@@ -4,7 +4,7 @@ namespace CryptoWatcher.Application.Messages
 {
     public static class IndicatorMessage
     {
-        public const string IndicatorNotFound = "The indicator was not found";
+        public const string IndicatorNotFound = "The indicator does not exist";
         public const string IndicatorWithSameIdAlreadyExists = "An indicator with the same ID already exists";
         public const string IndicatorWithSameNameAlreadyExists = "An indicator with the same name already exists";
         public const string IndicatorIdHasInvalidFormat = "Only lowercase, numbers and hyphens are allowed";
