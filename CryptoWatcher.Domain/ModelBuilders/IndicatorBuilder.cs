@@ -110,12 +110,14 @@ namespace CryptoWatcher.Domain.ModelBuilders
         }
         public static List<Indicator> BuildDependencyLevels(List<Indicator> indicators, List<IndicatorDependency> dependencies)
         {
+            // For each indicator
             foreach (var indicator in indicators)
             {
                 var dependencyLevel = BuildDependencyLevel(indicator.IndicatorId, dependencies);
                 indicator.SetDependencyLevel(dependencyLevel);
             }
 
+            // Return
             return indicators;
         }
         public static int BuildDependencyLevel(string indicatorId, List<IndicatorDependency> dependencies)
@@ -123,12 +125,14 @@ namespace CryptoWatcher.Domain.ModelBuilders
             var dependencyLevel = -1;
             var indicatorDependencies = dependencies.Where(x => x.IndicatorId == indicatorId).ToList();
 
+            // For each dependency
             foreach (var indicatorDependency in indicatorDependencies)
             {
                 var result = BuildDependencyLevel(indicatorDependency.DependencyId, dependencies);
                 if (result > dependencyLevel) dependencyLevel = result;
             }
 
+            // Return
             return dependencyLevel + 1;
         }
         public static int BuildDependencyLevel(List<Indicator> dependencies)
@@ -149,6 +153,7 @@ namespace CryptoWatcher.Domain.ModelBuilders
         }
         public static void BuildDependencies(List<Indicator> indicators, List<IndicatorDependency> indicatorDependencies)
         {
+            // For each indicator
             foreach (var indicator in indicators)
             {
                 var dependencies = indicatorDependencies.Where(x => x.IndicatorId == indicator.IndicatorId).ToList();
