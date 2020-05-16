@@ -1,7 +1,6 @@
 ﻿using CesarBmx.Shared.Api.Configuration;
 using CesarBmx.Shared.Api.Helpers;
 using CesarBmx.Shared.Common.Providers;
-using CesarBmx.Shared.Domain.Models;
 using CryptoWatcher.Application.Jobs;
 using CryptoWatcher.Application.Services;
 using CryptoWatcher.Domain.Models;
@@ -31,7 +30,6 @@ namespace CryptoWatcher.Api.Configuration
             }
 
             // Services
-            services.AddScoped<AuditLogService>();
             services.AddScoped<CurrencyService>();
             services.AddScoped<WatcherService>();
             services.AddScoped<UserService>();
@@ -43,7 +41,7 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<ScriptVariableSetService>();
 
             // Audit repositories
-            services.AddAudit<AuditLog>();
+            services.AddAudit();
             services.AddAudit<Currency>();
             services.AddAudit<Watcher>();
             services.AddAudit<User>();

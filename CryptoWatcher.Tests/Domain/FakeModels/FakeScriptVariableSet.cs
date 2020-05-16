@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CryptoWatcher.Domain.Models;
 
 
-namespace CryptoWatcher.Tests.FakeModels
+namespace CryptoWatcher.Tests.Domain.FakeModels
 {
     public class FakeScriptVariableSet : ScriptVariableSet
     {
