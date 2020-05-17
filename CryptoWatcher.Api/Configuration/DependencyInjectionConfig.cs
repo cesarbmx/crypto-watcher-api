@@ -1,5 +1,6 @@
-﻿using CesarBmx.Shared.Domain.Models;
-using CesarBmx.Shared.Persistence.Repositories;
+﻿using CesarBmx.Shared.Api.Configuration;
+using CesarBmx.Shared.Api.Helpers;
+using CesarBmx.Shared.Common.Providers;
 using CryptoWatcher.Application.Jobs;
 using CryptoWatcher.Application.Services;
 using CryptoWatcher.Domain.Models;
@@ -29,61 +30,37 @@ namespace CryptoWatcher.Api.Configuration
             }
 
             // Services
-            services.AddScoped<LogService, LogService>();
-            services.AddScoped<CurrencyService, CurrencyService>();
-            services.AddScoped<WatcherService, WatcherService>();
-            services.AddScoped<UserService, UserService>();
-            services.AddScoped<NotificationService, NotificationService>();
-            services.AddScoped<OrderService, OrderService>();
-            services.AddScoped<IndicatorService, IndicatorService>();
-            services.AddScoped<LineService, LineService>();
-            services.AddScoped<LineChartService, LineChartService>();
-            services.AddScoped<ScriptVariableService, ScriptVariableService>();
-
-            //// Repositories
-            services.AddScoped<Repository<Log>, Repository<Log>>();
-            services.AddScoped<Repository<Currency>, Repository<Currency>>();
-            services.AddScoped<Repository<Watcher>, Repository<Watcher>>();
-            services.AddScoped<Repository<User>, Repository<User>>();
-            services.AddScoped<Repository<Notification>, Repository<Notification>>();
-            services.AddScoped<Repository<Order>, Repository<Order>>();
-            services.AddScoped<Repository<Indicator>, Repository<Indicator>>();
-            services.AddScoped<Repository<IndicatorDependency>, Repository<IndicatorDependency>>();
-            services.AddScoped<Repository<Line>, Repository<Line>>();
-
-            //// Logger repositories
-            services.AddScoped<IRepository<Log>, Repository<Log>>();
-            services.AddScoped<IRepository<Currency>, LoggerRepository<Currency>>();
-            services.AddScoped<IRepository<Watcher>, LoggerRepository<Watcher>>();
-            services.AddScoped<IRepository<User>, LoggerRepository<User>>();
-            services.AddScoped<IRepository<Notification>, LoggerRepository<Notification>>();
-            services.AddScoped<IRepository<Order>, LoggerRepository<Order>>();
-            services.AddScoped<IRepository<Indicator>, LoggerRepository<Indicator>>();
-            services.AddScoped<IRepository<Line>, LoggerRepository<Line>>();
-            services.AddScoped<IRepository<IndicatorDependency>, LoggerRepository<IndicatorDependency>>();
-            services.AddScoped<IRepository<Line>, LoggerRepository<Line>>();
+            services.AddScoped<CurrencyService>();
+            services.AddScoped<WatcherService>();
+            services.AddScoped<UserService>();
+            services.AddScoped<NotificationService>();
+            services.AddScoped<OrderService>();
+            services.AddScoped<IndicatorService>();
+            services.AddScoped<LineService>();
+            services.AddScoped<LineChartService>();
+            services.AddScoped<ScriptVariableSetService>();
 
             // Audit repositories
-            //services.AddScoped<IRepository<Log>, Repository<Log>>();
-            //services.AddScoped<IRepository<Currency>, AuditRepository<Currency>>();
-            //services.AddScoped<IRepository<Watcher>, AuditRepository<Watcher>>();
-            //services.AddScoped<IRepository<User>, AuditRepository<User>>();
-            //services.AddScoped<IRepository<Notification>, AuditRepository<Notification>>();
-            //services.AddScoped<IRepository<Order>, AuditRepository<Order>>();
-            //services.AddScoped<IRepository<Indicator>, AuditRepository<Indicator>>();
-            //services.AddScoped<IRepository<Line>, AuditRepository<Line>>();
-            //services.AddScoped<IRepository<IndicatorDependency>, AuditRepository<IndicatorDependency>>();
-            //services.AddScoped<IRepository<Line>, LineAuditRepository>();
-
+            services.AddAudit();
+            services.AddAudit<Currency>();
+            services.AddAudit<Watcher>();
+            services.AddAudit<User>();
+            services.AddAudit<Notification>();
+            services.AddAudit<Order>();
+            services.AddAudit<Indicator>();
+            services.AddAudit<Line>();
+            services.AddAudit<IndicatorDependency>();
+            services.AddAudit<Line>();
+            
             // Jobs
-            services.AddScoped<MainJob, MainJob>();
-            services.AddScoped<SendWhatsappNotificationsJob, SendWhatsappNotificationsJob>();
-            services.AddScoped<SendTelgramNotificationsJob, SendTelgramNotificationsJob>();
-            services.AddScoped<RemoveObsoleteLinesJob, RemoveObsoleteLinesJob>();
+            services.AddScoped<MainJob>();
+            services.AddScoped<SendWhatsappNotificationsJob>();
+            services.AddScoped<SendTelgramNotificationsJob>();
+            services.AddScoped<RemoveObsoleteLinesJob>();
 
             // Other
-            //services.AddScoped<DateTimeProvider, DateTimeProvider>();
-            //services.AddScoped<HttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+            services.AddHttpContextAccessor();
             services.AddScoped<CoinpaprikaAPI.Client, CoinpaprikaAPI.Client>();
 
             return services;

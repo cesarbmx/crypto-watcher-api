@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -53,17 +52,14 @@ namespace CryptoWatcher.Application.Services
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            // Time
-            var time = DateTime.Now;
-
             // Get watchers willing to buy or sell
             var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherWillingToBuyOrSell());
 
             // Build new lines
-            var lines = LineBuilder.BuildLines(currencies, indicators, watchers, time);
+            var lines = LineBuilder.BuildLines(currencies, indicators, watchers);
 
             // Set new lines
-            _lineRepository.AddRange(lines, time);
+            _lineRepository.AddRange(lines);
 
             // Save
             await _dbContext.SaveChangesAsync();
@@ -87,14 +83,11 @@ namespace CryptoWatcher.Application.Services
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            // Time
-            var time = DateTime.Now;
-
             // Get lines to be removed
             var lines = await _lineRepository.GetAll(LineExpression.ObsoleteLine());
 
             // Remove
-            _lineRepository.RemoveRange(lines, time);
+            _lineRepository.RemoveRange(lines);
 
             // Save
             await _dbContext.SaveChangesAsync();

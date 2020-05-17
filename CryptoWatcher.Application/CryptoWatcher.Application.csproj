@@ -5,15 +5,74 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CesarBmx.Shared.Application" Version="1.0.4" />
+    <Compile Include="Services\TemplateExpression.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TemplateExpression.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Services\TemplateExpression.cs">
+      <DependentUpon>TemplateExpression.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CoinpaprikaAPI" Version="1.2.8" />
     <PackageReference Include="Telegram.Bot" Version="15.5.1" />
     <PackageReference Include="Twilio" Version="5.40.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Application\CesarBmx.Shared.Application.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Domain\CryptoWatcher.Domain.csproj" />
     <ProjectReference Include="..\CryptoWatcher.Persistence\CryptoWatcher.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Automapper\TemplateMapping.tt">
+      <LastGenOutput>TemplateMapping.txt</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Automapper\TemplateMapping.txt">
+      <DependentUpon>TemplateMapping.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </None>
+    <None Update="Messages\TemplateMessage.tt">
+      <LastGenOutput>TemplateMessage.txt</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Messages\TemplateMessage.txt">
+      <DependentUpon>TemplateMessage.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </None>
+    <None Update="Responses\TemplateMessage.tt">
+      <LastGenOutput>TemplateMessage.txt</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Responses\TemplateMessage.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TemplateMessage.tt</DependentUpon>
+    </None>
+    <None Update="Services\TemplateExpression.tt">
+      <LastGenOutput>TemplateExpression.txt</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Services\TemplateExpression.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TemplateExpression.tt</DependentUpon>
+    </None>
   </ItemGroup>
 
 </Project>

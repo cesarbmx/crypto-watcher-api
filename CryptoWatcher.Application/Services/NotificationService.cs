@@ -68,7 +68,7 @@ namespace CryptoWatcher.Application.Services
             // Get notification
             var notification = await _notificationRepository.GetSingle(notificationId);
 
-            // Throw NotFoundException if the currency does not exist
+            // Throw NotFound if the currency does not exist
             if (notification == null) throw new NotFoundException(NotificationMessage.NotificationNotFound);
 
             // Response

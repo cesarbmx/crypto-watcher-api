@@ -74,7 +74,7 @@ namespace CryptoWatcher.Application.Services
             // Get watcher
             var watcher = await _watcherRepository.GetSingle(watcherId);
 
-            // Throw NotFoundException if it does not exist
+            // Throw NotFound if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Response
@@ -88,13 +88,13 @@ namespace CryptoWatcher.Application.Services
             // Get user
             var user = await _userRepository.GetSingle(request.UserId);
 
-            // Throw NotFoundException if the currency does not exist
+            // Throw NotFound if the currency does not exist
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get indicator
             var indicator = await _indicatorRepository.GetSingle(request.IndicatorId);
 
-            // Throw NotFoundException if the currency does not exist
+            // Throw NotFound if the currency does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Check if it exists
@@ -102,9 +102,6 @@ namespace CryptoWatcher.Application.Services
 
             // Throw ConflictException if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
-
-            // Time
-            var time = DateTime.Now;
 
             // Get default watcher
             var defaultWatcher = await _watcherRepository.GetSingle(WatcherExpression.DefaultWatcher(request.CurrencyId, request.IndicatorId));
@@ -121,8 +118,8 @@ namespace CryptoWatcher.Application.Services
                 defaultWatcher?.AverageBuy,
                 defaultWatcher?.AverageSell,
                 request.Enabled,
-                time);
-            _watcherRepository.Add(watcher, time);
+                DateTime.Now);
+            _watcherRepository.Add(watcher);
 
             // Save
             await _dbContext.SaveChangesAsync();
@@ -141,17 +138,14 @@ namespace CryptoWatcher.Application.Services
             // Get watcher
             var watcher = await _watcherRepository.GetSingle(request.WatcherId);
 
-            // Throw NotFoundException if it does not exist
+            // Throw NotFound if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
-
-            // Time
-            var time = DateTime.Now;
 
             // Update watcher
             watcher.Update(request.Buy, request.Sell, request.Enabled);
 
             // Update
-            _watcherRepository.Update(watcher, time);
+            _watcherRepository.Update(watcher);
 
             // Save
             await _dbContext.SaveChangesAsync();
@@ -203,23 +197,20 @@ namespace CryptoWatcher.Application.Services
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            // Time
-            var time = DateTime.Now;
-
             // Get newest time
-            var newestTime = lines.Max(x => x.CreatedAt);
+            var newestTime = lines.Max(x => x.Time);
 
             // Get current lines
             var currentLines = await _lineRepository.GetAll(LineExpression.CurrentLine(newestTime));
 
             // Build default watchers
-            var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(currentLines, time);
+            var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(currentLines);
 
             // Get all default watchers
             var defaultWatchers = await _watcherRepository.GetAll(WatcherExpression.DefaultWatcher());
 
             // Update 
-            _watcherRepository.UpdateCollection(defaultWatchers, newDefaultWatchers, time);
+            _watcherRepository.UpdateCollection(defaultWatchers, newDefaultWatchers);
 
             // Save
             await _dbContext.SaveChangesAsync();

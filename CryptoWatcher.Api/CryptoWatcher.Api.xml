@@ -99,19 +99,19 @@
             Get all line charts
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.I_ScriptVariablesController.GetScriptVariables">
+        <member name="M:CryptoWatcher.Api.Controllers.I_ScriptVariableSetController.GetScriptVariableSet">
             <summary>
             Get script variables
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.X_LogController.GetAllLogs">
+        <member name="M:CryptoWatcher.Api.Controllers.X_AuditLogController.GetAllAuditLogs">
             <summary>
-            Get all logs
+            Get all audit logs
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.X_LogController.GetLog(System.Guid)">
+        <member name="M:CryptoWatcher.Api.Controllers.X_AuditLogController.GetAuditLog(System.Guid)">
             <summary>
-            Get log
+            Get audit log
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.Y_ErrorMessagesController.GetAllErrorMessages">
@@ -119,14 +119,9 @@
             Get all error messages
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.Z_ServiceStatusController.GetVersion">
+        <member name="M:CryptoWatcher.Api.Controllers.Z_VersionController.GetVersion">
             <summary>
             Get version
-            </summary>
-        </member>
-        <member name="M:CryptoWatcher.Api.Controllers.Z_ServiceStatusController.GetHealth">
-            <summary>
-            Get health
             </summary>
         </member>
     </members>

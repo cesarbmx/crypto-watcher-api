@@ -15,7 +15,7 @@ namespace CryptoWatcher.Domain.Models
         public string PhoneNumber { get; private set; }
         public string Message { get; private set; }
         public DateTime? SentTime { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        public DateTime Time { get; private set; }
 
         public NotificationStatus NotificationStatus => NotificationBuilder.BuildNotificationStatus(SentTime);
 
@@ -27,7 +27,7 @@ namespace CryptoWatcher.Domain.Models
             PhoneNumber = phoneNumber;
             Message = message;
             SentTime = null;
-            CreatedAt = time;
+            Time = time;
         }
 
         public void MarkAsSent()

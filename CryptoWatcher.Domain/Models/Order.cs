@@ -15,7 +15,7 @@ namespace CryptoWatcher.Domain.Models
         public decimal Quantity { get; private set; }
         public OrderStatus OrderStatus { get; private set; }
         public DateTime? NotificationProcessedAt { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        public DateTime Time { get; private set; }
 
         public Order() { }
         public Order(string userId, OrderType orderType, string currencyId, decimal quantity, DateTime time)
@@ -28,7 +28,7 @@ namespace CryptoWatcher.Domain.Models
             Quantity = quantity;
             OrderStatus = OrderStatus.Pending;
             NotificationProcessedAt =null;
-            CreatedAt = time;
+            Time = time;
         }
     }
 }

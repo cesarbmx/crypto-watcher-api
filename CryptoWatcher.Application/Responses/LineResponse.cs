@@ -13,6 +13,6 @@ namespace CryptoWatcher.Application.Responses
         public decimal? Value { get; set; }
         public decimal? AverageBuy { get; set; }
         public decimal? AverageSell { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime Time { get; set; }
     }
 }

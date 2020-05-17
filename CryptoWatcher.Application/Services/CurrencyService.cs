@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,7 +52,7 @@ namespace CryptoWatcher.Application.Services
             // Get currency
             var currency = await _currencyRepository.GetSingle(currencyId);
 
-            // Throw NotFoundException if it does not exist
+            // Throw NotFound if it does not exist
             if (currency == null) throw new NotFoundException(CurrencyMessage.CurrencyNotFound);
 
             // Response
@@ -68,11 +67,9 @@ namespace CryptoWatcher.Application.Services
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            // Time
-            var time = DateTime.Now;
-
             // Get all currencies from CoinMarketCap
             var result = await _coinpaprikaClient.GetTickersAsync();
+
             var tickers = result.Value.Where(x =>
                 x.Id == "btc-bitcoin" ||
                 x.Id == "xrp-xrp" ||
@@ -89,7 +86,7 @@ namespace CryptoWatcher.Application.Services
             var currencies = await _currencyRepository.GetAll();
 
             // Update 
-            _currencyRepository.UpdateCollection(currencies, newCurrencies, time);
+            _currencyRepository.UpdateCollection(currencies, newCurrencies);
 
             // Save
             await _dbContext.SaveChangesAsync();

@@ -49,7 +49,7 @@ namespace CryptoWatcher.Application.Services
             // Get user
             var user = await _userRepository.GetSingle(userId);
 
-            // Throw NotFoundException if it does not exist
+            // Throw NotFound if it does not exist
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Response
@@ -73,7 +73,7 @@ namespace CryptoWatcher.Application.Services
             user = new User(request.UserId, time);
 
             // Add user
-            _userRepository.Add(user, time);
+            _userRepository.Add(user);
 
             // Save
             await _dbContext.SaveChangesAsync();

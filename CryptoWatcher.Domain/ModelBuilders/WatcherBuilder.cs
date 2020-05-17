@@ -39,8 +39,9 @@ namespace CryptoWatcher.Domain.ModelBuilders
 
             return watchersWithDefaults;
         }
-        public static List<Watcher> BuildDefaultWatchers(List<Line> lines, DateTime time)
+        public static List<Watcher> BuildDefaultWatchers(List<Line> lines)
         {
+            var now = DateTime.Now;
             var watchers = new List<Watcher>();
             foreach (var line in lines)
             {
@@ -56,7 +57,7 @@ namespace CryptoWatcher.Domain.ModelBuilders
                         line.AverageBuy,
                         line.AverageSell,
                         false,
-                        time);
+                        now);
                     watchers.Add(watcher);
             }
 

@@ -6,7 +6,32 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CesarBmx.Shared.Domain" Version="1.0.0" />
+    <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Domain\CesarBmx.Shared.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Expressions\TemplateExpression.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TemplateExpression.txt</LastGenOutput>
+    </None>
+    <None Update="Expressions\TemplateExpression.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TemplateExpression.tt</DependentUpon>
+    </None>
+    <None Update="ModelBuilders\TemplateBuilder.tt">
+      <LastGenOutput>TemplateBuilder.txt</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="ModelBuilders\TemplateBuilder.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TemplateBuilder.tt</DependentUpon>
+    </None>
   </ItemGroup>
 
 </Project>
