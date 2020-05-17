@@ -10,9 +10,7 @@ namespace CryptoWatcher.Api.Configuration
         public static IServiceCollection ConfigureMvc(this IServiceCollection services)
         {
             services.ConfigureSharedMvc(typeof(AddUserValidator), true);
-
-     
-
+            
             return services;
         }
 
