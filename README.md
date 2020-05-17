@@ -15,7 +15,9 @@ _C# .NET Core + DDD + Hangfire + Swagger + Automapper + FluentValidation + Log4N
 - [ ]  **Phase #6** Reward system (**Reward**)
 
 ##### HOW TO RUN IT:
-Just open and debug the API. By default it uses an in-memory database, therefore, no pre-steps are required.
+Clone the _shared_ respository next to the folder where you have cloned _crypto-watcher_. Nugets are in progress so, for now, I am just cross referencing the projects.<BR>
+Debug the API. By default it uses an in-memory database, so, everything should load.
+
 
 ![image](https://user-images.githubusercontent.com/1844530/49256679-328eca80-f406-11e8-9e74-26ee9c9b55a6.png)
 
