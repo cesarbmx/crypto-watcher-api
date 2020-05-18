@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using CesarBmx.Shared.Api.Configuration;
+using CesarBmx.Shared.Api.Helpers;
 using CryptoWatcher.Service.Configuration;
 using Hangfire;
 using Hangfire.AspNetCore;
@@ -21,6 +23,7 @@ namespace CryptoWatcher.Service
 
             // Configure services
             var serviceProvider = new ServiceCollection()
+                .AddLogging(x=> { x.ConfigureSharedLogging(); })
                 .ConfigureAutomapper()
                 .ConfigureDependencies(configuration)
                 .ConfigureLog4Net(configuration)

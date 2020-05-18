@@ -38,7 +38,7 @@ namespace CryptoWatcher.Service.Configuration
             services.AddScoped<LineChartService>();
             services.AddScoped<ScriptVariableSetService>();
 
-            // Audit repositories
+            // Repositories
             services.AddRepository<Currency>();
             services.AddRepository<Watcher>();
             services.AddRepository<User>();

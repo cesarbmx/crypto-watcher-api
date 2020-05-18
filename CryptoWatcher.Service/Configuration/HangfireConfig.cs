@@ -1,7 +1,6 @@
 ﻿using System;
 using CryptoWatcher.Application.Jobs;
 using Hangfire;
-using Hangfire.Logging;
 using Hangfire.MemoryStorage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,21 +38,6 @@ namespace CryptoWatcher.Service.Configuration
             RecurringJob.AddOrUpdate("Remove obsolete lines", () => removeLinesJob.Run(), $"*/{jobsIntervalInMinutes} * * * *");
 
             return serviceProvider;
-        }
-    }
-    public class HangfireLoggerProvider : ILogProvider
-    {
-        public ILog GetLogger(string name)
-        {
-            return new NoLogger();
-        }
-
-        public class NoLogger : ILog
-        {
-            public bool Log(LogLevel logLevel, Func<string> messageFunc, Exception exception)
-            {
-                return false;
-            }
         }
     }
 }

@@ -8,7 +8,7 @@ namespace CryptoWatcher.Service.Configuration
     {
         public static IServiceCollection ConfigureLog4Net(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddLogging(cfg =>  cfg.AddLog4Net("log4net.config").AddConfiguration(configuration.GetSection("Logging")));
+            services.AddLogging(cfg =>  cfg.AddLog4Net("log4net.config"));
 
             return services;
         }
