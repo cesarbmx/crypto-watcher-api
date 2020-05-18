@@ -12,9 +12,9 @@ namespace CryptoWatcher.Api.Configuration
 {
     public static class HangfireConfig
     {
-        public static IServiceCollection ConfigureHangfire(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureHangfire(this IServiceCollection services)
         {
-            //services.ConfigurePinnacleHangfire();
+            services.ConfigureSharedHangfire();
 
             services.AddHangfire(x => x.UseMemoryStorage());
 
