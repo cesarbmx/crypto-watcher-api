@@ -36,7 +36,7 @@ namespace CryptoWatcher.Api
             services.ConfigureDependencies(Configuration);
 
             // Hangfire
-            services.ConfigureHangfire();
+            services.ConfigureHangfire(Configuration);
 
             // Elmah
             services.ConfigureElmah();

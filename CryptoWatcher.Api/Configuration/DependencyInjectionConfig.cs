@@ -3,6 +3,7 @@ using CesarBmx.Shared.Api.Helpers;
 using CesarBmx.Shared.Common.Providers;
 using CryptoWatcher.Application.Jobs;
 using CryptoWatcher.Application.Services;
+using CryptoWatcher.Application.Settings;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -15,8 +16,12 @@ namespace CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
+            // Grab AppSettings
+            var appSettings = new AppSettings();
+            configuration.GetSection("AppSettings").Bind(appSettings);
+
             //Contexts
-            if (bool.Parse(configuration["AppSettings:UseMemoryStorage"]))
+            if (appSettings.UseMemoryStorage)
             {
                 services.AddDbContext<DbContext, MainDbContext>(options => options
                      .UseInMemoryDatabase("CryptoWatcher")

@@ -1,8 +1,9 @@
 ﻿using CesarBmx.Shared.Api.Configuration;
-using CesarBmx.Shared.Api.Settings;
 using CryptoWatcher.Application.Jobs;
+using CryptoWatcher.Application.Settings;
 using Hangfire;
 using Hangfire.MemoryStorage;
+using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,11 +13,25 @@ namespace CryptoWatcher.Api.Configuration
 {
     public static class HangfireConfig
     {
-        public static IServiceCollection ConfigureHangfire(this IServiceCollection services)
+        public static IServiceCollection ConfigureHangfire(this IServiceCollection services, IConfiguration configuration)
         {
             services.ConfigureSharedHangfire();
 
-            services.AddHangfire(x => x.UseMemoryStorage());
+            // Grab AppSettings
+            var appSettings = new AppSettings();
+            configuration.GetSection("AppSettings").Bind(appSettings);
+
+            if (appSettings.UseMemoryStorage)
+            {
+                services.AddHangfire(x => x.UseMemoryStorage());
+            }
+            else
+            {
+                services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("CryptoWatcher"), new SqlServerStorageOptions
+                {
+                    PrepareSchemaIfNecessary = true
+                }));
+            }
 
 
             // Return

@@ -1,5 +1,5 @@
 ﻿using CesarBmx.Shared.Api.Configuration;
-using CesarBmx.Shared.Api.Settings;
+using CryptoWatcher.Application.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
