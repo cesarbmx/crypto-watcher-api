@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.- Application", "2.- Appl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Application", "CryptoWatcher.Application\CryptoWatcher.Application.csproj", "{8D834433-08CF-4210-9689-3F900D659279}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.- Api", "1.- Api", "{8E1719A6-CEC6-4766-B07B-F2D4EDA91057}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.- Client", "1.- Client", "{8E1719A6-CEC6-4766-B07B-F2D4EDA91057}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Api", "CryptoWatcher.Api\CryptoWatcher.Api.csproj", "{429A8222-39DC-4D9A-B0BA-EE0893324CF4}"
 EndProject
@@ -38,6 +38,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Tests", "..\Shared\CesarBmx.Shared.Tests\CesarBmx.Shared.Tests.csproj", "{E60ECF24-DD9B-43C8-8629-72339308A83F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Logging", "..\Shared\CesarBmx.Shared.Logging\CesarBmx.Shared.Logging.csproj", "{B9E582B2-DCA2-4D15-948A-95666879B29A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Service", "CryptoWatcher.Service\CryptoWatcher.Service.csproj", "{D948965A-4E1E-4274-8B70-EDD077D22D73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{B9E582B2-DCA2-4D15-948A-95666879B29A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9E582B2-DCA2-4D15-948A-95666879B29A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9E582B2-DCA2-4D15-948A-95666879B29A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D948965A-4E1E-4274-8B70-EDD077D22D73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D948965A-4E1E-4274-8B70-EDD077D22D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D948965A-4E1E-4274-8B70-EDD077D22D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D948965A-4E1E-4274-8B70-EDD077D22D73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,6 +116,7 @@ Global
 		{F8F55056-FCB9-467A-943A-A3E2AAA5E3C4} = {0B7E9BDA-EB68-47BF-B2B4-C1F9A7E7A4B6}
 		{E60ECF24-DD9B-43C8-8629-72339308A83F} = {0B7E9BDA-EB68-47BF-B2B4-C1F9A7E7A4B6}
 		{B9E582B2-DCA2-4D15-948A-95666879B29A} = {0B7E9BDA-EB68-47BF-B2B4-C1F9A7E7A4B6}
+		{D948965A-4E1E-4274-8B70-EDD077D22D73} = {8E1719A6-CEC6-4766-B07B-F2D4EDA91057}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7CCEAABE-45B4-414D-A0A5-108B4DDEC89E}

@@ -1,6 +1,4 @@
 ﻿using CesarBmx.Shared.Api.Configuration;
-using CesarBmx.Shared.Api.Helpers;
-using CesarBmx.Shared.Common.Providers;
 using CryptoWatcher.Application.Jobs;
 using CryptoWatcher.Application.Services;
 using CryptoWatcher.Domain.Models;
@@ -9,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CryptoWatcher.Api.Configuration
+namespace CryptoWatcher.Service.Configuration
 {
     public static class DependecyInjectionConfig
     {
@@ -41,17 +39,16 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<ScriptVariableSetService>();
 
             // Audit repositories
-            services.AddAudit();
-            services.AddAuditRepository<Currency>();
-            services.AddAuditRepository<Watcher>();
-            services.AddAuditRepository<User>();
-            services.AddAuditRepository<Notification>();
-            services.AddAuditRepository<Order>();
-            services.AddAuditRepository<Indicator>();
-            services.AddAuditRepository<Line>();
-            services.AddAuditRepository<IndicatorDependency>();
-            services.AddAuditRepository<Line>();
-            
+            services.AddRepository<Currency>();
+            services.AddRepository<Watcher>();
+            services.AddRepository<User>();
+            services.AddRepository<Notification>();
+            services.AddRepository<Order>();
+            services.AddRepository<Indicator>();
+            services.AddRepository<Line>();
+            services.AddRepository<IndicatorDependency>();
+            services.AddRepository<Line>();
+
             // Jobs
             services.AddScoped<MainJob>();
             services.AddScoped<SendWhatsappNotificationsJob>();
@@ -59,8 +56,6 @@ namespace CryptoWatcher.Api.Configuration
             services.AddScoped<RemoveObsoleteLinesJob>();
 
             // Other
-            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
-            services.AddHttpContextAccessor();
             services.AddScoped<CoinpaprikaAPI.Client, CoinpaprikaAPI.Client>();
 
             return services;

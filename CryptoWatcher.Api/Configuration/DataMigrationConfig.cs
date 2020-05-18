@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CryptoWatcher.Api.Configuration
 {
     public static class DataMigrationConfig
     {
-        public static IApplicationBuilder ConfigureDataMigration(this IApplicationBuilder app, IConfiguration configuration)
+        public static IApplicationBuilder ConfigureDataMigration(this IApplicationBuilder app)
         {
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
