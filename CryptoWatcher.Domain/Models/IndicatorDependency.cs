@@ -4,7 +4,7 @@ using CesarBmx.Shared.Domain.Models;
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class IndicatorDependency: IEntity
+    public class IndicatorDependency: IAuditableEntity
     {
         public string Id => IndicatorId + "_" + DependencyId;
         public string IndicatorId { get; private set; }

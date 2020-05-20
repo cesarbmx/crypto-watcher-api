@@ -5,7 +5,7 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Order : IEntity
+    public class Order : IAuditableEntity
     {
         public string Id => OrderId.ToString();
         public int OrderId { get; private set; }

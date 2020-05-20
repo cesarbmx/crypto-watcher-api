@@ -5,7 +5,7 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Line : IEntity
+    public class Line : IAuditableEntity
     {
         public string Id => LineId.ToString();
         public Guid LineId { get; private set; }

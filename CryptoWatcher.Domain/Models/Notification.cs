@@ -6,7 +6,7 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Notification : IEntity
+    public class Notification : IAuditableEntity
     {
         public string Id => NotificationId.ToString();
 
