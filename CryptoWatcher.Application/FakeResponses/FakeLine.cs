@@ -5,11 +5,11 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
-    public static class LineFakeResponse
+    public static class FakeLine
     {
-        public static LineResponse GetFake_Bitcoin_Price()
+        public static Line GetFake_Bitcoin_Price()
         {
-            return new LineResponse
+            return new Line
             {
                 CurrencyId = "bitcoin",
                 IndicatorId = "price",
@@ -21,9 +21,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Time = DateTime.Now.AddHours(-1)
             };
         }
-        public static LineResponse GetFake_Bitcoin_RSI()
+        public static Line GetFake_Bitcoin_RSI()
         {
-            return new LineResponse
+            return new Line
             {
                 CurrencyId = "bitcoin",
                 IndicatorId = "rsi",
@@ -35,9 +35,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Time = DateTime.Now
             };
         }
-        public static List<LineResponse> GetFake_List()
+        public static List<Line> GetFake_List()
         {
-            return new List<LineResponse>
+            return new List<Line>
             {
                 GetFake_Bitcoin_Price(),
                 GetFake_Bitcoin_RSI()

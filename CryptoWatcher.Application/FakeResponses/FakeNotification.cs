@@ -4,11 +4,11 @@ using CryptoWatcher.Application.Responses;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
-    public static class NotificationFakeResponse
+    public static class FakeNotification
     {
-        public static NotificationResponse GetFake_master()
+        public static Notification GetFake_master()
         {
-            return new NotificationResponse
+            return new Notification
             {
                 NotificationId = Guid.NewGuid(),
                 UserId = "master",
@@ -17,9 +17,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 WhatsappSentTime = null
             };
         }
-        public static NotificationResponse GetFake_cesar12()
+        public static Notification GetFake_cesar12()
         {
-            return new NotificationResponse
+            return new Notification
             {
                 NotificationId = Guid.NewGuid(),
                 UserId = "cesar12",
@@ -28,9 +28,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 WhatsappSentTime = null
             };
         }
-        public static List<NotificationResponse> GetFake_List()
+        public static List<Notification> GetFake_List()
         {
-            return new List<NotificationResponse>
+            return new List<Notification>
             {
                 GetFake_master(),
                 GetFake_cesar12()

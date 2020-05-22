@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Logging.Extensions;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
@@ -45,7 +44,7 @@ namespace CryptoWatcher.Application.Services
             _logger = logger;
         }
 
-        public async Task<List<NotificationResponse>> GetAllNotifications(string userId)
+        public async Task<List<Responses.Notification>> GetAllNotifications(string userId)
         {
             // Get user
             var user = await _userRepository.GetSingle(userId);
@@ -57,13 +56,13 @@ namespace CryptoWatcher.Application.Services
             var notifications = await _notificationRepository.GetAll(NotificationExpression.NotificationFilter(userId));
 
             // Response
-            var response = _mapper.Map<List<NotificationResponse>>(notifications);
+            var response = _mapper.Map<List<Responses.Notification>>(notifications);
 
             // Return
             return response;
         }
 
-        public async Task<NotificationResponse> GetNotification(Guid notificationId)
+        public async Task<Responses.Notification> GetNotification(Guid notificationId)
         {
             // Get notification
             var notification = await _notificationRepository.GetSingle(notificationId);
@@ -72,7 +71,7 @@ namespace CryptoWatcher.Application.Services
             if (notification == null) throw new NotFoundException(NotificationMessage.NotificationNotFound);
 
             // Response
-            var response = _mapper.Map<NotificationResponse>(notification);
+            var response = _mapper.Map<Responses.Notification>(notification);
 
             // Return
             return response;

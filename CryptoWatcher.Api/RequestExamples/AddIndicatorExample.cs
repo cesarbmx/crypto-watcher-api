@@ -4,11 +4,11 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.RequestExamples
 {
-    public class AddWatcherRequestExample : IExamplesProvider<AddWatcher>
+    public class AddIndicatorExample : IExamplesProvider<AddIndicator>
     {
-        public AddWatcher GetExamples()
+        public AddIndicator GetExamples()
         {
-            return AddWatcherFakeRequest.GetFake_RSI();
+            return AddIndicatorFakeRequest.GetFake_RSI();
         }
     }
 }

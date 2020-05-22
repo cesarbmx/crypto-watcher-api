@@ -7,7 +7,6 @@ using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Application.Requests;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.ModelBuilders;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
@@ -46,7 +45,7 @@ namespace CryptoWatcher.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<WatcherResponse>> GetAllWatchers(string userId = null, string currencyId = null, string indicatorId = null)
+        public async Task<List<Responses.Watcher>> GetAllWatchers(string userId = null, string currencyId = null, string indicatorId = null)
         {
             // Get user
             var user = await _userRepository.GetSingle(userId);
@@ -64,12 +63,12 @@ namespace CryptoWatcher.Application.Services
             userWatchers = WatcherBuilder.BuildWatchersWithDefaults(userWatchers, defaultWatchers);
 
             // Response
-            var response = _mapper.Map<List<WatcherResponse>>(userWatchers);
+            var response = _mapper.Map<List<Responses.Watcher>>(userWatchers);
 
             // Return
             return response;
         }
-        public async Task<WatcherResponse> GetWatcher(string watcherId)
+        public async Task<Responses.Watcher> GetWatcher(string watcherId)
         {
             // Get watcher
             var watcher = await _watcherRepository.GetSingle(watcherId);
@@ -78,12 +77,12 @@ namespace CryptoWatcher.Application.Services
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Response
-            var response = _mapper.Map<WatcherResponse>(watcher);
+            var response = _mapper.Map<Responses.Watcher>(watcher);
 
             // Return
             return response;
         }
-        public async Task<WatcherResponse> AddWatcher(AddWatcher request)
+        public async Task<Responses.Watcher> AddWatcher(AddWatcher request)
         {
             // Get user
             var user = await _userRepository.GetSingle(request.UserId);
@@ -128,12 +127,12 @@ namespace CryptoWatcher.Application.Services
             _logger.LogSplunkInformation(request);
 
             // Response
-            var response = _mapper.Map<WatcherResponse>(watcher);
+            var response = _mapper.Map<Responses.Watcher>(watcher);
 
             // Return
             return response;
         }
-        public async Task<WatcherResponse> UpdateWatcher(UpdateWatcher request)
+        public async Task<Responses.Watcher> UpdateWatcher(UpdateWatcher request)
         {
             // Get watcher
             var watcher = await _watcherRepository.GetSingle(request.WatcherId);
@@ -154,7 +153,7 @@ namespace CryptoWatcher.Application.Services
             _logger.LogSplunkInformation(request);
 
             // Response
-            var response = _mapper.Map<WatcherResponse>(watcher);
+            var response = _mapper.Map<Responses.Watcher>(watcher);
 
             // Return
             return response;

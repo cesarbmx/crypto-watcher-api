@@ -1,7 +1,6 @@
 ﻿using System;
 using AutoMapper;
 using CoinpaprikaAPI.Entity;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Application.Automapper
@@ -10,7 +9,7 @@ namespace CryptoWatcher.Application.Automapper
     {
         public CurrencyMapping()
         {
-            CreateMap<Currency, CurrencyResponse>();
+            CreateMap<Currency, Responses.Currency>();
             CreateMap<TickerWithQuotesInfo, Currency>()
                 .ForMember(dest => dest.CurrencyId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].Price)))

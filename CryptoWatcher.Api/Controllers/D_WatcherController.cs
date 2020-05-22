@@ -9,9 +9,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace CryptoWatcher.Api.Controllers
 {
-    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
-    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
-    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
+    [SwaggerResponse(500, Type = typeof(InternalServerError))]
+    [SwaggerResponse(401, Type = typeof(Unauthorized))]
+    [SwaggerResponse(403, Type = typeof(Forbidden))]
     // ReSharper disable once InconsistentNaming
     public class D_WatcherController : Controller
     {
@@ -27,7 +27,7 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/users/{userId}/watchers")]
-        [SwaggerResponse(200, Type = typeof(List<WatcherResponse>))] 
+        [SwaggerResponse(200, Type = typeof(List<Watcher>))] 
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetAllWatchers")]
         public async Task<IActionResult> GetAllWatchers(string userId, string currencyId = null, string indicatorId = null)
         {
@@ -43,8 +43,8 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/watchers/{watcherId}", Name = "Watchers_GetWatcher")]
-        [SwaggerResponse(200, Type = typeof(WatcherResponse))]
-        [SwaggerResponse(404, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(200, Type = typeof(Watcher))]
+        [SwaggerResponse(404, Type = typeof(Error))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetWatcher")]
         public async Task<IActionResult> GetWatcher(string watcherId)
         {
@@ -60,10 +60,10 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpPost]
         [Route("api/watchers")]
-        [SwaggerResponse(201, Type = typeof(WatcherResponse))]
-        [SwaggerResponse(400, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(404, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(409, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(201, Type = typeof(Watcher))]
+        [SwaggerResponse(400, Type = typeof(Error))]
+        [SwaggerResponse(404, Type = typeof(Error))]
+        [SwaggerResponse(409, Type = typeof(Error))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_AddWatcher")]
         public async Task<IActionResult> AddWatcher([FromBody]AddWatcher request)
@@ -80,9 +80,9 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpPut]
         [Route("api/watchers/{watcherId}")]
-        [SwaggerResponse(200, Type = typeof(WatcherResponse))]
-        [SwaggerResponse(400, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(409, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(200, Type = typeof(Watcher))]
+        [SwaggerResponse(400, Type = typeof(Error))]
+        [SwaggerResponse(409, Type = typeof(Error))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_UpdateWatcher")]
         public async Task<IActionResult> UpdateWatcher(string watcherId, [FromBody]UpdateWatcher request)

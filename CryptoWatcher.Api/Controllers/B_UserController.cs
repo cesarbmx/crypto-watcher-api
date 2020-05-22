@@ -9,9 +9,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace CryptoWatcher.Api.Controllers
 {
-    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
-    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
-    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
+    [SwaggerResponse(500, Type = typeof(InternalServerError))]
+    [SwaggerResponse(401, Type = typeof(Unauthorized))]
+    [SwaggerResponse(403, Type = typeof(Forbidden))]
     // ReSharper disable once InconsistentNaming
     public class B_UsersController : Controller
     {
@@ -27,7 +27,7 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/users")]
-        [SwaggerResponse(200, Type = typeof(List<UserResponse>))]
+        [SwaggerResponse(200, Type = typeof(List<User>))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -43,8 +43,8 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/users/{userId}", Name = "Users_GetUser")]
-        [SwaggerResponse(200, Type = typeof(UserResponse))]
-        [SwaggerResponse(404, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(200, Type = typeof(User))]
+        [SwaggerResponse(404, Type = typeof(Error))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_GetUser")]
         public async Task<IActionResult> GetUser(string userId)
         {
@@ -60,9 +60,9 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpPost]
         [Route("api/users")]
-        [SwaggerResponse(201, Type = typeof(UserResponse))]
-        [SwaggerResponse(400, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(409, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(201, Type = typeof(User))]
+        [SwaggerResponse(400, Type = typeof(Error))]
+        [SwaggerResponse(409, Type = typeof(Error))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_AddUser")]
         public async Task<IActionResult> AddUser([FromBody]AddUser request)

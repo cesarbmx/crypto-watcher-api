@@ -1,6 +1,5 @@
 using System.Linq;
 using AutoMapper;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Application.Automapper
@@ -9,7 +8,7 @@ namespace CryptoWatcher.Application.Automapper
     {
         public IndicatorMapping()
         {
-            CreateMap<Indicator, IndicatorResponse>()
+            CreateMap<Indicator, Responses.Indicator>()
                 .ForMember(dest => dest.Dependencies, opt => opt.MapFrom(src => src.Dependencies.Select(x => x.DependencyId).ToArray()));
         }
     }

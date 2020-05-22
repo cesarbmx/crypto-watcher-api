@@ -9,9 +9,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace CryptoWatcher.Api.Controllers
 {
-    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
-    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
-    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
+    [SwaggerResponse(500, Type = typeof(InternalServerError))]
+    [SwaggerResponse(401, Type = typeof(Unauthorized))]
+    [SwaggerResponse(403, Type = typeof(Forbidden))]
     // ReSharper disable once InconsistentNaming
     public class G_LineController : Controller
     {
@@ -27,7 +27,7 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/lines")]
-        [SwaggerResponse(200, Type = typeof(List<LineResponse>))]
+        [SwaggerResponse(200, Type = typeof(List<Line>))]
         [SwaggerOperation(Tags = new[] { "Lines" }, OperationId = "Lines_GetAllLines")]
         public async Task<IActionResult> GetAllLines(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {

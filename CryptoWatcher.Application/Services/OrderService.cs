@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Logging.Extensions;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
@@ -39,7 +38,7 @@ namespace CryptoWatcher.Application.Services
             _logger = logger;
         }
 
-        public async Task<List<OrderResponse>> GetAllOrders(string userId)
+        public async Task<List<Responses.Order>> GetAllOrders(string userId)
         {
             // Get user
             var user = await _userRepository.GetSingle(userId);
@@ -51,12 +50,12 @@ namespace CryptoWatcher.Application.Services
             var orders = await _orderRepository.GetAll(OrderExpression.OrderFilter(userId));
 
             // Response
-            var response = _mapper.Map<List<OrderResponse>>(orders);
+            var response = _mapper.Map<List<Responses.Order>>(orders);
 
             // Return
             return response;
         }
-        public async Task<OrderResponse> GetOrder(Guid orderId)
+        public async Task<Responses.Order> GetOrder(Guid orderId)
         {
             // Get order
             var order = await _orderRepository.GetSingle(orderId);
@@ -65,7 +64,7 @@ namespace CryptoWatcher.Application.Services
             if (order == null) throw new NotFoundException(OrderMessage.OrderNotFound);
 
             // Response
-            var response = _mapper.Map<OrderResponse>(order);
+            var response = _mapper.Map<Responses.Order>(order);
 
             // Return
             return response;

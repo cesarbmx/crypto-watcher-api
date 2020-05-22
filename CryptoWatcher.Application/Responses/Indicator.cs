@@ -3,7 +3,7 @@
 
 namespace CryptoWatcher.Application.Responses
 {
-    public class IndicatorResponse
+    public class Indicator
     {
         public string IndicatorId { get; set; }
         public IndicatorType IndicatorType { get; set; }

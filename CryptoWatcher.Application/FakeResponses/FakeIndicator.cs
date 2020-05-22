@@ -4,11 +4,11 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
-    public static class IndicatorFakeResponse
+    public static class FakeIndicator
     {
-        public static IndicatorResponse GetFake_Price()
+        public static Indicator GetFake_Price()
         {
-            return new IndicatorResponse
+            return new Indicator
             {
                 IndicatorId = "price",
                 IndicatorType = IndicatorType.CurrencyIndicator,
@@ -18,9 +18,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Formula = "C# formula"
             };
         }
-        public static IndicatorResponse GetFake_RSI()
+        public static Indicator GetFake_RSI()
         {
-            return new IndicatorResponse
+            return new Indicator
             {
                 IndicatorId = "rsi",
                 IndicatorType = IndicatorType.CurrencyIndicator,
@@ -31,9 +31,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Formula = "C# formula"
             };
         }
-        public static List<IndicatorResponse> GetFake_List()
+        public static List<Indicator> GetFake_List()
         {
-            return new List<IndicatorResponse>
+            return new List<Indicator>
             {
                 GetFake_Price(),
                 GetFake_RSI()

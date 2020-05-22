@@ -6,7 +6,6 @@ using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Application.Requests;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.ModelBuilders;
@@ -43,7 +42,7 @@ namespace CryptoWatcher.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<IndicatorResponse>> GetAllIndicators(string userId, IndicatorType indicatorType)
+        public async Task<List<Responses.Indicator>> GetAllIndicators(string userId, IndicatorType indicatorType)
         {
             // Get user
             var user = await _userRepository.GetSingle(userId);
@@ -61,12 +60,12 @@ namespace CryptoWatcher.Application.Services
             IndicatorBuilder.BuildDependencies(indicators, indicatorDependencies);
 
             // Response
-            var response = _mapper.Map<List<IndicatorResponse>>(indicators);
+            var response = _mapper.Map<List<Responses.Indicator>>(indicators);
 
             // Return
             return response;
         }
-        public async Task<IndicatorResponse> GetIndicator(string indicatorId)
+        public async Task<Responses.Indicator> GetIndicator(string indicatorId)
         {
             // Get indicator
             var indicator = await _indicatorRepository.GetSingle(indicatorId);
@@ -81,12 +80,12 @@ namespace CryptoWatcher.Application.Services
             indicator.SetDependencies(indicatorDependencies);
 
             // Response
-            var response = _mapper.Map<IndicatorResponse>(indicator);
+            var response = _mapper.Map<Responses.Indicator>(indicator);
 
             // Return
             return response;
         }
-        public async Task<IndicatorResponse> AddIndicator(AddIndicator request)
+        public async Task<Responses.Indicator> AddIndicator(AddIndicator request)
         {
             // Get indicator
             var indicator = await _indicatorRepository.GetSingle(IndicatorExpression.Indicator(request.IndicatorId));
@@ -131,12 +130,12 @@ namespace CryptoWatcher.Application.Services
             _logger.LogSplunkInformation(request);
 
             // Response
-            var response = _mapper.Map<IndicatorResponse>(indicator);
+            var response = _mapper.Map<Responses.Indicator>(indicator);
 
             // Return
             return response;
         }
-        public async Task<IndicatorResponse> UpdateIndicator(UpdateIndicator request)
+        public async Task<Responses.Indicator> UpdateIndicator(UpdateIndicator request)
         {
             // Get indicator
             var indicator = await _indicatorRepository.GetSingle(request.IndicatorId);
@@ -172,7 +171,7 @@ namespace CryptoWatcher.Application.Services
             _logger.LogSplunkInformation(request);
 
             // Response
-            var response = _mapper.Map<IndicatorResponse>(indicator);
+            var response = _mapper.Map<Responses.Indicator>(indicator);
 
             // Return
             return response;

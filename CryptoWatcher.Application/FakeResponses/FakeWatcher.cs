@@ -4,11 +4,11 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
-    public static class WatcherFakeResponse
+    public static class FakeWatcher
     {
-        public static WatcherResponse GetFake_master_Bitcoin_Price()
+        public static Watcher GetFake_master_Bitcoin_Price()
         {
-            return new WatcherResponse
+            return new Watcher
             {
                 WatcherId = "master_bitcoin_price",
                 UserId = "master",
@@ -24,9 +24,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Enabled = false
             };
         }
-        public static WatcherResponse GetFake_master_Bitcoin_RSI()
+        public static Watcher GetFake_master_Bitcoin_RSI()
         {
-            return new WatcherResponse
+            return new Watcher
             {
                 WatcherId = "master_bitcoin_rsi",
                 UserId = "master",
@@ -42,9 +42,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Enabled = false
             };
         }
-        public static List<WatcherResponse> GetFake_List()
+        public static List<Watcher> GetFake_List()
         {
-            return new List<WatcherResponse>
+            return new List<Watcher>
             {
                 GetFake_master_Bitcoin_Price(),
                 GetFake_master_Bitcoin_RSI()

@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Logging.Extensions;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Messages;
-using CryptoWatcher.Domain.Models;
 using CesarBmx.Shared.Persistence.Repositories;
+using CryptoWatcher.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -36,18 +35,18 @@ namespace CryptoWatcher.Application.Services
             _coinpaprikaClient = coinpaprikaClient;
         }
 
-        public async Task<List<CurrencyResponse>> GetAllCurrencies()
+        public async Task<List<Responses.Currency>> GetAllCurrencies()
         {
             // Get all currencies
             var currencies = await _currencyRepository.GetAll();
 
             // Response
-            var response = _mapper.Map<List<CurrencyResponse>>(currencies);
+            var response = _mapper.Map<List<Responses.Currency>>(currencies);
 
             // Return
             return response;
         }
-        public async Task<CurrencyResponse> GetCurrency(string currencyId)
+        public async Task<Responses.Currency> GetCurrency(string currencyId)
         {
             // Get currency
             var currency = await _currencyRepository.GetSingle(currencyId);
@@ -56,7 +55,7 @@ namespace CryptoWatcher.Application.Services
             if (currency == null) throw new NotFoundException(CurrencyMessage.CurrencyNotFound);
 
             // Response
-            var response = _mapper.Map<CurrencyResponse>(currency);
+            var response = _mapper.Map<Responses.Currency>(currency);
 
             // Return
             return response;

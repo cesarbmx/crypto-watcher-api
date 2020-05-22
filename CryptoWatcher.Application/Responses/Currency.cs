@@ -3,7 +3,7 @@
 
 namespace CryptoWatcher.Application.Responses
 {
-    public class CurrencyResponse
+    public class Currency
     {
         public string CurrencyId { get; set; }
         public string Symbol { get; set; }

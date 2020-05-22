@@ -8,9 +8,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace CryptoWatcher.Api.Controllers
 {
-    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
-    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
-    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
+    [SwaggerResponse(500, Type = typeof(InternalServerError))]
+    [SwaggerResponse(401, Type = typeof(Unauthorized))]
+    [SwaggerResponse(403, Type = typeof(Forbidden))]
     // ReSharper disable once InconsistentNaming
     public class A_CurrencyController : Controller
     {
@@ -26,7 +26,7 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/currencies")]
-        [SwaggerResponse(200, Type = typeof(List<CurrencyResponse>))]  
+        [SwaggerResponse(200, Type = typeof(List<Currency>))]  
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetAllCurrencies")]
         public async Task<IActionResult> GetAllCurrencies()
         {
@@ -42,8 +42,8 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/currencies/{currencyId}", Name = "Currencies_GetCurrency")]
-        [SwaggerResponse(200, Type = typeof(CurrencyResponse))]
-        [SwaggerResponse(404, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(200, Type = typeof(Currency))]
+        [SwaggerResponse(404, Type = typeof(Error))]
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrency")]
         public async Task<IActionResult> GetCurrency(string currencyId)
         {

@@ -3,7 +3,7 @@
 
 namespace CryptoWatcher.Application.Responses
 {
-    public class WatcherResponse
+    public class Watcher
     {
         public string WatcherId { get; set; }
         public string UserId { get; set; }

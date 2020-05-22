@@ -10,9 +10,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace CryptoWatcher.Api.Controllers
 {
-    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
-    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
-    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
+    [SwaggerResponse(500, Type = typeof(InternalServerError))]
+    [SwaggerResponse(401, Type = typeof(Unauthorized))]
+    [SwaggerResponse(403, Type = typeof(Forbidden))]
     // ReSharper disable once InconsistentNaming
     public class C_IndicatorController : Controller
     {
@@ -28,7 +28,7 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/users/{userId}/indicators")]
-        [SwaggerResponse(200, Type = typeof(List<IndicatorResponse>))]  
+        [SwaggerResponse(200, Type = typeof(List<Indicator>))]  
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetAllIndicators")]
         public async Task<IActionResult> GetAllIndicators(string userId, IndicatorType indicatorType)
         {
@@ -44,8 +44,8 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/indicators/{indicatorId}", Name = "Indicators_GetIndicator")]
-        [SwaggerResponse(200, Type = typeof(IndicatorResponse))]
-        [SwaggerResponse(404, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(200, Type = typeof(Indicator))]
+        [SwaggerResponse(404, Type = typeof(Error))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetIndicator")]
         public async Task<IActionResult> GetIndicator(string indicatorId)
         {
@@ -61,10 +61,10 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpPost]
         [Route("api/indicators")]
-        [SwaggerResponse(201, Type = typeof(IndicatorResponse))]
-        [SwaggerResponse(400, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(404, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(409, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(201, Type = typeof(Indicator))]
+        [SwaggerResponse(400, Type = typeof(Error))]
+        [SwaggerResponse(404, Type = typeof(Error))]
+        [SwaggerResponse(409, Type = typeof(Error))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_AddIndicator")]
         public async Task<IActionResult> AddIndicator([FromBody]AddIndicator request)
@@ -81,9 +81,9 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpPut]
         [Route("api/indicators/{indicatorId}")]
-        [SwaggerResponse(200, Type = typeof(IndicatorResponse))]
-        [SwaggerResponse(400, Type = typeof(ErrorResponse))]
-        [SwaggerResponse(409, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(200, Type = typeof(Indicator))]
+        [SwaggerResponse(400, Type = typeof(Error))]
+        [SwaggerResponse(409, Type = typeof(Error))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_UpdateIndicator")]
         public async Task<IActionResult> UpdateIndicator(string indicatorId, [FromBody]UpdateIndicator request)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CryptoWatcher.Application.Responses
 {
-    public class ScriptVariableSetResponse
+    public class ScriptVariableSet
     {
         public DateTime[] Times { get; set; }
         public string[] Currencies { get; set; }

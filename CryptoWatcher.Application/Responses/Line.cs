@@ -4,7 +4,7 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.Responses
 {
-    public class LineResponse
+    public class Line
     {
         public string CurrencyId { get; set; }
         public string IndicatorId { get; set; }

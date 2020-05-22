@@ -5,7 +5,7 @@ using System;
 
 namespace CryptoWatcher.Application.Responses
 {
-    public class NotificationResponse
+    public class Notification
     {
         public Guid NotificationId { get; set; }
         public string UserId { get; set; }

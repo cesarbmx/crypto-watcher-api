@@ -9,9 +9,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace CryptoWatcher.Api.Controllers
 {
-    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
-    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
-    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
+    [SwaggerResponse(500, Type = typeof(InternalServerError))]
+    [SwaggerResponse(401, Type = typeof(Unauthorized))]
+    [SwaggerResponse(403, Type = typeof(Forbidden))]
     // ReSharper disable once InconsistentNaming
     public class F_NotificationController : Controller
     {
@@ -27,7 +27,7 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/users/{userId}/notifications")]
-        [SwaggerResponse(200, Type = typeof(List<NotificationResponse>))]
+        [SwaggerResponse(200, Type = typeof(List<Notification>))]
         [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetAllNotifications")]
         public async Task<IActionResult> GetAllNotifications(string userId)
         {
@@ -43,8 +43,8 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/notifications/{notificationId}", Name = "Notifications_GetNotification")]
-        [SwaggerResponse(200, Type = typeof(NotificationResponse))]
-        [SwaggerResponse(404, Type = typeof(ErrorResponse))]
+        [SwaggerResponse(200, Type = typeof(Notification))]
+        [SwaggerResponse(404, Type = typeof(Error))]
         [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetNotification")]
         public async Task<IActionResult> GetNotification(Guid notificationId)
         {

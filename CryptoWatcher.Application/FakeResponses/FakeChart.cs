@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.ModelBuilders;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
-    public static class LineChartFakeResponse
+    public static class FakeChart
     {
-        public static LineChartResponse GetFake_Bitcoin_Price()
+        public static Responses.LineChart GetFake_Bitcoin_Price()
         {
-            return new LineChartResponse
+            return new Responses.LineChart
             {
                 LineChartId = "bitcoin-price",
                 IndicatorType = IndicatorType.CurrencyIndicator,
@@ -24,9 +23,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Rows = new List<LineChartRow> { new LineChartRow(DateTime.Now, 6.4m, 8m, 4m), new LineChartRow(DateTime.Now.AddMinutes(1), 6.6m, 8m, 4m) }
             };
         }
-        public static LineChartResponse GetFake_EOS_Price()
+        public static Responses.LineChart GetFake_EOS_Price()
         {
-            return new LineChartResponse
+            return new Responses.LineChart
             {
                 LineChartId = "eos-price",
                 IndicatorType = IndicatorType.CurrencyIndicator,
@@ -39,9 +38,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Rows = new List<LineChartRow> { new LineChartRow(DateTime.Now, 8.4m, 8m, 4m), new LineChartRow(DateTime.Now.AddMinutes(1), 8.6m, 8m, 4m) }
             };
         }
-        public static List<LineChartResponse> GetFake_List()
+        public static List<Responses.LineChart> GetFake_List()
         {
-            return new List<LineChartResponse>
+            return new List<Responses.LineChart>
             {
                 GetFake_Bitcoin_Price(),
                 GetFake_EOS_Price()

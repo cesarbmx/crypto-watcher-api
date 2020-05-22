@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using CryptoWatcher.Api.ViewModels;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 
 
@@ -8,7 +7,7 @@ namespace CryptoWatcher.Api.ViewModelBuilders
 {
     public static class ChartBuilder
     {
-        public static List<Chart> BuildCharts(List<LineChartResponse> lineChartsResponse)
+        public static List<Chart> BuildCharts(List<Application.Responses.LineChart> lineChartsResponse)
         {
             var charts = new List<Chart>();
             foreach (var lineChartResponse in lineChartsResponse)

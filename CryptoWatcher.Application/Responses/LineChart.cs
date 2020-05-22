@@ -5,7 +5,7 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.Responses
 {
-    public class LineChartResponse
+    public class LineChart
     {
         public string LineChartId { get; set; }
         public IndicatorType IndicatorType { get; set; }

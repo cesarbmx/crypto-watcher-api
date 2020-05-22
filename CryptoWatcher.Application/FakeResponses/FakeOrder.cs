@@ -5,11 +5,11 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
-    public static class OrderFakeResponse
+    public static class FakeOrder
     {
-        public static OrderResponse GetFake_Bitcoin()
+        public static Order GetFake_Bitcoin()
         {
-            return new OrderResponse
+            return new Order
             {
                 OrderId = Guid.NewGuid(),
                 OrderType = OrderType.BuyLimit,
@@ -19,9 +19,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Quantity = 100
             };
         }
-        public static OrderResponse GetFake_EOS()
+        public static Order GetFake_EOS()
         {
-            return new OrderResponse
+            return new Order
             {
                 OrderId = Guid.NewGuid(),
                 OrderType = OrderType.BuyLimit,
@@ -31,9 +31,9 @@ namespace CryptoWatcher.Application.FakeResponses
                 Quantity = 100
             };
         }
-        public static List<OrderResponse> GetFake_List()
+        public static List<Order> GetFake_List()
         {
-            return new List<OrderResponse>
+            return new List<Order>
             {
                 GetFake_Bitcoin(),
                 GetFake_EOS()

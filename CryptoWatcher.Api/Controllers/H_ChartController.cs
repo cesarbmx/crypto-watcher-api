@@ -9,9 +9,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace CryptoWatcher.Api.Controllers
 {
-    [SwaggerResponse(500, Type = typeof(InternalServerErrorResponse))]
-    [SwaggerResponse(401, Type = typeof(UnauthorizedResponse))]
-    [SwaggerResponse(403, Type = typeof(ForbiddenResponse))]
+    [SwaggerResponse(500, Type = typeof(InternalServerError))]
+    [SwaggerResponse(401, Type = typeof(Unauthorized))]
+    [SwaggerResponse(403, Type = typeof(Forbidden))]
     // ReSharper disable once InconsistentNaming
     public class H_LineChartsController : Controller
     {
@@ -27,7 +27,7 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/line-charts")]
-        [SwaggerResponse(200, Type = typeof(List<LineChartResponse>))]
+        [SwaggerResponse(200, Type = typeof(List<LineChart>))]
         [SwaggerOperation(Tags = new[] { "Charts" }, OperationId = "LineCharts_GetAllLineCharts")]
         public async Task<IActionResult> GetAllLineCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {

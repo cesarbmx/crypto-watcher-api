@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Persistence.Repositories;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.ModelBuilders;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
@@ -28,7 +27,7 @@ namespace CryptoWatcher.Application.Services
             _lineRepository = lineRepository;
             _mapper = mapper;
         }
-        public async Task<List<LineChartResponse>> GetAllLineCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
+        public async Task<List<Responses.LineChart>> GetAllLineCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Get all currencies
             var currencies = await _currencyRepository.GetAll(CurrencyExpression.CurrencyFilter(currencyId));
@@ -43,7 +42,7 @@ namespace CryptoWatcher.Application.Services
             var lineCharts = LineChartBuilder.BuildLineCharts(currencies, indicators, lines);
 
             // Response
-            var response = _mapper.Map<List<LineChartResponse>>(lineCharts);
+            var response = _mapper.Map<List<Responses.LineChart>>(lineCharts);
 
             // Return
             return response;

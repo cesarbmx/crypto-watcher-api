@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Logging.Extensions;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
 using CesarBmx.Shared.Persistence.Repositories;
@@ -35,13 +34,13 @@ namespace CryptoWatcher.Application.Services
             _logger = logger;
             _mapper = mapper;
         }
-        public async Task<List<LineResponse>> GetAllLines(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
+        public async Task<List<Responses.Line>> GetAllLines(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Get all lines
             var lines = await _lineRepository.GetAll(LineExpression.LineFilter(currencyId, indicatorType, indicatorId, userId));
 
             // Response
-            var response = _mapper.Map<List<LineResponse>>(lines);
+            var response = _mapper.Map<List<Responses.Line>>(lines);
 
             // Return
             return response;

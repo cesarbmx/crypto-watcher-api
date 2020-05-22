@@ -3,7 +3,7 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.Responses
 {
-    public class OrderResponse
+    public class Order
     {
         public Guid OrderId { get; set; }
         public OrderType OrderType { get; set; }

@@ -1,5 +1,4 @@
 using AutoMapper;
-using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Application.Automapper
@@ -8,7 +7,7 @@ namespace CryptoWatcher.Application.Automapper
     {
         public WatcherMapping()
         {
-            CreateMap<Watcher, WatcherResponse>();
+            CreateMap<Watcher, Responses.Watcher>();
         }
     }
 }

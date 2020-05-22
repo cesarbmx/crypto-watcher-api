@@ -5,18 +5,18 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.ResponseExamples
 {
-    public class UserResponseExample : IExamplesProvider<UserResponse>
+    public class UserResponseExample : IExamplesProvider<User>
     {
-        public UserResponse GetExamples()
+        public User GetExamples()
         {
-            return UserFakeResponse.GetFake_master();
+            return FakeUser.GetFake_master();
         }
     }
-    public class UserListResponseExample : IExamplesProvider<List<UserResponse>>
+    public class UserListResponseExample : IExamplesProvider<List<User>>
     {
-        public List<UserResponse> GetExamples()
+        public List<User> GetExamples()
         {
-            return UserFakeResponse.GetFake_List();
+            return FakeUser.GetFake_List();
         }
     }
 }
