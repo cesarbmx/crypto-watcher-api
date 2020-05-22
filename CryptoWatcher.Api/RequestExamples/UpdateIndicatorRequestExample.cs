@@ -4,9 +4,9 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CryptoWatcher.Api.RequestExamples
 {
-    public class UpdateIndicatorRequestExample : IExamplesProvider<UpdateIndicatorRequest>
+    public class UpdateIndicatorRequestExample : IExamplesProvider<UpdateIndicator>
     {
-        public UpdateIndicatorRequest GetExamples()
+        public UpdateIndicator GetExamples()
         {
             return UpdateIndicatorFakeRequest.GetFake_RSI();
         }

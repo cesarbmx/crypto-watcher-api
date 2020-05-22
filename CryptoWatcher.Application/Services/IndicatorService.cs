@@ -86,7 +86,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<IndicatorResponse> AddIndicator(AddIndicatorRequest request)
+        public async Task<IndicatorResponse> AddIndicator(AddIndicator request)
         {
             // Get indicator
             var indicator = await _indicatorRepository.GetSingle(IndicatorExpression.Indicator(request.IndicatorId));
@@ -136,7 +136,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<IndicatorResponse> UpdateIndicator(UpdateIndicatorRequest request)
+        public async Task<IndicatorResponse> UpdateIndicator(UpdateIndicator request)
         {
             // Get indicator
             var indicator = await _indicatorRepository.GetSingle(request.IndicatorId);

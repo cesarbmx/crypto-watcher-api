@@ -6,9 +6,9 @@ namespace CryptoWatcher.Application.FakeRequests
 {
     public static class AddIndicatorFakeRequest
     {
-        public static AddIndicatorRequest GetFake_RSI()
+        public static AddIndicator GetFake_RSI()
         {
-            return new AddIndicatorRequest
+            return new AddIndicator
             {
                 IndicatorId = "RSI",
                 UserId = "master",

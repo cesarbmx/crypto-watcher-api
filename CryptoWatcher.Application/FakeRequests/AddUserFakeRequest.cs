@@ -5,9 +5,9 @@ namespace CryptoWatcher.Application.FakeRequests
 {
     public static class AddUserFakeRequest
     {
-        public static AddUserRequest GetFake_master()
+        public static AddUser GetFake_master()
         {
-            return new AddUserRequest
+            return new AddUser
             {
                 UserId = "master"
             };

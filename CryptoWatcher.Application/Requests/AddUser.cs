@@ -3,7 +3,7 @@
 
 namespace CryptoWatcher.Application.Requests
 {
-    public class AddUserRequest
+    public class AddUser
     {
         [Required] public string UserId { get; set; }
     }

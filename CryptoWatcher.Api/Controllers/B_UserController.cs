@@ -65,7 +65,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_AddUser")]
-        public async Task<IActionResult> AddUser([FromBody]AddUserRequest request)
+        public async Task<IActionResult> AddUser([FromBody]AddUser request)
         {
             // Reponse
             var response = await _userService.AddUser(request);

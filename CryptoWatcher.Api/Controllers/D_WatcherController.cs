@@ -66,7 +66,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_AddWatcher")]
-        public async Task<IActionResult> AddWatcher([FromBody]AddWatcherRequest request)
+        public async Task<IActionResult> AddWatcher([FromBody]AddWatcher request)
         {
             // Reponse
             var response = await _watcherService.AddWatcher(request);
@@ -85,7 +85,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_UpdateWatcher")]
-        public async Task<IActionResult> UpdateWatcher(string watcherId, [FromBody]UpdateWatcherRequest request)
+        public async Task<IActionResult> UpdateWatcher(string watcherId, [FromBody]UpdateWatcher request)
         {
             // Reponse
             request.WatcherId = watcherId;

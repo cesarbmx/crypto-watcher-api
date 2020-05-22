@@ -58,7 +58,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<UserResponse> AddUser(AddUserRequest request)
+        public async Task<UserResponse> AddUser(AddUser request)
         {
             // Get user
             var user = await _userRepository.GetSingle(request.UserId);

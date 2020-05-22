@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace CryptoWatcher.Application.Validators
 {
-    public class AddWatcherValidator : AbstractValidator<AddWatcherRequest>
+    public class AddWatcherValidator : AbstractValidator<AddWatcher>
     {
         public AddWatcherValidator()
         {

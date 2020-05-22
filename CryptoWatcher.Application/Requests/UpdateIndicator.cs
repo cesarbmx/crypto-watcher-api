@@ -1,14 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using CryptoWatcher.Domain.Types;
-
+using Newtonsoft.Json;
 
 namespace CryptoWatcher.Application.Requests
 {
-    public class AddIndicatorRequest
+    public class UpdateIndicator
     {
-        [Required] public string IndicatorId { get; set; }
-        [Required] public IndicatorType IndicatorType { get; set; }
-        [Required] public string UserId { get; set; }
+        [JsonIgnore] public string IndicatorId { get; set; }
         [Required] public string Name { get; set; }
         [Required] public string Description { get; set; }
         [Required] public string Formula { get; set; }

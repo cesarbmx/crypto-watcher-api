@@ -4,9 +4,9 @@ namespace CryptoWatcher.Application.FakeRequests
 {
     public static class UpdateIndicatorFakeRequest
     {
-        public static UpdateIndicatorRequest GetFake_RSI()
+        public static UpdateIndicator GetFake_RSI()
         {
-            return new UpdateIndicatorRequest
+            return new UpdateIndicator
             {
                 IndicatorId = "rsi",
                 Name = "RSI",

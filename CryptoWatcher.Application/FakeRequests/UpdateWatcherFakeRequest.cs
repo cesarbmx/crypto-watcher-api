@@ -6,9 +6,9 @@ namespace CryptoWatcher.Application.FakeRequests
 {
     public static class UpdateWatcherFakeRequest
     {
-        public static UpdateWatcherRequest GetFake_1()
+        public static UpdateWatcher GetFake_1()
         {
-            return new UpdateWatcherRequest
+            return new UpdateWatcher
             {
                 WatcherId = "master_bitcoin_rsi",             
                 Buy = 15,

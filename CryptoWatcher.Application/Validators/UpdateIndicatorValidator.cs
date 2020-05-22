@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace CryptoWatcher.Application.Validators
 {
-    public class UpdateIndicatorValidator : AbstractValidator<UpdateIndicatorRequest>
+    public class UpdateIndicatorValidator : AbstractValidator<UpdateIndicator>
     {
         public UpdateIndicatorValidator()
         {

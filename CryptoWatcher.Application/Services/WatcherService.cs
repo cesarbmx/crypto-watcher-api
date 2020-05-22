@@ -83,7 +83,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<WatcherResponse> AddWatcher(AddWatcherRequest request)
+        public async Task<WatcherResponse> AddWatcher(AddWatcher request)
         {
             // Get user
             var user = await _userRepository.GetSingle(request.UserId);
@@ -133,7 +133,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<WatcherResponse> UpdateWatcher(UpdateWatcherRequest request)
+        public async Task<WatcherResponse> UpdateWatcher(UpdateWatcher request)
         {
             // Get watcher
             var watcher = await _watcherRepository.GetSingle(request.WatcherId);

@@ -4,7 +4,7 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.Requests
 {
-    public class AddWatcherRequest 
+    public class AddWatcher 
     {
         [Required] public string UserId { get; set; }
         [Required] public IndicatorType IndicatorType { get; set; }

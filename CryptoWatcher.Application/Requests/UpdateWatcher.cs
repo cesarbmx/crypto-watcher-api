@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace CryptoWatcher.Application.Requests
 {
-    public class UpdateWatcherRequest
+    public class UpdateWatcher
     {
         [JsonIgnore] public string WatcherId { get; set; }
         [Required] public decimal Buy { get; set; }

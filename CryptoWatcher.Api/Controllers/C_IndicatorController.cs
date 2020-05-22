@@ -67,7 +67,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_AddIndicator")]
-        public async Task<IActionResult> AddIndicator([FromBody]AddIndicatorRequest request)
+        public async Task<IActionResult> AddIndicator([FromBody]AddIndicator request)
         {
             // Reponse
             var response = await _indicatorService.AddIndicator(request);
@@ -86,7 +86,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponse(409, Type = typeof(ErrorResponse))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_UpdateIndicator")]
-        public async Task<IActionResult> UpdateIndicator(string indicatorId, [FromBody]UpdateIndicatorRequest request)
+        public async Task<IActionResult> UpdateIndicator(string indicatorId, [FromBody]UpdateIndicator request)
         {
             // Reponse
             request.IndicatorId = indicatorId;
