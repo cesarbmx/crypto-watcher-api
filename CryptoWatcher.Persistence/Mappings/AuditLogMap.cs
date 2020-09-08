@@ -7,9 +7,9 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Persistence.Mappings
 {
-    public class AuditLogMap
+    public static class AuditLogMap
     {
-        public AuditLogMap(EntityTypeBuilder<AuditLog> entityBuilder)
+        public static void Map(this EntityTypeBuilder<AuditLog> entityBuilder)
         {
             // Key
             entityBuilder.HasKey(t => t.LogId)

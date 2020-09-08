@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Persistence.Mappings
 {
-    public class WatcherMap
+    public static class WatcherMap
     {
-        public WatcherMap(EntityTypeBuilder<Watcher> entityBuilder)
+        public static void Map(this EntityTypeBuilder<Watcher> entityBuilder)
         {
             // Key
             entityBuilder.HasKey(t => t.WatcherId)

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Persistence.Mappings
 {
-    public class UserMap
+    public static class UserMap
     {
-        public UserMap(EntityTypeBuilder<User> entityBuilder)
+        public static void Map(this EntityTypeBuilder<User> entityBuilder)
         {
             // Key
             entityBuilder.HasKey(t => t.UserId);

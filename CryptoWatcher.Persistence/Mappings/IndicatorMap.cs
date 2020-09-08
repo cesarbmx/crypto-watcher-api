@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Persistence.Mappings
 {
-    public class IndicatorMap
+    public static class IndicatorMap
     {
-        public IndicatorMap(EntityTypeBuilder<Indicator> entityBuilder)
+        public static void Map(this EntityTypeBuilder<Indicator> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.IndicatorId).
-                IsClustered(false);
+            entityBuilder.HasKey(t => t.IndicatorId)
+                .IsClustered(false);
 
             // Indexes
             entityBuilder.HasIndex(t => new { t.Time, t.IndicatorType, t.IndicatorId, t.UserId})

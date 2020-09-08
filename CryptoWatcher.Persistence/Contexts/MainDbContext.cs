@@ -6,9 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Persistence.Contexts
 {
-    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public class MainDbContext : DbContext
     {
+        public DbSet<Line> Lines { get; set; }
+        public DbSet<AuditLog> AuditLog { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Watcher> Watchers { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Indicator> Indicators { get; set; }
+        public DbSet<IndicatorDependency> IndicatorDependencies { get; set; }
+
         public MainDbContext(DbContextOptions<MainDbContext> options)
            : base(options)
         {
@@ -17,15 +26,15 @@ namespace CryptoWatcher.Persistence.Contexts
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new LineMap(modelBuilder.Entity<Line>());
-            new AuditLogMap(modelBuilder.Entity<AuditLog>());
-            new CurrencyMap(modelBuilder.Entity<Currency>());
-            new WatcherMap(modelBuilder.Entity<Watcher>());
-            new UserMap(modelBuilder.Entity<User>());
-            new NotificationMap(modelBuilder.Entity<Notification>());
-            new OrderMap(modelBuilder.Entity<Order>());
-            new IndicatorMap(modelBuilder.Entity<Indicator>());
-            new IndicatorDependencyMap(modelBuilder.Entity<IndicatorDependency>());
+            modelBuilder.Entity<Line>().Map();
+            modelBuilder.Entity<AuditLog>().Map();
+            modelBuilder.Entity<Currency>().Map();
+            modelBuilder.Entity<Watcher>().Map();
+            modelBuilder.Entity<User>().Map();
+            modelBuilder.Entity<Notification>().Map();
+            modelBuilder.Entity<Order>().Map();
+            modelBuilder.Entity<Indicator>().Map();
+            modelBuilder.Entity<IndicatorDependency>().Map();
 
             base.OnModelCreating(modelBuilder);
         }

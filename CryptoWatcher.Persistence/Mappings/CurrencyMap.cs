@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Persistence.Mappings
 {
-    public class CurrencyMap
+    public static class CurrencyMap
     {
-        public CurrencyMap(EntityTypeBuilder<Currency> entityBuilder)
+        public static void Map(this EntityTypeBuilder<Currency> entityBuilder)
         {
             // Key
             entityBuilder.HasKey(t => t.CurrencyId);

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Persistence.Mappings
 {
-    public class IndicatorDependencyMap
+    public static class IndicatorDependencyMap
     {
-        public IndicatorDependencyMap(EntityTypeBuilder<IndicatorDependency> entityBuilder)
+        public static void Map(this EntityTypeBuilder<IndicatorDependency> entityBuilder)
         {
             // Key
             entityBuilder.HasKey(t=> new { t.IndicatorId, t.DependencyId});

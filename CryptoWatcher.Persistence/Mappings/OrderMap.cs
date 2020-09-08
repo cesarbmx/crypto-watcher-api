@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Persistence.Mappings
 {
-    public class OrderMap
+    public static class OrderMap
     {
-        public OrderMap(EntityTypeBuilder<Order> entityBuilder)
+        public static void Map(this EntityTypeBuilder<Order> entityBuilder)
         {
             // Key
             entityBuilder.HasKey(t => t.OrderId)
