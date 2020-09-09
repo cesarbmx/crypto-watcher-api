@@ -3,14 +3,14 @@
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class LineChartColumn
+    public class ChartColumn
     {
         public string Label { get; private set; }
         public string Type { get; private set; }
        
 
-        public LineChartColumn() { }
-        public LineChartColumn(string type, string label)
+        public ChartColumn() { }
+        public ChartColumn(string type, string label)
         {
             Type = type;
             Label = label;

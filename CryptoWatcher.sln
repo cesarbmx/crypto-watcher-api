@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Logging", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Service", "CryptoWatcher.Service\CryptoWatcher.Service.csproj", "{D948965A-4E1E-4274-8B70-EDD077D22D73}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Health", "..\Shared\CesarBmx.Shared.Health\CesarBmx.Shared.Health.csproj", "{02155CC8-3243-4E6C-A176-2FC3AA4032F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{D948965A-4E1E-4274-8B70-EDD077D22D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D948965A-4E1E-4274-8B70-EDD077D22D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D948965A-4E1E-4274-8B70-EDD077D22D73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02155CC8-3243-4E6C-A176-2FC3AA4032F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02155CC8-3243-4E6C-A176-2FC3AA4032F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02155CC8-3243-4E6C-A176-2FC3AA4032F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02155CC8-3243-4E6C-A176-2FC3AA4032F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,6 +123,7 @@ Global
 		{E60ECF24-DD9B-43C8-8629-72339308A83F} = {0B7E9BDA-EB68-47BF-B2B4-C1F9A7E7A4B6}
 		{B9E582B2-DCA2-4D15-948A-95666879B29A} = {0B7E9BDA-EB68-47BF-B2B4-C1F9A7E7A4B6}
 		{D948965A-4E1E-4274-8B70-EDD077D22D73} = {8E1719A6-CEC6-4766-B07B-F2D4EDA91057}
+		{02155CC8-3243-4E6C-A176-2FC3AA4032F8} = {0B7E9BDA-EB68-47BF-B2B4-C1F9A7E7A4B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7CCEAABE-45B4-414D-A0A5-108B4DDEC89E}

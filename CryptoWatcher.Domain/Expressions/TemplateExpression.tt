@@ -8,7 +8,7 @@
 <#@ import namespace="System.Reflection" #>
 <#@ import namespace="CesarBmx.Shared.Common.Helpers" #>
 <#@ import namespace="CesarBmx.Shared.Common.Extensions" #>
-<#@ import namespace="CesarBmx.Shared.Domain.Models" #>
+<#@ import namespace="CesarBmx.Shared.Domain.Entities" #>
 <#@ output extension=".txt" #>
 <#@ import namespace="System.Linq" #>
 <#
@@ -29,7 +29,7 @@ foreach (var type in types) {
 #>
 using System;
 using System.Linq.Expressions;
-using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Entities;
 
 namespace CryptoWatcher.Domain.Expressions
 {

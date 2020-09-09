@@ -10,19 +10,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Application.Services
 {
-    public class LineChartService
+    public class ChartService
     {
         private readonly MainDbContext _mainDbContext;
         private readonly IMapper _mapper;
 
-        public LineChartService(
+        public ChartService(
             MainDbContext mainDbContext,
             IMapper mapper)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
         }
-        public async Task<List<Responses.LineChart>> GetAllLineCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
+        public async Task<List<Responses.Chart>> GetAllCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Get all currencies
             var currencies = await _mainDbContext.Currencies.Where(CurrencyExpression.CurrencyFilter(currencyId)).ToListAsync();
@@ -34,10 +34,10 @@ namespace CryptoWatcher.Application.Services
             var lines = await _mainDbContext.Lines.Where(LineExpression.LineFilter(currencyId, indicatorType, indicatorId, userId)).ToListAsync();
 
             // Build
-            var lineCharts = LineChartBuilder.BuildLineCharts(currencies, indicators, lines);
+            var charts = ChartBuilder.BuildCharts(currencies, indicators, lines);
 
             // Response
-            var response = _mapper.Map<List<Responses.LineChart>>(lineCharts);
+            var response = _mapper.Map<List<Responses.Chart>>(charts);
 
             // Return
             return response;

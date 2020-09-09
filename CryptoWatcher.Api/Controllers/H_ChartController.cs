@@ -13,13 +13,13 @@ namespace CryptoWatcher.Api.Controllers
     [SwaggerResponse(401, Type = typeof(Unauthorized))]
     [SwaggerResponse(403, Type = typeof(Forbidden))]
     // ReSharper disable once InconsistentNaming
-    public class H_LineChartsController : Controller
+    public class H_ChartsController : Controller
     {
-        private readonly LineChartService _lineChartService;
+        private readonly ChartService _chartService;
 
-        public H_LineChartsController(LineChartService lineChartService)
+        public H_ChartsController(ChartService chartService)
         {
-            _lineChartService = lineChartService;
+            _chartService = chartService;
         }
 
         /// <summary>
@@ -27,12 +27,12 @@ namespace CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/line-charts")]
-        [SwaggerResponse(200, Type = typeof(List<LineChart>))]
-        [SwaggerOperation(Tags = new[] { "Charts" }, OperationId = "LineCharts_GetAllLineCharts")]
-        public async Task<IActionResult> GetAllLineCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
+        [SwaggerResponse(200, Type = typeof(List<Chart>))]
+        [SwaggerOperation(Tags = new[] { "Charts" }, OperationId = "Charts_GetAllCharts")]
+        public async Task<IActionResult> GetAllCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Reponse
-            var response = await _lineChartService.GetAllLineCharts(currencyId, indicatorType, indicatorId, userId);
+            var response = await _chartService.GetAllCharts(currencyId, indicatorType, indicatorId, userId);
 
             // Return
             return Ok(response);

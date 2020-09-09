@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CesarBmx.Shared.Domain.Models;
+using CesarBmx.Shared.Domain.Entities;
 using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Domain.Models

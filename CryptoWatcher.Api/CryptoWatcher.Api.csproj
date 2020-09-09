@@ -30,6 +30,11 @@
       <LastGenOutput>TemplateController.txt</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
+    <None Update="Controllers\TemplateController.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TemplateController.tt</DependentUpon>
+    </None>
     <None Update="CryptoWatcher.Api.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

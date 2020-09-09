@@ -8,7 +8,7 @@
 <#@ import namespace="System.Reflection" #>
 <#@ import namespace="CesarBmx.Shared.Common.Helpers" #>
 <#@ import namespace="CesarBmx.Shared.Common.Extensions" #>
-<#@ import namespace="CesarBmx.Shared.Domain.Models" #>
+<#@ import namespace="CesarBmx.Shared.Domain.Entities" #>
 <#@ output extension=".txt" #>
 <#@ import namespace="System.Linq" #>
 <#

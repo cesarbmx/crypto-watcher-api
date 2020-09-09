@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CryptoWatcher.Api.ViewModels;
 using CryptoWatcher.Domain.Models;
 
 
@@ -7,35 +6,35 @@ namespace CryptoWatcher.Api.ViewModelBuilders
 {
     public static class ChartBuilder
     {
-        public static List<Chart> BuildCharts(List<Application.Responses.LineChart> lineChartsResponse)
+        public static List<ViewModels.Chart> BuildCharts(List<Application.Responses.Chart> chartsResponse)
         {
-            var charts = new List<Chart>();
-            foreach (var lineChartResponse in lineChartsResponse)
+            var charts = new List<ViewModels.Chart>();
+            foreach (var chartResponse in chartsResponse)
             {
-                var lineChart = new Chart
+                var chart = new ViewModels.Chart
                 {
-                    LineChartId = lineChartResponse.LineChartId,
-                    CurrencyName = lineChartResponse.CurrencyName,
-                    IndicatorName = lineChartResponse.IndicatorName,
-                    Rows = BuildRows(lineChartResponse.Rows)
+                    ChartId = chartResponse.ChartId,
+                    CurrencyName = chartResponse.CurrencyName,
+                    IndicatorName = chartResponse.IndicatorName,
+                    Rows = BuildRows(chartResponse.Rows)
                 };
-                charts.Add(lineChart);
+                charts.Add(chart);
             }
 
             // Return
             return charts;
         }
 
-        public static string BuildRows(List<LineChartRow> lineChartRows)
+        public static string BuildRows(List<ChartRow> chartRows)
         {
             // Rows
             var rows = string.Empty;
-            foreach (var lineChartRow in lineChartRows)
+            foreach (var chartRow in chartRows)
             {
-                var time = lineChartRow.Time;
-                var value = lineChartRow.Value.HasValue ? lineChartRow.Value.ToString() : "null";
-                var averagebuy = lineChartRow.AverageBuy.HasValue ? lineChartRow.AverageBuy.ToString() : "null";
-                var averageSell = lineChartRow.AverageSell.HasValue ? lineChartRow.AverageSell.ToString() : "null";
+                var time = chartRow.Time;
+                var value = chartRow.Value.HasValue ? chartRow.Value.ToString() : "null";
+                var averagebuy = chartRow.AverageBuy.HasValue ? chartRow.AverageBuy.ToString() : "null";
+                var averageSell = chartRow.AverageSell.HasValue ? chartRow.AverageSell.ToString() : "null";
   
                 var dateTime = $"new Date({time.Year},{time.Month:D2},{time.Day:D2},{time.Hour:D2},{time.Minute:D2})";
                 rows += ", " + $"[{dateTime}, {value}, {averagebuy}, {averageSell}]";

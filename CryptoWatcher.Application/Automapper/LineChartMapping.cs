@@ -3,11 +3,11 @@ using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Application.Automapper
 {
-    public class LineChartMapping : Profile
+    public class ChartMapping : Profile
     {
-        public LineChartMapping()
+        public ChartMapping()
         {
-            CreateMap<LineChart, Responses.LineChart>();
+            CreateMap<Chart, Responses.Chart>();
         }
     }
 }
