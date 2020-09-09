@@ -23,16 +23,16 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get all watchers
+        /// Get user watchers
         /// </summary>
         [HttpGet]
         [Route("api/users/{userId}/watchers")]
         [SwaggerResponse(200, Type = typeof(List<Watcher>))] 
-        [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetAllWatchers")]
-        public async Task<IActionResult> GetAllWatchers(string userId, string currencyId = null, string indicatorId = null)
+        [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetUserWatchers")]
+        public async Task<IActionResult> GetUserWatchers(string userId, string currencyId = null, string indicatorId = null)
         {
             // Reponse
-            var response = await _watcherService.GetAllWatchers(userId, currencyId, indicatorId);
+            var response = await _watcherService.GetUserWatchers(userId, currencyId, indicatorId);
 
             // Return
             return Ok(response);

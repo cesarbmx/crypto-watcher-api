@@ -1,23 +1,24 @@
 ﻿using System.Threading.Tasks;
 using CryptoWatcher.Domain.ModelBuilders;
 using CryptoWatcher.Domain.Models;
-using CesarBmx.Shared.Persistence.Repositories;
+using CryptoWatcher.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace CryptoWatcher.Application.Services
 {
     public class ScriptVariableSetService
     {
-        private readonly IRepository<Line> _lineRepository;
+        private readonly MainDbContext _mainDbContext;
 
-        public ScriptVariableSetService(IRepository<Line> lineRepository)
+        public ScriptVariableSetService(MainDbContext mainDbContext)
         {
-            _lineRepository = lineRepository;
+            _mainDbContext = mainDbContext;
         }
 
         public async Task<ScriptVariableSet> GetScriptVariableSet()
         {
             // Get all lines
-            var lines = await _lineRepository.GetAll();
+            var lines = await _mainDbContext.Lines.ToListAsync();
 
             // Response
             var response = ScriptVariableSetBuilder.BuildScriptVariableSet(lines);

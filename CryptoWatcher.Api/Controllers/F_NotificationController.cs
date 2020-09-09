@@ -23,16 +23,16 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get all notifications
+        /// Get user notifications
         /// </summary>
         [HttpGet]
         [Route("api/users/{userId}/notifications")]
         [SwaggerResponse(200, Type = typeof(List<Notification>))]
-        [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetAllNotifications")]
-        public async Task<IActionResult> GetAllNotifications(string userId)
+        [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetUserNotifications")]
+        public async Task<IActionResult> GetUserNotifications(string userId)
         {
             // Reponse
-            var response = await _notificationService.GetAllNotifications(userId);
+            var response = await _notificationService.GetUserNotifications(userId);
 
             // Return
             return Ok(response);

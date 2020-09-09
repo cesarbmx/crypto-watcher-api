@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
-using CryptoWatcher.Domain.Models;
-using CesarBmx.Shared.Persistence.Repositories;
+using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -21,42 +21,35 @@ namespace CryptoWatcher.Application.Services
 {
     public class NotificationService
     {
-        private readonly DbContext _dbContext;
-        private readonly IRepository<Notification> _notificationRepository;
-        private readonly IRepository<User> _userRepository;
+        private readonly MainDbContext _mainDbContext;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
         private readonly ILogger<NotificationService> _logger;
 
         public NotificationService(
-            DbContext dbContext,
-            IRepository<Notification> notificationRepository,
-            IRepository<User> userRepository,
+            MainDbContext mainDbContext,
             IMapper mapper,
             IConfiguration configuration,
             ILogger<NotificationService> logger)
         {
-            _dbContext = dbContext;
-            _notificationRepository = notificationRepository;
-            _userRepository = userRepository;
+            _mainDbContext = mainDbContext;
             _mapper = mapper;
             _configuration = configuration;
             _logger = logger;
         }
 
-        public async Task<List<Responses.Notification>> GetAllNotifications(string userId)
+        public async Task<List<Responses.Notification>> GetUserNotifications(string userId)
         {
             // Get user
-            var user = await _userRepository.GetSingle(userId);
+            var user = await _mainDbContext.Users
+                .Include(x=>x.Notifications)
+                .FirstOrDefaultAsync(x => x.UserId == userId);
 
             // Check if it exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
-            // Get all notifications
-            var notifications = await _notificationRepository.GetAll(NotificationExpression.NotificationFilter(userId));
-
             // Response
-            var response = _mapper.Map<List<Responses.Notification>>(notifications);
+            var response = _mapper.Map<List<Responses.Notification>>(user.Notifications);
 
             // Return
             return response;
@@ -65,7 +58,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<Responses.Notification> GetNotification(Guid notificationId)
         {
             // Get notification
-            var notification = await _notificationRepository.GetSingle(notificationId);
+            var notification = await _mainDbContext.Notifications.FindAsync(notificationId);
 
             // Throw NotFound if the currency does not exist
             if (notification == null) throw new NotFoundException(NotificationMessage.NotificationNotFound);
@@ -83,7 +76,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Get pending notifications
-            var pendingNotifications = await _notificationRepository.GetAll(NotificationExpression.PendingNotification());
+            var pendingNotifications = await _mainDbContext.Notifications.Where(NotificationExpression.PendingNotification()).ToListAsync();
 
             // If there are pending notifications
             if (pendingNotifications.Count == 0) return;
@@ -113,7 +106,7 @@ namespace CryptoWatcher.Application.Services
             }
 
             // Save
-            await _dbContext.SaveChangesAsync();
+            await _mainDbContext.SaveChangesAsync();
 
             // Stop watch
             stopwatch.Stop();
@@ -133,8 +126,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Get pending notifications
-            var pendingNotifications =
-                await _notificationRepository.GetAll(NotificationExpression.PendingNotification());
+            var pendingNotifications = await _mainDbContext.Notifications.Where(NotificationExpression.PendingNotification()).ToListAsync();
 
             // If there are pending notifications
             if (pendingNotifications.Count > 0)
@@ -170,7 +162,7 @@ namespace CryptoWatcher.Application.Services
                 }
 
                 // Save
-                await _dbContext.SaveChangesAsync();
+                await _mainDbContext.SaveChangesAsync();
 
                 // Stop watch
                 stopwatch.Stop();

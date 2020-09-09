@@ -6,7 +6,7 @@ using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Messages;
-using CesarBmx.Shared.Persistence.Repositories;
+using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -14,19 +14,16 @@ namespace CryptoWatcher.Application.Services
 {
     public class UserService
     {
-        private readonly DbContext _dbContext;
-        private readonly IRepository<Domain.Models.User> _userRepository;
+        private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UserService> _logger;
         private readonly IMapper _mapper;
 
         public UserService(
-            DbContext dbContext,
-            IRepository<Domain.Models.User> userRepository,
+            MainDbContext mainDbContext,
             ILogger<UserService> logger,
             IMapper mapper)
         {
-            _dbContext = dbContext;
-            _userRepository = userRepository;
+            _mainDbContext = mainDbContext;
             _logger = logger;
             _mapper = mapper;
         }
@@ -34,7 +31,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<List<Responses.User>> GetAllUsers()
         {
             // Get all users
-            var users = await _userRepository.GetAll();
+            var users = await _mainDbContext.Users.ToListAsync();
 
             // Response
             var response = _mapper.Map<List<Responses.User>>(users);
@@ -45,7 +42,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<Responses.User> GetUser(string userId)
         {
             // Get user
-            var user = await _userRepository.GetSingle(userId);
+            var user = await _mainDbContext.Users.FindAsync(userId);
 
             // Throw NotFound if it does not exist
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
@@ -59,7 +56,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<Responses.User> AddUser(AddUser request)
         {
             // Get user
-            var user = await _userRepository.GetSingle(request.UserId);
+            var user = await _mainDbContext.Users.FindAsync(request.UserId);
 
             // Check if it exists
             if (user != null) throw new ConflictException(UserMessage.UserAlreadyExists);
@@ -71,10 +68,10 @@ namespace CryptoWatcher.Application.Services
             user = new Domain.Models.User(request.UserId, time);
 
             // Add user
-            _userRepository.Add(user);
+            _mainDbContext.Users.Add(user);
 
             // Save
-            await _dbContext.SaveChangesAsync();
+            await _mainDbContext.SaveChangesAsync();
 
             // Log into Splunk
             _logger.LogSplunkInformation(request);

@@ -19,7 +19,7 @@ namespace CryptoWatcher.Persistence.Mappings
             // Relationships
             entityBuilder
                 .HasOne<User>()
-                .WithMany()
+                .WithMany(x=>x.Orders)
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 

@@ -45,18 +45,18 @@ namespace CryptoWatcher.Application.Services
 {
     public class <#=type.Name#>Service
     {
-        private readonly DbContext _dbContext;
+        private readonly MainDbContext _mainDbContext;
         private readonly IRepository<<#=type.Name#>> _<#=type.Name.ToReadable()#>Repository;
         private readonly ILogger<<#=type.Name#>Service> _logger;
         private readonly IMapper _mapper;
 
         public <#=type.Name#>Service(
-            DbContext dbContext,
+            MainDbContext mainDbContext,
             IRepository<<#=type.Name#>> <#=type.Name.ToReadable()#>Repository,
             ILogger<<#=type.Name#>Service> logger,
             IMapper mapper)
         {
-            _dbContext = dbContext;
+            _mainDbContext = mainDbContext;
             _<#=type.Name.ToReadable()#>Repository = <#=type.Name.ToReadable()#>Repository;
             _logger = logger;
             _mapper = mapper;

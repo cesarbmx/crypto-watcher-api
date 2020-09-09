@@ -23,7 +23,7 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get all orders
+        /// Get user orders
         /// </summary>
         [HttpGet]
         [Route("api/users/{userId}/orders")]
@@ -32,7 +32,7 @@ namespace CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetAllOrders(string userId)
         {
             // Reponse
-            var response = await _orderService.GetAllOrders(userId);
+            var response = await _orderService.GetUserOrders(userId);
 
             // Return
             return Ok(response);

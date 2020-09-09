@@ -10,7 +10,7 @@ namespace CryptoWatcher.Application.FakeRequests
         {
             return new AddIndicator
             {
-                IndicatorId = "RSI",
+                IndicatorId = "rsi",
                 UserId = "master",
                 IndicatorType = IndicatorType.CurrencyIndicator,
                 Name = "Relative Strength Index",

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
+﻿using CryptoWatcher.Persistence.Contexts;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CryptoWatcher.Api.Configuration
@@ -11,7 +11,7 @@ namespace CryptoWatcher.Api.Configuration
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var mainDbContext = serviceScope.ServiceProvider.GetService<DbContext>();
+                var mainDbContext = serviceScope.ServiceProvider.GetService<MainDbContext>();
                 //mainDbContext.Database.Migrate();
                 mainDbContext.Database.EnsureCreated();
                 mainDbContext.SaveChanges();

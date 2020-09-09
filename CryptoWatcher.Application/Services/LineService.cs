@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
-using CesarBmx.Shared.Persistence.Repositories;
 using CryptoWatcher.Domain.ModelBuilders;
 using CryptoWatcher.Domain.Types;
+using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -15,29 +16,23 @@ namespace CryptoWatcher.Application.Services
 {
     public class LineService
     {
-        private readonly DbContext _dbContext;
-        private readonly IRepository<Watcher> _watcherRepository;
-        private readonly IRepository<Line> _lineRepository;
+        private readonly MainDbContext _mainDbContext;
         private readonly ILogger<LineService> _logger;
         private readonly IMapper _mapper;
 
         public LineService(
-            DbContext dbContext,
-            IRepository<Watcher> watcherRepository,
-            IRepository<Line> lineRepository,
+            MainDbContext mainDbContext,
             ILogger<LineService> logger, 
             IMapper mapper)
         {
-            _dbContext = dbContext;
-            _watcherRepository = watcherRepository;
-            _lineRepository = lineRepository;
+            _mainDbContext = mainDbContext;
             _logger = logger;
             _mapper = mapper;
         }
         public async Task<List<Responses.Line>> GetAllLines(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Get all lines
-            var lines = await _lineRepository.GetAll(LineExpression.LineFilter(currencyId, indicatorType, indicatorId, userId));
+            var lines = await _mainDbContext.Lines.Where(LineExpression.LineFilter(currencyId, indicatorType, indicatorId, userId)).ToListAsync();
 
             // Response
             var response = _mapper.Map<List<Responses.Line>>(lines);
@@ -52,16 +47,16 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Get watchers willing to buy or sell
-            var watchers = await _watcherRepository.GetAll(WatcherExpression.WatcherWillingToBuyOrSell());
+            var watchers = await _mainDbContext.Watchers.Where(WatcherExpression.WatcherWillingToBuyOrSell()).ToListAsync();
 
             // Build new lines
             var lines = LineBuilder.BuildLines(currencies, indicators, watchers);
 
             // Set new lines
-            _lineRepository.AddRange(lines);
+            _mainDbContext.Lines.AddRange(lines);
 
             // Save
-            await _dbContext.SaveChangesAsync();
+            await _mainDbContext.SaveChangesAsync();
 
             // Stop watch
             stopwatch.Stop();
@@ -83,13 +78,13 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Get lines to be removed
-            var lines = await _lineRepository.GetAll(LineExpression.ObsoleteLine());
+            var lines = await _mainDbContext.Lines.Where(LineExpression.ObsoleteLine()).ToListAsync();
 
             // Remove
-            _lineRepository.RemoveRange(lines);
+            _mainDbContext.Lines.RemoveRange(lines);
 
             // Save
-            await _dbContext.SaveChangesAsync();
+            await _mainDbContext.SaveChangesAsync();
 
             // Stop watch
             stopwatch.Stop();

@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Logging.Extensions;
+using CesarBmx.Shared.Persistence.Extensions;
 using CryptoWatcher.Application.Messages;
-using CesarBmx.Shared.Persistence.Repositories;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -15,21 +16,18 @@ namespace CryptoWatcher.Application.Services
 {
     public class CurrencyService
     {
-        private readonly DbContext _dbContext;
-        private readonly IRepository<Currency> _currencyRepository;
+        private readonly MainDbContext _mainDbContext;
         private readonly IMapper _mapper;
         private readonly ILogger<CurrencyService> _logger;
         private readonly CoinpaprikaAPI.Client _coinpaprikaClient;
 
         public CurrencyService(
-            DbContext dbContext,
-            IRepository<Currency> currencyRepository,
+            MainDbContext mainDbContext,
             IMapper mapper,
             ILogger<CurrencyService> logger,
             CoinpaprikaAPI.Client coinpaprikaClient)
         {
-            _dbContext = dbContext;
-            _currencyRepository = currencyRepository;
+            _mainDbContext = mainDbContext;
             _mapper = mapper;
             _logger = logger;
             _coinpaprikaClient = coinpaprikaClient;
@@ -38,7 +36,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<List<Responses.Currency>> GetAllCurrencies()
         {
             // Get all currencies
-            var currencies = await _currencyRepository.GetAll();
+            var currencies = await _mainDbContext.Currencies.ToListAsync();
 
             // Response
             var response = _mapper.Map<List<Responses.Currency>>(currencies);
@@ -49,7 +47,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<Responses.Currency> GetCurrency(string currencyId)
         {
             // Get currency
-            var currency = await _currencyRepository.GetSingle(currencyId);
+            var currency = await _mainDbContext.Currencies.FindAsync(currencyId);
 
             // Throw NotFound if it does not exist
             if (currency == null) throw new NotFoundException(CurrencyMessage.CurrencyNotFound);
@@ -82,13 +80,13 @@ namespace CryptoWatcher.Application.Services
             var newCurrencies = _mapper.Map<List<Currency>>(tickers);
 
             // Get all currencies
-            var currencies = await _currencyRepository.GetAll();
+            var currencies = await _mainDbContext.Currencies.ToListAsync();
 
             // Update 
-            _currencyRepository.UpdateCollection(currencies, newCurrencies);
+            _mainDbContext.UpdateCollection(currencies, newCurrencies);
 
             // Save
-            await _dbContext.SaveChangesAsync();
+            await _mainDbContext.SaveChangesAsync();
 
             // Stop watch
             stopwatch.Stop();
