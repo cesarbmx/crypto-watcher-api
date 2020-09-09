@@ -10,7 +10,7 @@ namespace CryptoWatcher.Application.Validators
         {
             RuleFor(x => x.Dependencies)
                 .NotNull()
-                .WithMessage(nameof(IndicatorMessage.DepenedenciesMustBeProvided) + " " + IndicatorMessage.DepenedenciesMustBeProvided);
+                .WithMessage(nameof(IndicatorMessage.DependenciesMustBeProvided) + " " + IndicatorMessage.DependenciesMustBeProvided);
         }
     }
 }

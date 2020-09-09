@@ -212,7 +212,7 @@ namespace CryptoWatcher.Application.Services
                 var dependency = await _mainDbContext.Indicators.FirstOrDefaultAsync(IndicatorExpression.Indicator(dependencyId));
 
                 // Throw ValidationException if it does not exist
-                if (dependency == null) throw new ValidationException(string.Format(IndicatorMessage.DepenedencyNotFound, dependencyId));
+                if (dependency == null) throw new ValidationException(string.Format(IndicatorMessage.DependencyNotFound, dependencyId));
 
                 // Add
                 dependencies.Add(dependency);
