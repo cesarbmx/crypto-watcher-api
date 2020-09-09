@@ -9,7 +9,7 @@ namespace CryptoWatcher.Application.Validators
         public AddIndicatorValidator()
         {
             RuleFor(x => x.IndicatorId)
-                .Matches("^[a-z\\d-]+$")
+                .Matches("^[A-Z\\d-]+$")
                 .WithMessage(nameof(IndicatorMessage.IndicatorIdHasInvalidFormat) + " " + IndicatorMessage.IndicatorIdHasInvalidFormat);
 
             RuleFor(x => x.Dependencies)
