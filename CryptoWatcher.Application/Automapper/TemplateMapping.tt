@@ -7,7 +7,7 @@
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Reflection" #>
 <#@ import namespace="CesarBmx.Shared.Common.Helpers" #>
-<#@ import namespace="CesarBmx.Shared.Domain.Entities" #>
+<#@ import namespace="CesarBmx.Shared.Domain.Models" #>
 <#@ output extension=".txt" #>
 <#@ import namespace="System.Linq" #>
 <#
@@ -28,7 +28,7 @@ if(new[]
 #>
 using AutoMapper;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Entities;
+using CryptoWatcher.Domain.Models;
 
 namespace CryptoWatcher.Application.Automapper
 {

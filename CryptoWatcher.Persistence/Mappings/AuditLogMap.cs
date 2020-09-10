@@ -1,5 +1,5 @@
 ﻿using System;
-using CesarBmx.Shared.Domain.Entities;
+using CesarBmx.Shared.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;

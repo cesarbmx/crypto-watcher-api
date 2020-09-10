@@ -1,7 +1,5 @@
-﻿using CesarBmx.Shared.Api.Configuration;
-using CryptoWatcher.Application.Jobs;
+﻿using CryptoWatcher.Application.Jobs;
 using CryptoWatcher.Application.Services;
-using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,17 +35,6 @@ namespace CryptoWatcher.Service.Configuration
             services.AddScoped<LineService>();
             services.AddScoped<ChartService>();
             services.AddScoped<ScriptVariableSetService>();
-
-            // Repositories
-            services.AddRepository<Currency>();
-            services.AddRepository<Watcher>();
-            services.AddRepository<User>();
-            services.AddRepository<Notification>();
-            services.AddRepository<Order>();
-            services.AddRepository<Indicator>();
-            services.AddRepository<Line>();
-            services.AddRepository<IndicatorDependency>();
-            services.AddRepository<Line>();
 
             // Jobs
             services.AddScoped<MainJob>();
