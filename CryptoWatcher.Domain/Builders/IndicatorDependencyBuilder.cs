@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CryptoWatcher.Domain.Models;
 
 
-namespace CryptoWatcher.Domain.ModelBuilders
+namespace CryptoWatcher.Domain.Builders
 {
     public static class IndicatorDependencyBuilder
     {

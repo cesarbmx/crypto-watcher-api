@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using CryptoWatcher.Domain.ModelBuilders;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;

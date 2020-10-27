@@ -2,7 +2,7 @@
 using CryptoWatcher.Domain.Types;
 
 
-namespace CryptoWatcher.Domain.ModelBuilders
+namespace CryptoWatcher.Domain.Builders
 {
     public static class NotificationBuilder
     {

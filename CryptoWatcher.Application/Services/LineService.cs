@@ -6,7 +6,7 @@ using AutoMapper;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.ModelBuilders;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Types;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;

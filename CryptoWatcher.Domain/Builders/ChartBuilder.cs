@@ -3,7 +3,7 @@ using System.Linq;
 using CryptoWatcher.Domain.Models;
 
 
-namespace CryptoWatcher.Domain.ModelBuilders
+namespace CryptoWatcher.Domain.Builders
 {
     public static class ChartBuilder
     {

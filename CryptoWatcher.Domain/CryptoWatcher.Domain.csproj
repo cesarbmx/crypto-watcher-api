@@ -23,11 +23,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TemplateExpression.tt</DependentUpon>
     </None>
-    <None Update="ModelBuilders\TemplateBuilder.tt">
+    <None Update="Builders\TemplateBuilder.tt">
       <LastGenOutput>TemplateBuilder.txt</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
-    <None Update="ModelBuilders\TemplateBuilder.txt">
+    <None Update="Builders\TemplateBuilder.txt">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TemplateBuilder.tt</DependentUpon>

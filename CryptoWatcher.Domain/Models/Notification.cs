@@ -1,6 +1,6 @@
 ﻿using System;
 using CesarBmx.Shared.Domain.Models;
-using CryptoWatcher.Domain.ModelBuilders;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Types;
 
 

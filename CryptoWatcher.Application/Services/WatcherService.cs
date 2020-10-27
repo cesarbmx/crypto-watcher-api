@@ -8,7 +8,7 @@ using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Logging.Extensions;
  using CesarBmx.Shared.Persistence.Extensions;
  using CryptoWatcher.Application.Requests;
-using CryptoWatcher.Domain.ModelBuilders;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;

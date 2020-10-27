@@ -2,7 +2,7 @@
 
 
 
-namespace CryptoWatcher.Domain.ModelBuilders
+namespace CryptoWatcher.Domain.Builders
 {
     public static class CurrencyBuilder
     {    

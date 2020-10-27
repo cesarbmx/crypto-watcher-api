@@ -1,9 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CryptoWatcher.Domain.ModelBuilders;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Tests.Domain.FakeModels;
 
 
-namespace CryptoWatcher.Tests.Domain
+namespace CryptoWatcher.Tests.Domain.Builders
 {
     [TestClass]
     public class BuildDependencyLevel

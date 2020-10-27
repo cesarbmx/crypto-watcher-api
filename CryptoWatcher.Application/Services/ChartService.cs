@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using CryptoWatcher.Domain.ModelBuilders;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Types;
 using CryptoWatcher.Persistence.Contexts;

@@ -1,8 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CryptoWatcher.Domain.ModelBuilders;
+using CryptoWatcher.Domain.Builders;
 
 
-namespace CryptoWatcher.Tests.Domain
+namespace CryptoWatcher.Tests.Domain.Builders
 {
     [TestClass]
     public class BuildHypes

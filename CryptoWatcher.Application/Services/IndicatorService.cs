@@ -10,7 +10,7 @@ using CesarBmx.Shared.Persistence.Extensions;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
-using CryptoWatcher.Domain.ModelBuilders;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Types;
 using CryptoWatcher.Persistence.Contexts;
