@@ -75,14 +75,14 @@ namespace CryptoWatcher.Api
             // Swagger
             app.ConfigureSwagger(Configuration);
 
+            // Data migration
+            app.ConfigureDataMigration();
+
             // Hangfire
             app.ConfigureHangfire(Configuration, env);
 
             // Elmah
             app.ConfigureElmah(Configuration);
-
-            // Data migration
-            app.ConfigureDataMigration();
 
             // Mvc
             app.ConfigureMvc();
