@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Configurations>Debug</Configurations>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <RuntimeIdentifiers>win-x64;win-x86;linux-x64;</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>

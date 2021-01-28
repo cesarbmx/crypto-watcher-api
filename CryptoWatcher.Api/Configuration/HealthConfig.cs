@@ -11,8 +11,8 @@ namespace CryptoWatcher.Api.Configuration
         {
             services.ConfigureSharedHealth(configuration)
                 .AddHealthChecks();
-                // Add your health checks
-                //.AddMySql(configuration.GetConnectionString("MainDb"), "MySql connection");
+            // Add your health checks
+            //.AddMySql(configuration.GetConnectionString("MainDb"), "MySql connection");
 
             // Return
             return services;
