@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using CesarBmx.Shared.Persistence.Extensions;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,8 +33,10 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.IndicatorType)
-                .HasColumnType("smallint")
-                .IsRequired();        
+                .HasColumnType("varchar(50)")
+                .HasMaxLength(50)
+                .HasStringToEnumConversion()
+                .IsRequired();
 
             entityBuilder.Property(t => t.UserId)
                 .HasColumnType("nvarchar(50)")
