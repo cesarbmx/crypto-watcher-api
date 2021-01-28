@@ -22,13 +22,8 @@ namespace CryptoWatcher.Domain.Builders
                 // We skip default watchers
                 if(watcher.UserId == "master") continue;
 
-                // We add an order if there are no similar orders
+                // We add an order
                 var orderType = BuildOrderType(watcher.Status);
-                var userOrders = ongoingOrders.Where(OrderExpression.Order(
-                    watcher.UserId,
-                    watcher.CurrencyId,
-                    orderType).Compile()).ToList();                
-                if (userOrders.Count != 0) continue;
                 var order = new Order(watcher.UserId, orderType, watcher.CurrencyId, 100, now);
                 newOrders.Add(order);
             }

@@ -1,4 +1,4 @@
-﻿using CesarBmx.Shared.Api.Configuration;
+﻿using AutoMapper;
 using CryptoWatcher.Application.Automapper;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,8 +8,7 @@ namespace CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureAutomapper(this IServiceCollection services)
         {
-            // Shared
-            services.ConfigureSharedAutomapper(typeof(CurrencyMapping).Assembly);
+            services.AddAutoMapper(typeof(CurrencyMapping).Assembly);
 
             return services;
         }

@@ -9,12 +9,10 @@ namespace CryptoWatcher.Persistence.Mappings
         public static void Map(this EntityTypeBuilder<Notification> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.NotificationId)
-                .IsClustered(false);
+            entityBuilder.HasKey(t => t.NotificationId);
 
             // Indexes
-            entityBuilder.HasIndex(t => t.Time)
-                .IsClustered();
+            entityBuilder.HasIndex(t => t.Time);
 
             // Relationships
             entityBuilder

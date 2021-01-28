@@ -9,7 +9,6 @@ namespace CryptoWatcher.Persistence.Contexts
     public class MainDbContext : DbContext
     {
         public DbSet<Line> Lines { get; set; }
-        public DbSet<AuditLog> AuditLog { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Watcher> Watchers { get; set; }
         public DbSet<User> Users { get; set; }
@@ -27,7 +26,6 @@ namespace CryptoWatcher.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Line>().Map();
-            modelBuilder.Entity<AuditLog>().Map();
             modelBuilder.Entity<Currency>().Map();
             modelBuilder.Entity<Watcher>().Map();
             modelBuilder.Entity<User>().Map();

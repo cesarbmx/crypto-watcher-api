@@ -12,7 +12,7 @@
 <#@ output extension=".txt" #>
 <#@ import namespace="System.Linq" #>
 <#
-var types = FileHelper.GetTypes(typeof(IAuditableEntity),Assembly.LoadFrom(typeof(IAuditableEntity).Assembly.CodeBase.Replace("CesarBmx.Shared.Domain.dll","") +  "CryptoWatcher.Domain.dll"));
+var types = FileHelper.GetTypes(typeof(IEntity),Assembly.LoadFrom(typeof(IEntity).Assembly.CodeBase.Replace("CesarBmx.Shared.Domain.dll","") +  "CryptoWatcher.Domain.dll"));
 foreach (var type in types) {
 
     if(new[]

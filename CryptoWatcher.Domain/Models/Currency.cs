@@ -4,7 +4,7 @@ using CesarBmx.Shared.Domain.Models;
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Currency: IAuditableEntity
+    public class Currency: IEntity
     {
         public string Id => CurrencyId;
         public string CurrencyId { get; private set; }

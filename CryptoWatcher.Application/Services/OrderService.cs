@@ -43,7 +43,7 @@ namespace CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get all orders
-            var orders = await _mainDbContext.Orders.Where(OrderExpression.OrderFilter(userId)).ToListAsync();
+            var orders = await _mainDbContext.Orders.Where(OrderExpression.Filter(userId)).ToListAsync();
 
             // Response
             var response = _mapper.Map<List<Responses.Order>>(orders);
@@ -65,7 +65,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<List<Order>> UpdateOrders(List<Watcher> watchers)
+        public async Task<List<Order>> AddOrders(List<Watcher> watchers)
         {
             // Start watch
             var stopwatch = new Stopwatch();

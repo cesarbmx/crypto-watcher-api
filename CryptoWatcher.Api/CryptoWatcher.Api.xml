@@ -24,7 +24,7 @@
             Get user
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.AddUser(CryptoWatcher.Application.Requests.AddUserRequest)">
+        <member name="M:CryptoWatcher.Api.Controllers.B_UsersController.AddUser(CryptoWatcher.Application.Requests.AddUser)">
             <summary>
             Add user
             </summary>
@@ -39,19 +39,19 @@
             Get indicator
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorController.AddIndicator(CryptoWatcher.Application.Requests.AddIndicatorRequest)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorController.AddIndicator(CryptoWatcher.Application.Requests.AddIndicator)">
             <summary>
             Add indicator
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorController.UpdateIndicator(System.String,CryptoWatcher.Application.Requests.UpdateIndicatorRequest)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorController.UpdateIndicator(System.String,CryptoWatcher.Application.Requests.UpdateIndicator)">
             <summary>
             Update indicator
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.D_WatcherController.GetAllWatchers(System.String,System.String,System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.D_WatcherController.GetUserWatchers(System.String,System.String,System.String)">
             <summary>
-            Get all watchers
+            Get user watchers
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.D_WatcherController.GetWatcher(System.String)">
@@ -59,19 +59,19 @@
             Get watcher
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.D_WatcherController.AddWatcher(CryptoWatcher.Application.Requests.AddWatcherRequest)">
+        <member name="M:CryptoWatcher.Api.Controllers.D_WatcherController.AddWatcher(CryptoWatcher.Application.Requests.AddWatcher)">
             <summary>
             Add watcher
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.D_WatcherController.UpdateWatcher(System.String,CryptoWatcher.Application.Requests.UpdateWatcherRequest)">
+        <member name="M:CryptoWatcher.Api.Controllers.D_WatcherController.UpdateWatcher(System.String,CryptoWatcher.Application.Requests.UpdateWatcher)">
             <summary>
             Update watcher
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.E_OrderController.GetAllOrders(System.String)">
             <summary>
-            Get all orders
+            Get user orders
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.E_OrderController.GetOrder(System.Guid)">
@@ -79,9 +79,9 @@
             Get order
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.F_NotificationController.GetAllNotifications(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.F_NotificationController.GetUserNotifications(System.String)">
             <summary>
-            Get all notifications
+            Get user notifications
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.F_NotificationController.GetNotification(System.Guid)">

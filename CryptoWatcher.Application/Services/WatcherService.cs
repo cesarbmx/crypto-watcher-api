@@ -43,7 +43,7 @@ namespace CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Filter user watchers
-            var userWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.WatcherFilter(userId, currencyId, indicatorId)).ToListAsync();
+            var userWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.Filter(userId, currencyId, indicatorId)).ToListAsync();
 
             // Get all default watchers
             var defaultWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.DefaultWatcher(currencyId, indicatorId)).ToListAsync();
@@ -86,7 +86,7 @@ namespace CryptoWatcher.Application.Services
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Check if it exists
-            var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.Watcher(request.UserId, request.CurrencyId, request.IndicatorId));
+            var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.Unique(request.UserId, request.CurrencyId, request.IndicatorId));
 
             // Throw ConflictException if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);

@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.- Application", "2.- Appl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Application", "CryptoWatcher.Application\CryptoWatcher.Application.csproj", "{8D834433-08CF-4210-9689-3F900D659279}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.- Client", "1.- Client", "{8E1719A6-CEC6-4766-B07B-F2D4EDA91057}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.- Api", "1.- Api", "{8E1719A6-CEC6-4766-B07B-F2D4EDA91057}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoWatcher.Api", "CryptoWatcher.Api\CryptoWatcher.Api.csproj", "{429A8222-39DC-4D9A-B0BA-EE0893324CF4}"
 EndProject

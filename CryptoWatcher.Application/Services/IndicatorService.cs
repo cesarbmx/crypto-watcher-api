@@ -46,7 +46,7 @@ namespace CryptoWatcher.Application.Services
             // Get all indicators
             var indicators = await _mainDbContext.Indicators
                 .Include(x=>x.Dependencies)
-                .Where(IndicatorExpression.IndicatorFilter(indicatorType, null, userId)).ToListAsync();
+                .Where(IndicatorExpression.Filter(indicatorType, null, userId)).ToListAsync();
 
             // Response
             var response = _mapper.Map<List<Responses.Indicator>>(indicators);
@@ -83,7 +83,7 @@ namespace CryptoWatcher.Application.Services
             // Check uniqueness
             indicator = await _mainDbContext.Indicators
                 .Include(x => x.Dependencies)
-                .FirstOrDefaultAsync(IndicatorExpression.IndicatorUnique(request.Name));
+                .FirstOrDefaultAsync(IndicatorExpression.Unique(request.Name));
 
             // Throw ConflictException if it exists
             if (indicator != null) throw new ConflictException(IndicatorMessage.IndicatorWithSameNameAlreadyExists);
@@ -209,7 +209,7 @@ namespace CryptoWatcher.Application.Services
             foreach (var dependencyId in dependencyIds)
             {
                 // Get indicator
-                var dependency = await _mainDbContext.Indicators.FirstOrDefaultAsync(IndicatorExpression.Indicator(dependencyId));
+                var dependency = await _mainDbContext.Indicators.FindAsync(dependencyId);
 
                 // Throw ValidationException if it does not exist
                 if (dependency == null) throw new ValidationException(string.Format(IndicatorMessage.DependencyNotFound, dependencyId));

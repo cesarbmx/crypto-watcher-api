@@ -5,7 +5,7 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Indicator : IAuditableEntity
+    public class Indicator : IEntity
     {
         public string Id => IndicatorId;
         public string IndicatorId { get; private set; }

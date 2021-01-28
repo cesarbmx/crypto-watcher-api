@@ -25,13 +25,13 @@ namespace CryptoWatcher.Application.Services
         public async Task<List<Responses.Chart>> GetAllCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Get all currencies
-            var currencies = await _mainDbContext.Currencies.Where(CurrencyExpression.CurrencyFilter(currencyId)).ToListAsync();
+            var currencies = await _mainDbContext.Currencies.Where(CurrencyExpression.Filter(currencyId)).ToListAsync();
 
             // Get all indicators
-            var indicators = await _mainDbContext.Indicators.Where(IndicatorExpression.IndicatorFilter(indicatorType, indicatorId, userId)).ToListAsync();
+            var indicators = await _mainDbContext.Indicators.Where(IndicatorExpression.Filter(indicatorType, indicatorId, userId)).ToListAsync();
 
             // Get all lines
-            var lines = await _mainDbContext.Lines.Where(LineExpression.LineFilter(currencyId, indicatorType, indicatorId, userId)).ToListAsync();
+            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(currencyId, indicatorType, indicatorId, userId)).ToListAsync();
 
             // Build
             var charts = ChartBuilder.BuildCharts(currencies, indicators, lines);

@@ -7,12 +7,6 @@ namespace CryptoWatcher.Domain.Expressions
 {
     public static class LineExpression
     {
-        public static Expression<Func<Line, bool>> Line(DateTime time, string currencyId, string indicatorId)
-        {
-            return x => x.Time == time &&
-                        x.CurrencyId == currencyId &&
-                        x.IndicatorId == indicatorId;
-        }
         public static Expression<Func<Line, bool>> CurrentLine(DateTime time)
         {
             return x => x.Time == time;
@@ -21,7 +15,7 @@ namespace CryptoWatcher.Domain.Expressions
         {
             return x => x.Time < DateTime.Now.AddDays(-7);
         }
-        public static Expression<Func<Line, bool>> LineFilter(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
+        public static Expression<Func<Line, bool>> Filter(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             return x => (string.IsNullOrEmpty(currencyId) || x.CurrencyId == currencyId) &&
                         (!indicatorType.HasValue || x.IndicatorType == indicatorType) &&

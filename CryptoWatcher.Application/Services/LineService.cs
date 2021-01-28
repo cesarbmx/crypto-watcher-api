@@ -32,7 +32,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<List<Responses.Line>> GetAllLines(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
         {
             // Get all lines
-            var lines = await _mainDbContext.Lines.Where(LineExpression.LineFilter(currencyId, indicatorType, indicatorId, userId)).ToListAsync();
+            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(currencyId, indicatorType, indicatorId, userId)).ToListAsync();
 
             // Response
             var response = _mapper.Map<List<Responses.Line>>(lines);
@@ -40,7 +40,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<List<Line>> UpdateLines(List<Currency> currencies, List<Indicator> indicators)
+        public async Task<List<Line>> AddLines(List<Currency> currencies, List<Indicator> indicators)
         {
             // Start watch
             var stopwatch = new Stopwatch();
