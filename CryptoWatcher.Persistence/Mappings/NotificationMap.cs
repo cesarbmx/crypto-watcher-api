@@ -36,7 +36,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();
-
+            
             entityBuilder.Property(t => t.Message)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(200)

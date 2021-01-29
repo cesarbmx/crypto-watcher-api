@@ -74,11 +74,8 @@ namespace CryptoWatcher.Application.Services
             // Grab watchers willing to buy or sell
             watchers = watchers.Where(WatcherExpression.WatcherWillingToBuyOrSell().Compile()).ToList();
 
-            // Get all orders
-            var orders = await _mainDbContext.Orders.ToListAsync();
-
             // Build new orders
-            var newOrders = OrderBuilder.BuildNewOrders(watchers, orders);
+            var newOrders = OrderBuilder.BuildNewOrders(watchers);
 
             // Add
             _mainDbContext.Orders.AddRange(newOrders);
@@ -90,7 +87,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation("UpdateOrders", new
+            _logger.LogSplunkInformation("AddOrders", new
             {
                 newOrders.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds

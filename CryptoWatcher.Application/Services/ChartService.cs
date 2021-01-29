@@ -33,7 +33,7 @@ namespace CryptoWatcher.Application.Services
             // Get all lines
             var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(currencyId, indicatorType, indicatorId, userId)).ToListAsync();
 
-            // Build
+            // Build charts
             var charts = ChartBuilder.BuildCharts(currencies, indicators, lines);
 
             // Response

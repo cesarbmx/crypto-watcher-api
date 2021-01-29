@@ -6,6 +6,7 @@ using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Messages;
+using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -62,10 +63,10 @@ namespace CryptoWatcher.Application.Services
             if (user != null) throw new ConflictException(UserMessage.UserAlreadyExists);
 
             // Time
-            var time = DateTime.Now;
+            var now = DateTime.UtcNow;
 
             // Create
-            user = new Domain.Models.User(request.UserId, time);
+            user = new Domain.Models.User(request.UserId, request.PhoneNumber, now);
 
             // Add user
             _mainDbContext.Users.Add(user);

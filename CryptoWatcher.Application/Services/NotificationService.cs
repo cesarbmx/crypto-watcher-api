@@ -8,6 +8,8 @@ using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
+using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -54,7 +56,6 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-
         public async Task<Responses.Notification> GetNotification(Guid notificationId)
         {
             // Get notification
@@ -68,6 +69,50 @@ namespace CryptoWatcher.Application.Services
 
             // Return
             return response;
+        }
+
+        public async Task AddOrderNotifications(List<Order> orders)
+        {
+            // Start watch
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Now
+            var now = DateTime.UtcNow;
+
+            // Create notifications
+            var notifications = new List<Notification>();
+
+            foreach (var order in orders)
+            {
+                // Get user
+                var user = await _mainDbContext.Users.FindAsync(order.UserId);
+
+                // Create message
+                var message = string.Empty;
+
+                // Create notification
+                var notification = new Notification(user.UserId, user.PhoneNumber, message, now);
+
+                // Add notification
+                notifications.Add(notification);
+            }
+
+            // Add notifications
+            await _mainDbContext.Notifications.AddRangeAsync(notifications);
+
+            // Save
+            await _mainDbContext.SaveChangesAsync();
+
+            // Stop watch
+            stopwatch.Stop();
+
+            // Log into Splunk
+            _logger.LogSplunkInformation("AddOrderNotifications", new
+            {
+                notifications.Count,
+                ExecutionTime = stopwatch.Elapsed.TotalSeconds
+            });
         }
         public async Task SendTelegramNotifications()
         {
@@ -92,7 +137,7 @@ namespace CryptoWatcher.Application.Services
             {
                 try
                 {
-                    // Send whatsapp
+                    // Send WhatsApp
                     await bot.SendTextMessageAsync("@crypto_watcher_official", pendingNotification.Message);
                     pendingNotification.MarkAsSent();
                     count++;

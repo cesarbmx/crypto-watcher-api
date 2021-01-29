@@ -46,7 +46,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponse(200, Type = typeof(Watcher))]
         [SwaggerResponse(404, Type = typeof(Error))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetWatcher")]
-        public async Task<IActionResult> GetWatcher(string watcherId)
+        public async Task<IActionResult> GetWatcher(int watcherId)
         {
             // Reponse
             var response = await _watcherService.GetWatcher(watcherId);

@@ -202,7 +202,6 @@ namespace CryptoWatcher.Application.Services
             // Return
             return indicators;
         }
-
         private async Task<List<Indicator>> GetDependencies(string[] dependencyIds)
         {
             var dependencies = new List<Indicator>();

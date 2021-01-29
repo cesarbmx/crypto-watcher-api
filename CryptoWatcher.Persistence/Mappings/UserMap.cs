@@ -18,14 +18,19 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Time)
+            entityBuilder.Property(t => t.PhoneNumber)
+                .HasColumnType("nvarchar(50)")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entityBuilder.Property(t => t.CreatedAt)
                 .HasColumnType("datetime2")
                 .IsRequired();
 
             // Data seeding
             var time = DateTime.Now;
             entityBuilder.HasData(
-                new User("master", time)
+                new User("master", "+34 666868686", time)
             );
         }
     }

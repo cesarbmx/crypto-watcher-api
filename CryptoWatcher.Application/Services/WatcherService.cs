@@ -57,7 +57,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<Responses.Watcher> GetWatcher(string watcherId)
+        public async Task<Responses.Watcher> GetWatcher(int watcherId)
         {
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FindAsync(watcherId);

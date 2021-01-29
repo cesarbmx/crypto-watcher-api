@@ -10,7 +10,7 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class OrderBuilder
     {
-        public static List<Order> BuildNewOrders(List<Watcher> watchers, List<Order> ongoingOrders)
+        public static List<Order> BuildNewOrders(List<Watcher> watchers)
         {
             // Now
             var now = DateTime.Now;
