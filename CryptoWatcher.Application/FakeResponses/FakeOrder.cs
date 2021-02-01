@@ -12,10 +12,10 @@ namespace CryptoWatcher.Application.FakeResponses
             return new Order
             {
                 OrderId = Guid.NewGuid(),
-                OrderType = OrderType.BuyLimit,
+                OrderType = OrderType.BUY_LIMIT,
                 UserId = "master",
                 CurrencyId = "bitcoin",
-                OrderStatus = OrderStatus.Pending,
+                OrderStatus = OrderStatus.PENDING,
                 Quantity = 100
             };
         }
@@ -24,10 +24,10 @@ namespace CryptoWatcher.Application.FakeResponses
             return new Order
             {
                 OrderId = Guid.NewGuid(),
-                OrderType = OrderType.BuyLimit,
+                OrderType = OrderType.BUY_LIMIT,
                 UserId = "master",
                 CurrencyId = "eos",
-                OrderStatus = OrderStatus.Pending,
+                OrderStatus = OrderStatus.PENDING,
                 Quantity = 100
             };
         }

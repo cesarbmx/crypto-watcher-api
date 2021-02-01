@@ -24,7 +24,7 @@ namespace CryptoWatcher.Domain.Models
             CurrencyId = currencyId;
             UserId = userId;
             Quantity = quantity;
-            OrderStatus = OrderStatus.Pending;
+            OrderStatus = OrderStatus.PENDING;
             NotificationProcessedAt =null;
             Time = time;
         }

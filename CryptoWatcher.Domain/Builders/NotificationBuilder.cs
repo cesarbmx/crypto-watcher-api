@@ -11,10 +11,10 @@ namespace CryptoWatcher.Domain.Builders
         public static NotificationStatus BuildNotificationStatus(DateTime? sentTime)
         {
             // If sent already, Notified
-            if (sentTime.HasValue) return NotificationStatus.Notified;
+            if (sentTime.HasValue) return NotificationStatus.NOTIFIED;
 
             // If not sent yet, Pending
-            return NotificationStatus.Pending;
+            return NotificationStatus.PENDING;
         }
     }
 }

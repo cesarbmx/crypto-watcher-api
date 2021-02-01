@@ -35,10 +35,10 @@ namespace CryptoWatcher.Domain.Builders
         {
             switch (watcherStatus)
             {
-                case WatcherStatus.Buy:
-                    return OrderType.BuyLimit;
-                case WatcherStatus.Sell:
-                    return OrderType.SellMarket;
+                case WatcherStatus.BUY:
+                    return OrderType.BUY_LIMIT;
+                case WatcherStatus.SELL:
+                    return OrderType.SELL_LIMIT;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(watcherStatus), watcherStatus, null);
             }

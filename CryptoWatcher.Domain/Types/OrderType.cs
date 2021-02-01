@@ -4,9 +4,9 @@ namespace CryptoWatcher.Domain.Types
 {
     public enum OrderType
     {
-        BuyLimit,
-        SellLimit,
-        BuyMarket,
-        SellMarket
+        BUY_LIMIT,
+        SELL_LIMIT,
+        BUY_MARKET,
+        SELL_MARKET
     }
 }

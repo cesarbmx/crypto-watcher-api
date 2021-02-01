@@ -19,7 +19,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 Sell = 8,
                 AverageBuy = 0,
                 AverageSell = 0,
-                Status = WatcherStatus.Buy,
+                Status = WatcherStatus.BUY,
                 Enabled = false
             };
         }
@@ -36,7 +36,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 Sell = 8,
                 AverageBuy = 0,
                 AverageSell = 0,
-                Status = WatcherStatus.Sell,
+                Status = WatcherStatus.SELL,
                 Enabled = false
             };
         }
