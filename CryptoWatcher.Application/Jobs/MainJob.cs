@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Application.Services;
@@ -38,28 +39,42 @@ namespace CryptoWatcher.Application.Jobs
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
         public async Task Run()
         {
-            // Start watch
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            // Run
-           var currencies =  await _currencyService.UpdateCurrencies();
-           var indicators = await _indicatorService.UpdateIndicatorDependencies();
-           var lines =  await _lineService.AddLines(currencies, indicators);
-           var defaultWatchers = await _watcherService.UpdateDefaultWatchers(lines);
-           var watchers = await _watcherService.UpdateWatchers(defaultWatchers, lines);
-           var orders = await _orderService.AddOrders(watchers); 
-           await _notificationService.AddOrderNotifications(orders);
-           await _notificationService.SendTelegramNotifications();
-
-           // Stop watch
-            stopwatch.Stop();
-
-            // Log into Splunk
-            _logger.LogSplunkInformation("Main", new
+            try
             {
-                ExecutionTime = stopwatch.Elapsed.TotalSeconds
-            });
+                // Start watch
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
+
+                // Run
+                var currencies = await _currencyService.UpdateCurrencies();
+                var indicators = await _indicatorService.UpdateIndicatorDependencies();
+                var lines = await _lineService.AddLines(currencies, indicators);
+                var defaultWatchers = await _watcherService.UpdateDefaultWatchers(lines);
+                var watchers = await _watcherService.UpdateWatchers(defaultWatchers);
+                var orders = await _orderService.AddOrders(watchers);
+                await _notificationService.AddOrderNotifications(orders);
+                await _notificationService.SendTelegramNotifications();
+
+                // Stop watch
+                stopwatch.Stop();
+
+                // Log into Splunk
+                _logger.LogSplunkInformation("Main", new
+                {
+                    ExecutionTime = stopwatch.Elapsed.TotalSeconds
+                });
+            }
+            catch (Exception ex)
+            {
+                // Log into Splunk
+                _logger.LogSplunkInformation("Main", new
+                {
+                    Failed = ex.Message
+                });
+
+                // Log error into Splunk
+                _logger.LogSplunkError(ex);
+            }
         }
     }
 }

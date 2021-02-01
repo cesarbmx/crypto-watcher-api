@@ -147,7 +147,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<List<Watcher>> UpdateWatchers(List<Watcher> defaultWatchers, List<Line> lines)
+        public async Task<List<Watcher>> UpdateWatchers(List<Watcher> defaultWatchers)
         {
             // Start watch
             var stopwatch = new Stopwatch();
