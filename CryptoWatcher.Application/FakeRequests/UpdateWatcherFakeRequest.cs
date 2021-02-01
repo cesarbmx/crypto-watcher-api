@@ -10,7 +10,7 @@ namespace CryptoWatcher.Application.FakeRequests
         {
             return new UpdateWatcher
             {
-                WatcherId = "master_bitcoin_rsi",             
+                WatcherId = 1,             
                 Buy = 15,
                 Sell = 8,
                 Enabled = true

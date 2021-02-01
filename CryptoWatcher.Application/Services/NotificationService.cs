@@ -89,7 +89,7 @@ namespace CryptoWatcher.Application.Services
                 var user = await _mainDbContext.Users.FindAsync(order.UserId);
 
                 // Create message
-                var message = string.Empty;
+                var message = "TODO";
 
                 // Create notification
                 var notification = new Notification(user.UserId, user.PhoneNumber, message, now);

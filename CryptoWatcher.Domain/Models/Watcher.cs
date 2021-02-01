@@ -8,7 +8,7 @@ namespace CryptoWatcher.Domain.Models
 {
     public class Watcher : IEntity
     {
-        public string Id => WatcherId.ToString();
+        public string Id => UserId + "_" + CurrencyId + "_" + IndicatorId;
         public int WatcherId { get; private set; }
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
@@ -29,7 +29,7 @@ namespace CryptoWatcher.Domain.Models
             string userId,
             string currencyId,
             string indicatorId,
-            IndicatorType indicatortype,
+            IndicatorType indicatorType,
             decimal? value,
             decimal? buy,
             decimal? sell,
@@ -42,7 +42,7 @@ namespace CryptoWatcher.Domain.Models
             UserId = userId;
             CurrencyId = currencyId;
             IndicatorId = indicatorId;
-            IndicatorType = indicatortype;
+            IndicatorType = indicatorType;
             Value = value;
             Buy = buy;
             Sell = sell;

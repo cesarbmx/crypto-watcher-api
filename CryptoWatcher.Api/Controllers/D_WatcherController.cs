@@ -85,7 +85,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponse(409, Type = typeof(Error))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_UpdateWatcher")]
-        public async Task<IActionResult> UpdateWatcher(string watcherId, [FromBody]UpdateWatcher request)
+        public async Task<IActionResult> UpdateWatcher(int watcherId, [FromBody]UpdateWatcher request)
         {
             // Reponse
             request.WatcherId = watcherId;
