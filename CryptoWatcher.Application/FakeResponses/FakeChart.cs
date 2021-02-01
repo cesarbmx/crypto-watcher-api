@@ -13,7 +13,6 @@ namespace CryptoWatcher.Application.FakeResponses
             return new Responses.Chart
             {
                 ChartId = "bitcoin-price",
-                IndicatorType = IndicatorType.CurrencyIndicator,
                 CurrencyId = "bitcoin",
                 CurrencyName = "Bitcoin",
                 IndicatorId = "price",
@@ -28,7 +27,6 @@ namespace CryptoWatcher.Application.FakeResponses
             return new Responses.Chart
             {
                 ChartId = "eos-price",
-                IndicatorType = IndicatorType.CurrencyIndicator,
                 CurrencyId = "eos",
                 CurrencyName = "EOS",
                 IndicatorId = "price",

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CryptoWatcher.Application.Responses;
-using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.FakeResponses
 {
@@ -11,28 +10,26 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new Line
             {
+                Time = DateTime.Now.AddHours(-1),
+                UserId = "master",
                 CurrencyId = "bitcoin",
                 IndicatorId = "price",
-                IndicatorType = IndicatorType.CurrencyIndicator,
-                UserId = "master",
                 Value = 1.5m,
                 AverageBuy = 15,
-                AverageSell = 8,
-                Time = DateTime.Now.AddHours(-1)
+                AverageSell = 8
             };
         }
         public static Line GetFake_Bitcoin_RSI()
         {
             return new Line
             {
+                Time = DateTime.Now,
+                UserId = "master",
                 CurrencyId = "bitcoin",
                 IndicatorId = "rsi",
-                IndicatorType = IndicatorType.CurrencyIndicator,
-                UserId = "master",
                 Value = 1.5m,
                 AverageBuy = 9,
-                AverageSell = 6,
-                Time = DateTime.Now
+                AverageSell = 6
             };
         }
         public static List<Line> GetFake_List()

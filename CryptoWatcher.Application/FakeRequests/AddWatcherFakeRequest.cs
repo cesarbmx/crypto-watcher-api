@@ -1,5 +1,4 @@
 ﻿using CryptoWatcher.Application.Requests;
-using CryptoWatcher.Domain.Types;
 
 
 namespace CryptoWatcher.Application.FakeRequests
@@ -11,7 +10,6 @@ namespace CryptoWatcher.Application.FakeRequests
             return new AddWatcher
             {
                 UserId = "master",
-                IndicatorType = IndicatorType.CurrencyIndicator,
                 IndicatorId = "rsi",
                 CurrencyId = "bitcoin",
                 Buy = 8m,

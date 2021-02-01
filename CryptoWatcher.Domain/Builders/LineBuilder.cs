@@ -35,7 +35,7 @@ namespace CryptoWatcher.Domain.Builders
                     }
 
                     // Add
-                    var line = new Line(currency.CurrencyId, indicator.IndicatorId, indicator.IndicatorType, indicator.UserId, value, averageBuy, averageSell, time);
+                    var line = new Line(time, indicator.UserId, currency.CurrencyId, indicator.IndicatorId, value, averageBuy, averageSell);
                     lines.Add(line);
                 }
             }

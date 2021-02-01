@@ -60,7 +60,7 @@ namespace CryptoWatcher.Application.Services
         public async Task<Responses.Watcher> GetWatcher(int watcherId)
         {
             // Get watcher
-            var watcher = await _mainDbContext.Watchers.FindAsync(watcherId);
+            var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(x=>x.WatcherId == watcherId);
 
             // Throw NotFound if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
@@ -99,7 +99,6 @@ namespace CryptoWatcher.Application.Services
                 request.UserId,
                 request.CurrencyId,
                 request.IndicatorId,
-                request.IndicatorType,
                 defaultWatcher?.Value,
                 request.Buy,
                 request.Sell,

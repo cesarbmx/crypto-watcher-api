@@ -35,7 +35,7 @@ namespace CryptoWatcher.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Responses.Indicator>> GetAllIndicators(string userId, IndicatorType indicatorType)
+        public async Task<List<Responses.Indicator>> GetAllIndicators(string userId)
         {
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
@@ -46,7 +46,7 @@ namespace CryptoWatcher.Application.Services
             // Get all indicators
             var indicators = await _mainDbContext.Indicators
                 .Include(x=>x.Dependencies)
-                .Where(IndicatorExpression.Filter(indicatorType, null, userId)).ToListAsync();
+                .Where(IndicatorExpression.Filter(null, userId)).ToListAsync();
 
             // Response
             var response = _mapper.Map<List<Responses.Indicator>>(indicators);
@@ -100,7 +100,6 @@ namespace CryptoWatcher.Application.Services
             // Create
             indicator = new Indicator(
                 request.IndicatorId,
-                request.IndicatorType,
                 request.UserId,
                 request.Name,
                 request.Description,

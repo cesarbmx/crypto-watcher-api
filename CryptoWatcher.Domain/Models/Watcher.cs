@@ -6,14 +6,15 @@ using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Watcher : IEntity
+    public class Watcher : IEntity<Watcher>
+
     {
         public string Id => UserId + "_" + CurrencyId + "_" + IndicatorId;
+
         public int WatcherId { get; private set; }
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
-        public IndicatorType IndicatorType { get; private set; }
         public decimal? Value { get; private set; }
         public decimal? Buy { get; private set; }
         public decimal? Sell { get; private set; }
@@ -24,12 +25,14 @@ namespace CryptoWatcher.Domain.Models
 
         public WatcherStatus Status => WatcherBuilder.BuildStatus(Value, Buy, Sell);
 
-        public Watcher() { }
+        public Watcher()
+        {
+        }
+
         public Watcher(
             string userId,
             string currencyId,
             string indicatorId,
-            IndicatorType indicatorType,
             decimal? value,
             decimal? buy,
             decimal? sell,
@@ -42,7 +45,6 @@ namespace CryptoWatcher.Domain.Models
             UserId = userId;
             CurrencyId = currencyId;
             IndicatorId = indicatorId;
-            IndicatorType = indicatorType;
             Value = value;
             Buy = buy;
             Sell = sell;
@@ -52,6 +54,12 @@ namespace CryptoWatcher.Domain.Models
             Time = time;
         }
 
+        public Watcher Update(Watcher watcher)
+        {
+            Value = watcher.Value;
+
+            return this;
+        }
         public Watcher Update(decimal buy, decimal sell, bool enabled)
         {
             Buy = buy;

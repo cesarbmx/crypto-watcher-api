@@ -20,7 +20,7 @@ namespace CryptoWatcher.Domain.Builders
             foreach (var watcher in watchers)
             {
                 // We skip default watchers
-                if(watcher.UserId == "master") continue;
+                //if(watcher.UserId == "master") continue;
 
                 // We add an order
                 var orderType = BuildOrderType(watcher.Status);

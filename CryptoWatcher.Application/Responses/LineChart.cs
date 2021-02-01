@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Types;
 
 
 namespace CryptoWatcher.Application.Responses
@@ -8,7 +7,6 @@ namespace CryptoWatcher.Application.Responses
     public class Chart
     {
         public string ChartId { get; set; }
-        public IndicatorType IndicatorType { get; set; }
         public string CurrencyId { get; set; }
         public string CurrencyName { get; set; }
         public string IndicatorId { get; set; }

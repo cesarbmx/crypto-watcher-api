@@ -10,11 +10,12 @@ namespace CryptoWatcher.Persistence.Mappings
         public static void Map(this EntityTypeBuilder<Watcher> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.WatcherId)
+            entityBuilder.HasKey(t => t.WatcherId )
                 .IsClustered(false);
 
             // Indexes
-            entityBuilder.HasIndex(t => new { t.UserId, t.IndicatorType, t.CurrencyId, t.IndicatorId })
+            entityBuilder.HasIndex(t => new { t.UserId, t.CurrencyId, t.IndicatorId })
+                .IsUnique()
                 .IsClustered();
 
             // Relationships
@@ -43,12 +44,6 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.IndicatorId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
-                .IsRequired();
-
-            entityBuilder.Property(t => t.IndicatorType)
-                .HasColumnType("varchar(50)")
-                .HasMaxLength(50)
-                .HasStringToEnumConversion()
                 .IsRequired();
 
             entityBuilder.Property(t => t.Value)

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using CesarBmx.Shared.Domain.Models;
 
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class User : IEntity
+    public class User
     {
-        public string Id => UserId;
         public string UserId { get; private set; }
         public string PhoneNumber { get; private set; }
         public DateTime CreatedAt { get; private set; }

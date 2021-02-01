@@ -1,5 +1,4 @@
-﻿using CesarBmx.Shared.Persistence.Extensions;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,18 +9,24 @@ namespace CryptoWatcher.Persistence.Mappings
         public static void Map(this EntityTypeBuilder<Line> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.LineId).
-                IsClustered(false);
+            entityBuilder.HasKey(t => new { t.Time, t.UserId, t.CurrencyId, t.IndicatorId });
 
             // Indexes
-            entityBuilder.HasIndex(t => new { t.Time, t.IndicatorType, t.CurrencyId, t.IndicatorId, t.UserId})
-                .IsClustered();
+            entityBuilder.HasIndex(t => t.Time);
+            entityBuilder.HasIndex(t => t.UserId);
+            entityBuilder.HasIndex(t => t.CurrencyId);
+            entityBuilder.HasIndex(t => t.IndicatorId);
 
             // Properties
-            entityBuilder.Property(t => t.LineId)
-                .HasColumnType("uniqueidentifier")
+            entityBuilder.Property(t => t.Time)
+                .HasColumnType("datetime2")
                 .IsRequired();
 
+            entityBuilder.Property(t => t.UserId)
+                .HasColumnType("nvarchar(50)")
+                .HasMaxLength(50)
+                .IsRequired();
+            
             entityBuilder.Property(t => t.CurrencyId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
@@ -31,18 +36,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();
-
-            entityBuilder.Property(t => t.IndicatorType)
-                .HasColumnType("varchar(50)")
-                .HasMaxLength(50)
-                .HasStringToEnumConversion()
-                .IsRequired();
-
-            entityBuilder.Property(t => t.UserId)
-                .HasColumnType("nvarchar(50)")
-                .HasMaxLength(50)
-                .IsRequired();
-
+            
             entityBuilder.Property(t => t.Value)
                 .HasColumnType("decimal(18,2)");
 
@@ -51,10 +45,6 @@ namespace CryptoWatcher.Persistence.Mappings
 
             entityBuilder.Property(t => t.AverageSell)
                 .HasColumnType("decimal(18,2)");
-
-            entityBuilder.Property(t => t.Time)
-                .HasColumnType("datetime2")
-                .IsRequired();
         }
     }
 }

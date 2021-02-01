@@ -30,10 +30,10 @@ namespace CryptoWatcher.Api.Controllers
         [Route("api/users/{userId}/indicators")]
         [SwaggerResponse(200, Type = typeof(List<Indicator>))]  
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetAllIndicators")]
-        public async Task<IActionResult> GetAllIndicators(string userId, IndicatorType indicatorType)
+        public async Task<IActionResult> GetAllIndicators(string userId)
         {
             // Reponse
-            var response = await _indicatorService.GetAllIndicators(userId, indicatorType);
+            var response = await _indicatorService.GetAllIndicators(userId);
 
             // Return
             return Ok(response);

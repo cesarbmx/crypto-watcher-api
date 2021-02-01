@@ -61,8 +61,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.NotificationProcessedAt)
-                .HasColumnType("datetime2")
-                .IsRequired();
+                .HasColumnType("datetime2");
 
             entityBuilder.Property(t => t.Time)
                 .HasColumnType("datetime2")

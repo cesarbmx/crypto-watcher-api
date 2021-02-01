@@ -4,9 +4,10 @@ using CesarBmx.Shared.Domain.Models;
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Currency: IEntity
+    public class Currency: IEntity<Currency>
     {
         public string Id => CurrencyId;
+
         public string CurrencyId { get; private set; }
         public string Symbol { get; private set; }
         public string Name { get; private set; }
@@ -38,6 +39,18 @@ namespace CryptoWatcher.Domain.Models
             MarketCap = marketCap;
             PercentageChange24H = percentageChange24H;
             Time = time;
+        }
+
+        public Currency Update(Currency currency)
+        {
+            Rank = currency.Rank;
+            Price = currency.Price;
+            MarketCap = currency.MarketCap;
+            Volume24H = currency.Volume24H;
+            PercentageChange24H = currency.PercentageChange24H;
+            Time = currency.Time;
+
+            return this;
         }
     }
 }

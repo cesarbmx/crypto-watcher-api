@@ -4,9 +4,10 @@ using CesarBmx.Shared.Domain.Models;
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class IndicatorDependency: IEntity
+    public class IndicatorDependency: IEntity<IndicatorDependency>
     {
         public string Id => IndicatorId + "_" + DependencyId;
+
         public string IndicatorId { get; private set; }
         public string DependencyId { get; private set; }
         public DateTime Time { get; private set; }
@@ -17,6 +18,14 @@ namespace CryptoWatcher.Domain.Models
             IndicatorId = indicatorId;
             DependencyId = dependencyId;
             Time = time;
+        }
+
+        public IndicatorDependency Update(IndicatorDependency indicatorDependency)
+        {
+            DependencyId = indicatorDependency.DependencyId;
+            Time = indicatorDependency.Time;
+
+            return this;
         }
     }
 }

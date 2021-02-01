@@ -29,10 +29,10 @@ namespace CryptoWatcher.Api.Controllers
         [Route("api/line-charts")]
         [SwaggerResponse(200, Type = typeof(List<Chart>))]
         [SwaggerOperation(Tags = new[] { "Charts" }, OperationId = "Charts_GetAllCharts")]
-        public async Task<IActionResult> GetAllCharts(string currencyId = null, IndicatorType? indicatorType = null, string indicatorId = null, string userId = null)
+        public async Task<IActionResult> GetAllCharts(string currencyId = null, string indicatorId = null, string userId = null)
         {
             // Reponse
-            var response = await _chartService.GetAllCharts(currencyId, indicatorType, indicatorId, userId);
+            var response = await _chartService.GetAllCharts(currencyId, indicatorId, userId);
 
             // Return
             return Ok(response);

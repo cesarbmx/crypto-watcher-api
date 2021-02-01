@@ -11,7 +11,6 @@ namespace CryptoWatcher.Application.FakeResponses
             return new Indicator
             {
                 IndicatorId = "price",
-                IndicatorType = IndicatorType.CurrencyIndicator,
                 UserId = "master",
                 Name = "Price",
                 Description = "Real time price indicator",
@@ -23,7 +22,6 @@ namespace CryptoWatcher.Application.FakeResponses
             return new Indicator
             {
                 IndicatorId = "rsi",
-                IndicatorType = IndicatorType.CurrencyIndicator,
                 UserId = "master",
                 Name = "RSI",
                 Description = @"The Relative Strength Index (RSI) is a momentum oscillator that measures the speed and change of price movements.

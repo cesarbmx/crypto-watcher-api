@@ -50,7 +50,6 @@ namespace CryptoWatcher.Domain.Builders
                         "master",
                         line.CurrencyId,
                         line.IndicatorId,
-                        line.IndicatorType,
                         line.Value,
                         line.AverageBuy,
                         line.AverageSell,

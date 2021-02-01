@@ -12,7 +12,6 @@ namespace CryptoWatcher.Application.FakeResponses
             {
                 WatcherId = "master_bitcoin_price",
                 UserId = "master",
-                IndicatorType = IndicatorType.CurrencyIndicator,
                 IndicatorId = "price",
                 CurrencyId = "bitcoin",
                 Value = 5000,
@@ -30,7 +29,6 @@ namespace CryptoWatcher.Application.FakeResponses
             {
                 WatcherId = "master_bitcoin_rsi",
                 UserId = "master",
-                IndicatorType = IndicatorType.CurrencyIndicator,
                 IndicatorId = "RSI",
                 CurrencyId = "bitcoin",
                 Value = 2,

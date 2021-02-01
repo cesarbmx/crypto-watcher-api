@@ -11,10 +11,9 @@ namespace CryptoWatcher.Domain.Expressions
         {
             return x => x.Name == name;
         }
-        public static Expression<Func<Indicator, bool>> Filter(IndicatorType? indicatorType = null,  string indicatorId = null, string userId = null)
+        public static Expression<Func<Indicator, bool>> Filter(string indicatorId = null, string userId = null)
         {
-            return x =>  (!indicatorType.HasValue || x.IndicatorType == indicatorType) &&
-                         (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId) &&
+            return x =>  (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId) &&
                          (string.IsNullOrEmpty(userId) || x.UserId == userId);
         }       
     }

@@ -7,7 +7,6 @@ namespace CryptoWatcher.Application.Responses
     {
         public string WatcherId { get; set; }
         public string UserId { get; set; }
-        public IndicatorType IndicatorType { get; set; }
         public string CurrencyId { get; set; }
         public string IndicatorId { get; set; }
         public decimal Value { get; set; }

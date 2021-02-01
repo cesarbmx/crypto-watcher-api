@@ -1,13 +1,11 @@
 ﻿using System;
-using CesarBmx.Shared.Domain.Models;
 using CryptoWatcher.Domain.Types;
 
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Order : IEntity
+    public class Order
     {
-        public string Id => OrderId.ToString();
         public int OrderId { get; private set; }
         public OrderType OrderType { get; private set; }
         public string UserId { get; private set; }

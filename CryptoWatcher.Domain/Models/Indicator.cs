@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using CesarBmx.Shared.Domain.Models;
-using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Domain.Models
 {
-    public class Indicator : IEntity
+    public class Indicator
     {
-        public string Id => IndicatorId;
         public string IndicatorId { get; private set; }
-        public IndicatorType IndicatorType { get; private set; }
         public string UserId { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
@@ -21,7 +17,6 @@ namespace CryptoWatcher.Domain.Models
         public Indicator() { }
         public Indicator(
             string indicatorId,
-            IndicatorType indicatorType,
             string userId,
             string name, 
             string description,
@@ -31,7 +26,6 @@ namespace CryptoWatcher.Domain.Models
             DateTime time)
         {
             IndicatorId = indicatorId;
-            IndicatorType = indicatorType;
             UserId = userId;
             Name = name;
             Description = description;
