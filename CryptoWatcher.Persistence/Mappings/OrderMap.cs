@@ -12,9 +12,6 @@ namespace CryptoWatcher.Persistence.Mappings
             // Key
             entityBuilder.HasKey(t => t.OrderId);
 
-            // Indexes
-            entityBuilder.HasIndex(t => t.Time);
-
             // Relationships
             entityBuilder
                 .HasOne<User>()
@@ -60,12 +57,12 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasStringToEnumConversion()
                 .IsRequired();
 
-            entityBuilder.Property(t => t.NotificationProcessedAt)
-                .HasColumnType("datetime2");
-
             entityBuilder.Property(t => t.Time)
                 .HasColumnType("datetime2")
                 .IsRequired();
+
+            entityBuilder.Property(t => t.NotificationProcessedAt)
+                .HasColumnType("datetime2");
         }
     }
 }

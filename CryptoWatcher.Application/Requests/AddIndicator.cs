@@ -6,8 +6,8 @@ namespace CryptoWatcher.Application.Requests
 {
     public class AddIndicator
     {
-        [Required] public string IndicatorId { get; set; }
         [Required] public string UserId { get; set; }
+        [Required] public string IndicatorId { get; set; }
         [Required] public string Name { get; set; }
         [Required] public string Description { get; set; }
         [Required] public string Formula { get; set; }

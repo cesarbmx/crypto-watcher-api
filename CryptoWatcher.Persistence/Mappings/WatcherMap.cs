@@ -1,5 +1,4 @@
-﻿using CesarBmx.Shared.Persistence.Extensions;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +23,18 @@ namespace CryptoWatcher.Persistence.Mappings
                 .WithMany(x=>x.Watchers)
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            entityBuilder
+                .HasOne<Currency>()
+                .WithMany()
+                .HasForeignKey(x => x.CurrencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entityBuilder
+                .HasOne<Indicator>()
+                .WithMany()
+                .HasForeignKey(x => x.IndicatorId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Properties
             entityBuilder.Property(t => t.WatcherId)
@@ -65,7 +76,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("bit")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Time)
+            entityBuilder.Property(t => t.CreatedAt)
                 .HasColumnType("datetime2")
                 .IsRequired();
         }

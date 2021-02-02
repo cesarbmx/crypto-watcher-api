@@ -13,10 +13,6 @@ namespace CryptoWatcher.Persistence.Mappings
             // Key
             entityBuilder.HasKey(t => t.IndicatorId);
 
-            // Indexes
-            entityBuilder.HasIndex(t => new { t.UserId, t.IndicatorId })
-                .IsUnique();
-
             // Relationships
             entityBuilder
                 .HasOne<User>()
@@ -53,7 +49,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("smallint")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Time)
+            entityBuilder.Property(t => t.CreatedAt)
                 .HasColumnType("datetime2")
                 .IsRequired();
 

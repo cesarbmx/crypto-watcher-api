@@ -11,9 +11,6 @@ namespace CryptoWatcher.Persistence.Mappings
             // Key
             entityBuilder.HasKey(t => t.NotificationId);
 
-            // Indexes
-            entityBuilder.HasIndex(t => t.Time);
-
             // Relationships
             entityBuilder
                 .HasOne<User>()

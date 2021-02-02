@@ -1,7 +1,5 @@
-﻿
+﻿using System;
 
-
-using System;
 
 namespace CryptoWatcher.Domain.Models
 {
@@ -11,8 +9,7 @@ namespace CryptoWatcher.Domain.Models
         public decimal? Value { get; private set; }
         public decimal? AverageBuy { get; private set; }
         public decimal? AverageSell { get; private set; }
-
-
+        
         public ChartRow() { }
         public ChartRow(DateTime time, decimal? value, decimal? averageBuy, decimal? averageSell)
         {
