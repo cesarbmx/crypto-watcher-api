@@ -4,6 +4,7 @@ using System.Linq;
 using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 
 
 namespace CryptoWatcher.Domain.Builders
@@ -70,7 +71,15 @@ namespace CryptoWatcher.Domain.Builders
             }
 
             // Do the same with the next level recursively
-            if(dependencyLevel < stopAt)  BuildLines(currencies, indicators, watchers, lines, dependencyLevel + 1, stopAt);
+            if (dependencyLevel < stopAt) BuildLines(currencies, indicators, watchers, lines, dependencyLevel + 1, stopAt);
+        }
+        public static Period BuildPeriod(DateTime time)
+        {
+            if (time.Month == 1 && time.Day == 1 && time.Hour == 0 && time.Minute == 0) return Period.YEARLY;
+            if (time.Day == 1 && time.Hour == 0 && time.Minute == 0) return Period.MONTHLY;
+            if (time.Hour == 0 && time.Minute == 0) return Period.DAILY;
+            if (time.Minute == 0) return Period.HOURLY;
+            return Period.MINUTELY;
         }
     }
 }
