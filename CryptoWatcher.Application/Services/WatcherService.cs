@@ -185,14 +185,8 @@ namespace CryptoWatcher.Application.Services
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            // Get newest time
-            var newestTime = lines.Max(x => x.Time);
-
-            // Get current lines
-            var currentLines = await _mainDbContext.Lines.Where(LineExpression.CurrentLine(newestTime)).ToListAsync();
-
             // Build default watchers
-            var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(currentLines);
+            var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);
 
             // Get all default watchers
             var defaultWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.DefaultWatcher()).ToListAsync();
