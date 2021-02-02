@@ -47,7 +47,7 @@ namespace CryptoWatcher.Application.Jobs
 
                 // Run
                 var currencies = await _currencyService.UpdateCurrencies();
-                var indicators = await _indicatorService.UpdateIndicatorDependencies();
+                var indicators = await _indicatorService.UpdateDependencyLevels();
                 var lines = await _lineService.AddLines(currencies, indicators);
                 var defaultWatchers = await _watcherService.UpdateDefaultWatchers(lines);
                 var watchers = await _watcherService.UpdateWatchers(defaultWatchers);

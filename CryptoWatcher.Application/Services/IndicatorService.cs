@@ -165,7 +165,7 @@ namespace CryptoWatcher.Application.Services
             return response;
         }
 
-        public async Task<List<Indicator>> UpdateIndicatorDependencies()
+        public async Task<List<Indicator>> UpdateDependencyLevels()
         {
             // Start watch
             var stopwatch = new Stopwatch();
