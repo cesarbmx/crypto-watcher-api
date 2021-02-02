@@ -128,7 +128,7 @@ namespace CryptoWatcher.Domain.Builders
             // For each dependency
             foreach (var indicatorDependency in indicatorDependencies)
             {
-                var result = BuildDependencyLevel(indicatorDependency.DependencyId, dependencies);
+                var result = BuildDependencyLevel(indicatorDependency.DependencyIndicatorId, dependencies);
                 if (result > dependencyLevel) dependencyLevel = result;
             }
 

@@ -5,6 +5,7 @@ namespace CryptoWatcher.Application.Requests
 {
     public class UpdateIndicator
     {
+        [JsonIgnore] public string UserId { get; set; }
         [JsonIgnore] public string IndicatorId { get; set; }
         [Required] public string Name { get; set; }
         [Required] public string Description { get; set; }

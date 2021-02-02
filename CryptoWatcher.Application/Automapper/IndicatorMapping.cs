@@ -9,7 +9,7 @@ namespace CryptoWatcher.Application.Automapper
         public IndicatorMapping()
         {
             CreateMap<Indicator, Responses.Indicator>()
-                .ForMember(dest => dest.Dependencies, opt => opt.MapFrom(src => src.Dependencies.Select(x => x.DependencyId).ToArray()));
+                .ForMember(dest => dest.Dependencies, opt => opt.MapFrom(src => src.Dependencies.Select(x => x.DependencyIndicatorId).ToArray()));
         }
     }
 }

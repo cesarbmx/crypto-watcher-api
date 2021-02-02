@@ -33,7 +33,7 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder
                 .HasOne<Indicator>()
                 .WithMany()
-                .HasForeignKey(x => x.IndicatorId)
+                .HasForeignKey(t => new { t.UserId, t.IndicatorId })
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Properties

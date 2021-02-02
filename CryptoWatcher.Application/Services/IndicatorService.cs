@@ -35,7 +35,7 @@ namespace CryptoWatcher.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Responses.Indicator>> GetAllIndicators(string userId)
+        public async Task<List<Responses.Indicator>> GetAllUserIndicators(string userId)
         {
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
@@ -54,12 +54,12 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<Responses.Indicator> GetIndicator(string indicatorId)
+        public async Task<Responses.Indicator> GetUserIndicator(string userId, string indicatorId)
         {
             // Get indicator
             var indicator = await _mainDbContext.Indicators
                 .Include(x => x.Dependencies)
-                .FirstOrDefaultAsync(x=> x.IndicatorId == indicatorId);
+                .FirstOrDefaultAsync(x=> x.UserId == userId && x.IndicatorId == indicatorId);
 
             // Throw NotFound if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
@@ -70,7 +70,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<Responses.Indicator> AddIndicator(AddIndicator request)
+        public async Task<Responses.Indicator> AddUserIndicator(AddIndicator request)
         {
             // Get indicator
             var indicator = await _mainDbContext.Indicators
@@ -95,7 +95,7 @@ namespace CryptoWatcher.Application.Services
             var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(dependencies);
 
             // Build new indicator dependencies
-            var indicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(request.IndicatorId, dependencies);
+            var indicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(request.UserId, request.IndicatorId, dependencies);
 
             // Create
             indicator = new Indicator(
@@ -123,7 +123,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<Responses.Indicator> UpdateIndicator(UpdateIndicator request)
+        public async Task<Responses.Indicator> UpdateUserIndicator(UpdateIndicator request)
         {
             // Get indicator
             var indicator = await _mainDbContext.Indicators
@@ -137,7 +137,7 @@ namespace CryptoWatcher.Application.Services
             var newDependencies = await GetDependencies(request.Dependencies);
 
             // Build new indicator dependencies
-            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(indicator.IndicatorId, newDependencies);
+            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies( indicator.UserId, indicator.IndicatorId, newDependencies);
 
             // Get current indicator dependencies 
             var currentIndicatorDependencies = indicator.Dependencies;

@@ -7,7 +7,7 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class IndicatorDependencyBuilder
     {
-        public static List<IndicatorDependency> BuildIndicatorDependencies(string indicatorId, List<Indicator> dependencies)
+        public static List<IndicatorDependency> BuildIndicatorDependencies(string userId, string indicatorId, List<Indicator> dependencies)
         {
             // Now
             var now = DateTime.Now;
@@ -19,7 +19,7 @@ namespace CryptoWatcher.Domain.Builders
             foreach (var dependency in dependencies)
             {
                 // Create
-                var indicatorDependency = new IndicatorDependency(indicatorId, dependency.IndicatorId, now);
+                var indicatorDependency = new IndicatorDependency(userId, indicatorId, dependency.UserId, dependency.IndicatorId, now);
 
                 // Add
                 indicatorDependencies.Add(indicatorDependency);

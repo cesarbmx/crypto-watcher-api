@@ -6,23 +6,27 @@ namespace CryptoWatcher.Domain.Models
 {
     public class IndicatorDependency: IEntity<IndicatorDependency>
     {
-        public string Id => IndicatorId + "_" + DependencyId;
+        public string Id => IndicatorId + "_" + DependencyIndicatorId;
 
+        public string UserId { get; private set; }
         public string IndicatorId { get; private set; }
-        public string DependencyId { get; private set; }
+        public string DependencyUserId { get; private set; }
+        public string DependencyIndicatorId { get; private set; }
         public DateTime Time { get; private set; }
 
         public IndicatorDependency() { }
-        public IndicatorDependency(string indicatorId, string dependencyId, DateTime time)
+        public IndicatorDependency(string userId, string indicatorId, string dependencyUserId, string dependencyIndicatorId, DateTime time)
         {
+            UserId = userId;
             IndicatorId = indicatorId;
-            DependencyId = dependencyId;
+            DependencyUserId = dependencyUserId;
+            DependencyIndicatorId = dependencyIndicatorId;
             Time = time;
         }
 
         public IndicatorDependency Update(IndicatorDependency indicatorDependency)
         {
-            DependencyId = indicatorDependency.DependencyId;
+            DependencyIndicatorId = indicatorDependency.DependencyIndicatorId;
             Time = indicatorDependency.Time;
 
             return this;

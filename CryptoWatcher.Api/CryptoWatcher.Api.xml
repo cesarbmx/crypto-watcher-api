@@ -29,24 +29,24 @@
             Add user
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorController.GetAllIndicators(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorController.GetAllUserIndicators(System.String)">
             <summary>
-            Get all indicators
+            Get all user indicators
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorController.GetIndicator(System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorController.GetUserIndicator(System.String,System.String)">
             <summary>
-            Get indicator
+            Get user indicator
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorController.AddIndicator(CryptoWatcher.Application.Requests.AddIndicator)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorController.AddUserIndicator(System.String,CryptoWatcher.Application.Requests.AddIndicator)">
             <summary>
-            Add indicator
+            Add user indicator
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorController.UpdateIndicator(System.String,CryptoWatcher.Application.Requests.UpdateIndicator)">
+        <member name="M:CryptoWatcher.Api.Controllers.C_IndicatorController.UpdateIndicator(System.String,System.String,CryptoWatcher.Application.Requests.UpdateIndicator)">
             <summary>
-            Update indicator
+            Update user indicator
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.D_WatcherController.GetUserWatchers(System.String,System.String,System.String)">

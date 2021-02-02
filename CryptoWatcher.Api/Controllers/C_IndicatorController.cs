@@ -4,7 +4,6 @@ using CesarBmx.Shared.Application.Responses;
 using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
-using CryptoWatcher.Domain.Types;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -24,73 +23,79 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get all indicators
+        /// Get all user indicators
         /// </summary>
         [HttpGet]
         [Route("api/users/{userId}/indicators")]
         [SwaggerResponse(200, Type = typeof(List<Indicator>))]  
-        [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetAllIndicators")]
-        public async Task<IActionResult> GetAllIndicators(string userId)
+        [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetAllUserIndicators")]
+        public async Task<IActionResult> GetAllUserIndicators(string userId)
         {
             // Reponse
-            var response = await _indicatorService.GetAllIndicators(userId);
+            var response = await _indicatorService.GetAllUserIndicators(userId);
 
             // Return
             return Ok(response);
         }
 
         /// <summary>
-        /// Get indicator
+        /// Get user indicator
         /// </summary>
         [HttpGet]
-        [Route("api/indicators/{indicatorId}", Name = "Indicators_GetIndicator")]
+        [Route("api/users/{userId}/indicators/{indicatorId}", Name = "Indicators_GetUserIndicator")]
         [SwaggerResponse(200, Type = typeof(Indicator))]
         [SwaggerResponse(404, Type = typeof(Error))]
-        [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetIndicator")]
-        public async Task<IActionResult> GetIndicator(string indicatorId)
+        [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetUserIndicator")]
+        public async Task<IActionResult> GetUserIndicator(string userId, string indicatorId)
         {
             // Reponse
-            var response = await _indicatorService.GetIndicator(indicatorId);
+            var response = await _indicatorService.GetUserIndicator(userId, indicatorId);
 
             // Return
             return Ok(response);
         }
 
         /// <summary>
-        /// Add indicator
+        /// Add user indicator
         /// </summary>
         [HttpPost]
-        [Route("api/indicators")]
+        [Route("api/users/{userId}/indicators")]
         [SwaggerResponse(201, Type = typeof(Indicator))]
         [SwaggerResponse(400, Type = typeof(Error))]
         [SwaggerResponse(404, Type = typeof(Error))]
         [SwaggerResponse(409, Type = typeof(Error))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
-        [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_AddIndicator")]
-        public async Task<IActionResult> AddIndicator([FromBody]AddIndicator request)
+        [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_AddUserIndicator")]
+        public async Task<IActionResult> AddUserIndicator(string userId, [FromBody]AddIndicator request)
         {
+            // Request
+            request.UserId = userId;
+
             // Reponse
-            var response = await _indicatorService.AddIndicator(request);
+            var response = await _indicatorService.AddUserIndicator(request);
 
             // Return
-            return CreatedAtRoute("Indicators_GetIndicator", new { response.IndicatorId }, response);
+            return CreatedAtRoute("Indicators_GetUserIndicator", new { response.UserId, response.IndicatorId }, response);
         }
 
         /// <summary>
-        /// Update indicator
+        /// Update user indicator
         /// </summary>
         [HttpPut]
-        [Route("api/indicators/{indicatorId}")]
+        [Route("api/users/{userId}/indicators/{indicatorId}")]
         [SwaggerResponse(200, Type = typeof(Indicator))]
         [SwaggerResponse(400, Type = typeof(Error))]
         [SwaggerResponse(409, Type = typeof(Error))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
-        [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_UpdateIndicator")]
-        public async Task<IActionResult> UpdateIndicator(string indicatorId, [FromBody]UpdateIndicator request)
+        [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_UpdateUserIndicator")]
+        public async Task<IActionResult> UpdateIndicator(string userId, string indicatorId, [FromBody]UpdateIndicator request)
         {
-            // Reponse
+            // Request
+            request.UserId = userId;
             request.IndicatorId = indicatorId;
-            var response = await _indicatorService.UpdateIndicator(request);
+
+            // Reponse
+            var response = await _indicatorService.UpdateUserIndicator(request);
 
             // Return
             return Ok(response);
