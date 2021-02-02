@@ -23,12 +23,6 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("datetime2")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Period)
-                .HasColumnType("varchar(50)")
-                .HasMaxLength(50)
-                .HasStringToEnumConversion()
-                .IsRequired();
-
             entityBuilder.Property(t => t.UserId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
@@ -52,6 +46,12 @@ namespace CryptoWatcher.Persistence.Mappings
 
             entityBuilder.Property(t => t.AverageSell)
                 .HasColumnType("decimal(18,2)");
+
+            entityBuilder.Property(t => t.Period)
+                .HasColumnType("varchar(50)")
+                .HasMaxLength(50)
+                .HasStringToEnumConversion()
+                .IsRequired();
         }
     }
 }
