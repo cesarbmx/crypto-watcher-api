@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Domain.Models;
 
 
@@ -10,7 +11,7 @@ namespace CryptoWatcher.Domain.Builders
         public static List<IndicatorDependency> BuildIndicatorDependencies(string userId, string indicatorId, List<Indicator> dependencies)
         {
             // Now
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow.StripSeconds();
 
             // Prepare list
             var indicatorDependencies = new List<IndicatorDependency>();

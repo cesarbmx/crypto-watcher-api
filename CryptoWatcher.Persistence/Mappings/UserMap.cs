@@ -1,4 +1,5 @@
 ﻿using System;
+using CesarBmx.Shared.Common.Extensions;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             // Data seeding
-            var time = DateTime.Now;
+            var time = DateTime.UtcNow.StripSeconds();
             entityBuilder.HasData(
                 new User("master", "+34 666868686", time)
             );

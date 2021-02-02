@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
+using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
@@ -78,7 +79,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Now
-            var now = DateTime.UtcNow;
+            var now = DateTime.UtcNow.StripSeconds().StripSeconds();
 
             // Create notifications
             var notifications = new List<Notification>();

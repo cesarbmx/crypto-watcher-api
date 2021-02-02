@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
 
@@ -11,7 +12,7 @@ namespace CryptoWatcher.Domain.Builders
     {
         public static List<Line> BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers)
         {
-            var time = DateTime.Now;
+            var time = DateTime.UtcNow.StripSeconds();
             var lines = new List<Line>();
             var stopAt = indicators.Count > 0 ? indicators.Max(x => x.DependencyLevel) : 0;
 

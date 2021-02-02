@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Types;
@@ -13,7 +14,7 @@ namespace CryptoWatcher.Domain.Builders
         public static List<Order> BuildNewOrders(List<Watcher> watchers)
         {
             // Now
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow.StripSeconds();
 
             var newOrders = new List<Order>();
 

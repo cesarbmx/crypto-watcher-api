@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Domain.Models;
 
 
@@ -9,7 +10,7 @@ namespace CryptoWatcher.Tests.Domain.FakeModels
     {
         public FakeScriptVariableSet()
         {
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow.StripSeconds();
             Times = new [] { now };
             Currencies = new [] { "bitcoin", "ethereum", "ripple", "bitcoin-cash", "eos" };
             Values = new Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal?>>>()

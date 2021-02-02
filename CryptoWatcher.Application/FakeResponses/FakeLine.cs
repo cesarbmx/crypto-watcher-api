@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Application.Responses;
 
 namespace CryptoWatcher.Application.FakeResponses
@@ -10,7 +11,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new Line
             {
-                Time = DateTime.Now.AddHours(-1),
+                Time = DateTime.UtcNow.StripSeconds().StripSeconds().AddHours(-1),
                 UserId = "master",
                 CurrencyId = "bitcoin",
                 IndicatorId = "price",
@@ -23,7 +24,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new Line
             {
-                Time = DateTime.Now,
+                Time = DateTime.UtcNow.StripSeconds().StripSeconds(),
                 UserId = "master",
                 CurrencyId = "bitcoin",
                 IndicatorId = "rsi",

@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
-using CesarBmx.Shared.Logging.Extensions;
+ using CesarBmx.Shared.Common.Extensions;
+ using CesarBmx.Shared.Logging.Extensions;
  using CesarBmx.Shared.Persistence.Extensions;
  using CryptoWatcher.Application.Requests;
 using CryptoWatcher.Domain.Builders;
@@ -105,7 +106,7 @@ namespace CryptoWatcher.Application.Services
                 defaultWatcher?.AverageBuy,
                 defaultWatcher?.AverageSell,
                 request.Enabled,
-                DateTime.Now);
+                DateTime.UtcNow.StripSeconds());
             _mainDbContext.Watchers.Add(watcher);
 
             // Save

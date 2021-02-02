@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
+using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Logging.Extensions;
 using CesarBmx.Shared.Persistence.Extensions;
 using CryptoWatcher.Application.Requests;
@@ -106,7 +107,7 @@ namespace CryptoWatcher.Application.Services
                 request.Formula,
                 indicatorDependencies,
                 dependencyLevel,
-                DateTime.Now);
+                DateTime.UtcNow.StripSeconds());
 
             // Add
             _mainDbContext.Indicators.Add(indicator);

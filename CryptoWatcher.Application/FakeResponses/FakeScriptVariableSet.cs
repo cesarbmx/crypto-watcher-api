@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Application.Responses;
 
 namespace CryptoWatcher.Application.FakeResponses
@@ -10,7 +11,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
            var scriptVariableSetResponse = new ScriptVariableSet();
 
-           var now = DateTime.Now;
+           var now = DateTime.UtcNow.StripSeconds().StripSeconds();
            var times = new [] { now};
            var currencies = new [] { "bitcoin", "ethereum", "master" };
            var indicators = new [] { "price", "hype", "performance" };

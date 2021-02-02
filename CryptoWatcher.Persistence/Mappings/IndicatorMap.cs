@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CesarBmx.Shared.Common.Extensions;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CryptoWatcher.Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -54,7 +55,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             // Seed data
-            var time = DateTime.Now;
+            var time = DateTime.UtcNow.StripSeconds();
             entityBuilder.HasData(
                 new Indicator("master", "price", "Price", "", "", new List<IndicatorDependency>(), 0, time),
                 new Indicator("master", "price-change-24hrs",   "Price change 24Hrs", "", "", new List<IndicatorDependency>(), 1, time),

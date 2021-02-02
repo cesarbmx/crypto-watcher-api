@@ -1,4 +1,5 @@
 ﻿using System;
+using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Types;
 
@@ -28,7 +29,7 @@ namespace CryptoWatcher.Domain.Models
 
         public void MarkAsSent()
         {
-            SentTime = DateTime.Now;
+            SentTime = DateTime.UtcNow.StripSeconds();
         }
     }
 }

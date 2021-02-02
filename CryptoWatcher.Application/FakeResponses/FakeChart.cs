@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Types;
@@ -19,7 +20,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 IndicatorName = "Price",
                 UserId = "master",
                 Columns = ChartBuilder.BuildChartColumns(),
-                Rows = new List<ChartRow> { new ChartRow(DateTime.Now, 6.4m, 8m, 4m), new ChartRow(DateTime.Now.AddMinutes(1), 6.6m, 8m, 4m) }
+                Rows = new List<ChartRow> { new ChartRow(DateTime.UtcNow.StripSeconds().StripSeconds(), 6.4m, 8m, 4m), new ChartRow(DateTime.UtcNow.StripSeconds().StripSeconds().AddMinutes(1), 6.6m, 8m, 4m) }
             };
         }
         public static Responses.Chart GetFake_EOS_Price()
@@ -33,7 +34,7 @@ namespace CryptoWatcher.Application.FakeResponses
                 IndicatorName = "Price",
                 UserId = "master",
                 Columns = ChartBuilder.BuildChartColumns(),
-                Rows = new List<ChartRow> { new ChartRow(DateTime.Now, 8.4m, 8m, 4m), new ChartRow(DateTime.Now.AddMinutes(1), 8.6m, 8m, 4m) }
+                Rows = new List<ChartRow> { new ChartRow(DateTime.UtcNow.StripSeconds().StripSeconds(), 8.4m, 8m, 4m), new ChartRow(DateTime.UtcNow.StripSeconds().StripSeconds().AddMinutes(1), 8.6m, 8m, 4m) }
             };
         }
         public static List<Responses.Chart> GetFake_List()

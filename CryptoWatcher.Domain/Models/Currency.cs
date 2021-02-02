@@ -1,4 +1,5 @@
 ﻿using System;
+using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Domain.Models;
 
 
@@ -27,8 +28,7 @@ namespace CryptoWatcher.Domain.Models
             decimal price,
             decimal volume24H,
             decimal marketCap,
-            decimal percentageChange24H,
-            DateTime time)
+            decimal percentageChange24H)
         {
             CurrencyId = currencyId;
             Symbol = symbol;
@@ -38,7 +38,7 @@ namespace CryptoWatcher.Domain.Models
             Volume24H = volume24H;
             MarketCap = marketCap;
             PercentageChange24H = percentageChange24H;
-            Time = time;
+            Time = DateTime.UtcNow.StripSeconds().StripSeconds();
         }
 
         public Currency Update(Currency currency)

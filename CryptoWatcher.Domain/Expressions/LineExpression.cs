@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Domain.Expressions
 {
@@ -13,7 +12,7 @@ namespace CryptoWatcher.Domain.Expressions
         }
         public static Expression<Func<Line, bool>> ObsoleteLine()
         {
-            return x => x.Time < DateTime.Now.AddDays(-7);
+            return x => x.Time < DateTime.UtcNow.AddDays(-7);
         }
         public static Expression<Func<Line, bool>> Filter(string currencyId = null, string indicatorId = null, string userId = null)
         {
