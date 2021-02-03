@@ -81,14 +81,6 @@ namespace CryptoWatcher.Application.Services
             // Throw ConflictException if it exists
             if (indicator != null) throw new ConflictException(IndicatorMessage.IndicatorWithSameIdAlreadyExists);
 
-            // Check uniqueness
-            indicator = await _mainDbContext.Indicators
-                .Include(x => x.Dependencies)
-                .FirstOrDefaultAsync(IndicatorExpression.Unique(request.Name));
-
-            // Throw ConflictException if it exists
-            if (indicator != null) throw new ConflictException(IndicatorMessage.IndicatorWithSameNameAlreadyExists);
-
             // Get dependencies
             var dependencies = await GetDependencies(request.Dependencies);
 

@@ -7,10 +7,6 @@ namespace CryptoWatcher.Domain.Expressions
 {
     public static class LineExpression
     {
-        public static Expression<Func<Line, bool>> CurrentLine(DateTime time)
-        {
-            return x => x.Time == time;
-        }
         public static Expression<Func<Line, bool>> ObsoleteLine()
         {
             return x => x.Period == Period.ONE_MINUTE && x.Time < DateTime.UtcNow.AddHours(-3) ||

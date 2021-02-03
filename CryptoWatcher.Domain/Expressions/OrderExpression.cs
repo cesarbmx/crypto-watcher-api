@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Domain.Expressions
 {
