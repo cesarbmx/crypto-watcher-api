@@ -92,8 +92,8 @@ namespace CryptoWatcher.Application.Services
 
             // Create
             indicator = new Indicator(
-                request.IndicatorId,
                 request.UserId,
+                request.IndicatorId,
                 request.Name,
                 request.Description,
                 request.Formula,
@@ -199,8 +199,12 @@ namespace CryptoWatcher.Application.Services
             var dependencies = new List<Indicator>();
             foreach (var dependencyId in dependencyIds)
             {
+                var split = dependencyId.Split(".");
+                var userId = split[0];
+                var indicatorId = split[1];
+
                 // Get indicator
-                var dependency = await _mainDbContext.Indicators.FindAsync(dependencyId);
+                var dependency = await _mainDbContext.Indicators.FindAsync(userId, indicatorId);
 
                 // Throw ValidationException if it does not exist
                 if (dependency == null) throw new ValidationException(string.Format(IndicatorMessage.DependencyNotFound, dependencyId));

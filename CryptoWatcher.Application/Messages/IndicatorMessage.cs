@@ -6,7 +6,7 @@ namespace CryptoWatcher.Application.Messages
     {
         public const string IndicatorNotFound = "The indicator does not exist";
         public const string IndicatorWithSameIdAlreadyExists = "An indicator with the same ID already exists";
-        public const string IndicatorIdHasInvalidFormat = "Only uppercase letters, hyphens and numbers are allowed";
+        public const string IndicatorIdHasInvalidFormat = "Only lowercase letters, hyphens and numbers are allowed";
         public const string DependenciesMustBeProvided = "Dependencies must be provided";
         public const string DependencyNotFound = "The indicator specified as dependency '{0}' does not exist";
     }
