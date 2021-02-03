@@ -30,7 +30,7 @@ namespace CryptoWatcher.Api.Controllers
         [Route("api/lines")]
         [SwaggerResponse(200, Type = typeof(List<Line>))]
         [SwaggerOperation(Tags = new[] { "Lines" }, OperationId = "Lines_GetAllLines")]
-        public async Task<IActionResult> GetAllLines([BindRequired] Period period = Period.FIFTEEN_MINUTES, string currencyId = null, string indicatorId = null, string userId = null)
+        public async Task<IActionResult> GetAllLines([BindRequired] Period period = Period.ONE_MINUTE, string currencyId = null, string indicatorId = null, string userId = null)
         {
             // Reponse
             var response = await _lineService.GetAllLines(period, currencyId, indicatorId, userId);
