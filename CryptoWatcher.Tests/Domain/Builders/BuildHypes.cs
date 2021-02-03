@@ -23,6 +23,7 @@ namespace CryptoWatcher.Tests.Domain.Builders
             Assert.AreEqual(true, values[3] == 0);
             Assert.AreEqual(true, values[4] == 0);
         }
+
         [TestMethod]
         public void Test_2()
         {
@@ -39,6 +40,7 @@ namespace CryptoWatcher.Tests.Domain.Builders
             Assert.AreEqual(true, values[3] >= 0);
             Assert.AreEqual(true, values[4] == 0);
         }
+
         [TestMethod]
         public void Test_3()
         {
@@ -55,6 +57,7 @@ namespace CryptoWatcher.Tests.Domain.Builders
             Assert.AreEqual(true, values[3] == 0);
             Assert.AreEqual(true, values[4] == 0);
         }
+
         [TestMethod]
         public void Test_4()
         {
@@ -71,6 +74,7 @@ namespace CryptoWatcher.Tests.Domain.Builders
             Assert.AreEqual(true, values[3] == 0);
             Assert.AreEqual(true, values[4] == 0);
         }
+
         [TestMethod]
         public void Test_5()
         {
@@ -87,6 +91,7 @@ namespace CryptoWatcher.Tests.Domain.Builders
             Assert.AreEqual(true, values[3] == 0);
             Assert.AreEqual(true, values[4] == 0);
         }
+
         [TestMethod]
         public void Test_6()
         {

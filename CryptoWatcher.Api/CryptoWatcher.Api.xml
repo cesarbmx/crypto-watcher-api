@@ -89,7 +89,7 @@
             Get notification
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.G_LineController.GetAllLines(System.String,System.String,System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.G_LineController.GetAllLines(CryptoWatcher.Domain.Types.Period,System.String,System.String,System.String)">
             <summary>
             Get all lines
             </summary>

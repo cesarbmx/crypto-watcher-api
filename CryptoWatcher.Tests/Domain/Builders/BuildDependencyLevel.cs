@@ -21,6 +21,7 @@ namespace CryptoWatcher.Tests.Domain.Builders
             // Assert
             Assert.AreEqual(2, dependencyLevel);
         }
+
         [TestMethod]
         public void Test_PriceChange24Hrs()
         {
@@ -34,6 +35,7 @@ namespace CryptoWatcher.Tests.Domain.Builders
             // Assert
             Assert.AreEqual(1, dependencyLevel);
         }
+
         [TestMethod]
         public void Test_Price()
         {

@@ -29,10 +29,11 @@ namespace CryptoWatcher.Application.Services
             _logger = logger;
             _mapper = mapper;
         }
-        public async Task<List<Responses.Line>> GetAllLines(string currencyId = null, string indicatorId = null, string userId = null)
+
+        public async Task<List<Responses.Line>> GetAllLines(Period period, string currencyId, string indicatorId, string userId)
         {
             // Get all lines
-            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(currencyId, indicatorId, userId)).ToListAsync();
+            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(period, currencyId, indicatorId, userId)).ToListAsync();
 
             // Response
             var response = _mapper.Map<List<Responses.Line>>(lines);

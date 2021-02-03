@@ -75,11 +75,16 @@ namespace CryptoWatcher.Domain.Builders
         }
         public static Period BuildPeriod(DateTime time)
         {
-            if (time.Month == 1 && time.Day == 1 && time.Hour == 0 && time.Minute == 0) return Period.YEARLY;
-            if (time.Day == 1 && time.Hour == 0 && time.Minute == 0) return Period.MONTHLY;
-            if (time.Hour == 0 && time.Minute == 0) return Period.DAILY;
-            if (time.Minute == 0) return Period.HOURLY;
-            return Period.MINUTELY;
+            if (time.Hour == 0 &&
+                time.Minute == 0) return Period.ONE_DAY;
+
+            if (time.Minute == 0) return Period.ONE_HOUR;
+
+            if (time.Minute % 15 == 0) return Period.FIFTEEN_MINUTES;
+
+            if (time.Minute % 5 == 0) return Period.FIVE_MINUTES;
+
+            return Period.ONE_MINUTE;
         }
     }
 }

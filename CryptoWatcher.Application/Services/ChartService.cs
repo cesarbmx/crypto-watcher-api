@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Expressions;
+using CryptoWatcher.Domain.Types;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +31,7 @@ namespace CryptoWatcher.Application.Services
             var indicators = await _mainDbContext.Indicators.Where(IndicatorExpression.Filter(indicatorId, userId)).ToListAsync();
 
             // Get all lines
-            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(currencyId, indicatorId, userId)).ToListAsync();
+            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(Period.ONE_MINUTE, currencyId, indicatorId, userId)).ToListAsync();
 
             // Build charts
             var charts = ChartBuilder.BuildCharts(currencies, indicators, lines);
