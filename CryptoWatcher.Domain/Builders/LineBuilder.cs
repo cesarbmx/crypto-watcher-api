@@ -26,7 +26,7 @@ namespace CryptoWatcher.Domain.Builders
                     decimal? averageBuy = null;
                     decimal? averageSell = null;
 
-                    if (indicator.DependencyLevel == 0) 
+                    if (indicator.DependencyLevel == 0)
                     {
                         // Get all watchers for this currency indicator pair
                         var filteredWatchers = watchers.Where(WatcherExpression.Filter(null, currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
@@ -42,36 +42,33 @@ namespace CryptoWatcher.Domain.Builders
                 }
             }
 
-            // Now we build the deper levels
-            if (stopAt > 0) BuildLines(currencies, indicators, watchers, lines, 1, stopAt);
+            // Now we build the deeper levels
+            if (stopAt > 0) BuildLines(currencies, indicators, watchers, lines, time, 1, stopAt);
 
             // Return
             return lines;
         }
-        public static void BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers, List<Line> lines, int dependencyLevel, int stopAt)
+        public static void BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers, List<Line> lines, DateTime time, int dependencyLevel, int stopAt)
         {
             foreach (var currency in currencies)
             {
-                foreach (var indicator in indicators)
+                foreach (var indicator in indicators.Where(x => x.DependencyLevel == dependencyLevel))
                 {
-                    if (indicator.DependencyLevel == dependencyLevel) // We set the consecutive ones
-                    {
-                        // Get latest line for this currency indicator pair
-                        var line = lines.FirstOrDefault(x => x.Time == lines[0].Time && x.CurrencyId == currency.CurrencyId && x.IndicatorId == indicator.IndicatorId);
-                        // Get all watchers for this currency indicator pair
-                        var filteredWatchers = watchers.Where(WatcherExpression.Filter(null, currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
-                        // Build
-                        var value = IndicatorBuilder.BuildValue(currency, indicator, lines);
-                        var averageBuy = IndicatorBuilder.BuildAverageBuy(filteredWatchers);
-                        var averageSell = IndicatorBuilder.BuildAverageSell(filteredWatchers);
-                        // Set
-                        line?.Set(value, averageBuy, averageSell);
-                    }
+                    // Get latest line for this currency indicator pair
+                    var line = lines.FirstOrDefault(x => x.Time == time && x.CurrencyId == currency.CurrencyId && x.IndicatorId == indicator.IndicatorId);
+                    // Get all watchers for this currency indicator pair
+                    var filteredWatchers = watchers.Where(WatcherExpression.Filter(null, currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
+                    // Build value and averages
+                    var value = IndicatorBuilder.BuildValue(currency, indicator, lines);
+                    var averageBuy = IndicatorBuilder.BuildAverageBuy(filteredWatchers);
+                    var averageSell = IndicatorBuilder.BuildAverageSell(filteredWatchers);
+                    // Set
+                    line?.Set(value, averageBuy, averageSell);
                 }
             }
 
             // Do the same with the next level recursively
-            if (dependencyLevel < stopAt) BuildLines(currencies, indicators, watchers, lines, dependencyLevel + 1, stopAt);
+            if (dependencyLevel < stopAt) BuildLines(currencies, indicators, watchers, lines, time, dependencyLevel + 1, stopAt);
         }
         public static Period BuildPeriod(DateTime time)
         {
