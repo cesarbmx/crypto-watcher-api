@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
 
 
@@ -68,37 +69,31 @@ namespace CryptoWatcher.Domain.Builders
         }
         public static decimal? BuildAverageBuy(List<Watcher> watchers)
         {
-            // Return null if there are no watchers
-            if (watchers.Count == 0) return null;
+            // Watchers willing to buy
+            var watcherWillingToBuy = watchers.Where(WatcherExpression.WatcherWillingToBuy()).ToList();
+            
+            // Buys
+            var buys = watchers.Where(x => x.Buy != null).Select(x => x.Buy);
 
-            // Collect values
-            var values = new decimal[watchers.Count];
-            for (var i = 0; i < watchers.Count; i++)
-            {
-                var buy = watchers[i].Buy;
-                if (!buy.HasValue) throw new ArgumentException("We expect watchers with buy sells");
-                values[i] = buy.Value;
-            }
+            // Average
+            var average = buys.Average();
 
             // Return
-            return values.Average();
+            return average;
         }
         public static decimal? BuildAverageSell(List<Watcher> watchers)
         {
-            // Return null if there are no watchers
-            if (watchers.Count == 0) return null;
+            // Watchers willing to buy
+            var watcherWillingToBuy = watchers.Where(WatcherExpression.WatcherWillingToSell()).ToList();
 
-            // Collect values
-            var values = new decimal[watchers.Count];
-            for (var i = 0; i < watchers.Count; i++)
-            {
-                var sell = watchers[i].Sell;
-                if (!sell.HasValue) throw new ArgumentException("We expect watchers with buy sells");
-                values[i] = sell.Value;
-            }
+            // Sells
+            var sells = watchers.Where(x => x.Buy != null).Select(x => x.Buy);
+
+            // Average
+            var average = sells.Average();
 
             // Return
-            return values.Average();
+            return average;
         }
         public static List<Indicator> BuildDependencyLevels(List<Indicator> indicators, List<IndicatorDependency> dependencies)
         {
