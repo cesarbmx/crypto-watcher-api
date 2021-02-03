@@ -53,6 +53,7 @@ namespace CryptoWatcher.Application.Jobs
                 var watchers = await _watcherService.UpdateWatchers(defaultWatchers);
                 var orders = await _orderService.AddOrders(watchers);
                 await _notificationService.AddOrderNotifications(orders);
+                await _lineService.RemoveObsoleteLines();
                 await _notificationService.SendTelegramNotifications();
 
                 // Stop watch
