@@ -13,13 +13,13 @@ namespace CryptoWatcher.Tests.Domain.FakeModels
             var now = DateTime.UtcNow.StripSeconds();
             Times = new [] { now };
             Currencies = new [] { "bitcoin", "ethereum", "ripple", "bitcoin-cash", "eos" };
-            Values = new Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal?>>>()
+            Values = new Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal>>>()
             {
                 {
-                    now, new Dictionary<string, Dictionary<string, decimal?>>
+                    now, new Dictionary<string, Dictionary<string, decimal>>
                     {
                         {
-                            "price", new Dictionary<string, decimal?>
+                            "price", new Dictionary<string, decimal>
                             {
                                 {"bitcoin", 0.25m},
                                 {"ethereum", 0.25m},

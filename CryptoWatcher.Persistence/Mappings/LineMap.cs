@@ -39,7 +39,8 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
             
             entityBuilder.Property(t => t.Value)
-                .HasColumnType("decimal(18,2)");
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
 
             entityBuilder.Property(t => t.AverageBuy)
                 .HasColumnType("decimal(18,2)");

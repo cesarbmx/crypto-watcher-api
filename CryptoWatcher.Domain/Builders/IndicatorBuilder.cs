@@ -8,7 +8,7 @@ namespace CryptoWatcher.Domain.Builders
 {
     public static class IndicatorBuilder
     {
-        public static decimal BuildValue(Currency currency, Indicator indicator)
+        public static decimal BuildValue(Currency currency, Indicator indicator, List<Line> lines)
         {
             switch (indicator.IndicatorId)
             {
@@ -16,25 +16,17 @@ namespace CryptoWatcher.Domain.Builders
                     return currency.Price;
                 case "price-change-24hrs":
                     return currency.PercentageChange24H;
+                case "hype":
+                    var scriptVariableSet = ScriptVariableSetBuilder.BuildScriptVariableSet(lines);
+                    return BuildHypes(scriptVariableSet)[currency.CurrencyId];
                 default:
                     return 666m;
             }            
         }
-        public static decimal? BuildValue(Currency currency, Indicator indicator, List<Line> lines)
-        {
-            var scriptVariableSet = ScriptVariableSetBuilder.BuildScriptVariableSet(lines);
-            switch (indicator.IndicatorId)
-            {
-                case "hype":
-                    return BuildHypes(scriptVariableSet)[currency.CurrencyId];
-                default:
-                    return 666m;
-            }
-        }
-        public static Dictionary<string, decimal?> BuildHypes(ScriptVariableSet scriptVariableSet)
+        public static Dictionary<string, decimal> BuildHypes(ScriptVariableSet scriptVariableSet)
         {
             // Arrange
-            var hypes = new Dictionary<string, decimal?>();
+            var hypes = new Dictionary<string, decimal>();
             var time = scriptVariableSet.Times[0];
             var currencies = scriptVariableSet.Values[time]["price-change-24hrs"];
             var values = currencies.Select(x=>x.Value).ToArray();
@@ -51,7 +43,7 @@ namespace CryptoWatcher.Domain.Builders
             // Return
             return hypes;
         }
-        public static void BuildHypes(decimal?[] values)
+        public static void BuildHypes(decimal[] values)
         {
             // If there are negatives, we move all the values to the right so we only deal with positives
             var min = values.Min();

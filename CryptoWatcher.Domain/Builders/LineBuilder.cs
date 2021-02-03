@@ -17,53 +17,33 @@ namespace CryptoWatcher.Domain.Builders
             var lines = new List<Line>();
             var stopAt = indicators.Count > 0 ? indicators.Max(x => x.DependencyLevel) : 0;
 
-            // We create the lines in the order that is given. We build the first level (DependencyLevel = 0) for now
-            foreach (var currency in currencies)
-            {
-                foreach (var indicator in indicators)
-                {
-                    decimal? value = null;
-                    decimal? averageBuy = null;
-                    decimal? averageSell = null;
-
-                    if (indicator.DependencyLevel == 0)
-                    {
-                        // Get all watchers for this currency indicator pair
-                        var filteredWatchers = watchers.Where(WatcherExpression.Filter(null, currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
-                        // Build
-                        value = IndicatorBuilder.BuildValue(currency, indicator);
-                        averageBuy = IndicatorBuilder.BuildAverageBuy(filteredWatchers);
-                        averageSell = IndicatorBuilder.BuildAverageSell(filteredWatchers);
-                    }
-
-                    // Add
-                    var line = new Line(time, indicator.UserId, currency.CurrencyId, indicator.IndicatorId, value, averageBuy, averageSell);
-                    lines.Add(line);
-                }
-            }
-
-            // Now we build the deeper levels
-            if (stopAt > 0) BuildLines(currencies, indicators, watchers, lines, time, 1, stopAt);
+            // Build lines
+            if (stopAt > 0) BuildLines(currencies, indicators, watchers, lines, time, 0, stopAt);
 
             // Return
             return lines;
         }
         public static void BuildLines(List<Currency> currencies, List<Indicator> indicators, List<Watcher> watchers, List<Line> lines, DateTime time, int dependencyLevel, int stopAt)
         {
+            // For each currency
             foreach (var currency in currencies)
             {
+                // For each indicator of the given level
                 foreach (var indicator in indicators.Where(x => x.DependencyLevel == dependencyLevel))
                 {
-                    // Get latest line for this currency indicator pair
-                    var line = lines.FirstOrDefault(x => x.Time == time && x.CurrencyId == currency.CurrencyId && x.IndicatorId == indicator.IndicatorId);
                     // Get all watchers for this currency indicator pair
                     var filteredWatchers = watchers.Where(WatcherExpression.Filter(null, currency.CurrencyId, indicator.IndicatorId).Compile()).ToList();
+
                     // Build value and averages
                     var value = IndicatorBuilder.BuildValue(currency, indicator, lines);
                     var averageBuy = IndicatorBuilder.BuildAverageBuy(filteredWatchers);
                     var averageSell = IndicatorBuilder.BuildAverageSell(filteredWatchers);
-                    // Set
-                    line?.Set(value, averageBuy, averageSell);
+
+                    // Create line
+                    var line = new Line(time, indicator.UserId, currency.CurrencyId, indicator.IndicatorId, value, averageBuy, averageSell);
+
+                    // Add line
+                    lines.Add(line);
                 }
             }
 
