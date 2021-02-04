@@ -10,6 +10,7 @@ namespace CryptoWatcher.Domain.Models
         public string CurrencyName { get; private set; }
         public string IndicatorId { get; private set; }
         public string IndicatorName { get; private set; }
+        public string UserId { get; private set; }
         public List<ChartColumn> Columns { get; private set; }
         public List<ChartRow> Rows { get; private set; }
 
@@ -19,6 +20,7 @@ namespace CryptoWatcher.Domain.Models
             string currencyName,
             string indicatorId,
             string indicatorName,
+            string userId,
             List<ChartColumn> columns, List<ChartRow> rows)
         {
             ChartId = currencyId + "-" + indicatorId;
@@ -26,6 +28,7 @@ namespace CryptoWatcher.Domain.Models
             CurrencyName = currencyName;
             IndicatorId = indicatorId;
             IndicatorName = indicatorName;
+            UserId = userId;
             Columns = columns;
             Rows = rows;
         }

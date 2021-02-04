@@ -28,7 +28,7 @@ namespace CryptoWatcher.Domain.Builders
                     // Build the chart rows
                     var chartRows = BuildChartRows(filteredLines);
                     // Build the chart line
-                    var chart = new Chart(currency.CurrencyId, currency.Name, indicator.IndicatorId, indicator.Name, chartColumns, chartRows);
+                    var chart = new Chart(currency.CurrencyId, currency.Name, indicator.IndicatorId, indicator.Name, indicator.UserId, chartColumns, chartRows);
 
                     // Add the chart to the list
                     charts.Add(chart);
