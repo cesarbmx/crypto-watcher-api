@@ -11,6 +11,7 @@ using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -84,13 +85,14 @@ namespace CryptoWatcher.Application.Services
             // Create notifications
             var notifications = new List<Notification>();
 
-            foreach (var order in orders)
+            // For each order pending to notify
+            foreach (var order in orders.Where(OrderExpression.PendingToNotify()).ToList())
             {
                 // Get user
                 var user = await _mainDbContext.Users.FindAsync(order.UserId);
 
                 // Create message
-                var message = "TODO";
+                var message = OrderMessage.OrderNotification + order.OrderStatus.ToString().ToLower();
 
                 // Create notification
                 var notification = new Notification(user.UserId, user.PhoneNumber, message, now);
@@ -109,7 +111,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation("AddOrderNotifications", new
+            _logger.LogSplunkInformation(nameof(AddOrderNotifications), new
             {
                 notifications.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
@@ -158,7 +160,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation("SendTelegramNotifications", new
+            _logger.LogSplunkInformation(nameof(SendTelegramNotifications), new
             {
                 Count = count,
                 FailedCount = failedCount,
@@ -214,7 +216,7 @@ namespace CryptoWatcher.Application.Services
                 stopwatch.Stop();
 
                 // Log into Splunk
-                _logger.LogSplunkInformation("SendWhatsappNotifications", new
+                _logger.LogSplunkInformation(nameof(SendWhatsappNotifications), new
                 {
                     Count = count,
                     FailedCount = failedCount,

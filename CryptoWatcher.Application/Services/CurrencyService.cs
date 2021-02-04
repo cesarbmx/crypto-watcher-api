@@ -92,7 +92,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation("UpdateCurrencies", new
+            _logger.LogSplunkInformation(nameof(UpdateCurrencies), new
             {
                 newCurrencies.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds

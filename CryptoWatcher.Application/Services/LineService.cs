@@ -63,7 +63,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation("UpdateLines",new
+            _logger.LogSplunkInformation(nameof(AddLines), new
             {
                 lines.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
@@ -91,7 +91,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation("RemoveObsoleteLines", new
+            _logger.LogSplunkInformation(nameof(RemoveObsoleteLines), new
             {
                 lines.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
