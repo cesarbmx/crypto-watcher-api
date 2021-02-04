@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Domain.Types;
 
@@ -14,9 +15,12 @@ namespace CryptoWatcher.Application.FakeResponses
                 OrderId = Guid.NewGuid(),
                 OrderType = OrderType.BUY_LIMIT,
                 UserId = "master",
-                CurrencyId = "bitcoin",
+                CurrencyId = "btc",
                 OrderStatus = OrderStatus.PENDING,
-                Quantity = 100
+                Quantity = 100,
+                CreatedAt = DateTime.UtcNow.StripSeconds(),
+                ClosedAt = null,
+                NotifiedAt = null
             };
         }
         public static Order GetFake_EOS()
@@ -28,7 +32,10 @@ namespace CryptoWatcher.Application.FakeResponses
                 UserId = "master",
                 CurrencyId = "eos",
                 OrderStatus = OrderStatus.PENDING,
-                Quantity = 100
+                Quantity = 100,
+                CreatedAt = DateTime.UtcNow.StripSeconds(),
+                ClosedAt = null,
+                NotifiedAt = null
             };
         }
         public static List<Order> GetFake_List()

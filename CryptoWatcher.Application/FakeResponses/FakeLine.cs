@@ -13,7 +13,7 @@ namespace CryptoWatcher.Application.FakeResponses
             {
                 Time = DateTime.UtcNow.StripSeconds().StripSeconds().AddHours(-1),
                 UserId = "master",
-                CurrencyId = "bitcoin",
+                CurrencyId = "btc",
                 IndicatorId = "price",
                 Value = 1.5m,
                 AverageBuy = 15,
@@ -26,7 +26,7 @@ namespace CryptoWatcher.Application.FakeResponses
             {
                 Time = DateTime.UtcNow.StripSeconds().StripSeconds(),
                 UserId = "master",
-                CurrencyId = "bitcoin",
+                CurrencyId = "btc",
                 IndicatorId = "rsi",
                 Value = 1.5m,
                 AverageBuy = 9,

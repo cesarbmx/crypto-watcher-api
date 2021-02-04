@@ -9,7 +9,7 @@ namespace CryptoWatcher.Application.FakeRequests
         {
             return new AddUser
             {
-                UserId = "master",
+                UserId = "cesarbmx",
                 PhoneNumber = "+34 666868686"
             };
         }       

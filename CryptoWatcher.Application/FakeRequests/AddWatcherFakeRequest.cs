@@ -9,11 +9,10 @@ namespace CryptoWatcher.Application.FakeRequests
         {
             return new AddWatcher
             {
-                UserId = "master",
+                UserId = "cesarbmx",
+                CurrencyId = "btc",
+                CreatorId = "cesarbmx",
                 IndicatorId = "rsi",
-                CurrencyId = "bitcoin",
-                Buy = 8m,
-                Sell = 2m,
                 Enabled = true
             };
         }       

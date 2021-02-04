@@ -59,15 +59,18 @@ namespace CryptoWatcher.Api.Controllers
         /// Add watcher
         /// </summary>
         [HttpPost]
-        [Route("api/watchers")]
+        [Route("api/users/{userId}/watchers")]
         [SwaggerResponse(201, Type = typeof(Watcher))]
         [SwaggerResponse(400, Type = typeof(Error))]
         [SwaggerResponse(404, Type = typeof(Error))]
         [SwaggerResponse(409, Type = typeof(Error))]
         [SwaggerResponse(422, Type = typeof(ValidationResponse))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_AddWatcher")]
-        public async Task<IActionResult> AddWatcher([FromBody]AddWatcher request)
+        public async Task<IActionResult> AddWatcher(string userId, [FromBody]AddWatcher request)
         {
+            // Request
+            request.UserId = userId;
+
             // Reponse
             var response = await _watcherService.AddWatcher(request);
 

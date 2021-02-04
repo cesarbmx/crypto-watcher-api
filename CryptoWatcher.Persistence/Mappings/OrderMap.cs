@@ -57,12 +57,15 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasStringToEnumConversion()
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Time)
+            entityBuilder.Property(t => t.CreatedAt)
                 .HasColumnType("datetime2")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.NotificationProcessedAt)
+            entityBuilder.Property(t => t.ClosedAt)
                 .HasColumnType("datetime2");
+
+            entityBuilder.Property(t => t.NotifiedAt)
+                    .HasColumnType("datetime2");
         }
     }
 }

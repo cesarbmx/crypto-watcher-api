@@ -9,7 +9,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new Currency
             {              
-                CurrencyId = "bitcoin",
+                CurrencyId = "btc",
                 Symbol = "BTC",
                 Name = "Bitcoin",
                 Rank = 1,

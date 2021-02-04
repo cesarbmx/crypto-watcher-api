@@ -1,7 +1,6 @@
 ﻿using CryptoWatcher.Application.Requests;
 
 
-
 namespace CryptoWatcher.Application.FakeRequests
 {
     public static class UpdateWatcherFakeRequest

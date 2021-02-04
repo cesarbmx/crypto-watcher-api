@@ -13,14 +13,14 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsClustered(false);
 
             // Indexes
-            entityBuilder.HasIndex(t => new { t.UserId, t.CurrencyId, t.IndicatorId })
+            entityBuilder.HasIndex(t => new { t.UserId, t.CurrencyId, t.CreatorId, t.IndicatorId })
                 .IsUnique()
                 .IsClustered();
 
             // Relationships
             entityBuilder
                 .HasOne<User>()
-                .WithMany(x=>x.Watchers)
+                .WithMany(x => x.Watchers)
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
@@ -33,7 +33,7 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder
                 .HasOne<Indicator>()
                 .WithMany()
-                .HasForeignKey(t => new { t.UserId, t.IndicatorId })
+                .HasForeignKey(t => new { t.CreatorId, t.IndicatorId })
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Properties
@@ -48,6 +48,11 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.CurrencyId)
+                .HasColumnType("nvarchar(50)")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entityBuilder.Property(t => t.CreatorId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();

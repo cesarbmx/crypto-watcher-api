@@ -43,14 +43,8 @@ namespace CryptoWatcher.Application.Services
             // Check if it exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
-            // Filter user watchers
+            // Get user watchers
             var userWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.Filter(userId, currencyId, indicatorId)).ToListAsync();
-
-            // Get all default watchers
-            var defaultWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.DefaultWatcher(currencyId, indicatorId)).ToListAsync();
-
-            // Build with defaults
-            userWatchers = WatcherBuilder.BuildWatchersWithDefaults(userWatchers, defaultWatchers);
 
             // Response
             var response = _mapper.Map<List<Responses.Watcher>>(userWatchers);
@@ -81,32 +75,35 @@ namespace CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get indicator
-            var indicator = await _mainDbContext.Indicators.FindAsync(request.IndicatorId);
+            var indicator = await _mainDbContext.Indicators.FindAsync(request.CreatorId, request.IndicatorId);
 
             // Throw NotFound if the currency does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Check if it exists
-            var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.Unique(request.UserId, request.CurrencyId, request.IndicatorId));
+            var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.Unique(request.UserId, request.CurrencyId, request.CreatorId, request.IndicatorId));
 
             // Throw ConflictException if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
 
             // Get default watcher
-            var defaultWatcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.DefaultWatcher(request.CurrencyId, request.IndicatorId));
-
-            // Add
+            var defaultWatcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.DefaultWatcher(request.CurrencyId, request.CreatorId, request.IndicatorId));
+            
+            // Add watcher
             watcher = new Watcher(
                 request.UserId,
                 request.CurrencyId,
+                request.CreatorId,
                 request.IndicatorId,
                 defaultWatcher?.Value,
-                request.Buy,
-                request.Sell,
+                null,
+                null,
                 defaultWatcher?.AverageBuy,
                 defaultWatcher?.AverageSell,
                 request.Enabled,
                 DateTime.UtcNow.StripSeconds());
+
+            // Add
             _mainDbContext.Watchers.Add(watcher);
 
             // Save
@@ -154,7 +151,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Get all watchers
-            var watchers = await _mainDbContext.Watchers.ToListAsync();
+            var watchers = await _mainDbContext.Watchers.Where(WatcherExpression.NonDefaultWatcher()).ToListAsync();
 
             // Sync watchers
             watchers.SyncWatchers(defaultWatchers);
@@ -178,9 +175,6 @@ namespace CryptoWatcher.Application.Services
 
         public async Task<List<Watcher>> UpdateDefaultWatchers(List<Line> lines)
         {
-            // Return if there are no lines
-            if (lines.Count == 0) return new List<Watcher>();
-
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -208,7 +202,7 @@ namespace CryptoWatcher.Application.Services
             });
 
             // Return 
-            return defaultWatchers;
+            return newDefaultWatchers;
         }
     }
 }

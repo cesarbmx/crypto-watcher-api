@@ -65,6 +65,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return response;
         }
+
         public async Task<List<Order>> AddOrders(List<Watcher> watchers)
         {
             // Start watch
@@ -95,6 +96,38 @@ namespace CryptoWatcher.Application.Services
 
             // Return
             return newOrders;
+        }
+        public async Task<List<Order>> ProcessOrders(List<Order> orders)
+        {
+            // Start watch
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Grab orders ready to buy or sell
+            foreach (var order in orders)
+            {
+                // Mark as filled
+                order.MarkAsFilled();
+
+                // Update
+                _mainDbContext.Orders.Update(order);
+            }
+
+            // Save
+            await _mainDbContext.SaveChangesAsync();
+
+            // Stop watch
+            stopwatch.Stop();
+
+            // Log into Splunk
+            _logger.LogSplunkInformation(nameof(AddOrders), new
+            {
+                orders.Count,
+                ExecutionTime = stopwatch.Elapsed.TotalSeconds
+            });
+
+            // Return
+            return orders;
         }
     }
 }
