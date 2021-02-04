@@ -89,17 +89,17 @@
             Get notification
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.G_LineController.GetAllLines(CryptoWatcher.Domain.Types.Period,System.String,System.String,System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.G_LineController.GetAllLines(CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
             <summary>
             Get all lines
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.H_ChartsController.GetAllCharts(System.String,System.String,System.String)">
+        <member name="M:CryptoWatcher.Api.Controllers.H_ChartsController.GetAllCharts(CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
             <summary>
             Get all charts
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.I_ScriptVariableSetController.GetScriptVariableSet">
+        <member name="M:CryptoWatcher.Api.Controllers.I_ScriptVariableSetController.GetScriptVariableSet(CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
             <summary>
             Get script variables
             </summary>
