@@ -1,6 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Domain.Models;
+using CryptoWatcher.Domain.Types;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,10 +19,10 @@ namespace CryptoWatcher.Application.Services
             _mainDbContext = mainDbContext;
         }
 
-        public async Task<ScriptVariableSet> GetScriptVariableSet()
+        public async Task<ScriptVariableSet> GetScriptVariableSet(Period period, List<string> currencieIds, List<string> indicatorIds)
         {
             // Get all lines
-            var lines = await _mainDbContext.Lines.ToListAsync();
+            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(period, currencieIds, indicatorIds)).ToListAsync();
 
             // Response
             var response = ScriptVariableSetBuilder.BuildScriptVariableSet(lines);

@@ -146,5 +146,43 @@ namespace CryptoWatcher.Domain.Builders
                 indicator.SetDependencies(dependencies);
             }
         }
+        public static string BuildUserId(string indicatorId)
+        {
+            var split = indicatorId.Split(".");
+            var userId = split[0];
+
+            return userId;
+        }
+        public static string BuildIndicatorId(string indicatorId)
+        {
+            var split = indicatorId.Split(".");
+            indicatorId = split[1];
+
+            return indicatorId;
+        }
+        public static List<string> BuildUserIds(List<string> indicatorIds)
+        {
+            var userIds = new List<string>();
+
+            foreach (var indicatorId in indicatorIds)
+            {
+                var userId = BuildUserId(indicatorId);
+                userIds.Add(userId);
+            }
+
+            return userIds;
+        }
+        public static List<string> BuildIndicatorIds(List<string> indicatorIds)
+        {
+            var indicatorIds2 = new List<string>();
+
+            foreach (var indicatorId in indicatorIds)
+            {
+                var indicatorId2 = BuildIndicatorId(indicatorId);
+                indicatorIds2.Add(indicatorId2);
+            }
+
+            return indicatorIds2;
+        }
     }
 }
