@@ -9,7 +9,7 @@ namespace CryptoWatcher.Domain.Builders
     {
         public static List<Chart> BuildCharts(List<Currency> currencies, List<Indicator> indicators, List<Line> lines)
         {
-            // Line charts
+            // Charts
             var charts = new List<Chart>();
 
             // For each currency
@@ -30,7 +30,7 @@ namespace CryptoWatcher.Domain.Builders
                     // Build the chart line
                     var chart = new Chart(currency.CurrencyId, currency.Name, indicator.IndicatorId, indicator.Name, chartColumns, chartRows);
 
-                    // Add the line chart to the list
+                    // Add the chart to the list
                     charts.Add(chart);
                 }
             }
@@ -40,7 +40,7 @@ namespace CryptoWatcher.Domain.Builders
         }
         public static List<ChartRow> BuildChartRows(List<Line> lines)
         {
-            // Line chart rows
+            // Chart rows
             var chartRows = new List<ChartRow>();
 
             // For each line

@@ -22,16 +22,16 @@ namespace CryptoWatcher.Application.Services
             _mainDbContext = mainDbContext;
             _mapper = mapper;
         }
-        public async Task<List<Responses.Chart>> GetAllCharts(string currencyId = null, string indicatorId = null, string userId = null)
+        public async Task<List<Responses.Chart>> GetAllCharts(Period period = Period.ONE_MINUTE, List<string> currencyIds = null, List<string> indicatorIds = null)
         {
             // Get all currencies
-            var currencies = await _mainDbContext.Currencies.Where(CurrencyExpression.Filter(currencyId)).ToListAsync();
+            var currencies = await _mainDbContext.Currencies.Where(CurrencyExpression.Filter(currencyIds)).ToListAsync();
 
             // Get all indicators
-            var indicators = await _mainDbContext.Indicators.Where(IndicatorExpression.Filter(indicatorId, userId)).ToListAsync();
+            var indicators = await _mainDbContext.Indicators.Where(IndicatorExpression.Filter(indicatorIds)).ToListAsync();
 
             // Get all lines
-            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(Period.ONE_MINUTE, currencyId, indicatorId, userId)).ToListAsync();
+            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(period, currencyIds, indicatorIds)).ToListAsync();
 
             // Build charts
             var charts = ChartBuilder.BuildCharts(currencies, indicators, lines);

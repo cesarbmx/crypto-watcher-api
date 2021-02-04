@@ -19,10 +19,10 @@ namespace CryptoWatcher.Application.Services
             _mainDbContext = mainDbContext;
         }
 
-        public async Task<ScriptVariableSet> GetScriptVariableSet(Period period, List<string> currencieIds, List<string> indicatorIds)
+        public async Task<ScriptVariableSet> GetScriptVariableSet(Period period = Period.ONE_MINUTE, List<string> currencyIds = null, List<string> indicatorIds = null)
         {
             // Get all lines
-            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(period, currencieIds, indicatorIds)).ToListAsync();
+            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(period, currencyIds, indicatorIds)).ToListAsync();
 
             // Response
             var response = ScriptVariableSetBuilder.BuildScriptVariableSet(lines);

@@ -5,6 +5,7 @@ using CryptoWatcher.Application.Responses;
 using CryptoWatcher.Application.Services;
 using CryptoWatcher.Domain.Types;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace CryptoWatcher.Api.Controllers
@@ -23,16 +24,16 @@ namespace CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get all line charts
+        /// Get all charts
         /// </summary>
         [HttpGet]
-        [Route("api/line-charts")]
+        [Route("api/charts")]
         [SwaggerResponse(200, Type = typeof(List<Chart>))]
         [SwaggerOperation(Tags = new[] { "Charts" }, OperationId = "Charts_GetAllCharts")]
-        public async Task<IActionResult> GetAllCharts(string currencyId = null, string indicatorId = null, string userId = null)
+        public async Task<IActionResult> GetAllCharts([BindRequired] Period period = Period.ONE_MINUTE, List<string> currencyIds = null, List<string> indicatorIds = null)
         {
             // Reponse
-            var response = await _chartService.GetAllCharts(currencyId, indicatorId, userId);
+            var response = await _chartService.GetAllCharts(period, currencyIds, indicatorIds);
 
             // Return
             return Ok(response);

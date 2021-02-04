@@ -96,7 +96,7 @@
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.H_ChartsController.GetAllCharts(System.String,System.String,System.String)">
             <summary>
-            Get all line charts
+            Get all charts
             </summary>
         </member>
         <member name="M:CryptoWatcher.Api.Controllers.I_ScriptVariableSetController.GetScriptVariableSet">

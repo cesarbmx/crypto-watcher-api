@@ -162,6 +162,8 @@ namespace CryptoWatcher.Domain.Builders
         }
         public static List<string> BuildUserIds(List<string> indicatorIds)
         {
+            if (indicatorIds == null) return null;
+            
             var userIds = new List<string>();
 
             foreach (var indicatorId in indicatorIds)
@@ -174,6 +176,8 @@ namespace CryptoWatcher.Domain.Builders
         }
         public static List<string> BuildIndicatorIds(List<string> indicatorIds)
         {
+            if (indicatorIds == null) return null;
+
             var indicatorIds2 = new List<string>();
 
             foreach (var indicatorId in indicatorIds)
