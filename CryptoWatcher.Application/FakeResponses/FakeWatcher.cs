@@ -10,10 +10,11 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new Watcher
             {
-                WatcherId = "master_bitcoin_price",
-                UserId = "master",
-                IndicatorId = "price",
+                WatcherId = 1,
+                UserId = "cesarbmx",
                 CurrencyId = "btc",
+                IndicatorId = "price",
+                CreatorId = "master",
                 Value = 5000,
                 Buy = 15,
                 Sell = 8,
@@ -27,10 +28,11 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new Watcher
             {
-                WatcherId = "master_bitcoin_rsi",
-                UserId = "master",
-                IndicatorId = "RSI",
+                WatcherId = 2,
+                UserId = "cesarbmx",
                 CurrencyId = "btc",
+                CreatorId = "cesarbmx",
+                IndicatorId = "RSI",
                 Value = 2,
                 Buy = 15,
                 Sell = 8,

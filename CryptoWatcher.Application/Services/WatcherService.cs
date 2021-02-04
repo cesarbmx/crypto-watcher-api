@@ -156,6 +156,9 @@ namespace CryptoWatcher.Application.Services
             // Sync watchers
             watchers.SyncWatchers(defaultWatchers);
 
+            // Update
+            _mainDbContext.Watchers.UpdateRange(watchers);
+
             // Save
             await _mainDbContext.SaveChangesAsync();
 
