@@ -13,8 +13,8 @@ namespace CryptoWatcher.Application.FakeResponses
         {
             return new Responses.Chart
             {
-                ChartId = "bitcoin-price",
-                CurrencyId = "bitcoin",
+                ChartId = "btc-price",
+                CurrencyId = "btc",
                 CurrencyName = "Bitcoin",
                 IndicatorId = "price",
                 IndicatorName = "Price",
