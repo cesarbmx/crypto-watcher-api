@@ -79,5 +79,12 @@ namespace CryptoWatcher.Domain.Models
 
             return this;
         }
+        public Watcher ResetBuySell()
+        {
+            Buy = null;
+            Sell = null;
+
+            return this;
+        }
     }
 }

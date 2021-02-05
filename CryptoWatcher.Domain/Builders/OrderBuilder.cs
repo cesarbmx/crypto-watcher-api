@@ -21,11 +21,11 @@ namespace CryptoWatcher.Domain.Builders
             foreach (var watcher in watchers)
             {
                 // We skip default watchers
-                if(watcher.CreatorId == "master") continue;
+                if(watcher.UserId == "master") continue;
 
                 // We add an order
                 var orderType = BuildOrderType(watcher.Status);
-                var order = new Order(watcher.CreatorId, orderType, watcher.CurrencyId, 100, now);
+                var order = new Order( watcher.WatcherId, watcher.CreatorId, watcher.CurrencyId, orderType, 100, now);
                 newOrders.Add(order);
             }
 

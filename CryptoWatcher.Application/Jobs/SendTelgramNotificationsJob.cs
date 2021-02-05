@@ -25,7 +25,7 @@ namespace CryptoWatcher.Application.Jobs
         {
             try
             {
-                await _notificationService.SendTelegramNotifications();
+                //await _notificationService.SendTelegramNotifications();
             }
             catch (Exception ex)
             {

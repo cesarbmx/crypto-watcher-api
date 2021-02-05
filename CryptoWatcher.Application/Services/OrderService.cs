@@ -97,7 +97,7 @@ namespace CryptoWatcher.Application.Services
             // Return
             return newOrders;
         }
-        public async Task<List<Order>> ProcessOrders(List<Order> orders)
+        public async Task<List<Order>> ProcessOrders(List<Order> orders, List<Watcher> watchers)
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -109,8 +109,20 @@ namespace CryptoWatcher.Application.Services
                 // Mark as filled
                 order.MarkAsFilled();
 
-                // Update
+                // Update order
                 _mainDbContext.Orders.Update(order);
+
+                // Get watcher
+                var watcher = watchers.FirstOrDefault(x => x.WatcherId == order.WatcherId);
+
+                // Make sure watcher exists
+                if (watcher == null) throw new ApplicationException("Watcher is expected");
+
+                // Reset watcher
+                watcher.ResetBuySell();
+
+                // Update watcher
+                _mainDbContext.Watchers.Update(watcher);
             }
 
             // Save

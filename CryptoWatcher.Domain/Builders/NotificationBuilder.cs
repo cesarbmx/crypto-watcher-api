@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Types;
 
 

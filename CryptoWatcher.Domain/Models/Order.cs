@@ -8,9 +8,10 @@ namespace CryptoWatcher.Domain.Models
     public class Order
     {
         public int OrderId { get; private set; }
-        public OrderType OrderType { get; private set; }
+        public int WatcherId { get; private set; }
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
+        public OrderType OrderType { get; private set; }
         public decimal Quantity { get; private set; }
         public OrderStatus OrderStatus { get; private set; }
         public DateTime CreatedAt { get; private set; }
@@ -18,13 +19,19 @@ namespace CryptoWatcher.Domain.Models
         public DateTime? NotifiedAt { get; private set; }
 
         public Order() { }
-        public Order(string userId, OrderType orderType, string currencyId, decimal quantity, DateTime createdAt)
+        public Order(
+            int watcherId,
+            string userId,
+            string currencyId,
+            OrderType orderType,
+            decimal quantity,
+            DateTime createdAt)
         {
             OrderId = 0;
-            OrderType = orderType;
+            WatcherId = watcherId;
             UserId = userId;
             CurrencyId = currencyId;
-            UserId = userId;
+            OrderType = orderType;
             Quantity = quantity;
             OrderStatus = OrderStatus.PENDING;
             CreatedAt = createdAt;

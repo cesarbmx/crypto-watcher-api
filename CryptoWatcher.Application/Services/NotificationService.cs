@@ -73,7 +73,7 @@ namespace CryptoWatcher.Application.Services
             return response;
         }
 
-        public async Task AddOrderNotifications(List<Order> orders)
+        public async Task<List<Notification>> AddOrderNotifications(List<Order> orders)
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -85,8 +85,11 @@ namespace CryptoWatcher.Application.Services
             // Create notifications
             var notifications = new List<Notification>();
 
+            // Orders pending to notify
+            var ordersPendingToNotify = orders.Where(OrderExpression.PendingToNotify()).ToList();
+
             // For each order pending to notify
-            foreach (var order in orders.Where(OrderExpression.PendingToNotify()).ToList())
+            foreach (var order in ordersPendingToNotify)
             {
                 // Get user
                 var user = await _mainDbContext.Users.FindAsync(order.UserId);
@@ -99,6 +102,12 @@ namespace CryptoWatcher.Application.Services
 
                 // Add notification
                 notifications.Add(notification);
+
+                // Mark order as notified
+                order.MarkAsNotified();
+
+                // Update order
+                _mainDbContext.Orders.Update(order);
             }
 
             // Add notifications
@@ -116,18 +125,18 @@ namespace CryptoWatcher.Application.Services
                 notifications.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
             });
+
+            // Return
+            return notifications;
         }
-        public async Task SendTelegramNotifications()
+        public async Task SendTelegramNotifications(List<Notification> notifications)
         {
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
             // Get pending notifications
-            var pendingNotifications = await _mainDbContext.Notifications.Where(NotificationExpression.PendingNotification()).ToListAsync();
-
-            // If there are pending notifications
-            if (pendingNotifications.Count == 0) return;
+            //var notifications = await _mainDbContext.Notifications.Where(NotificationExpression.PendingNotification()).ToListAsync();
 
             // Connect
             var apiToken = _configuration["AppSettings:TelegramApiToken"];
@@ -136,13 +145,23 @@ namespace CryptoWatcher.Application.Services
             // For each notification
             var count = 0;
             var failedCount = 0;
-            foreach (var pendingNotification in pendingNotifications)
+            foreach (var notification in notifications)
             {
                 try
                 {
-                    // Send WhatsApp
-                    await bot.SendTextMessageAsync("@crypto_watcher_official", pendingNotification.Message);
-                    pendingNotification.MarkAsSent();
+                    // Send telegram
+                    await bot.SendTextMessageAsync("@crypto_watcher_official", notification.Message);
+
+                    // Mark notification as sent
+                    notification.MarkAsSent();
+
+                    // Update notification
+                    _mainDbContext.Notifications.Update(notification);
+
+                    // Save
+                    await _mainDbContext.SaveChangesAsync();
+
+                    // Count
                     count++;
                 }
                 catch (Exception ex)
@@ -152,9 +171,6 @@ namespace CryptoWatcher.Application.Services
                     failedCount++;
                 }
             }
-
-            // Save
-            await _mainDbContext.SaveChangesAsync();
 
             // Stop watch
             stopwatch.Stop();

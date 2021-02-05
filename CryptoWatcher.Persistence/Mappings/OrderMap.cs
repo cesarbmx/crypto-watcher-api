@@ -31,10 +31,8 @@ namespace CryptoWatcher.Persistence.Mappings
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
-            entityBuilder.Property(t => t.OrderType)
-                .HasColumnType("varchar(50)")
-                .HasMaxLength(50)
-                .HasStringToEnumConversion()
+            entityBuilder.Property(t => t.WatcherId)
+                .HasColumnType("int")
                 .IsRequired();
 
             entityBuilder.Property(t => t.UserId)
@@ -45,6 +43,12 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.CurrencyId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
+                .IsRequired();
+
+            entityBuilder.Property(t => t.OrderType)
+                .HasColumnType("varchar(50)")
+                .HasMaxLength(50)
+                .HasStringToEnumConversion()
                 .IsRequired();
 
             entityBuilder.Property(t => t.Quantity)
