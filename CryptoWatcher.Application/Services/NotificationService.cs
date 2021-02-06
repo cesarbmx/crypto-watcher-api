@@ -95,7 +95,11 @@ namespace CryptoWatcher.Application.Services
                 var user = await _mainDbContext.Users.FindAsync(order.UserId);
 
                 // Create message
-                var message = OrderMessage.OrderNotification + order.OrderStatus.ToString().ToLower();
+                var message = string.Format(
+                    OrderMessage.OrderNotification, 
+                    order.CurrencyId.ToUpper(), 
+                    order.OrderType.ToString().ToLower(), 
+                    order.Quantity);
 
                 // Create notification
                 var notification = new Notification(user.UserId, user.PhoneNumber, message, now);
