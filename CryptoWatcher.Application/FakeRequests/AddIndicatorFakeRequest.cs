@@ -1,5 +1,4 @@
 ﻿using CryptoWatcher.Application.Requests;
-using CryptoWatcher.Domain.Types;
 
 
 namespace CryptoWatcher.Application.FakeRequests

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Types;
 
 namespace CryptoWatcher.Application.FakeResponses
 {

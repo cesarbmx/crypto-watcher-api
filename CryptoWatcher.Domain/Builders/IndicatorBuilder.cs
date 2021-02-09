@@ -72,7 +72,7 @@ namespace CryptoWatcher.Domain.Builders
             var watcherWillingToBuy = watchers.Where(WatcherExpression.WatcherWillingToBuy()).ToList();
             
             // Buys
-            var buys = watchers.Where(x => x.Buy != null).Select(x => x.Buy);
+            var buys = watcherWillingToBuy.Where(x => x.Buy != null).Select(x => x.Buy);
 
             // Average
             var average = buys.Average();
@@ -82,11 +82,11 @@ namespace CryptoWatcher.Domain.Builders
         }
         public static decimal? BuildAverageSell(List<Watcher> watchers)
         {
-            // Watchers willing to buy
-            var watcherWillingToBuy = watchers.Where(WatcherExpression.WatcherWillingToSell()).ToList();
+            // Watchers willing to sell
+            var watcherWillingToSell = watchers.Where(WatcherExpression.WatcherWillingToSell()).ToList();
 
             // Sells
-            var sells = watchers.Where(x => x.Buy != null).Select(x => x.Buy);
+            var sells = watcherWillingToSell.Where(x => x.Buy != null).Select(x => x.Buy);
 
             // Average
             var average = sells.Average();

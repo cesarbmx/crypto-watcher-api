@@ -43,7 +43,7 @@ namespace CryptoWatcher.Service
             {
                 configure.Service<CryptoWatcherService>(service =>
                 {
-                    service.ConstructUsing(s => new CryptoWatcherService());
+                    service.ConstructUsing(_ => new CryptoWatcherService());
                     service.WhenStarted(s => s.Start());
                     service.WhenStopped(s => s.Stop());
                 });

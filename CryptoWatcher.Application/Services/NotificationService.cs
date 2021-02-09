@@ -9,9 +9,7 @@ using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
-using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Types;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -134,6 +132,16 @@ namespace CryptoWatcher.Application.Services
 
             // Return
             return notifications;
+        }
+
+        public async Task SendTelegramNotifications()
+        {
+            // Get pending notifications
+            var pendingNotifications = await _mainDbContext.Notifications
+                .Where(NotificationExpression.PendingNotification())
+                .ToListAsync();
+
+            await SendTelegramNotifications(pendingNotifications);
         }
         public async Task SendTelegramNotifications(List<Notification> notifications)
         {
