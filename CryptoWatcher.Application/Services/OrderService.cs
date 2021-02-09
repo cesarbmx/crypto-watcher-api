@@ -35,15 +35,13 @@ namespace CryptoWatcher.Application.Services
         public async Task<List<Responses.Order>> GetUserOrders(string userId)
         {
             // Get user
-            var user = await _mainDbContext.Users
-                .Include(x=>x.Orders)
-                .FirstOrDefaultAsync(x=>x.UserId == userId);
+            var user = await _mainDbContext.Users.FindAsync(userId);
 
             // Check if it exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get all orders
-            var orders = await _mainDbContext.Orders.Where(OrderExpression.Filter(userId)).ToListAsync();
+            var orders = await _mainDbContext.Orders.Where(x=>x.UserId == userId).ToListAsync();
 
             // Response
             var response = _mapper.Map<List<Responses.Order>>(orders);

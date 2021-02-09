@@ -15,6 +15,7 @@ namespace CryptoWatcher.Application.Responses
         public decimal? Sell { get; set; }
         public decimal? AverageBuy { get; set; }
         public decimal? AverageSell { get; set; }
+        public decimal? Price { get; set; }
         public WatcherStatus Status { get; set; }
         public bool Enabled { get; set; }
     }

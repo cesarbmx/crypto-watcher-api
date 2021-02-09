@@ -63,7 +63,7 @@ namespace CryptoWatcher.Api.Controllers
         [SwaggerResponse(201, Type = typeof(User))]
         [SwaggerResponse(400, Type = typeof(Error))]
         [SwaggerResponse(409, Type = typeof(Error))]
-        [SwaggerResponse(422, Type = typeof(ValidationResponse))]
+        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_AddUser")]
         public async Task<IActionResult> AddUser([FromBody]AddUser request)
         {

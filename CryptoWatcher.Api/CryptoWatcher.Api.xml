@@ -59,7 +59,7 @@
             Get watcher
             </summary>
         </member>
-        <member name="M:CryptoWatcher.Api.Controllers.D_WatcherController.AddWatcher(System.String,CryptoWatcher.Application.Requests.AddWatcher)">
+        <member name="M:CryptoWatcher.Api.Controllers.D_WatcherController.AddWatcher(CryptoWatcher.Application.Requests.AddWatcher)">
             <summary>
             Add watcher
             </summary>

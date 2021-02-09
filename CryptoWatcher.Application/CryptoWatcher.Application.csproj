@@ -19,6 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="CesarBmx.Shared.Authentication">
+      <HintPath>..\..\Shared\CesarBmx.Shared.Authentication\bin\Debug\netstandard2.0\CesarBmx.Shared.Authentication.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 

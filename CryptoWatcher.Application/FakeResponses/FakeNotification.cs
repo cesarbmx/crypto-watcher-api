@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Application.Responses;
 
 namespace CryptoWatcher.Application.FakeResponses
@@ -14,18 +15,20 @@ namespace CryptoWatcher.Application.FakeResponses
                 UserId = "master",
                 Message = "Test message",
                 PhoneNumber = "+34666555555",
-                WhatsappSentTime = null
+                Time = DateTime.UtcNow.StripSeconds(),
+                SentTime = null
             };
         }
-        public static Notification GetFake_cesar12()
+        public static Notification GetFake_cesarbmx()
         {
             return new Notification
             {
                 NotificationId = Guid.NewGuid(),
-                UserId = "cesar12",
+                UserId = "cesarbmx",
                 Message = "Test message",
                 PhoneNumber = "+34666666666",
-                WhatsappSentTime = null
+                Time = DateTime.UtcNow.StripSeconds(),
+                SentTime = null
             };
         }
         public static List<Notification> GetFake_List()
@@ -33,7 +36,7 @@ namespace CryptoWatcher.Application.FakeResponses
             return new List<Notification>
             {
                 GetFake_master(),
-                GetFake_cesar12()
+                GetFake_cesarbmx()
             };
         }
     }

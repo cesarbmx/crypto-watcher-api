@@ -15,7 +15,7 @@ namespace CryptoWatcher.Persistence.Mappings
             // Relationships
             entityBuilder
                 .HasOne<User>()
-                .WithMany(x=>x.Orders)
+                .WithMany()
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
@@ -51,7 +51,11 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasStringToEnumConversion()
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Quantity)
+            entityBuilder.Property(t => t.Amount)
+                .HasColumnType("decimal(18,4)")
+                .IsRequired();
+
+            entityBuilder.Property(t => t.Price)
                 .HasColumnType("decimal(18,4)")
                 .IsRequired();
 

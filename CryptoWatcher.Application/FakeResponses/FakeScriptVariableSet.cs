@@ -11,7 +11,7 @@ namespace CryptoWatcher.Application.FakeResponses
         {
            var scriptVariableSetResponse = new ScriptVariableSet();
 
-           var now = DateTime.UtcNow.StripSeconds().StripSeconds();
+           var now = DateTime.UtcNow.StripSeconds();
            var times = new [] { now};
            var currencies = new [] { "bitcoin", "ethereum", "master" };
            var indicators = new [] { "price", "hype", "performance" };

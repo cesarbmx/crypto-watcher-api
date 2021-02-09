@@ -36,8 +36,10 @@ namespace CryptoWatcher.Domain.Builders
                     line.Value,
                     line.AverageBuy,
                     line.AverageSell,
+                    null,
                     line.AverageBuy,
                     line.AverageSell,
+                    line.Price,
                     false,
                     now);
                 watchers.Add(watcher);

@@ -19,8 +19,10 @@ namespace CryptoWatcher.Domain.Models
         public decimal? Value { get; private set; }
         public decimal? Buy { get; private set; }
         public decimal? Sell { get; private set; }
+        public decimal? Amount { get; private set; }
         public decimal? AverageBuy { get; private set; }
         public decimal? AverageSell { get; private set; }
+        public decimal? Price { get; private set; }
         public bool Enabled { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
@@ -38,8 +40,10 @@ namespace CryptoWatcher.Domain.Models
             decimal? value,
             decimal? buy,
             decimal? sell,
+            decimal? amount,
             decimal? averageBuy,
             decimal? averageSell,
+            decimal? price,
             bool enabled,
             DateTime createdAt)
         {
@@ -51,8 +55,10 @@ namespace CryptoWatcher.Domain.Models
             Value = value;
             Buy = buy;
             Sell = sell;
+            Amount = amount;
             AverageBuy = averageBuy;
             AverageSell = averageSell;
+            Price = price;
             Enabled = enabled;
             CreatedAt = createdAt;
         }
@@ -71,11 +77,11 @@ namespace CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Watcher Sync(decimal? value, decimal? averageBuy, decimal? averageSell)
+        public Watcher Sync(decimal? value, decimal? averageBuyValue, decimal? averageSellValue)
         {
             Value = value;
-            AverageBuy = averageBuy;
-            AverageSell = averageSell;
+            AverageBuy = averageBuyValue;
+            AverageSell = averageSellValue;
 
             return this;
         }

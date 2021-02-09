@@ -63,7 +63,7 @@ namespace CryptoWatcher.Application.Services
             if (user != null) throw new ConflictException(UserMessage.UserAlreadyExists);
 
             // Time
-            var now = DateTime.UtcNow.StripSeconds().StripSeconds();
+            var now = DateTime.UtcNow.StripSeconds();
 
             // Create
             user = new Domain.Models.User(request.UserId, request.PhoneNumber, now);

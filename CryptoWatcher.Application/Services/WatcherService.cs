@@ -68,16 +68,22 @@ namespace CryptoWatcher.Application.Services
         }
         public async Task<Responses.Watcher> AddWatcher(AddWatcher request)
         {
+            // Get currency
+            var currency = await _mainDbContext.Currencies.FindAsync(request.CurrencyId);
+
+            // Throw NotFound if the currency does not exist
+            if (currency == null) throw new NotFoundException(CurrencyMessage.CurrencyNotFound);
+
             // Get user
             var user = await _mainDbContext.Users.FindAsync(request.UserId);
 
-            // Throw NotFound if the currency does not exist
+            // Throw NotFound if it does not exist
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get indicator
             var indicator = await _mainDbContext.Indicators.FindAsync(request.CreatorId, request.IndicatorId);
 
-            // Throw NotFound if the currency does not exist
+            // Throw NotFound if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Check if it exists
@@ -98,8 +104,10 @@ namespace CryptoWatcher.Application.Services
                 defaultWatcher?.Value,
                 null,
                 null,
+                null,
                 defaultWatcher?.AverageBuy,
                 defaultWatcher?.AverageSell,
+                defaultWatcher?.Price,
                 request.Enabled,
                 DateTime.UtcNow.StripSeconds());
 
@@ -125,6 +133,9 @@ namespace CryptoWatcher.Application.Services
 
             // Throw NotFound if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
+
+            // Check if the watcher belongs to the person who is making the request
+            if(request.UserId != watcher.UserId) throw new ConflictException(WatcherMessage.WatcherDoesNotBelongToYou);
 
             // Update watcher
             watcher.Update(request.Buy, request.Sell, request.Enabled);

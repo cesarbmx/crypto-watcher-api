@@ -13,7 +13,6 @@ using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
-using CryptoWatcher.Domain.Types;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

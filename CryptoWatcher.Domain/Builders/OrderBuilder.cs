@@ -23,9 +23,19 @@ namespace CryptoWatcher.Domain.Builders
                 // We skip default watchers
                 if(watcher.UserId == "master") continue;
 
+                // We skip hold watchers
+                if (watcher.Status == WatcherStatus.HOLD) continue;
+
                 // We add an order
                 var orderType = BuildOrderType(watcher.Status);
-                var order = new Order( watcher.WatcherId, watcher.CreatorId, watcher.CurrencyId, orderType, 100, now);
+                var order = new Order( 
+                    watcher.WatcherId,
+                    watcher.CreatorId,
+                    watcher.CurrencyId,
+                    orderType,
+                    watcher.Amount??0m,
+                    watcher.Price??0m,
+                    now);
                 newOrders.Add(order);
             }
 

@@ -14,6 +14,7 @@ namespace CryptoWatcher.Domain.Models
         public decimal Value { get; private set; }
         public decimal? AverageBuy { get; private set; }
         public decimal? AverageSell { get; private set; }
+        public decimal? Price { get; private set; }
         public Period Period { get; private set; }
 
         public Line() { }
@@ -24,7 +25,8 @@ namespace CryptoWatcher.Domain.Models
             string indicatorId,
             decimal value,
             decimal? averageBuy,
-            decimal? averageSell)
+            decimal? averageSell,
+            decimal? price)
         {
             Time = time;
             UserId = userId;
@@ -33,6 +35,7 @@ namespace CryptoWatcher.Domain.Models
             Value = value;
             AverageBuy = averageBuy;
             AverageSell = averageSell;
+            Price = price;
             Period = LineBuilder.BuildPeriod(time);
         }
     }

@@ -20,7 +20,7 @@ namespace CryptoWatcher.Persistence.Mappings
             // Relationships
             entityBuilder
                 .HasOne<User>()
-                .WithMany(x => x.Watchers)
+                .WithMany()
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
@@ -71,10 +71,16 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.Sell)
                 .HasColumnType("decimal(18,2)");
 
+            entityBuilder.Property(t => t.Amount)
+                .HasColumnType("decimal(18,2)");
+
             entityBuilder.Property(t => t.AverageBuy)
                 .HasColumnType("decimal(18,2)");
 
             entityBuilder.Property(t => t.AverageSell)
+                .HasColumnType("decimal(18,2)");
+
+            entityBuilder.Property(t => t.Price)
                 .HasColumnType("decimal(18,2)");
 
             entityBuilder.Property(t => t.Enabled)

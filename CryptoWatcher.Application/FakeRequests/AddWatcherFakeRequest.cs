@@ -11,8 +11,8 @@ namespace CryptoWatcher.Application.FakeRequests
             {
                 UserId = "cesarbmx",
                 CurrencyId = "btc",
-                CreatorId = "cesarbmx",
-                IndicatorId = "rsi",
+                CreatorId = "master",
+                IndicatorId = "price",
                 Enabled = true
             };
         }       

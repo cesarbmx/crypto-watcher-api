@@ -38,7 +38,7 @@ namespace CryptoWatcher.Domain.Models
             Volume24H = volume24H;
             MarketCap = marketCap;
             PercentageChange24H = percentageChange24H;
-            Time = DateTime.UtcNow.StripSeconds().StripSeconds();
+            Time = DateTime.UtcNow.StripSeconds();
         }
 
         public Currency Update(Currency currency)

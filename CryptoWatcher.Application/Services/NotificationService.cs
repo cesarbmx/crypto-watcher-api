@@ -45,15 +45,17 @@ namespace CryptoWatcher.Application.Services
         public async Task<List<Responses.Notification>> GetUserNotifications(string userId)
         {
             // Get user
-            var user = await _mainDbContext.Users
-                .Include(x=>x.Notifications)
-                .FirstOrDefaultAsync(x => x.UserId == userId);
+            var user = await _mainDbContext.Users.FindAsync(userId);
 
             // Check if it exists
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
+            // Get user
+            var notifications = await _mainDbContext.Notifications
+                .Where(x => x.UserId == userId).ToListAsync();
+
             // Response
-            var response = _mapper.Map<List<Responses.Notification>>(user.Notifications);
+            var response = _mapper.Map<List<Responses.Notification>>(notifications);
 
             // Return
             return response;
@@ -80,7 +82,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Now
-            var now = DateTime.UtcNow.StripSeconds().StripSeconds();
+            var now = DateTime.UtcNow.StripSeconds();
 
             // Create notifications
             var notifications = new List<Notification>();
@@ -99,7 +101,7 @@ namespace CryptoWatcher.Application.Services
                     OrderMessage.OrderNotification, 
                     order.CurrencyId.ToUpper(), 
                     order.OrderType.ToString().ToLower(), 
-                    order.Quantity);
+                    order.Price.Normalize());
 
                 // Create notification
                 var notification = new Notification(user.UserId, user.PhoneNumber, message, now);

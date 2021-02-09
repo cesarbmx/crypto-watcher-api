@@ -40,7 +40,15 @@ namespace CryptoWatcher.Domain.Builders
                     var averageSell = IndicatorBuilder.BuildAverageSell(filteredWatchers);
 
                     // Create line
-                    var line = new Line(time, indicator.UserId, currency.CurrencyId, indicator.IndicatorId, value, averageBuy, averageSell);
+                    var line = new Line(
+                        time, 
+                        indicator.UserId,
+                        currency.CurrencyId,
+                        indicator.IndicatorId,
+                        value,
+                        averageBuy,
+                        averageSell,
+                        currency.Price);
 
                     // Add line
                     lines.Add(line);
