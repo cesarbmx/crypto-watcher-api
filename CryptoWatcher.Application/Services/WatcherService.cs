@@ -134,9 +134,6 @@ namespace CryptoWatcher.Application.Services
             // Throw NotFound if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
-            // Check if the watcher belongs to the person who is making the request
-            if(request.UserId != watcher.UserId) throw new ConflictException(WatcherMessage.WatcherDoesNotBelongToYou);
-
             // Update watcher
             watcher.Update(request.Buy, request.Sell, request.Enabled);
 
