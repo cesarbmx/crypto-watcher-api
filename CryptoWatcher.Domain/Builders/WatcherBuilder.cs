@@ -15,8 +15,8 @@ namespace CryptoWatcher.Domain.Builders
         {
             // Evaluate
             var watcherStatus = WatcherStatus.HOLD;
-            if(value >= buy) watcherStatus = WatcherStatus.BUY;
-            if (value <= sell) watcherStatus = WatcherStatus.SELL;
+            if(value <= buy) watcherStatus = WatcherStatus.BUY;
+            if (value >= sell) watcherStatus = WatcherStatus.SELL;
 
             // Return
             return watcherStatus;
