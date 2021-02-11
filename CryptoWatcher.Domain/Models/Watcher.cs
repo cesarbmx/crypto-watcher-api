@@ -77,11 +77,12 @@ namespace CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Watcher Sync(decimal? value, decimal? averageBuyValue, decimal? averageSellValue)
+        public Watcher Sync(decimal? value, decimal? averageBuyValue, decimal? averageSellValue, decimal? price)
         {
             Value = value;
             AverageBuy = averageBuyValue;
             AverageSell = averageSellValue;
+            Price = price;
 
             return this;
         }

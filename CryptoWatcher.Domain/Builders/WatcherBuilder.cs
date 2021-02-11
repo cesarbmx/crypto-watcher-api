@@ -54,7 +54,7 @@ namespace CryptoWatcher.Domain.Builders
             foreach (var watcher in watchers)
             {
                 var defaultWatcher = defaultWatchers.FirstOrDefault(WatcherExpression.DefaultWatcher(watcher.CurrencyId, watcher.CreatorId, watcher.IndicatorId).Compile());
-                if (defaultWatcher != null) watcher.Sync(defaultWatcher.Value, defaultWatcher.AverageBuy, defaultWatcher.AverageSell);
+                if (defaultWatcher != null) watcher.Sync(defaultWatcher.Value, defaultWatcher.AverageBuy, defaultWatcher.AverageSell, defaultWatcher.Price);
             }
         }
     }
