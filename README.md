@@ -8,10 +8,10 @@ _C# .NET Core + DDD + Hangfire + Swagger + Automapper + FluentValidation + Log4N
 
 ##### PHASES:
 - [x]  **Phase #1** Whatsapp notification upon buy/sell orders (**Perception**)  
-- [ ]  **Phase #2** Identify best indicators (**Expectation**)  
-- [ ]  **Phase #3** Automate buys/sells on Binance API (**Automation**)  
-- [ ]  **Phase #4** Allow coummunity to create indicators (**Collaboration**)  
-- [ ]  **Phase #5** Recongnize best users based on their indicators (**Reputation**)  
+- [ ]  **Phase #2** Allow coummunity to create indicators (**Collaboration**) 
+- [ ]  **Phase #3** Identify best indicators (**Expectation**)  
+- [ ]  **Phase #4** Automate buys/sells on Binance API (**Automation**)  
+- [ ]  **Phase #5** Recongnize best users (**Reputation**)  
 - [ ]  **Phase #6** Reward users (**Reward**)
 
 ##### HOW TO RUN IT:
