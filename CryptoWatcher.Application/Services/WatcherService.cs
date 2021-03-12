@@ -99,8 +99,8 @@ namespace CryptoWatcher.Application.Services
             watcher = new Watcher(
                 request.UserId,
                 request.CurrencyId,
-                request.CreatorId,
                 request.IndicatorId,
+                request.CreatorId,
                 defaultWatcher?.Value,
                 null,
                 null,

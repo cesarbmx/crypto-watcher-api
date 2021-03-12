@@ -51,7 +51,7 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasStringToEnumConversion()
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Amount)
+            entityBuilder.Property(t => t.Quantity)
                 .HasColumnType("decimal(18,4)")
                 .IsRequired();
 

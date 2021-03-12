@@ -9,6 +9,7 @@ using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Logging.Extensions;
 using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
+using CryptoWatcher.Domain.Builders;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -73,7 +74,7 @@ namespace CryptoWatcher.Application.Services
             return response;
         }
 
-        public async Task<List<Notification>> AddOrderNotifications(List<Order> orders)
+        public async Task<List<Notification>> AddNotifications(List<Order> orders)
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -95,11 +96,11 @@ namespace CryptoWatcher.Application.Services
                 var user = await _mainDbContext.Users.FindAsync(order.UserId);
 
                 // Create message
-                var message = string.Format(
+                var message = NotificationBuilder.BuildMessage(
                     OrderMessage.OrderNotification, 
-                    order.CurrencyId.ToUpper(), 
-                    order.OrderType.ToString().ToLower(), 
-                    order.Price.Normalize());
+                    order.CurrencyId, 
+                    order.OrderType, 
+                    order.Price);
 
                 // Create notification
                 var notification = new Notification(user.UserId, user.PhoneNumber, message, now);
@@ -124,7 +125,7 @@ namespace CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation(nameof(AddOrderNotifications), new
+            _logger.LogSplunkInformation(nameof(AddNotifications), new
             {
                 notifications.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
@@ -133,7 +134,6 @@ namespace CryptoWatcher.Application.Services
             // Return
             return notifications;
         }
-
         public async Task SendTelegramNotifications()
         {
             // Get pending notifications

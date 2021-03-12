@@ -33,7 +33,7 @@ namespace CryptoWatcher.Domain.Builders
                     watcher.CreatorId,
                     watcher.CurrencyId,
                     orderType,
-                    watcher.Amount??0m,
+                    watcher.Quantity??0m,
                     watcher.Price??0m,
                     now);
                 newOrders.Add(order);

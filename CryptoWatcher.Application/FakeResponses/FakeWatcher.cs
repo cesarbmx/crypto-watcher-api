@@ -18,9 +18,12 @@ namespace CryptoWatcher.Application.FakeResponses
                 Value = 5000,
                 Buy = 15,
                 Sell = 8,
+                Quantity = 100,
                 AverageBuy = 0,
                 AverageSell = 0,
                 Price = 5000,
+                EntryPrice = 14,
+                ExitPrice = 20,
                 Status = WatcherStatus.BUY,
                 Enabled = false
             };
@@ -35,11 +38,14 @@ namespace CryptoWatcher.Application.FakeResponses
                 CreatorId = "cesarbmx",
                 IndicatorId = "RSI",
                 Value = 2,
+                Quantity = 200,
                 Buy = 15,
                 Sell = 8,
                 AverageBuy = 0,
                 AverageSell = 0,
                 Price = 5000,
+                EntryPrice = 10,
+                ExitPrice = 30,
                 Status = WatcherStatus.SELL,
                 Enabled = false
             };

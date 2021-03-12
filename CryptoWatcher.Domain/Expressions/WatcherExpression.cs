@@ -45,7 +45,7 @@ namespace CryptoWatcher.Domain.Expressions
         }
         public static Expression<Func<Watcher, bool>> WatcherWillingToBuyOrSell()
         {
-            return x => x.Value > x.Buy || x.Value < x.Sell;
+            return x => x.Value > x.Buy && !x.EntryPrice.HasValue || x.Value < x.Sell && !x.ExitPrice.HasValue;
         }
     }
 }

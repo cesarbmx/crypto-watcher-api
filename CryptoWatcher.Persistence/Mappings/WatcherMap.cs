@@ -71,7 +71,7 @@ namespace CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.Sell)
                 .HasColumnType("decimal(18,2)");
 
-            entityBuilder.Property(t => t.Amount)
+            entityBuilder.Property(t => t.Quantity)
                 .HasColumnType("decimal(18,2)");
 
             entityBuilder.Property(t => t.AverageBuy)
@@ -81,6 +81,12 @@ namespace CryptoWatcher.Persistence.Mappings
                 .HasColumnType("decimal(18,2)");
 
             entityBuilder.Property(t => t.Price)
+                .HasColumnType("decimal(18,2)");
+
+            entityBuilder.Property(t => t.EntryPrice)
+                .HasColumnType("decimal(18,2)");
+
+            entityBuilder.Property(t => t.ExitPrice)
                 .HasColumnType("decimal(18,2)");
 
             entityBuilder.Property(t => t.Enabled)

@@ -10,6 +10,7 @@ using CryptoWatcher.Domain.Expressions;
 using CryptoWatcher.Application.Messages;
 using CryptoWatcher.Domain.Models;
 using CryptoWatcher.Domain.Builders;
+using CryptoWatcher.Domain.Types;
 using CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -109,16 +110,25 @@ namespace CryptoWatcher.Application.Services
 
                 // Update order
                 _mainDbContext.Orders.Update(order);
-
+                
                 // Get watcher
                 var watcher = watchers.FirstOrDefault(x => x.WatcherId == order.WatcherId);
 
                 // Make sure watcher exists
                 if (watcher == null) throw new ApplicationException("Watcher is expected");
 
-                // Reset watcher
-                watcher.ResetBuySell();
-
+                switch (order.OrderType)
+                {
+                    case  OrderType.BUY:
+                        watcher.SetAsBought(); // Reset watcher
+                        break;
+                    case OrderType.SELL:
+                        watcher.SetAsBought(); // Reset watcher
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
+                
                 // Update watcher
                 _mainDbContext.Watchers.Update(watcher);
             }

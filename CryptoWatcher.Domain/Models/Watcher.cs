@@ -14,15 +14,18 @@ namespace CryptoWatcher.Domain.Models
         public int WatcherId { get; private set; }
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
-        public string CreatorId { get; private set; }
         public string IndicatorId { get; private set; }
+        public string CreatorId { get; private set; }
         public decimal? Value { get; private set; }
         public decimal? Buy { get; private set; }
         public decimal? Sell { get; private set; }
-        public decimal? Amount { get; private set; }
+        public decimal? Quantity { get; private set; }
         public decimal? AverageBuy { get; private set; }
         public decimal? AverageSell { get; private set; }
         public decimal? Price { get; private set; }
+        public decimal? EntryPrice { get; private set; }
+        public decimal? ExitPrice { get; private set; }
+        public decimal? Profit => WatcherBuilder.BuildProfit(EntryPrice, ExitPrice, Quantity);
         public bool Enabled { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
@@ -35,12 +38,12 @@ namespace CryptoWatcher.Domain.Models
         public Watcher(
             string userId,
             string currencyId,
-            string creatorId,
             string indicatorId,
+            string creatorId,
             decimal? value,
             decimal? buy,
             decimal? sell,
-            decimal? amount,
+            decimal? quantity,
             decimal? averageBuy,
             decimal? averageSell,
             decimal? price,
@@ -49,13 +52,13 @@ namespace CryptoWatcher.Domain.Models
         {
             WatcherId = 0;
             UserId = userId;
-            CreatorId = creatorId;
             CurrencyId = currencyId;
             IndicatorId = indicatorId;
+            CreatorId = creatorId;
             Value = value;
             Buy = buy;
             Sell = sell;
-            Amount = amount;
+            Quantity = quantity;
             AverageBuy = averageBuy;
             AverageSell = averageSell;
             Price = price;
@@ -86,10 +89,15 @@ namespace CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Watcher ResetBuySell()
+        public Watcher SetAsBought()
         {
-            Buy = null;
-            Sell = null;
+            EntryPrice = Buy;
+
+            return this;
+        }
+        public Watcher SetAsSold()
+        {
+            ExitPrice = Sell;
 
             return this;
         }

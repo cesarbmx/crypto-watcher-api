@@ -1,4 +1,5 @@
 ﻿using System;
+using CesarBmx.Shared.Common.Extensions;
 using CryptoWatcher.Domain.Types;
 
 
@@ -13,6 +14,18 @@ namespace CryptoWatcher.Domain.Builders
 
             // If not sent yet, Pending
             return NotificationStatus.PENDING;
+        }
+        public static string BuildMessage(string messageTemplate, string currencyId, OrderType orderType, decimal price)
+        {
+            // Create message
+            var message = string.Format(
+                messageTemplate,
+                currencyId.ToUpper(),
+                orderType.ToString().ToLower(),
+                price.Normalize());
+
+            // Return
+            return message;
         }
     }
 }

@@ -31,8 +31,8 @@ namespace CryptoWatcher.Domain.Builders
                 var watcher = new Watcher(
                     "master",
                     line.CurrencyId,
-                    line.UserId,
                     line.IndicatorId,
+                    line.UserId,
                     line.Value,
                     line.AverageBuy,
                     line.AverageSell,
@@ -56,6 +56,17 @@ namespace CryptoWatcher.Domain.Builders
                 var defaultWatcher = defaultWatchers.FirstOrDefault(WatcherExpression.DefaultWatcher(watcher.CurrencyId, watcher.CreatorId, watcher.IndicatorId).Compile());
                 if (defaultWatcher != null) watcher.Sync(defaultWatcher.Value, defaultWatcher.AverageBuy, defaultWatcher.AverageSell, defaultWatcher.Price);
             }
+        }
+        public static decimal? BuildProfit(decimal? entryPrice, decimal? exitPrice, decimal? quantity)
+        {
+            // Make the calculation only when watcher has exited
+            if (!entryPrice.HasValue || !exitPrice.HasValue || !quantity.HasValue) return null;
+
+            // Result
+            var result = (exitPrice - entryPrice) * quantity;
+
+            // Return
+            return result;
         }
     }
 }
