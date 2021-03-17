@@ -81,13 +81,13 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get indicator
-            var indicator = await _mainDbContext.Indicators.FindAsync( request.IndicatorId);
+            var indicator = await _mainDbContext.Indicators.FindAsync( request.IndicatorUserId, request.IndicatorId);
 
             // Throw NotFound if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Check if it exists
-            var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.Unique(request.UserId, request.CurrencyId, request.IndicatorId));
+            var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.Unique(request.UserId, request.CurrencyId, indicator.UserId, indicator.IndicatorId));
 
             // Throw ConflictException if it exists
             if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
@@ -99,7 +99,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             watcher = new Watcher(
                 request.UserId,
                 request.CurrencyId,
-                request.IndicatorId,
+                indicator.UserId,
+                indicator.IndicatorId,
                 defaultWatcher?.Value,
                 null,
                 null,

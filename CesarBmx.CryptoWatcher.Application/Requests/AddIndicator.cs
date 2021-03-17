@@ -7,9 +7,8 @@ namespace CesarBmx.CryptoWatcher.Application.Requests
 {
     public class AddIndicator
     {
-        [JsonIgnore] public string IndicatorId => UserId + "." + Abbreviation;
         [JsonIgnore] public string UserId { get; set; }
-        [Required] public string Abbreviation { get; set; }
+        [Required] public string IndicatorId { get; set; }
         [Required] public string Name { get; set; }
         [Required] public string Description { get; set; }
         [Required] public string Formula { get; set; }

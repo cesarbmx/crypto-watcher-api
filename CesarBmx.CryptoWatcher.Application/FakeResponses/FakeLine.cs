@@ -14,7 +14,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 Time = DateTime.UtcNow.StripSeconds().AddHours(-1),
                 UserId = "Master",
                 CurrencyId = "BTC",
-                IndicatorId = "Master.PRICE",
+                IndicatorId = "PRICE",
                 Value = 1.5m,
                 AverageBuy = 15,
                 AverageSell = 8
@@ -27,7 +27,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 Time = DateTime.UtcNow.StripSeconds(),
                 UserId = "Master",
                 CurrencyId = "BTC",
-                IndicatorId = "Master.RSI",
+                IndicatorId = "RSI",
                 Value = 1.5m,
                 AverageBuy = 9,
                 AverageSell = 6

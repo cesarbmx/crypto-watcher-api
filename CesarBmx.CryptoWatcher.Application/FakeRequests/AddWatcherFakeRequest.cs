@@ -11,7 +11,8 @@ namespace CesarBmx.CryptoWatcher.Application.FakeRequests
             {
                 UserId = "CesarBmx",
                 CurrencyId = "BTC",
-                IndicatorId = "CesarBmx.PRICE",
+                IndicatorUserId = "Master", 
+                IndicatorId = "PRICE",
                 Enabled = true
             };
         }       

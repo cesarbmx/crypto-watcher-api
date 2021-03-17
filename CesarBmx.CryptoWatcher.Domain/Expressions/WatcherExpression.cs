@@ -6,11 +6,12 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
 {
     public static class WatcherExpression
     {
-        public static Expression<Func<Watcher, bool>> Unique(string userId, string currencyId, string indicatorId)
+        public static Expression<Func<Watcher, bool>> Unique(string userId, string currencyId, string indicatorUserId, string indicatorId)
         {
             return x =>
                 x.UserId == userId &&
                 x.CurrencyId == currencyId &&
+                x.IndicatorUserId == indicatorUserId &&
                 x.IndicatorId == indicatorId;
         }
         public static Expression<Func<Watcher, bool>> Filter(string userId = null, string currencyId = null, string indicatorId = null)

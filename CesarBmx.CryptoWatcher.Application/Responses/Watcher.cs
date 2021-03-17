@@ -9,6 +9,7 @@ namespace CesarBmx.CryptoWatcher.Application.Responses
         public int WatcherId { get; set; }
         public string UserId { get; set; }
         public string CurrencyId { get; set; }
+        public string IndicatorUserId { get; set; }
         public string IndicatorId { get; set; }
         public decimal Value { get; set; }
         public decimal? Buy { get; set; }

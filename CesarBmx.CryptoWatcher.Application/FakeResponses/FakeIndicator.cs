@@ -9,9 +9,8 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
         {
             return new Indicator
             {
-                IndicatorId = "Master.PRICE",
                 UserId = "Master",
-                Abbreviation = "PRICE",
+                IndicatorId = "PRICE",
                 Name = "Price",
                 Description = "Real time price indicator",
                 Formula = "C# formula"
@@ -21,9 +20,8 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
         {
             return new Indicator
             {
-                IndicatorId = "Master.RSI",
                 UserId = "Master",
-                Abbreviation = "RSI",
+                IndicatorId = "RSI",
                 Name = "RSI",
                 Description = @"The Relative Strength Index (RSI) is a momentum oscillator that measures the speed and change of price movements.
                                 RSI oscillates between zero and 100. Traditionally, and according to Wilder, RSI is considered overbought when above 70 and oversold when below 30.",

@@ -75,7 +75,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get indicator
             var indicator = await _mainDbContext.Indicators
                 .Include(x => x.Dependencies)
-                .FirstOrDefaultAsync(x => x.IndicatorId == request.IndicatorId);
+                .FirstOrDefaultAsync(x => x.UserId == request.UserId && x.IndicatorId == request.IndicatorId);
 
             // Throw ConflictException if it exists
             if (indicator != null) throw new ConflictException(IndicatorMessage.IndicatorWithSameIdAlreadyExists);
@@ -87,7 +87,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(dependencies);
 
             // Build new indicator dependencies
-            var indicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(request.IndicatorId, dependencies);
+            var indicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(request.UserId, request.IndicatorId, dependencies);
 
             // Create
             indicator = new Indicator(
@@ -120,7 +120,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get indicator
             var indicator = await _mainDbContext.Indicators
                 .Include(x => x.Dependencies)
-                .FirstOrDefaultAsync(x => x.IndicatorId == request.IndicatorId);
+                .FirstOrDefaultAsync(x => x.UserId == request.UserId && x.IndicatorId == request.IndicatorId);
 
             // Throw NotFound if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
@@ -129,7 +129,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var newDependencies = await GetIndicators(request.Dependencies);
 
             // Build new indicator dependencies
-            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies( indicator.IndicatorId, newDependencies);
+            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(indicator.UserId, indicator.IndicatorId, newDependencies);
 
             // Get current indicator dependencies 
             var currentIndicatorDependencies = indicator.Dependencies;
@@ -161,8 +161,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var indicators = new List<Indicator>();
             foreach (var indicatorId in indicatorIds)
             {
+                var array = indicatorId.Split(".");
+
                 // Get indicator
-                var indicator = await _mainDbContext.Indicators.FirstOrDefaultAsync(x=>x.IndicatorId == indicatorId);
+                var indicator = await _mainDbContext.Indicators.FirstOrDefaultAsync(x=>x.UserId == array[0] && x.IndicatorId == array[1]);
 
                 // Throw NotFound if it does not exist
                 if (indicator == null) throw new NotFoundException(string.Format(IndicatorDependencyMessage.IndicatorDependencyNotFound, indicatorId));

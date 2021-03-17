@@ -9,11 +9,12 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
     public class Watcher : IEntity<Watcher>
 
     {
-        public string Id => UserId + "_" + CurrencyId + "_" + IndicatorId;
+        public string Id => UserId + "_" + CurrencyId + "_" + IndicatorUserId + "_" + IndicatorId;
 
         public int WatcherId { get; private set; }
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
+        public string IndicatorUserId { get; private set; }
         public string IndicatorId { get; private set; }
         public decimal? Value { get; private set; }
         public decimal? Buy { get; private set; }
@@ -37,6 +38,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public Watcher(
             string userId,
             string currencyId,
+            string indicatorUserId,
             string indicatorId,
             decimal? value,
             decimal? buy,
@@ -51,6 +53,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             WatcherId = 0;
             UserId = userId;
             CurrencyId = currencyId;
+            IndicatorUserId = indicatorUserId;
             IndicatorId = indicatorId;
             Value = value;
             Buy = buy;
