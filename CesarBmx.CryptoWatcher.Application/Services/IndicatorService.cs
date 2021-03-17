@@ -204,8 +204,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 // Get indicator
                 var dependency = await _mainDbContext.Indicators.FindAsync(userId, indicatorId);
 
-                // Throw ValidationException if it does not exist
-                if (dependency == null) throw new ValidationException(string.Format(IndicatorMessage.DependencyNotFound, dependencyId));
+                // Throw NotFound if it does not exist
+                if (dependency == null) throw new NotFoundException(string.Format(IndicatorMessage.DependencyNotFound, dependencyId));
 
                 // Add
                 dependencies.Add(dependency);
