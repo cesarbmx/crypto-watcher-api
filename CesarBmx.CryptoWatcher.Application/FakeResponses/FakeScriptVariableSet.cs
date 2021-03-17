@@ -12,29 +12,30 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
            var scriptVariableSetResponse = new ScriptVariableSet();
 
            var now = DateTime.UtcNow.StripSeconds();
-           var times = new [] { now};
-           var currencies = new [] { "bitcoin", "ethereum", "master" };
-           var indicators = new [] { "price", "hype", "performance" };
+           var times = new List<DateTime> { now};
+           var currencies = new List<string> { "BTC", "ETH", "EOS" };
+           var indicators = new List<string> { "Master.PRICE", "Master.HYPE" };
 
             var level31 = new Dictionary<string, decimal>
             {
-                { "price", 3200m },
-                { "hype", 0.125m }
+                { "Master.PRICE", 3200m },
+                { "Master.HYPE", 0.125m }
             };
             var level32 = new Dictionary<string, decimal>
             {
-                { "price", 570m },
-                { "hype", 6.5m }
+                { "Master.PRICE", 570m },
+                { "Master.HYPE", 6.5m }
             };
             var level33 = new Dictionary<string, decimal>
             {
-                { "performance", 70m }
+                { "Master.PRICE", 3m },
+                { "Master.HYPE", 0.5m }
             };
             var level2 = new Dictionary<string, Dictionary<string, decimal>>
             {
-                { "bitcoin", level31 },
-                { "ethereum", level32 },
-                { "master", level33 }
+                { "BTC", level31 },
+                { "ETH", level32 },
+                { "EOS", level33 }
             };
             var level1 = new Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal>>>
             {

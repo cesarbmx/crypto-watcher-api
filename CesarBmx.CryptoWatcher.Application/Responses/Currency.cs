@@ -6,7 +6,6 @@ namespace CesarBmx.CryptoWatcher.Application.Responses
     public class Currency
     {
         public string CurrencyId { get; set; }
-        public string Symbol { get; set; }
         public string Name { get; set; }
         public short Rank { get; set; }
         public decimal Price { get; set; }

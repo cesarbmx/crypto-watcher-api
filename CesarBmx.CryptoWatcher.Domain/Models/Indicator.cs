@@ -5,8 +5,9 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
 {
     public class Indicator
     {
-        public string UserId { get; private set; }
         public string IndicatorId { get; private set; }
+        public string UserId { get; private set; }
+        public string Abbreviation { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
         public string Formula { get; private set; }
@@ -17,7 +18,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public Indicator() { }
         public Indicator(
             string userId,
-            string indicatorId,
+            string abbreviation,
             string name, 
             string description,
             string formula,
@@ -25,8 +26,9 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             int dependencyLevel,
             DateTime createdAt)
         {
+            IndicatorId = userId + "." + abbreviation;
             UserId = userId;
-            IndicatorId = indicatorId;
+            Abbreviation = abbreviation;
             Name = name;
             Description = description;
             Formula = formula;

@@ -12,7 +12,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         public void Test_Hype()
         {
             // Arrange
-            var indicatorId = "hype";
+            var indicatorId = "HYPE";
             var allIndicatorDependencies = FakeIndicatorDependencies.GetFakeIndicatorDependencies();
 
             // Act
@@ -26,7 +26,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         public void Test_PriceChange24Hrs()
         {
             // Arrange
-            var indicatorId = "price-change-24hrs";
+            var indicatorId = "PRICE_CHANGE_24hrs";
             var allIndicatorDependencies = FakeIndicatorDependencies.GetFakeIndicatorDependencies();
 
             // Act
@@ -40,7 +40,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         public void Test_Price()
         {
             // Arrange
-            var indicatorId = "price";
+            var indicatorId = "PRICE";
             var allIndicatorDependencies = FakeIndicatorDependencies.GetFakeIndicatorDependencies();
 
             // Act

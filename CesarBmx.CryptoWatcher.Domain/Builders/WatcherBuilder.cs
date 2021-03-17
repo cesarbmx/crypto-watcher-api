@@ -29,10 +29,9 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             {
                 // Add default watcher
                 var watcher = new Watcher(
-                    "master",
+                    "Master",
                     line.CurrencyId,
                     line.IndicatorId,
-                    line.UserId,
                     line.Value,
                     line.AverageBuy,
                     line.AverageSell,
@@ -53,7 +52,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             // Sync watcher
             foreach (var watcher in watchers)
             {
-                var defaultWatcher = defaultWatchers.FirstOrDefault(WatcherExpression.DefaultWatcher(watcher.CurrencyId, watcher.CreatorId, watcher.IndicatorId).Compile());
+                var defaultWatcher = defaultWatchers.FirstOrDefault(WatcherExpression.DefaultWatcher(watcher.CurrencyId, watcher.IndicatorId).Compile());
                 if (defaultWatcher != null) watcher.Sync(defaultWatcher.Value, defaultWatcher.AverageBuy, defaultWatcher.AverageSell, defaultWatcher.Price);
             }
         }

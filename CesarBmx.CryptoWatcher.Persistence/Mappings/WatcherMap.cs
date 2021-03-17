@@ -13,7 +13,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
                 .IsClustered(false);
 
             // Indexes
-            entityBuilder.HasIndex(t => new { t.UserId, t.CurrencyId, t.CreatorId, t.IndicatorId })
+            entityBuilder.HasIndex(t => new { t.UserId, t.CurrencyId, t.IndicatorId })
                 .IsUnique()
                 .IsClustered();
 
@@ -33,7 +33,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
             entityBuilder
                 .HasOne<Indicator>()
                 .WithMany()
-                .HasForeignKey(t => new { t.CreatorId, t.IndicatorId })
+                .HasForeignKey(t => t.IndicatorId )
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Properties
@@ -48,11 +48,6 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.CurrencyId)
-                .HasColumnType("nvarchar(50)")
-                .HasMaxLength(50)
-                .IsRequired();
-
-            entityBuilder.Property(t => t.CreatorId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();

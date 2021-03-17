@@ -14,8 +14,8 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             {
                 OrderId = Guid.NewGuid(),
                 OrderType = OrderType.BUY,
-                UserId = "master",
-                CurrencyId = "btc",
+                UserId = "Master",
+                CurrencyId = "BTC",
                 OrderStatus = OrderStatus.PENDING,
                 Quantity = 100,
                 CreatedAt = DateTime.UtcNow.StripSeconds(),
@@ -29,8 +29,8 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             {
                 OrderId = Guid.NewGuid(),
                 OrderType = OrderType.BUY,
-                UserId = "master",
-                CurrencyId = "eos",
+                UserId = "Master",
+                CurrencyId = "EOS",
                 OrderStatus = OrderStatus.PENDING,
                 Quantity = 100,
                 CreatedAt = DateTime.UtcNow.StripSeconds(),

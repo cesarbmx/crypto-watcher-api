@@ -29,6 +29,6 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Return
             return response;
-        }       
+        }
     }
 }

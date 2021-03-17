@@ -31,7 +31,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
             // Data seeding
             var time = DateTime.UtcNow.StripSeconds();
             entityBuilder.HasData(
-                new User("master", "+34 666868686", time)
+                new User("Master", "+34 666868686", time)
             );
         }
     }

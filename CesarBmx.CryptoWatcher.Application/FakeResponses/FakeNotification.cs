@@ -12,7 +12,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             return new Notification
             {
                 NotificationId = Guid.NewGuid(),
-                UserId = "master",
+                UserId = "Master",
                 Message = "Test message",
                 PhoneNumber = "+34666555555",
                 Time = DateTime.UtcNow.StripSeconds(),
@@ -24,7 +24,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             return new Notification
             {
                 NotificationId = Guid.NewGuid(),
-                UserId = "cesarbmx",
+                UserId = "CesarBmx",
                 Message = "Test message",
                 PhoneNumber = "+34666666666",
                 Time = DateTime.UtcNow.StripSeconds(),

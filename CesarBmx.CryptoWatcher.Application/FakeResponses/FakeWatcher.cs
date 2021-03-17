@@ -11,10 +11,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             return new Watcher
             {
                 WatcherId = 1,
-                UserId = "cesarbmx",
-                CurrencyId = "btc",
-                IndicatorId = "price",
-                CreatorId = "master",
+                UserId = "CesarBmx",
+                CurrencyId = "BTC",
+                IndicatorId = "CesarBmx.PRICE",
                 Value = 5000,
                 Buy = 15,
                 Sell = 8,
@@ -33,10 +32,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             return new Watcher
             {
                 WatcherId = 2,
-                UserId = "cesarbmx",
-                CurrencyId = "btc",
-                CreatorId = "cesarbmx",
-                IndicatorId = "RSI",
+                UserId = "CesarBmx",
+                CurrencyId = "BTC",
+                IndicatorId = "CesarBmx.RSI",
                 Value = 2,
                 Quantity = 200,
                 Buy = 15,

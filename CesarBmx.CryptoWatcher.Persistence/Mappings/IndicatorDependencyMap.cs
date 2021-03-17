@@ -11,45 +11,35 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
         public static void Map(this EntityTypeBuilder<IndicatorDependency> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t=> new { t.UserId, t.IndicatorId, t.DependencyUserId, t.DependencyIndicatorId});
+            entityBuilder.HasKey(t=> new { t.IndicatorId, t.DependencyId});
 
             // Relationships
             entityBuilder
                 .HasOne<Indicator>()
-                .WithMany(x=>x.Dependencies)
-                .HasForeignKey(t => new { t.UserId, t.IndicatorId })
+                .WithMany()
+                .HasForeignKey(t => t.IndicatorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             entityBuilder
                 .HasOne<Indicator>()
-                .WithMany()
-                .HasForeignKey(t => new { t.DependencyUserId, t.DependencyIndicatorId })
+                .WithMany(x => x.Dependencies)
+                .HasForeignKey(t => t.IndicatorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Properties
-            entityBuilder.Property(t => t.UserId)
-                .HasColumnType("nvarchar(50)")
-                .HasMaxLength(50)
-                .IsRequired();
-
             entityBuilder.Property(t => t.IndicatorId)
-                .HasColumnType("nvarchar(50)")
+                .HasColumnType("nvarchar(101)")
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.DependencyUserId)
-                .HasColumnType("nvarchar(50)")
-                .HasMaxLength(50)
-                .IsRequired();
-
-            entityBuilder.Property(t => t.DependencyIndicatorId)
-                .HasColumnType("nvarchar(50)")
+            entityBuilder.Property(t => t.DependencyId)
+                .HasColumnType("nvarchar(101)")
                 .HasMaxLength(50)
                 .IsRequired();
 
             // Seed data
             var time = DateTime.UtcNow.StripSeconds();
-            entityBuilder.HasData(new IndicatorDependency("master", "hype", "master", "price-change-24hrs", time));
+            entityBuilder.HasData(new IndicatorDependency("Master.HYPE", "PRICE_CHANGE_24hrs", time));
         }
     }
 }

@@ -12,7 +12,7 @@ namespace CesarBmx.CryptoWatcher.Application.Automapper
         {
             CreateMap<Currency, Responses.Currency>();
             CreateMap<TickerWithQuotesInfo, Currency>()
-                .ForMember(dest => dest.CurrencyId, opt => opt.MapFrom(src => src.Symbol.ToLower()))
+                .ForMember(dest => dest.CurrencyId, opt => opt.MapFrom(src => src.Symbol))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].Price)))
                 .ForMember(dest => dest.Volume24H, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].Volume24H)))
                 .ForMember(dest => dest.MarketCap, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].MarketCap)))

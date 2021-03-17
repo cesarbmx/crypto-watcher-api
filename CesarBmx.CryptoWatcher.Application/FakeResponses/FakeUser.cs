@@ -9,14 +9,14 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
         {
             return new User
             {
-                UserId = "master"
+                UserId = "Master"
             };
         }
         public static User GetFake_cesar12()
         {
             return new User
             {
-                UserId = "cesar12"
+                UserId = "CesarBmx"
             };
         }
         public static List<User> GetFake_List()

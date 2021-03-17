@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using CesarBmx.CryptoWatcher.Domain.Builders;
 using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Domain.Types;
 
@@ -20,9 +19,6 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
         }
         public static Expression<Func<Line, bool>> Filter(Period period, List<string> currencyIds, List<string> indicatorIds)
         {
-            var userIds = IndicatorBuilder.BuildUserIds(indicatorIds);
-            indicatorIds = IndicatorBuilder.BuildIndicatorIds(indicatorIds);
-
             return x =>
                 (
                     period == Period.ONE_DAY && x.Period == Period.ONE_DAY ||
@@ -31,7 +27,6 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
                     period == Period.ONE_MINUTE
                 ) &&
                 (currencyIds == null || !currencyIds.Any() || currencyIds.Contains(x.CurrencyId)) &&
-                (userIds == null || !userIds.Any() || userIds.Contains(x.UserId)) &&
                 (indicatorIds == null || !indicatorIds.Any() || indicatorIds.Contains(x.IndicatorId));
         }
     }

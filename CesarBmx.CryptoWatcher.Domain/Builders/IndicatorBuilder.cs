@@ -12,11 +12,11 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
         {
             switch (indicator.IndicatorId)
             {
-                case "price":
+                case "PRICE":
                     return currency.Price;
-                case "price-change-24hrs":
+                case "PRICE_CHANGE_24hrs":
                     return currency.PercentageChange24H;
-                case "hype":
+                case "HYPE":
                     var scriptVariableSet = ScriptVariableSetBuilder.BuildScriptVariableSet(lines);
                     return BuildHypes(scriptVariableSet)[currency.CurrencyId];
                 default:
@@ -28,7 +28,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             // Arrange
             var hypes = new Dictionary<string, decimal>();
             var time = scriptVariableSet.Times[0];
-            var currencies = scriptVariableSet.Values[time]["price-change-24hrs"];
+            var currencies = scriptVariableSet.Values[time]["PRICE_CHANGE_24hrs"];
             var values = currencies.Select(x=>x.Value).ToArray();
 
             // Build
@@ -114,7 +114,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             // For each dependency
             foreach (var indicatorDependency in indicatorDependencies)
             {
-                var result = BuildDependencyLevel(indicatorDependency.DependencyIndicatorId, dependencies);
+                var result = BuildDependencyLevel(indicatorDependency.DependencyId, dependencies);
                 if (result > dependencyLevel) dependencyLevel = result;
             }
 
@@ -159,34 +159,6 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             indicatorId = split[1];
 
             return indicatorId;
-        }
-        public static List<string> BuildUserIds(List<string> indicatorIds)
-        {
-            if (indicatorIds == null) return null;
-            
-            var userIds = new List<string>();
-
-            foreach (var indicatorId in indicatorIds)
-            {
-                var userId = BuildUserId(indicatorId);
-                userIds.Add(userId);
-            }
-
-            return userIds;
-        }
-        public static List<string> BuildIndicatorIds(List<string> indicatorIds)
-        {
-            if (indicatorIds == null) return null;
-
-            var indicatorIds2 = new List<string>();
-
-            foreach (var indicatorId in indicatorIds)
-            {
-                var indicatorId2 = BuildIndicatorId(indicatorId);
-                indicatorIds2.Add(indicatorId2);
-            }
-
-            return indicatorIds2;
         }
     }
 }

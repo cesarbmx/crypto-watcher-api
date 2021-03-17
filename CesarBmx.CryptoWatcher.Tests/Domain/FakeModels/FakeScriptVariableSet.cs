@@ -19,7 +19,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
                     now, new Dictionary<string, Dictionary<string, decimal>>
                     {
                         {
-                            "price", new Dictionary<string, decimal>
+                            "PRICE", new Dictionary<string, decimal>
                             {
                                 {"bitcoin", 0.25m},
                                 {"ethereum", 0.25m},

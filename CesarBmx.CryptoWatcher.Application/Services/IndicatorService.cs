@@ -81,13 +81,13 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (indicator != null) throw new ConflictException(IndicatorMessage.IndicatorWithSameIdAlreadyExists);
 
             // Get dependencies
-            var dependencies = await GetDependencies(request.Dependencies);
+            var dependencies = await GetIndicators(request.Dependencies);
 
             // Build dependency level
             var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(dependencies);
 
             // Build new indicator dependencies
-            var indicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(request.UserId, request.IndicatorId, dependencies);
+            var indicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(request.IndicatorId, dependencies);
 
             // Create
             indicator = new Indicator(
@@ -126,10 +126,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Get dependencies
-            var newDependencies = await GetDependencies(request.Dependencies);
+            var newDependencies = await GetIndicators(request.Dependencies);
 
             // Build new indicator dependencies
-            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies( indicator.UserId, indicator.IndicatorId, newDependencies);
+            var newIndicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies( indicator.IndicatorId, newDependencies);
 
             // Get current indicator dependencies 
             var currentIndicatorDependencies = indicator.Dependencies;
@@ -156,6 +156,24 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             return response;
         }
 
+        public async Task<List<Indicator>> GetIndicators(List<string> indicatorIds)
+        {
+            var indicators = new List<Indicator>();
+            foreach (var indicatorId in indicatorIds)
+            {
+                // Get indicator
+                var indicator = await _mainDbContext.Indicators.FirstOrDefaultAsync(x=>x.IndicatorId == indicatorId);
+
+                // Throw NotFound if it does not exist
+                if (indicator == null) throw new NotFoundException(string.Format(IndicatorDependencyMessage.IndicatorDependencyNotFound, indicatorId));
+
+                // Add
+                indicators.Add(indicator);
+            }
+
+            // Return
+            return indicators;
+        }
         public async Task<List<Indicator>> UpdateDependencyLevels()
         {
             // Start watch
@@ -192,27 +210,6 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Return
             return indicators;
-        }
-        private async Task<List<Indicator>> GetDependencies(string[] dependencyIds)
-        {
-            var dependencies = new List<Indicator>();
-            foreach (var dependencyId in dependencyIds)
-            {
-                var userId = IndicatorBuilder.BuildUserId(dependencyId);
-                var indicatorId = IndicatorBuilder.BuildIndicatorId(dependencyId);
-
-                // Get indicator
-                var dependency = await _mainDbContext.Indicators.FindAsync(userId, indicatorId);
-
-                // Throw NotFound if it does not exist
-                if (dependency == null) throw new NotFoundException(string.Format(IndicatorDependencyMessage.IndicatorDependencyNotFound, dependencyId));
-
-                // Add
-                dependencies.Add(dependency);
-            }
-
-            // Return
-            return dependencies;
         }
     }
 }

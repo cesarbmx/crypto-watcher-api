@@ -21,11 +21,6 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
                 .HasColumnType("smallint")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Symbol)
-                .HasColumnType("nvarchar(50)")
-                .HasMaxLength(50)
-                .IsRequired();
-
             entityBuilder.Property(t => t.Name)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)

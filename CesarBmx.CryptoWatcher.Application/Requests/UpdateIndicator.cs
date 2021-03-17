@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace CesarBmx.CryptoWatcher.Application.Requests
@@ -10,6 +11,6 @@ namespace CesarBmx.CryptoWatcher.Application.Requests
         [Required] public string Name { get; set; }
         [Required] public string Description { get; set; }
         [Required] public string Formula { get; set; }
-        [Required] public string[] Dependencies { get; set; }
+        [Required] public List<string> Dependencies { get; set; }
     }
 }

@@ -12,8 +12,8 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
         {
             var indicatorDependencies = new List<IndicatorDependency>()
             {
-                new IndicatorDependency("master", "price-change-24hrs","master", "price", DateTime.UtcNow.StripSeconds()),
-                new IndicatorDependency("master", "hype","master", "price-change-24hrs", DateTime.UtcNow.StripSeconds()),
+                new IndicatorDependency("PRICE_CHANGE_24hrs", "PRICE", DateTime.UtcNow.StripSeconds()),
+                new IndicatorDependency("HYPE", "PRICE_CHANGE_24hrs", DateTime.UtcNow.StripSeconds()),
 
             };
             return indicatorDependencies;

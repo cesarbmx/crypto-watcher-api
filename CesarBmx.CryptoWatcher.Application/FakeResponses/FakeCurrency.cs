@@ -9,8 +9,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
         {
             return new Currency
             {              
-                CurrencyId = "btc",
-                Symbol = "BTC",
+                CurrencyId = "BTC",
                 Name = "Bitcoin",
                 Rank = 1,
                 Price = (decimal)7464.36,
@@ -23,8 +22,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
         {
             return new Currency
             {
-                CurrencyId = "ethereum",
-                Symbol = "ETH",
+                CurrencyId = "ETH",
                 Name = "Ethereum",
                 Rank = 2,
                 Price = (decimal)497.108,
