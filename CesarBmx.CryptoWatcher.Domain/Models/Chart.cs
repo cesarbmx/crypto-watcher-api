@@ -18,12 +18,12 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public Chart(
             string currencyId,
             string currencyName,
+            string userId,
             string indicatorId,
             string indicatorName,
-            string userId,
             List<ChartColumn> columns, List<ChartRow> rows)
         {
-            ChartId = currencyId + "-" + indicatorId;
+            ChartId = currencyId + "-" + userId + "-" + indicatorId;
             CurrencyId = currencyId;
             CurrencyName = currencyName;
             IndicatorId = indicatorId;

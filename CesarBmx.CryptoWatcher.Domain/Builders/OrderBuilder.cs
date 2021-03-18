@@ -32,9 +32,9 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
                     watcher.WatcherId,
                     watcher.UserId,
                     watcher.CurrencyId,
-                    orderType,
-                    watcher.Quantity??0m,
                     watcher.Price??0m,
+                    watcher.Quantity ?? 0m,
+                    orderType,
                     now);
                 newOrders.Add(order);
             }

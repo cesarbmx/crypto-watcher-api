@@ -89,17 +89,17 @@
             Get notification
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.G_LineController.GetAllLines(CesarBmx.CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.G_LineController.GetAllLines(CesarBmx.CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
             <summary>
             Get all lines
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.H_ChartsController.GetAllCharts(CesarBmx.CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.H_ChartsController.GetAllCharts(CesarBmx.CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
             <summary>
             Get all charts
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.I_ScriptVariableSetController.GetScriptVariableSet(CesarBmx.CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.I_ScriptVariableSetController.GetScriptVariableSet(CesarBmx.CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
             <summary>
             Get script variables
             </summary>

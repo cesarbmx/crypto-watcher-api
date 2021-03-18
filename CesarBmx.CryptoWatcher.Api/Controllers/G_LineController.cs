@@ -30,10 +30,10 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [Route("api/lines")]
         [SwaggerResponse(200, Type = typeof(List<Line>))]
         [SwaggerOperation(Tags = new[] { "Lines" }, OperationId = "Lines_GetAllLines")]
-        public async Task<IActionResult> GetAllLines([BindRequired] Period period = Period.ONE_MINUTE, List<string> currencyIds = null, List<string> indicatorIds = null)
+        public async Task<IActionResult> GetAllLines([BindRequired] Period period = Period.ONE_MINUTE, List<string> currencyIds = null, List<string> userIds = null, List<string> indicatorIds = null)
         {
             // Reponse
-            var response = await _lineService.GetAllLines(period, currencyIds, indicatorIds);
+            var response = await _lineService.GetAllLines(period, currencyIds, userIds, indicatorIds);
 
             // Return
             return Ok(response);

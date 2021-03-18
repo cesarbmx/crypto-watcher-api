@@ -45,18 +45,18 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.OrderType)
-                .HasColumnType("varchar(50)")
-                .HasMaxLength(50)
-                .HasStringToEnumConversion()
+            entityBuilder.Property(t => t.Price)
+                .HasColumnType("decimal(18,4)")
                 .IsRequired();
 
             entityBuilder.Property(t => t.Quantity)
                 .HasColumnType("decimal(18,4)")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.Price)
-                .HasColumnType("decimal(18,4)")
+            entityBuilder.Property(t => t.OrderType)
+                .HasColumnType("varchar(50)")
+                .HasMaxLength(50)
+                .HasStringToEnumConversion()
                 .IsRequired();
 
             entityBuilder.Property(t => t.OrderStatus)

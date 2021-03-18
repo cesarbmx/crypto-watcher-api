@@ -30,10 +30,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Responses.Line>> GetAllLines(Period period = Period.ONE_MINUTE, List<string> currencyIds = null, List<string> indicatorIds = null)
+        public async Task<List<Responses.Line>> GetAllLines(Period period = Period.ONE_MINUTE, List<string> currencyIds = null, List<string> userIds = null, List<string> indicatorIds = null)
         {
             // Get all lines
-            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(period, currencyIds, indicatorIds)).ToListAsync();
+            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(period, currencyIds, userIds, indicatorIds)).ToListAsync();
 
             // Response
             var response = _mapper.Map<List<Responses.Line>>(lines);
