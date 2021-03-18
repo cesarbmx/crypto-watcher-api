@@ -30,7 +30,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogSplunkInformation("SendTelgramNotifications", new
+                _logger.LogSplunkInformation(nameof(_notificationService.SendTelegramNotifications), new
                 {
                     Failed = ex.Message
                 });

@@ -58,7 +58,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<List<Currency>> UpdateCurrencies()
+        public async Task<List<Currency>> ImportCurrencies()
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -92,7 +92,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation(nameof(UpdateCurrencies), new
+            _logger.LogSplunkInformation(nameof(ImportCurrencies), new
             {
                 newCurrencies.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds

@@ -30,7 +30,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogSplunkInformation("SendNotificationsViaWhatsapp", new
+                _logger.LogSplunkInformation(nameof(_notificationService.SendWhatsappNotifications), new
                 {
                     Failed = ex.Message
                 });

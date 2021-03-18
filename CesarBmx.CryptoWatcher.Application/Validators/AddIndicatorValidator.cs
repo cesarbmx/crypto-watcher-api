@@ -8,9 +8,9 @@ namespace CesarBmx.CryptoWatcher.Application.Validators
     {
         public AddIndicatorValidator()
         {
-            //RuleFor(x => x.IndicatorId)
-            //    .Matches("^[a-z\\d-]+$")
-            //    .WithMessage(nameof(IndicatorMessage.IndicatorIdHasInvalidFormat) + " " + IndicatorMessage.IndicatorIdHasInvalidFormat);
+            RuleFor(x => x.IndicatorId)
+                .Matches("^[A-z\\d-]+$")
+                .WithMessage(nameof(IndicatorMessage.IndicatorIdHasInvalidFormat) + " " + IndicatorMessage.IndicatorIdHasInvalidFormat);
 
             RuleFor(x => x.Dependencies)
                 .NotNull()

@@ -28,7 +28,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogSplunkInformation("RemoveObsoleteLines", new
+                _logger.LogSplunkInformation(nameof(_lineService.RemoveObsoleteLines), new
                 {
                     Failed = ex.Message
                 });

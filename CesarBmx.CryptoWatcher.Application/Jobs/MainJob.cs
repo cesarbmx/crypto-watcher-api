@@ -46,10 +46,10 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
                 stopwatch.Start();
 
                 // Run
-                var currencies = await _currencyService.UpdateCurrencies();
+                var currencies = await _currencyService.ImportCurrencies();
                 var indicators = await _indicatorService.UpdateDependencyLevels();
-                var lines = await _lineService.AddLines(currencies, indicators);
-                var defaultWatchers = await _watcherService.UpdateDefaultWatchers(lines);
+                var lines = await _lineService.CreateNewLines(currencies, indicators);
+                var defaultWatchers = await _watcherService.SetDefaultWatchers(lines);
                 var watchers = await _watcherService.UpdateWatchers(defaultWatchers);
                 var orders = await _orderService.AddOrders(watchers);
                 orders = await _orderService.ProcessOrders(orders, watchers);
@@ -61,7 +61,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
                 stopwatch.Stop();
 
                 // Log into Splunk
-                _logger.LogSplunkInformation("Main", new
+                _logger.LogSplunkInformation(nameof(MainJob), new
                 {
                     ExecutionTime = stopwatch.Elapsed.TotalSeconds
                 });
@@ -69,7 +69,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
             catch (Exception ex)
             {
                 // Log into Splunk
-                _logger.LogSplunkInformation("Main", new
+                _logger.LogSplunkInformation(nameof(MainJob), new
                 {
                     Failed = ex.Message
                 });

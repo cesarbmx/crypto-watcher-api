@@ -184,7 +184,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             return watchers;
         }
 
-        public async Task<List<Watcher>> UpdateDefaultWatchers(List<Line> lines)
+        public async Task<List<Watcher>> SetDefaultWatchers(List<Line> lines)
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -206,7 +206,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log into Splunk
-            _logger.LogSplunkInformation(nameof(UpdateDefaultWatchers), new
+            _logger.LogSplunkInformation(nameof(SetDefaultWatchers), new
             {
                 newDefaultWatchers.Count,
                 ExecutionTime = stopwatch.Elapsed.TotalSeconds
