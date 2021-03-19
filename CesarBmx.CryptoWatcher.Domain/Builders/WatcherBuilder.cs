@@ -31,7 +31,6 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
                 var watcher = new Watcher(
                     "Master",
                     line.CurrencyId,
-                    line.UserId,
                     line.IndicatorId,
                     line.Value,
                     line.AverageBuy,

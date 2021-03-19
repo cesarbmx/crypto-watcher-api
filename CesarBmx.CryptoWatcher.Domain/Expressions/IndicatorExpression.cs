@@ -8,6 +8,12 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
 {
     public static class IndicatorExpression
     {
+        public static Expression<Func<Indicator, bool>> Unique(string userId, string abbreviation)
+        {
+            return x =>
+                x.UserId == userId &&
+                x.Abbreviation == abbreviation;
+        }
         public static Expression<Func<Indicator, bool>> Filter(string indicatorId = null, string userId = null)
         {
             return x =>  (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId) &&

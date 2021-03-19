@@ -72,7 +72,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
             var response = await _watcherService.AddWatcher(request);
 
             // Return
-            return CreatedAtRoute("Watchers_GetWatcher", new { response.WatcherId }, response);
+            return CreatedAtRoute("Watchers_GetWatcher",  new {response.WatcherId}, response);
         }
 
         /// <summary>

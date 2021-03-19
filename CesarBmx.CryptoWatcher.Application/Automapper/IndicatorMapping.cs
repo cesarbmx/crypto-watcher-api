@@ -9,7 +9,7 @@ namespace CesarBmx.CryptoWatcher.Application.Automapper
         public IndicatorMapping()
         {
             CreateMap<Indicator, Responses.Indicator>()
-                .ForMember(dest => dest.Dependencies, opt => opt.MapFrom(src => src.Dependencies.Select(x => x.DependencyUserId + "."+ x.DependencyIndicatorId).ToArray()));
+                .ForMember(dest => dest.Dependencies, opt => opt.MapFrom(src => src.Dependencies.Select(x => x.DependencyId).ToArray()));
         }
     }
 }

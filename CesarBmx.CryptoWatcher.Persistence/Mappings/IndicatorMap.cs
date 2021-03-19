@@ -12,7 +12,13 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
         public static void Map(this EntityTypeBuilder<Indicator> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => new {t.UserId, t.IndicatorId});
+            entityBuilder.HasKey(t => t.IndicatorId)
+                .IsClustered(false);
+
+            // Indexes
+            entityBuilder.HasIndex(t => new { t.UserId, t.Abbreviation })
+                .IsUnique()
+                .IsClustered();
 
             // Relationships
             entityBuilder
@@ -22,12 +28,17 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Properties
+            entityBuilder.Property(t => t.IndicatorId)
+                .HasColumnType("nvarchar(100)")
+                .HasMaxLength(50)
+                .IsRequired();
+
             entityBuilder.Property(t => t.UserId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.IndicatorId)
+            entityBuilder.Property(t => t.Abbreviation)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();

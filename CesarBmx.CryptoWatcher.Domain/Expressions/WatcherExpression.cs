@@ -11,7 +11,6 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
             return x =>
                 x.UserId == userId &&
                 x.CurrencyId == currencyId &&
-                x.IndicatorUserId == indicatorUserId &&
                 x.IndicatorId == indicatorId;
         }
         public static Expression<Func<Watcher, bool>> Filter(string userId = null, string currencyId = null, string indicatorId = null)

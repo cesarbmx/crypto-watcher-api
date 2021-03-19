@@ -99,22 +99,22 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             // For each indicator
             foreach (var indicator in indicators)
             {
-                var dependencyLevel = BuildDependencyLevel(indicator.UserId, indicator.IndicatorId, dependencies);
+                var dependencyLevel = BuildDependencyLevel(indicator.IndicatorId, dependencies);
                 indicator.SetDependencyLevel(dependencyLevel);
             }
 
             // Return
             return indicators;
         }
-        public static int BuildDependencyLevel(string userId, string indicatorId, List<IndicatorDependency> dependencies)
+        public static int BuildDependencyLevel(string indicatorId, List<IndicatorDependency> dependencies)
         {
             var dependencyLevel = -1;
-            var indicatorDependencies = dependencies.Where(x => x.UserId == userId && x.IndicatorId == indicatorId).ToList();
+            var indicatorDependencies = dependencies.Where(x => x.IndicatorId == indicatorId).ToList();
 
             // For each dependency
             foreach (var indicatorDependency in indicatorDependencies)
             {
-                var result = BuildDependencyLevel(userId, indicatorDependency.DependencyIndicatorId, dependencies);
+                var result = BuildDependencyLevel(indicatorDependency.DependencyId, dependencies);
                 if (result > dependencyLevel) dependencyLevel = result;
             }
 

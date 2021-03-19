@@ -34,19 +34,19 @@
             Get all user indicators
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.C_IndicatorController.GetUserIndicator(System.String,System.String)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.C_IndicatorController.GetIndicator(System.String)">
             <summary>
-            Get user indicator
+            Get indicator
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.C_IndicatorController.AddUserIndicator(System.String,CesarBmx.CryptoWatcher.Application.Requests.AddIndicator)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.C_IndicatorController.AddIndicator(CesarBmx.CryptoWatcher.Application.Requests.AddIndicator)">
             <summary>
-            Add user indicator
+            Add indicator
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.C_IndicatorController.UpdateIndicator(System.String,System.String,CesarBmx.CryptoWatcher.Application.Requests.UpdateIndicator)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.C_IndicatorController.UpdateIndicator(System.String,CesarBmx.CryptoWatcher.Application.Requests.UpdateIndicator)">
             <summary>
-            Update user indicator
+            Update indicator
             </summary>
         </member>
         <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.D_WatcherController.GetUserWatchers(System.String,System.String,System.String)">
