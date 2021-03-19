@@ -31,7 +31,6 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
                     var chart = new Chart(
                         currency.CurrencyId,
                         currency.Name,
-                        indicator.UserId,
                         indicator.IndicatorId,
                         indicator.Name,
                         chartColumns,

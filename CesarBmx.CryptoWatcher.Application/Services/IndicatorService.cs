@@ -74,6 +74,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         }
         public async Task<Responses.Indicator> AddIndicator(AddIndicator request)
         {
+            // Get user
+            var user = await _mainDbContext.Users.FindAsync(request.UserId);
+
+            // Throw NotFound if it does not exist
+            if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
+
             // Get indicator
             var indicator = await _mainDbContext.Indicators
                 .Include(x => x.Dependencies)

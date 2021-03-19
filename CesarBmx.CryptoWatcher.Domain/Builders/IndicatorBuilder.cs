@@ -10,7 +10,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
     {
         public static decimal BuildValue(Currency currency, Indicator indicator, List<Line> lines)
         {
-            switch (indicator.IndicatorId)
+            switch (indicator.Abbreviation)
             {
                 case "PRICE":
                     return currency.Price;
@@ -28,7 +28,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             // Arrange
             var hypes = new Dictionary<string, decimal>();
             var time = scriptVariableSet.Times[0];
-            var currencies = scriptVariableSet.Values[time]["PRICE_CHANGE_24hrs"];
+            var currencies = scriptVariableSet.Values[time]["Master.PRICE_CHANGE_24hrs"];
             var values = currencies.Select(x=>x.Value).ToArray();
 
             // Build

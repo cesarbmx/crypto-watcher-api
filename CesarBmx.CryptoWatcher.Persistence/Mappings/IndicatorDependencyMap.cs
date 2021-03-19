@@ -24,7 +24,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
                 .HasOne(x=>x.Dependency)
                 .WithMany()
                 .HasForeignKey(t => t.DependencyId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             // Properties
             entityBuilder.Property(t => t.IndicatorId)
