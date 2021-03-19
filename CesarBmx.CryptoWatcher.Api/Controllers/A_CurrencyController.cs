@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CesarBmx.Shared.Application.Responses;
-using CesarBmx.CryptoWatcher.Application.Responses;
+using CesarBmx.CryptoWatcher.Application.Resources;
 using CesarBmx.CryptoWatcher.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

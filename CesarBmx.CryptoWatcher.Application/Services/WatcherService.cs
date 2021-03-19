@@ -35,7 +35,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Responses.Watcher>> GetUserWatchers(string userId = null, string currencyId = null, string indicatorId = null)
+        public async Task<List<Resources.Watcher>> GetUserWatchers(string userId = null, string currencyId = null, string indicatorId = null)
         {
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
@@ -47,12 +47,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var userWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.Filter(userId, currencyId, indicatorId)).ToListAsync();
 
             // Response
-            var response = _mapper.Map<List<Responses.Watcher>>(userWatchers);
+            var response = _mapper.Map<List<Resources.Watcher>>(userWatchers);
 
             // Return
             return response;
         }
-        public async Task<Responses.Watcher> GetWatcher(int watcherId)
+        public async Task<Resources.Watcher> GetWatcher(int watcherId)
         {
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(x=>x.WatcherId == watcherId);
@@ -61,12 +61,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Response
-            var response = _mapper.Map<Responses.Watcher>(watcher);
+            var response = _mapper.Map<Resources.Watcher>(watcher);
 
             // Return
             return response;
         }
-        public async Task<Responses.Watcher> AddWatcher(AddWatcher request)
+        public async Task<Resources.Watcher> AddWatcher(AddWatcher request)
         {
             // Get currency
             var currency = await _mainDbContext.Currencies.FindAsync(request.CurrencyId);
@@ -120,12 +120,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _logger.LogSplunkInformation(request);
 
             // Response
-            var response = _mapper.Map<Responses.Watcher>(watcher);
+            var response = _mapper.Map<Resources.Watcher>(watcher);
 
             // Return
             return response;
         }
-        public async Task<Responses.Watcher> UpdateWatcher(UpdateWatcher request)
+        public async Task<Resources.Watcher> UpdateWatcher(UpdateWatcher request)
         {
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FindAsync(request.WatcherId);
@@ -146,7 +146,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _logger.LogSplunkInformation(request);
 
             // Response
-            var response = _mapper.Map<Responses.Watcher>(watcher);
+            var response = _mapper.Map<Resources.Watcher>(watcher);
 
             // Return
             return response;

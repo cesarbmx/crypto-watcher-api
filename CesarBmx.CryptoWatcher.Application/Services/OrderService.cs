@@ -33,7 +33,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _logger = logger;
         }
 
-        public async Task<List<Responses.Order>> GetUserOrders(string userId)
+        public async Task<List<Resources.Order>> GetUserOrders(string userId)
         {
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
@@ -45,12 +45,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var orders = await _mainDbContext.Orders.Where(x=>x.UserId == userId).ToListAsync();
 
             // Response
-            var response = _mapper.Map<List<Responses.Order>>(orders);
+            var response = _mapper.Map<List<Resources.Order>>(orders);
 
             // Return
             return response;
         }
-        public async Task<Responses.Order> GetOrder(Guid orderId)
+        public async Task<Resources.Order> GetOrder(Guid orderId)
         {
             // Get order
             var order = await _mainDbContext.Orders.FindAsync(orderId);
@@ -59,7 +59,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (order == null) throw new NotFoundException(OrderMessage.OrderNotFound);
 
             // Response
-            var response = _mapper.Map<Responses.Order>(order);
+            var response = _mapper.Map<Resources.Order>(order);
 
             // Return
             return response;

@@ -1,5 +1,5 @@
 ﻿using CesarBmx.CryptoWatcher.Application.FakeResponses;
-using CesarBmx.CryptoWatcher.Application.Responses;
+using CesarBmx.CryptoWatcher.Application.Resources;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace CesarBmx.CryptoWatcher.Api.ResponseExamples

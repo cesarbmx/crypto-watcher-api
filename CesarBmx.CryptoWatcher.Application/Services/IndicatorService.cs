@@ -35,7 +35,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Responses.Indicator>> GetAllUserIndicators(string userId)
+        public async Task<List<Resources.Indicator>> GetAllUserIndicators(string userId)
         {
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
@@ -50,12 +50,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .Where(IndicatorExpression.Filter(null, userId)).ToListAsync();
 
             // Response
-            var response = _mapper.Map<List<Responses.Indicator>>(indicators);
+            var response = _mapper.Map<List<Resources.Indicator>>(indicators);
 
             // Return
             return response;
         }
-        public async Task<Responses.Indicator> GetIndicator(string indicatorId)
+        public async Task<Resources.Indicator> GetIndicator(string indicatorId)
         {
             // Get indicator
             var indicator = await _mainDbContext.Indicators
@@ -67,12 +67,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Response
-            var response = _mapper.Map<Responses.Indicator>(indicator);
+            var response = _mapper.Map<Resources.Indicator>(indicator);
 
             // Return
             return response;
         }
-        public async Task<Responses.Indicator> AddIndicator(AddIndicator request)
+        public async Task<Resources.Indicator> AddIndicator(AddIndicator request)
         {
             // Get user
             var user = await _mainDbContext.Users.FindAsync(request.UserId);
@@ -124,12 +124,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .FirstOrDefaultAsync(x=>x.IndicatorId == indicator.IndicatorId);
 
             // Response
-            var response = _mapper.Map<Responses.Indicator>(indicator);
+            var response = _mapper.Map<Resources.Indicator>(indicator);
 
             // Return
             return response;
         }
-        public async Task<Responses.Indicator> UpdateIndicator(UpdateIndicator request)
+        public async Task<Resources.Indicator> UpdateIndicator(UpdateIndicator request)
         {
             // Get indicator
             var indicator = await _mainDbContext.Indicators
@@ -170,7 +170,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .FirstOrDefaultAsync(x => x.IndicatorId == indicator.IndicatorId);
 
             // Response
-            var response = _mapper.Map<Responses.Indicator>(indicator);
+            var response = _mapper.Map<Resources.Indicator>(indicator);
 
             // Return
             return response;

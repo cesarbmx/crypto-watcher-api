@@ -1,6 +1,6 @@
 ﻿
 
-namespace CesarBmx.CryptoWatcher.Application.Responses
+namespace CesarBmx.CryptoWatcher.Application.Resources
 {
     public class ValidationError
     {

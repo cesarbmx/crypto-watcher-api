@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CesarBmx.CryptoWatcher.Application.Responses
+namespace CesarBmx.CryptoWatcher.Application.Resources
 {
     public class ScriptVariableSet
     {
