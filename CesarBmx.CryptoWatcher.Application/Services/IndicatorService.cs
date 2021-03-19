@@ -46,7 +46,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get all indicators
             var indicators = await _mainDbContext.Indicators
                 .Include(x=> x.Dependencies)
-                .ThenInclude(x=>x.Indicator)
+                .ThenInclude(x=>x.Dependency)
                 .Where(IndicatorExpression.Filter(null, userId)).ToListAsync();
 
             // Response
@@ -60,7 +60,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get indicator
             var indicator = await _mainDbContext.Indicators
                 .Include(x => x.Dependencies)
-                .ThenInclude(x => x.Indicator)
+                .ThenInclude(x => x.Dependency)
                 .FirstOrDefaultAsync(x=> x.IndicatorId == indicatorId);
 
             // Throw NotFound if it does not exist
@@ -88,7 +88,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Build dependency level
             var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(dependencies);
 
-            // Build new indicator dependencies
+            // Build indicator dependencies
             var indicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(request.IndicatorId, dependencies);
 
             // Create
@@ -110,6 +110,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Log into Splunk
             _logger.LogSplunkInformation(request);
+
+            // Get indicator
+            indicator = await _mainDbContext.Indicators
+                .Include(x => x.Dependencies)
+                .ThenInclude(x=>x.Dependency)
+                .FirstOrDefaultAsync(x=>x.IndicatorId == indicator.IndicatorId);
 
             // Response
             var response = _mapper.Map<Responses.Indicator>(indicator);
@@ -151,6 +157,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Log into Splunk
             _logger.LogSplunkInformation(request);
 
+            // Get indicator
+            indicator = await _mainDbContext.Indicators
+                .Include(x => x.Dependencies)
+                .ThenInclude(x => x.Dependency)
+                .FirstOrDefaultAsync(x => x.IndicatorId == indicator.IndicatorId);
+
             // Response
             var response = _mapper.Map<Responses.Indicator>(indicator);
 
@@ -168,6 +180,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
                 // Throw NotFound if it does not exist
                 if (indicator == null) throw new NotFoundException(string.Format(IndicatorDependencyMessage.IndicatorDependencyNotFound, indicatorId));
+
+                // Detach
+                _mainDbContext.Entry(indicator).State = EntityState.Detached;
 
                 // Add
                 indicators.Add(indicator);

@@ -37,12 +37,6 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             CreatedAt = createdAt;
         }
 
-        public Indicator SetDependencies(List<IndicatorDependency> dependencies)
-        {
-            Dependencies = dependencies;
-
-            return this;
-        }
         public Indicator SetDependencyLevel(int dependencyLevel)
         {
             DependencyLevel = dependencyLevel;

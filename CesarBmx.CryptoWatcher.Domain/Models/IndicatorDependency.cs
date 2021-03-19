@@ -12,18 +12,19 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public string DependencyId { get; private set; }
         public DateTime Time { get; private set; }
 
-        public Indicator Indicator { get; private set; }
+        public Indicator Dependency { get; private set; }
 
         public IndicatorDependency() { }
+
         public IndicatorDependency(
-            string indicatorId, 
-            string dependencyId, 
+            string indicatorId,
+            string dependencyId,
             DateTime time)
         {
             IndicatorId = indicatorId;
             DependencyId = dependencyId;
             Time = time;
-            Indicator = null;
+            Dependency = null;
         }
 
         public IndicatorDependency Update(IndicatorDependency indicatorDependency)

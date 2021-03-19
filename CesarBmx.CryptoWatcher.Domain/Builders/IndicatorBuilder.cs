@@ -137,15 +137,6 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             // Return
             return maxDependencyLevel;
         }
-        public static void BuildDependencies(List<Indicator> indicators, List<IndicatorDependency> indicatorDependencies)
-        {
-            // For each indicator
-            foreach (var indicator in indicators)
-            {
-                var dependencies = indicatorDependencies.Where(x => x.IndicatorId == indicator.IndicatorId).ToList();
-                indicator.SetDependencies(dependencies);
-            }
-        }
         public static string BuildUserId(string indicatorId)
         {
             var split = indicatorId.Split(".");
