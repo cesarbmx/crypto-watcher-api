@@ -45,7 +45,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Get all indicators
             var indicators = await _mainDbContext.Indicators
-                .Include(x=>x.Dependencies)
+                .Include(x=> x.Dependencies)
+                .ThenInclude(x=>x.Indicator)
                 .Where(IndicatorExpression.Filter(null, userId)).ToListAsync();
 
             // Response
@@ -59,6 +60,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get indicator
             var indicator = await _mainDbContext.Indicators
                 .Include(x => x.Dependencies)
+                .ThenInclude(x => x.Indicator)
                 .FirstOrDefaultAsync(x=> x.IndicatorId == indicatorId);
 
             // Throw NotFound if it does not exist

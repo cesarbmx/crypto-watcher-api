@@ -11,6 +11,6 @@ namespace CesarBmx.CryptoWatcher.Application.Responses
         public string Name { get; set; }
         public string Description { get; set; }
         public string Formula { get; set; }
-        public List<string> Dependencies { get; set; }
+        public List<IndicatorDependency> Dependencies { get; set; }
     }
 }
