@@ -120,10 +120,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 switch (order.OrderType)
                 {
                     case  OrderType.BUY:
-                        watcher.SetAsBought(); // Reset watcher
+                        watcher.SetAsBought(); // Set as bought
                         break;
                     case OrderType.SELL:
-                        watcher.SetAsBought(); // Reset watcher
+                        watcher.SetAsSold(); // Set as sold
                         break;
                     default:
                         throw new NotImplementedException();

@@ -88,13 +88,13 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         }
         public Watcher SetAsBought()
         {
-            EntryPrice = Buy;
+            EntryPrice = Value;
 
             return this;
         }
         public Watcher SetAsSold()
         {
-            ExitPrice = Sell;
+            ExitPrice = Value;
 
             return this;
         }
