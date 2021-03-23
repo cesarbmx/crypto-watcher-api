@@ -8,7 +8,7 @@ namespace CesarBmx.CryptoWatcher.Api.RequestExamples
     {
         public AddIndicator GetExamples()
         {
-            return AddIndicatorFakeRequest.GetFake_RSI();
+            return FakeAddIndicator.GetFake_RSI();
         }
     }
 }

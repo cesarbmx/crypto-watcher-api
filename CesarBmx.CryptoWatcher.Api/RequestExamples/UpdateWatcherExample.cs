@@ -4,11 +4,11 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CesarBmx.CryptoWatcher.Api.RequestExamples
 {
-    public class UpdateWatcherExample : IExamplesProvider<UpdateWatcher>
+    public class UpdateWatcherExample : IExamplesProvider<SetWatcher>
     {
-        public UpdateWatcher GetExamples()
+        public SetWatcher GetExamples()
         {
-            return UpdateWatcherFakeRequest.GetFake_1();
+            return FakeSetWatcher.GetFake_1();
         }
     }
 }

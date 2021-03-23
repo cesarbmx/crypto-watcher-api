@@ -76,7 +76,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Update watcher
+        /// Set watcher
         /// </summary>
         [HttpPut]
         [Route("api/watchers/{watcherId}")]
@@ -84,14 +84,36 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerResponse(400, Type = typeof(Error))]
         [SwaggerResponse(409, Type = typeof(Error))]
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
-        [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_UpdateWatcher")]
-        public async Task<IActionResult> UpdateWatcher(int watcherId, [FromBody]UpdateWatcher request)
+        [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_SetWatcher")]
+        public async Task<IActionResult> SetWatcher(int watcherId, [FromBody]SetWatcher request)
         {
             // Request
             request.WatcherId = watcherId;
 
             // Reponse
-            var response = await _watcherService.UpdateWatcher(request);
+            var response = await _watcherService.SetWatcher(request);
+
+            // Return
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Enable/Disable watcher
+        /// </summary>
+        [HttpPut]
+        [Route("api/watchers/{watcherId}/enabled")]
+        [SwaggerResponse(200, Type = typeof(Watcher))]
+        [SwaggerResponse(400, Type = typeof(Error))]
+        [SwaggerResponse(409, Type = typeof(Error))]
+        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
+        [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_EnableWatcher")]
+        public async Task<IActionResult> EnableWatcher(int watcherId, [FromBody] EnableWatcher request)
+        {
+            // Request
+            request.WatcherId = watcherId;
+
+            // Reponse
+            var response = await _watcherService.EnableWatcher(request);
 
             // Return
             return Ok(response);

@@ -64,9 +64,14 @@
             Add watcher
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.D_WatcherController.UpdateWatcher(System.Int32,CesarBmx.CryptoWatcher.Application.Requests.UpdateWatcher)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.D_WatcherController.SetWatcher(System.Int32,CesarBmx.CryptoWatcher.Application.Requests.SetWatcher)">
             <summary>
-            Update watcher
+            Set watcher
+            </summary>
+        </member>
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.D_WatcherController.EnableWatcher(System.Int32,CesarBmx.CryptoWatcher.Application.Requests.EnableWatcher)">
+            <summary>
+            Enable/Disable watcher
             </summary>
         </member>
         <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.E_OrderController.GetAllOrders(System.String)">

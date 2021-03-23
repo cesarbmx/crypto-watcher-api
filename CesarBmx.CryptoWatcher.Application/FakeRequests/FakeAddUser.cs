@@ -3,7 +3,7 @@
 
 namespace CesarBmx.CryptoWatcher.Application.FakeRequests
 {
-    public static class AddUserFakeRequest
+    public static class FakeAddUser
     {
         public static AddUser GetFake_master()
         {

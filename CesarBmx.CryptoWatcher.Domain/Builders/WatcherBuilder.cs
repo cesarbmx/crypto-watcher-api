@@ -14,9 +14,9 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
         public static WatcherStatus BuildStatus(decimal? value, decimal? buy, decimal? sell)
         {
             // Evaluate
-            var watcherStatus = WatcherStatus.HOLD;
-            if(value <= buy) watcherStatus = WatcherStatus.BUY;
-            if (value >= sell) watcherStatus = WatcherStatus.SELL;
+            var watcherStatus = WatcherStatus.HOLDING;
+            if(value <= buy) watcherStatus = WatcherStatus.BUYING;
+            if (value >= sell) watcherStatus = WatcherStatus.SELLING;
 
             // Return
             return watcherStatus;

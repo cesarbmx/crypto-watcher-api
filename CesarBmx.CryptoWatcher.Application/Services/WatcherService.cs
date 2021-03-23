@@ -125,7 +125,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<Resources.Watcher> UpdateWatcher(UpdateWatcher request)
+        public async Task<Resources.Watcher> SetWatcher(SetWatcher request)
         {
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FindAsync(request.WatcherId);
@@ -134,7 +134,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Update watcher
-            watcher.Update(request.Buy, request.Sell, request.Quantity, request.Enabled);
+            watcher.Update(request.Buy, request.Sell, request.Quantity);
 
             // Update
             _mainDbContext.Watchers.Update(watcher);
@@ -150,6 +150,64 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Return
             return response;
+        }
+        public async Task<Resources.Watcher> EnableWatcher(EnableWatcher request)
+        {
+            // Get watcher
+            var watcher = await _mainDbContext.Watchers.FindAsync(request.WatcherId);
+
+            // Throw NotFound if it does not exist
+            if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
+
+            // Update watcher
+            watcher.Enable(request.Enabled);
+
+            // Update
+            _mainDbContext.Watchers.Update(watcher);
+
+            // Save
+            await _mainDbContext.SaveChangesAsync();
+
+            // Log into Splunk
+            _logger.LogSplunkInformation(request);
+
+            // Response
+            var response = _mapper.Map<Resources.Watcher>(watcher);
+
+            // Return
+            return response;
+        }
+
+        public async Task<List<Watcher>> UpdateDefaultWatchers(List<Line> lines)
+        {
+            // Start watch
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Build default watchers
+            var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);
+
+            // Get all default watchers
+            var defaultWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.DefaultWatcher()).ToListAsync();
+
+            // Update 
+            _mainDbContext.UpdateCollection(defaultWatchers, newDefaultWatchers);
+
+            // Save
+            await _mainDbContext.SaveChangesAsync();
+
+            // Stop watch
+            stopwatch.Stop();
+
+            // Log into Splunk
+            _logger.LogSplunkInformation(nameof(UpdateDefaultWatchers), new
+            {
+                newDefaultWatchers.Count,
+                ExecutionTime = stopwatch.Elapsed.TotalSeconds
+            });
+
+            // Return 
+            return newDefaultWatchers;
         }
         public async Task<List<Watcher>> UpdateWatchers(List<Watcher> defaultWatchers)
         {
@@ -181,38 +239,6 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Return
             return watchers;
-        }
-
-        public async Task<List<Watcher>> SetDefaultWatchers(List<Line> lines)
-        {
-            // Start watch
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            // Build default watchers
-            var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);
-
-            // Get all default watchers
-            var defaultWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.DefaultWatcher()).ToListAsync();
-
-            // Update 
-            _mainDbContext.UpdateCollection(defaultWatchers, newDefaultWatchers);
-
-            // Save
-            await _mainDbContext.SaveChangesAsync();
-
-            // Stop watch
-            stopwatch.Stop();
-
-            // Log into Splunk
-            _logger.LogSplunkInformation(nameof(SetDefaultWatchers), new
-            {
-                newDefaultWatchers.Count,
-                ExecutionTime = stopwatch.Elapsed.TotalSeconds
-            });
-
-            // Return 
-            return newDefaultWatchers;
         }
     }
 }

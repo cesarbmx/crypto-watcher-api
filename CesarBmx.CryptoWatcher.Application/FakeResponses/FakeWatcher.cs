@@ -24,7 +24,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 Price = 5000,
                 EntryPrice = 14,
                 ExitPrice = 20,
-                Status = WatcherStatus.BUY,
+                Status = WatcherStatus.BUYING,
                 Enabled = false
             };
         }
@@ -46,7 +46,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 Price = 5000,
                 EntryPrice = 10,
                 ExitPrice = 30,
-                Status = WatcherStatus.SELL,
+                Status = WatcherStatus.SELLING,
                 Enabled = false
             };
         }

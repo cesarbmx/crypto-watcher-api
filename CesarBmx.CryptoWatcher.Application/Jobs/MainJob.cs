@@ -49,7 +49,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
                 var currencies = await _currencyService.ImportCurrencies();
                 var indicators = await _indicatorService.UpdateDependencyLevels();
                 var lines = await _lineService.CreateNewLines(currencies, indicators);
-                var defaultWatchers = await _watcherService.SetDefaultWatchers(lines);
+                var defaultWatchers = await _watcherService.UpdateDefaultWatchers(lines);
                 var watchers = await _watcherService.UpdateWatchers(defaultWatchers);
                 var orders = await _orderService.AddOrders(watchers);
                 orders = await _orderService.ProcessOrders(orders, watchers);

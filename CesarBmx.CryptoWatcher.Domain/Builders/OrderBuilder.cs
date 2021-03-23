@@ -24,7 +24,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
                 if(watcher.UserId == "Master") continue;
 
                 // We skip hold watchers
-                if (watcher.Status == WatcherStatus.HOLD) continue;
+                if (watcher.Status == WatcherStatus.HOLDING) continue;
 
                 // We add an order
                 var orderType = BuildOrderType(watcher.Status);
@@ -46,9 +46,9 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
         {
             switch (watcherStatus)
             {
-                case WatcherStatus.BUY:
+                case WatcherStatus.BUYING:
                     return OrderType.BUY;
-                case WatcherStatus.SELL:
+                case WatcherStatus.SELLING:
                     return OrderType.SELL;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(watcherStatus), watcherStatus, null);

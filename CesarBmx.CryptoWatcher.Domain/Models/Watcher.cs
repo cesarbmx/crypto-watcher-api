@@ -69,10 +69,16 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Watcher Update(decimal buy, decimal sell, decimal quantity, bool enabled)
+        public Watcher Update(decimal buy, decimal sell, decimal quantity)
         {
             Buy = buy;
             Sell = sell;
+            Quantity = quantity;
+
+            return this;
+        }
+        public Watcher Enable(bool enabled)
+        {
             Enabled = enabled;
 
             return this;
