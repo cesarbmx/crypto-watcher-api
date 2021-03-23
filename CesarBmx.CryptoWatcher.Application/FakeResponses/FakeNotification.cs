@@ -7,7 +7,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
     public static class FakeNotification
     {
-        public static Notification GetFake_master()
+        public static Notification GetFake_Master()
         {
             return new Notification
             {
@@ -19,7 +19,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 SentTime = null
             };
         }
-        public static Notification GetFake_cesarbmx()
+        public static Notification GetFake_CesarBmx()
         {
             return new Notification
             {
@@ -35,8 +35,8 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
         {
             return new List<Notification>
             {
-                GetFake_master(),
-                GetFake_cesarbmx()
+                GetFake_Master(),
+                GetFake_CesarBmx()
             };
         }
     }
