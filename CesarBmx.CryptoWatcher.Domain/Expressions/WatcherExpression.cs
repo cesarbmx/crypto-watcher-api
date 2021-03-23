@@ -35,15 +35,15 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
         }
         public static Func<Watcher, bool> WatcherWillingToBuy()
         {
-            return x => x.Value > x.Buy;
+            return x => x.Value <= x.Buy && !x.EntryPrice.HasValue && !x.ExitPrice.HasValue;
         }
         public static Func<Watcher, bool> WatcherWillingToSell()
         {
-            return x => x.Value < x.Sell;
+            return x => x.Value >= x.Sell && !x.ExitPrice.HasValue && x.EntryPrice.HasValue;
         }
         public static Expression<Func<Watcher, bool>> WatcherWillingToBuyOrSell()
         {
-            return x => x.Value <= x.Buy && !x.EntryPrice.HasValue || x.Value >= x.Sell && !x.ExitPrice.HasValue && x.EntryPrice.HasValue;
+            return x => x.Value <= x.Buy && !x.EntryPrice.HasValue && !x.ExitPrice.HasValue || x.Value >= x.Sell && !x.ExitPrice.HasValue && x.EntryPrice.HasValue;
         }
     }
 }
