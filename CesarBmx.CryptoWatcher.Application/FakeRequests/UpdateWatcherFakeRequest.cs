@@ -12,6 +12,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeRequests
                 WatcherId = 1,             
                 Buy = 15,
                 Sell = 8,
+                Quantity = 100,
                 Enabled = true
             };
         }       

@@ -134,7 +134,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Update watcher
-            watcher.Update(request.Buy, request.Sell, request.Enabled);
+            watcher.Update(request.Buy, request.Sell, request.Quantity, request.Enabled);
 
             // Update
             _mainDbContext.Watchers.Update(watcher);
