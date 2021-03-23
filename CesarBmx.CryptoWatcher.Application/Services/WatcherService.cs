@@ -133,6 +133,21 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Throw NotFound if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
+            // Throw Conflict if watcher buy limit is higher than watcher's current value
+            if (WatcherExpression.BuyLimitIsHigherThanWatcherValue(request.Buy).Invoke(watcher)) throw new ConflictException(string.Format(WatcherMessage.BuyLimitIsHigherThanWatcherValue, watcher.Value));
+
+            // Throw Conflict if watcher sell limit is lower than watcher's current value
+            if (WatcherExpression.SellLimitIsLowerThanValue(request.Sell).Invoke(watcher)) throw new ConflictException(string.Format(WatcherMessage.SellLimitIsLowerThanValue, watcher.Value));
+
+            // Throw Conflict if watcher already got liquidated
+            if (WatcherExpression.WatcherLiquidated().Invoke(watcher)) throw new ConflictException(WatcherMessage.WatcherAlreadyLiquidated);
+
+            // Throw Conflict if watcher already bought
+            if (WatcherExpression.WatcherAlreadyBought(request.Buy).Invoke(watcher)) throw new ConflictException(string.Format(WatcherMessage.WatcherAlreadyBought, watcher.EntryPrice));
+
+            // Throw Conflict if watcher already sold
+            if (WatcherExpression.WatcherAlreadySold(request.Sell).Invoke(watcher)) throw new ConflictException(string.Format(WatcherMessage.WatcherAlreadySold, watcher.EntryPrice));
+            
             // Update watcher
             watcher.Update(request.Buy, request.Sell, request.Quantity);
 

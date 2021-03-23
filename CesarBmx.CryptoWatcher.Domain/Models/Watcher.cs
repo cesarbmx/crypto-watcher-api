@@ -66,6 +66,9 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public Watcher Update(Watcher watcher)
         {
             Value = watcher.Value;
+            AverageBuy = watcher.AverageBuy;
+            AverageSell = watcher.AverageSell;
+            Price = watcher.Price;
 
             return this;
         }

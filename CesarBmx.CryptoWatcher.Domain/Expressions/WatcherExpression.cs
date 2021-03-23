@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using CesarBmx.CryptoWatcher.Domain.Models;
+using CesarBmx.CryptoWatcher.Domain.Types;
 
 namespace CesarBmx.CryptoWatcher.Domain.Expressions
 {
@@ -52,6 +53,26 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
         public static Expression<Func<Watcher, bool>> WatcherWillingToBuyOrSell()
         {
             return x => x.Value <= x.Buy && !x.EntryPrice.HasValue && !x.ExitPrice.HasValue || x.Value >= x.Sell && !x.ExitPrice.HasValue && x.EntryPrice.HasValue;
+        }
+        public static Func<Watcher, bool> BuyLimitIsHigherThanWatcherValue(decimal buy)
+        {
+            return x => buy != x.Buy && buy > x.Value;
+        }
+        public static Func<Watcher, bool> SellLimitIsLowerThanValue(decimal sell)
+        {
+            return x => sell != x.Sell && sell < x.Value;
+        }
+        public static Func<Watcher, bool> WatcherAlreadyBought(decimal buy)
+        {
+            return x => buy  != x.Buy && x.Status == WatcherStatus.BUYING;
+        }
+        public static Func<Watcher, bool> WatcherAlreadySold(decimal sell)
+        {
+            return x => sell != x.Sell && x.Status == WatcherStatus.SELLING;
+        }
+        public static Func<Watcher, bool> WatcherAlreadyLiquidated()
+        {
+            return x => x.Status == WatcherStatus.LIQUIDATED;
         }
     }
 }
