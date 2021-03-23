@@ -11,15 +11,14 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
 {
     public static class WatcherBuilder
     {
-        public static WatcherStatus BuildStatus(decimal? value, decimal? buy, decimal? sell)
+        public static WatcherStatus BuildStatus(Watcher watcher)
         {
-            // Evaluate
-            var watcherStatus = WatcherStatus.HOLDING;
-            if(value <= buy) watcherStatus = WatcherStatus.BUYING;
-            if (value >= sell) watcherStatus = WatcherStatus.SELLING;
-
-            // Return
-            return watcherStatus;
+            // Evaluate and return
+            if (WatcherExpression.WatcherNotSet().Invoke(watcher)) return WatcherStatus.NOT_SET;
+            if (WatcherExpression.WatcherWillingToBuy().Invoke(watcher)) return WatcherStatus.BUYING;
+            if (WatcherExpression.WatcherWillingToSell().Invoke(watcher)) return WatcherStatus.SELLING;
+            if (WatcherExpression.WatcherLiquidated().Invoke(watcher)) return WatcherStatus.LIQUIDATED;
+            return WatcherStatus.HOLDING;
         }
         public static List<Watcher> BuildDefaultWatchers(List<Line> lines)
         {

@@ -33,6 +33,10 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
                         (string.IsNullOrEmpty(currencyId) || x.CurrencyId == currencyId) &&
                         (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId);
         }
+        public static Func<Watcher, bool> WatcherNotSet()
+        {
+            return x => !x.Buy.HasValue && !x.Sell.HasValue;
+        }
         public static Func<Watcher, bool> WatcherWillingToBuy()
         {
             return x => x.Value <= x.Buy && !x.EntryPrice.HasValue && !x.ExitPrice.HasValue;
@@ -40,6 +44,10 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
         public static Func<Watcher, bool> WatcherWillingToSell()
         {
             return x => x.Value >= x.Sell && !x.ExitPrice.HasValue && x.EntryPrice.HasValue;
+        }
+        public static Func<Watcher, bool> WatcherLiquidated()
+        {
+            return x => x.EntryPrice.HasValue && x.ExitPrice.HasValue;
         }
         public static Expression<Func<Watcher, bool>> WatcherWillingToBuyOrSell()
         {

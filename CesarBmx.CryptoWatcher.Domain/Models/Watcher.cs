@@ -28,7 +28,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public bool Enabled { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
-        public WatcherStatus Status => WatcherBuilder.BuildStatus(Value, Buy, Sell);
+        public WatcherStatus Status => WatcherBuilder.BuildStatus(this);
 
         public Watcher()
         {
