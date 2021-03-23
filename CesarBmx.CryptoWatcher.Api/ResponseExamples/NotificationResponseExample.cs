@@ -9,7 +9,7 @@ namespace CesarBmx.CryptoWatcher.Api.ResponseExamples
     {
         public Notification GetExamples()
         {
-            return FakeNotification.GetFake_master();
+            return FakeNotification.GetFake_Master();
         }
     }
     public class NotificationListResponseExample : IExamplesProvider<List<Notification>>
