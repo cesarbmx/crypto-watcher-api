@@ -78,8 +78,14 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.Price)
                 .HasColumnType("decimal(18,2)");
 
+            entityBuilder.Property(t => t.EntryAt)
+                .HasColumnType("datetime2");
+
             entityBuilder.Property(t => t.EntryPrice)
                 .HasColumnType("decimal(18,2)");
+
+            entityBuilder.Property(t => t.ExitAt)
+                .HasColumnType("datetime2");
 
             entityBuilder.Property(t => t.ExitPrice)
                 .HasColumnType("decimal(18,2)");

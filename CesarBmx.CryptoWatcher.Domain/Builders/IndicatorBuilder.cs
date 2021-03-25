@@ -68,8 +68,8 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
         }
         public static decimal? BuildAverageBuy(List<Watcher> watchers)
         {
-            // Watchers willing to buy
-            var watcherWillingToBuy = watchers.Where(WatcherExpression.WatcherWillingToBuy()).ToList();
+            // Watchers buying
+            var watcherWillingToBuy = watchers.Where(WatcherExpression.WatcherBuying()).ToList();
             
             // Buys
             var buys = watcherWillingToBuy.Where(x => x.Buy != null).Select(x => x.Buy);
@@ -82,8 +82,8 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
         }
         public static decimal? BuildAverageSell(List<Watcher> watchers)
         {
-            // Watchers willing to sell
-            var watcherWillingToSell = watchers.Where(WatcherExpression.WatcherWillingToSell()).ToList();
+            // Watchers selling
+            var watcherWillingToSell = watchers.Where(WatcherExpression.WatcherSelling()).ToList();
 
             // Sells
             var sells = watcherWillingToSell.Where(x => x.Buy != null).Select(x => x.Buy);

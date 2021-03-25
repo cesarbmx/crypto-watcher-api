@@ -7,13 +7,15 @@ using CesarBmx.CryptoWatcher.Domain.Types;
 namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
 {
     [TestClass]
-    public class BuildPeriod
+    public class LineBuilderTests
     {
+        #region BuildPeriod
+
         [TestMethod]
-        public void Test_OneDay()
+        public void Test_BuildPeriod_OneDay()
         {
             // Arrange
-            var time = new DateTime(2021, 2,5,0,0,0);
+            var time = new DateTime(2021, 2, 5, 0, 0, 0);
 
             // Act
             var period = LineBuilder.BuildPeriod(time);
@@ -23,7 +25,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         }
 
         [TestMethod]
-        public void Test_OneHour()
+        public void Test_BuildPeriod_OneHour()
         {
             // Arrange
             var time = new DateTime(2021, 2, 5, 10, 0, 0);
@@ -34,9 +36,9 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
             // Assert
             Assert.AreEqual(Period.ONE_HOUR, period);
         }
-        
+
         [TestMethod]
-        public void Test_FifteenMinutes()
+        public void Test_BuildPeriod_FifteenMinutes()
         {
             // Arrange
             var time = new DateTime(2021, 2, 5, 10, 30, 0);
@@ -49,7 +51,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         }
 
         [TestMethod]
-        public void Test_FiveMinutes()
+        public void Test_BuildPeriod_FiveMinutes()
         {
             // Arrange
             var time = new DateTime(2021, 2, 5, 10, 10, 0);
@@ -62,7 +64,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         }
 
         [TestMethod]
-        public void Test_OneMinute()
+        public void Test_BuildPeriod_OneMinute()
         {
             // Arrange
             var time = new DateTime(2021, 2, 5, 10, 12, 0);
@@ -73,5 +75,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
             // Assert
             Assert.AreEqual(Period.ONE_MINUTE, period);
         }
+
+        #endregion
     }
 }

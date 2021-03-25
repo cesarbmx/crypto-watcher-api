@@ -15,8 +15,8 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
         {
             // Evaluate and return
             if (WatcherExpression.WatcherNotSet().Invoke(watcher)) return WatcherStatus.NOT_SET;
-            if (WatcherExpression.WatcherWillingToBuy().Invoke(watcher)) return WatcherStatus.BUYING;
-            if (WatcherExpression.WatcherWillingToSell().Invoke(watcher)) return WatcherStatus.SELLING;
+            if (WatcherExpression.WatcherBuying().Invoke(watcher)) return WatcherStatus.BUYING;
+            if (WatcherExpression.WatcherSelling().Invoke(watcher)) return WatcherStatus.SELLING;
             if (WatcherExpression.WatcherLiquidated().Invoke(watcher)) return WatcherStatus.LIQUIDATED;
             return WatcherStatus.HOLDING;
         }

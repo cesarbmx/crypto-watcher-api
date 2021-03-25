@@ -18,7 +18,9 @@ namespace CesarBmx.CryptoWatcher.Application.Resources
         public decimal? AverageBuy { get; set; }
         public decimal? AverageSell { get; set; }
         public decimal? Price { get; set; }
+        public DateTime? EntryAt { get; set; }
         public decimal? EntryPrice { get; set; }
+        public DateTime? ExitAt { get; set; }
         public decimal? ExitPrice { get; set; }
         public decimal? Profit { get; set; }
         public WatcherStatus Status { get; set; }

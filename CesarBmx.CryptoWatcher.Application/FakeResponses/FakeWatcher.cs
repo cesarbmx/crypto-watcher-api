@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CesarBmx.CryptoWatcher.Application.Resources;
 using CesarBmx.CryptoWatcher.Domain.Types;
+using CesarBmx.Shared.Common.Extensions;
 
 namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
@@ -22,7 +24,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 AverageBuy = 0,
                 AverageSell = 0,
                 Price = 5000,
+                EntryAt = DateTime.UtcNow.StripSeconds(),
                 EntryPrice = 14,
+                ExitAt = DateTime.UtcNow.StripSeconds(),
                 ExitPrice = 20,
                 Status = WatcherStatus.BUYING,
                 Enabled = false
@@ -44,7 +48,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 AverageBuy = 0,
                 AverageSell = 0,
                 Price = 5000,
+                EntryAt = DateTime.UtcNow.StripSeconds(),
                 EntryPrice = 10,
+                ExitAt = DateTime.UtcNow.StripSeconds(),
                 ExitPrice = 30,
                 Status = WatcherStatus.SELLING,
                 Enabled = false

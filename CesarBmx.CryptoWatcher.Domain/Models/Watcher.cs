@@ -2,6 +2,7 @@
 using CesarBmx.Shared.Domain.Models;
 using CesarBmx.CryptoWatcher.Domain.Builders;
 using CesarBmx.CryptoWatcher.Domain.Types;
+using CesarBmx.Shared.Common.Extensions;
 
 
 namespace CesarBmx.CryptoWatcher.Domain.Models
@@ -22,7 +23,9 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public decimal? AverageBuy { get; private set; }
         public decimal? AverageSell { get; private set; }
         public decimal? Price { get; private set; }
+        public DateTime? EntryAt { get; private set; }
         public decimal? EntryPrice { get; private set; }
+        public DateTime? ExitAt { get; private set; }
         public decimal? ExitPrice { get; private set; }
         public decimal? Profit => WatcherBuilder.BuildProfit(EntryPrice, ExitPrice, Quantity);
         public bool Enabled { get; private set; }
@@ -97,12 +100,14 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         }
         public Watcher SetAsBought()
         {
+            EntryAt = DateTime.UtcNow.StripSeconds();
             EntryPrice = Value;
 
             return this;
         }
         public Watcher SetAsSold()
         {
+            ExitAt = DateTime.UtcNow.StripSeconds();
             ExitPrice = Value;
 
             return this;

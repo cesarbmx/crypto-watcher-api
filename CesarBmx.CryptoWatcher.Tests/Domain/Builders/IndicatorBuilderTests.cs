@@ -1,17 +1,67 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CesarBmx.CryptoWatcher.Domain.Builders;
+using CesarBmx.CryptoWatcher.Tests.Domain.FakeModels;
 
 
 namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
 {
     [TestClass]
-    public class BuildHypes
+    public class IndicatorBuilderTests
     {
+
+        #region BuildDependencyLevel
+
         [TestMethod]
-        public void Test_1()
+        public void Test_BuildDependencyLevel_Hype()
         {
             // Arrange
-            var values = new decimal[] {2, -10, -10, -10, -15};
+            var indicatorId = "Master.HYPE";
+            var allIndicatorDependencies = FakeIndicatorDependencies.GetFakeIndicatorDependencies();
+
+            // Act
+            var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(indicatorId, allIndicatorDependencies);
+
+            // Assert
+            Assert.AreEqual(2, dependencyLevel);
+        }
+
+        [TestMethod]
+        public void Test_BuildDependencyLevel_PriceChange24Hrs()
+        {
+            // Arrange
+            var indicatorId = "Master.PRICE_CHANGE_24hrs";
+            var allIndicatorDependencies = FakeIndicatorDependencies.GetFakeIndicatorDependencies();
+
+            // Act
+            var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(indicatorId, allIndicatorDependencies);
+
+            // Assert
+            Assert.AreEqual(1, dependencyLevel);
+        }
+
+        [TestMethod]
+        public void Test_BuildDependencyLevel_Price()
+        {
+            // Arrange
+            var indicatorId = "Master.PRICE";
+            var allIndicatorDependencies = FakeIndicatorDependencies.GetFakeIndicatorDependencies();
+
+            // Act
+            var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(indicatorId, allIndicatorDependencies);
+
+            // Assert
+            Assert.AreEqual(0, dependencyLevel);
+        }
+
+        #endregion
+
+        #region BuildHypes
+
+        [TestMethod]
+        public void Test_BuildHypes_1()
+        {
+            // Arrange
+            var values = new decimal[] { 2, -10, -10, -10, -15 };
 
             // Act
             IndicatorBuilder.BuildHypes(values);
@@ -25,7 +75,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         }
 
         [TestMethod]
-        public void Test_2()
+        public void Test_BuildHypes_2()
         {
             // Arrange
             var values = new decimal[] { 5, 1, 1, 1, -5 };
@@ -42,7 +92,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         }
 
         [TestMethod]
-        public void Test_3()
+        public void Test_BuildHypes_3()
         {
             // Arrange
             var values = new decimal[] { 6, 1, 1, 1, 1 };
@@ -59,13 +109,13 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         }
 
         [TestMethod]
-        public void Test_4()
+        public void Test_BuildHypes_4()
         {
             // Arrange
             var values = new decimal[] { 1, -6, -6, -6, -6 };
 
             // Act
-           IndicatorBuilder.BuildHypes(values);
+            IndicatorBuilder.BuildHypes(values);
 
             // Assert
             Assert.AreEqual(true, values[0] >= 0);
@@ -76,13 +126,13 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         }
 
         [TestMethod]
-        public void Test_5()
+        public void Test_BuildHypes_5()
         {
             // Arrange
             var values = new decimal[] { 100, 0, 0, 0, 0 };
 
             // Act
-           IndicatorBuilder.BuildHypes(values);
+            IndicatorBuilder.BuildHypes(values);
 
             // Assert
             Assert.AreEqual(true, values[0] >= 0);
@@ -93,13 +143,13 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         }
 
         [TestMethod]
-        public void Test_6()
+        public void Test_BuildHypes_6()
         {
             // Arrange
             var values = new decimal[] { 50, 0, 0, 0, -50 };
 
             // Act
-           IndicatorBuilder.BuildHypes(values);
+            IndicatorBuilder.BuildHypes(values);
 
             // Assert
             Assert.AreEqual(true, values[0] >= 0);
@@ -108,5 +158,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
             Assert.AreEqual(true, values[3] == 0);
             Assert.AreEqual(true, values[4] == 0);
         }
+
+        #endregion
     }
 }
