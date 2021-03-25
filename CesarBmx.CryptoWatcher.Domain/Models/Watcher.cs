@@ -72,7 +72,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Watcher Set(decimal buy, decimal sell, decimal quantity)
+        public Watcher Set(decimal buy, decimal? sell, decimal quantity)
         {
             Buy = buy;
             Sell = sell;

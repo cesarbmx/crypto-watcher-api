@@ -54,25 +54,21 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
         {
             return x => x.Value <= x.Buy && !x.EntryPrice.HasValue && !x.ExitPrice.HasValue || x.Value >= x.Sell && !x.ExitPrice.HasValue && x.EntryPrice.HasValue;
         }
-        public static Func<Watcher, bool> BuyLimitIsHigherThanWatcherValue(decimal buy)
+        public static Func<Watcher, bool> BuyLimitMustBeLowerThanWatcherValue(decimal buy)
         {
-            return x => buy != x.Buy && buy > x.Value;
+            return x => !(buy < x.Value);
         }
-        public static Func<Watcher, bool> SellLimitIsLowerThanValue(decimal sell)
+        public static Func<Watcher, bool> SellLimitMustBeHigherThanWatcherValue(decimal? sell)
         {
-            return x => sell != x.Sell && sell < x.Value;
+            return x => !sell.HasValue || !(sell > x.Value);
         }
         public static Func<Watcher, bool> WatcherAlreadyBought(decimal buy)
         {
             return x => buy  != x.Buy && x.Status == WatcherStatus.BUYING;
         }
-        public static Func<Watcher, bool> WatcherAlreadySold(decimal sell)
+        public static Func<Watcher, bool> WatcherAlreadySold(decimal? sell)
         {
-            return x => sell != x.Sell && x.Status == WatcherStatus.SELLING;
-        }
-        public static Func<Watcher, bool> WatcherAlreadyLiquidated()
-        {
-            return x => x.Status == WatcherStatus.LIQUIDATED;
+            return x => !sell.HasValue ||  sell != x.Sell && x.Status == WatcherStatus.SELLING;
         }
     }
 }

@@ -9,7 +9,9 @@ namespace CesarBmx.CryptoWatcher.Application.Messages
         public const string WatcherAlreadyBought = "The watcher has bought already at {0}$";
         public const string WatcherAlreadySold = "The watcher has sold already at {0}$";
         public const string WatcherAlreadyLiquidated = "The watcher got liquidated already";
-        public const string BuyLimitIsHigherThanWatcherValue = "The buy limit can't be higher than watcher's current value {0}$";
-        public const string SellLimitIsLowerThanValue = "The sell limit can't be lower than watcher's current value {0}$";
+        public const string BuyLimitMustBeLowerThanWatcherValue = "The buy limit must be lower than the watcher's current value {0}$";
+        public const string SellLimitMustBeHigherThanWatcherValue = "The sell limit must be higher than the watcher's current value {0}$";
+        public const string SellLimitMustBeHigherThanBuyLimit = "The sell limit must be higher than the buy limit";
+        public const string BuyLimitMustBeHigherThanZero = "The buy limit must be higher than zero";
     }
 }
