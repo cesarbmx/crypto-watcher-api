@@ -148,8 +148,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Throw Conflict if watcher already sold
             if (WatcherExpression.WatcherAlreadySold(request.Sell).Invoke(watcher)) throw new ConflictException(string.Format(WatcherMessage.WatcherAlreadySold, watcher.EntryPrice));
             
-            // Update watcher
-            watcher.Update(request.Buy, request.Sell, request.Quantity);
+            // Set watcher
+            watcher.Set(request.Buy, request.Sell, request.Quantity);
 
             // Update
             _mainDbContext.Watchers.Update(watcher);
