@@ -23,8 +23,11 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
                 // We skip default watchers
                 if(watcher.UserId == "Master") continue;
 
-                // We add an order
-                var orderType = BuildOrderType(watcher.Status);
+                // 
+                //if(watcher.Status != WatcherStatus.BUYING && watcher.Status != WatcherStatus.SELLING) continue;
+
+                    // We add an order
+                    var orderType = BuildOrderType(watcher.Status);
                 var order = new Order( 
                     watcher.WatcherId,
                     watcher.UserId,
