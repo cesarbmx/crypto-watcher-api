@@ -64,7 +64,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
         }
         public static Func<Watcher, bool> SellLimitMustBeHigherThanWatcherValue(decimal? sell)
         {
-            return x => !sell.HasValue || !(sell > x.Value);
+            return x => !(!sell.HasValue || sell > x.Value);
         }
         public static Func<Watcher, bool> WatcherAlreadyBought(decimal buy)
         {
@@ -72,7 +72,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
         }
         public static Func<Watcher, bool> WatcherAlreadySold(decimal? sell)
         {
-            return x => !sell.HasValue ||  sell != x.Sell && x.ExitPrice.HasValue;
+            return x =>  sell != x.Sell && x.ExitPrice.HasValue;
         }
     }
 }

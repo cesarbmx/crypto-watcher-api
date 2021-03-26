@@ -101,14 +101,14 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public Watcher SetAsBought()
         {
             EntryAt = DateTime.UtcNow.StripSeconds();
-            EntryPrice = Value;
+            EntryPrice = Price;
 
             return this;
         }
         public Watcher SetAsSold()
         {
             ExitAt = DateTime.UtcNow.StripSeconds();
-            ExitPrice = Value;
+            ExitPrice = Price;
 
             return this;
         }

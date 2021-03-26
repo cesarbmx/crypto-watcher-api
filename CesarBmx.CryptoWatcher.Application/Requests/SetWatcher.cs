@@ -3,9 +3,11 @@ using Newtonsoft.Json;
 
 namespace CesarBmx.CryptoWatcher.Application.Requests
 {
-    public class EnableWatcher
+    public class SetWatcher
     {
         [JsonIgnore] public int  WatcherId { get; set; }
-        [Required] public bool Enabled { get; set; }
+        [Required] public decimal Buy { get; set; }
+        public decimal? Sell { get; set; }
+        [Required] public decimal Quantity { get; set; }
     }
 }
