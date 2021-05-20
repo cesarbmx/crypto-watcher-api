@@ -9,11 +9,11 @@ using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Logging.Extensions;
 using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Application.Messages;
+using CesarBmx.CryptoWatcher.Application.Settings;
 using CesarBmx.CryptoWatcher.Domain.Builders;
 using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Twilio;
@@ -26,18 +26,18 @@ namespace CesarBmx.CryptoWatcher.Application.Services
     {
         private readonly MainDbContext _mainDbContext;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
+        private readonly AppSettings _appSettings;
         private readonly ILogger<NotificationService> _logger;
 
         public NotificationService(
             MainDbContext mainDbContext,
             IMapper mapper,
-            IConfiguration configuration,
+            AppSettings appSettings,
             ILogger<NotificationService> logger)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
-            _configuration = configuration;
+            _appSettings = appSettings;
             _logger = logger;
         }
 
@@ -153,7 +153,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             //var notifications = await _mainDbContext.Notifications.Where(NotificationExpression.PendingNotification()).ToListAsync();
 
             // Connect
-            var apiToken = _configuration["AppSettings:TelegramApiToken"];
+            var apiToken = _appSettings.TelegramApiToken;
             var bot = new TelegramBotClient(apiToken);
 
             // For each notification

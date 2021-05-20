@@ -47,7 +47,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             configuration.GetSection("AppSettings").Bind(appSettings);
 
             // Background jobs
-            var jobsIntervalInMinutes = int.Parse(configuration["AppSettings:JobsIntervalInMinutes"]);
+            var jobsIntervalInMinutes = appSettings.JobsIntervalInMinutes;
             RecurringJob.AddOrUpdate<MainJob>("Main", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
             //RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
             //RecurringJob.AddOrUpdate<SendTelgramNotificationsJob>("Send telegram notifications", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
