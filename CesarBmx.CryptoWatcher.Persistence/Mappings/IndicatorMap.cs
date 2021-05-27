@@ -14,6 +14,10 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
             // Key
             entityBuilder.HasKey(t => t.IndicatorId);
 
+            // Indexes
+            entityBuilder.HasIndex(t => new { t.UserId, t.Abbreviation })
+                .IsUnique();
+
             // Relationships
             entityBuilder
                 .HasOne<User>()
