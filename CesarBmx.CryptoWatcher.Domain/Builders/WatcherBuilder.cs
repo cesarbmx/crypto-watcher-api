@@ -14,11 +14,12 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
         public static WatcherStatus BuildStatus(Watcher watcher)
         {
             // Evaluate and return
-            if (WatcherExpression.WatcherNotSet().Invoke(watcher)) return WatcherStatus.NOT_SET;
+            if (WatcherExpression.WatcherNotSet().Invoke(watcher)) return WatcherStatus.WATCHING;
             if (WatcherExpression.WatcherBuying().Invoke(watcher)) return WatcherStatus.BUYING;
-            if (WatcherExpression.WatcherSelling().Invoke(watcher)) return WatcherStatus.SELLING;
+            if (WatcherExpression.WatcherBought().Invoke(watcher)) return WatcherStatus.BOUGHT;
             if (WatcherExpression.WatcherHolding().Invoke(watcher)) return WatcherStatus.HOLDING;
-            if (WatcherExpression.WatcherLiquidated().Invoke(watcher)) return WatcherStatus.LIQUIDATED;
+            if (WatcherExpression.WatcherSelling().Invoke(watcher)) return WatcherStatus.SELLING;
+            if (WatcherExpression.WatcherSold().Invoke(watcher)) return WatcherStatus.SOLD;
             throw new NotImplementedException();
         }
         public static List<Watcher> BuildDefaultWatchers(List<Line> lines)

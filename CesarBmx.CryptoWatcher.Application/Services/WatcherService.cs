@@ -140,7 +140,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (WatcherExpression.SellLimitMustBeHigherThanWatcherValue(request.Sell).Invoke(watcher)) throw new ConflictException(string.Format(WatcherMessage.SellLimitMustBeHigherThanWatcherValue, watcher.Value));
 
             // Watcher already got liquidated
-            if (WatcherExpression.WatcherLiquidated().Invoke(watcher)) throw new ConflictException(WatcherMessage.WatcherAlreadyLiquidated);
+            if (WatcherExpression.WatcherSold().Invoke(watcher)) throw new ConflictException(WatcherMessage.WatcherAlreadyLiquidated);
 
             // Watcher already bought
             if (WatcherExpression.WatcherAlreadyBought(request.Buy).Invoke(watcher)) throw new ConflictException(string.Format(WatcherMessage.WatcherAlreadyBought, watcher.EntryPrice));
