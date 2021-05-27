@@ -12,13 +12,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
         public static void Map(this EntityTypeBuilder<Indicator> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.IndicatorId)
-                .IsClustered(false);
-
-            // Indexes
-            entityBuilder.HasIndex(t => new { t.UserId, t.Abbreviation })
-                .IsUnique()
-                .IsClustered();
+            entityBuilder.HasKey(t => t.IndicatorId);
 
             // Relationships
             entityBuilder
