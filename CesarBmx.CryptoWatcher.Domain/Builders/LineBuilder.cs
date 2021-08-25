@@ -60,8 +60,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
         }
         public static Period BuildPeriod(DateTime time)
         {
-            if (time.Hour == 0 &&
-                time.Minute == 0) return Period.ONE_DAY;
+            if (time.Hour == 0 && time.Minute == 0) return Period.ONE_DAY;
 
             if (time.Minute == 0) return Period.ONE_HOUR;
 
