@@ -10,7 +10,7 @@ namespace CesarBmx.CryptoWatcher.Application.Automapper
     {
         public CurrencyMapping()
         {
-            CreateMap<Currency, Resources.Currency>();
+            CreateMap<Currency, Responses.Currency>();
             CreateMap<TickerWithQuotesInfo, Currency>()
                 .ForMember(dest => dest.CurrencyId, opt => opt.MapFrom(src => src.Symbol))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Convert.ToDecimal(src.Quotes["USD"].Price)))

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CesarBmx.CryptoWatcher.Application.Resources;
+using CesarBmx.CryptoWatcher.Application.Responses;
 
 namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {

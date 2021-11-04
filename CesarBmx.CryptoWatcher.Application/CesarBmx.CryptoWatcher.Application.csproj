@@ -51,11 +51,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </None>
-    <None Update="Resources\TemplateMessage.tt">
+    <None Update="Responses\TemplateMessage.tt">
       <LastGenOutput>TemplateMessage.txt</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
-    <None Update="Resources\TemplateMessage.txt">
+    <None Update="Responses\TemplateMessage.txt">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TemplateMessage.tt</DependentUpon>

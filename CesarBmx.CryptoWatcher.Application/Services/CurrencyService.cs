@@ -33,18 +33,18 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _coinpaprikaClient = coinpaprikaClient;
         }
 
-        public async Task<List<Resources.Currency>> GetAllCurrencies()
+        public async Task<List<Responses.Currency>> GetAllCurrencies()
         {
             // Get all currencies
             var currencies = await _mainDbContext.Currencies.ToListAsync();
 
             // Response
-            var response = _mapper.Map<List<Resources.Currency>>(currencies);
+            var response = _mapper.Map<List<Responses.Currency>>(currencies);
 
             // Return
             return response;
         }
-        public async Task<Resources.Currency> GetCurrency(string currencyId)
+        public async Task<Responses.Currency> GetCurrency(string currencyId)
         {
             // Get currency
             var currency = await _mainDbContext.Currencies.FindAsync(currencyId);
@@ -53,7 +53,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (currency == null) throw new NotFoundException(CurrencyMessage.CurrencyNotFound);
 
             // Response
-            var response = _mapper.Map<Resources.Currency>(currency);
+            var response = _mapper.Map<Responses.Currency>(currency);
 
             // Return
             return response;

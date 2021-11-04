@@ -7,7 +7,7 @@ namespace CesarBmx.CryptoWatcher.Application.Automapper
     {
         public NotificationMapping()
         {
-            CreateMap<Notification, Resources.Notification>();
+            CreateMap<Notification, Responses.Notification>();
         }
     }
 }

@@ -2,7 +2,7 @@
 using CesarBmx.CryptoWatcher.Domain.Types;
 
 
-namespace CesarBmx.CryptoWatcher.Application.Resources
+namespace CesarBmx.CryptoWatcher.Application.Responses
 {
     public class Watcher
     {

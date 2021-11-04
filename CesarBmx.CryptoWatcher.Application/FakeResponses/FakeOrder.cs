@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CesarBmx.Shared.Common.Extensions;
-using CesarBmx.CryptoWatcher.Application.Resources;
+using CesarBmx.CryptoWatcher.Application.Responses;
 using CesarBmx.CryptoWatcher.Domain.Types;
 
 namespace CesarBmx.CryptoWatcher.Application.FakeResponses

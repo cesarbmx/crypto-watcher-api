@@ -7,7 +7,7 @@ namespace CesarBmx.CryptoWatcher.Application.Automapper
     {
         public ChartMapping()
         {
-            CreateMap<Chart, Resources.Chart>();
+            CreateMap<Chart, Responses.Chart>();
         }
     }
 }

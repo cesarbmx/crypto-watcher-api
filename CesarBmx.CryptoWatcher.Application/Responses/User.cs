@@ -1,7 +1,7 @@
 ﻿
 
 
-namespace CesarBmx.CryptoWatcher.Application.Resources
+namespace CesarBmx.CryptoWatcher.Application.Responses
 {
     public class User
     {

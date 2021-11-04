@@ -7,7 +7,7 @@ namespace CesarBmx.CryptoWatcher.Application.Automapper
     {
         public OrderMapping()
         {
-            CreateMap<Order, Resources.Order>();
+            CreateMap<Order, Responses.Order>();
         }
     }
 }

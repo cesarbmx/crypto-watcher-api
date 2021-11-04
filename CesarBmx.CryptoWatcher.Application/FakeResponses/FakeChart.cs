@@ -8,9 +8,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
     public static class FakeChart
     {
-        public static Resources.Chart GetFake_Bitcoin_Price()
+        public static Responses.Chart GetFake_Bitcoin_Price()
         {
-            return new Resources.Chart
+            return new Responses.Chart
             {
                 ChartId = "BTC-Master.PRICE",
                 CurrencyId = "BTC",
@@ -21,9 +21,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 Rows = new List<ChartRow> { new ChartRow(DateTime.UtcNow.StripSeconds(), 6.4m, 8m, 4m), new ChartRow(DateTime.UtcNow.StripSeconds().AddMinutes(1), 6.6m, 8m, 4m) }
             };
         }
-        public static Resources.Chart GetFake_EOS_Price()
+        public static Responses.Chart GetFake_EOS_Price()
         {
-            return new Resources.Chart
+            return new Responses.Chart
             {
                 ChartId = "EOS-Master.PRICE",
                 CurrencyId = "EOS",
@@ -34,9 +34,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 Rows = new List<ChartRow> { new ChartRow(DateTime.UtcNow.StripSeconds(), 8.4m, 8m, 4m), new ChartRow(DateTime.UtcNow.StripSeconds().AddMinutes(1), 8.6m, 8m, 4m) }
             };
         }
-        public static List<Resources.Chart> GetFake_List()
+        public static List<Responses.Chart> GetFake_List()
         {
-            return new List<Resources.Chart>
+            return new List<Responses.Chart>
             {
                 GetFake_Bitcoin_Price(),
                 GetFake_EOS_Price()

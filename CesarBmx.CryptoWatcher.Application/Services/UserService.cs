@@ -29,18 +29,18 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Resources.User>> GetAllUsers()
+        public async Task<List<Responses.User>> GetAllUsers()
         {
             // Get all users
             var users = await _mainDbContext.Users.ToListAsync();
 
             // Response
-            var response = _mapper.Map<List<Resources.User>>(users);
+            var response = _mapper.Map<List<Responses.User>>(users);
 
             // Return
             return response;
         }
-        public async Task<Resources.User> GetUser(string userId)
+        public async Task<Responses.User> GetUser(string userId)
         {
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
@@ -49,12 +49,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Response
-            var response = _mapper.Map<Resources.User>(user);
+            var response = _mapper.Map<Responses.User>(user);
 
             // Return
             return response;
         }
-        public async Task<Resources.User> AddUser(AddUser request)
+        public async Task<Responses.User> AddUser(AddUser request)
         {
             // Get user
             var user = await _mainDbContext.Users.FindAsync(request.UserId);
@@ -78,7 +78,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _logger.LogSplunkInformation(request);
 
             // Response
-            var response = _mapper.Map<Resources.User>(user);
+            var response = _mapper.Map<Responses.User>(user);
 
             // Return
             return response;

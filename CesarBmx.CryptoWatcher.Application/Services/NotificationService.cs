@@ -41,7 +41,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _logger = logger;
         }
 
-        public async Task<List<Resources.Notification>> GetUserNotifications(string userId)
+        public async Task<List<Responses.Notification>> GetUserNotifications(string userId)
         {
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
@@ -54,12 +54,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .Where(x => x.UserId == userId).ToListAsync();
 
             // Response
-            var response = _mapper.Map<List<Resources.Notification>>(notifications);
+            var response = _mapper.Map<List<Responses.Notification>>(notifications);
 
             // Return
             return response;
         }
-        public async Task<Resources.Notification> GetNotification(Guid notificationId)
+        public async Task<Responses.Notification> GetNotification(Guid notificationId)
         {
             // Get notification
             var notification = await _mainDbContext.Notifications.FindAsync(notificationId);
@@ -68,7 +68,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (notification == null) throw new NotFoundException(NotificationMessage.NotificationNotFound);
 
             // Response
-            var response = _mapper.Map<Resources.Notification>(notification);
+            var response = _mapper.Map<Responses.Notification>(notification);
 
             // Return
             return response;
