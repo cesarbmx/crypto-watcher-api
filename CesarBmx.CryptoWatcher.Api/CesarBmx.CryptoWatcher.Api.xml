@@ -64,7 +64,7 @@
             Get order
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.ScriptVariableSetController.GetScriptVariableSet(CesarBmx.CryptoWatcher.Application.Queries.GetScriptVariableSet)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.ScriptVariablesController.GetScriptVariables(CesarBmx.CryptoWatcher.Application.Queries.GetScriptVariables)">
             <summary>
             Get script variables
             </summary>

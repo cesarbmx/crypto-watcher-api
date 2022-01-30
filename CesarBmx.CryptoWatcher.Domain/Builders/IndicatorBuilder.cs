@@ -17,18 +17,18 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
                 case "PRICE_CHANGE_24hrs":
                     return currency.PercentageChange24H;
                 case "HYPE":
-                    var scriptVariableSet = ScriptVariableSetBuilder.BuildScriptVariableSet(lines);
-                    return BuildHypes(scriptVariableSet)[currency.CurrencyId];
+                    var scriptVariables = ScriptVariablesBuilder.BuildScriptVariables(lines);
+                    return BuildHypes(scriptVariables)[currency.CurrencyId];
                 default:
                     return 666m;
             }            
         }
-        public static Dictionary<string, decimal> BuildHypes(ScriptVariableSet scriptVariableSet)
+        public static Dictionary<string, decimal> BuildHypes(ScriptVariables scriptVariables)
         {
             // Arrange
             var hypes = new Dictionary<string, decimal>();
-            var time = scriptVariableSet.Times[0];
-            var currencies = scriptVariableSet.Values[time]["Master.PRICE_CHANGE_24hrs"];
+            var time = scriptVariables.Times[0];
+            var currencies = scriptVariables.Values[time]["Master.PRICE_CHANGE_24hrs"];
             var values = currencies.Select(x=>x.Value).ToArray();
 
             // Build

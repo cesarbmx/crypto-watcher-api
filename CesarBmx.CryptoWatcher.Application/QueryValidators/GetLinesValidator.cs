@@ -1,5 +1,4 @@
-﻿using CesarBmx.CryptoWatcher.Application.Messages;
-using CesarBmx.CryptoWatcher.Application.Queries;
+﻿using CesarBmx.CryptoWatcher.Application.Queries;
 using CesarBmx.Shared.Application.Messages;
 using FluentValidation;
 

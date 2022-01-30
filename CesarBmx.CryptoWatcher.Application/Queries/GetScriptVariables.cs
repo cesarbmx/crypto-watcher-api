@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using CesarBmx.CryptoWatcher.Domain.Types;
 
 
 namespace CesarBmx.CryptoWatcher.Application.Queries
 {
-    public class GetScriptVariableSet
+    public class GetScriptVariables
     {
         public Period? Period { get; set; }
         public List<string> CurrencyIds { get; set; }

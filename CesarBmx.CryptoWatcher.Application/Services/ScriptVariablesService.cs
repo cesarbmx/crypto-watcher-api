@@ -9,22 +9,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
-    public class ScriptVariableSetService
+    public class ScriptVariablesService
     {
         private readonly MainDbContext _mainDbContext;
 
-        public ScriptVariableSetService(MainDbContext mainDbContext)
+        public ScriptVariablesService(MainDbContext mainDbContext)
         {
             _mainDbContext = mainDbContext;
         }
 
-        public async Task<ScriptVariableSet> GetScriptVariableSet(GetScriptVariableSet query)
+        public async Task<ScriptVariables> GetScriptVariables(GetScriptVariables query)
         {
             // Get all lines
             var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(query.Period, query.CurrencyIds, query.UserIds, query.IndicatorIds)).ToListAsync();
 
             // Response
-            var response = ScriptVariableSetBuilder.BuildScriptVariableSet(lines);
+            var response = ScriptVariablesBuilder.BuildScriptVariables(lines);
 
             // Return
             return response;

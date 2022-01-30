@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CesarBmx.CryptoWatcher.Application.Responses
 {
-    public class ScriptVariableSet
+    public class ScriptVariables
     {
         public List<DateTime> Times { get; set; }
         public List<string> Currencies { get; set; }

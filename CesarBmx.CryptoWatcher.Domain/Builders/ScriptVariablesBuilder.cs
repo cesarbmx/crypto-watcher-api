@@ -6,11 +6,11 @@ using CesarBmx.CryptoWatcher.Domain.Models;
 
 namespace CesarBmx.CryptoWatcher.Domain.Builders
 {
-    public static class ScriptVariableSetBuilder
+    public static class ScriptVariablesBuilder
     {
-        public static ScriptVariableSet BuildScriptVariableSet(List<Line> lines)
+        public static ScriptVariables BuildScriptVariables(List<Line> lines)
         {
-            var scriptVariableSet = new ScriptVariableSet(
+            var scriptVariables = new ScriptVariables(
                 BuildTimes(lines),
                 BuildCurrencies(lines),
                 BuildIndicators(lines),
@@ -19,7 +19,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
 
 
             // Return
-            return scriptVariableSet;
+            return scriptVariables;
         }
         public static DateTime[] BuildTimes(List<Line> lines)
         {

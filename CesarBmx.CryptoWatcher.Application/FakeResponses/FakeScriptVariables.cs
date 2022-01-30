@@ -5,11 +5,11 @@ using CesarBmx.CryptoWatcher.Application.Responses;
 
 namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
-    public static class FakeScriptVariableSet
+    public static class FakeScriptVariables
     {
-        public static ScriptVariableSet GetFake_List()
+        public static ScriptVariables GetFake_List()
         {
-           var scriptVariableSetResponse = new ScriptVariableSet();
+           var scriptVariablesResponse = new ScriptVariables();
 
            var now = DateTime.UtcNow.StripSeconds();
            var times = new List<DateTime> { now};
@@ -42,13 +42,13 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 {now, level2}
             };
 
-            scriptVariableSetResponse.Times = times;
-            scriptVariableSetResponse.Currencies = currencies;
-            scriptVariableSetResponse.Indicators = indicators;
-            scriptVariableSetResponse.Values = level1;
+            scriptVariablesResponse.Times = times;
+            scriptVariablesResponse.Currencies = currencies;
+            scriptVariablesResponse.Indicators = indicators;
+            scriptVariablesResponse.Values = level1;
 
             // Return
-            return scriptVariableSetResponse;
+            return scriptVariablesResponse;
         }
     }
 }

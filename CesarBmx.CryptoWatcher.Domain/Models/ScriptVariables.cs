@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace CesarBmx.CryptoWatcher.Domain.Models
 {
-    public class ScriptVariableSet
+    public class ScriptVariables
     {
         public DateTime[] Times { get; protected set; }
         public string[] Currencies { get; protected set; }
         public string[] Indicators { get; protected set; }
         public Dictionary<DateTime, Dictionary<string, Dictionary<string, decimal>>> Values { get; protected set; }
 
-        public ScriptVariableSet() { }
-        public ScriptVariableSet(
+        public ScriptVariables() { }
+        public ScriptVariables(
             DateTime[] times,
             string[] currencies,
             string[] indicators,

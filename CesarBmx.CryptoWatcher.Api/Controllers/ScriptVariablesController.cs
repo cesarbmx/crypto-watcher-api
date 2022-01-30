@@ -13,11 +13,11 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     [SwaggerResponse(401, Type = typeof(Unauthorized))]
     [SwaggerResponse(403, Type = typeof(Forbidden))]
     [SwaggerControllerOrder(orderPrefix: "I")]
-    public class ScriptVariableSetController : Controller
+    public class ScriptVariablesController : Controller
     {
-        private readonly ScriptVariableSetService _scriptVariableService;
+        private readonly ScriptVariablesService _scriptVariableService;
 
-        public ScriptVariableSetController(ScriptVariableSetService scriptVariableService)
+        public ScriptVariablesController(ScriptVariablesService scriptVariableService)
         {
             _scriptVariableService = scriptVariableService;
         }
@@ -27,12 +27,12 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/script-variables")]
-        [SwaggerResponse(200, Type = typeof(ScriptVariableSet))]
-        [SwaggerOperation(Tags = new[] { "Script variables" }, OperationId = "ScriptVariableSet_GetScriptVariableSet")]
-        public async Task<IActionResult> GetScriptVariableSet(GetScriptVariableSet query)
+        [SwaggerResponse(200, Type = typeof(ScriptVariables))]
+        [SwaggerOperation(Tags = new[] { "Script variables" }, OperationId = "ScriptVariables_GetScriptVariables")]
+        public async Task<IActionResult> GetScriptVariables(GetScriptVariables query)
         {
             // Reponse
-            var response = await _scriptVariableService.GetScriptVariableSet(query);
+            var response = await _scriptVariableService.GetScriptVariables(query);
 
             // Return
             return Ok(response);
