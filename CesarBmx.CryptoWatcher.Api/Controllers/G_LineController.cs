@@ -4,9 +4,7 @@ using CesarBmx.CryptoWatcher.Application.Queries;
 using CesarBmx.Shared.Application.Responses;
 using CesarBmx.CryptoWatcher.Application.Responses;
 using CesarBmx.CryptoWatcher.Application.Services;
-using CesarBmx.CryptoWatcher.Domain.Types;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers

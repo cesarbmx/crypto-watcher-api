@@ -1,7 +1,7 @@
-﻿using CesarBmx.Shared.Api.Configuration;
+﻿using CesarBmx.CryptoWatcher.Application.RequestValidators;
+using CesarBmx.Shared.Api.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using CesarBmx.CryptoWatcher.Application.Validators;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
