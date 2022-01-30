@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CesarBmx.CryptoWatcher.Application.Queries;
 using CesarBmx.Shared.Application.Responses;
 using CesarBmx.CryptoWatcher.Application.Responses;
 using CesarBmx.CryptoWatcher.Application.Services;
@@ -30,10 +31,10 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [Route("api/script-variables")]
         [SwaggerResponse(200, Type = typeof(ScriptVariableSet))]
         [SwaggerOperation(Tags = new[] { "Script variables" }, OperationId = "ScriptVariableSet_GetScriptVariableSet")]
-        public async Task<IActionResult> GetScriptVariableSet([BindRequired] Period period = Period.ONE_MINUTE, List<string> currencyIds = null, List<string> userIds = null, List<string> indicatorIds = null)
+        public async Task<IActionResult> GetScriptVariableSet(GetScriptVariableSet query)
         {
             // Reponse
-            var response = await _scriptVariableService.GetScriptVariableSet(period, currencyIds, userIds, indicatorIds);
+            var response = await _scriptVariableService.GetScriptVariableSet(query);
 
             // Return
             return Ok(response);

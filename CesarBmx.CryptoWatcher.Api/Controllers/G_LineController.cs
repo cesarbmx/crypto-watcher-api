@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CesarBmx.CryptoWatcher.Application.Queries;
 using CesarBmx.Shared.Application.Responses;
 using CesarBmx.CryptoWatcher.Application.Responses;
 using CesarBmx.CryptoWatcher.Application.Services;
@@ -24,16 +25,16 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get all lines
+        /// Get lines
         /// </summary>
         [HttpGet]
         [Route("api/lines")]
         [SwaggerResponse(200, Type = typeof(List<Line>))]
-        [SwaggerOperation(Tags = new[] { "Lines" }, OperationId = "Lines_GetAllLines")]
-        public async Task<IActionResult> GetAllLines([BindRequired] Period period = Period.ONE_MINUTE, List<string> currencyIds = null, List<string> userIds = null, List<string> indicatorIds = null)
+        [SwaggerOperation(Tags = new[] { "Lines" }, OperationId = "Lines_GetLines")]
+        public async Task<IActionResult> GetLines(GetLines query)
         {
             // Reponse
-            var response = await _lineService.GetAllLines(period, currencyIds, userIds, indicatorIds);
+            var response = await _lineService.GetLines(query.Period, query.CurrencyIds, query.UserIds);
 
             // Return
             return Ok(response);

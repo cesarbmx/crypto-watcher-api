@@ -29,7 +29,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Responses.User>> GetAllUsers()
+        public async Task<List<Responses.User>> GetUsers()
         {
             // Get all users
             var users = await _mainDbContext.Users.ToListAsync();

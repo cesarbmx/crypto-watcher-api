@@ -28,8 +28,8 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpGet]
         [Route("api/users/{userId}/orders")]
         [SwaggerResponse(200, Type = typeof(List<Order>))]
-        [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetAllOrders")]
-        public async Task<IActionResult> GetAllOrders(string userId)
+        [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetUserOrders")]
+        public async Task<IActionResult> GetUserOrders(string userId)
         {
             // Reponse
             var response = await _orderService.GetUserOrders(userId);

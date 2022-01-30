@@ -23,16 +23,16 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get all users
+        /// Get users
         /// </summary>
         [HttpGet]
         [Route("api/users")]
         [SwaggerResponse(200, Type = typeof(List<User>))]
-        [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_GetAllUsers")]
-        public async Task<IActionResult> GetAllUsers()
+        [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_GetUsers")]
+        public async Task<IActionResult> GetUsers()
         {
             // Reponse
-            var response = await _userService.GetAllUsers();
+            var response = await _userService.GetUsers();
 
             // Return
             return Ok(response);

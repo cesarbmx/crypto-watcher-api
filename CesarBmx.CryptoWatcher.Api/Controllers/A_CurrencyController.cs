@@ -22,16 +22,16 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         }
 
         /// <summary>
-        /// Get all currencies
+        /// Get currencies
         /// </summary>
         [HttpGet]
         [Route("api/currencies")]
         [SwaggerResponse(200, Type = typeof(List<Currency>))]  
-        [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetAllCurrencies")]
-        public async Task<IActionResult> GetAllCurrencies()
+        [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrencies")]
+        public async Task<IActionResult> GetCurrencies()
         {
             // Reponse
-            var response = await _currencyService.GetAllCurrencies();
+            var response = await _currencyService.GetCurrencies();
 
             // Return
             return Ok(response);

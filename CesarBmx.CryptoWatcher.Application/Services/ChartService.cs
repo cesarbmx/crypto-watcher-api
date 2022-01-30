@@ -22,7 +22,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _mainDbContext = mainDbContext;
             _mapper = mapper;
         }
-        public async Task<List<Responses.Chart>> GetAllCharts(Period period = Period.ONE_MINUTE, List<string> currencyIds = null, List<string> userIds = null, List<string> indicatorIds = null)
+        public async Task<List<Responses.Chart>> GetCharts(Period period = Period.ONE_MINUTE, List<string> currencyIds = null, List<string> userIds = null, List<string> indicatorIds = null)
         {
             // Get all currencies
             var currencies = await _mainDbContext.Currencies.Where(CurrencyExpression.Filter(currencyIds)).ToListAsync();

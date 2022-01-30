@@ -33,7 +33,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _coinpaprikaClient = coinpaprikaClient;
         }
 
-        public async Task<List<Responses.Currency>> GetAllCurrencies()
+        public async Task<List<Responses.Currency>> GetCurrencies()
         {
             // Get all currencies
             var currencies = await _mainDbContext.Currencies.ToListAsync();

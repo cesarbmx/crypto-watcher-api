@@ -4,9 +4,9 @@
         <name>CesarBmx.CryptoWatcher.Api</name>
     </assembly>
     <members>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.A_CurrencyController.GetAllCurrencies">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.A_CurrencyController.GetCurrencies">
             <summary>
-            Get all currencies
+            Get currencies
             </summary>
         </member>
         <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.A_CurrencyController.GetCurrency(System.String)">
@@ -14,9 +14,9 @@
             Get currency
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.B_UsersController.GetAllUsers">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.B_UsersController.GetUsers">
             <summary>
-            Get all users
+            Get users
             </summary>
         </member>
         <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.B_UsersController.GetUser(System.String)">
@@ -29,9 +29,9 @@
             Add user
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.C_IndicatorController.GetAllUserIndicators(System.String)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.C_IndicatorController.GetUserIndicators(System.String)">
             <summary>
-            Get all user indicators
+            Get user indicators
             </summary>
         </member>
         <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.C_IndicatorController.GetIndicator(System.String)">
@@ -74,7 +74,7 @@
             Enable/Disable watcher
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.E_OrderController.GetAllOrders(System.String)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.E_OrderController.GetUserOrders(System.String)">
             <summary>
             Get user orders
             </summary>
@@ -94,17 +94,17 @@
             Get notification
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.G_LineController.GetAllLines(CesarBmx.CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.G_LineController.GetLines(CesarBmx.CryptoWatcher.Application.Queries.GetLines)">
             <summary>
-            Get all lines
+            Get lines
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.H_ChartsController.GetAllCharts(CesarBmx.CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.H_ChartsController.GetCharts(CesarBmx.CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
             <summary>
-            Get all charts
+            Get charts
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.I_ScriptVariableSetController.GetScriptVariableSet(CesarBmx.CryptoWatcher.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.I_ScriptVariableSetController.GetScriptVariableSet(CesarBmx.CryptoWatcher.Application.Queries.GetScriptVariableSet)">
             <summary>
             Get script variables
             </summary>

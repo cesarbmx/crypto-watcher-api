@@ -35,7 +35,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Responses.Indicator>> GetAllUserIndicators(string userId)
+        public async Task<List<Responses.Indicator>> GetUserIndicators(string userId)
         {
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);

@@ -21,7 +21,7 @@ namespace CesarBmx.CryptoWatcher.Api.Pages.Charts
         public async Task OnGetAsync()
         {
             // Get response
-            var chartResponse = await _chartService.GetAllCharts();
+            var chartResponse = await _chartService.GetCharts();
 
             // Build
             Charts = ChartBuilder.BuildCharts(chartResponse);
