@@ -17,7 +17,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
                             x.Period == Period.ONE_HOUR && x.Time < DateTime.UtcNow.AddDays(-8) ||
                             x.Period == Period.ONE_DAY && x.Time < DateTime.UtcNow.AddYears(-1);
         }
-        public static Expression<Func<Line, bool>> Filter(Period period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
+        public static Expression<Func<Line, bool>> Filter(Period? period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
         {
             return x =>
                 (

@@ -3,6 +3,7 @@ using CesarBmx.CryptoWatcher.Application.Queries;
 using CesarBmx.Shared.Application.Responses;
 using CesarBmx.CryptoWatcher.Application.Responses;
 using CesarBmx.CryptoWatcher.Application.Services;
+using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -11,12 +12,12 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     [SwaggerResponse(500, Type = typeof(InternalServerError))]
     [SwaggerResponse(401, Type = typeof(Unauthorized))]
     [SwaggerResponse(403, Type = typeof(Forbidden))]
-    // ReSharper disable once InconsistentNaming
-    public class I_ScriptVariableSetController : Controller
+    [SwaggerControllerOrder(orderPrefix: "I")]
+    public class ScriptVariableSetController : Controller
     {
         private readonly ScriptVariableSetService _scriptVariableService;
 
-        public I_ScriptVariableSetController(ScriptVariableSetService scriptVariableService)
+        public ScriptVariableSetController(ScriptVariableSetService scriptVariableService)
         {
             _scriptVariableService = scriptVariableService;
         }

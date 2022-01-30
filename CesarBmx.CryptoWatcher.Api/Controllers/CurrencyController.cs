@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CesarBmx.Shared.Application.Responses;
 using CesarBmx.CryptoWatcher.Application.Responses;
 using CesarBmx.CryptoWatcher.Application.Services;
+using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -11,12 +12,12 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     [SwaggerResponse(500, Type = typeof(InternalServerError))]
     [SwaggerResponse(401, Type = typeof(Unauthorized))]
     [SwaggerResponse(403, Type = typeof(Forbidden))]
-    // ReSharper disable once InconsistentNaming
-    public class A_CurrencyController : Controller
+    [SwaggerControllerOrder(orderPrefix: "A")]
+    public class CurrencyController : Controller
     {
         private readonly CurrencyService _currencyService;
 
-        public A_CurrencyController(CurrencyService currencyService)
+        public CurrencyController(CurrencyService currencyService)
         {
             _currencyService = currencyService;
         }
