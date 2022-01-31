@@ -82,11 +82,11 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpPut]
         [Route("api/watchers/{watcherId}")]
         [SwaggerResponse(200, Type = typeof(Watcher))]
-        [SwaggerResponse(400, Type = typeof(Error))]
-        [SwaggerResponse(409, Type = typeof(Error))]
+        [SwaggerResponse(400, Type = typeof(BadRequest))]
+        [SwaggerResponse(409, Type = typeof(SetWatcherConflict))]
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_SetWatcher")]
-        public async Task<IActionResult> SetWatcher(int watcherId, [FromBody]SetWatcher request)
+        public async Task<IActionResult> SetWatcher(int watcherId, [FromBody] SetWatcher request)
         {
             // Request
             request.WatcherId = watcherId;

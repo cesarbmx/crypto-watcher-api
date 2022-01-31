@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CesarBmx.CryptoWatcher.Application.ConflictReasons;
 using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Logging.Extensions;
@@ -14,6 +15,7 @@ using CesarBmx.CryptoWatcher.Application.Messages;
 using CesarBmx.CryptoWatcher.Domain.Builders;
 using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
+using CesarBmx.Shared.Application.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -86,7 +88,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .FirstOrDefaultAsync(IndicatorExpression.Unique(request.UserId, request.Abbreviation));
 
             // Throw ConflictException if it exists
-            if (indicator != null) throw new ConflictException(IndicatorMessage.IndicatorWithSameIdAlreadyExists);
+            if (indicator != null) throw new ConflictException( new Conflict<AddIndicatorConflictReason>(AddIndicatorConflictReason.DUPLICATE, IndicatorMessage.IndicatorWithSameIdAlreadyExists));
 
             // Get dependencies
             var dependencies = await GetIndicators(request.Dependencies);

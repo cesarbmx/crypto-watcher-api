@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using CesarBmx.CryptoWatcher.Application.ConflictReasons;
 using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Logging.Extensions;
 using CesarBmx.CryptoWatcher.Application.Requests;
 using CesarBmx.CryptoWatcher.Application.Messages;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
+using CesarBmx.Shared.Application.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -60,7 +62,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var user = await _mainDbContext.Users.FindAsync(request.UserId);
 
             // Check if it exists
-            if (user != null) throw new ConflictException(UserMessage.UserAlreadyExists);
+            if (user != null) throw new ConflictException(new Conflict<AddUserConflictReason>(AddUserConflictReason.DUPLICATE, UserMessage.UserAlreadyExists));
 
             // Time
             var now = DateTime.UtcNow.StripSeconds();

@@ -4,7 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using CesarBmx.Shared.Application.Exceptions;
+ using CesarBmx.CryptoWatcher.Application.ConflictReasons;
+ using CesarBmx.Shared.Application.Exceptions;
  using CesarBmx.Shared.Common.Extensions;
  using CesarBmx.Shared.Logging.Extensions;
  using CesarBmx.Shared.Persistence.Extensions;
@@ -12,12 +13,15 @@ using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.CryptoWatcher.Domain.Builders;
 using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Application.Messages;
-using CesarBmx.CryptoWatcher.Domain.Models;
+ using CesarBmx.CryptoWatcher.Application.Responses;
  using CesarBmx.CryptoWatcher.Persistence.Contexts;
+ using CesarBmx.Shared.Application.Responses;
  using Microsoft.EntityFrameworkCore;
  using Microsoft.Extensions.Logging;
+ using Line = CesarBmx.CryptoWatcher.Domain.Models.Line;
+ using Watcher = CesarBmx.CryptoWatcher.Domain.Models.Watcher;
 
-namespace CesarBmx.CryptoWatcher.Application.Services
+ namespace CesarBmx.CryptoWatcher.Application.Services
 {
     public class WatcherService
     {
@@ -90,7 +94,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.Unique(request.UserId, request.CurrencyId, indicator.UserId, indicator.IndicatorId));
 
             // Throw ConflictException if it exists
-            if (watcher != null) throw new ConflictException(WatcherMessage.WatcherAlreadyExists);
+            if (watcher != null) throw new ConflictException(new Conflict<AddWatcherConflictReason>(AddWatcherConflictReason.DUPLICATE, WatcherMessage.WatcherAlreadyExists));
 
             // Get default watcher
             var defaultWatcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.DefaultWatcher(request.CurrencyId, request.IndicatorId));
@@ -125,7 +129,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<Responses.Watcher> SetWatcher(SetWatcher request)
+        public async Task<Response<SetWatcher, Responses.Watcher, SetWatcherConflictReason>> SetWatcher(SetWatcher request)
         {
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FindAsync(request.WatcherId);
@@ -134,19 +138,19 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Buy limit must be lower than watcher value
-            if (WatcherExpression.BuyLimitMustBeLowerThanWatcherValue(request.Buy).Invoke(watcher)) throw new ConflictException(string.Format(WatcherMessage.BuyLimitMustBeLowerThanWatcherValue, watcher.Value));
+            if (WatcherExpression.BuyLimitMustBeLowerThanWatcherValue(request.Buy).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.BuyLimitMustBeLowerThanWatcherValue, watcher.Value)));
 
             // Sell limit must be higher than watcher value
-            if (WatcherExpression.SellLimitMustBeHigherThanWatcherValue(request.Sell).Invoke(watcher)) throw new ConflictException(string.Format(WatcherMessage.SellLimitMustBeHigherThanWatcherValue, watcher.Value));
+            if (WatcherExpression.SellLimitMustBeHigherThanWatcherValue(request.Sell).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.SELL_LIMIT_MUST_BE_HIGHER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.SellLimitMustBeHigherThanWatcherValue, watcher.Value)));
 
             // Watcher already got liquidated
-            if (WatcherExpression.WatcherSold().Invoke(watcher)) throw new ConflictException(WatcherMessage.WatcherAlreadyLiquidated);
+            if (WatcherExpression.WatcherSold().Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.WATCHER_ALREADY_LIQUIDATED, WatcherMessage.WatcherAlreadyLiquidated));
 
             // Watcher already bought
-            if (WatcherExpression.WatcherAlreadyBought(request.Buy).Invoke(watcher)) throw new ConflictException(string.Format(WatcherMessage.WatcherAlreadyBought, watcher.EntryPrice));
+            if (WatcherExpression.WatcherAlreadyBought(request.Buy).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.WATCHER_ALREADY_BOUGHT, string.Format(WatcherMessage.WatcherAlreadyBought, watcher.EntryPrice)));
 
             // Watcher already sold
-            if (WatcherExpression.WatcherAlreadySold(request.Sell).Invoke(watcher)) throw new ConflictException(string.Format(WatcherMessage.WatcherAlreadySold, watcher.EntryPrice));
+            if (WatcherExpression.WatcherAlreadySold(request.Sell).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.WATCHER_ALREADY_SOLD, string.Format(WatcherMessage.WatcherAlreadySold, watcher.EntryPrice)));
             
             // Set watcher
             watcher.Set(request.Buy, request.Sell, request.Quantity);
@@ -157,11 +161,21 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Save
             await _mainDbContext.SaveChangesAsync();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(request);
+            // Data
+            var data = _mapper.Map<Responses.Watcher>(watcher);
 
-            // Response
-            var response = _mapper.Map<Responses.Watcher>(watcher);
+            // Build response
+            var response = new Response<SetWatcher, Responses.Watcher, SetWatcherConflictReason>()
+            {
+                TransactionId = Guid.NewGuid(),
+                Timestamp = DateTime.UtcNow,
+                Status = SetWatcherConflictReason.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE,
+                Request = request,
+                Data = data
+            };
+
+            // Log into Splunk
+            _logger.LogSplunkInformation(response);
 
             // Return
             return response;
