@@ -1,13 +1,12 @@
-﻿using CesarBmx.CryptoWatcher.Application.ConflictReasons;
-using CesarBmx.CryptoWatcher.Application.FakeResponses;
-using CesarBmx.Shared.Application.Responses;
+﻿using CesarBmx.CryptoWatcher.Application.FakeResponses;
+using CesarBmx.CryptoWatcher.Application.Responses;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace CesarBmx.CryptoWatcher.Api.ResponseExamples
 {
-    public class SetWatcherConflictExample : IExamplesProvider<Conflict<SetWatcherConflictReason>>
+    public class SetWatcherConflictExample : IExamplesProvider<SetWatcherConflict>
     {
-        public Conflict<SetWatcherConflictReason> GetExamples()
+        public SetWatcherConflict GetExamples()
         {
             return FakeConflict.GetFake_SetWatcherConflict();
         }
