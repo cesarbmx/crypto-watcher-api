@@ -129,7 +129,7 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             // Return
             return response;
         }
-        public async Task<Response<SetWatcher, Responses.Watcher, SetWatcherConflictReason>> SetWatcher(SetWatcher request)
+        public async Task<Responses.Watcher> SetWatcher(SetWatcher request)
         {
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FindAsync(request.WatcherId);
@@ -161,14 +161,14 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             // Save
             await _mainDbContext.SaveChangesAsync();
 
-            // Data
-            var data = _mapper.Map<Responses.Watcher>(watcher);
+            // Response
+            var response = _mapper.Map<Responses.Watcher>(watcher);
 
-            // Build response
-            var response = new SetWatcherResponse(request, data, SetWatcherConflictReason.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE);
+            // Build log 
+            var log = new SetWatcherResponse(request, response, SetWatcherConflictReason.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE);
 
             // Log into Splunk
-            _logger.LogSplunkInformation(response);
+            _logger.LogSplunkInformation(log);
 
             // Return
             return response;
