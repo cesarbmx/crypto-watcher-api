@@ -13,7 +13,6 @@ using AutoMapper;
 using CesarBmx.CryptoWatcher.Domain.Builders;
 using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Application.Messages;
- using CesarBmx.CryptoWatcher.Application.Responses;
  using CesarBmx.CryptoWatcher.Persistence.Contexts;
  using CesarBmx.Shared.Application.Responses;
  using Microsoft.EntityFrameworkCore;
@@ -164,11 +163,8 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             // Response
             var response = _mapper.Map<Responses.Watcher>(watcher);
 
-            // Build log 
-            var log = new SetWatcherResponse(request, response, SetWatcherConflictReason.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE);
-
             // Log into Splunk
-            _logger.LogSplunkInformation(log);
+            _logger.LogSplunkInformation(request);
 
             // Return
             return response;

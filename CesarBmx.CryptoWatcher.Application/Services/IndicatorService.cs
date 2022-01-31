@@ -88,7 +88,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .FirstOrDefaultAsync(IndicatorExpression.Unique(request.UserId, request.Abbreviation));
 
             // Throw ConflictException if it exists
-            if (indicator != null) throw new ConflictException( new Conflict<AddIndicatorConflictReason>(AddIndicatorConflictReason.DUPLICATE, IndicatorMessage.IndicatorWithSameIdAlreadyExists));
+            if (indicator != null) throw new ConflictException(new Conflict<AddIndicatorConflictReason>(AddIndicatorConflictReason.DUPLICATE, IndicatorMessage.IndicatorWithSameIdAlreadyExists));
 
             // Get dependencies
             var dependencies = await GetIndicators(request.Dependencies);
