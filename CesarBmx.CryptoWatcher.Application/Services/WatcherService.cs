@@ -165,14 +165,7 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             var data = _mapper.Map<Responses.Watcher>(watcher);
 
             // Build response
-            var response = new Response<SetWatcher, Responses.Watcher, SetWatcherConflictReason>()
-            {
-                TransactionId = Guid.NewGuid(),
-                Timestamp = DateTime.UtcNow,
-                Status = SetWatcherConflictReason.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE,
-                Request = request,
-                Data = data
-            };
+            var response = new SetWatcherResponse(request, data, SetWatcherConflictReason.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE);
 
             // Log into Splunk
             _logger.LogSplunkInformation(response);
