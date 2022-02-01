@@ -1,8 +1,4 @@
-﻿
-
-
-using System.Collections.Generic;
-using CesarBmx.CryptoWatcher.Domain.Types;
+﻿using CesarBmx.CryptoWatcher.Domain.Models;
 
 namespace CesarBmx.CryptoWatcher.Application.Settings
 {
@@ -11,6 +7,6 @@ namespace CesarBmx.CryptoWatcher.Application.Settings
         public bool UseMemoryStorage { get; set; }
         public int JobsIntervalInMinutes { get; set; }
         public string TelegramApiToken { get; set; }
-        public Dictionary<LinePeriod, string> Values { get; set; }
+        public LineRetention LineRetention { get; set; }
     }
 }

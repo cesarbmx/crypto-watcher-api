@@ -9,13 +9,13 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
 {
     public static class LineExpression
     {
-        public static Expression<Func<Line, bool>> ObsoleteLine()
+        public static Expression<Func<Line, bool>> ObsoleteLine(LineRetention lineRetention)
         {
-            return x => x.Period == Period.ONE_MINUTE && x.Time < DateTime.UtcNow.AddHours(-3) ||
-                            x.Period == Period.FIVE_MINUTES && x.Time < DateTime.UtcNow.AddDays(-1) ||
-                            x.Period == Period.FIFTEEN_MINUTES && x.Time < DateTime.UtcNow.AddDays(-3) ||
-                            x.Period == Period.ONE_HOUR && x.Time < DateTime.UtcNow.AddDays(-8) ||
-                            x.Period == Period.ONE_DAY && x.Time < DateTime.UtcNow.AddYears(-1);
+            return x => x.Period == Period.ONE_MINUTE && x.Time < DateTime.UtcNow.AddHours(-lineRetention[Period.ONE_MINUTE]) ||
+                            x.Period == Period.FIVE_MINUTES && x.Time < DateTime.UtcNow.AddDays(-lineRetention[Period.FIVE_MINUTES]) ||
+                            x.Period == Period.FIFTEEN_MINUTES && x.Time < DateTime.UtcNow.AddDays(-lineRetention[Period.FIFTEEN_MINUTES]) ||
+                            x.Period == Period.ONE_HOUR && x.Time < DateTime.UtcNow.AddDays(-lineRetention[Period.ONE_HOUR]) ||
+                            x.Period == Period.ONE_DAY && x.Time < DateTime.UtcNow.AddYears(-lineRetention[Period.ONE_DAY]);
         }
         public static Expression<Func<Line, bool>> Filter(Period? period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
         {
