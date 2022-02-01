@@ -12,6 +12,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
         {
             services.ConfigureSharedHealth(configuration)
                 .AddHealthChecks()
+                .AddSqlServer(configuration.GetConnectionString("CryptoWatcher"))
                 .AddCheck<CoinpaprikaHealthCheck>("Coinpaprika API");
             // Add your health checks
             //.AddMySql(configuration.GetConnectionString("MainDb"), "MySql connection");
