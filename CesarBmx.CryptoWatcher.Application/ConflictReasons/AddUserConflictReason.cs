@@ -4,6 +4,6 @@ namespace CesarBmx.CryptoWatcher.Application.ConflictReasons
 {
     public enum AddUserConflictReason
     {
-        DUPLICATE
+        USER_ALREADY_EXISTS
     }
 }
