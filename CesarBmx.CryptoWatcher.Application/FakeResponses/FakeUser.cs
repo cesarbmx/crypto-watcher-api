@@ -16,7 +16,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
         {
             return new User
             {
-                UserId = "CesarBmx"
+                UserId = "cesarbmx"
             };
         }
         public static List<User> GetFake_List()

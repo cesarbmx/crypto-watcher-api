@@ -10,7 +10,7 @@ namespace CesarBmx.CryptoWatcher.Application.RequestValidators
         {
             RuleFor(x => x.Dependencies)
                 .NotNull()
-                .WithMessage(nameof(IndicatorMessage.DependenciesMustBeProvided) + " " + IndicatorMessage.DependenciesMustBeProvided);
+                .WithMessage(IndicatorMessage.DependenciesMustBeProvided);
         }
     }
 }

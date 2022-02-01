@@ -9,7 +9,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeRequests
         {
             return new AddWatcher
             {
-                UserId = "CesarBmx",
+                UserId = "cesarbmx",
                 CurrencyId = "BTC", 
                 IndicatorId = "Master.PRICE",
                 Enabled = true

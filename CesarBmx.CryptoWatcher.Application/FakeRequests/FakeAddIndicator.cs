@@ -10,7 +10,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeRequests
         {
             return new AddIndicator
             {
-                UserId = "CesarBmx",
+                UserId = "cesarbmx",
                 Abbreviation = "RSI",
                 Name = "Relative Strength Index",
                 Description = @"The Relative Strength Index (RSI) is a momentum oscillator that measures the speed and change of price movements.

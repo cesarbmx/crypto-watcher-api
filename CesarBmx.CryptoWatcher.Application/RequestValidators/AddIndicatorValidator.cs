@@ -10,11 +10,11 @@ namespace CesarBmx.CryptoWatcher.Application.RequestValidators
         {
             RuleFor(x => x.Abbreviation)
                 .Matches("^[A-z\\d-]+$")
-                .WithMessage(nameof(IndicatorMessage.IndicatorIdHasInvalidFormat) + " " + IndicatorMessage.IndicatorIdHasInvalidFormat);
+                .WithMessage(IndicatorMessage.IndicatorIdHasInvalidFormat);
 
             RuleFor(x => x.Dependencies)
                 .NotNull()
-                .WithMessage(nameof(IndicatorMessage.DependenciesMustBeProvided) + " " + IndicatorMessage.DependenciesMustBeProvided);
+                .WithMessage(IndicatorMessage.DependenciesMustBeProvided);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeRequests
         {
             return new AddUser
             {
-                UserId = "CesarBmx",
+                UserId = "cesarbmx",
                 PhoneNumber = "+34 666868686"
             };
         }       

@@ -13,7 +13,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             return new Watcher
             {
                 WatcherId = 1,
-                UserId = "CesarBmx",
+                UserId = "cesarbmx",
                 CurrencyId = "BTC",
                 IndicatorUserId = "Master",
                 IndicatorId = "PRICE",
@@ -37,7 +37,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             return new Watcher
             {
                 WatcherId = 2,
-                UserId = "CesarBmx",
+                UserId = "cesarbmx",
                 CurrencyId = "BTC",
                 IndicatorUserId = "Master",
                 IndicatorId = "RSI",
