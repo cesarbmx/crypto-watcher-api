@@ -1,4 +1,5 @@
-﻿using CesarBmx.Shared.Api.Configuration;
+﻿using CesarBmx.CryptoWatcher.Api.HealthChecks;
+using CesarBmx.Shared.Api.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,8 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
         public static IServiceCollection ConfigureHealth(this IServiceCollection services, IConfiguration configuration)
         {
             services.ConfigureSharedHealth(configuration)
-                .AddHealthChecks();
+                .AddHealthChecks()
+                .AddCheck<CoinpaprikaHealthCheck>("Coinpaprika API");
             // Add your health checks
             //.AddMySql(configuration.GetConnectionString("MainDb"), "MySql connection");
 
