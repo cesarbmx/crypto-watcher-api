@@ -14,22 +14,22 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
            var now = DateTime.UtcNow.StripSeconds();
            var times = new List<DateTime> { now};
            var currencies = new List<string> { "BTC", "ETH", "EOS" };
-           var indicators = new List<string> { "Master.PRICE", "Master.HYPE" };
+           var indicators = new List<string> { "master.PRICE", "master.HYPE" };
 
             var level31 = new Dictionary<string, decimal>
             {
-                { "Master.PRICE", 3200m },
-                { "Master.HYPE", 0.125m }
+                { "master.PRICE", 3200m },
+                { "master.HYPE", 0.125m }
             };
             var level32 = new Dictionary<string, decimal>
             {
-                { "Master.PRICE", 570m },
-                { "Master.HYPE", 6.5m }
+                { "master.PRICE", 570m },
+                { "master.HYPE", 6.5m }
             };
             var level33 = new Dictionary<string, decimal>
             {
-                { "Master.PRICE", 3m },
-                { "Master.HYPE", 0.5m }
+                { "master.PRICE", 3m },
+                { "master.HYPE", 0.5m }
             };
             var level2 = new Dictionary<string, Dictionary<string, decimal>>
             {

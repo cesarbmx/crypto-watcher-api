@@ -10,8 +10,8 @@ namespace CesarBmx.CryptoWatcher.Application.FakeRequests
             return new SetWatcher
             {
                 WatcherId = 1,             
-                Buy = 15,
-                Sell = 8,
+                Buy = 30000,
+                Sell = 50000,
                 Quantity = 100
             };
         }       

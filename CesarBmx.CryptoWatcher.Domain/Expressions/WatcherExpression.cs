@@ -21,15 +21,15 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
         }
         public static Expression<Func<Watcher, bool>> DefaultWatcher()
         {
-            return x => x.UserId == "Master";
+            return x => x.UserId == "master";
         }
         public static Expression<Func<Watcher, bool>> NonDefaultWatcher()
         {
-            return x => x.UserId != "Master";
+            return x => x.UserId != "master";
         }
         public static Expression<Func<Watcher, bool>> DefaultWatcher(string currencyId, string indicatorId)
         {
-            return x => x.UserId == "Master" &&
+            return x => x.UserId == "master" &&
                         (string.IsNullOrEmpty(currencyId) || x.CurrencyId == currencyId) &&
                         (string.IsNullOrEmpty(indicatorId) || x.IndicatorId == indicatorId);
         }

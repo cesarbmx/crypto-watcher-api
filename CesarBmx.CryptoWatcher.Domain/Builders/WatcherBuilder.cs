@@ -30,7 +30,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             {
                 // Add default watcher
                 var watcher = new Watcher(
-                    "Master",
+                    "master",
                     line.CurrencyId,
                     line.IndicatorId,
                     line.Value,

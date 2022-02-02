@@ -14,7 +14,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             {
                 case "PRICE":
                     return currency.Price;
-                case "PRICE_CHANGE_24hrs":
+                case "PRICE_CHANGE_24H":
                     return currency.PercentageChange24H;
                 case "HYPE":
                     var scriptVariables = ScriptVariablesBuilder.BuildScriptVariables(lines);
@@ -28,7 +28,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             // Arrange
             var hypes = new Dictionary<string, decimal>();
             var time = scriptVariables.Times[0];
-            var currencies = scriptVariables.Values[time]["Master.PRICE_CHANGE_24hrs"];
+            var currencies = scriptVariables.Values[time]["master.PRICE_CHANGE_24H"];
             var values = currencies.Select(x=>x.Value).ToArray();
 
             // Build

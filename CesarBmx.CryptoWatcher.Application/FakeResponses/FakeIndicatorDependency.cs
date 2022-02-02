@@ -9,8 +9,8 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
         {
             return new IndicatorDependency()
             {
-                IndicatorId = "Master.RSI",
-                UserId = "Master",
+                IndicatorId = "master.RSI",
+                UserId = "master",
                 Abbreviation = "PRICE",
             };
         }
@@ -18,8 +18,8 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
         {
             return new IndicatorDependency
             {
-                IndicatorId = "Master.RSI",
-                UserId = "Master",
+                IndicatorId = "master.RSI",
+                UserId = "master",
                 Abbreviation = "RSI"
             };
         }

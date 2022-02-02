@@ -12,7 +12,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             return new Line
             {
                 Time = DateTime.UtcNow.StripSeconds().AddHours(-1),
-                UserId = "Master",
+                UserId = "master",
                 CurrencyId = "BTC",
                 IndicatorId = "PRICE",
                 Value = 1.5m,
@@ -25,7 +25,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             return new Line
             {
                 Time = DateTime.UtcNow.StripSeconds(),
-                UserId = "Master",
+                UserId = "master",
                 CurrencyId = "BTC",
                 IndicatorId = "RSI",
                 Value = 1.5m,

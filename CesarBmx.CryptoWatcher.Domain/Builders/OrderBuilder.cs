@@ -21,7 +21,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             foreach (var watcher in watchers)
             {
                 // We skip default watchers
-                if(watcher.UserId == "Master") continue;
+                if(watcher.UserId == "master") continue;
 
                 // 
                 //if(watcher.Status != WatcherStatus.BUYING && watcher.Status != WatcherStatus.SELLING) continue;

@@ -39,7 +39,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
 
             // Seed data
             var time = DateTime.UtcNow.StripSeconds();
-            entityBuilder.HasData(new IndicatorDependency("Master.HYPE", "Master.PRICE_CHANGE_24hrs", time));
+            entityBuilder.HasData(new IndicatorDependency("master.HYPE", "master.PRICE_CHANGE_24H", time));
         }
     }
 }

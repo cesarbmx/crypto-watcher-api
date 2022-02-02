@@ -15,7 +15,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 ChartId = "BTC-Master.PRICE",
                 CurrencyId = "BTC",
                 CurrencyName = "Bitcoin",
-                IndicatorId = "Master.PRICE",
+                IndicatorId = "master.PRICE",
                 IndicatorName = "Price",
                 Columns = ChartBuilder.BuildChartColumns(),
                 Rows = new List<ChartRow> { new ChartRow(DateTime.UtcNow.StripSeconds(), 6.4m, 8m, 4m), new ChartRow(DateTime.UtcNow.StripSeconds().AddMinutes(1), 6.6m, 8m, 4m) }
@@ -28,7 +28,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 ChartId = "EOS-Master.PRICE",
                 CurrencyId = "EOS",
                 CurrencyName = "EOS",
-                IndicatorId = "Master.PRICE",
+                IndicatorId = "master.PRICE",
                 IndicatorName = "Price",
                 Columns = ChartBuilder.BuildChartColumns(),
                 Rows = new List<ChartRow> { new ChartRow(DateTime.UtcNow.StripSeconds(), 8.4m, 8m, 4m), new ChartRow(DateTime.UtcNow.StripSeconds().AddMinutes(1), 8.6m, 8m, 4m) }

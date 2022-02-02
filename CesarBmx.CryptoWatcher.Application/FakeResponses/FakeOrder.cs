@@ -14,7 +14,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             {
                 OrderId = 1,
                 OrderType = OrderType.BUY,
-                UserId = "Master",
+                UserId = "master",
                 CurrencyId = "BTC",
                 OrderStatus = OrderStatus.PENDING,
                 Price = 3200,
@@ -30,7 +30,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             {
                 OrderId = 2,
                 OrderType = OrderType.BUY,
-                UserId = "Master",
+                UserId = "master",
                 CurrencyId = "EOS",
                 OrderStatus = OrderStatus.PENDING,
                 Price = 3.5m,
