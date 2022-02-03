@@ -9,7 +9,7 @@ namespace CesarBmx.CryptoWatcher.Application.RequestValidators
         public AddIndicatorValidator()
         {
             RuleFor(x => x.Abbreviation)
-                .Matches("^[A-z\\d-]+$")
+                .Matches("^[A-Z0-9_]+$")
                 .WithMessage(IndicatorMessage.IndicatorIdHasInvalidFormat);
 
             RuleFor(x => x.Dependencies)
