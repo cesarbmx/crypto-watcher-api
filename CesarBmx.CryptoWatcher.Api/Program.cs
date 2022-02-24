@@ -13,7 +13,7 @@ namespace CesarBmx.CryptoWatcher.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureSharedLogging()
+                .ConfigureSharedSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

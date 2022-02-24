@@ -23,7 +23,7 @@ namespace CesarBmx.CryptoWatcher.Service
 
             // Configure services
             var serviceProvider = new ServiceCollection()
-                .AddLogging(x=> { x.ConfigureSharedLogging(); })
+                .AddLogging()
                 .ConfigureAutomapper()
                 .ConfigureDependencies(configuration)
                 .ConfigureLog4Net(configuration)
