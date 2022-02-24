@@ -7,7 +7,6 @@ using AutoMapper;
  using CesarBmx.CryptoWatcher.Application.ConflictReasons;
  using CesarBmx.Shared.Application.Exceptions;
  using CesarBmx.Shared.Common.Extensions;
- using CesarBmx.Shared.Logging.Extensions;
  using CesarBmx.Shared.Persistence.Extensions;
  using CesarBmx.CryptoWatcher.Application.Requests;
 using CesarBmx.CryptoWatcher.Domain.Builders;
@@ -119,11 +118,11 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             // Save
             await _mainDbContext.SaveChangesAsync();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(request);
-
             // Response
             var response = _mapper.Map<Responses.Watcher>(watcher);
+
+            // Log
+            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "WatcherAdded", request.UserId, request, response);
 
             // Return
             return response;
@@ -163,8 +162,8 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             // Response
             var response = _mapper.Map<Responses.Watcher>(watcher);
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(request);
+            // Log
+            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "WatcherSet", request.UserId, request, response);
 
             // Return
             return response;
@@ -184,13 +183,13 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             _mainDbContext.Watchers.Update(watcher);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
-
-            // Log into Splunk
-            _logger.LogSplunkInformation(request);
+            await _mainDbContext.SaveChangesAsync();           
 
             // Response
             var response = _mapper.Map<Responses.Watcher>(watcher);
+
+            // Log
+            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "WatcherEnabled", request.UserId, request, response);
 
             // Return
             return response;
@@ -217,12 +216,8 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             // Stop watch
             stopwatch.Stop();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(nameof(UpdateDefaultWatchers), new
-            {
-                newDefaultWatchers.Count,
-                ExecutionTime = stopwatch.Elapsed.TotalSeconds
-            });
+            // Log
+            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "DefaultWatchersUpdated", newDefaultWatchers.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return 
             return newDefaultWatchers;
@@ -248,12 +243,8 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             // Stop watch
             stopwatch.Stop();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(nameof(UpdateWatchers), new
-            {
-                watchers.Count,
-                ExecutionTime = stopwatch.Elapsed.TotalSeconds
-            });
+            // Log
+            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "WatchersUpdated", watchers.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return watchers;

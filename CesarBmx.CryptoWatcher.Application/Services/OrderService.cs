@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
-using CesarBmx.Shared.Logging.Extensions;
 using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Application.Messages;
 using CesarBmx.CryptoWatcher.Domain.Models;
@@ -86,12 +85,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Stop watch
             stopwatch.Stop();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(nameof(AddOrders), new
-            {
-                newOrders.Count,
-                ExecutionTime = stopwatch.Elapsed.TotalSeconds
-            });
+            // Log
+            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "OrdersAdded", newOrders.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return newOrders;
@@ -139,12 +134,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Stop watch
             stopwatch.Stop();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(nameof(AddOrders), new
-            {
-                orders.Count,
-                ExecutionTime = stopwatch.Elapsed.TotalSeconds
-            });
+            // Log
+            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "OrdersProcessed", orders.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return orders;

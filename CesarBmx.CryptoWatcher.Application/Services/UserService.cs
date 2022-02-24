@@ -5,7 +5,6 @@ using AutoMapper;
 using CesarBmx.CryptoWatcher.Application.ConflictReasons;
 using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Common.Extensions;
-using CesarBmx.Shared.Logging.Extensions;
 using CesarBmx.CryptoWatcher.Application.Requests;
 using CesarBmx.CryptoWatcher.Application.Messages;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
@@ -76,11 +75,11 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Save
             await _mainDbContext.SaveChangesAsync();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(request);
-
             // Response
             var response = _mapper.Map<Responses.User>(user);
+
+            // Log
+            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "IndicatorUpdated", request.UserId, request, response);
 
             // Return
             return response;

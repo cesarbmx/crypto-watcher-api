@@ -89,6 +89,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         public async Task<IActionResult> SetWatcher(int watcherId, [FromBody] SetWatcher request)
         {
             // Request
+            request.UserId = "cesarbmx";
             request.WatcherId = watcherId;
 
             // Reponse
@@ -111,6 +112,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         public async Task<IActionResult> EnableWatcher(int watcherId, [FromBody] EnableWatcher request)
         {
             // Request
+            request.UserId = "cesarbmx";
             request.WatcherId = watcherId;
 
             // Reponse

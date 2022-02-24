@@ -7,7 +7,6 @@ using AutoMapper;
 using CesarBmx.CryptoWatcher.Application.ConflictReasons;
 using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Common.Extensions;
-using CesarBmx.Shared.Logging.Extensions;
 using CesarBmx.Shared.Persistence.Extensions;
 using CesarBmx.CryptoWatcher.Application.Requests;
 using CesarBmx.CryptoWatcher.Domain.Expressions;
@@ -114,10 +113,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _mainDbContext.Indicators.Add(indicator);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();
-
-            // Log into Splunk
-            _logger.LogSplunkInformation(request);
+            await _mainDbContext.SaveChangesAsync();            
 
             // Get indicator
             indicator = await _mainDbContext.Indicators
@@ -127,6 +123,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Response
             var response = _mapper.Map<Responses.Indicator>(indicator);
+
+            // Log
+            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "IndicatorAdded", request.UserId, request, response);
 
             // Return
             return response;
@@ -162,9 +161,6 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Save
             await _mainDbContext.SaveChangesAsync();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(request);
-
             // Get indicator
             indicator = await _mainDbContext.Indicators
                 .Include(x => x.Dependencies)
@@ -173,6 +169,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Response
             var response = _mapper.Map<Responses.Indicator>(indicator);
+
+            // Log
+            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "IndicatorUpdated", request.UserId, request, response);
 
             // Return
             return response;
@@ -226,12 +225,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Stop watch
             stopwatch.Stop();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(nameof(UpdateDependencyLevels), new
-            {
-                MaxLevel = maxDependencyLevel,
-                ExecutionTime = stopwatch.Elapsed.TotalSeconds
-            });
+            // Log
+            _logger.LogInformation("{@Event}, {@MaxLevel}, {@ExecutionTime}", "DependenciesLevelsUpdated", maxDependencyLevel, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return indicators;

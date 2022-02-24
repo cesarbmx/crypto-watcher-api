@@ -46,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="logs\" />
+    <Folder Include="Logs\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
-using CesarBmx.Shared.Logging.Extensions;
 using CesarBmx.Shared.Persistence.Extensions;
 using CesarBmx.CryptoWatcher.Application.Messages;
 using CesarBmx.CryptoWatcher.Domain.Models;
@@ -91,12 +90,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Stop watch
             stopwatch.Stop();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(nameof(ImportCurrencies), new
-            {
-                newCurrencies.Count,
-                ExecutionTime = stopwatch.Elapsed.TotalSeconds
-            });
+            // Log
+            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "CurrenciesImported", newCurrencies.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return newCurrencies;

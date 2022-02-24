@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CesarBmx.Shared.Logging.Extensions;
 using CesarBmx.CryptoWatcher.Application.Services;
 using Hangfire;
 using Microsoft.Extensions.Logging;
@@ -27,14 +26,8 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
             }
             catch (Exception ex)
             {
-                // Log into Splunk
-                _logger.LogSplunkInformation(nameof(_lineService.RemoveObsoleteLines), new
-                {
-                    Failed = ex.Message
-                });
-
-                // Log error into Splunk
-                _logger.LogSplunkError(ex);
+                // Log
+                _logger.LogError(ex, ex.Message);
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using CesarBmx.Shared.Logging.Extensions;
 using CesarBmx.CryptoWatcher.Application.Services;
 using Hangfire;
 using Microsoft.Extensions.Logging;
@@ -48,7 +47,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
                 // Run
                 var currencies = await _currencyService.ImportCurrencies();
                 var indicators = await _indicatorService.UpdateDependencyLevels();
-                var lines = await _lineService.CreateNewLines(currencies, indicators);
+                var lines = await _lineService.AddNewLines(currencies, indicators);
                 var defaultWatchers = await _watcherService.UpdateDefaultWatchers(lines);
                 var watchers = await _watcherService.UpdateWatchers(defaultWatchers);
                 var orders = await _orderService.AddOrders(watchers);
@@ -60,22 +59,13 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
                 // Stop watch
                 stopwatch.Stop();
 
-                // Log into Splunk
-                _logger.LogSplunkInformation(nameof(MainJob), new
-                {
-                    ExecutionTime = stopwatch.Elapsed.TotalSeconds
-                });
+                // Log
+                _logger.LogInformation("{@Event}, {@ExecutionTime}", "MainJobExecuted", stopwatch.Elapsed.TotalSeconds);
             }
             catch (Exception ex)
             {
-                // Log into Splunk
-                _logger.LogSplunkInformation(nameof(MainJob), new
-                {
-                    Failed = ex.Message
-                });
-
-                // Log error into Splunk
-                _logger.LogSplunkError(ex);
+                // Log
+                _logger.LogError(ex, ex.Message);
             }
         }
     }

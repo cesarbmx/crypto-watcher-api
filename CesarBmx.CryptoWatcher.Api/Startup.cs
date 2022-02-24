@@ -70,7 +70,10 @@ namespace CesarBmx.CryptoWatcher.Api
             app.ConfigureErrorHandling();
 
             // Log4Net
-            loggerFactory.ConfigureLog4Net(env, Configuration);
+            //loggerFactory.ConfigureLog4Net(env, Configuration);
+
+            // Serilog
+            app.ConfigureSerilog(loggerFactory, Configuration, env);
 
             // Swagger
             app.ConfigureSwagger(Configuration);

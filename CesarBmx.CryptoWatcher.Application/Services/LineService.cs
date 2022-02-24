@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.CryptoWatcher.Application.Queries;
 using CesarBmx.CryptoWatcher.Application.Settings;
-using CesarBmx.Shared.Logging.Extensions;
 using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Domain.Builders;
@@ -45,7 +44,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<List<Line>> CreateNewLines(List<Currency> currencies, List<Indicator> indicators)
+        public async Task<List<Line>> AddNewLines(List<Currency> currencies, List<Indicator> indicators)
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -66,12 +65,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Stop watch
             stopwatch.Stop();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(nameof(CreateNewLines), new
-            {
-                lines.Count,
-                ExecutionTime = stopwatch.Elapsed.TotalSeconds
-            });
+            // Log
+            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "NewLinesAdded", lines.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return lines;
@@ -94,12 +89,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Stop watch
             stopwatch.Stop();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(nameof(RemoveObsoleteLines), new
-            {
-                lines.Count,
-                ExecutionTime = stopwatch.Elapsed.TotalSeconds
-            });
+            // Log
+            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "ObsoleteLinesRemoved", lines.Count, stopwatch.Elapsed.TotalSeconds);
         }
     }
 }

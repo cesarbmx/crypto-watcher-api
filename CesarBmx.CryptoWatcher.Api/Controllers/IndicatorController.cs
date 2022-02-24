@@ -89,6 +89,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         public async Task<IActionResult> UpdateIndicator(string indicatorId, [FromBody]UpdateIndicator request)
         {
             // Request
+            request.UserId = "cesarbmx";
             request.IndicatorId = indicatorId;
 
             // Reponse

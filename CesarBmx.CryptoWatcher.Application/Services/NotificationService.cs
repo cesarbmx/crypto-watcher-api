@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CesarBmx.Shared.Application.Exceptions;
 using CesarBmx.Shared.Common.Extensions;
-using CesarBmx.Shared.Logging.Extensions;
 using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Application.Messages;
 using CesarBmx.CryptoWatcher.Application.Settings;
@@ -124,12 +123,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Stop watch
             stopwatch.Stop();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(nameof(AddNotifications), new
-            {
-                notifications.Count,
-                ExecutionTime = stopwatch.Elapsed.TotalSeconds
-            });
+            // Log
+            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "NotificationsAdded", notifications.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return notifications;
@@ -180,8 +175,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 }
                 catch (Exception ex)
                 {
-                    // Log into Splunk
-                    _logger.LogSplunkError(ex);
+                    // Log
+                    _logger.LogError(ex, ex.Message);
                     failedCount++;
                 }
             }
@@ -189,13 +184,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Stop watch
             stopwatch.Stop();
 
-            // Log into Splunk
-            _logger.LogSplunkInformation(nameof(SendTelegramNotifications), new
-            {
-                Count = count,
-                FailedCount = failedCount,
-                ExecutionTime = stopwatch.Elapsed.TotalSeconds
-            });
+            // Log
+            _logger.LogInformation("{@Event}, {@Count}, {@FailedCount}, {@ExecutionTime}", "TelegramNotificationsSent", count, failedCount, stopwatch.Elapsed.TotalSeconds);
         }
         public async Task SendWhatsappNotifications()
         {
@@ -233,8 +223,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                     }
                     catch (Exception ex)
                     {
-                        // Log into Splunk
-                        _logger.LogSplunkError(ex);
+                        // Log
+                        _logger.LogError(ex, ex.Message);
                         failedCount++;
                     }
                 }
@@ -245,13 +235,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 // Stop watch
                 stopwatch.Stop();
 
-                // Log into Splunk
-                _logger.LogSplunkInformation(nameof(SendWhatsappNotifications), new
-                {
-                    Count = count,
-                    FailedCount = failedCount,
-                    ExecutionTime = stopwatch.Elapsed.TotalSeconds
-                });
+                // Log
+                _logger.LogInformation("{@Event}, {@Count}, {@FailedCount}, {@ExecutionTime}", "WhatsappNotificationsSent", count, failedCount, stopwatch.Elapsed.TotalSeconds);
             }
         }
     }
