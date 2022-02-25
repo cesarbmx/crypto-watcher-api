@@ -45,7 +45,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpGet]
         [Route("api/orders/{orderId}", Name = "Orders_GetOrder")]
         [SwaggerResponse(200, Type = typeof(Order))]
-        [SwaggerResponse(404, Type = typeof(Error))]
+        [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetOrder")]
         public async Task<IActionResult> GetOrder(Guid orderId)
         {

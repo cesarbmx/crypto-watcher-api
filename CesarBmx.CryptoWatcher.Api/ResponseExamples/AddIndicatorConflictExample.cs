@@ -6,11 +6,11 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CesarBmx.CryptoWatcher.Api.ResponseExamples
 {
-    public class SetWatcherConflictExample : IExamplesProvider<SetWatcherConflict>
+    public class AddIndicatorConflictExample: IExamplesProvider<AddIndicatorConflict>
     {
-        public SetWatcherConflict GetExamples()
+        public AddIndicatorConflict GetExamples()
         {
-            return FakeSetWatcherConflict.GetFake();
+            return FakeAddIndicatorConflict.GetFake();
         }
     }
 }

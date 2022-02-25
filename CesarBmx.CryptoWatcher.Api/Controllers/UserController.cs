@@ -45,7 +45,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpGet]
         [Route("api/users/{userId}", Name = "Users_GetUser")]
         [SwaggerResponse(200, Type = typeof(User))]
-        [SwaggerResponse(404, Type = typeof(Error))]
+        [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_GetUser")]
         public async Task<IActionResult> GetUser(string userId)
         {
@@ -62,8 +62,8 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpPost]
         [Route("api/users")]
         [SwaggerResponse(201, Type = typeof(User))]
-        [SwaggerResponse(400, Type = typeof(Error))]
-        [SwaggerResponse(409, Type = typeof(Error))]
+        [SwaggerResponse(400, Type = typeof(BadRequest))]
+        [SwaggerResponse(409, Type = typeof(AddUserConflict))]
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_AddUser")]
         public async Task<IActionResult> AddUser([FromBody]AddUser request)

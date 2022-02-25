@@ -44,7 +44,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpGet]
         [Route("api/currencies/{currencyId}", Name = "Currencies_GetCurrency")]
         [SwaggerResponse(200, Type = typeof(Currency))]
-        [SwaggerResponse(404, Type = typeof(Error))]
+        [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrency")]
         public async Task<IActionResult> GetCurrency(string currencyId)
         {

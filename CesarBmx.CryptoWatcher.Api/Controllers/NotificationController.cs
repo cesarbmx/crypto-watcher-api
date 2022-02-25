@@ -45,7 +45,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpGet]
         [Route("api/notifications/{notificationId}", Name = "Notifications_GetNotification")]
         [SwaggerResponse(200, Type = typeof(Notification))]
-        [SwaggerResponse(404, Type = typeof(Error))]
+        [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetNotification")]
         public async Task<IActionResult> GetNotification(Guid notificationId)
         {

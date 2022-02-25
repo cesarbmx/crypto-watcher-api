@@ -7,6 +7,7 @@ using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using CesarBmx.CryptoWatcher.Application.ConflictReasons;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers
 {
@@ -45,7 +46,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpGet]
         [Route("api/watchers/{watcherId}", Name = "Watchers_GetWatcher")]
         [SwaggerResponse(200, Type = typeof(Watcher))]
-        [SwaggerResponse(404, Type = typeof(Error))]
+        [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetWatcher")]
         public async Task<IActionResult> GetWatcher(int watcherId)
         {
@@ -62,9 +63,9 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpPost]
         [Route("api/watchers")]
         [SwaggerResponse(201, Type = typeof(Watcher))]
-        [SwaggerResponse(400, Type = typeof(Error))]
-        [SwaggerResponse(404, Type = typeof(Error))]
-        [SwaggerResponse(409, Type = typeof(Error))]
+        [SwaggerResponse(400, Type = typeof(BadRequest))]
+        [SwaggerResponse(404, Type = typeof(NotFound))]
+        [SwaggerResponse(409, Type = typeof(AddWatcherConflict))]
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_AddWatcher")]
         public async Task<IActionResult> AddWatcher([FromBody]AddWatcher request)
@@ -105,8 +106,8 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpPut]
         [Route("api/watchers/{watcherId}/enabled")]
         [SwaggerResponse(200, Type = typeof(Watcher))]
-        [SwaggerResponse(400, Type = typeof(Error))]
-        [SwaggerResponse(409, Type = typeof(Error))]
+        [SwaggerResponse(400, Type = typeof(BadRequest))]
+        //[SwaggerResponse(409, Type = typeof(EnableWatcherConflictReason))]
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_EnableWatcher")]
         public async Task<IActionResult> EnableWatcher(int watcherId, [FromBody] EnableWatcher request)

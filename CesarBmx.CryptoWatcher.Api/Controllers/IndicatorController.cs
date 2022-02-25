@@ -7,6 +7,7 @@ using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using CesarBmx.CryptoWatcher.Application.ConflictReasons;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers
 {
@@ -45,7 +46,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpGet]
         [Route("api/indicators/{indicatorId}", Name = "Indicators_GetIndicator")]
         [SwaggerResponse(200, Type = typeof(Indicator))]
-        [SwaggerResponse(404, Type = typeof(Error))]
+        [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetIndicator")]
         public async Task<IActionResult> GetIndicator(string indicatorId)
         {
@@ -62,9 +63,9 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpPost]
         [Route("api/indicators")]
         [SwaggerResponse(201, Type = typeof(Indicator))]
-        [SwaggerResponse(400, Type = typeof(Error))]
-        [SwaggerResponse(404, Type = typeof(Error))]
-        [SwaggerResponse(409, Type = typeof(Error))]
+        [SwaggerResponse(400, Type = typeof(BadRequest))]
+        [SwaggerResponse(404, Type = typeof(NotFound))]
+        [SwaggerResponse(409, Type = typeof(AddIndicatorConflict))]
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_AddIndicator")]
         public async Task<IActionResult> AddIndicator([FromBody]AddIndicator request)
@@ -82,8 +83,8 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [HttpPut]
         [Route("api/indicators/{indicatorId}")]
         [SwaggerResponse(200, Type = typeof(Indicator))]
-        [SwaggerResponse(400, Type = typeof(Error))]
-        [SwaggerResponse(409, Type = typeof(Error))]
+        [SwaggerResponse(400, Type = typeof(BadRequest))]
+        //[SwaggerResponse(409, Type = typeof(UpdateIndicatorConflict))]
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_UpdateIndicator")]
         public async Task<IActionResult> UpdateIndicator(string indicatorId, [FromBody]UpdateIndicator request)
