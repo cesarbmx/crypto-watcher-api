@@ -1,5 +1,5 @@
 using AutoMapper;
-using CesarBmx.CryptoWatcher.Application.Automapper;
+using CesarBmx.CryptoWatcher.Application.Mappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CesarBmx.CryptoWatcher.Tests.Application.Automapper

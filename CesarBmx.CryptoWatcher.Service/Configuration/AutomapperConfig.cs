@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CesarBmx.CryptoWatcher.Application.Automapper;
+using CesarBmx.CryptoWatcher.Application.Mappers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CesarBmx.CryptoWatcher.Service.Configuration

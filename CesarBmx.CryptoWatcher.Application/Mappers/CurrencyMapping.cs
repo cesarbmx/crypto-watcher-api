@@ -4,7 +4,7 @@ using CesarBmx.Shared.Common.Extensions;
 using CoinpaprikaAPI.Entity;
 using CesarBmx.CryptoWatcher.Domain.Models;
 
-namespace CesarBmx.CryptoWatcher.Application.Automapper
+namespace CesarBmx.CryptoWatcher.Application.Mappers
 {
     public class CurrencyMapping : Profile
     {
