@@ -1,14 +1,14 @@
 ﻿using CesarBmx.CryptoWatcher.Application.ConflictReasons;
 using CesarBmx.CryptoWatcher.Application.Messages;
-using CesarBmx.CryptoWatcher.Application.Responses;
+using CesarBmx.Shared.Application.Responses;
 
 namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
     public static class FakeAddIndicatorConflict
     {
-        public static AddIndicatorConflict GetFake()
+        public static Conflict<AddIndicatorConflictReason> GetFake()
         {
-            return new AddIndicatorConflict(AddIndicatorConflictReason.INDICATOR_ALREADY_EXISTS, IndicatorMessage.IndicatorWithSameIdAlreadyExists);
+            return new Conflict<AddIndicatorConflictReason>(AddIndicatorConflictReason.INDICATOR_ALREADY_EXISTS, IndicatorMessage.IndicatorWithSameIdAlreadyExists);
         }
     }
 }

@@ -7,6 +7,7 @@ using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using CesarBmx.CryptoWatcher.Application.ConflictReasons;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers
 {
@@ -63,7 +64,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [Route("api/users")]
         [SwaggerResponse(201, Type = typeof(User))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
-        [SwaggerResponse(409, Type = typeof(AddUserConflict))]
+        [SwaggerResponse(409, Type = typeof(Conflict<AddUserConflictReason>))]
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_AddUser")]
         public async Task<IActionResult> AddUser([FromBody]AddUser request)
