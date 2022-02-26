@@ -76,7 +76,7 @@ namespace CesarBmx.CryptoWatcher.Api
             app.ConfigureSwagger(Configuration);
 
             // Data migration
-            app.ConfigureDataMigration();
+            app.ConfigureDataSeeding();
 
             // Hangfire
             app.ConfigureHangfire(Configuration, env);
