@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Builder;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
-    public static class ErrorHandlingConfig
+    public static class MiddlewareConfig
     {
         public static IApplicationBuilder ConfigureErrorHandling(this IApplicationBuilder app)
         {
-            app.ConfigureSharedErrorHandling();
+            app.ConfigureSharedMiddleware();
 
             return app;
         }
