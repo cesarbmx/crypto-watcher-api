@@ -70,7 +70,7 @@ namespace CesarBmx.CryptoWatcher.Api
             app.ConfigureErrorHandling();
 
             // Serilog
-            app.ConfigureSerilog(loggerFactory, Configuration, env);
+            app.ConfigureSerilog(loggerFactory, Configuration);
 
             // Swagger
             app.ConfigureSwagger(Configuration);
@@ -79,7 +79,7 @@ namespace CesarBmx.CryptoWatcher.Api
             app.ConfigureDataSeeding();
 
             // Hangfire
-            app.ConfigureHangfire(Configuration, env);
+            app.ConfigureHangfire(Configuration);
 
             // Elmah
             app.ConfigureElmah(Configuration);

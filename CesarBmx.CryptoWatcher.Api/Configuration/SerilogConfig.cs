@@ -9,9 +9,9 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
     public static class SerilogConfig
     {
-        public static ILoggerFactory ConfigureSerilog(this IApplicationBuilder app, ILoggerFactory logger, IConfiguration configuration, IHostEnvironment environment)
+        public static ILoggerFactory ConfigureSerilog(this IApplicationBuilder app, ILoggerFactory logger, IConfiguration configuration)
         {
-            app.ConfigureSharedSerilog(logger, Assembly.GetExecutingAssembly(), configuration, environment);
+            app.ConfigureSharedSerilog(logger, Assembly.GetExecutingAssembly(), configuration);
             
             return logger;
         }

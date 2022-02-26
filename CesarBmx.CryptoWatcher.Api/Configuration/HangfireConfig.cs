@@ -24,7 +24,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
 
             // Grab EnvironmentSettings
             var environmentSettings = new EnvironmentSettings();
-            configuration.GetSection("EnvironmentSettings").Bind(appSettings);
+            configuration.GetSection("EnvironmentSettings").Bind(environmentSettings);
 
             if (appSettings.UseMemoryStorage)
             {
@@ -34,7 +34,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             {
                 services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("CryptoWatcher"), new SqlServerStorageOptions
                 {
-                    PrepareSchemaIfNecessary = environmentSettings.Name == "Development"
+                    PrepareSchemaIfNecessary = environmentSettings.EnvironmentName == "Development"
                 }));
             }
 
@@ -42,10 +42,14 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             // Return
             return services;
         }
-        public static IApplicationBuilder ConfigureHangfire(this IApplicationBuilder app, IConfiguration configuration, IHostEnvironment env)
+        public static IApplicationBuilder ConfigureHangfire(this IApplicationBuilder app, IConfiguration configuration)
         {
-            // Enable basic only for Staging/Production
-            app.ConfigureSharedHangfire(env.IsStaging() || env.IsProduction());
+            // Grab EnvironmentSettings
+            var environmentSettings = new EnvironmentSettings();
+            configuration.GetSection("EnvironmentSettings").Bind(environmentSettings);
+
+            // Enable basic auth only for Staging/Production
+            app.ConfigureSharedHangfire(environmentSettings.EnvironmentName == "Staging" || environmentSettings.EnvironmentName == "Production");
 
             // Grab AppSettings
             var appSettings = new Application.Settings.AppSettings();
