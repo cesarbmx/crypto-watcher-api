@@ -67,13 +67,13 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var result = await _coinpaprikaClient.GetTickersAsync();
 
             var tickers = result.Value.Where(x =>
-                x.Id == "btc-bitcoin" ||
-                x.Id == "xrp-xrp" ||
-                x.Id == "eth-ethereum" ||
-                x.Id == "bch-bitcoin-cash" ||
-                x.Id == "xlm-stellar" ||
-                x.Id == "eos-eos" ||
-                x.Id == "ada-cardano").ToList();
+                x.Symbol == "BTC" ||
+                x.Symbol == "XRP" ||
+                x.Symbol == "ETH" ||
+                x.Symbol == "BCH" ||
+                x.Symbol == "XML" ||
+                x.Symbol == "EOS" ||
+                x.Symbol == "ADA").GroupBy(x=>x.Symbol).Select(x=>x.First()).ToList();
 
             // Build currencies
             var newCurrencies = _mapper.Map<List<Currency>>(tickers);
