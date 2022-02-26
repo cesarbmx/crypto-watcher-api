@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CesarBmx.Shared.Application.Settings;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
@@ -18,8 +19,12 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             services.ConfigureSharedHangfire();
 
             // Grab AppSettings
-            var appSettings = new AppSettings();
+            var appSettings = new Application.Settings.AppSettings();
             configuration.GetSection("AppSettings").Bind(appSettings);
+
+            // Grab EnvironmentSettings
+            var environmentSettings = new EnvironmentSettings();
+            configuration.GetSection("EnvironmentSettings").Bind(appSettings);
 
             if (appSettings.UseMemoryStorage)
             {
@@ -29,7 +34,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             {
                 services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("CryptoWatcher"), new SqlServerStorageOptions
                 {
-                    PrepareSchemaIfNecessary = true
+                    PrepareSchemaIfNecessary = environmentSettings.Name == "Development"
                 }));
             }
 
@@ -43,7 +48,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             app.ConfigureSharedHangfire(env.IsStaging() || env.IsProduction());
 
             // Grab AppSettings
-            var appSettings = new AppSettings();
+            var appSettings = new Application.Settings.AppSettings();
             configuration.GetSection("AppSettings").Bind(appSettings);
 
             // Background jobs
