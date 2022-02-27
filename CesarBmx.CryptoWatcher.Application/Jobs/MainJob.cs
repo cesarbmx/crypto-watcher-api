@@ -60,7 +60,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
                 stopwatch.Stop();
 
                 // Log
-                _logger.LogInformation("{@Event}, {@ExecutionTime}", "MainJobExecuted", stopwatch.Elapsed.TotalSeconds);
+                _logger.LogInformation("{@Event}, {@ExecutionTime}", "MainJobFinished", stopwatch.Elapsed.TotalSeconds);
             }
             catch (Exception ex)
             {
