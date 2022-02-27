@@ -1,25 +1,25 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
- using CesarBmx.CryptoWatcher.Application.ConflictReasons;
- using CesarBmx.Shared.Application.Exceptions;
- using CesarBmx.Shared.Common.Extensions;
- using CesarBmx.Shared.Persistence.Extensions;
- using CesarBmx.CryptoWatcher.Application.Requests;
+using CesarBmx.CryptoWatcher.Application.ConflictReasons;
+using CesarBmx.Shared.Application.Exceptions;
+using CesarBmx.Shared.Common.Extensions;
+using CesarBmx.Shared.Persistence.Extensions;
+using CesarBmx.CryptoWatcher.Application.Requests;
 using CesarBmx.CryptoWatcher.Domain.Builders;
 using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Application.Messages;
- using CesarBmx.CryptoWatcher.Persistence.Contexts;
- using CesarBmx.Shared.Application.Responses;
- using Microsoft.EntityFrameworkCore;
- using Microsoft.Extensions.Logging;
- using Line = CesarBmx.CryptoWatcher.Domain.Models.Line;
- using Watcher = CesarBmx.CryptoWatcher.Domain.Models.Watcher;
+using CesarBmx.CryptoWatcher.Persistence.Contexts;
+using CesarBmx.Shared.Application.Responses;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Line = CesarBmx.CryptoWatcher.Domain.Models.Line;
+using Watcher = CesarBmx.CryptoWatcher.Domain.Models.Watcher;
 
- namespace CesarBmx.CryptoWatcher.Application.Services
+namespace CesarBmx.CryptoWatcher.Application.Services
 {
     public class WatcherService
     {
@@ -57,7 +57,7 @@ using CesarBmx.CryptoWatcher.Application.Messages;
         public async Task<Responses.Watcher> GetWatcher(int watcherId)
         {
             // Get watcher
-            var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(x=>x.WatcherId == watcherId);
+            var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(x => x.WatcherId == watcherId);
 
             // Throw NotFound if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
@@ -83,7 +83,7 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get indicator
-            var indicator = await _mainDbContext.Indicators.FindAsync(  request.IndicatorId);
+            var indicator = await _mainDbContext.Indicators.FindAsync(request.IndicatorId);
 
             // Throw NotFound if it does not exist
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
@@ -96,7 +96,7 @@ using CesarBmx.CryptoWatcher.Application.Messages;
 
             // Get default watcher
             var defaultWatcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.DefaultWatcher(request.CurrencyId, request.IndicatorId));
-            
+
             // Add watcher
             watcher = new Watcher(
                 request.UserId,
@@ -149,7 +149,7 @@ using CesarBmx.CryptoWatcher.Application.Messages;
 
             // Watcher already sold
             if (WatcherExpression.WatcherAlreadySold(request.Sell).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.WATCHER_ALREADY_SOLD, string.Format(WatcherMessage.WatcherAlreadySold, watcher.EntryPrice)));
-            
+
             // Set watcher
             watcher.Set(request.Buy, request.Sell, request.Quantity);
 
@@ -176,6 +176,12 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             // Throw NotFound if it does not exist
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
+            // Watcher already enabled
+            if (watcher.Enabled == request.Enabled && request.Enabled) throw new ConflictException(new Conflict<EnableWatcherConflictReason>(EnableWatcherConflictReason.WATCHER_ALREADY_ENABLED, WatcherMessage.WatcherAlreadyEnabled));
+
+            // Watcher already disabled
+            if (watcher.Enabled == request.Enabled && !request.Enabled) throw new ConflictException(new Conflict<EnableWatcherConflictReason>(EnableWatcherConflictReason.WATCHER_ALREADY_DISABLED, WatcherMessage.WatcherAlreadyDisabled));
+
             // Update watcher
             watcher.Enable(request.Enabled);
 
@@ -183,7 +189,7 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             _mainDbContext.Watchers.Update(watcher);
 
             // Save
-            await _mainDbContext.SaveChangesAsync();           
+            await _mainDbContext.SaveChangesAsync();
 
             // Response
             var response = _mapper.Map<Responses.Watcher>(watcher);

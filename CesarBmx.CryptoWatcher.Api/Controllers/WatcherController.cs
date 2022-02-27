@@ -107,6 +107,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [Route("api/watchers/{watcherId}/enabled")]
         [SwaggerResponse(200, Type = typeof(Watcher))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
+        [SwaggerResponse(409, Type = typeof(Conflict<EnableWatcherConflictReason>))]
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_EnableWatcher")]
         public async Task<IActionResult> EnableWatcher(int watcherId, [FromBody] EnableWatcher request)
