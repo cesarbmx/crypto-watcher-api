@@ -49,6 +49,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
                 case WatcherStatus.BUYING:
                     return OrderType.BUY;
                 case WatcherStatus.SELLING:
+                case WatcherStatus.BOUGHT:
                     return OrderType.SELL;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(watcherStatus), watcherStatus, null);
