@@ -59,7 +59,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(x => x.WatcherId == watcherId);
 
-            // Throw NotFound if it does not exist
+            // Watcher not found
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Response
@@ -73,19 +73,19 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get currency
             var currency = await _mainDbContext.Currencies.FindAsync(request.CurrencyId);
 
-            // Throw NotFound if the currency does not exist
+            // Watcher not found
             if (currency == null) throw new NotFoundException(CurrencyMessage.CurrencyNotFound);
 
             // Get user
             var user = await _mainDbContext.Users.FindAsync(request.UserId);
 
-            // Throw NotFound if it does not exist
+            // User not found
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get indicator
             var indicator = await _mainDbContext.Indicators.FindAsync(request.IndicatorId);
 
-            // Throw NotFound if it does not exist
+            // Indicator not found
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Check if it exists
@@ -132,7 +132,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FindAsync(request.WatcherId);
 
-            // Throw NotFound if it does not exist
+            // Watcher not found
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Buy limit must be lower than watcher value
@@ -173,7 +173,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FindAsync(request.WatcherId);
 
-            // Throw NotFound if it does not exist
+            // Watcher not found
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Watcher already enabled

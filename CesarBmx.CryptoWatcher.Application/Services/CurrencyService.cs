@@ -48,7 +48,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get currency
             var currency = await _mainDbContext.Currencies.FindAsync(currencyId);
 
-            // Throw NotFound if it does not exist
+            // Currency not found
             if (currency == null) throw new NotFoundException(CurrencyMessage.CurrencyNotFound);
 
             // Response

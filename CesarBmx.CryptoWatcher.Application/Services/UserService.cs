@@ -46,7 +46,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
 
-            // Throw NotFound if it does not exist
+            // User not found
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Response

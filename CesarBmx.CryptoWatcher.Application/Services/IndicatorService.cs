@@ -64,7 +64,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .ThenInclude(x => x.Dependency)
                 .FirstOrDefaultAsync(x=> x.IndicatorId == indicatorId);
 
-            // Throw NotFound if it does not exist
+            // Indicator not found
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Response
@@ -78,7 +78,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get user
             var user = await _mainDbContext.Users.FindAsync(request.UserId);
 
-            // Throw NotFound if it does not exist
+            // User not found
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Get indicator
@@ -137,7 +137,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .Include(x => x.Dependencies)
                 .FirstOrDefaultAsync(x => x.IndicatorId == request.IndicatorId);
 
-            // Throw NotFound if it does not exist
+            // Indicator not found
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Get dependencies
@@ -185,7 +185,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 // Get indicator
                 var indicator = await _mainDbContext.Indicators.FirstOrDefaultAsync(x=> x.IndicatorId == indicatorId);
 
-                // Throw NotFound if it does not exist
+                // Indicator not found
                 if (indicator == null) throw new NotFoundException(string.Format(IndicatorDependencyMessage.IndicatorDependencyNotFound, indicatorId));
 
                 // Detach

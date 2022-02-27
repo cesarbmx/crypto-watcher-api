@@ -78,7 +78,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get <#=type.Name.ToReadable()#>
             var <#=type.Name.ToReadable()#> = await _<#=type.Name.ToReadable()#>Repository.GetSingle(<#=type.Name.ToReadable()#>Id);
 
-            // Throw NotFound if it does not exist
+            // Not found
             if (<#=type.Name.ToReadable()#> == null) throw new NotFoundException(<#=type.Name#>Message.<#=type.Name#>NotFound);
 
             // Response
@@ -118,7 +118,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get <#=type.Name.ToReadable()#>
             var <#=type.Name.ToReadable()#> = await _<#=type.Name.ToReadable()#>Repository.GetSingle(request.<#=type.Name#>Id);
 
-            // Throw NotFound if it does not exist
+            // Not found
             if (<#=type.Name.ToReadable()#> == null) throw new NotFoundException(<#=type.Name#>Message.<#=type.Name#>NotFound);
 
             // Update <#=type.Name.ToReadable()#>
@@ -144,7 +144,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get <#=type.Name.ToReadable()#>
             var <#=type.Name.ToReadable()#> = await _<#=type.Name.ToReadable()#>Repository.GetSingle(<#=type.Name.ToReadable()#>Id);
 
-            // Throw NotFound if it does not exist
+            // Not found
             if (<#=type.Name.ToReadable()#> == null) throw new NotFoundException(<#=type.Name#>Message.<#=type.Name#>NotFound);
 
             // Remove <#=type.Name.ToReadable()#>

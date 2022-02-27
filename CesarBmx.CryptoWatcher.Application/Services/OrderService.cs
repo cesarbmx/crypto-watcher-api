@@ -54,7 +54,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Get order
             var order = await _mainDbContext.Orders.FindAsync(orderId);
 
-            // Throw NotFound if it does not exist
+            // Order not found
             if (order == null) throw new NotFoundException(OrderMessage.OrderNotFound);
 
             // Response
