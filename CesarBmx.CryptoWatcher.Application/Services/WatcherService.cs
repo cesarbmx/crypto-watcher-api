@@ -188,8 +188,16 @@ using CesarBmx.CryptoWatcher.Application.Messages;
             // Response
             var response = _mapper.Map<Responses.Watcher>(watcher);
 
-            // Log
-            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "WatcherEnabled", request.UserId, request, response);
+            if (request.Enabled)
+            {
+                // Log
+                _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "WatcherEnabled", request.UserId, request, response);
+            }
+            else
+            {
+                // Log
+                _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "WatcherDisabled", request.UserId, request, response);
+            }
 
             // Return
             return response;

@@ -79,7 +79,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var response = _mapper.Map<Responses.User>(user);
 
             // Log
-            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "IndicatorUpdated", request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "UserAdded", request.UserId, request, response);
 
             // Return
             return response;
