@@ -1,13 +1,11 @@
 ﻿using CesarBmx.Shared.Api.Configuration;
 using CesarBmx.CryptoWatcher.Application.Jobs;
-using CesarBmx.CryptoWatcher.Application.Settings;
 using Hangfire;
 using Hangfire.MemoryStorage;
 using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using CesarBmx.Shared.Application.Settings;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration

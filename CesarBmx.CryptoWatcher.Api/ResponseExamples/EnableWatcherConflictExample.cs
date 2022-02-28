@@ -1,6 +1,5 @@
 ﻿using CesarBmx.CryptoWatcher.Application.ConflictReasons;
 using CesarBmx.CryptoWatcher.Application.FakeResponses;
-using CesarBmx.CryptoWatcher.Application.Responses;
 using CesarBmx.Shared.Application.Responses;
 using Swashbuckle.AspNetCore.Filters;
 

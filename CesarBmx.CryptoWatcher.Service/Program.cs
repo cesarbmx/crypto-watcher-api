@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using CesarBmx.Shared.Api.Configuration;
 using CesarBmx.Shared.Api.Helpers;
 using CesarBmx.CryptoWatcher.Service.Configuration;
 using Hangfire;
