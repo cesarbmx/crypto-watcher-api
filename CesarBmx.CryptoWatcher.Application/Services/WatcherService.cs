@@ -88,10 +88,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Indicator not found
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
-            // Check if it exists
+            // Get watcher
             var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.Unique(request.UserId, request.CurrencyId, indicator.UserId, indicator.IndicatorId));
 
-            // Throw ConflictException if it exists
+            // Watcher already exists
             if (watcher != null) throw new ConflictException(new Conflict<AddWatcherConflictReason>(AddWatcherConflictReason.WATCHER_ALREADY_EXISTS, WatcherMessage.WatcherAlreadyExists));
 
             // Get default watcher
