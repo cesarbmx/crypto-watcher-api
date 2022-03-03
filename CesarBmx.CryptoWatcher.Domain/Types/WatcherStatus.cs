@@ -4,7 +4,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Types
 {
     public enum WatcherStatus
     {
-        WATCHING,
+        NOT_SET,
         BUYING,
         BOUGHT,
         HOLDING,

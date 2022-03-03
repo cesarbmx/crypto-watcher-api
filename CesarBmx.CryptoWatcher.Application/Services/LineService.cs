@@ -51,7 +51,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Get watchers willing to buy or sell
-            var watchers = await _mainDbContext.Watchers.Where(WatcherExpression.WatcherBuyingOrSelling()).ToListAsync();
+            var watchers = await _mainDbContext.Watchers.Where(WatcherExpression.WatcherSet()).ToListAsync();
 
             // Build new lines
             var lines = LineBuilder.BuildLines(currencies, indicators, watchers);

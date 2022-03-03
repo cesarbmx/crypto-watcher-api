@@ -8,6 +8,26 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
 {
     public static class FakeWatchers
     {
+        public static List<Watcher> GetWatchersNotSet()
+        {
+            var watchers = new List<Watcher>()
+            {
+                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,null,null,null, 3000m, 3000m,3000m, false, DateTime.UtcNow.StripSeconds()),
+                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,null,null,null, 3000m, 3000m,3000m, false, DateTime.UtcNow.StripSeconds()).SetAsBought()
+
+            };
+            return watchers;
+        }
+        public static List<Watcher> GetWatchersSet()
+        {
+            var watchers = new List<Watcher>()
+            {
+                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,3100m,null,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()),
+                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,2000m,2900,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBought()
+
+            };
+            return watchers;
+        }
         public static List<Watcher> GetWatchersBuyingAndSelling()
         {
             var watchers = new List<Watcher>()

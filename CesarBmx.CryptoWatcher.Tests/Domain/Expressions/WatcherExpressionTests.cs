@@ -10,6 +10,30 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Expressions
     public class WatcherExpressionTests
     {
         [TestMethod]
+        public void Test_WatcherNotSet()
+        {
+            // Arrange
+            var watchersBuyingAndSelling = FakeWatchers.GetWatchersNotSet();
+
+            // Act
+            var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherNotSet()).ToList();
+
+            // Assert
+            Assert.AreEqual(watchersBuyingAndSelling.Count, filter.Count);
+        }
+        [TestMethod]
+        public void Test_WatcherSet()
+        {
+            // Arrange
+            var watchersBuyingAndSelling = FakeWatchers.GetWatchersNotSet();
+
+            // Act
+            var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherNotSet()).ToList();
+
+            // Assert
+            Assert.AreEqual(watchersBuyingAndSelling.Count, filter.Count);
+        }
+        [TestMethod]
         public void Test_WatcherBuyingOrSelling()
         {
             // Arrange
