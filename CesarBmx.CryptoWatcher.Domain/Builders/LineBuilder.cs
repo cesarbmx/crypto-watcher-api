@@ -36,8 +36,8 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
 
                     // Build value and averages
                     var value = IndicatorBuilder.BuildValue(currency, indicator, lines);
-                    var averageBuy = IndicatorBuilder.BuildAverageBuy(filteredWatchers);
-                    var averageSell = IndicatorBuilder.BuildAverageSell(filteredWatchers);
+                    var averageBuy = BuildWeightedAverageBuy(filteredWatchers);
+                    var averageSell = BuildWeightedAverageSell(filteredWatchers);
 
                     // Create line
                     var line = new Line(
@@ -69,6 +69,48 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             if (time.Minute % 5 == 0) return Period.FIVE_MINUTES;
 
             return Period.ONE_MINUTE;
+        }
+
+        public static decimal? BuildWeightedAverageBuy(List<Watcher> watchers)
+        {
+            // Watchers buying
+            var watcherWillingToBuy = watchers.Where(WatcherExpression.WatcherBuying()).ToList();
+
+            // Total quantity
+            var totalQuantity = watcherWillingToBuy.Select(x => x.Quantity).Sum();
+
+            // Weights
+            var weights = watcherWillingToBuy.Select(x => x.Buy * x.Quantity);
+
+            // Total wWeight
+            var totalWeight = weights.Sum();
+
+            // Weighted average
+            var weightedAverage = totalWeight / totalQuantity;
+
+            // Return
+            return weightedAverage;
+        }
+
+        public static decimal? BuildWeightedAverageSell(List<Watcher> watchers)
+        {
+            // Watchers selling
+            var watcherWillingToSell = watchers.Where(WatcherExpression.WatcherSelling()).ToList();
+
+            // Total quantity
+            var totalQuantity = watcherWillingToSell.Select(x => x.Quantity).Sum();
+
+            // Weights
+            var weights = watcherWillingToSell.Select(x => x.Sell * x.Quantity);
+
+            // Total wWeight
+            var totalWeight = weights.Sum();
+
+            // Weighted average
+            var weightedAverage = totalWeight / totalQuantity;
+
+            // Return
+            return weightedAverage;
         }
     }
 }

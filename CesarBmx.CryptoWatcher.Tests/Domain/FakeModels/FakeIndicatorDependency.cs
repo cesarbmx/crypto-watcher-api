@@ -6,7 +6,7 @@ using CesarBmx.CryptoWatcher.Domain.Models;
 
 namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
 {
-    public static class FakeIndicatorDependencies
+    public static class FakeIndicatorDependency
     {
         public static List<IndicatorDependency> GetFakeIndicatorDependencies()
         {

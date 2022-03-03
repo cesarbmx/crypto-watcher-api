@@ -13,7 +13,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Expressions
         public void Test_WatcherNotSet()
         {
             // Arrange
-            var watchersBuyingAndSelling = FakeWatchers.GetWatchersNotSet();
+            var watchersBuyingAndSelling = FakeWatcher.GetWatchersNotSet();
 
             // Act
             var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherNotSet()).ToList();
@@ -25,7 +25,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Expressions
         public void Test_WatcherSet()
         {
             // Arrange
-            var watchersBuyingAndSelling = FakeWatchers.GetWatchersNotSet();
+            var watchersBuyingAndSelling = FakeWatcher.GetWatchersNotSet();
 
             // Act
             var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherNotSet()).ToList();
@@ -37,7 +37,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Expressions
         public void Test_WatcherBuyingOrSelling()
         {
             // Arrange
-            var watchersBuyingAndSelling = FakeWatchers.GetWatchersBuyingAndSelling();
+            var watchersBuyingAndSelling = FakeWatcher.GetWatchersBuyingAndSelling();
             
             // Act
             var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherBuyingOrSelling().Compile()).ToList();
@@ -49,7 +49,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Expressions
         public void Test_WatcherHolding()
         {
             // Arrange
-            var watchersBuyingAndSelling = FakeWatchers.GetWatchersHolding();
+            var watchersBuyingAndSelling = FakeWatcher.GetWatchersHolding();
 
             // Act
             var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherHolding()).ToList();
@@ -61,7 +61,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Expressions
         public void Test_WatcherLiquidated()
         {
             // Arrange
-            var watchersBuyingAndSelling = FakeWatchers.GetWatchersLiquidated();
+            var watchersBuyingAndSelling = FakeWatcher.GetWatchersLiquidated();
 
             // Act
             var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherSold()).ToList();

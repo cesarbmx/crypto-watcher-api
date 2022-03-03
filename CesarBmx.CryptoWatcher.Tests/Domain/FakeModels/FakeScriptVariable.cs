@@ -6,9 +6,9 @@ using CesarBmx.CryptoWatcher.Domain.Models;
 
 namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
 {
-    public class FakeScriptVariables : ScriptVariables
+    public class FakeScriptVariable : ScriptVariables
     {
-        public FakeScriptVariables()
+        public FakeScriptVariable()
         {
             var now = DateTime.UtcNow.StripSeconds();
             Times = new [] { now };

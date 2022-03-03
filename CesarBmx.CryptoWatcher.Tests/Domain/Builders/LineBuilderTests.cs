@@ -2,6 +2,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CesarBmx.CryptoWatcher.Domain.Builders;
 using CesarBmx.CryptoWatcher.Domain.Types;
+using CesarBmx.CryptoWatcher.Tests.Domain.FakeModels;
 
 
 namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
@@ -74,6 +75,38 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
 
             // Assert
             Assert.AreEqual(Period.ONE_MINUTE, period);
+        }
+
+        #endregion
+
+        #region WeightedAverageBuy
+
+        [TestMethod]
+        public void Test_WeightedAverageBuy()
+        {
+            // Arrange
+            var watchers = FakeWatcher.GetWatchersWillingToBuyWithDifferentWeights();
+
+            // Act
+            var weightedAverageBuy = LineBuilder.BuildWeightedAverageBuy(watchers);
+
+            // Assert
+            Assert.IsTrue(weightedAverageBuy.HasValue);
+            Assert.AreEqual(23333, (int)weightedAverageBuy.Value);
+        }
+
+        [TestMethod]
+        public void Test_WeightedAverageSell()
+        {
+            // Arrange
+            var watchers = FakeWatcher.GetWatchersWillingToSellWithDifferentWeights();
+
+            // Act
+            var weightedAverageSell = LineBuilder.BuildWeightedAverageSell(watchers);
+
+            // Assert
+            Assert.IsTrue(weightedAverageSell.HasValue);
+            Assert.AreEqual(43333, (int)weightedAverageSell.Value);
         }
 
         #endregion

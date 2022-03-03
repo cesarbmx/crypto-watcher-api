@@ -16,7 +16,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         {
             // Arrange
             var indicatorId = "master.HYPE";
-            var allIndicatorDependencies = FakeIndicatorDependencies.GetFakeIndicatorDependencies();
+            var allIndicatorDependencies = FakeIndicatorDependency.GetFakeIndicatorDependencies();
 
             // Act
             var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(indicatorId, allIndicatorDependencies);
@@ -30,7 +30,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         {
             // Arrange
             var indicatorId = "master.PRICE_CHANGE_24H";
-            var allIndicatorDependencies = FakeIndicatorDependencies.GetFakeIndicatorDependencies();
+            var allIndicatorDependencies = FakeIndicatorDependency.GetFakeIndicatorDependencies();
 
             // Act
             var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(indicatorId, allIndicatorDependencies);
@@ -44,7 +44,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         {
             // Arrange
             var indicatorId = "master.PRICE";
-            var allIndicatorDependencies = FakeIndicatorDependencies.GetFakeIndicatorDependencies();
+            var allIndicatorDependencies = FakeIndicatorDependency.GetFakeIndicatorDependencies();
 
             // Act
             var dependencyLevel = IndicatorBuilder.BuildDependencyLevel(indicatorId, allIndicatorDependencies);

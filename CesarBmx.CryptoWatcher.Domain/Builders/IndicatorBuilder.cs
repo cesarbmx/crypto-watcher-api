@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Domain.Models;
 
 
@@ -65,34 +64,6 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
                 // We set to zero the values below the average
                 values[i] = values[i] < 0 ? 0 : values[i];
             }
-        }
-        public static decimal? BuildAverageBuy(List<Watcher> watchers)
-        {
-            // Watchers buying
-            var watcherWillingToBuy = watchers.Where(WatcherExpression.WatcherBuying()).ToList();
-            
-            // Buys
-            var buys = watcherWillingToBuy.Select(x => x.Buy);
-
-            // Average
-            var average = buys.Average();
-
-            // Return
-            return average;
-        }
-        public static decimal? BuildAverageSell(List<Watcher> watchers)
-        {
-            // Watchers selling
-            var watcherWillingToSell = watchers.Where(WatcherExpression.WatcherSelling()).ToList();
-
-            // Sells
-            var sells = watcherWillingToSell.Select(x => x.Buy);
-
-            // Average
-            var average = sells.Average();
-
-            // Return
-            return average;
         }
         public static List<Indicator> BuildDependencyLevels(List<Indicator> indicators, List<IndicatorDependency> dependencies)
         {
