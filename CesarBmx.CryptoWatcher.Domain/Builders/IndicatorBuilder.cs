@@ -72,7 +72,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             var watcherWillingToBuy = watchers.Where(WatcherExpression.WatcherBuying()).ToList();
             
             // Buys
-            var buys = watcherWillingToBuy.Where(x => x.Buy != null).Select(x => x.Buy);
+            var buys = watcherWillingToBuy.Select(x => x.Buy);
 
             // Average
             var average = buys.Average();
@@ -86,7 +86,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             var watcherWillingToSell = watchers.Where(WatcherExpression.WatcherSelling()).ToList();
 
             // Sells
-            var sells = watcherWillingToSell.Where(x => x.Buy != null).Select(x => x.Buy);
+            var sells = watcherWillingToSell.Select(x => x.Buy);
 
             // Average
             var average = sells.Average();
