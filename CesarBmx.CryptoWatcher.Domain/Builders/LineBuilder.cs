@@ -76,13 +76,16 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             // Watchers buying
             var watcherWillingToBuy = watchers.Where(WatcherExpression.WatcherBuying()).ToList();
 
+            // Return if no watchers
+            if(watcherWillingToBuy.Count == 0) return null;
+
             // Total quantity
             var totalQuantity = watcherWillingToBuy.Select(x => x.Quantity).Sum();
 
             // Weights
             var weights = watcherWillingToBuy.Select(x => x.Buy * x.Quantity);
 
-            // Total wWeight
+            // Total weight
             var totalWeight = weights.Sum();
 
             // Weighted average
@@ -97,13 +100,16 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             // Watchers selling
             var watcherWillingToSell = watchers.Where(WatcherExpression.WatcherSelling()).ToList();
 
+            // Return if no watchers
+            if (watcherWillingToSell.Count == 0) return null;
+
             // Total quantity
             var totalQuantity = watcherWillingToSell.Select(x => x.Quantity).Sum();
 
             // Weights
             var weights = watcherWillingToSell.Select(x => x.Sell * x.Quantity);
 
-            // Total wWeight
+            // Total weight
             var totalWeight = weights.Sum();
 
             // Weighted average
