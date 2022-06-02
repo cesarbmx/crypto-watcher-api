@@ -33,11 +33,11 @@ namespace CesarBmx.CryptoWatcher.Api.ViewModelBuilders
             {
                 var time = chartRow.Time;
                 var value = chartRow.Value.HasValue ? chartRow.Value.ToString() : "null";
-                var averagebuy = chartRow.AverageBuy.HasValue ? chartRow.AverageBuy.ToString() : "null";
+                var averageBuy = chartRow.AverageBuy.HasValue ? chartRow.AverageBuy.ToString() : "null";
                 var averageSell = chartRow.AverageSell.HasValue ? chartRow.AverageSell.ToString() : "null";
   
                 var dateTime = $"new Date({time.Year},{time.Month:D2},{time.Day:D2},{time.Hour:D2},{time.Minute:D2})";
-                rows += ", " + $"[{dateTime}, {value}, {averagebuy}, {averageSell}]";
+                rows += ", " + $"[{dateTime}, {value}, {averageBuy}, {averageSell}]";
             }
 
             if (!string.IsNullOrEmpty(rows)) rows = rows.Substring(2);
