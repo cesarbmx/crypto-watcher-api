@@ -10,15 +10,15 @@ namespace CesarBmx.CryptoWatcher.Application.RequestValidators
         {
             RuleFor(x => x.UserId)
                 .Matches("^[a-zA-Z0-9]+$")
-                .WithMessage(nameof(UserMessage.UserIdMustContainOnlyLettersOrNumbers));
+                .WithMessage(UserMessage.UserIdMustContainOnlyLettersOrNumbers);
 
             RuleFor(x => x.UserId)
                 .Matches("^[a-z0-9]+$")
-                .WithMessage(nameof(UserMessage.UserIdMustBeLowerCase));
+                .WithMessage(UserMessage.UserIdMustBeLowerCase);
 
             RuleFor(x => x.UserId)
                 .Matches("^(?=[^A-Za-z]*[A-Za-z])[ -~]*$")
-                .WithMessage(nameof(UserMessage.UserIdMustContainAtLeastOneLetter));
+                .WithMessage(UserMessage.UserIdMustContainAtLeastOneLetter);
         }
     }
 }
