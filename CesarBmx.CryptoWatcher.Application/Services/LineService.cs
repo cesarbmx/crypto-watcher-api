@@ -3,11 +3,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using CesarBmx.CryptoWatcher.Application.Queries;
 using CesarBmx.CryptoWatcher.Application.Settings;
 using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Domain.Builders;
+using CesarBmx.CryptoWatcher.Domain.Types;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -33,10 +33,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _appSettings = appSettings;
         }
 
-        public async Task<List<Responses.Line>> GetLines(GetLines query)
+        public async Task<List<Responses.Line>> GetLines(Period period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
         {
             // Get all lines
-            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(query.Period, query.CurrencyIds, query.UserIds, query.IndicatorIds)).ToListAsync();
+            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(period, currencyIds, userIds, indicatorIds)).ToListAsync();
 
             // Response
             var response = _mapper.Map<List<Responses.Line>>(lines);

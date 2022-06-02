@@ -1,9 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using CesarBmx.CryptoWatcher.Application.Queries;
 using CesarBmx.CryptoWatcher.Domain.Builders;
 using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Domain.Models;
+using CesarBmx.CryptoWatcher.Domain.Types;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,10 +19,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _mainDbContext = mainDbContext;
         }
 
-        public async Task<ScriptVariables> GetScriptVariables(GetScriptVariables query)
+        public async Task<ScriptVariables> GetScriptVariables(Period period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
         {
             // Get all lines
-            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(query.Period, query.CurrencyIds, query.UserIds, query.IndicatorIds)).ToListAsync();
+            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(period, currencyIds, userIds, indicatorIds)).ToListAsync();
 
             // Response
             var response = ScriptVariablesBuilder.BuildScriptVariables(lines);

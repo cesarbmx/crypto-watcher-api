@@ -2,7 +2,7 @@
 using CesarBmx.CryptoWatcher.Application.Messages;
 using FluentValidation;
 
-namespace CesarBmx.CryptoWatcher.Application.RequestValidators
+namespace CesarBmx.CryptoWatcher.Application.Validators
 {
     public class UpdateIndicatorValidator : AbstractValidator<UpdateIndicator>
     {
