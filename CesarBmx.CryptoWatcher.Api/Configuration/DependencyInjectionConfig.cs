@@ -1,6 +1,4 @@
-﻿using CesarBmx.Shared.Api.Helpers;
-using CesarBmx.Shared.Common.Providers;
-using CesarBmx.CryptoWatcher.Application.Jobs;
+﻿using CesarBmx.CryptoWatcher.Application.Jobs;
 using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.CryptoWatcher.Application.Settings;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
@@ -50,8 +48,6 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             services.AddScoped<RemoveObsoleteLinesJob>();
 
             // Other
-            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
-            services.AddHttpContextAccessor();
             services.AddScoped<CoinpaprikaAPI.Client, CoinpaprikaAPI.Client>();
 
             return services;
