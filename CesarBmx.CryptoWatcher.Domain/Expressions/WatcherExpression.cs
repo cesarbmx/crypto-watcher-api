@@ -35,7 +35,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
         }
         public static Func<Watcher, bool> WatcherNotSet()
         {
-            return x => !x.Buy.HasValue && !x.Sell.HasValue;
+            return x => !x.Buy.HasValue;
         }
         public static Expression<Func<Watcher, bool>> WatcherSet()
         {
@@ -47,11 +47,16 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
         }
         public static Func<Watcher, bool> WatcherSelling()
         {
-            return x => x.Sell.HasValue && x.EntryPrice.HasValue && !x.ExitPrice.HasValue;
+            return x => x.Sell.HasValue && !x.ExitPrice.HasValue;
+        }
+        public static Expression<Func<Watcher, bool>> WatcherBuyingOrSelling()
+        {
+            return x => x.Buy.HasValue && !x.EntryPrice.HasValue  ||
+                        x.Sell.HasValue && !x.ExitPrice.HasValue;
         }
         public static Func<Watcher, bool> WatcherBought()
         {
-            return x => x.EntryPrice.HasValue && x.Sell.HasValue && !x.ExitPrice.HasValue;
+            return x => x.EntryPrice.HasValue && !x.ExitPrice.HasValue;
         }
         public static Func<Watcher, bool> WatcherHolding()
         {
@@ -59,28 +64,15 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
         }
         public static Func<Watcher, bool> WatcherSold()
         {
-            return x => x.EntryPrice.HasValue && x.ExitPrice.HasValue;
+            return x => x.ExitPrice.HasValue;
         }
-        public static Expression<Func<Watcher, bool>> WatcherBuyingOrSelling()
+        public static Func<Watcher, bool> BuyLimitHigherThanWatcherValue(decimal buy)
         {
-            return x => x.Buy.HasValue && !x.EntryPrice.HasValue && x.Price <= x.Buy.Value ||
-                        x.Sell.HasValue && x.EntryPrice.HasValue && !x.ExitPrice.HasValue && x.Price >= x.Sell.Value;
+            return x => buy > x.Value;
         }
-        public static Func<Watcher, bool> BuyLimitMustBeLowerThanWatcherValue(decimal buy)
+        public static Func<Watcher, bool> SellLimitLowerThanWatcherValue(decimal? sell)
         {
-            return x => !(buy < x.Value);
-        }
-        public static Func<Watcher, bool> SellLimitMustBeHigherThanWatcherValue(decimal? sell)
-        {
-            return x => !(!sell.HasValue || sell > x.Value);
-        }
-        public static Func<Watcher, bool> WatcherAlreadyBought(decimal buy)
-        {
-            return x => buy  != x.Buy && x.EntryPrice.HasValue;
-        }
-        public static Func<Watcher, bool> WatcherAlreadySold(decimal? sell)
-        {
-            return x =>  sell != x.Sell && x.ExitPrice.HasValue;
+            return x => sell < x.Value;
         }
     }
 }

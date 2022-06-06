@@ -10,15 +10,15 @@ namespace CesarBmx.CryptoWatcher.Application.Validators
         {
             RuleFor(x => x.Buy)
                 .Must(x => x > 0)
-                .WithMessage(WatcherMessage.BuyLimitMustBeHigherThanZero);
+                .WithMessage(WatcherMessage.LimitOrderMustBeHigherThanZero);
+
+            RuleFor(x => x.Sell)
+                .Must(x => x > 0)
+                .WithMessage(WatcherMessage.LimitOrderMustBeHigherThanZero);
 
             RuleFor(x => x.Sell)
                 .Must((x, sell) => !sell.HasValue || sell > x.Buy)
                 .WithMessage(WatcherMessage.SellLimitMustBeHigherThanBuyLimit);
-
-            RuleFor(x => x.Sell)
-                .Must((x, sell) => !sell.HasValue || sell > x.Buy)
-                .WithMessage(WatcherMessage.BuyLimitMustBeLowerThanWatcherValue);
         }
     }
 }

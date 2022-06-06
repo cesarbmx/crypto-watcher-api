@@ -136,20 +136,17 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Buy limit must be lower than watcher value
-            if (WatcherExpression.BuyLimitMustBeLowerThanWatcherValue(request.Buy).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.BuyLimitMustBeLowerThanWatcherValue, watcher.Value)));
+            if (WatcherExpression.BuyLimitHigherThanWatcherValue(request.Buy).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.BuyLimitMustBeLowerThanWatcherValue, watcher.Value)));
 
             // Sell limit must be higher than watcher value
-            if (WatcherExpression.SellLimitMustBeHigherThanWatcherValue(request.Sell).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.SELL_LIMIT_MUST_BE_HIGHER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.SellLimitMustBeHigherThanWatcherValue, watcher.Value)));
-
-            // Watcher already got liquidated
-            if (WatcherExpression.WatcherSold().Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.WATCHER_ALREADY_LIQUIDATED, WatcherMessage.WatcherAlreadyLiquidated));
+            if (WatcherExpression.SellLimitLowerThanWatcherValue(request.Sell).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.SELL_LIMIT_MUST_BE_HIGHER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.SellLimitMustBeHigherThanWatcherValue, watcher.Value)));
 
             // Watcher already bought
-            if (WatcherExpression.WatcherAlreadyBought(request.Buy).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.WATCHER_ALREADY_BOUGHT, string.Format(WatcherMessage.WatcherAlreadyBought, watcher.EntryPrice)));
+            if (WatcherExpression.WatcherBought().Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.WATCHER_ALREADY_BOUGHT, string.Format(WatcherMessage.WatcherAlreadyBought, watcher.EntryPrice)));
 
             // Watcher already sold
-            if (WatcherExpression.WatcherAlreadySold(request.Sell).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.WATCHER_ALREADY_SOLD, string.Format(WatcherMessage.WatcherAlreadySold, watcher.EntryPrice)));
-
+            if (WatcherExpression.WatcherSold().Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflictReason>(SetWatcherConflictReason.WATCHER_ALREADY_SOLD, string.Format(WatcherMessage.WatcherAlreadySold, watcher.ExitPrice)));
+            
             // Set watcher
             watcher.Set(request.Buy, request.Sell, request.Quantity);
 
