@@ -12,7 +12,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     [SwaggerResponse(500, Type = typeof(InternalServerError))]
     [SwaggerResponse(401, Type = typeof(Unauthorized))]
     [SwaggerResponse(403, Type = typeof(Forbidden))]
-    [SwaggerControllerOrder(orderPrefix: "A")]
+    [SwaggerOrder(orderPrefix: "A")]
     public class CurrencyController : Controller
     {
         private readonly CurrencyService _currencyService;

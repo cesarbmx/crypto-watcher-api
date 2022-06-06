@@ -14,7 +14,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     [SwaggerResponse(500, Type = typeof(InternalServerError))]
     [SwaggerResponse(401, Type = typeof(Unauthorized))]
     [SwaggerResponse(403, Type = typeof(Forbidden))]
-    [SwaggerControllerOrder(orderPrefix: "C")]
+    [SwaggerOrder(orderPrefix: "C")]
     public class IndicatorController : Controller
     {
         private readonly IndicatorService _indicatorService;
