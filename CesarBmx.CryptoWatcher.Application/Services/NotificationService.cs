@@ -124,7 +124,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "NotificationsAdded", notifications.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "NotificationsAdded", Guid.NewGuid(), notifications.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return notifications;
@@ -185,7 +185,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Count}, {@FailedCount}, {@ExecutionTime}", "TelegramNotificationsSent", count, failedCount, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@FailedCount}, {@ExecutionTime}", "TelegramNotificationsSent", Guid.NewGuid(), count, failedCount, stopwatch.Elapsed.TotalSeconds);
         }
         public async Task SendWhatsappNotifications()
         {
@@ -236,7 +236,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 stopwatch.Stop();
 
                 // Log
-                _logger.LogInformation("{@Event}, {@Count}, {@FailedCount}, {@ExecutionTime}", "WhatsappNotificationsSent", count, failedCount, stopwatch.Elapsed.TotalSeconds);
+                _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@FailedCount}, {@ExecutionTime}", "WhatsappNotificationsSent", Guid.NewGuid(), count, failedCount, stopwatch.Elapsed.TotalSeconds);
             }
         }
     }

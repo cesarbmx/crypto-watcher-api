@@ -122,7 +122,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var response = _mapper.Map<Responses.Watcher>(watcher);
 
             // Log
-            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "WatcherAdded", request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", "WatcherAdded", Guid.NewGuid(), request.UserId, request, response);
 
             // Return
             return response;
@@ -160,7 +160,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var response = _mapper.Map<Responses.Watcher>(watcher);
 
             // Log
-            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "WatcherSet", request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", "WatcherSet", Guid.NewGuid(), request.UserId, request, response);
 
             // Return
             return response;
@@ -194,12 +194,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (request.Enabled)
             {
                 // Log
-                _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "WatcherEnabled", request.UserId, request, response);
+                _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", "WatcherEnabled", Guid.NewGuid(), request.UserId, request, response);
             }
             else
             {
                 // Log
-                _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "WatcherDisabled", request.UserId, request, response);
+                _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", "WatcherDisabled", Guid.NewGuid(), request.UserId, request, response);
             }
 
             // Return
@@ -228,7 +228,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "DefaultWatchersUpdated", newDefaultWatchers.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "DefaultWatchersUpdated", Guid.NewGuid(), newDefaultWatchers.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return 
             return newDefaultWatchers;
@@ -255,7 +255,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "WatchersUpdated", watchers.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "WatchersUpdated", Guid.NewGuid(), watchers.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return watchers;

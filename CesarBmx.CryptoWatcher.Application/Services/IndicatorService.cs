@@ -125,7 +125,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var response = _mapper.Map<Responses.Indicator>(indicator);
 
             // Log
-            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "IndicatorAdded", request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", "IndicatorAdded", Guid.NewGuid(), request.UserId, request, response);
 
             // Return
             return response;
@@ -171,7 +171,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var response = _mapper.Map<Responses.Indicator>(indicator);
 
             // Log
-            _logger.LogInformation("{@Event}, {@UserId}, {@Request}, {@Response}", "IndicatorUpdated", request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", "IndicatorUpdated", Guid.NewGuid(), request.UserId, request, response);
 
             // Return
             return response;
@@ -226,7 +226,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@MaxLevel}, {@ExecutionTime}", "DependenciesLevelsUpdated", maxDependencyLevel, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@MaxLevel}, {@ExecutionTime}", "DependenciesLevelsUpdated", Guid.NewGuid(), maxDependencyLevel, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return indicators;

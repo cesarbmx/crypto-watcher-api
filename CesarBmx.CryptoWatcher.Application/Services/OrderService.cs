@@ -86,7 +86,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "OrdersAdded", newOrders.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "OrdersAdded", Guid.NewGuid(), newOrders.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return newOrders;
@@ -135,7 +135,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "OrdersProcessed", orders.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "OrdersProcessed", Guid.NewGuid(), orders.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return orders;

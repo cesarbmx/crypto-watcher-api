@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -91,7 +92,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "CurrenciesImported", newCurrencies.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "CurrenciesImported", Guid.NewGuid(), newCurrencies.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return newCurrencies;

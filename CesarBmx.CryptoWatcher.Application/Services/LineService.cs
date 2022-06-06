@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -66,7 +67,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "NewLinesAdded", lines.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "NewLinesAdded", Guid.NewGuid(), lines.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return lines;
@@ -90,7 +91,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Count}, {@ExecutionTime}", "ObsoleteLinesRemoved", lines.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "ObsoleteLinesRemoved", Guid.NewGuid(), lines.Count, stopwatch.Elapsed.TotalSeconds);
         }
     }
 }
