@@ -51,7 +51,7 @@ namespace CesarBmx.CryptoWatcher.Api
             services.ConfigureCaching();
 
             // Mvc
-            services.ConfigureMvc();
+            services.ConfigureMvc(Configuration);
 
             // Health
             services.ConfigureHealth(Configuration);
