@@ -85,7 +85,7 @@ namespace CesarBmx.CryptoWatcher.Api
             app.ConfigureElmah(Configuration);
 
             // Mvc
-            app.ConfigureMvc();
+            app.ConfigureMvc(Configuration);
 
             // Health
             app.ConfigureHealth();
