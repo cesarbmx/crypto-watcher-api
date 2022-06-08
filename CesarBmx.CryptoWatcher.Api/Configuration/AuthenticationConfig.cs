@@ -8,9 +8,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            // Shared
-            //services.UseSharedAuthentication(configuration);
-            services.UseSharedFakeAuthentication(configuration);
+            services.UseSharedAuthentication(configuration);
 
             return services;
         }
