@@ -10,7 +10,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureMvc(this IServiceCollection services, IConfiguration configuration)
         {
-            services.ConfigureSharedMvc(configuration, typeof(AddIndicatorValidator), true);
+            services.ConfigureSharedMvc(configuration, true);
             
             return services;
         }

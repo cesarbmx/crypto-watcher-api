@@ -1,6 +1,8 @@
 ﻿using CesarBmx.CryptoWatcher.Application.Jobs;
+using CesarBmx.CryptoWatcher.Application.Requests;
 using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.CryptoWatcher.Application.Settings;
+using CesarBmx.CryptoWatcher.Application.Validators;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +18,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             var appSettings = new AppSettings();
             configuration.GetSection("AppSettings").Bind(appSettings);
 
-            //Contexts
+            //Db contexts
             if (appSettings.UseMemoryStorage)
             {
                 services.AddDbContext<MainDbContext, MainDbContext>(options => options
@@ -47,9 +49,11 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             services.AddScoped<SendTelgramNotificationsJob>();
             services.AddScoped<RemoveObsoleteLinesJob>();
 
-            // Other
+            // API clients
             services.AddScoped<CoinpaprikaAPI.Client, CoinpaprikaAPI.Client>();
 
+
+            // Return
             return services;
         }
     }
