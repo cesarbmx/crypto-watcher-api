@@ -58,7 +58,7 @@ namespace CesarBmx.CryptoWatcher.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             // This for the reverse proxy
             app.UsePathBase("/crypto-watcher");
