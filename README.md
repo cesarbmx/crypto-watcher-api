@@ -7,12 +7,11 @@ _C# .NET Core + DDD + EF Core + Hangfire + Swagger + Automapper + FluentValidati
 - [ ] **#3** Aim to reduce market volatility acting as a whole.
 
 ##### PHASES:
-- [x]  **Phase #1** Whatsapp notification upon buy/sell orders (**Perception**)  
-- [ ]  **Phase #2** Allow coummunity to create indicators (**Collaboration**) 
-- [ ]  **Phase #3** Identify best indicators (**Expectation**)  
-- [ ]  **Phase #4** Automate buys/sells on Binance API (**Automation**)  
-- [ ]  **Phase #5** Recongnize best users (**Reputation**)  
-- [ ]  **Phase #6** Reward users (**Reward**)
+- [ ]  **Phase #1** Allow coummunity to create indicators (**Collaboration**) 
+- [ ]  **Phase #2** Identify best indicators (**Expectation**)  
+- [ ]  **Phase #3** Automate buys/sells (**Automation**)
+- [ ]  **Phase #4** Recongnize best users (**Reputation**)  
+- [ ]  **Phase #5** Reward users (**Reward**)
 
 ##### HOW TO RUN IT:
 Clone the _shared_ respository next to the folder where you have cloned _crypto-watcher_. Nugets are in progress so, for now, I am just cross referencing the projects.<BR>
