@@ -3,9 +3,9 @@ using CesarBmx.CryptoWatcher.Domain.Models;
 
 namespace CesarBmx.CryptoWatcher.Application.Mappers
 {
-    public class ChartMapping : Profile
+    public class ChartMapper : Profile
     {
-        public ChartMapping()
+        public ChartMapper()
         {
             CreateMap<Chart, Responses.Chart>();
         }

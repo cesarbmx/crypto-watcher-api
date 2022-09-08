@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CesarBmx.CryptoWatcher.Persistence.Mappings
 {
-    public static class LineMap
+    public static class LineMapping
     {
         public static void Map(this EntityTypeBuilder<Line> entityBuilder)
         {

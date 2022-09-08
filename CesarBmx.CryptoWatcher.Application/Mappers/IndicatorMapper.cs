@@ -3,11 +3,11 @@ using CesarBmx.CryptoWatcher.Domain.Models;
 
 namespace CesarBmx.CryptoWatcher.Application.Mappers
 {
-    public class NotificationMapping : Profile
+    public class IndicatorMapper : Profile
     {
-        public NotificationMapping()
+        public IndicatorMapper()
         {
-            CreateMap<Notification, Responses.Notification>();
+            CreateMap<Indicator, Responses.Indicator>();
         }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CesarBmx.CryptoWatcher.Persistence.Mappings
 {
-    public static class OrderMap
+    public static class OrderMapping
     {
         public static void Map(this EntityTypeBuilder<Order> entityBuilder)
         {

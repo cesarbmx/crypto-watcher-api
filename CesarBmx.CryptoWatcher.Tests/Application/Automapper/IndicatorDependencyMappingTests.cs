@@ -11,7 +11,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Application.Automapper
         public void Test_IndicatorDependencyMapping()
         {
             // Arrange
-            IMapper config = new MapperConfiguration(cfg => { cfg.AddProfile<IndicatorDependencyMapping>(); }).CreateMapper();
+            IMapper config = new MapperConfiguration(cfg => { cfg.AddProfile<IndicatorDependencyMapper>(); }).CreateMapper();
             
             // Assert
             config.ConfigurationProvider.AssertConfigurationIsValid();

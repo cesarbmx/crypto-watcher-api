@@ -8,7 +8,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureAutomapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(CurrencyMapping).Assembly);
+            services.AddAutoMapper(typeof(CurrencyMapper).Assembly);
 
             return services;
         }

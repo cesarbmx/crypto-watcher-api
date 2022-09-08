@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CesarBmx.CryptoWatcher.Persistence.Mappings
 {
-    public static class WatcherMap
+    public static class WatcherMapping
     {
         public static void Map(this EntityTypeBuilder<Watcher> entityBuilder)
         {

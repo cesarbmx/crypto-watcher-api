@@ -3,9 +3,9 @@ using CesarBmx.CryptoWatcher.Domain.Models;
 
 namespace CesarBmx.CryptoWatcher.Application.Mappers
 {
-    public class IndicatorDependencyMapping : Profile
+    public class IndicatorDependencyMapper : Profile
     {
-        public IndicatorDependencyMapping()
+        public IndicatorDependencyMapper()
         {
             CreateMap<IndicatorDependency, Responses.IndicatorDependency>()
                 .ForMember(dest => dest.IndicatorId, opt => opt.MapFrom(src => src.Dependency.IndicatorId))

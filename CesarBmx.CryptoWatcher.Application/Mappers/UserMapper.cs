@@ -3,9 +3,9 @@ using CesarBmx.CryptoWatcher.Domain.Models;
 
 namespace CesarBmx.CryptoWatcher.Application.Mappers
 {
-    public class UserMapping : Profile
+    public class UserMapper : Profile
     {
-        public UserMapping()
+        public UserMapper()
         {
             CreateMap<User, Responses.User>();
         }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CesarBmx.CryptoWatcher.Persistence.Mappings
 {
-    public static class IndicatorDependencyMap
+    public static class IndicatorDependencyMapping
     {
         public static void Map(this EntityTypeBuilder<IndicatorDependency> entityBuilder)
         {

@@ -6,9 +6,9 @@ using CesarBmx.CryptoWatcher.Domain.Models;
 
 namespace CesarBmx.CryptoWatcher.Application.Mappers
 {
-    public class CurrencyMapping : Profile
+    public class CurrencyMapper : Profile
     {
-        public CurrencyMapping()
+        public CurrencyMapper()
         {
             CreateMap<Currency, Responses.Currency>();
             CreateMap<TickerWithQuotesInfo, Currency>()

@@ -3,11 +3,11 @@ using CesarBmx.CryptoWatcher.Domain.Models;
 
 namespace CesarBmx.CryptoWatcher.Application.Mappers
 {
-    public class WatcherMapping : Profile
+    public class OrderMapper : Profile
     {
-        public WatcherMapping()
+        public OrderMapper()
         {
-            CreateMap<Watcher, Responses.Watcher>();
+            CreateMap<Order, Responses.Order>();
         }
     }
 }
