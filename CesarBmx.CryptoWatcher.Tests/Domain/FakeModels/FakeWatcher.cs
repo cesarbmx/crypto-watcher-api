@@ -48,7 +48,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
             };
             return watchers;
         }
-        public static List<Watcher> GetWatchersLiquidated()
+        public static List<Watcher> GetWatchersSold()
         {
             var watchers = new List<Watcher>()
             {

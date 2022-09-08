@@ -58,10 +58,10 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Expressions
             Assert.AreEqual(watchersBuyingAndSelling.Count, filter.Count);
         }
         [TestMethod]
-        public void Test_WatcherLiquidated()
+        public void Test_WatcherSold()
         {
             // Arrange
-            var watchersBuyingAndSelling = FakeWatcher.GetWatchersLiquidated();
+            var watchersBuyingAndSelling = FakeWatcher.GetWatchersSold();
 
             // Act
             var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherSold()).ToList();
