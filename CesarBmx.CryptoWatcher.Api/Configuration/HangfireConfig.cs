@@ -17,12 +17,10 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             services.ConfigureSharedHangfire();
 
             // Grab AppSettings
-            var appSettings = new Application.Settings.AppSettings();
-            configuration.GetSection("AppSettings").Bind(appSettings);
+            var appSettings = configuration.GetSection<Application.Settings.AppSettings>();
 
             // Grab EnvironmentSettings
-            var environmentSettings = new EnvironmentSettings();
-            configuration.GetSection("EnvironmentSettings").Bind(environmentSettings);
+            var environmentSettings = configuration.GetSection<EnvironmentSettings>();
 
             if (appSettings.UseMemoryStorage)
             {
@@ -43,15 +41,13 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
         public static IApplicationBuilder ConfigureHangfire(this IApplicationBuilder app, IConfiguration configuration)
         {
             // Grab EnvironmentSettings
-            var environmentSettings = new EnvironmentSettings();
-            configuration.GetSection("EnvironmentSettings").Bind(environmentSettings);
+            var environmentSettings = configuration.GetSection<EnvironmentSettings>();
 
             // Enable basic auth only for Staging/Production
             app.ConfigureSharedHangfire(environmentSettings.EnvironmentName == "Staging" || environmentSettings.EnvironmentName == "Production");
 
             // Grab AppSettings
-            var appSettings = new Application.Settings.AppSettings();
-            configuration.GetSection("AppSettings").Bind(appSettings);
+            var appSettings = configuration.GetSection<Application.Settings.AppSettings>();
 
             // Background jobs
             var jobsIntervalInMinutes = appSettings.JobsIntervalInMinutes;

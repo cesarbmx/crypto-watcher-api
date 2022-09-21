@@ -9,7 +9,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureSettings(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddConfiguration<AppSettings>(configuration, "AppSettings");
+            services.AddConfiguration<AppSettings>(configuration);
             services.ConfigureSharedSettings(configuration);
 
             return services;
