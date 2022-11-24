@@ -30,7 +30,8 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             {
                 services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("CryptoWatcher"), new SqlServerStorageOptions
                 {
-                    PrepareSchemaIfNecessary = environmentSettings.EnvironmentName == "Development"
+                    PrepareSchemaIfNecessary = environmentSettings.EnvironmentName == "Development",
+                    SchemaName = "Hangfire"
                 }));
             }
 
