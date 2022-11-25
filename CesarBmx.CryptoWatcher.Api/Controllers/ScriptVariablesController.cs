@@ -8,6 +8,7 @@ using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Swashbuckle.AspNetCore.Annotations;
+using CesarBmx.CryptoWatcher.Application.Settings;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers
 {
@@ -18,10 +19,12 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     public class ScriptVariablesController : Controller
     {
         private readonly ScriptVariablesService _scriptVariableService;
+        private readonly AppSettings _appSettings;
 
-        public ScriptVariablesController(ScriptVariablesService scriptVariableService)
+        public ScriptVariablesController(ScriptVariablesService scriptVariableService, AppSettings appSettings)
         {
             _scriptVariableService = scriptVariableService;
+            _appSettings = appSettings;
         }
 
         /// <summary>
@@ -34,7 +37,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetScriptVariables([BindRequired]Period period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
         {
             // Reponse
-            var response = await _scriptVariableService.GetScriptVariables(period, currencyIds, userIds, indicatorIds);
+            var response = await _scriptVariableService.GetScriptVariables(_appSettings.LineRetention, period, currencyIds, userIds, indicatorIds);
 
             // Return
             return Ok(response);

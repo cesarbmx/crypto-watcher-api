@@ -8,6 +8,7 @@ using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Swashbuckle.AspNetCore.Annotations;
+using CesarBmx.CryptoWatcher.Application.Settings;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers
 {
@@ -18,10 +19,12 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     public class ChartsController : Controller
     {
         private readonly ChartService _chartService;
+        private readonly AppSettings _appSettings;
 
-        public ChartsController(ChartService chartService)
+        public ChartsController(ChartService chartService, AppSettings appSettings)
         {
             _chartService = chartService;
+            _appSettings = appSettings;
         }
 
         /// <summary>
@@ -34,7 +37,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         public async Task<IActionResult> GetCharts([BindRequired] Period period = Period.ONE_MINUTE, List<string> currencyIds = null, List<string> userIds = null, List<string> indicatorIds = null)
         {
             // Reponse
-            var response = await _chartService.GetCharts(period, currencyIds, userIds, indicatorIds);
+            var response = await _chartService.GetCharts(_appSettings.LineRetention, period, currencyIds, userIds, indicatorIds);
 
             // Return
             return Ok(response);

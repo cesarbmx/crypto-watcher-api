@@ -37,7 +37,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         public async Task<List<Responses.Line>> GetLines(Period period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
         {
             // Get all lines
-            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(period, currencyIds, userIds, indicatorIds)).ToListAsync();
+            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(_appSettings.LineRetention, period, currencyIds, userIds, indicatorIds)).ToListAsync();
 
             // Response
             var response = _mapper.Map<List<Responses.Line>>(lines);

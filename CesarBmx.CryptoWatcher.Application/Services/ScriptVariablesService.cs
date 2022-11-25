@@ -19,10 +19,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _mainDbContext = mainDbContext;
         }
 
-        public async Task<ScriptVariables> GetScriptVariables(Period period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
+        public async Task<ScriptVariables> GetScriptVariables(LineRetention lineRetention, Period period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
         {
             // Get all lines
-            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(period, currencyIds, userIds, indicatorIds)).ToListAsync();
+            var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(lineRetention, period, currencyIds, userIds, indicatorIds)).ToListAsync();
 
             // Response
             var response = ScriptVariablesBuilder.BuildScriptVariables(lines);
