@@ -1,4 +1,5 @@
 ﻿using CesarBmx.CryptoWatcher.Api.Configuration;
+using CesarBmx.Shared.Api.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -58,6 +59,9 @@ namespace CesarBmx.CryptoWatcher.Api
 
             // Fluent validation
             services.ConfigureFluentValidation();
+
+            // Open telemetry
+            services.ConfigureOpenTelemetry(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Authenticat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Serialization", "..\Shared\CesarBmx.Shared.Serialization\CesarBmx.Shared.Serialization.csproj", "{8694556A-66EA-4EEB-9C62-064312DD73BB}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{56E79719-3B1F-4C4D-9D2E-36E0E9EE740D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{8694556A-66EA-4EEB-9C62-064312DD73BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8694556A-66EA-4EEB-9C62-064312DD73BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8694556A-66EA-4EEB-9C62-064312DD73BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56E79719-3B1F-4C4D-9D2E-36E0E9EE740D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56E79719-3B1F-4C4D-9D2E-36E0E9EE740D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56E79719-3B1F-4C4D-9D2E-36E0E9EE740D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56E79719-3B1F-4C4D-9D2E-36E0E9EE740D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

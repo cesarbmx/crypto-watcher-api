@@ -1,0 +1,119 @@
+version: '3.4'
+
+services:
+    elasticsearch:
+        container_name: elasticsearch
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.16.1
+        ports:
+          - 9200:9200
+        volumes:
+          - elasticsearch-data:/usr/share/elasticsearch/data
+        environment:
+          - xpack.monitoring.enabled=true
+          - xpack.watcher.enabled=false
+          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+          - discovery.type=single-node
+        networks:
+          - elastic
+
+    kibana:
+        container_name: kibana
+        image: docker.elastic.co/kibana/kibana:7.16.1
+        ports:
+          - 5601:5601
+        depends_on:
+          - elasticsearch
+        environment:
+          - ELASTICSEARCH_URL=http://localhost:9200
+        networks:
+          - elastic
+
+    jaeger-collector:
+        container_name: jaeger-collector
+        image: jaegertracing/jaeger-collector
+        ports:
+          - "14269:14269"
+          - "14268:14268"
+          - "14267:14267"
+          - "14250:14250"
+          - "9411:9411"
+        networks:
+          - elastic
+        restart: on-failure
+        environment:
+          - SPAN_STORAGE_TYPE=elasticsearch
+        command: [
+          "--es.server-urls=http://elasticsearch:9200",
+          "--es.num-shards=1",
+          "--es.num-replicas=0",
+          "--log-level=error"
+        ]
+        depends_on:
+          - elasticsearch
+
+    jaeger-agent:
+        container_name: jaeger-agent
+        image: jaegertracing/jaeger-agent
+        hostname: jaeger-agent
+        command: ["--reporter.grpc.host-port=jaeger-collector:14250"]
+        ports:
+          - "5775:5775/udp"
+          - "6831:6831/udp"
+          - "6832:6832/udp"
+          - "5778:5778"
+        networks:
+          - elastic
+        restart: on-failure
+        environment:
+          - SPAN_STORAGE_TYPE=elasticsearch
+        depends_on:
+          - jaeger-collector
+
+    jaeger-query:
+        container_name: jaeger-query
+        image: jaegertracing/jaeger-query
+        environment:
+          - SPAN_STORAGE_TYPE=elasticsearch
+          - no_proxy=localhost
+        ports:
+          - "16686:16686"
+          - "16687:16687"
+        networks:
+          - elastic
+        restart: on-failure
+        command: [
+          "--es.server-urls=http://elasticsearch:9200",
+          "--span-storage.type=elasticsearch",
+          "--log-level=debug"
+        ]
+        depends_on:
+          - jaeger-agent
+
+    cesarbmx.cryptowatcher.api:
+        container_name: cryptowatcher-api
+        image: ${DOCKER_REGISTRY-}cesarbmx/crypto-watcher-api
+        build:
+          context: .
+          dockerfile: CesarBmx.CryptoWatcher.Api/Dockerfile
+        networks:
+            - elastic
+        ports:
+            - "65010:80"
+            - "65010:443"
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - JAEGER_SERVICE_NAME=CryptoWatcherApi
+            - JAEGER_AGENT_HOST=jaeger-agent
+            - JAEGER_AGENT_PORT=6831
+            - JAEGER_SAMPLER_TYPE=const
+            - JAEGER_SAMPLER_PARAM=1
+            - JAEGER_SAMPLER_MANAGER_HOST_PORT=jaeger-agent:5778
+        depends_on: 
+          - jaeger-agent
+
+networks:
+  elastic:
+    driver: bridge
+
+volumes:
+  elasticsearch-data:
