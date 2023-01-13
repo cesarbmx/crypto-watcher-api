@@ -1,32 +1,21 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using CesarBmx.Shared.Application.Settings;
+using CesarBmx.Shared.Configuration;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
     public static class CorsConfig
     {
-        public static IServiceCollection ConfigureCors(this IServiceCollection services)
+        public static IServiceCollection ConfigureCors(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll",
-                    builder =>
-                    {
-                        builder 
-                            //.WithOrigins()
-                            .AllowAnyOrigin()
-                            .AllowAnyMethod()
-                            .AllowAnyHeader()
-                            //.AllowCredentials()
-                            ;
-                    });
-            });
+            services.ConfigureSharedCors(configuration);
 
             return services;
         }
         public static IApplicationBuilder ConfigureCors(this IApplicationBuilder app)
         {
-            app.UseCors("AllowAll");
+            app.ConfigureSharedCors();
 
             return app;
         }

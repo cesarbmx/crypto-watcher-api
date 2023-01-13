@@ -25,7 +25,7 @@ namespace CesarBmx.CryptoWatcher.Api
             services.ConfigureSettings(Configuration);
 
             // CORS
-            services.ConfigureCors();
+            services.ConfigureCors(Configuration);
 
             // Automapper
             services.ConfigureAutomapper();
@@ -53,6 +53,9 @@ namespace CesarBmx.CryptoWatcher.Api
 
             // Mvc
             services.ConfigureMvc(Configuration);
+
+            // Cors
+            services.ConfigureCors(Configuration);
 
             // Health
             services.ConfigureHealth(Configuration);

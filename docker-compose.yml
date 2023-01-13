@@ -99,7 +99,7 @@ services:
             - elastic
         ports:
             - "65010:80"
-            - "65010:443"
+            - "65011:443"
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - JAEGER_SERVICE_NAME=CryptoWatcherApi
