@@ -89,6 +89,17 @@ services:
         depends_on:
           - jaeger-agent
 
+    sql:
+        image: "mcr.microsoft.com/mssql/server:2022-latest"
+        container_name: sql_server2022
+        ports: # not actually needed, because the two services are on the same network
+          - "1433:1433" 
+        networks:
+          - elastic
+        environment:
+          - ACCEPT_EULA=y
+          - SA_PASSWORD=A&VeryComplex123Password
+
     cesarbmx.cryptowatcher.api:
         container_name: cryptowatcher-api
         image: ${DOCKER_REGISTRY-}cesarbmx/crypto-watcher-api
@@ -110,6 +121,7 @@ services:
             - JAEGER_SAMPLER_MANAGER_HOST_PORT=jaeger-agent:5778
         depends_on: 
           - jaeger-agent
+          - sql
 
 networks:
   elastic:
