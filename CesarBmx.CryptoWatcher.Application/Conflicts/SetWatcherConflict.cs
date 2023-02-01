@@ -1,8 +1,8 @@
 ﻿
 
-namespace CesarBmx.CryptoWatcher.Application.ConflictReasons
+namespace CesarBmx.CryptoWatcher.Application.Conflicts
 {
-    public enum SetWatcherConflictReason
+    public enum SetWatcherConflict
     {
         BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE,
         SELL_LIMIT_MUST_BE_HIGHER_THAN_WATCHER_VALUE,

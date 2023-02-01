@@ -7,7 +7,7 @@ using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using CesarBmx.CryptoWatcher.Application.ConflictReasons;
+using CesarBmx.CryptoWatcher.Application.Conflicts;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers
 {
@@ -65,8 +65,8 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerResponse(201, Type = typeof(Indicator))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
         [SwaggerResponse(404, Type = typeof(NotFound))]
-        [SwaggerResponse(409, Type = typeof(Conflict<AddIndicatorConflictReason>))]
-        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
+        [SwaggerResponse(409, Type = typeof(Conflict<AddIndicatorConflict>))]
+        [SwaggerResponse(422, Type = typeof(Validation))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_AddIndicator")]
         public async Task<IActionResult> AddIndicator([FromBody]AddIndicator request)
         {
@@ -84,7 +84,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [Route("api/indicators/{indicatorId}")]
         [SwaggerResponse(200, Type = typeof(Indicator))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
-        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
+        [SwaggerResponse(422, Type = typeof(Validation))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_UpdateIndicator")]
         public async Task<IActionResult> UpdateIndicator(string indicatorId, [FromBody]UpdateIndicator request)
         {

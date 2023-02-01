@@ -7,7 +7,7 @@ using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using CesarBmx.CryptoWatcher.Application.ConflictReasons;
+using CesarBmx.CryptoWatcher.Application.Conflicts;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers
 {
@@ -65,8 +65,8 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerResponse(201, Type = typeof(Watcher))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
         [SwaggerResponse(404, Type = typeof(NotFound))]
-        [SwaggerResponse(409, Type = typeof(Conflict<AddWatcherConflictReason>))]
-        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
+        [SwaggerResponse(409, Type = typeof(Conflict<AddWatcherConflict>))]
+        [SwaggerResponse(422, Type = typeof(Validation))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_AddWatcher")]
         public async Task<IActionResult> AddWatcher([FromBody]AddWatcher request)
         {
@@ -84,8 +84,8 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [Route("api/watchers/{watcherId}")]
         [SwaggerResponse(200, Type = typeof(Watcher))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
-        [SwaggerResponse(409, Type = typeof(Conflict<SetWatcherConflictReason>))]
-        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
+        [SwaggerResponse(409, Type = typeof(Conflict<SetWatcherConflict>))]
+        [SwaggerResponse(422, Type = typeof(Validation))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_SetWatcher")]
         public async Task<IActionResult> SetWatcher(int watcherId, [FromBody] SetWatcher request)
         {
@@ -107,8 +107,8 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [Route("api/watchers/{watcherId}/enabled")]
         [SwaggerResponse(200, Type = typeof(Watcher))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
-        [SwaggerResponse(409, Type = typeof(Conflict<EnableWatcherConflictReason>))]
-        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
+        [SwaggerResponse(409, Type = typeof(Conflict<EnableWatcherConflict>))]
+        [SwaggerResponse(422, Type = typeof(Validation))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_EnableWatcher")]
         public async Task<IActionResult> EnableWatcher(int watcherId, [FromBody] EnableWatcher request)
         {

@@ -1,13 +1,13 @@
-﻿using CesarBmx.CryptoWatcher.Application.ConflictReasons;
+﻿using CesarBmx.CryptoWatcher.Application.Conflicts;
 using CesarBmx.CryptoWatcher.Application.FakeResponses;
 using CesarBmx.Shared.Application.Responses;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace CesarBmx.CryptoWatcher.Api.ResponseExamples
 {
-    public class AddUserConflictExample: IExamplesProvider<Conflict<AddUserConflictReason>>
+    public class AddUserConflictExample: IExamplesProvider<Conflict<AddUserConflict>>
     {
-        public Conflict<AddUserConflictReason> GetExamples()
+        public Conflict<AddUserConflict> GetExamples()
         {
             return FakeAddUserConflict.GetFake();
         }
