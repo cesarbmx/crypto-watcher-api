@@ -99,6 +99,9 @@ namespace CesarBmx.CryptoWatcher.Api
 
             // Health
             app.ConfigureHealth();
+
+            // Open telemetry
+            app.ConfigureOpenTelemetry();
         }
     }
 }

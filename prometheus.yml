@@ -1,0 +1,17 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: prometheus
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['prometheus:9090']
+  
+  - job_name: crypto-watcher
+    metrics_path: /metrics
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true 
+    static_configs:
+      - targets: ['crypto-watcher-api:443']

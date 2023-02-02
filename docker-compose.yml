@@ -91,7 +91,7 @@ services:
 
     sql:
         image: "mcr.microsoft.com/mssql/server:2022-latest"
-        container_name: sql_server2022
+        container_name: sql-server-2022
         ports: # not actually needed, because the two services are on the same network
           - "1433:1433" 
         networks:
@@ -101,7 +101,7 @@ services:
           - SA_PASSWORD=A&VeryComplex123Password
 
     cesarbmx.cryptowatcher.api:
-        container_name: cryptowatcher-api
+        container_name: crypto-watcher-api
         image: ${DOCKER_REGISTRY-}cesarbmx/crypto-watcher-api
         build:
           context: .
@@ -122,6 +122,39 @@ services:
         depends_on: 
           - jaeger-agent
           - sql
+
+    prometheus:
+        container_name: prometheus
+        image: quay.io/prometheus/prometheus:latest
+        ports:
+          - "9090:9090"
+        #configs:
+        #  - source: prometheus
+        #    target: /etc/prometheus/prometheus.yml
+        volumes:
+          - ./prometheus.yml:/etc/prometheus/prometheus.yml
+        networks:
+          - elastic
+        depends_on: 
+          - cesarbmx.cryptowatcher.api
+
+    grafana:
+        container_name: grafana
+        image: grafana/grafana:latest
+        ports:
+          - 3000:3000
+        #volumes:
+        #  - ./grafana/provisioning/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
+        #  - ./grafana/provisioning/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+        #  - ./grafana/dashboards:/var/lib/grafana/dashboards
+        environment:
+          - GF_SECURITY_ADMIN_USER=admin
+          - GF_SECURITY_ADMIN_PASSWORD=123456
+          - GF_USERS_ALLOW_SIGN_UP=false
+        networks:
+          - elastic
+        depends_on: 
+          - prometheus
 
 networks:
   elastic:

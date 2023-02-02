@@ -11,5 +11,11 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
 
             return services;
         }
+        public static IApplicationBuilder ConfigureOpenTelemetry(this IApplicationBuilder app)
+        {
+            app.ConfigureSharedOpenTelemetry();
+
+            return app;
+        }
     }
 }
