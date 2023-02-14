@@ -1,12 +1,8 @@
 ﻿using CesarBmx.CryptoWatcher.Application.Jobs;
-using CesarBmx.CryptoWatcher.Application.Requests;
 using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.CryptoWatcher.Application.Settings;
-using CesarBmx.CryptoWatcher.Application.Validators;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
@@ -16,7 +12,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
         {
             // Grab AppSettings
             var appSettings = new AppSettings();
-            configuration.GetSection("AppSettings").Bind(appSettings);
+            configuration.GetSection(nameof(AppSettings)).Bind(appSettings);
 
             //Db contexts
             if (appSettings.UseMemoryStorage)
