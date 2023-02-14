@@ -1,5 +1,6 @@
 ﻿using CesarBmx.CryptoWatcher.Api.Configuration;
 using CesarBmx.Shared.Api.Configuration;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +36,9 @@ namespace CesarBmx.CryptoWatcher.Api
 
             // DI
             services.ConfigureDependencies(Configuration);
+
+            // Data migration
+            services.ConfigureDataSeeding();
 
             // Hangfire
             services.ConfigureHangfire(Configuration);
@@ -84,9 +88,6 @@ namespace CesarBmx.CryptoWatcher.Api
 
             // Swagger
             app.ConfigureSwagger(Configuration);
-
-            // Data migration
-            app.ConfigureDataSeeding();
 
             // Hangfire
             app.ConfigureHangfire(Configuration);
