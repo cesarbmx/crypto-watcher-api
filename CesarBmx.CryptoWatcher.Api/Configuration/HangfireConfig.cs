@@ -3,9 +3,6 @@ using CesarBmx.CryptoWatcher.Application.Jobs;
 using Hangfire;
 using Hangfire.MemoryStorage;
 using Hangfire.SqlServer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using CesarBmx.Shared.Application.Settings;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
@@ -47,7 +44,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             // Enable basic auth only for Staging/Production
             app.ConfigureSharedHangfire(environmentSettings.Name == "Staging" || environmentSettings.Name == "Production");
 
-            // Grab AppSettings
+            // Grab settings
             var appSettings = configuration.GetSection<Application.Settings.AppSettings>();
 
             // Background jobs

@@ -2,6 +2,7 @@
 using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.CryptoWatcher.Application.Settings;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
+using CesarBmx.Shared.Api.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
@@ -10,9 +11,8 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            // Grab AppSettings
-            var appSettings = new AppSettings();
-            configuration.GetSection(nameof(AppSettings)).Bind(appSettings);
+            // Grab settings
+            var appSettings = configuration.GetSection<AppSettings>();
 
             //Db contexts
             if (appSettings.UseMemoryStorage)
