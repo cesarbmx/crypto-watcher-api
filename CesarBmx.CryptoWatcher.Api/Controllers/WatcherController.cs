@@ -31,7 +31,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [Route("api/users/{userId}/watchers")]
         [SwaggerResponse(200, Type = typeof(List<Watcher>))] 
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_GetUserWatchers")]
-        public async Task<IActionResult> GetUserWatchers(string userId, string currencyId = null, string indicatorId = null)
+        public async Task<IActionResult> GetUserWatchers(string userId, string? currencyId = null, string? indicatorId = null)
         {
             // Reponse
             var response = await _watcherService.GetUserWatchers(userId, currencyId, indicatorId);

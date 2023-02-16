@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CesarBmx.CryptoWatcher.Api.ViewModelBuilders;
+﻿using CesarBmx.CryptoWatcher.Api.ViewModelBuilders;
 using CesarBmx.CryptoWatcher.Api.ViewModels;
 using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.CryptoWatcher.Application.Settings;
@@ -13,7 +11,7 @@ namespace CesarBmx.CryptoWatcher.Api.Pages.Charts
         private readonly ChartService _chartService;
         private readonly AppSettings _appSettings;
 
-        public List<Chart> Charts { get; set; }
+        public List<Chart>? Charts { get; set; }
 
         public IndexModel(ChartService chartService, AppSettings appSettings)
         {
