@@ -18,6 +18,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Line = CesarBmx.CryptoWatcher.Domain.Models.Line;
 using Watcher = CesarBmx.CryptoWatcher.Domain.Models.Watcher;
+using OpenTelemetry.Trace;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -26,19 +27,25 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<WatcherService> _logger;
         private readonly IMapper _mapper;
+        private readonly Tracer _tracer;
 
         public WatcherService(
             MainDbContext mainDbContext,
             ILogger<WatcherService> logger,
-            IMapper mapper)
+            IMapper mapper,
+            Tracer tracer)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
             _mapper = mapper;
+            _tracer = tracer;
         }
 
         public async Task<List<Responses.Watcher>> GetUserWatchers(string userId = null, string currencyId = null, string indicatorId = null)
         {
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(GetUserWatchers));
+
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
 
@@ -56,6 +63,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         }
         public async Task<Responses.Watcher> GetWatcher(int watcherId)
         {
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(GetWatcher));
+
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(x => x.WatcherId == watcherId);
 
@@ -70,6 +80,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         }
         public async Task<Responses.Watcher> AddWatcher(AddWatcher request)
         {
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(AddWatcher));
+
             // Get currency
             var currency = await _mainDbContext.Currencies.FindAsync(request.CurrencyId);
 
@@ -129,6 +142,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         }
         public async Task<Responses.Watcher> SetWatcher(SetWatcher request)
         {
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(SetWatcher));
+
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FindAsync(request.WatcherId);
 
@@ -167,6 +183,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         }
         public async Task<Responses.Watcher> EnableWatcher(EnableWatcher request)
         {
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(EnableWatcher));
+
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FindAsync(request.WatcherId);
 
@@ -212,6 +231,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(UpdateDefaultWatchers));
+
             // Build default watchers
             var newDefaultWatchers = WatcherBuilder.BuildDefaultWatchers(lines);
 
@@ -238,6 +260,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
+
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(UpdateWatchers));
 
             // Get all watchers
             var watchers = await _mainDbContext.Watchers.Where(WatcherExpression.NonDefaultWatcher()).ToListAsync();

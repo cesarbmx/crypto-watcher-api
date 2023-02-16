@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CesarBmx.CryptoWatcher.Application.Services;
 using Hangfire;
 using Microsoft.Extensions.Logging;
+using OpenTelemetry.Trace;
 
 
 namespace CesarBmx.CryptoWatcher.Application.Jobs
@@ -17,6 +18,8 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
         private readonly OrderService _orderService;
         private readonly NotificationService _notificationService;
         private readonly ILogger<MainJob> _logger;
+        private readonly Tracer _tracer;
+
         public MainJob(
             CurrencyService currencyService,
             IndicatorService indicatorService,
@@ -24,7 +27,8 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
             WatcherService watcherService,
             OrderService orderService,
             NotificationService notificationService,
-            ILogger<MainJob> logger)
+            ILogger<MainJob> logger,
+            Tracer tracer)
         {
             _currencyService = currencyService;
             _indicatorService = indicatorService;
@@ -33,18 +37,22 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
             _orderService = orderService;
             _notificationService = notificationService;
             _logger = logger;
+            _tracer = tracer;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
         public async Task Run()
         {
             try
-            {
+            {             
                 // Start watch
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Run
+                // Start span
+                using var span = _tracer.StartActiveSpan(nameof(MainJob));
+
+                // Main job
                 var currencies = await _currencyService.ImportCurrencies();
                 var indicators = await _indicatorService.UpdateDependencyLevels();
                 var lines = await _lineService.AddNewLines(currencies, indicators);

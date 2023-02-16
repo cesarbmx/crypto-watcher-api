@@ -17,6 +17,7 @@ using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using CesarBmx.Shared.Application.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using OpenTelemetry.Trace;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -25,19 +26,25 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<IndicatorService> _logger;
         private readonly IMapper _mapper;
+        private readonly Tracer _tracer;
 
         public IndicatorService(
             MainDbContext mainDbContext,
             ILogger<IndicatorService> logger,
-            IMapper mapper)
+            IMapper mapper,
+            Tracer tracer)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
             _mapper = mapper;
+            _tracer = tracer;
         }
 
         public async Task<List<Responses.Indicator>> GetUserIndicators(string userId)
         {
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(GetUserIndicators));
+
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
 
@@ -58,6 +65,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         }
         public async Task<Responses.Indicator> GetIndicator(string indicatorId)
         {
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(GetIndicator));
+
             // Get indicator
             var indicator = await _mainDbContext.Indicators
                 .Include(x => x.Dependencies)
@@ -75,6 +85,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         }
         public async Task<Responses.Indicator> AddIndicator(AddIndicator request)
         {
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(AddIndicator));
+
             // Get user
             var user = await _mainDbContext.Users.FindAsync(request.UserId);
 
@@ -132,6 +145,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         }
         public async Task<Responses.Indicator> UpdateIndicator(UpdateIndicator request)
         {
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(UpdateIndicator));
+
             // Get indicator
             var indicator = await _mainDbContext.Indicators
                 .Include(x => x.Dependencies)
@@ -179,6 +195,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
         public async Task<List<Indicator>> GetIndicators(List<string> indicatorIds)
         {
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(GetIndicators));
+
             var indicators = new List<Indicator>();
             foreach (var indicatorId in indicatorIds)
             {
@@ -203,6 +222,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
+
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(UpdateDependencyLevels));
 
             // Get all indicators
             var indicators = await _mainDbContext.Indicators.ToListAsync();

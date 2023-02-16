@@ -13,6 +13,7 @@ using CesarBmx.CryptoWatcher.Domain.Types;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using OpenTelemetry.Trace;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -21,19 +22,25 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly MainDbContext _mainDbContext;
         private readonly IMapper _mapper;
         private readonly ILogger<OrderService> _logger;
+        private readonly Tracer _tracer;
 
         public OrderService(
             MainDbContext mainDbContext,
             IMapper mapper,
-            ILogger<OrderService> logger)
+            ILogger<OrderService> logger,
+            Tracer tracer)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
             _logger = logger;
+            _tracer = tracer;
         }
 
         public async Task<List<Responses.Order>> GetUserOrders(string userId)
         {
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(GetUserOrders));
+
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
 
@@ -51,6 +58,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         }
         public async Task<Responses.Order> GetOrder(Guid orderId)
         {
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(GetOrder));
+
             // Get order
             var order = await _mainDbContext.Orders.FindAsync(orderId);
 
@@ -69,6 +79,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
+
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(AddOrders));
 
             // Grab watchers willing to buy or sell
             watchers = watchers.Where(WatcherExpression.WatcherBuyingOrSelling().Compile()).ToList();
@@ -96,6 +109,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
+
+            // Start span
+            using var span = _tracer.StartActiveSpan(nameof(ProcessOrders));
 
             // Grab orders ready to buy or sell
             foreach (var order in orders)
