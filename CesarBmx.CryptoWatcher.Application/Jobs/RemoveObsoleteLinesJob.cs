@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CesarBmx.CryptoWatcher.Application.Services;
 using Hangfire;
 using Microsoft.Extensions.Logging;
-using OpenTelemetry.Trace;
 
 namespace CesarBmx.CryptoWatcher.Application.Jobs
 {
@@ -11,16 +11,16 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
     {
         private readonly LineService _lineService;
         private readonly ILogger<RemoveObsoleteLinesJob> _logger;
-        private readonly Tracer _tracer;
+        private readonly ActivitySource _activitySource;
 
         public RemoveObsoleteLinesJob(
             LineService lineService,
             ILogger<RemoveObsoleteLinesJob> logger,
-            Tracer tracer)
+            ActivitySource activitySource)
         {
             _lineService = lineService;
             _logger = logger;
-            _tracer = tracer;
+            _activitySource = activitySource;
         }
 
         [AutomaticRetry(OnAttemptsExceeded = AttemptsExceededAction.Delete)]
@@ -29,7 +29,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
             try
             {
                 // Start span
-                using var span = _tracer.StartActiveSpan(nameof(RemoveObsoleteLinesJob));
+                using var span = _activitySource.StartActivity(nameof(RemoveObsoleteLinesJob));
 
                 // Remove obsolete lines
                 await _lineService.RemoveObsoleteLines();

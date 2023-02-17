@@ -12,7 +12,6 @@ using CesarBmx.CryptoWatcher.Domain.Types;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using OpenTelemetry.Trace;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -22,26 +21,26 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly ILogger<LineService> _logger;
         private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
-        private readonly Tracer _tracer;
+        private readonly ActivitySource _activitySource;
 
         public LineService(
             MainDbContext mainDbContext,
             ILogger<LineService> logger, 
             IMapper mapper,
             AppSettings appSettings,
-            Tracer tracer)
+            ActivitySource activitySource)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
             _mapper = mapper;
             _appSettings = appSettings;
-            _tracer = tracer;
+            _activitySource = activitySource;
         }
 
         public async Task<List<Responses.Line>> GetLines(Period period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
         {
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(GetLines));
+            using var span = _activitySource.StartActivity(nameof(GetLines));
 
             // Get all lines
             var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(_appSettings.LineRetention, period, currencyIds, userIds, indicatorIds)).ToListAsync();
@@ -59,7 +58,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(AddNewLines));
+            using var span = _activitySource.StartActivity(nameof(AddNewLines));
 
             // Get watchers willing to buy or sell
             var watchers = await _mainDbContext.Watchers.Where(WatcherExpression.WatcherSet()).ToListAsync();
@@ -89,7 +88,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(RemoveObsoleteLines));
+            using var span = _activitySource.StartActivity(nameof(RemoveObsoleteLines));
 
             // Get lines to be removed
             var lines = await _mainDbContext.Lines.Where(LineExpression.ObsoleteLine(_appSettings.LineRetention)).ToListAsync();

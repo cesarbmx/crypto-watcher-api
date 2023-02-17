@@ -4,7 +4,6 @@ using CesarBmx.CryptoWatcher.Application.Settings;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using CesarBmx.Shared.Api.Configuration;
 using Microsoft.EntityFrameworkCore;
-using OpenTelemetry.Trace;
 using System.Diagnostics;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
@@ -51,7 +50,6 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             services.AddScoped<CoinpaprikaAPI.Client, CoinpaprikaAPI.Client>();
 
             // Open telemetry
-            //services.AddSingleton(TracerProvider.Default.GetTracer("CryptoWatcherApi"));
             services.AddSingleton(x=> new ActivitySource("CryptoWatcherApi"));
 
             // Return

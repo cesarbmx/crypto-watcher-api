@@ -11,7 +11,6 @@ using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-using OpenTelemetry.Trace;
 
 
 namespace CesarBmx.CryptoWatcher.Application.Services
@@ -22,7 +21,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly IMapper _mapper;
         private readonly ILogger<CurrencyService> _logger;
         private readonly CoinpaprikaAPI.Client _coinpaprikaClient;
-        private readonly Tracer _tracer;
+        private readonly ActivitySource _activitySource;
 
 
         public CurrencyService(
@@ -30,19 +29,19 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             IMapper mapper,
             ILogger<CurrencyService> logger,
             CoinpaprikaAPI.Client coinpaprikaClient,
-            Tracer tracer)
+            ActivitySource activitySource)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
             _logger = logger;
             _coinpaprikaClient = coinpaprikaClient;
-            _tracer = tracer;
+            _activitySource = activitySource;
         }
 
         public async Task<List<Responses.Currency>> GetCurrencies()
         {
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(GetCurrencies));
+            using var span = _activitySource.StartActivity(nameof(GetCurrencies));
 
             // Get all currencies
             var currencies = await _mainDbContext.Currencies.ToListAsync();
@@ -56,7 +55,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         public async Task<Responses.Currency> GetCurrency(string currencyId)
         {
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(GetCurrency));
+            using var span = _activitySource.StartActivity(nameof(GetCurrency));
 
             // Get currency
             var currency = await _mainDbContext.Currencies.FindAsync(currencyId);
@@ -77,7 +76,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(ImportCurrencies));                  
+            using var span = _activitySource.StartActivity(nameof(ImportCurrencies));                  
 
             // Get all currencies from CoinMarketCap
             var result = await _coinpaprikaClient.GetTickersAsync();

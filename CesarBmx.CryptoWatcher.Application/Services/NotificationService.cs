@@ -18,7 +18,6 @@ using Telegram.Bot;
 using Twilio;
 using Twilio.Types;
 using Twilio.Rest.Api.V2010.Account;
-using OpenTelemetry.Trace;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -28,26 +27,26 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
         private readonly ILogger<NotificationService> _logger;
-        private readonly Tracer _tracer;
+        private readonly ActivitySource _activitySource;
 
         public NotificationService(
             MainDbContext mainDbContext,
             IMapper mapper,
             AppSettings appSettings,
             ILogger<NotificationService> logger,
-            Tracer tracer)
+            ActivitySource activitySource)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
             _appSettings = appSettings;
             _logger = logger;
-            _tracer = tracer;
+            _activitySource = activitySource;
         }
 
         public async Task<List<Responses.Notification>> GetUserNotifications(string userId)
         {
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(GetUserNotifications));
+            using var span = _activitySource.StartActivity(nameof(GetUserNotifications));
 
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
@@ -68,7 +67,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         public async Task<Responses.Notification> GetNotification(Guid notificationId)
         {
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(GetNotification));
+            using var span = _activitySource.StartActivity(nameof(GetNotification));
 
             // Get notification
             var notification = await _mainDbContext.Notifications.FindAsync(notificationId);
@@ -90,7 +89,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(AddNotifications));
+            using var span = _activitySource.StartActivity(nameof(AddNotifications));
 
             // Now
             var now = DateTime.UtcNow.StripSeconds();
@@ -145,7 +144,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         public async Task SendTelegramNotifications()
         {
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(SendTelegramNotifications));
+            using var span = _activitySource.StartActivity(nameof(SendTelegramNotifications));
 
             // Get pending notifications
             var pendingNotifications = await _mainDbContext.Notifications
@@ -161,7 +160,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(SendTelegramNotifications));
+            using var span = _activitySource.StartActivity(nameof(SendTelegramNotifications));
 
             // Get pending notifications
             //var notifications = await _mainDbContext.Notifications.Where(NotificationExpression.PendingNotification()).ToListAsync();
@@ -213,7 +212,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(SendWhatsappNotifications));
+            using var span = _activitySource.StartActivity(nameof(SendWhatsappNotifications));
 
             // Get pending notifications
             var pendingNotifications = await _mainDbContext.Notifications.Where(NotificationExpression.PendingNotification()).ToListAsync();

@@ -11,7 +11,7 @@ using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using CesarBmx.Shared.Application.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using OpenTelemetry.Trace;
+using System.Diagnostics;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -20,24 +20,24 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly MainDbContext _mainDbContext;
         private readonly ILogger<UserService> _logger;
         private readonly IMapper _mapper;
-        private readonly Tracer _tracer;
+        private readonly ActivitySource _activitySource;
 
         public UserService(
             MainDbContext mainDbContext,
             ILogger<UserService> logger,
             IMapper mapper,
-            Tracer tracer)
+            ActivitySource activitySource)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
             _mapper = mapper;
-            _tracer = tracer;
+            _activitySource = activitySource;
         }
 
         public async Task<List<Responses.User>> GetUsers()
         {
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(GetUsers));
+            using var span = _activitySource.StartActivity(nameof(GetUsers));
 
             // Get all users
             var users = await _mainDbContext.Users.ToListAsync();
@@ -51,7 +51,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         public async Task<Responses.User> GetUser(string userId)
         {
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(GetUser));
+            using var span = _activitySource.StartActivity(nameof(GetUser));
 
             // Get user
             var user = await _mainDbContext.Users.FindAsync(userId);
@@ -68,7 +68,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         public async Task<Responses.User> AddUser(AddUser request)
         {
             // Start span
-            using var span = _tracer.StartActiveSpan(nameof(AddUser));
+            using var span = _activitySource.StartActivity(nameof(AddUser));
 
             // Get user
             var user = await _mainDbContext.Users.FindAsync(request.UserId);

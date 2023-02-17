@@ -6,7 +6,6 @@ using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using OpenTelemetry.Trace;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers
 {
