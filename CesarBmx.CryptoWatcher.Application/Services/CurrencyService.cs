@@ -41,7 +41,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         public async Task<List<Responses.Currency>> GetCurrencies()
         {
             // Start span
-            using var span = _activitySource.StartActivity(nameof(GetCurrencies));
+            var activityName = "GetCurrencies";
+            if (_activitySource.Name == "CryptoWatcherApi2")
+            {
+                activityName += "2";
+            }
+            using var span = _activitySource.StartActivity(activityName);
             var randomId = Guid.NewGuid().ToString();
 
             if (_activitySource.Name == "CryptoWatcherApi")
@@ -90,7 +95,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Start();
 
             // Start span
-            using var span = _activitySource.StartActivity(nameof(ImportCurrencies));                  
+            using var span = _activitySource.StartActivity(nameof(ImportCurrencies));
 
             // Get all currencies from CoinMarketCap
             var result = await _coinpaprikaClient.GetTickersAsync();
@@ -102,7 +107,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 x.Symbol == "BCH" ||
                 x.Symbol == "XML" ||
                 x.Symbol == "EOS" ||
-                x.Symbol == "ADA").GroupBy(x=>x.Symbol).Select(x=>x.First()).ToList();
+                x.Symbol == "ADA").GroupBy(x => x.Symbol).Select(x => x.First()).ToList();
 
             // Build currencies
             var newCurrencies = _mapper.Map<List<Currency>>(tickers);
