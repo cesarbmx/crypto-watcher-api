@@ -1,0 +1,22 @@
+﻿@model ViewModels.Chart
+
+<script type="text/javascript">
+    google.charts.load('current', { packages: ['corechart', 'line'] });
+    google.charts.setOnLoadCallback(drawAxisTickColors);
+
+    function drawAxisTickColors() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('datetime', 'X');
+        data.addColumn('number', 'Value');
+        data.addColumn('number', 'Buy');
+        data.addColumn('number', 'Sell');
+
+        data.addRows([@Html.Raw(Model.Rows)]);
+
+        var chart = new google.visualization.LineChart(document.getElementById('div_@Model.ChartId'));
+        chart.draw(data, options);
+    }
+</script>
+
+<div id="div_@Model.ChartId" style="width: 900px; height: 500px"></div>
+

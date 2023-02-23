@@ -6,10 +6,8 @@ using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Net.Http;
-using System.Text.Json;
 
-namespace CesarBmx.CryptoWatcher.Api.Controllers
+namespace CesarBmx.CryptoWatcher.Api2.Controllers
 {
     [SwaggerResponse(500, Type = typeof(InternalServerError))]
     [SwaggerResponse(401, Type = typeof(Unauthorized))]
@@ -17,12 +15,10 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     [SwaggerOrder(orderPrefix: "A")]
     public class CurrencyController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
         private readonly CurrencyService _currencyService;
 
-        public CurrencyController(IHttpClientFactory httpClientFactory, CurrencyService currencyService)
+        public CurrencyController(CurrencyService currencyService)
         {
-            _httpClientFactory = httpClientFactory;
             _currencyService = currencyService;
         }
 
@@ -30,17 +26,16 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         /// Get currencies
         /// </summary>
         [HttpGet]
-        [Route("api/currencies")]
+        [Route("api/currencies2")]
         [SwaggerResponse(200, Type = typeof(List<Currency>))]  
-        [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrencies")]
-        public async Task<IActionResult> GetCurrencies()
+        [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrencies2")]
+        public async Task<IActionResult> GetCurrencies2()
         {
             // Reponse
             var response = await _currencyService.GetCurrencies();
 
-            var httpClient = _httpClientFactory.CreateClient();
-            var result = await httpClient.GetAsync($"http://crypto-watcher-api2/api/currencies2");
-
+            // Sleep
+            Thread.Sleep(1000);
 
             // Return
             return Ok(response);

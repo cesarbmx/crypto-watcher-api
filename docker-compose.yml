@@ -122,6 +122,31 @@ services:
         depends_on: 
           - jaeger-agent
           - sql
+          - cesarbmx.cryptowatcher.api2
+
+    cesarbmx.cryptowatcher.api2:
+        container_name: crypto-watcher-api2
+        image: ${DOCKER_REGISTRY-}cesarbmx/crypto-watcher-api2
+        build:
+          context: .
+          dockerfile: CesarBmx.CryptoWatcher.Api2/Dockerfile
+        networks:
+            - elastic
+        ports:
+            - "65012:80"
+        expose:
+            - "65012"
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - JAEGER_SERVICE_NAME=CryptoWatcherApi2
+            - JAEGER_AGENT_HOST=jaeger-agent
+            - JAEGER_AGENT_PORT=6831
+            - JAEGER_SAMPLER_TYPE=const
+            - JAEGER_SAMPLER_PARAM=1
+            - JAEGER_SAMPLER_MANAGER_HOST_PORT=jaeger-agent:5778
+        depends_on: 
+          - jaeger-agent
+          - sql
 
     prometheus:
         container_name: prometheus

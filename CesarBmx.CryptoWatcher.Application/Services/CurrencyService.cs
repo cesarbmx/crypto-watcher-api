@@ -42,6 +42,20 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetCurrencies));
+            var randomId = Guid.NewGuid().ToString();
+
+            if (_activitySource.Name == "CryptoWatcherApi")
+            {
+                span.AddEvent(new ActivityEvent("Setting the baggage"));
+                span.SetTag("CustomerId", "TEST1");
+                span.SetBaggage("CustomerId", "TEST1");
+            }
+            else
+            {
+                span.AddEvent(new ActivityEvent("Getting the baggage"));
+                var baggage = span.GetBaggageItem("CustomerId");
+
+            }
 
             // Get all currencies
             var currencies = await _mainDbContext.Currencies.ToListAsync();

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace CesarBmx.CryptoWatcher.Api.Configuration
+namespace CesarBmx.CryptoWatcher.Api2.Configuration
 {
     public static class DependecyInjectionConfig
     {
@@ -52,12 +52,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             services.AddScoped<CoinpaprikaAPI.Client, CoinpaprikaAPI.Client>();
 
             // Open telemetry
-            services.AddSingleton(x=> new ActivitySource("CryptoWatcherApi", Assembly.GetEntryAssembly()?.VersionNumber()));
-
-
-            // Http client
-            services.AddHttpClient();
-
+            services.AddSingleton(x=> new ActivitySource("CryptoWatcherApi2", Assembly.GetEntryAssembly()?.VersionNumber()));
 
             // Return
             return services;
