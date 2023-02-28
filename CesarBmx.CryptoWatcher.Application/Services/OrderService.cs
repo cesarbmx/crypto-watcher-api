@@ -13,11 +13,8 @@ using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MassTransit;
-using OrderType = CesarBmx.CryptoWatcher.Domain.Types.OrderType;
-using Telegram.Bot.Types;
 using CesarBmx.Shared.Messaging.CryptoWatcher.Events;
-using MassTransit.Transports;
-using CesarBmx.Shared.Messaging.CryptoWatcher.Commands;
+using CesarBmx.CryptoWatcher.Domain.Types;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
