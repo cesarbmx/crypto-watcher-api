@@ -79,16 +79,16 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             return response;
         }
 
-        public async Task<List<Order>> CreateOrders(List<Watcher> watchers)
+        public async Task<List<Order>> AddOrders(List<Watcher> watchers)
         {
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
             // Start span
-            using var span = _activitySource.StartActivity(nameof(CreateOrders));
+            using var span = _activitySource.StartActivity(nameof(AddOrders));
 
-            // Grab watchers willing to buy or sell
+            // Grab watchers willing to buy or sellm
             watchers = watchers.Where(WatcherExpression.WatcherBuyingOrSelling().Compile()).ToList();
 
             // Build new orders
@@ -101,9 +101,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             await _mainDbContext.SaveChangesAsync();
 
             // Event
-            var ordersCreated = _mapper.Map<List<OrderCreated>>(newOrders);
+            var ordersCreated = _mapper.Map<List<OrderAdded>>(newOrders);
 
-            var orderCreated = new OrderCreated { OrderId = 123 };
+            var orderCreated = new OrderAdded { OrderId = 123 };
 
             // Publish event
             await _publishEndpoint.Publish(orderCreated);
