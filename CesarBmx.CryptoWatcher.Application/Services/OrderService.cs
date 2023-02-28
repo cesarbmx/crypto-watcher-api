@@ -16,6 +16,8 @@ using MassTransit;
 using OrderType = CesarBmx.CryptoWatcher.Domain.Types.OrderType;
 using Telegram.Bot.Types;
 using CesarBmx.Shared.Messaging.CryptoWatcher.Events;
+using MassTransit.Transports;
+using CesarBmx.Shared.Messaging.CryptoWatcher.Commands;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -89,7 +91,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             using var span = _activitySource.StartActivity(nameof(AddOrders));
 
             // Grab watchers willing to buy or sellm
-            watchers = watchers.Where(WatcherExpression.WatcherBuyingOrSelling().Compile()).ToList();
+            watchers = watchers.Where(WatcherExpression.WatcherBuyingOrSelling()).ToList();
 
             // Build new orders
             var newOrders = OrderBuilder.BuildNewOrders(watchers);
@@ -101,12 +103,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             await _mainDbContext.SaveChangesAsync();
 
             // Event
-            var ordersCreated = _mapper.Map<List<OrderAdded>>(newOrders);
-
-            var orderCreated = new OrderAdded { OrderId = 123 };
+            var ordersAdded = _mapper.Map<List<OrderAdded>>(newOrders);
 
             // Publish event
-            await _publishEndpoint.Publish(orderCreated);
+            await _publishEndpoint.PublishBatch(ordersAdded);
 
             // Stop watch
             stopwatch.Stop();
