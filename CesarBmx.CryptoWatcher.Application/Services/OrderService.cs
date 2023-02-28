@@ -9,10 +9,13 @@ using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Application.Messages;
 using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Domain.Builders;
-using CesarBmx.CryptoWatcher.Domain.Types;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using MassTransit;
+using OrderType = CesarBmx.CryptoWatcher.Domain.Types.OrderType;
+using Telegram.Bot.Types;
+using CesarBmx.Shared.Messaging.CryptoWatcher.Events;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -22,17 +25,20 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly IMapper _mapper;
         private readonly ILogger<OrderService> _logger;
         private readonly ActivitySource _activitySource;
+        private readonly IPublishEndpoint _publishEndpoint;
 
         public OrderService(
             MainDbContext mainDbContext,
             IMapper mapper,
             ILogger<OrderService> logger,
-            ActivitySource activitySource)
+            ActivitySource activitySource,
+            IPublishEndpoint publishEndpoint)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
             _logger = logger;
             _activitySource = activitySource;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<List<Responses.Order>> GetUserOrders(string userId)
@@ -55,7 +61,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<Responses.Order> GetOrder(Guid orderId)
+        public async Task<Responses.Order> GetOrder(int orderId)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetOrder));
@@ -73,14 +79,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             return response;
         }
 
-        public async Task<List<Order>> AddOrders(List<Watcher> watchers)
+        public async Task<List<Order>> CreateOrders(List<Watcher> watchers)
         {
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
             // Start span
-            using var span = _activitySource.StartActivity(nameof(AddOrders));
+            using var span = _activitySource.StartActivity(nameof(CreateOrders));
 
             // Grab watchers willing to buy or sell
             watchers = watchers.Where(WatcherExpression.WatcherBuyingOrSelling().Compile()).ToList();
@@ -94,11 +100,19 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Save
             await _mainDbContext.SaveChangesAsync();
 
+            // Event
+            var ordersCreated = _mapper.Map<List<OrderCreated>>(newOrders);
+
+            var orderCreated = new OrderCreated { OrderId = 123 };
+
+            // Publish event
+            await _publishEndpoint.Publish(orderCreated);
+
             // Stop watch
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "OrdersAdded", Guid.NewGuid(), newOrders.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "OrdersCreated", Guid.NewGuid(), newOrders.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return newOrders;

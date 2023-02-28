@@ -15,6 +15,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Contexts
         public DbSet<Order> Orders { get; set; }
         public DbSet<Indicator> Indicators { get; set; }
         public DbSet<IndicatorDependency> IndicatorDependencies { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         public MainDbContext(DbContextOptions<MainDbContext> options)
            : base(options)
@@ -32,6 +33,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Contexts
             modelBuilder.Entity<Order>().Map();
             modelBuilder.Entity<Indicator>().Map();
             modelBuilder.Entity<IndicatorDependency>().Map();
+            modelBuilder.Entity<Event>().Map();
 
             base.OnModelCreating(modelBuilder);
         }

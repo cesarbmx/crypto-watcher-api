@@ -12,6 +12,8 @@ using CesarBmx.Shared.Application.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using CesarBmx.CryptoWatcher.Domain.Models;
+using CesarBmx.CryptoWatcher.Domain.Types;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -79,11 +81,17 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Time
             var now = DateTime.UtcNow.StripSeconds();
 
-            // Create
-            user = new Domain.Models.User(request.UserId, request.PhoneNumber, now);
+            // Create user
+            user = new User(request.UserId, request.PhoneNumber, now);
 
             // Add user
             _mainDbContext.Users.Add(user);
+
+            // Create event
+            var @event = new Event(EventType.USER_ADDED,user, now);
+
+            // Add event
+            _mainDbContext.Events.Add(@event);
 
             // Save
             await _mainDbContext.SaveChangesAsync();

@@ -51,14 +51,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<List<Line>> AddNewLines(List<Currency> currencies, List<Indicator> indicators)
+        public async Task<List<Line>> CreateNewLines(List<Currency> currencies, List<Indicator> indicators)
         {
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
             // Start span
-            using var span = _activitySource.StartActivity(nameof(AddNewLines));
+            using var span = _activitySource.StartActivity(nameof(CreateNewLines));
 
             // Get watchers willing to buy or sell
             var watchers = await _mainDbContext.Watchers.Where(WatcherExpression.WatcherSet()).ToListAsync();
@@ -76,19 +76,19 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "NewLinesAdded", Guid.NewGuid(), lines.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "NewLinesCreated", Guid.NewGuid(), lines.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return lines;
         }
-        public async Task RemoveObsoleteLines()
+        public async Task DeleteObsoleteLines()
         {
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
             // Start span
-            using var span = _activitySource.StartActivity(nameof(RemoveObsoleteLines));
+            using var span = _activitySource.StartActivity(nameof(DeleteObsoleteLines));
 
             // Get lines to be removed
             var lines = await _mainDbContext.Lines.Where(LineExpression.ObsoleteLine(_appSettings.LineRetention)).ToListAsync();
@@ -103,7 +103,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "ObsoleteLinesRemoved", Guid.NewGuid(), lines.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "ObsoleteLinesDeleted", Guid.NewGuid(), lines.Count, stopwatch.Elapsed.TotalSeconds);
         }
     }
 }

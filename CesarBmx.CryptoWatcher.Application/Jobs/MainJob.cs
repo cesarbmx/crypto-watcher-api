@@ -54,14 +54,14 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
                 // Main job
                 var currencies = await _currencyService.ImportCurrencies();
                 var indicators = await _indicatorService.UpdateDependencyLevels();
-                var lines = await _lineService.AddNewLines(currencies, indicators);
+                var lines = await _lineService.CreateNewLines(currencies, indicators);
                 var defaultWatchers = await _watcherService.UpdateDefaultWatchers(lines);
                 var watchers = await _watcherService.UpdateWatchers(defaultWatchers);
-                var orders = await _orderService.AddOrders(watchers);
+                var orders = await _orderService.CreateOrders(watchers);
                 orders = await _orderService.ProcessOrders(orders, watchers);
-                var notifications = await _notificationService.AddNotifications(orders);
+                var notifications = await _notificationService.CreateNotifications(orders);
                 await _notificationService.SendTelegramNotifications(notifications);
-                await _lineService.RemoveObsoleteLines();
+                await _lineService.DeleteObsoleteLines();
 
                 // Stop watch
                 stopwatch.Stop();

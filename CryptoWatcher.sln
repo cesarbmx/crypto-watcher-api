@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Serializati
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{56E79719-3B1F-4C4D-9D2E-36E0E9EE740D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CesarBmx.Shared.Messaging", "..\Shared\CesarBmx.Shared.Events\CesarBmx.Shared.Messaging.csproj", "{EB8EABAC-798C-4E80-9DDC-5579FFA64862}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{56E79719-3B1F-4C4D-9D2E-36E0E9EE740D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56E79719-3B1F-4C4D-9D2E-36E0E9EE740D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56E79719-3B1F-4C4D-9D2E-36E0E9EE740D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB8EABAC-798C-4E80-9DDC-5579FFA64862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB8EABAC-798C-4E80-9DDC-5579FFA64862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB8EABAC-798C-4E80-9DDC-5579FFA64862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB8EABAC-798C-4E80-9DDC-5579FFA64862}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,6 +157,7 @@ Global
 		{1F68BDEF-635A-4390-80FC-F6C24ED32C6D} = {0B7E9BDA-EB68-47BF-B2B4-C1F9A7E7A4B6}
 		{6FD9F38E-E9D6-47F6-B85C-87BF8CD1AF6F} = {0B7E9BDA-EB68-47BF-B2B4-C1F9A7E7A4B6}
 		{8694556A-66EA-4EEB-9C62-064312DD73BB} = {0B7E9BDA-EB68-47BF-B2B4-C1F9A7E7A4B6}
+		{EB8EABAC-798C-4E80-9DDC-5579FFA64862} = {0B7E9BDA-EB68-47BF-B2B4-C1F9A7E7A4B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7CCEAABE-45B4-414D-A0A5-108B4DDEC89E}

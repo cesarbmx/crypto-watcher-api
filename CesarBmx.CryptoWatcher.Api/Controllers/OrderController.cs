@@ -47,7 +47,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerResponse(200, Type = typeof(Order))]
         [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerOperation(Tags = new[] { "Orders" }, OperationId = "Orders_GetOrder")]
-        public async Task<IActionResult> GetOrder(Guid orderId)
+        public async Task<IActionResult> GetOrder(int orderId)
         {
             // Reponse
             var response = await _orderService.GetOrder(orderId);

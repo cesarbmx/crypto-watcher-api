@@ -11,7 +11,7 @@ using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-
+using AutoMapper.QueryableExtensions;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -44,13 +44,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             using var span = _activitySource.StartActivity(nameof(GetCurrencies));
 
             // Get all currencies
-            var currencies = await _mainDbContext.Currencies.ToListAsync();
-
-            // Response
-            var response = _mapper.Map<List<Responses.Currency>>(currencies);
+            var currencies = await _mainDbContext.Currencies
+                .ProjectTo<Responses.Currency>(_mapper.ConfigurationProvider)
+                .ToListAsync();
 
             // Return
-            return response;
+            return currencies;
         }
         public async Task<Responses.Currency> GetCurrency(string currencyId)
         {

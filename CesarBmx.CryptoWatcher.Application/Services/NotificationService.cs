@@ -82,14 +82,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             return response;
         }
 
-        public async Task<List<Notification>> AddNotifications(List<Order> orders)
+        public async Task<List<Notification>> CreateNotifications(List<Order> orders)
         {
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
             // Start span
-            using var span = _activitySource.StartActivity(nameof(AddNotifications));
+            using var span = _activitySource.StartActivity(nameof(CreateNotifications));
 
             // Now
             var now = DateTime.UtcNow.StripSeconds();
@@ -136,7 +136,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "NotificationsAdded", Guid.NewGuid(), notifications.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "NotificationsCreated", Guid.NewGuid(), notifications.Count, stopwatch.Elapsed.TotalSeconds);
 
             // Return
             return notifications;

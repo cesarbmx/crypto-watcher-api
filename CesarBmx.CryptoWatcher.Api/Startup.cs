@@ -69,6 +69,9 @@ namespace CesarBmx.CryptoWatcher.Api
 
             // Open telemetry
             services.ConfigureOpenTelemetry(Configuration);
+
+            // Masstransit
+            services.ConfigureMasstransit(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,6 +106,9 @@ namespace CesarBmx.CryptoWatcher.Api
 
             // Open telemetry
             app.ConfigureOpenTelemetry();
+
+            // Masstransit
+            app.ConfigureMasstransit();
         }
     }
 }

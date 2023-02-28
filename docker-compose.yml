@@ -156,6 +156,14 @@ services:
         depends_on: 
           - prometheus
 
+    rabbitmq:
+        container_name: "rabbitmq"
+        image: rabbitmq:management
+        hostname: "rabbitmq"
+        ports:
+          - '5672:5672'
+          - '15672:15672'
+
 networks:
   elastic:
     driver: bridge

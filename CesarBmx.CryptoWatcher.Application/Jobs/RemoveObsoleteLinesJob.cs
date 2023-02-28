@@ -32,7 +32,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
                 using var span = _activitySource.StartActivity(nameof(RemoveObsoleteLinesJob));
 
                 // Remove obsolete lines
-                await _lineService.RemoveObsoleteLines();
+                await _lineService.DeleteObsoleteLines();
             }
             catch (Exception ex)
             {
