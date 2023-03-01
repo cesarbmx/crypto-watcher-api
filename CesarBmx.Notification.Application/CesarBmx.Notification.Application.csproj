@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <RuntimeIdentifiers>win-x64;win-x86;linux-x64;</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Services\IndicatorDependencyService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CoinpaprikaAPI" Version="1.3.21103" />
+    <PackageReference Include="Telegram.Bot" Version="18.0.0" />
+    <PackageReference Include="Twilio" Version="5.79.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\CesarBmx.Shared.Application\CesarBmx.Shared.Application.csproj" />
+    <ProjectReference Include="..\CesarBmx.Notification.Domain\CesarBmx.Notification.Domain.csproj" />
+    <ProjectReference Include="..\CesarBmx.Notification.Persistence\CesarBmx.Notification.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CesarBmx.Shared.Authentication">
+      <HintPath>..\..\Shared\CesarBmx.Shared.Authentication\bin\Debug\netstandard2.0\CesarBmx.Shared.Authentication.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Mappers\TemplateMapping.tt">
+      <LastGenOutput>TemplateMapping.txt</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Mappers\TemplateMapping.txt">
+      <DependentUpon>TemplateMapping.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </None>
+    <None Update="Messages\TemplateMessage.tt">
+      <LastGenOutput>TemplateMessage.txt</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Messages\TemplateMessage.txt">
+      <DependentUpon>TemplateMessage.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </None>
+    <None Update="Responses\TemplateMessage.tt">
+      <LastGenOutput>TemplateMessage.txt</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Responses\TemplateMessage.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TemplateMessage.tt</DependentUpon>
+    </None>
+    <None Update="Services\TemplateExpression.tt">
+      <LastGenOutput>TemplateExpression.txt</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Services\TemplateExpression.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TemplateExpression.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+</Project>

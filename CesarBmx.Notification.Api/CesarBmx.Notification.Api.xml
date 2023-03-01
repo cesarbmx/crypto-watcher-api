@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CesarBmx.Notification.Api</name>
+    </assembly>
+    <members>
+        <member name="M:CesarBmx.Notification.Api.Controllers.ChartsController.GetCharts(CesarBmx.Notification.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            Get charts
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.CurrencyController.GetCurrencies">
+            <summary>
+            Get currencies
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.CurrencyController.GetCurrency(System.String)">
+            <summary>
+            Get currency
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.IndicatorController.GetUserIndicators(System.String)">
+            <summary>
+            Get user indicators
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.IndicatorController.GetIndicator(System.String)">
+            <summary>
+            Get indicator
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.IndicatorController.AddIndicator(CesarBmx.Notification.Application.Requests.AddIndicator)">
+            <summary>
+            Add indicator
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.IndicatorController.UpdateIndicator(System.String,CesarBmx.Notification.Application.Requests.UpdateIndicator)">
+            <summary>
+            Update indicator
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.LineController.GetLines(CesarBmx.Notification.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            Get lines
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.NotificationController.GetUserNotifications(System.String)">
+            <summary>
+            Get user notifications
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.NotificationController.GetNotification(System.Guid)">
+            <summary>
+            Get notification
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.OrderController.GetUserOrders(System.String)">
+            <summary>
+            Get user orders
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.OrderController.GetOrder(System.Guid)">
+            <summary>
+            Get order
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.ScriptVariablesController.GetScriptVariables(CesarBmx.Notification.Domain.Types.Period,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            Get script variables
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.UsersController.GetUsers">
+            <summary>
+            Get users
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.UsersController.GetUser(System.String)">
+            <summary>
+            Get user
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.UsersController.AddUser(CesarBmx.Notification.Application.Requests.AddUser)">
+            <summary>
+            Add user
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.WatcherController.GetUserWatchers(System.String,System.String,System.String)">
+            <summary>
+            Get user watchers
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.WatcherController.GetWatcher(System.Int32)">
+            <summary>
+            Get watcher
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.WatcherController.AddWatcher(CesarBmx.Notification.Application.Requests.AddWatcher)">
+            <summary>
+            Add watcher
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.WatcherController.SetWatcher(System.Int32,CesarBmx.Notification.Application.Requests.SetWatcher)">
+            <summary>
+            Set watcher
+            </summary>
+        </member>
+        <member name="M:CesarBmx.Notification.Api.Controllers.WatcherController.EnableWatcher(System.Int32,CesarBmx.Notification.Application.Requests.EnableWatcher)">
+            <summary>
+            Enable/Disable watcher
+            </summary>
+        </member>
+    </members>
+</doc>

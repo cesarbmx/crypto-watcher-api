@@ -100,12 +100,12 @@ services:
           - ACCEPT_EULA=y
           - SA_PASSWORD=A&VeryComplex123Password
 
-    cesarbmx.cryptowatcher.api:
+    CesarBmx.Notification.Api:
         container_name: crypto-watcher-api
         image: ${DOCKER_REGISTRY-}cesarbmx/crypto-watcher-api
         build:
           context: .
-          dockerfile: CesarBmx.CryptoWatcher.Api/Dockerfile
+          dockerfile: CesarBmx.Notification.Api/Dockerfile
         networks:
             - elastic
         ports:
@@ -113,7 +113,7 @@ services:
             - "65011:443"
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
-            - JAEGER_SERVICE_NAME=CryptoWatcherApi
+            - JAEGER_SERVICE_NAME=NotificationApi
             - JAEGER_AGENT_HOST=jaeger-agent
             - JAEGER_AGENT_PORT=6831
             - JAEGER_SAMPLER_TYPE=const
@@ -136,7 +136,7 @@ services:
         networks:
           - elastic
         depends_on: 
-          - cesarbmx.cryptowatcher.api
+          - CesarBmx.Notification.Api
 
     grafana:
         container_name: grafana

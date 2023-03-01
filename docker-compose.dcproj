@@ -6,7 +6,7 @@
     <ProjectGuid>56e79719-3b1f-4c4d-9d2e-36e0e9ee740d</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>cesarbmx.cryptowatcher.api</DockerServiceName>
+    <DockerServiceName>CesarBmx.Notification.Api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="prometheus.yml" />
