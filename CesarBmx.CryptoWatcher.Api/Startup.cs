@@ -1,5 +1,6 @@
 ﻿using CesarBmx.CryptoWatcher.Api.Configuration;
 using CesarBmx.Shared.Api.Configuration;
+using CesarBmx.Shared.Application.Settings;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -77,8 +78,11 @@ namespace CesarBmx.CryptoWatcher.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
+            // Grab settings
+            var appSettings = Configuration.GetSection<AppSettings>();
+
             // This for the reverse proxy
-            app.UsePathBase("/crypto-watcher");
+            app.UsePathBase("/" + appSettings.PathBase);
 
             // CORS
             app.ConfigureCors();
