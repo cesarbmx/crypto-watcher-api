@@ -19,13 +19,13 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             if (appSettings.UseMemoryStorage)
             {
                 services.AddDbContext<MainDbContext, MainDbContext>(options => options
-                     .UseInMemoryDatabase("CryptoWatcher")
+                     .UseInMemoryDatabase(appSettings.DatabaseName)
                      .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
             else
             {
                 services.AddDbContext<MainDbContext, MainDbContext>(options => options
-                    .UseSqlServer(configuration.GetConnectionString("CryptoWatcher"))
+                    .UseSqlServer(configuration.GetConnectionString(appSettings.DatabaseName))
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
 
@@ -50,7 +50,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             services.AddScoped<CoinpaprikaAPI.Client, CoinpaprikaAPI.Client>();
 
             // Open telemetry
-            services.AddSingleton(x=> new ActivitySource("CryptoWatcherApi"));
+            services.AddSingleton(x=> new ActivitySource(appSettings.ApplicationId));
 
             // Return
             return services;

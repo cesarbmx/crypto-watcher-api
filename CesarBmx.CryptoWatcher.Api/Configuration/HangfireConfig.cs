@@ -3,7 +3,7 @@ using CesarBmx.CryptoWatcher.Application.Jobs;
 using Hangfire;
 using Hangfire.MemoryStorage;
 using Hangfire.SqlServer;
-using CesarBmx.Shared.Application.Settings;
+using CesarBmx.CryptoWatcher.Application.Settings;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
@@ -13,11 +13,9 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
         {
             services.ConfigureSharedHangfire();
 
-            // Grab AppSettings
-            var appSettings = configuration.GetSection<Application.Settings.AppSettings>();
-
-            // Grab EnvironmentSettings
-            var environmentSettings = configuration.GetSection<EnvironmentSettings>();
+            // Grab settings
+            var appSettings = configuration.GetSection<AppSettings>();
+            var environmentSettings = configuration.GetSection<Shared.Application.Settings.EnvironmentSettings>();
 
             if (appSettings.UseMemoryStorage)
             {
@@ -25,13 +23,12 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             }
             else
             {
-                services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("CryptoWatcher"), new SqlServerStorageOptions
+                services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString(appSettings.DatabaseName), new SqlServerStorageOptions
                 {
                     PrepareSchemaIfNecessary = environmentSettings.Name == "Development",
                     SchemaName = "Hangfire"
                 }));
             }
-
 
             // Return
             return services;
@@ -39,7 +36,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
         public static IApplicationBuilder ConfigureHangfire(this IApplicationBuilder app, IConfiguration configuration)
         {
             // Grab EnvironmentSettings
-            var environmentSettings = configuration.GetSection<EnvironmentSettings>();
+            var environmentSettings = configuration.GetSection<Shared.Application.Settings.EnvironmentSettings>();
 
             // Enable basic auth only for Staging/Production
             app.ConfigureSharedHangfire(environmentSettings.Name == "Staging" || environmentSettings.Name == "Production");

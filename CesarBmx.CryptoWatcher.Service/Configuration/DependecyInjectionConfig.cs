@@ -4,6 +4,7 @@ using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CesarBmx.CryptoWatcher.Application.Settings;
 
 namespace CesarBmx.CryptoWatcher.Service.Configuration
 {
@@ -11,11 +12,14 @@ namespace CesarBmx.CryptoWatcher.Service.Configuration
     {
         public static IServiceCollection ConfigureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
+            // Grab settings
+            var appSettings = configuration.GetSection<AppSettings>();
+
             //Contexts
             if (bool.Parse(configuration["AppSettings:UseMemoryStorage"]))
             {
                 services.AddDbContext<DbContext, MainDbContext>(options => options
-                     .UseInMemoryDatabase("CryptoWatcher")
+                     .UseInMemoryDatabase(appSettings.da)
                      .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
             else
