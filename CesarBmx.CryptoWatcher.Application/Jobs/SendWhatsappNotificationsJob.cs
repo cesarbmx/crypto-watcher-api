@@ -29,7 +29,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
             try
             {
                 // Start span
-                using var span = _activitySource.StartActivity(nameof(RemoveObsoleteLinesJob));
+                using var span = _activitySource.StartActivity(nameof(SendWhatsappNotificationsJob));
 
                 // Send whatsapp notifications
                 await _notificationService.SendWhatsappNotifications();
