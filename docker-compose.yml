@@ -127,7 +127,7 @@ services:
         container_name: notification-api
         image: ${DOCKER_REGISTRY-}cesarbmx/notification-api
         build:
-          context: .
+          context: ../NotificationApi/
           dockerfile: ../NotificationApi/CesarBmx.Notification.Api/Dockerfile
         networks:
             - elastic
