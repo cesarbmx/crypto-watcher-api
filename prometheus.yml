@@ -8,10 +8,18 @@ scrape_configs:
     static_configs:
       - targets: ['prometheus:9090']
   
-  - job_name: crypto-watcher
+  - job_name: crypto-watcher-api
     metrics_path: /metrics
     scheme: https
     tls_config:
       insecure_skip_verify: true 
     static_configs:
       - targets: ['crypto-watcher-api:443']
+
+  - job_name: notification-api
+    metrics_path: /metrics
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true 
+    static_configs:
+      - targets: ['notification-api:443']

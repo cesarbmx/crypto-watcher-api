@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["CesarBmx.CryptoWatcher.Api2/CesarBmx.CryptoWatcher.Api.csproj", "CesarBmx.CryptoWatcher.Api/"]
+COPY ["CesarBmx.CryptoWatcher.Api/CesarBmx.CryptoWatcher.Api.csproj", "CesarBmx.CryptoWatcher.Api/"]
 RUN dotnet restore "CesarBmx.CryptoWatcher.Api/CesarBmx.CryptoWatcher.Api.csproj"
 COPY . .
 WORKDIR "/src/CesarBmx.CryptoWatcher.Api"
