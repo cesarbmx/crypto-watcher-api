@@ -14,8 +14,8 @@
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "publishAllPorts": true,
       "useSSL": true,
-      "httpPort": 65014,
-      "sslPort": 65015
+      "httpPort": 65012,
+      "sslPort": 65013
     }
   }
 }

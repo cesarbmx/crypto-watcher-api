@@ -128,7 +128,7 @@ services:
         image: ${DOCKER_REGISTRY-}cesarbmx/notification-api
         build:
           context: .
-          dockerfile: CesarBmx.Notification.Api/Dockerfile
+          dockerfile: ../NotificationApi/CesarBmx.Notification.Api/Dockerfile
         networks:
             - elastic
         ports:
@@ -160,6 +160,7 @@ services:
           - elastic
         depends_on: 
           - cesarbmx.cryptowatcher.api
+          - cesarbmx.notification.api
 
     grafana:
         container_name: grafana
