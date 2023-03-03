@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 
 namespace CesarBmx.CryptoWatcher.Application.Consumers
 {
-    public class OrderAddedConsumer : IConsumer<OrderAdded>
+    public class OrderFilledConsumer : IConsumer<OrderFilled>
     {
-        readonly ILogger<OrderAddedConsumer> _logger;
+        readonly ILogger<OrderFilledConsumer> _logger;
 
-        public OrderAddedConsumer(ILogger<OrderAddedConsumer> logger)
+        public OrderFilledConsumer(ILogger<OrderFilledConsumer> logger)
         {
             _logger = logger;
         }
 
-        public Task Consume(ConsumeContext<OrderAdded> context)
+        public Task Consume(ConsumeContext<OrderFilled> context)
         {
-            _logger.LogInformation("Order added");
+            _logger.LogInformation("Order filled");
 
             return Task.CompletedTask;
         }

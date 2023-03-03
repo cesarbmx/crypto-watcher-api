@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CesarBmx.Shared.Application.Responses;
+﻿using CesarBmx.Shared.Application.Responses;
 using CesarBmx.CryptoWatcher.Application.Responses;
 using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using MassTransit;
+using CesarBmx.Shared.Messaging.Notification.Commands;
+using CesarBmx.Shared.Messaging.CryptoWatcher.Events;
+using CesarBmx.Shared.Messaging.CryptoWatcher.Commands;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers
 {
@@ -16,10 +18,14 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     public class CurrencyController : Controller
     {
         private readonly CurrencyService _currencyService;
+        private readonly IBus _bus;
+        private readonly IRequestClient<CancelOrder> _requestClient;
 
-        public CurrencyController(CurrencyService currencyService)
+        public CurrencyController(CurrencyService currencyService, IBus bus, IRequestClient<CancelOrder> requestClient)
         {
             _currencyService = currencyService;
+            _bus = bus;
+            _requestClient = requestClient;
         }
 
         /// <summary>
@@ -33,6 +39,25 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         {
             // Reponse
             var response = await _currencyService.GetCurrencies();
+
+            ///////////// TEST /////////////
+
+            // Add orders
+            var addOrder1 = new AddOrder { OrderId = Guid.NewGuid() };
+            await _bus.Send(addOrder1);
+            var addOrder2 = new AddOrder { OrderId = Guid.NewGuid() };
+            await _bus.Send(addOrder2);
+
+            // Cancel order
+            var cancelOrder = new CancelOrder { OrderId = addOrder1.OrderId };
+            var result = await _requestClient.GetResponse<OrderCancelled>(cancelOrder);
+
+            var sendMessage = new SendMessage{ MessageId = Guid.NewGuid(), Text = "Hello!"};
+            await _bus.Send(sendMessage);
+
+            // Send message
+
+            ////////////////////////////////
 
             // Return
             return Ok(response);
