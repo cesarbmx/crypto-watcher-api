@@ -1,6 +1,8 @@
 ﻿using CesarBmx.Shared.Messaging.CryptoWatcher.Events;
+using CesarBmx.Shared.Messaging.Notification.Commands;
 using MassTransit;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace CesarBmx.CryptoWatcher.Application.Consumers
@@ -14,11 +16,12 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
             _logger = logger;
         }
 
-        public Task Consume(ConsumeContext<OrderAdded> context)
+        public async Task Consume(ConsumeContext<OrderAdded> context)
         {
             _logger.LogInformation("Order added");
 
-            return Task.CompletedTask;
+            var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), Text = "Order added" };
+            await context.Publish(sendMessage);
         }
     }
 
