@@ -21,7 +21,7 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
             _logger.LogInformation("Order cancelled");
 
             var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), Text = "Order cancelled" };
-            await context.Publish(sendMessage);
+            await context.Send(sendMessage);
         }
     }
 

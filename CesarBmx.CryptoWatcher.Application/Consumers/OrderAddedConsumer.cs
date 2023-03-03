@@ -21,7 +21,7 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
             _logger.LogInformation("Order added");
 
             var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), Text = "Order added" };
-            await context.Publish(sendMessage);
+            await context.Send(sendMessage);
         }
     }
 
