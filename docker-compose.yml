@@ -128,7 +128,7 @@ services:
         image: ${DOCKER_REGISTRY-}cesarbmx/ordering-api
         build:
           context: ../OrderingApi/
-          dockerfile: ../NotificationApi/CesarBmx.Ordering.Api/Dockerfile
+          dockerfile: ../OrderingApi/CesarBmx.Ordering.Api/Dockerfile
         networks:
             - elastic
         ports:
@@ -155,8 +155,8 @@ services:
         networks:
             - elastic
         ports:
-            - "65014:80"
-            - "65015:443"
+            - "65016:80"
+            - "65017:443"
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - JAEGER_SERVICE_NAME=NotificationApi
