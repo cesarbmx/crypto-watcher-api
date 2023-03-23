@@ -1,4 +1,4 @@
-﻿using CesarBmx.Shared.Messaging.CryptoWatcher.Events;
+﻿using CesarBmx.Shared.Messaging.Ordering.Events;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;

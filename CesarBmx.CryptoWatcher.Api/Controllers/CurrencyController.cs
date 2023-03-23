@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using MassTransit;
 using CesarBmx.Shared.Messaging.Notification.Commands;
-using CesarBmx.Shared.Messaging.CryptoWatcher.Events;
-using CesarBmx.Shared.Messaging.CryptoWatcher.Commands;
+using CesarBmx.Shared.Messaging.Ordering.Commands;
+using CesarBmx.Shared.Messaging.Ordering.Events;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers
 {
@@ -42,14 +42,14 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
 
             ///////////// TEST /////////////
 
-            // Add orders
-            var addOrder1 = new AddOrder { OrderId = Guid.NewGuid() };
-            await _bus.Send(addOrder1);
-            var addOrder2 = new AddOrder { OrderId = Guid.NewGuid() };
-            await _bus.Send(addOrder2);
+            // Place orders
+            var placeOrder1 = new PlaceOrder { OrderId = Guid.NewGuid() };
+            await _bus.Send(placeOrder1);
+            var placeOrder2 = new PlaceOrder { OrderId = Guid.NewGuid() };
+            await _bus.Send(placeOrder2);
 
             // Cancel order
-            var cancelOrder = new CancelOrder { OrderId = addOrder1.OrderId };
+            var cancelOrder = new CancelOrder { OrderId = placeOrder1.OrderId };
             var result = await _requestClient.GetResponse<OrderCancelled>(cancelOrder);
 
             var sendMessage = new SendMessage{ MessageId = Guid.NewGuid(), Text = "Hello!"};

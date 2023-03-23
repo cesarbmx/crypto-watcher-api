@@ -9,7 +9,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
         public static IServiceCollection ConfigureMasstransit(this IServiceCollection services, IConfiguration configuration)
         {
             // Shared
-            services.ConfigureSharedMasstransit<MainDbContext, OrderAddedConsumer>(configuration);
+            services.ConfigureSharedMasstransit<MainDbContext, OrderCancelledConsumer>(configuration);
 
             // Return
             return services;

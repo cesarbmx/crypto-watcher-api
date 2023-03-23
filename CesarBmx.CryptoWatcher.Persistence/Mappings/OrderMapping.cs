@@ -69,7 +69,10 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
                 .HasColumnType("datetime2")
                 .IsRequired();
 
-            entityBuilder.Property(t => t.ClosedAt)
+            entityBuilder.Property(t => t.PlacedAt)
+                .HasColumnType("datetime2");
+
+            entityBuilder.Property(t => t.FilledAt)
                 .HasColumnType("datetime2");
 
             entityBuilder.Property(t => t.NotifiedAt)

@@ -123,6 +123,29 @@ services:
           - jaeger-agent
           - sql
 
+    cesarbmx.ordering.api:
+        container_name: ordering-api
+        image: ${DOCKER_REGISTRY-}cesarbmx/ordering-api
+        build:
+          context: ../OrderingApi/
+          dockerfile: ../NotificationApi/CesarBmx.Ordering.Api/Dockerfile
+        networks:
+            - elastic
+        ports:
+            - "65014:80"
+            - "65015:443"
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - JAEGER_SERVICE_NAME=OrderingApi
+            - JAEGER_AGENT_HOST=jaeger-agent
+            - JAEGER_AGENT_PORT=6831
+            - JAEGER_SAMPLER_TYPE=const
+            - JAEGER_SAMPLER_PARAM=1
+            - JAEGER_SAMPLER_MANAGER_HOST_PORT=jaeger-agent:5778
+        depends_on: 
+          - jaeger-agent
+          - sql
+
     cesarbmx.notification.api:
         container_name: notification-api
         image: ${DOCKER_REGISTRY-}cesarbmx/notification-api
@@ -160,6 +183,7 @@ services:
           - elastic
         depends_on: 
           - cesarbmx.cryptowatcher.api
+          #- cesarbmx.ordering.api
           - cesarbmx.notification.api
 
     grafana:

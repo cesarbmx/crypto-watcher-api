@@ -100,7 +100,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             await _mainDbContext.SaveChangesAsync();
 
             // Event
-            var ordersAdded = _mapper.Map<List<OrderAdded>>(newOrders);
+            var ordersAdded = _mapper.Map<List<OrderTriggered>>(newOrders);
 
             // Publish event
             await _publishEndpoint.PublishBatch(ordersAdded);
