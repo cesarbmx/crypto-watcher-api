@@ -13,8 +13,8 @@ using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MassTransit;
-using CesarBmx.Shared.Messaging.CryptoWatcher.Events;
 using CesarBmx.CryptoWatcher.Domain.Types;
+using CesarBmx.Shared.Messaging.Ordering.Events;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -100,7 +100,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             await _mainDbContext.SaveChangesAsync();
 
             // Event
-            var ordersAdded = _mapper.Map<List<OrderTriggered>>(newOrders);
+            var ordersAdded = _mapper.Map<List<OrderPlaced>>(newOrders);
 
             // Publish event
             await _publishEndpoint.PublishBatch(ordersAdded);

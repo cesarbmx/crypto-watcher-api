@@ -43,9 +43,27 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
             ///////////// TEST /////////////
 
             // Place orders
-            var placeOrder1 = new PlaceOrder { OrderId = Guid.NewGuid() };
+            var placeOrder1 = new PlaceOrder 
+            {
+                OrderId = Guid.NewGuid(),
+                CurrencyId = "BTC",
+                OrderType = Shared.Messaging.Ordering.Types.OrderType.BUY,
+                Price = 30000,
+                Quantity = 1,
+                UserId = "master",
+                WatcherId = 1
+            
+            };
             await _bus.Send(placeOrder1);
-            var placeOrder2 = new PlaceOrder { OrderId = Guid.NewGuid() };
+            var placeOrder2 = new PlaceOrder {
+                OrderId = Guid.NewGuid(),
+                CurrencyId = "BTC",
+                OrderType = Shared.Messaging.Ordering.Types.OrderType.BUY,
+                Price = 40000,
+                Quantity = 2,
+                UserId = "master",
+                WatcherId = 1
+            };
             await _bus.Send(placeOrder2);
 
             // Cancel order
