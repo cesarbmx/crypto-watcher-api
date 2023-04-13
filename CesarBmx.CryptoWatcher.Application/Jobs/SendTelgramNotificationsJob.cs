@@ -10,12 +10,12 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
     public class SendTelgramNotificationsJob
     {
         private readonly NotificationService _notificationService;
-        private readonly ILogger<SendWhatsappNotificationsJob> _logger;
+        private readonly ILogger<SendTelgramNotificationsJob> _logger;
         private readonly ActivitySource _activitySource;
 
         public SendTelgramNotificationsJob(
             NotificationService notificationService,
-            ILogger<SendWhatsappNotificationsJob> logger,
+            ILogger<SendTelgramNotificationsJob> logger,
             ActivitySource activitySource)
         {
             _notificationService = notificationService;
@@ -29,7 +29,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
             try
             {
                 // Start span
-                using var span = _activitySource.StartActivity(nameof(RemoveObsoleteLinesJob));
+                using var span = _activitySource.StartActivity(nameof(SendTelgramNotificationsJob));
 
                 // Send telegram notifications
                 await _notificationService.SendTelegramNotifications();
