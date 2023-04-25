@@ -21,8 +21,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
             // Properties
             entityBuilder.Property(t => t.NotificationId)
                 .HasColumnType("int")
-                .IsRequired()
-                .ValueGeneratedOnAdd();
+                .IsRequired();
 
             entityBuilder.Property(t => t.UserId)
                 .HasColumnType("nvarchar(50)")

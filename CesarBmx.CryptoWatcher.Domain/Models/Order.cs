@@ -7,7 +7,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
 {
     public class   Order
     {
-        public int OrderId { get; private set; }
+        public Guid OrderId { get; private set; }
         public int WatcherId { get; private set; }
         public string UserId { get; private set; }
         public string CurrencyId { get; private set; }
@@ -31,7 +31,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             OrderType orderType,
             DateTime createdAt)
         {
-            OrderId = 0;
+            OrderId = Guid.NewGuid();
             WatcherId = watcherId;
             UserId = userId;
             CurrencyId = currencyId;

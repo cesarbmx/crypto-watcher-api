@@ -1,13 +1,13 @@
-﻿using CesarBmx.Shared.Messaging.Ordering.Commands;
+﻿using AutoMapper;
+using CesarBmx.CryptoWatcher.Application.Services;
+using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using CesarBmx.Shared.Messaging.Ordering.Events;
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
-using AutoMapper;
-using CesarBmx.CryptoWatcher.Persistence.Contexts;
-using CesarBmx.CryptoWatcher.Application.Services;
 
 namespace CesarBmx.CryptoWatcher.Application.Consumers
 {
@@ -45,16 +45,26 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 stopwatch.Start();
 
                 // Start span
-                using var span = _activitySource.StartActivity(nameof(SubmitOrder));
-                
+                using var span = _activitySource.StartActivity(nameof(OrderPlaced));
+
+                // Order
+                var order = await _mainDbContext.Orders.FirstOrDefaultAsync(x => x.OrderId == context.Message.OrderId);
+
+                // TODO: NotFound
+
+                // Mark as placed
+                order.MarkAsPlaced();
+
+                // Save
+                await _mainDbContext.SaveChangesAsync();
 
                 // Stop watch
                 stopwatch.Stop();
 
                 // Log
-                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(OrderPlaced), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);               
+                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(OrderPlaced), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Log
                 _logger.LogError(ex, ex.Message);

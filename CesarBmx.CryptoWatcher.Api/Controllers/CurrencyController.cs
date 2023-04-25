@@ -42,8 +42,8 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
 
             ///////////// TEST /////////////
 
-            // Place orders
-            var placeOrder1 = new SubmitOrder 
+            // Submit orders
+            var submitOrder1 = new SubmitOrder 
             {
                 OrderId = Guid.NewGuid(),
                 UserId = "master",
@@ -53,8 +53,9 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
                 Quantity = 1
             
             };
-            await _bus.Send(placeOrder1);
-            var placeOrder2 = new SubmitOrder {
+            await _bus.Send(submitOrder1);
+
+            var submitOrder2 = new SubmitOrder {
                 OrderId = Guid.NewGuid(),
                 UserId = "master",
                 CurrencyId = "BTC",
@@ -62,10 +63,10 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
                 Price = 40000,
                 Quantity = 2
             };
-            await _bus.Send(placeOrder2);
+            await _bus.Send(submitOrder2);
 
             // Cancel order
-            var cancelOrder = new CancelOrder { OrderId = placeOrder1.OrderId };
+            var cancelOrder = new CancelOrder { OrderId = submitOrder1.OrderId };
             var result = await _requestClient.GetResponse<OrderCancelled>(cancelOrder);
 
             var sendMessage = new SendMessage{ MessageId = Guid.NewGuid(), Text = "Hello!"};
