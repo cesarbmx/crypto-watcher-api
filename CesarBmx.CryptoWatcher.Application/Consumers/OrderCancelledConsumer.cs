@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
+using CesarBmx.Shared.Messaging.Notification.Commands;
 using CesarBmx.Shared.Messaging.Ordering.Events;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -47,8 +48,11 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 // Start span
                 using var span = _activitySource.StartActivity(nameof(OrderPlaced));
 
+                // Event
+                var @event = context.Message; 
+
                 // Order
-                var order = await _mainDbContext.Orders.FirstOrDefaultAsync(x => x.OrderId == context.Message.OrderId);
+                var order = await _mainDbContext.Orders.FirstOrDefaultAsync(x => x.OrderId == @event.OrderId);
 
                 // TODO: NotFound
 
@@ -57,6 +61,12 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
+
+                // Message
+                var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), UserId= @event.UserId, Text = "Order cancelled" };
+
+                // Send
+                await context.Send(sendMessage);
 
                 // Stop watch
                 stopwatch.Stop();
