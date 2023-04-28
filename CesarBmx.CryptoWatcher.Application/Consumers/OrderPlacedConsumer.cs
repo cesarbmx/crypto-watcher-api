@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using CesarBmx.CryptoWatcher.Application.Services;
+using CesarBmx.CryptoWatcher.Domain.Builders;
+using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using CesarBmx.Shared.Messaging.Ordering.Events;
 using MassTransit;
@@ -47,13 +49,14 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 // Start span
                 using var span = _activitySource.StartActivity(nameof(OrderPlaced));
 
-                // Order
-                var order = await _mainDbContext.Orders.FirstOrDefaultAsync(x => x.OrderId == context.Message.OrderId);
+                // Event
+                var orderPlaced = context.Message;
 
-                // TODO: NotFound
+                // New order
+                var order = _mapper.Map<Order>(orderPlaced);
 
-                // Mark as placed
-                order.MarkAsPlaced();
+                // Add
+                await _mainDbContext.Orders.AddAsync(order);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

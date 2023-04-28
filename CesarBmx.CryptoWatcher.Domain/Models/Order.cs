@@ -38,18 +38,11 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             Price = price;
             Quantity = quantity;
             OrderType = orderType;
-            OrderStatus = OrderStatus.PENDING;
+            OrderStatus = OrderStatus.PLACED;
             CreatedAt = createdAt;
             NotifiedAt = null;
         }
 
-        public Order MarkAsPlaced()
-        {
-            OrderStatus = OrderStatus.FILLED;
-            PlacedAt = DateTime.UtcNow.StripSeconds();
-
-            return this;
-        }
         public Order MarkAsFilled()
         {
             OrderStatus = OrderStatus.FILLED;

@@ -8,7 +8,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
     {
         public static Func<Order, bool> PendingToNotify()
         {
-            return x => x.OrderStatus != OrderStatus.PENDING && x.NotifiedAt == null ;
+            return x => x.OrderStatus != OrderStatus.PLACED && x.NotifiedAt == null ;
         }
     }
 }
