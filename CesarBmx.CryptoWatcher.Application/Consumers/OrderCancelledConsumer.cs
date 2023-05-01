@@ -18,23 +18,17 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
         private readonly IMapper _mapper;
         private readonly ILogger<OrderCancelledConsumer> _logger;
         private readonly ActivitySource _activitySource;
-        private readonly IPublishEndpoint _publishEndpoint;
-        private readonly OrderService _orderService;
 
         public OrderCancelledConsumer(
             MainDbContext mainDbContext,
             IMapper mapper,
             ILogger<OrderCancelledConsumer> logger,
-            ActivitySource activitySource,
-            IPublishEndpoint publishEndpoint,
-            OrderService orderService)
+            ActivitySource activitySource)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
             _logger = logger;
             _activitySource = activitySource;
-            _publishEndpoint = publishEndpoint;
-            _orderService = orderService;
         }
 
         public async Task Consume(ConsumeContext<OrderCancelled> context)
@@ -57,16 +51,16 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 // TODO: NotFound
 
                 // Mark as cancelled
-                order.MarkAsCancelled();
-
-                // Save
-                await _mainDbContext.SaveChangesAsync();
+                order.MarkAsCancelled();              
 
                 // Message
                 var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), UserId= @event.UserId, Text = "Order cancelled" };
 
                 // Send
                 await context.Send(sendMessage);
+
+                // Save
+                await _mainDbContext.SaveChangesAsync();
 
                 // Stop watch
                 stopwatch.Stop();
