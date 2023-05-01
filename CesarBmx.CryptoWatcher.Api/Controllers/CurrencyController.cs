@@ -33,7 +33,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/currencies")]
-        [SwaggerResponse(200, Type = typeof(List<Currency>))]  
+        [SwaggerResponse(200, Type = typeof(List<Currency>))]
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrencies")]
         public async Task<IActionResult> GetCurrencies()
         {
@@ -43,7 +43,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
             ///////////// TEST /////////////
 
             // Submit orders
-            var submitOrder1 = new SubmitOrder 
+            var submitOrder1 = new SubmitOrder
             {
                 OrderId = Guid.NewGuid(),
                 UserId = "master",
@@ -51,11 +51,12 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
                 OrderType = Shared.Messaging.Ordering.Types.OrderType.BUY,
                 Price = 30000,
                 Quantity = 1
-            
+
             };
             await _bus.Send(submitOrder1);
 
-            var submitOrder2 = new SubmitOrder {
+            var submitOrder2 = new SubmitOrder
+            {
                 OrderId = Guid.NewGuid(),
                 UserId = "master",
                 CurrencyId = "BTC",
@@ -69,7 +70,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
             var cancelOrder = new CancelOrder { OrderId = submitOrder1.OrderId };
             var result = await _requestClient.GetResponse<OrderCancelled>(cancelOrder);
 
-            var sendMessage = new SendMessage{ MessageId = Guid.NewGuid(), Text = "Hello!"};
+            var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), Text = "Hello!" };
             await _bus.Send(sendMessage);
 
             // Send message
@@ -95,7 +96,22 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
 
             // Return
             return Ok(response);
+
+        }
+        /// <summary>
+        /// Get currency
+        /// </summary>
+        [HttpGet]
+        [Route("api/currencies/{currencyId:guid}", Name = "Currencies_GetCurrencyByGuid")]
+        [SwaggerResponse(200, Type = typeof(Currency))]
+        [SwaggerResponse(404, Type = typeof(NotFound))]
+        [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrencyByGuid")]
+        public IActionResult GetCurrencyByGuid(Guid currencyId)
+        {
+            // Return
+            return Ok(currencyId);
         }
     }
+
 }
 

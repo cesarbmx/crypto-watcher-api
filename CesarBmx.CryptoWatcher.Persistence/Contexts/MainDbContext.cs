@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Persistence.Mappings;
+using CesarBmx.Shared.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace CesarBmx.CryptoWatcher.Persistence.Contexts
@@ -34,6 +35,8 @@ namespace CesarBmx.CryptoWatcher.Persistence.Contexts
             modelBuilder.Entity<IndicatorDependency>().Map();
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.UseMasstransit();
         }
     }
 }
