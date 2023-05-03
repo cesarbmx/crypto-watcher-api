@@ -15,7 +15,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public OrderType OrderType { get; private set; }
         public decimal Quantity { get; private set; }
         public OrderStatus OrderStatus { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        public DateTime SubmittedAt { get; private set; }
         public DateTime? PlacedAt { get; private set; }
         public DateTime? FilledAt { get; private set; }
         public DateTime? CancelledAt { get; private set; }
@@ -29,7 +29,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             decimal price,
             decimal quantity,
             OrderType orderType,
-            DateTime createdAt)
+            DateTime submittedAt)
         {
             OrderId = Guid.NewGuid();
             WatcherId = watcherId;
@@ -38,11 +38,18 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             Price = price;
             Quantity = quantity;
             OrderType = orderType;
-            OrderStatus = OrderStatus.PLACED;
-            CreatedAt = createdAt;
+            OrderStatus = OrderStatus.PENDING;
+            SubmittedAt = submittedAt;
             NotifiedAt = null;
         }
 
+        public Order MarkAsPlaced()
+        {
+            OrderStatus = OrderStatus.PLACED;
+            FilledAt = DateTime.UtcNow.StripSeconds();
+
+            return this;
+        }
         public Order MarkAsFilled()
         {
             OrderStatus = OrderStatus.FILLED;

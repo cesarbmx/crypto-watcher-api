@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MassTransit;
 using CesarBmx.CryptoWatcher.Domain.Types;
-using CesarBmx.Shared.Messaging.Ordering.Events;
+using CesarBmx.Shared.Messaging.Ordering.Commands;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -25,19 +25,22 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly ILogger<OrderService> _logger;
         private readonly ActivitySource _activitySource;
         private readonly IPublishEndpoint _publishEndpoint;
+        private readonly ISendEndpoint _sendEndpoint;
 
         public OrderService(
             MainDbContext mainDbContext,
             IMapper mapper,
             ILogger<OrderService> logger,
             ActivitySource activitySource,
-            IPublishEndpoint publishEndpoint)
+            IPublishEndpoint publishEndpoint,
+            ISendEndpoint sendEndpoint)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
             _logger = logger;
             _activitySource = activitySource;
             _publishEndpoint = publishEndpoint;
+            _sendEndpoint = sendEndpoint;
         }
 
         public async Task<List<Responses.Order>> GetUserOrders(string userId)
@@ -94,16 +97,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var newOrders = OrderBuilder.BuildNewOrders(watchers);
 
             // Add
-            _mainDbContext.Orders.AddRange(newOrders);
-
+            _mainDbContext.Orders.AddRange(newOrders);         
+          
             // Save
             await _mainDbContext.SaveChangesAsync();
-
-            // Event
-            var ordersAdded = _mapper.Map<List<OrderPlaced>>(newOrders);
-
-            // Publish event
-            await _publishEndpoint.PublishBatch(ordersAdded);
 
             // Stop watch
             stopwatch.Stop();
@@ -113,6 +110,33 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Return
             return newOrders;
+        }
+        public async Task<List<Order>> SubmitOrders(List<Order> orders)
+        {
+            // Start watch
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Start span
+            using var span = _activitySource.StartActivity(nameof(SubmitOrders));
+
+            // Commands
+            var submitOrders = _mapper.Map<List<SubmitOrder>>(orders);
+
+            // Send
+            await _sendEndpoint.SendBatch(submitOrders);            
+
+            // Save
+            await _mainDbContext.SaveChangesAsync();
+
+            // Stop watch
+            stopwatch.Stop();
+
+            // Log
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "OrdersSubmitted", Guid.NewGuid(), orders.Count, stopwatch.Elapsed.TotalSeconds);
+
+            // Return
+            return orders;
         }
         public async Task<List<Order>> ProcessOrders(List<Order> orders, List<Watcher> watchers)
         {

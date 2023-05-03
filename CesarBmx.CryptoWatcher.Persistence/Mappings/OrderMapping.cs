@@ -64,7 +64,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
                 .HasStringToEnumConversion()
                 .IsRequired();
 
-            entityBuilder.Property(t => t.CreatedAt)
+            entityBuilder.Property(t => t.SubmittedAt)
                 .HasColumnType("datetime2")
                 .IsRequired();
 

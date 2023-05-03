@@ -14,17 +14,17 @@ using System.Threading.Tasks;
 
 namespace CesarBmx.CryptoWatcher.Application.Consumers
 {
-    public class OrderPlacedConsumer : IConsumer<OrderPlaced>
+    public class OrderSubmittedConsumer : IConsumer<OrderSubmitted>
     {
         private readonly MainDbContext _mainDbContext;
         private readonly IMapper _mapper;
-        private readonly ILogger<OrderPlacedConsumer> _logger;
+        private readonly ILogger<OrderSubmittedConsumer> _logger;
         private readonly ActivitySource _activitySource;
 
-        public OrderPlacedConsumer(
+        public OrderSubmittedConsumer(
             MainDbContext mainDbContext,
             IMapper mapper,
-            ILogger<OrderPlacedConsumer> logger,
+            ILogger<OrderSubmittedConsumer> logger,
             ActivitySource activitySource)
         {
             _mainDbContext = mainDbContext;
@@ -33,7 +33,7 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
             _activitySource = activitySource;
         }
 
-        public async Task Consume(ConsumeContext<OrderPlaced> context)
+        public async Task Consume(ConsumeContext<OrderSubmitted> context)
         {
             try
             {
@@ -42,19 +42,19 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 stopwatch.Start();
 
                 // Start span
-                using var span = _activitySource.StartActivity(nameof(OrderPlaced));
+                using var span = _activitySource.StartActivity(nameof(OrderSubmitted));
 
                 // Event
-                var orderPlaced = context.Message;
+                var orderSubmitted = context.Message;
+
+                // New order
+                var order = _mapper.Map<Order>(orderSubmitted);
 
                 // Add
-                var order = await _mainDbContext.Orders.FirstOrDefaultAsync(x=>x.OrderId == orderPlaced.OrderId);
-
-                // Mark as placed
-                order.MarkAsPlaced();
+                await _mainDbContext.Orders.AddAsync(order);
 
                 // Message
-                var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), UserId = orderPlaced.UserId, Text = "Order cancelled" };
+                var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), UserId = orderSubmitted.UserId, Text = "Order submitted" };
 
                 // Send
                 await context.Send(sendMessage);
@@ -66,7 +66,7 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 stopwatch.Stop();
 
                 // Log
-                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(OrderPlaced), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
+                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(OrderSubmitted), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
             }
             catch (Exception ex)
             {

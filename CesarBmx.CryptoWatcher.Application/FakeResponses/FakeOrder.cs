@@ -12,15 +12,17 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
         {
             return new Order
             {
-                OrderId = 1,
+                OrderId = Guid.NewGuid(),
                 OrderType = OrderType.BUY,
                 UserId = "master",
                 CurrencyId = "BTC",
-                OrderStatus = OrderStatus.PLACED,
+                OrderStatus = OrderStatus.PENDING,
                 Price = 3200,
                 Quantity = 100,
-                CreatedAt = DateTime.UtcNow.StripSeconds(),
-                ClosedAt = null,
+                SubmittedAt = DateTime.UtcNow.StripSeconds(),
+                PlacedAt = null,
+                FilledAt = null,
+                CancelledAt = null,
                 NotifiedAt = null
             };
         }
@@ -28,15 +30,17 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
         {
             return new Order
             {
-                OrderId = 2,
+                OrderId = Guid.NewGuid(),
                 OrderType = OrderType.BUY,
                 UserId = "master",
                 CurrencyId = "EOS",
                 OrderStatus = OrderStatus.PLACED,
                 Price = 3.5m,
                 Quantity = 100,
-                CreatedAt = DateTime.UtcNow.StripSeconds(),
-                ClosedAt = null,
+                SubmittedAt = DateTime.UtcNow.AddHours(-1).StripSeconds(),
+                PlacedAt = DateTime.UtcNow.StripSeconds(),
+                FilledAt = null,
+                CancelledAt = null,
                 NotifiedAt = null
             };
         }

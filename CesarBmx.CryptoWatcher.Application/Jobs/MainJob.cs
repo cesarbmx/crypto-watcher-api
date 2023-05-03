@@ -58,7 +58,8 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
                 var defaultWatchers = await _watcherService.UpdateDefaultWatchers(lines);
                 var watchers = await _watcherService.UpdateWatchers(defaultWatchers);
                 var orders = await _orderService.AddOrders(watchers);
-                orders = await _orderService.ProcessOrders(orders, watchers);
+                await _orderService.SubmitOrders(orders);
+                //orders = await _orderService.ProcessOrders(orders, watchers);
                 var notifications = await _notificationService.CreateNotifications(orders);
                 await _notificationService.SendTelegramNotifications(notifications);
                 await _lineService.DeleteObsoleteLines();

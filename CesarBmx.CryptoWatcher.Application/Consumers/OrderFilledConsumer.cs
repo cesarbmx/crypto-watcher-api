@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using CesarBmx.CryptoWatcher.Application.Services;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
+using CesarBmx.Shared.Messaging.Notification.Commands;
 using CesarBmx.Shared.Messaging.Ordering.Events;
 using MassTransit;
+using MassTransit.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -41,13 +43,20 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 // Start span
                 using var span = _activitySource.StartActivity(nameof(OrderFilled));
 
-                // Order
-                var order = await _mainDbContext.Orders.FirstOrDefaultAsync(x => x.OrderId == context.Message.OrderId);
+                // Event
+                var orderFilled = context.Message;
 
-                // TODO: NotFound
+                // Order
+                var order = await _mainDbContext.Orders.FirstOrDefaultAsync(x => x.OrderId == orderFilled.OrderId);
 
                 // Mark as filled
                 order.MarkAsFilled();
+
+                // Message
+                var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), UserId = orderFilled.UserId, Text = "Order filled" };
+
+                // Send
+                await context.Send(sendMessage);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

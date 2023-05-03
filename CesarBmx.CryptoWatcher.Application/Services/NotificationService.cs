@@ -18,6 +18,8 @@ using Telegram.Bot;
 using Twilio;
 using Twilio.Types;
 using Twilio.Rest.Api.V2010.Account;
+using CesarBmx.Shared.Messaging.Notification.Commands;
+using MassTransit;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -28,19 +30,22 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly AppSettings _appSettings;
         private readonly ILogger<NotificationService> _logger;
         private readonly ActivitySource _activitySource;
+        private readonly ISendEndpoint _sendEndpoint;
 
         public NotificationService(
             MainDbContext mainDbContext,
             IMapper mapper,
             AppSettings appSettings,
             ILogger<NotificationService> logger,
-            ActivitySource activitySource)
+            ActivitySource activitySource,
+            ISendEndpoint sendEndpoint)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
             _appSettings = appSettings;
             _logger = logger;
             _activitySource = activitySource;
+            _sendEndpoint = sendEndpoint;
         }
 
         public async Task<List<Responses.Notification>> GetUserNotifications(string userId)
@@ -140,6 +145,30 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Return
             return notifications;
+        }
+        public async Task SendNotifications(List<Notification> notifications)
+        {
+            // Start watch
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Start span
+            using var span = _activitySource.StartActivity(nameof(SendNotifications));
+
+            // Commands
+            var sendMessages = _mapper.Map<List<SendMessage>>(notifications);
+
+            // Send
+            await _sendEndpoint.SendBatch(sendMessages);
+
+            // Save
+            await _mainDbContext.SaveChangesAsync();
+
+            // Stop watch
+            stopwatch.Stop();
+
+            // Log
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "NotificationsSent", Guid.NewGuid(), sendMessages.Count, stopwatch.Elapsed.TotalSeconds);
         }
         public async Task SendTelegramNotifications()
         {

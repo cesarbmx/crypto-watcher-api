@@ -43,18 +43,16 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 using var span = _activitySource.StartActivity(nameof(OrderPlaced));
 
                 // Event
-                var @event = context.Message; 
+                var orderCancelled = context.Message; 
 
                 // Order
-                var order = await _mainDbContext.Orders.FirstOrDefaultAsync(x => x.OrderId == @event.OrderId);
-
-                // TODO: NotFound
+                var order = await _mainDbContext.Orders.FirstOrDefaultAsync(x => x.OrderId == orderCancelled.OrderId);
 
                 // Mark as cancelled
                 order.MarkAsCancelled();              
 
                 // Message
-                var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), UserId= @event.UserId, Text = "Order cancelled" };
+                var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), UserId= orderCancelled.UserId, Text = "Order cancelled" };
 
                 // Send
                 await context.Send(sendMessage);
