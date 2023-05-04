@@ -334,4 +334,4 @@ ASALocalRun/
 *appsettings.Production.json
 
 # Ignore logs folder
-**/C/
+CesarBmx.CryptoWatcher.Api/C/
