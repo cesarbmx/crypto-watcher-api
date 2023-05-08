@@ -1,11 +1,7 @@
 ﻿using System;
-using CesarBmx.Shared.Common.Extensions;
 using MassTransit;
 using CesarBmx.Shared.Messaging.Ordering.Events;
 using CesarBmx.Shared.Messaging.Notification.Commands;
-using CesarBmx.Shared.Messaging.Notification.Events;
-using CesarBmx.Shared.Messaging.Ordering.Commands;
-using Twilio.Http;
 
 namespace CesarBmx.Ordering.Application.Sagas
 {
@@ -23,9 +19,9 @@ namespace CesarBmx.Ordering.Application.Sagas
         public DateTime? NotifiedAt { get; set; }
     }
 
-    public class OrderSagaStateMachine : MassTransitStateMachine<OrderState>
+    public class OrderSaga : MassTransitStateMachine<OrderState>
     {
-        public OrderSagaStateMachine()
+        public OrderSaga()
         {
             InstanceState(x => x.CurrentState, Pending, Placed, Filled, Cancelled, Expired);
 
@@ -82,7 +78,7 @@ namespace CesarBmx.Ordering.Application.Sagas
         public State Expired { get; private set; }
     }
 
-    public static class OrderStateMachineExtensions
+    public static class OrderSagaExtensions
     {
         public static EventActivityBinder<OrderState, OrderSubmitted> SetSubmissionDetails(
             this EventActivityBinder<OrderState, OrderSubmitted> binder)
