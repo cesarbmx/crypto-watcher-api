@@ -51,12 +51,6 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 // Mark as cancelled
                 order.MarkAsCancelled();              
 
-                // Message
-                var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), UserId= orderCancelled.UserId, Text = "Order cancelled" };
-
-                // Send
-                await context.Send(sendMessage);
-
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 

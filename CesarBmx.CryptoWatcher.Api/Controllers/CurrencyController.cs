@@ -5,9 +5,7 @@ using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using MassTransit;
-using CesarBmx.Shared.Messaging.Notification.Commands;
 using CesarBmx.Shared.Messaging.Ordering.Commands;
-using CesarBmx.Shared.Messaging.Ordering.Events;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers
 {
@@ -19,13 +17,11 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     {
         private readonly CurrencyService _currencyService;
         private readonly IBus _bus;
-        private readonly IRequestClient<CancelOrder> _requestClient;
 
-        public CurrencyController(CurrencyService currencyService, IBus bus, IRequestClient<CancelOrder> requestClient)
+        public CurrencyController(CurrencyService currencyService, IBus bus)
         {
             _currencyService = currencyService;
             _bus = bus;
-            _requestClient = requestClient;
         }
 
         /// <summary>
@@ -55,23 +51,23 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
             };
             await _bus.Send(submitOrder1);
 
-            var submitOrder2 = new SubmitOrder
-            {
-                OrderId = Guid.NewGuid(),
-                UserId = "master",
-                CurrencyId = "BTC",
-                OrderType = Shared.Messaging.Ordering.Types.OrderType.BUY,
-                Price = 40000,
-                Quantity = 2
-            };
-            await _bus.Send(submitOrder2);
+            //var submitOrder2 = new SubmitOrder
+            //{
+            //    OrderId = Guid.NewGuid(),
+            //    UserId = "master",
+            //    CurrencyId = "BTC",
+            //    OrderType = Shared.Messaging.Ordering.Types.OrderType.BUY,
+            //    Price = 40000,
+            //    Quantity = 2
+            //};
+            //await _bus.Send(submitOrder2);
 
             // Cancel order
-            var cancelOrder = new CancelOrder { OrderId = submitOrder1.OrderId };
-            var result = await _requestClient.GetResponse<OrderCancelled>(cancelOrder);
+            //var cancelOrder = new CancelOrder { OrderId = submitOrder1.OrderId };
+            //var result = await _requestClient.GetResponse<OrderCancelled>(cancelOrder);
 
-            var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), Text = "Hello!" };
-            await _bus.Send(sendMessage);
+            //var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), Text = "Hello!" };
+            //await _bus.Send(sendMessage);
 
             // Send message
 

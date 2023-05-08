@@ -20,6 +20,7 @@ using Twilio.Types;
 using Twilio.Rest.Api.V2010.Account;
 using CesarBmx.Shared.Messaging.Notification.Commands;
 using MassTransit;
+using MassTransit.Transports;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -30,7 +31,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly AppSettings _appSettings;
         private readonly ILogger<NotificationService> _logger;
         private readonly ActivitySource _activitySource;
-        private readonly ISendEndpoint _sendEndpoint;
+        private readonly IBus _bus;
 
         public NotificationService(
             MainDbContext mainDbContext,
@@ -38,14 +39,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             AppSettings appSettings,
             ILogger<NotificationService> logger,
             ActivitySource activitySource,
-            ISendEndpoint sendEndpoint)
+            IBus bus)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
             _appSettings = appSettings;
             _logger = logger;
             _activitySource = activitySource;
-            _sendEndpoint = sendEndpoint;
+            _bus = bus;
         }
 
         public async Task<List<Responses.Notification>> GetUserNotifications(string userId)
@@ -158,8 +159,11 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Commands
             var sendMessages = _mapper.Map<List<SendMessage>>(notifications);
 
-            // Send
-            await _sendEndpoint.SendBatch(sendMessages);
+            foreach(var sendMessage in sendMessages)
+            {
+                // Send
+                await _bus.Send(sendMessages);
+            }           
 
             // Save
             await _mainDbContext.SaveChangesAsync();

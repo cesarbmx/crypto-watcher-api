@@ -7,6 +7,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Types
         PENDING,
         PLACED,
         FILLED,
-        CANCELLED
+        CANCELLED,
+        EXPIRED
     }
 }

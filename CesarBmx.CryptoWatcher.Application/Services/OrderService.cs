@@ -25,7 +25,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly ILogger<OrderService> _logger;
         private readonly ActivitySource _activitySource;
         private readonly IPublishEndpoint _publishEndpoint;
-        private readonly ISendEndpoint _sendEndpoint;
+        private readonly IBus _bus;
 
         public OrderService(
             MainDbContext mainDbContext,
@@ -33,14 +33,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             ILogger<OrderService> logger,
             ActivitySource activitySource,
             IPublishEndpoint publishEndpoint,
-            ISendEndpoint sendEndpoint)
+            IBus bus)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
             _logger = logger;
             _activitySource = activitySource;
             _publishEndpoint = publishEndpoint;
-            _sendEndpoint = sendEndpoint;
+            _bus = bus;
         }
 
         public async Task<List<Responses.Order>> GetUserOrders(string userId)
@@ -123,8 +123,11 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Commands
             var submitOrders = _mapper.Map<List<SubmitOrder>>(orders);
 
-            // Send
-            await _sendEndpoint.SendBatch(submitOrders);            
+            foreach(var submitOrder in submitOrders)
+            {
+                // Send
+                await _bus.Send(submitOrders);
+            }                     
 
             // Save
             await _mainDbContext.SaveChangesAsync();

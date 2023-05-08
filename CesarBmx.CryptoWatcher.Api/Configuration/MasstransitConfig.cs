@@ -1,6 +1,7 @@
 ﻿using CesarBmx.Shared.Api.Configuration;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using CesarBmx.CryptoWatcher.Application.Consumers;
+using CesarBmx.Ordering.Application.Sagas;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
@@ -9,7 +10,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
         public static IServiceCollection ConfigureMasstransit(this IServiceCollection services, IConfiguration configuration)
         {
             // Shared
-            services.ConfigureSharedMasstransit<MainDbContext, OrderCancelledConsumer>(configuration);
+            services.ConfigureSharedMasstransit<MainDbContext>(configuration, typeof(OrderCancelledConsumer), typeof(OrderSagaStateMachine));
 
             // Return
             return services;

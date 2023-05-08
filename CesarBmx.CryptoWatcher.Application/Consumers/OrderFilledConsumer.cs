@@ -52,12 +52,6 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 // Mark as filled
                 order.MarkAsFilled();
 
-                // Message
-                var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), UserId = orderFilled.UserId, Text = "Order filled" };
-
-                // Send
-                await context.Send(sendMessage);
-
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 

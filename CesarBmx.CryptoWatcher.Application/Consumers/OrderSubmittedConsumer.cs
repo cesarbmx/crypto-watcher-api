@@ -53,12 +53,6 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 // Add
                 await _mainDbContext.Orders.AddAsync(order);
 
-                // Message
-                var sendMessage = new SendMessage { MessageId = Guid.NewGuid(), UserId = orderSubmitted.UserId, Text = "Order submitted" };
-
-                // Send
-                await context.Send(sendMessage);
-
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 

@@ -19,6 +19,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public DateTime? PlacedAt { get; private set; }
         public DateTime? FilledAt { get; private set; }
         public DateTime? CancelledAt { get; private set; }
+        public DateTime? ExpiredAt { get; private set; }
         public DateTime? NotifiedAt { get; private set; }
 
         public Order() { }
@@ -61,6 +62,13 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         {
             OrderStatus = OrderStatus.CANCELLED;
             CancelledAt = DateTime.UtcNow.StripSeconds();
+
+            return this;
+        }
+        public Order MarkAsExpired()
+        {
+            OrderStatus = OrderStatus.EXPIRED;
+            ExpiredAt = DateTime.UtcNow.StripSeconds();
 
             return this;
         }
