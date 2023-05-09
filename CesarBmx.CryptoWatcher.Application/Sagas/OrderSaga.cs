@@ -5,7 +5,7 @@ using CesarBmx.Shared.Messaging.Notification.Commands;
 
 namespace CesarBmx.Ordering.Application.Sagas
 {
-    public class OrderState : SagaStateMachineInstance
+    public class OrderSagaState : SagaStateMachineInstance
     {
         public Guid CorrelationId { get; set; }
         public int CurrentState { get; set; }
@@ -19,7 +19,7 @@ namespace CesarBmx.Ordering.Application.Sagas
         public DateTime? NotifiedAt { get; set; }
     }
 
-    public class OrderSaga : MassTransitStateMachine<OrderState>
+    public class OrderSaga : MassTransitStateMachine<OrderSagaState>
     {
         public OrderSaga()
         {
@@ -80,8 +80,8 @@ namespace CesarBmx.Ordering.Application.Sagas
 
     public static class OrderSagaExtensions
     {
-        public static EventActivityBinder<OrderState, OrderSubmitted> SetSubmissionDetails(
-            this EventActivityBinder<OrderState, OrderSubmitted> binder)
+        public static EventActivityBinder<OrderSagaState, OrderSubmitted> SetSubmissionDetails(
+            this EventActivityBinder<OrderSagaState, OrderSubmitted> binder)
         {
             return binder.Then(x =>
             {
@@ -89,32 +89,32 @@ namespace CesarBmx.Ordering.Application.Sagas
                 x.Saga.SubmittedAt = x.Message.SubmittedAt;
             });
         }
-        public static EventActivityBinder<OrderState, OrderPlaced> SetPlacingDetails(
-           this EventActivityBinder<OrderState, OrderPlaced> binder)
+        public static EventActivityBinder<OrderSagaState, OrderPlaced> SetPlacingDetails(
+           this EventActivityBinder<OrderSagaState, OrderPlaced> binder)
         {
             return binder.Then(x =>
             {
                 x.Saga.PlacedAt = x.Message.PlacedAt;
             });
         }
-        public static EventActivityBinder<OrderState, OrderFilled> SetFillingDetails(
-          this EventActivityBinder<OrderState, OrderFilled> binder)
+        public static EventActivityBinder<OrderSagaState, OrderFilled> SetFillingDetails(
+          this EventActivityBinder<OrderSagaState, OrderFilled> binder)
         {
             return binder.Then(x =>
             {
                 x.Saga.FilledAt = x.Message.FilledAt;
             });
         }
-        public static EventActivityBinder<OrderState, OrderCancelled> SetCancelationDetails(
-          this EventActivityBinder<OrderState, OrderCancelled> binder)
+        public static EventActivityBinder<OrderSagaState, OrderCancelled> SetCancelationDetails(
+          this EventActivityBinder<OrderSagaState, OrderCancelled> binder)
         {
             return binder.Then(x =>
             {
                 x.Saga.CancelledAt = x.Message.CancelledAt;
             });
         }
-        public static EventActivityBinder<OrderState, OrderExpired> SetExpirationDetails(
-          this EventActivityBinder<OrderState, OrderExpired> binder)
+        public static EventActivityBinder<OrderSagaState, OrderExpired> SetExpirationDetails(
+          this EventActivityBinder<OrderSagaState, OrderExpired> binder)
         {
             return binder.Then(x =>
             {
@@ -122,8 +122,8 @@ namespace CesarBmx.Ordering.Application.Sagas
             });
         }
 
-        public static EventActivityBinder<OrderState, OrderSubmitted> SendNotification(
-         this EventActivityBinder<OrderState, OrderSubmitted> binder)
+        public static EventActivityBinder<OrderSagaState, OrderSubmitted> SendNotification(
+         this EventActivityBinder<OrderSagaState, OrderSubmitted> binder)
         {
             var response = binder.RespondAsync(context => context.Init<SendMessage>(new SendMessage
             {
@@ -134,8 +134,8 @@ namespace CesarBmx.Ordering.Application.Sagas
 
             return response;
         }
-        public static EventActivityBinder<OrderState, OrderPlaced> SendNotification(
-          this EventActivityBinder<OrderState, OrderPlaced> binder)
+        public static EventActivityBinder<OrderSagaState, OrderPlaced> SendNotification(
+          this EventActivityBinder<OrderSagaState, OrderPlaced> binder)
         {
             var response = binder.RespondAsync(context => context.Init<SendMessage>(new SendMessage
             {
@@ -146,8 +146,8 @@ namespace CesarBmx.Ordering.Application.Sagas
 
             return response;
         }
-        public static EventActivityBinder<OrderState, OrderFilled> SendNotification(
-         this EventActivityBinder<OrderState, OrderFilled> binder)
+        public static EventActivityBinder<OrderSagaState, OrderFilled> SendNotification(
+         this EventActivityBinder<OrderSagaState, OrderFilled> binder)
         {
             return binder.RespondAsync(context => context.Init<SendMessage>(new SendMessage
             {
@@ -156,8 +156,8 @@ namespace CesarBmx.Ordering.Application.Sagas
                 Text = "Order filled"
             }));
         }
-        public static EventActivityBinder<OrderState, OrderCancelled> SendNotification(
-        this EventActivityBinder<OrderState, OrderCancelled> binder)
+        public static EventActivityBinder<OrderSagaState, OrderCancelled> SendNotification(
+        this EventActivityBinder<OrderSagaState, OrderCancelled> binder)
         {
             return binder.RespondAsync(context => context.Init<SendMessage>(new SendMessage
             {
@@ -166,8 +166,8 @@ namespace CesarBmx.Ordering.Application.Sagas
                 Text = "Order cancelled"
             }));
         }
-        public static EventActivityBinder<OrderState, OrderExpired> SendNotification(
-        this EventActivityBinder<OrderState, OrderExpired> binder)
+        public static EventActivityBinder<OrderSagaState, OrderExpired> SendNotification(
+        this EventActivityBinder<OrderSagaState, OrderExpired> binder)
         {
             return binder.RespondAsync(context => context.Init<SendMessage>(new SendMessage
             {
