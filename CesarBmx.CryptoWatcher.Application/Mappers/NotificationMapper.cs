@@ -1,6 +1,6 @@
 using AutoMapper;
 using CesarBmx.CryptoWatcher.Domain.Models;
-using CesarBmx.Shared.Messaging.Notification.Events;
+using CesarBmx.Shared.Messaging.Notification.Commands;
 
 namespace CesarBmx.CryptoWatcher.Application.Mappers
 {
@@ -11,8 +11,8 @@ namespace CesarBmx.CryptoWatcher.Application.Mappers
             // Model to Response
             CreateMap<Notification, Responses.Notification>();
 
-            // Model to Event
-            CreateMap<Notification, MessageSent>();
+            // Model to command
+            CreateMap<Notification, SendMessage>();
         }
     }
 }

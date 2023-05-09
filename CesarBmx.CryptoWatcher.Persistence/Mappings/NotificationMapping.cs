@@ -33,7 +33,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
             
-            entityBuilder.Property(t => t.Message)
+            entityBuilder.Property(t => t.Text)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(200)
                 .IsRequired();

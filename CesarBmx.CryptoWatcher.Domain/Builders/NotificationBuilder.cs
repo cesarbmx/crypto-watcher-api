@@ -1,7 +1,7 @@
 ﻿using System;
 using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.CryptoWatcher.Domain.Types;
-
+using CesarBmx.CryptoWatcher.Domain.Models;
 
 namespace CesarBmx.CryptoWatcher.Domain.Builders
 {

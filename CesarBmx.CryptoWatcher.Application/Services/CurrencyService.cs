@@ -12,6 +12,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using AutoMapper.QueryableExtensions;
+using CesarBmx.CryptoWatcher.Domain.Builders;
+using CesarBmx.CryptoWatcher.Domain.Types;
+using CesarBmx.Shared.Common.Extensions;
+using CesarBmx.Shared.Messaging.Ordering.Commands;
+using MassTransit;
+using CesarBmx.Shared.Messaging.Notification.Commands;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -22,6 +28,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly ILogger<CurrencyService> _logger;
         private readonly CoinpaprikaAPI.Client _coinpaprikaClient;
         private readonly ActivitySource _activitySource;
+        private readonly IBus _bus;
 
 
         public CurrencyService(
@@ -29,13 +36,15 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             IMapper mapper,
             ILogger<CurrencyService> logger,
             CoinpaprikaAPI.Client coinpaprikaClient,
-            ActivitySource activitySource)
+            ActivitySource activitySource,
+            IBus bus)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
             _logger = logger;
             _coinpaprikaClient = coinpaprikaClient;
             _activitySource = activitySource;
+            _bus = bus;
         }
 
         public async Task<List<Responses.Currency>> GetCurrencies()
@@ -50,6 +59,41 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Return
             return currencies;
+        }
+        public async Task AddOrder()
+        {
+            // Start span
+            using var span = _activitySource.StartActivity(nameof(AddOrder));
+
+            // Time
+            var now = DateTime.UtcNow.StripSeconds();
+
+            // New order
+            var order = new Order(1, "master", "BTC", 30000, 1, OrderType.BUY, now);
+
+            // Add order
+            await _mainDbContext.Orders.AddAsync(order);
+
+            // Command
+            var submitOrder = _mapper.Map<SubmitOrder>(order);
+
+            // Send
+            await _bus.Send(submitOrder);
+
+            // New notification
+            var notification = new Notification("master", "666555444", "Order submitted", now);
+
+            // Add notification
+            await _mainDbContext.Notifications.AddAsync(notification);
+
+            // Command
+            var sendNotification = _mapper.Map<SendMessage>(notification);
+
+            // Send
+            await _bus.Send(sendNotification);
+
+            // Save
+            await _mainDbContext.SaveChangesAsync();
         }
         public async Task<Responses.Currency> GetCurrency(string currencyId)
         {

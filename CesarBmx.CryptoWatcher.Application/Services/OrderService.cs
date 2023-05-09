@@ -90,7 +90,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Start span
             using var span = _activitySource.StartActivity(nameof(AddOrders));
 
-            // Grab watchers willing to buy or sellm
+            // Grab watchers willing to buy or sell
             watchers = watchers.Where(WatcherExpression.WatcherBuyingOrSelling()).ToList();
 
             // Build new orders

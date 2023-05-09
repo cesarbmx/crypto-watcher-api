@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using CesarBmx.CryptoWatcher.Application.Services;
+using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
+using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Messaging.Notification.Commands;
 using CesarBmx.Shared.Messaging.Ordering.Events;
 using MassTransit;
@@ -49,7 +51,22 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 var order = await _mainDbContext.Orders.FirstOrDefaultAsync(x => x.OrderId == orderCancelled.OrderId);
 
                 // Mark as cancelled
-                order.MarkAsCancelled();              
+                order.MarkAsCancelled();
+
+                // Time
+                var now = DateTime.UtcNow.StripSeconds();
+
+                // New notification
+                var notification = new Notification("master", "666555444", "Order cancelled", now);
+
+                // Add notification
+                await _mainDbContext.Notifications.AddAsync(notification);
+
+                // Command
+                var sendNotification = _mapper.Map<SendMessage>(notification);
+
+                // Send
+                await context.Send(sendNotification);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

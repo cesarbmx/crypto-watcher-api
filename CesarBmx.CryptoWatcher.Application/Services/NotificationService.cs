@@ -120,7 +120,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                     order.Price);
 
                 // Create notification
-                var notification = new Notification(user.UserId, user.PhoneNumber, message, now);
+                var notification = new Notification(user.UserId, "666 555 444", message, now);
 
                 // Add notification
                 notifications.Add(notification);
@@ -210,7 +210,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 try
                 {
                     // Send telegram
-                    await bot.SendTextMessageAsync("@crypto_watcher_official", notification.Message);
+                    await bot.SendTextMessageAsync("@crypto_watcher_official", notification.Text);
 
                     // Mark notification as sent
                     notification.MarkAsSent();
@@ -270,7 +270,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                         MessageResource.Create(
                             from: new PhoneNumber("whatsapp:" + pendingNotification.PhoneNumber),
                             to: new PhoneNumber("whatsapp:" + "+34666666666"),
-                            body: pendingNotification.Message
+                            body: pendingNotification.Text
                         );
                         pendingNotification.MarkAsSent();
                         count++;

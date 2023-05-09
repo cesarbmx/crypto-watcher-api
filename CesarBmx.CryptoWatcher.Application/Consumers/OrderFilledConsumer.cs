@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using CesarBmx.CryptoWatcher.Application.Services;
+using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
+using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Messaging.Notification.Commands;
 using CesarBmx.Shared.Messaging.Ordering.Events;
 using MassTransit;
@@ -51,6 +53,21 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
 
                 // Mark as filled
                 order.MarkAsFilled();
+
+                // Time
+                var now = DateTime.UtcNow.StripSeconds();
+
+                // New notification
+                var notification = new Notification("master", "666555444", "Order filled", now);
+
+                // Add notification
+                await _mainDbContext.Notifications.AddAsync(notification);
+
+                // Command
+                var sendNotification = _mapper.Map<SendMessage>(notification);
+
+                // Send
+                await context.Send(sendNotification);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();

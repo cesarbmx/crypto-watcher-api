@@ -61,7 +61,8 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
                 await _orderService.SubmitOrders(orders);
                 //orders = await _orderService.ProcessOrders(orders, watchers);
                 var notifications = await _notificationService.CreateNotifications(orders);
-                await _notificationService.SendTelegramNotifications(notifications);
+                await _notificationService.SendNotifications(notifications);
+                //await _notificationService.SendTelegramNotifications(notifications);
                 await _lineService.DeleteObsoleteLines();
 
                 // Stop watch
