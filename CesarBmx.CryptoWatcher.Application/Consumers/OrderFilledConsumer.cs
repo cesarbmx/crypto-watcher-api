@@ -66,9 +66,6 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
-                // Response
-                await context.RespondAsync(order);
-
                 // Stop watch
                 stopwatch.Stop();
 

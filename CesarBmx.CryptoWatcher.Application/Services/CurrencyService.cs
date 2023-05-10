@@ -95,12 +95,6 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Send
             await _bus.Send(submitOrder);
-
-            // Command
-            var sendNotification = _mapper.Map<SendMessage>(notification);
-
-            // Send
-            await _bus.Send(sendNotification);
         }
         public async Task<Responses.Currency> GetCurrency(string currencyId)
         {
