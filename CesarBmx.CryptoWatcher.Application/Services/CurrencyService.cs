@@ -18,6 +18,7 @@ using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Messaging.Ordering.Commands;
 using MassTransit;
 using CesarBmx.Shared.Messaging.Notification.Commands;
+using CesarBmx.Shared.Messaging.Ordering.Events;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -29,6 +30,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly CoinpaprikaAPI.Client _coinpaprikaClient;
         private readonly ActivitySource _activitySource;
         private readonly IBus _bus;
+        private readonly IRequestClient<CancelOrder> _requestClient;
 
 
         public CurrencyService(
@@ -37,7 +39,8 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             ILogger<CurrencyService> logger,
             CoinpaprikaAPI.Client coinpaprikaClient,
             ActivitySource activitySource,
-            IBus bus)
+            IBus bus,
+            IRequestClient<CancelOrder> requestClient)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
@@ -45,6 +48,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _coinpaprikaClient = coinpaprikaClient;
             _activitySource = activitySource;
             _bus = bus;
+            _requestClient = requestClient;
         }
 
         public async Task<List<Responses.Currency>> GetCurrencies()
@@ -95,6 +99,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Send
             await _bus.Send(submitOrder);
+
+            await Task.Delay(1000);
+
+            // Command
+            var cancelOrder = _mapper.Map<CancelOrder>(order);
+
+            // Send
+            var orderCancelled = await _requestClient.GetResponse<OrderCancelled>(cancelOrder);
         }
         public async Task<Responses.Currency> GetCurrency(string currencyId)
         {

@@ -14,6 +14,7 @@ namespace CesarBmx.CryptoWatcher.Application.Mappers
 
             // Model to Command
             CreateMap<Order, SubmitOrder>();
+            CreateMap<Order, CancelOrder>();
         }
     }
 }
