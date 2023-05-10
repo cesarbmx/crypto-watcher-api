@@ -62,6 +62,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         }
         public async Task AddOrder()
         {
+            // Start watch
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             // Start span
             using var span = _activitySource.StartActivity(nameof(AddOrder));
 
@@ -72,13 +76,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var order = new Order(1, "master", "BTC", 30000, 1, OrderType.BUY, now);
 
             // Add order
-            await _mainDbContext.Orders.AddAsync(order);
-
-            // Command
-            var submitOrder = _mapper.Map<SubmitOrder>(order);
-
-            // Send
-            await _bus.Send(submitOrder);
+            await _mainDbContext.Orders.AddAsync(order);            
 
             // New notification
             var notification = new Notification("master", "666555444", "Order submitted", now);
@@ -86,14 +84,23 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Add notification
             await _mainDbContext.Notifications.AddAsync(notification);
 
+            // Save
+            await _mainDbContext.SaveChangesAsync();
+
+            // Log
+            _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", "OrderAdded", Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
+
+            // Command
+            var submitOrder = _mapper.Map<SubmitOrder>(order);
+
+            // Send
+            await _bus.Send(submitOrder);
+
             // Command
             var sendNotification = _mapper.Map<SendMessage>(notification);
 
             // Send
             await _bus.Send(sendNotification);
-
-            // Save
-            await _mainDbContext.SaveChangesAsync();
         }
         public async Task<Responses.Currency> GetCurrency(string currencyId)
         {
