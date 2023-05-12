@@ -63,6 +63,12 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 // Add notification
                 await _mainDbContext.Notifications.AddAsync(notification);
 
+                // Command
+                var sendNotification = _mapper.Map<SendMessage>(notification);
+
+                // Send
+                await context.Send(sendNotification);
+
                 // Save
                 await _mainDbContext.SaveChangesAsync();
 
@@ -70,13 +76,7 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 stopwatch.Stop();
 
                 // Log
-                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(OrderPlaced), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
-
-                // Command
-                var sendNotification = _mapper.Map<SendMessage>(notification);
-
-                // Send
-                await context.Send(sendNotification);
+                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(OrderPlaced), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);               
             }
             catch (Exception ex)
             {

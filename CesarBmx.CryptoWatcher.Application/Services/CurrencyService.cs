@@ -86,13 +86,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var notification = new Notification("master", "666555444", "Order submitted", now);
 
             // Add notification
-            await _mainDbContext.Notifications.AddAsync(notification);
-
-            // Save
-            await _mainDbContext.SaveChangesAsync();
-
-            // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", "OrderAdded", Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
+            await _mainDbContext.Notifications.AddAsync(notification);          
 
             // Command
             var submitOrder = _mapper.Map<SubmitOrder>(order);
@@ -100,12 +94,21 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Send
             await _bus.Send(submitOrder);
 
+            // Save
+            await _mainDbContext.SaveChangesAsync();
+
+            // Stop watch
+            stopwatch.Stop();
+
+            // Log
+            _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", "OrderAdded", Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
+
             await Task.Delay(1000);
 
             // Command
             var cancelOrder = _mapper.Map<CancelOrder>(order);
 
-            // Send
+            // Request
             var orderCancelled = await _requestClient.GetResponse<OrderCancelled>(cancelOrder);
         }
         public async Task<Responses.Currency> GetCurrency(string currencyId)
