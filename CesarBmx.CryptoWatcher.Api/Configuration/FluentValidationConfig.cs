@@ -1,6 +1,5 @@
 ﻿using CesarBmx.CryptoWatcher.Application.Validators;
 using CesarBmx.Shared.Api.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
@@ -8,7 +7,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureFluentValidation(this IServiceCollection services)
         {
-            services.ConfigureFluentValidation(typeof(AddUserValidator));
+            services.ConfigureSharedFluentValidation(typeof(AddUserValidator));
 
             // Return
             return services;

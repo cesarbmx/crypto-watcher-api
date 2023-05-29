@@ -8,7 +8,7 @@ namespace CesarBmx.Ordering.Application.Sagas
     public class OrderSagaState : SagaStateMachineInstance
     {
         public Guid CorrelationId { get; set; }
-        public int CurrentState { get; set; }
+        public string CurrentState { get; set; }
 
         public Guid OrderId { get; set; }
         public DateTime? SubmittedAt { get; set; }
@@ -33,6 +33,18 @@ namespace CesarBmx.Ordering.Application.Sagas
 
             Initially(
                  When(OrderSubmitted)
+                    .SetSubmissionDetails()
+                    .SendNotification()
+                    .TransitionTo(Pending),
+                 When(OrderPlaced)
+                    .SetSubmissionDetails()
+                    .SetPlacingDetails()
+                    .TransitionTo(Pending),
+                 When(OrderFilled)
+                    .SetFillingDetails()
+                    .SendNotification()
+                    .TransitionTo(Pending),
+                 When(OrderCancelled)
                     .SetSubmissionDetails()
                     .SendNotification()
                     .TransitionTo(Pending));
