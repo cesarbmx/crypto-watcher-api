@@ -103,7 +103,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.Unique(request.UserId, request.CurrencyId, indicator.UserId, indicator.IndicatorId));
 
             // Watcher already exists
-            if (watcher != null) throw new ConflictException(new Conflict<AddWatcherConflict>(AddWatcherConflict.WATCHER_ALREADY_EXISTS, WatcherMessage.WatcherAlreadyExists));
+            if (watcher != null) throw new ConflictException(new AddWatcherConflict(AddWatcherConflictReason.WATCHER_ALREADY_EXISTS, WatcherMessage.WatcherAlreadyExists));
 
             // Get default watcher
             var defaultWatcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.DefaultWatcher(request.CurrencyId, request.IndicatorId));
@@ -150,16 +150,16 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Buy limit must be lower than watcher value
-            if (WatcherExpression.BuyLimitHigherThanWatcherValue(request.Buy).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflict>(SetWatcherConflict.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.BuyLimitMustBeLowerThanWatcherValue, watcher.Value)));
+            if (WatcherExpression.BuyLimitHigherThanWatcherValue(request.Buy).Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.BuyLimitMustBeLowerThanWatcherValue, watcher.Value)));
 
             // Sell limit must be higher than watcher value
-            if (WatcherExpression.SellLimitLowerThanWatcherValue(request.Sell).Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflict>(SetWatcherConflict.SELL_LIMIT_MUST_BE_HIGHER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.SellLimitMustBeHigherThanWatcherValue, watcher.Value)));
+            if (WatcherExpression.SellLimitLowerThanWatcherValue(request.Sell).Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.SELL_LIMIT_MUST_BE_HIGHER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.SellLimitMustBeHigherThanWatcherValue, watcher.Value)));
 
             // Watcher already bought
-            if (WatcherExpression.WatcherBought().Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflict>(SetWatcherConflict.WATCHER_ALREADY_BOUGHT, string.Format(WatcherMessage.WatcherAlreadyBought, watcher.EntryPrice)));
+            if (WatcherExpression.WatcherBought().Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.WATCHER_ALREADY_BOUGHT, string.Format(WatcherMessage.WatcherAlreadyBought, watcher.EntryPrice)));
 
             // Watcher already sold
-            if (WatcherExpression.WatcherSold().Invoke(watcher)) throw new ConflictException(new Conflict<SetWatcherConflict>(SetWatcherConflict.WATCHER_ALREADY_SOLD, string.Format(WatcherMessage.WatcherAlreadySold, watcher.ExitPrice)));
+            if (WatcherExpression.WatcherSold().Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.WATCHER_ALREADY_SOLD, string.Format(WatcherMessage.WatcherAlreadySold, watcher.ExitPrice)));
             
             // Set watcher
             watcher.Set(request.Buy, request.Sell, request.Quantity);
@@ -191,10 +191,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Watcher already enabled
-            if (watcher.Enabled == request.Enabled && request.Enabled) throw new ConflictException(new Conflict<EnableWatcherConflict>(EnableWatcherConflict.WATCHER_ALREADY_ENABLED, WatcherMessage.WatcherAlreadyEnabled));
+            if (watcher.Enabled == request.Enabled && request.Enabled) throw new ConflictException(new EnableWatcherConflict(EnableWatcherConflictReason.WATCHER_ALREADY_ENABLED, WatcherMessage.WatcherAlreadyEnabled));
 
             // Watcher already disabled
-            if (watcher.Enabled == request.Enabled && !request.Enabled) throw new ConflictException(new Conflict<EnableWatcherConflict>(EnableWatcherConflict.WATCHER_ALREADY_DISABLED, WatcherMessage.WatcherAlreadyDisabled));
+            if (watcher.Enabled == request.Enabled && !request.Enabled) throw new ConflictException(new EnableWatcherConflict(EnableWatcherConflictReason.WATCHER_ALREADY_DISABLED, WatcherMessage.WatcherAlreadyDisabled));
 
             // Update watcher
             watcher.Enable(request.Enabled);

@@ -75,7 +75,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var user = await _mainDbContext.Users.FindAsync(request.UserId);
 
             // Check if it exists
-            if (user != null) throw new ConflictException(new Conflict<AddUserConflict>(AddUserConflict.USER_ALREADY_EXISTS, UserMessage.UserAlreadyExists));
+            if (user != null) throw new ConflictException(new AddUserConflict(AddUserConflictReason.USER_ALREADY_EXISTS, UserMessage.UserAlreadyExists));
 
             // Time
             var now = DateTime.UtcNow.StripSeconds();

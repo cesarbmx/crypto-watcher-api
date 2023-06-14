@@ -6,9 +6,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
     public static class FakeAddWatcherConflict
     {
-        public static Conflict<AddWatcherConflict> GetFake()
+        public static AddWatcherConflict GetFake()
         {
-            return new Conflict<AddWatcherConflict>(AddWatcherConflict.WATCHER_ALREADY_EXISTS, WatcherMessage.WatcherAlreadyExists);
+            return new AddWatcherConflict(AddWatcherConflictReason.WATCHER_ALREADY_EXISTS, WatcherMessage.WatcherAlreadyExists);
         }
     }
 }

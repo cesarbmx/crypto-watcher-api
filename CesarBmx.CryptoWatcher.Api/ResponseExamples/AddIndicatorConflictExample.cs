@@ -5,9 +5,9 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CesarBmx.CryptoWatcher.Api.ResponseExamples
 {
-    public class AddIndicatorConflictExample: IExamplesProvider<Conflict<AddIndicatorConflict>>
+    public class AddIndicatorConflictExample: IExamplesProvider<AddIndicatorConflict>
     {
-        public Conflict<AddIndicatorConflict> GetExamples()
+        public AddIndicatorConflict GetExamples()
         {
             return FakeAddIndicatorConflict.GetFake();
         }

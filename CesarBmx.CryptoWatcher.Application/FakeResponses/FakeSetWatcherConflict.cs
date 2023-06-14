@@ -6,9 +6,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
     public static class FakeSetWatcherConflict
     {
-        public static Conflict<SetWatcherConflict> GetFake()
+        public static SetWatcherConflict GetFake()
         {
-            return new Conflict<SetWatcherConflict>(SetWatcherConflict.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE, WatcherMessage.BuyLimitMustBeLowerThanWatcherValue);
+            return new SetWatcherConflict(SetWatcherConflictReason.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE, WatcherMessage.BuyLimitMustBeLowerThanWatcherValue);
         }
     }
 }

@@ -65,7 +65,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerResponse(201, Type = typeof(Indicator))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
         [SwaggerResponse(404, Type = typeof(NotFound))]
-        [SwaggerResponse(409, Type = typeof(Conflict<AddIndicatorConflict>))]
+        [SwaggerResponse(409, Type = typeof(AddIndicatorConflict))]
         [SwaggerResponse(422, Type = typeof(Validation))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_AddIndicator")]
         public async Task<IActionResult> AddIndicator([FromBody]AddIndicator request)
