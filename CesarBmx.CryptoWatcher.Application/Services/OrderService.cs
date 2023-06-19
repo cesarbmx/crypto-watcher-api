@@ -81,14 +81,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             return response;
         }
 
-        public async Task<List<Order>> AddOrders(List<Watcher> watchers)
+        public async Task<List<Order>> CreateOrders(List<Watcher> watchers)
         {
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
             // Start span
-            using var span = _activitySource.StartActivity(nameof(AddOrders));
+            using var span = _activitySource.StartActivity(nameof(CreateOrders));
 
             // Grab watchers willing to buy or sell
             watchers = watchers.Where(WatcherExpression.WatcherBuyingOrSelling()).ToList();
