@@ -4,6 +4,7 @@ using CesarBmx.CryptoWatcher.Application.Settings;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using CesarBmx.Shared.Api.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
@@ -39,6 +40,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             services.AddScoped<LineService>();
             services.AddScoped<ChartService>();
             services.AddScoped<ScriptVariablesService>();
+            services.AddScoped<TestService>();
 
             // Jobs
             services.AddScoped<MainJob>();
@@ -49,8 +51,9 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             // API clients
             services.AddScoped<CoinpaprikaAPI.Client, CoinpaprikaAPI.Client>();
 
-            // Open telemetry
-            services.AddSingleton(x=> new ActivitySource(appSettings.ApplicationId));
+            // Shared
+            services.AddOpenTelemetry();
+            services.AddLogExecutionTime();
 
             // Return
             return services;
