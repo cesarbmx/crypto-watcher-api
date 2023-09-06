@@ -10,7 +10,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     [SwaggerResponse(500, Type = typeof(InternalServerError))]
     [SwaggerResponse(400, Type = typeof(BadRequest))]
     [SwaggerResponse(401, Type = typeof(Unauthorized))]
-    [SwaggerOrder(orderPrefix: "A")]
+    [SwaggerOrder(orderPrefix: "J")]
     public class TestController : Controller
     {
         private readonly TestService _testService;
