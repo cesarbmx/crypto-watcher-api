@@ -65,7 +65,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerResponse(201, Type = typeof(User))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
         [SwaggerResponse(409, Type = typeof(AddUserConflict))]
-        [SwaggerResponse(422, Type = typeof(Validation))]
+        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Users" }, OperationId = "Users_AddUser")]
         public async Task<IActionResult> AddUser([FromBody]AddUser request)
         {

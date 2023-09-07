@@ -66,7 +66,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerResponse(400, Type = typeof(BadRequest))]
         [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerResponse(409, Type = typeof(AddIndicatorConflict))]
-        [SwaggerResponse(422, Type = typeof(Validation))]
+        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_AddIndicator")]
         public async Task<IActionResult> AddIndicator([FromBody]AddIndicator request)
         {
@@ -84,7 +84,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [Route("api/indicators/{indicatorId}")]
         [SwaggerResponse(200, Type = typeof(Indicator))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
-        [SwaggerResponse(422, Type = typeof(Validation))]
+        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_UpdateIndicator")]
         public async Task<IActionResult> UpdateIndicator(string indicatorId, [FromBody]UpdateIndicator request)
         {

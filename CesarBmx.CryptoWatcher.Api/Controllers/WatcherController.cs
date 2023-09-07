@@ -66,7 +66,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerResponse(400, Type = typeof(BadRequest))]
         [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerResponse(409, Type = typeof(AddWatcherConflict))]
-        [SwaggerResponse(422, Type = typeof(Validation))]
+        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_AddWatcher")]
         public async Task<IActionResult> AddWatcher([FromBody]AddWatcher request)
         {
@@ -85,7 +85,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerResponse(200, Type = typeof(Watcher))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
         [SwaggerResponse(409, Type = typeof(SetWatcherConflict))]
-        [SwaggerResponse(422, Type = typeof(Validation))]
+        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_SetWatcher")]
         public async Task<IActionResult> SetWatcher(int watcherId, [FromBody] SetWatcher request)
         {
@@ -108,7 +108,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerResponse(200, Type = typeof(Watcher))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
         [SwaggerResponse(409, Type = typeof(EnableWatcherConflict))]
-        [SwaggerResponse(422, Type = typeof(Validation))]
+        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Watchers" }, OperationId = "Watchers_EnableWatcher")]
         public async Task<IActionResult> EnableWatcher(int watcherId, [FromBody] EnableWatcher request)
         {
