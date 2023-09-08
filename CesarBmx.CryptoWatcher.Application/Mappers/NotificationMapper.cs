@@ -12,7 +12,7 @@ namespace CesarBmx.CryptoWatcher.Application.Mappers
             CreateMap<Notification, Responses.Notification>();
 
             // Model to command
-            CreateMap<Notification, SendMessage>();
+            CreateMap<Notification, SendNotification>();
         }
     }
 }

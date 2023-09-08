@@ -64,7 +64,7 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 await _mainDbContext.Notifications.AddAsync(notification);
 
                 // Command
-                var sendNotification = _mapper.Map<SendMessage>(notification);
+                var sendNotification = _mapper.Map<SendNotification>(notification);
 
                 // Send
                 await context.Send(sendNotification);

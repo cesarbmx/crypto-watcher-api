@@ -157,7 +157,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             using var span = _activitySource.StartActivity(nameof(SendNotifications));
 
             // Commands
-            var sendMessages = _mapper.Map<List<SendMessage>>(notifications);
+            var sendMessages = _mapper.Map<List<SendNotification>>(notifications);
 
             foreach(var sendMessage in sendMessages)
             {
