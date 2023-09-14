@@ -6,6 +6,7 @@ using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Messaging.Notification.Commands;
 using CesarBmx.Shared.Messaging.Ordering.Events;
+using CesarBmx.Shared.Messaging.Ordering.Types;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -49,28 +50,23 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 var orderPlaced = context.Message;
 
                 // Add
-                var order = await _mainDbContext.Orders.FirstOrDefaultAsync(x=>x.OrderId == orderPlaced.OrderId);
+                var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(x=>x.EntryOrderId == orderPlaced.OrderId || x.ExitOrderId == orderPlaced.OrderId);
 
-                // Mark as placed
-                order.MarkAsPlaced();
+                if (watcher != null)
+                {
 
-                // Time
-                var now = DateTime.UtcNow.StripSeconds();
+                    if (orderPlaced.OrderType == OrderType.BUY)
+                    {
+                        watcher.SetAsBought();
+                    }
+                    else
+                    {
+                        watcher.SetAsSold();
+                    }
 
-                // New notification
-                var notification = new Notification("master", "666555444", "Order placed", now);
-
-                // Add notification
-                await _mainDbContext.Notifications.AddAsync(notification);
-
-                // Command
-                var sendNotification = _mapper.Map<SendNotification>(notification);
-
-                // Send
-                await context.Send(sendNotification);
-
-                // Save
-                await _mainDbContext.SaveChangesAsync();
+                    // Save
+                    await _mainDbContext.SaveChangesAsync();
+                }
 
                 // Stop watch
                 stopwatch.Stop();

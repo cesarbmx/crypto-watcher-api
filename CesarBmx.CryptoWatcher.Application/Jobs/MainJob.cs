@@ -14,8 +14,6 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
         private readonly IndicatorService _indicatorService;
         private readonly LineService _lineService;
         private readonly WatcherService _watcherService;
-        private readonly OrderService _orderService;
-        private readonly NotificationService _notificationService;
         private readonly ILogger<MainJob> _logger;
         private readonly ActivitySource _activitySource;
 
@@ -24,8 +22,6 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
             IndicatorService indicatorService,
             LineService lineService,
             WatcherService watcherService,
-            OrderService orderService,
-            NotificationService notificationService,
             ILogger<MainJob> logger,
             ActivitySource activitySource)
         {
@@ -33,8 +29,6 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
             _indicatorService = indicatorService;
             _lineService = lineService;
             _watcherService = watcherService;
-            _orderService = orderService;
-            _notificationService = notificationService;
             _logger = logger;
             _activitySource = activitySource;
         }
@@ -57,12 +51,7 @@ namespace CesarBmx.CryptoWatcher.Application.Jobs
                 var lines = await _lineService.CreateNewLines(currencies, indicators);
                 var defaultWatchers = await _watcherService.UpdateDefaultWatchers(lines);
                 var watchers = await _watcherService.UpdateWatchers(defaultWatchers);
-                var orders = await _orderService.CreateOrders(watchers);
-                await _orderService.SubmitOrders(orders);
-                //orders = await _orderService.ProcessOrders(orders, watchers);
-                var notifications = await _notificationService.CreateNotifications(orders);
-                await _notificationService.SendNotifications(notifications);
-                //await _notificationService.SendTelegramNotifications(notifications);
+                await _watcherService.PlaceOrders(watchers);
                 await _lineService.DeleteObsoleteLines();
 
                 // Stop watch

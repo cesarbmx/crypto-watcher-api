@@ -32,19 +32,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Expressions
 
             // Assert
             Assert.AreEqual(watchersBuyingAndSelling.Count, filter.Count);
-        }
-        [TestMethod]
-        public void Test_WatcherBuyingOrSelling()
-        {
-            // Arrange
-            var watchersBuyingAndSelling = FakeWatcher.GetWatchersBuyingAndSelling();
-            
-            // Act
-            var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherBuyingOrSelling()).ToList();
-
-            // Assert
-            Assert.AreEqual(watchersBuyingAndSelling.Count, filter.Count);
-        }
+        }       
         [TestMethod]
         public void Test_WatcherHolding()
         {

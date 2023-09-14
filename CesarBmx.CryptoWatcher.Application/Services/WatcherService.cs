@@ -17,6 +17,9 @@ using CesarBmx.Shared.Application.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using CesarBmx.CryptoWatcher.Domain.Models;
+using CesarBmx.Shared.Messaging.Ordering.Commands;
+using CesarBmx.Shared.Messaging.Ordering.Types;
+using MassTransit;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -26,17 +29,20 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly ILogger<WatcherService> _logger;
         private readonly IMapper _mapper;
         private readonly ActivitySource _activitySource;
+        private readonly IBus _bus;
 
         public WatcherService(
             MainDbContext mainDbContext,
             ILogger<WatcherService> logger,
             IMapper mapper,
-            ActivitySource activitySource)
+            ActivitySource activitySource,
+            IBus bus)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
             _mapper = mapper;
             _activitySource = activitySource;
+            _bus = bus;
         }
 
         public async Task<List<Responses.Watcher>> GetUserWatchers(string userId = null, string currencyId = null, string indicatorId = null)
@@ -282,6 +288,62 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Return
             return watchers;
+        }
+        public async Task PlaceOrders(List<Watcher> watchers)
+        {
+            // Start watch
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Start span
+            using var span = _activitySource.StartActivity(nameof(PlaceOrders));
+
+            // Grab watchers willing to buy
+            var watchersWlillingToBuy = watchers.Where(WatcherExpression.WatcherBuying()).ToList();
+
+            // For each watcher willing to buy
+            foreach (var watcherWlillingToBuy in watchersWlillingToBuy)
+            {
+                var placeOrder = new PlaceOrder
+                {
+                    OrderId = watcherWlillingToBuy.EntryOrderId.Value,
+                    OrderType = OrderType.BUY,
+                    UserId = watcherWlillingToBuy.UserId,
+                    CurrencyId = watcherWlillingToBuy.CurrencyId,
+                    Price = watcherWlillingToBuy.Price.Value,
+                    Quantity = watcherWlillingToBuy.Quantity.Value
+                };
+
+                // Send
+                await _bus.Send(placeOrder);
+            }
+
+            // Grab watchers willing to sell
+            var watchersWlillingToSell = watchers.Where(WatcherExpression.WatcherSelling()).ToList();
+
+            // For each watcher willing to buy
+            foreach (var watcherWlillingToSell in watchersWlillingToSell)
+            {
+                var placeOrder = new PlaceOrder
+                {
+                    OrderId = watcherWlillingToSell.ExitOrderId.Value,
+                    OrderType = OrderType.SELL,
+                    UserId = watcherWlillingToSell.UserId,
+                    CurrencyId = watcherWlillingToSell.CurrencyId,
+                    Price = watcherWlillingToSell.Price.Value,
+                    Quantity = watcherWlillingToSell.Quantity.Value
+                };
+
+                // Send
+                await _bus.Send(placeOrder);
+            }
+
+            // Stop watch
+            stopwatch.Stop();
+
+            // Log
+            _logger.LogInformation("{@Event}, {@Id}, {@OrdersWillingToBuyCount}, {@OrdersWillingToSellCount}, {@ExecutionTime}", "OrdersPlaced", Guid.NewGuid(), watchersWlillingToBuy.Count, watchersWlillingToSell.Count, stopwatch.Elapsed.TotalSeconds);
+
         }
     }
 }

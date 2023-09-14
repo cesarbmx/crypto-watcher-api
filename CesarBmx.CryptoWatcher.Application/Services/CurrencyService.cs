@@ -61,56 +61,23 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .ProjectTo<Responses.Currency>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
-            // Return
-            return currencies;
-        }
-        public async Task AddOrder()
-        {
-            // Start watch
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            // Start span
-            using var span = _activitySource.StartActivity(nameof(AddOrder));
-
-            // Time
-            var now = DateTime.UtcNow.StripSeconds();
-
-            // New order
-            var order = new Order(1, "master", "BTC", 30000, 1, OrderType.BUY, now);
-
-            // Add order
-            await _mainDbContext.Orders.AddAsync(order);            
-
-            // New notification
-            var notification = new Notification("master", "666555444", "Order submitted", now);
-
-            // Add notification
-            await _mainDbContext.Notifications.AddAsync(notification);          
-
-            // Command
-            var submitOrder = _mapper.Map<SubmitOrder>(order);
+            // Place order
+            var placeOrder = new PlaceOrder
+            {
+                OrderId = Guid.NewGuid(),
+                OrderType = Shared.Messaging.Ordering.Types.OrderType.BUY,
+                UserId = "cesarbmx",
+                CurrencyId = "BTC",
+                Price = 20000,
+                Quantity = 1
+            };
 
             // Send
-            await _bus.Send(submitOrder);
+            await _bus.Send(placeOrder);
 
-            // Save
-            await _mainDbContext.SaveChangesAsync();
-
-            // Stop watch
-            stopwatch.Stop();
-
-            // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", "OrderAdded", Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
-
-            await Task.Delay(1000);
-
-            // Command
-            var cancelOrder = _mapper.Map<CancelOrder>(order);
-
-            // Request
-            var orderCancelled = await _requestClient.GetResponse<OrderCancelled>(cancelOrder);
-        }
+            // Return
+            return currencies;
+        }       
         public async Task<Responses.Currency> GetCurrency(string currencyId)
         {
             // Start span

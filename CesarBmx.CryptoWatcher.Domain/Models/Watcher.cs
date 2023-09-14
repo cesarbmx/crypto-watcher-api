@@ -3,7 +3,9 @@ using CesarBmx.Shared.Domain.Models;
 using CesarBmx.CryptoWatcher.Domain.Builders;
 using CesarBmx.CryptoWatcher.Domain.Types;
 using CesarBmx.Shared.Common.Extensions;
-
+using System.Collections.Generic;
+using System.Diagnostics;
+using CesarBmx.CryptoWatcher.Domain.Expressions;
 
 namespace CesarBmx.CryptoWatcher.Domain.Models
 {
@@ -14,6 +16,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
 
         public int WatcherId { get; private set; }
         public string UserId { get; private set; }
+        public WatcherStatus Status => WatcherBuilder.BuildStatus(this);
         public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
         public decimal? Value { get; private set; }
@@ -25,13 +28,15 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public decimal? Price { get; private set; }
         public DateTime? EntryAt { get; private set; }
         public decimal? EntryPrice { get; private set; }
+        public Guid? EntryOrderId { get; private set; }
+        public bool IsEntryOrderPlaced { get; private set; }
         public DateTime? ExitAt { get; private set; }
         public decimal? ExitPrice { get; private set; }
+        public Guid? ExitOrderId { get; private set; }
+        public bool IsExitOrderPlaced { get; private set; }
         public decimal? Profit => WatcherBuilder.BuildProfit(EntryPrice, ExitPrice, Quantity);
         public bool Enabled { get; private set; }
         public DateTime CreatedAt { get; private set; }
-
-        public WatcherStatus Status => WatcherBuilder.BuildStatus(this);
 
         public Watcher()
         {
@@ -96,19 +101,39 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             AverageSell = averageSellValue;
             Price = price;
 
+            if (WatcherExpression.WatcherBuying().Invoke(this)) SetAsBuying();
+
+            if (WatcherExpression.WatcherSelling().Invoke(this)) SetAsSelling();
+
+            return this;
+        }
+        public Watcher SetAsBuying()
+        {
+            EntryPrice = Price;
+            EntryAt = DateTime.UtcNow.StripSeconds();
+            EntryOrderId = Guid.NewGuid();
+            IsEntryOrderPlaced = false;
+
+            return this;
+        }
+        public Watcher SetAsSelling()
+        {
+            ExitPrice = Price;
+            ExitAt = DateTime.UtcNow.StripSeconds();
+            ExitOrderId = Guid.NewGuid();
+            IsEntryOrderPlaced = false;
+
             return this;
         }
         public Watcher SetAsBought()
         {
-            EntryAt = DateTime.UtcNow.StripSeconds();
-            EntryPrice = Price;
+            IsEntryOrderPlaced = true;
 
             return this;
         }
         public Watcher SetAsSold()
         {
-            ExitAt = DateTime.UtcNow.StripSeconds();
-            ExitPrice = Price;
+            IsEntryOrderPlaced = true;
 
             return this;
         }

@@ -16,12 +16,10 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     public class CurrencyController : Controller
     {
         private readonly CurrencyService _currencyService;
-        private readonly IBus _bus;
 
-        public CurrencyController(CurrencyService currencyService, IBus bus)
+        public CurrencyController(CurrencyService currencyService)
         {
             _currencyService = currencyService;
-            _bus = bus;
         }
 
         /// <summary>
@@ -35,12 +33,6 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         {
             // Reponse
             var response = await _currencyService.GetCurrencies();
-
-            ///////////// TEST /////////////
-
-            await _currencyService.AddOrder();
-
-            ////////////////////////////////
 
             // Return
             return Ok(response);

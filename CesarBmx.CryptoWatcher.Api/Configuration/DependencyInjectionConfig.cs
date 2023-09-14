@@ -34,8 +34,6 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             services.AddScoped<CurrencyService>();
             services.AddScoped<WatcherService>();
             services.AddScoped<UserService>();
-            services.AddScoped<NotificationService>();
-            services.AddScoped<OrderService>();
             services.AddScoped<IndicatorService>();
             services.AddScoped<LineService>();
             services.AddScoped<ChartService>();
@@ -44,15 +42,13 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
 
             // Jobs
             services.AddScoped<MainJob>();
-            services.AddScoped<SendWhatsappNotificationsJob>();
-            services.AddScoped<SendTelgramNotificationsJob>();
             services.AddScoped<RemoveObsoleteLinesJob>();
 
             // API clients
             services.AddScoped<CoinpaprikaAPI.Client, CoinpaprikaAPI.Client>();
 
             // Shared
-            services.AddOpenTelemetry();
+            services.AddActivitySource(configuration);
             services.AddLogExecutionTime();
 
             // Return
