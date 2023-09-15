@@ -304,6 +304,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // For each watcher willing to buy
             foreach (var watcherWlillingToBuy in watchersWlillingToBuy)
             {
+                // Set watcher as buying
+                watcherWlillingToBuy.SetAsBuying();
+
+                // Command
                 var placeOrder = new PlaceOrder
                 {
                     OrderId = watcherWlillingToBuy.EntryOrderId.Value,
@@ -315,7 +319,13 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 };
 
                 // Send
-                await _bus.Send(placeOrder);
+                await _bus.Send(placeOrder);              
+
+                // Update watcher
+                _mainDbContext.Watchers.Update(watcherWlillingToBuy);
+
+                // Save changes
+                await _mainDbContext.SaveChangesAsync();
             }
 
             // Grab watchers willing to sell
@@ -324,6 +334,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // For each watcher willing to buy
             foreach (var watcherWlillingToSell in watchersWlillingToSell)
             {
+                // Set watcher as selling
+                watcherWlillingToSell.SetAsSelling();
+
                 var placeOrder = new PlaceOrder
                 {
                     OrderId = watcherWlillingToSell.ExitOrderId.Value,
@@ -336,6 +349,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
                 // Send
                 await _bus.Send(placeOrder);
+
+                // Update watcher
+                _mainDbContext.Watchers.Update(watcherWlillingToSell);
+
+                // Save changes
+                await _mainDbContext.SaveChangesAsync();
             }
 
             // Stop watch

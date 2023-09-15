@@ -101,10 +101,6 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             AverageSell = averageSellValue;
             Price = price;
 
-            if (WatcherExpression.WatcherBuying().Invoke(this)) SetAsBuying();
-
-            if (WatcherExpression.WatcherSelling().Invoke(this)) SetAsSelling();
-
             return this;
         }
         public Watcher SetAsBuying()
