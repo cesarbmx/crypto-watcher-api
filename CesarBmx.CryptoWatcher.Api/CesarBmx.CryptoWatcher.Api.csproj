@@ -8,6 +8,8 @@
 		<UserSecretsId>6bec4bc4-ce1c-404d-a073-df2a3b52396b</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>CesarBmx.CryptoWatcher.Api.xml</DocumentationFile>
 	</PropertyGroup>
 
 
@@ -36,9 +38,6 @@
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 			<DependentUpon>TemplateController.tt</DependentUpon>
-		</None>
-		<None Update="CesarBmx.CryptoWatcher.Api.xml">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 

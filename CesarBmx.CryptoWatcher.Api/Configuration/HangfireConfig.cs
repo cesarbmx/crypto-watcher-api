@@ -42,14 +42,12 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             app.ConfigureSharedHangfire(environmentSettings.Name == "Staging" || environmentSettings.Name == "Production");
 
             // Grab settings
-            var appSettings = configuration.GetSection<Application.Settings.AppSettings>();
+            var appSettings = configuration.GetSection<AppSettings>();
 
             // Background jobs
             var jobsIntervalInMinutes = appSettings.JobsIntervalInMinutes;
             RecurringJob.AddOrUpdate<MainJob>("Main", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
-            //RecurringJob.AddOrUpdate<SendWhatsappNotificationsJob>("Send whatsapp notifications", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
-            //RecurringJob.AddOrUpdate<SendTelgramNotificationsJob>("Send telegram notifications", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
-            //RecurringJob.AddOrUpdate<RemoveObsoleteLinesJob>("Remove obsolete lines", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
+            RecurringJob.AddOrUpdate<RemoveObsoleteLinesJob>("Remove obsolete lines", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
 
             return app;
         }

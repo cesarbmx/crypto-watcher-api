@@ -32,7 +32,8 @@ namespace CesarBmx.CryptoWatcher.Persistence.Contexts
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.UseMasstransit();
+            // Masstransit outbox
+            modelBuilder.UseMasstransitOutbox();
         }
     }
 }
