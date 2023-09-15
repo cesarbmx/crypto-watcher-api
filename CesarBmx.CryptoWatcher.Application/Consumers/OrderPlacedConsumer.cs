@@ -64,7 +64,7 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 }
 
                 // Update
-                _mainDbContext.Update(watcher);
+                _mainDbContext.Watchers.Update(watcher);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
