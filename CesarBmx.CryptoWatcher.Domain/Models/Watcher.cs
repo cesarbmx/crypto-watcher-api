@@ -29,11 +29,12 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public DateTime? EntryAt { get; private set; }
         public decimal? EntryPrice { get; private set; }
         public Guid? EntryOrderId { get; private set; }
-        public bool IsEntryOrderPlaced { get; private set; }
+        public bool EntryOrderPlaced { get; private set; }
         public DateTime? ExitAt { get; private set; }
         public decimal? ExitPrice { get; private set; }
         public Guid? ExitOrderId { get; private set; }
-        public bool IsExitOrderPlaced { get; private set; }
+        public bool ExitOrderPlaced { get; private set; }
+        public bool ExitMessageId { get; private set; }
         public decimal? Profit => WatcherBuilder.BuildProfit(EntryPrice, ExitPrice, Quantity);
         public bool Enabled { get; private set; }
         public DateTime CreatedAt { get; private set; }
@@ -108,7 +109,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             EntryPrice = Price;
             EntryAt = DateTime.UtcNow.StripSeconds();
             EntryOrderId = Guid.NewGuid();
-            IsEntryOrderPlaced = false;
+            EntryOrderPlaced = false;
 
             return this;
         }
@@ -117,19 +118,19 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             ExitPrice = Price;
             ExitAt = DateTime.UtcNow.StripSeconds();
             ExitOrderId = Guid.NewGuid();
-            IsEntryOrderPlaced = false;
+            EntryOrderPlaced = false;
 
             return this;
         }
         public Watcher SetAsBought()
         {
-            IsEntryOrderPlaced = true;
+            EntryOrderPlaced = true;
 
             return this;
         }
         public Watcher SetAsSold()
         {
-            IsEntryOrderPlaced = true;
+           ExitOrderPlaced = true;
 
             return this;
         }
