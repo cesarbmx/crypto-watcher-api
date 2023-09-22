@@ -301,11 +301,11 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Grab watchers willing to buy or sell
             var watchersWillingToBuyOrSell = watchers.Where(WatcherExpression.WatcherBuyingOrSelling()).ToList();
 
-            // Build PlaceOrders
-            var placeOrders = watchersWillingToBuyOrSell.BuildPlaceOrders();
-
             // Set as buying or selling
             watchersWillingToBuyOrSell = watchersWillingToBuyOrSell.SetAsBuyingOrSelling();
+
+            // Build PlaceOrders
+            var placeOrders = watchersWillingToBuyOrSell.BuildPlaceOrders();
 
             // Send place orders
             foreach(var watcher in watchersWillingToBuyOrSell)
