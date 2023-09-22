@@ -5,7 +5,8 @@ using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Domain.Types;
-
+using CesarBmx.Shared.Messaging.Ordering.Commands;
+using CesarBmx.Shared.Messaging.Ordering.Types;
 
 namespace CesarBmx.CryptoWatcher.Domain.Builders
 {
@@ -67,6 +68,50 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
 
             // Return
             return result;
+        }
+        public static List<PlaceOrder> BuildPlaceOrders(this List<Watcher> watchersWlillingToBuyOrSell)
+        {
+            var placeBuyOrders = new List<PlaceOrder>();
+
+            // For each watcher willing to buy or sell
+            foreach (var watcher in watchersWlillingToBuyOrSell)
+            {
+                // Build order type
+                var orderType = watcher.BuildOrderType();
+
+                // Command
+                var placeOrder = new PlaceOrder
+                {
+                    OrderId = watcher.EntryOrderId.Value,
+                    OrderType = orderType,
+                    UserId = watcher.UserId,
+                    CurrencyId = watcher.CurrencyId,
+                    Price = watcher.Price.Value,
+                    Quantity = watcher.Quantity.Value
+                };
+
+                // Add
+                placeBuyOrders.Add(placeOrder);
+            }
+
+            // Return
+            return placeBuyOrders;
+        }
+        public static OrderType BuildOrderType(this Watcher watcher)
+        {
+            if (watcher.Status == WatcherStatus.BUYING) return OrderType.BUY;
+            if (watcher.Status == WatcherStatus.SELLING) return OrderType.SELL;
+            throw new NotImplementedException();
+
+        }
+        public static List<Watcher> SetAsBuyingOrSelling(this List<Watcher> watchers)
+        {
+            foreach (var watcher in watchers)
+            {
+                if (watcher.Status == WatcherStatus.BUYING) watcher.SetAsBuying();
+                if (watcher.Status == WatcherStatus.SELLING) watcher.SetAsSelling();
+            }
+            return watchers;
         }
     }
 }

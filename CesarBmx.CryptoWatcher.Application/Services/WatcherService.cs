@@ -298,70 +298,33 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Start span
             using var span = _activitySource.StartActivity(nameof(PlaceOrders));
 
-            // Grab watchers willing to buy
-            var watchersWlillingToBuy = watchers.Where(WatcherExpression.WatcherBuying()).ToList();
+            // Grab watchers willing to buy or sell
+            var watchersWillingToBuyOrSell = watchers.Where(WatcherExpression.WatcherBuyingOrSelling()).ToList();
 
-            // For each watcher willing to buy
-            foreach (var watcherWlillingToBuy in watchersWlillingToBuy)
+            // Build PlaceOrders
+            var placeOrders = watchersWillingToBuyOrSell.BuildPlaceOrders();
+
+            // Set as buying or selling
+            watchersWillingToBuyOrSell = watchersWillingToBuyOrSell.SetAsBuyingOrSelling();
+
+            // Send place orders
+            foreach(var watcher in watchersWillingToBuyOrSell)
             {
-                // Set watcher as buying
-                watcherWlillingToBuy.SetAsBuying();
-
-                // Command
-                var placeOrder = new PlaceOrder
-                {
-                    OrderId = watcherWlillingToBuy.EntryOrderId.Value,
-                    OrderType = OrderType.BUY,
-                    UserId = watcherWlillingToBuy.UserId,
-                    CurrencyId = watcherWlillingToBuy.CurrencyId,
-                    Price = watcherWlillingToBuy.Price.Value,
-                    Quantity = watcherWlillingToBuy.Quantity.Value
-                };
-
                 // Send
-                await _bus.Send(placeOrder);              
+                await _bus.Send(placeOrders);
+            }          
 
-                // Update watcher
-                _mainDbContext.Watchers.Update(watcherWlillingToBuy);
+            // Update watchers
+            _mainDbContext.Watchers.UpdateRange(watchersWillingToBuyOrSell);
 
-                // Save changes
-                await _mainDbContext.SaveChangesAsync();
-            }
-
-            // Grab watchers willing to sell
-            var watchersWlillingToSell = watchers.Where(WatcherExpression.WatcherSelling()).ToList();
-
-            // For each watcher willing to buy
-            foreach (var watcherWlillingToSell in watchersWlillingToSell)
-            {
-                // Set watcher as selling
-                watcherWlillingToSell.SetAsSelling();
-
-                var placeOrder = new PlaceOrder
-                {
-                    OrderId = watcherWlillingToSell.ExitOrderId.Value,
-                    OrderType = OrderType.SELL,
-                    UserId = watcherWlillingToSell.UserId,
-                    CurrencyId = watcherWlillingToSell.CurrencyId,
-                    Price = watcherWlillingToSell.Price.Value,
-                    Quantity = watcherWlillingToSell.Quantity.Value
-                };
-
-                // Send
-                await _bus.Send(placeOrder);
-
-                // Update watcher
-                _mainDbContext.Watchers.Update(watcherWlillingToSell);
-
-                // Save changes
-                await _mainDbContext.SaveChangesAsync();
-            }
+            // Save changes
+            await _mainDbContext.SaveChangesAsync(); 
 
             // Stop watch
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@OrdersWillingToBuyCount}, {@OrdersWillingToSellCount}, {@ExecutionTime}", "OrdersPlaced", Guid.NewGuid(), watchersWlillingToBuy.Count, watchersWlillingToSell.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@OrdersWillingToBuyOrSellCount}, {@ExecutionTime}", "OrdersPlaced", Guid.NewGuid(), watchersWillingToBuyOrSell.Count, stopwatch.Elapsed.TotalSeconds);
 
         }
     }
