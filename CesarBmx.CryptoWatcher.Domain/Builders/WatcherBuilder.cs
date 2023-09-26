@@ -17,7 +17,6 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             // Evaluate and return
             if (WatcherExpression.WatcherNotSet().Invoke(watcher)) return WatcherStatus.NOT_SET;
             if (WatcherExpression.WatcherBuying().Invoke(watcher)) return WatcherStatus.BUYING;
-            if (WatcherExpression.WatcherBought().Invoke(watcher)) return WatcherStatus.BOUGHT;
             if (WatcherExpression.WatcherHolding().Invoke(watcher)) return WatcherStatus.HOLDING;
             if (WatcherExpression.WatcherSelling().Invoke(watcher)) return WatcherStatus.SELLING;
             if (WatcherExpression.WatcherSold().Invoke(watcher)) return WatcherStatus.SOLD;
@@ -79,10 +78,13 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
                 // Build order type
                 var orderType = watcher.BuildOrderType();
 
+                // Build order id
+                var orderId = watcher.BuildOrderId();
+
                 // Command
                 var placeOrder = new PlaceOrder
                 {
-                    OrderId = watcher.EntryOrderId.Value,
+                    OrderId = orderId,
                     OrderType = orderType,
                     UserId = watcher.UserId,
                     CurrencyId = watcher.CurrencyId,
@@ -99,17 +101,31 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
         }
         public static OrderType BuildOrderType(this Watcher watcher)
         {
-            if (watcher.Status == WatcherStatus.BUYING) return OrderType.BUY;
-            if (watcher.Status == WatcherStatus.SELLING) return OrderType.SELL;
+            if (watcher.SellingOrder != null) return OrderType.SELL;
+            if (watcher.BuyingOrder != null) return OrderType.BUY;
             throw new NotImplementedException();
 
         }
-        public static List<Watcher> SetAsBuyingOrSelling(this List<Watcher> watchers)
+        public static Guid BuildOrderId(this Watcher watcher)
+        {
+            if (watcher.SellingOrder != null) return watcher.SellingOrder.OrderId;
+            if (watcher.BuyingOrder != null) return watcher.BuyingOrder.OrderId;
+            throw new NotImplementedException();
+
+        }
+        public static List<Watcher> SetAsBuying(this List<Watcher> watchers)
         {
             foreach (var watcher in watchers)
             {
-                if (watcher.Status == WatcherStatus.BUYING) watcher.SetAsBuying();
-                if (watcher.Status == WatcherStatus.SELLING) watcher.SetAsSelling();
+                watcher.SetAsBuying();
+            }
+            return watchers;
+        }
+        public static List<Watcher> SetAsSelling(this List<Watcher> watchers)
+        {
+            foreach (var watcher in watchers)
+            {
+                watcher.SetAsSelling();
             }
             return watchers;
         }

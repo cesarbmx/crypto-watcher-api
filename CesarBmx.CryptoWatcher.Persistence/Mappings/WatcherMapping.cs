@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CesarBmx.CryptoWatcher.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using CesarBmx.Shared.Persistence.Extensions;
 
 namespace CesarBmx.CryptoWatcher.Persistence.Mappings
 {
@@ -36,6 +37,10 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
                 .HasForeignKey(t =>  t.IndicatorId )
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Complex types
+            entityBuilder.OwnsOne(t => t.BuyingOrder);
+            entityBuilder.OwnsOne(t => t.SellingOrder);
+
             // Properties
             entityBuilder.Property(t => t.WatcherId)
                 .HasColumnType("int")
@@ -45,6 +50,12 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
             entityBuilder.Property(t => t.UserId)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
+                .IsRequired();
+
+            entityBuilder.Property(t => t.Status)
+                .HasColumnType("nvarchar(50)")
+                .HasMaxLength(50)
+                .HasStringToEnumConversion()
                 .IsRequired();
 
             entityBuilder.Property(t => t.CurrencyId)
@@ -76,19 +87,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
                 .HasColumnType("decimal(18,2)");
 
             entityBuilder.Property(t => t.Price)
-                .HasColumnType("decimal(18,2)");
-
-            entityBuilder.Property(t => t.EntryAt)
-                .HasColumnType("datetime2");
-
-            entityBuilder.Property(t => t.EntryPrice)
-                .HasColumnType("decimal(18,2)");
-
-            entityBuilder.Property(t => t.ExitAt)
-                .HasColumnType("datetime2");
-
-            entityBuilder.Property(t => t.ExitPrice)
-                .HasColumnType("decimal(18,2)");
+                .HasColumnType("decimal(18,2)");          
 
             entityBuilder.Property(t => t.Enabled)
                 .HasColumnType("bit")

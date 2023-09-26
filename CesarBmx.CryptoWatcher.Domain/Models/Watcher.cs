@@ -16,9 +16,9 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
 
         public int WatcherId { get; private set; }
         public string UserId { get; private set; }
-        public WatcherStatus Status => WatcherBuilder.BuildStatus(this);
         public string CurrencyId { get; private set; }
         public string IndicatorId { get; private set; }
+        public WatcherStatus Status { get; private set; }
         public decimal? Value { get; private set; }
         public decimal? Buy { get; private set; }
         public decimal? Sell { get; private set; }
@@ -26,16 +26,9 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public decimal? AverageBuy { get; private set; }
         public decimal? AverageSell { get; private set; }
         public decimal? Price { get; private set; }
-        public DateTime? EntryAt { get; private set; }
-        public decimal? EntryPrice { get; private set; }
-        public Guid? EntryOrderId { get; private set; }
-        public bool EntryOrderPlaced { get; private set; }
-        public DateTime? ExitAt { get; private set; }
-        public decimal? ExitPrice { get; private set; }
-        public Guid? ExitOrderId { get; private set; }
-        public bool ExitOrderPlaced { get; private set; }
-        public bool ExitMessageId { get; private set; }
-        public decimal? Profit => WatcherBuilder.BuildProfit(EntryPrice, ExitPrice, Quantity);
+        public Order BuyingOrder { get; private set; }
+        public Order SellingOrder { get; private set; }
+        public decimal? Profit => WatcherBuilder.BuildProfit(BuyingOrder?.Price, SellingOrder?.Price, Quantity);
         public bool Enabled { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
@@ -70,6 +63,8 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             Price = price;
             Enabled = enabled;
             CreatedAt = createdAt;
+
+            SetStatus();
         }
 
         public Watcher Update(Watcher watcher)
@@ -79,13 +74,62 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             AverageSell = watcher.AverageSell;
             Price = watcher.Price;
 
+            SetStatus();
+
             return this;
         }
         public Watcher Set(decimal buy, decimal? sell, decimal quantity)
         {
-            Buy = buy;
-            Sell = sell;
-            Quantity = quantity;
+            // It can be fully changed only when it is not se
+            if (Status == WatcherStatus.NOT_SET)
+            {
+                Buy = buy;
+                Sell = sell;
+                Quantity = quantity;
+            }
+
+            // We can still change the selling price if it has not been bought yet
+            if (Status == WatcherStatus.BUYING)
+            {
+                Sell = sell;
+            }
+
+            SetStatus();
+            return this;
+        }
+        public Watcher SetStatus()
+        {
+            // If buying price has not been set
+            if (Buy == null) {
+                Status = WatcherStatus.NOT_SET;
+                return this;
+            }
+
+            // If buying order has not been set, then it is still buying
+            if (BuyingOrder == null)
+            {
+                Status = WatcherStatus.BUYING;
+                return this;
+            }
+
+            // if selling order has not been set, then it is still either holding or selling
+            if (SellingOrder == null && Sell == null)
+            {
+                Status = WatcherStatus.HOLDING;
+                return this;
+            }
+            if (SellingOrder == null && Sell != null) 
+            {
+                Status = WatcherStatus.SELLING;
+                return this;
+            }
+
+            // If selling order has been set, then it is sold
+            if (SellingOrder != null)
+            {
+                Status = WatcherStatus.SOLD;
+                return this;
+            }
 
             return this;
         }
@@ -102,37 +146,57 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
             AverageSell = averageSellValue;
             Price = price;
 
+            SetStatus();
+
             return this;
         }
         public Watcher SetAsBuying()
         {
-            EntryPrice = Price;
-            EntryAt = DateTime.UtcNow.StripSeconds();
-            EntryOrderId = Guid.NewGuid();
-            EntryOrderPlaced = false;
+            BuyingOrder = new Order();
+
+            SetStatus();
 
             return this;
         }
         public Watcher SetAsSelling()
         {
-            ExitPrice = Price;
-            ExitAt = DateTime.UtcNow.StripSeconds();
-            ExitOrderId = Guid.NewGuid();
-            EntryOrderPlaced = false;
+            SellingOrder = new Order();
+
+            SetStatus();
 
             return this;
         }
-        public Watcher SetAsBought()
+        public Watcher ConfirmOrder(decimal price, DateTime executedAt)
         {
-            EntryOrderPlaced = true;
-
+            if (SellingOrder != null)
+            {
+                SellingOrder.ConfirmOrder(price, executedAt);
+                SetStatus();
+                return this;
+            }
+            if (BuyingOrder != null)
+            {
+                BuyingOrder.ConfirmOrder(price, executedAt);
+                SetStatus();
+                return this;
+            }
             return this;
         }
-        public Watcher SetAsSold()
-        {
-           ExitOrderPlaced = true;
+        //public Watcher ConfirmBuy(decimal price, DateTime executedAt)
+        //{
+        //    BuyingOrder.ConfirmOrder(price, executedAt);
 
-            return this;
-        }
+        //    SetStatus();
+
+        //    return this;
+        //}
+        //public Watcher ConfirmSell(decimal price, DateTime executedAt)
+        //{
+        //    SellingOrder.ConfirmOrder(price, executedAt);
+
+        //    SetStatus();
+
+        //    return this;
+        //}
     }
 }

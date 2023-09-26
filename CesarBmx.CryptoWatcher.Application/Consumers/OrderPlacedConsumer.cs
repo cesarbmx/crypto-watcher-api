@@ -50,18 +50,13 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 var orderPlaced = context.Message;
 
                 // Add
-                var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(x => x.EntryOrderId == orderPlaced.OrderId || x.ExitOrderId == orderPlaced.OrderId);
+                var watcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(x => x.BuyingOrder.OrderId == orderPlaced.OrderId || x.SellingOrder.OrderId == orderPlaced.OrderId);
 
+                // Return if no watcher was found
                 if (watcher == null) return;
 
-                if (orderPlaced.OrderType == OrderType.BUY)
-                {
-                    watcher.SetAsBought();
-                }
-                else
-                {
-                    watcher.SetAsSold();
-                }
+                // Confirm order
+                watcher.ConfirmOrder(orderPlaced.Price, orderPlaced.PlacedAt);
 
                 // Update
                 _mainDbContext.Watchers.Update(watcher);

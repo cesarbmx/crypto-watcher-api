@@ -162,10 +162,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (WatcherExpression.SellLimitLowerThanWatcherValue(request.Sell).Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.SELL_LIMIT_MUST_BE_HIGHER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.SellLimitMustBeHigherThanWatcherValue, watcher.Value)));
 
             // Watcher already bought
-            if (WatcherExpression.WatcherBought().Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.WATCHER_ALREADY_BOUGHT, string.Format(WatcherMessage.WatcherAlreadyBought, watcher.EntryPrice)));
+            //if (WatcherExpression.WatcherBought().Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.WATCHER_ALREADY_BOUGHT, string.Format(WatcherMessage.WatcherAlreadyBought, watcher.BuyingPrice)));
 
             // Watcher already sold
-            if (WatcherExpression.WatcherSold().Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.WATCHER_ALREADY_SOLD, string.Format(WatcherMessage.WatcherAlreadySold, watcher.ExitPrice)));
+            //if (WatcherExpression.WatcherSold().Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.WATCHER_ALREADY_SOLD, string.Format(WatcherMessage.WatcherAlreadySold, watcher.ExitPrice)));
             
             // Set watcher
             watcher.Set(request.Buy, request.Sell, request.Quantity);
@@ -298,24 +298,43 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Start span
             using var span = _activitySource.StartActivity(nameof(PlaceOrders));
 
-            // Grab watchers willing to buy or sell
-            var watchersWillingToBuyOrSell = watchers.Where(WatcherExpression.WatcherBuyingOrSelling()).ToList();
+            // Grab watchers selling
+            var watchersSelling = watchers.Where(WatcherExpression.WatcherSelling()).ToList();
 
-            // Set as buying or selling
-            watchersWillingToBuyOrSell = watchersWillingToBuyOrSell.SetAsBuyingOrSelling();
+            // Set as buying
+            watchersSelling = watchersSelling.SetAsSelling();
 
             // Build PlaceOrders
-            var placeOrders = watchersWillingToBuyOrSell.BuildPlaceOrders();
+            var placeBuyOrders = watchersSelling.BuildPlaceOrders();
 
             // Send place orders
-            foreach(var watcher in watchersWillingToBuyOrSell)
+            foreach(var placeOrder in placeBuyOrders)
             {
                 // Send
-                await _bus.Send(placeOrders);
+                await _bus.Send(placeOrder);
             }          
 
             // Update watchers
-            _mainDbContext.Watchers.UpdateRange(watchersWillingToBuyOrSell);
+            _mainDbContext.Watchers.UpdateRange(watchersSelling);
+
+            // Grab watchers buying
+            var watchersBuying = watchers.Where(WatcherExpression.WatcherBuying()).ToList();
+
+            // Set as selling
+            watchersBuying = watchersBuying.SetAsBuying();
+
+            // Build PlaceOrders
+            var placeSellOrders = watchersBuying.BuildPlaceOrders();
+
+            // Send place orders
+            foreach (var placeOrder in placeSellOrders)
+            {
+                // Send
+                await _bus.Send(placeOrder);
+            }
+
+            // Update watchers
+            _mainDbContext.Watchers.UpdateRange(watchersSelling);
 
             // Save changes
             await _mainDbContext.SaveChangesAsync(); 
@@ -324,7 +343,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@OrdersWillingToBuyOrSellCount}, {@ExecutionTime}", "OrdersPlaced", Guid.NewGuid(), watchersWillingToBuyOrSell.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@OrdersSelling}, {@OrdersBuying}, {@ExecutionTime}", "OrdersPlaced", Guid.NewGuid(), watchersSelling.Count, watchersBuying.Count, stopwatch.Elapsed.TotalSeconds);
 
         }
     }
