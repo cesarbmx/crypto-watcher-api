@@ -22,25 +22,25 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Expressions
             Assert.AreEqual(watchersBuyingAndSelling.Count, filter.Count);
         }
         [TestMethod]
-        public void Test_WatcherSet()
+        public void Test_WatcherBuying()
         {
             // Arrange
-            var watchersBuyingAndSelling = FakeWatcher.GetWatchersNotSet();
+            var watchersBuyingAndSelling = FakeWatcher.GetWatchersBuying();
 
             // Act
-            var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherNotSet()).ToList();
+            var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherBuying()).ToList();
 
             // Assert
             Assert.AreEqual(watchersBuyingAndSelling.Count, filter.Count);
         }
         [TestMethod]
-        public void Test_WatcherBuying()
+        public void Test_WatcherHoldingOrSelling()
         {
             // Arrange
-            var watchersBuying= FakeWatcher.GetWatchersBuying();
+            var watchersBuying= FakeWatcher.GetWatchersHoldingOrSelling();
 
             // Act
-            var filter = watchersBuying.Where(WatcherExpression.WatcherHolding()).ToList();
+            var filter = watchersBuying.Where(WatcherExpression.WatcherHoldingOrSelling()).ToList();
 
             // Assert
             Assert.AreEqual(watchersBuying.Count, filter.Count);
@@ -49,10 +49,10 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Expressions
         public void Test_WatcherSelling()
         {
             // Arrange
-            var watchersSelling = FakeWatcher.GetWatchersBuying();
+            var watchersSelling = FakeWatcher.GetWatchersSelling();
 
             // Act
-            var filter = watchersSelling.Where(WatcherExpression.WatcherHolding()).ToList();
+            var filter = watchersSelling.Where(WatcherExpression.WatcherSelling()).ToList();
 
             // Assert
             Assert.AreEqual(watchersSelling.Count, filter.Count);

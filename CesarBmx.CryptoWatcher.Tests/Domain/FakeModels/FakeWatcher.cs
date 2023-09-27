@@ -18,7 +18,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
             };
             return watchers;
         }
-        public static List<Watcher> GetWatchersSet()
+        public static List<Watcher> GetWatchersBuying()
         {
             var watchers = new List<Watcher>()
             {
@@ -28,11 +28,11 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
             };
             return watchers;
         }
-        public static List<Watcher> GetWatchersBuying()
+        public static List<Watcher> GetWatchersHoldingOrSelling()
         {
             var watchers = new List<Watcher>()
             {
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,3100m,null,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying(),
+                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,3100m,null,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying() ,
                 new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,2000m,2900,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying()
 
             };
@@ -42,8 +42,8 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
         {
             var watchers = new List<Watcher>()
             {
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,3100m,null,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsSelling(),
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,2000m,2900,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsSelling()
+                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,2900m,3500,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying(),
+                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,2800m,3500,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying()
 
             };
             return watchers;
