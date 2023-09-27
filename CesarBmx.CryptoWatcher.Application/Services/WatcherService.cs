@@ -162,10 +162,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (WatcherExpression.SellLimitLowerThanWatcherValue(request.Sell).Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.SELL_LIMIT_MUST_BE_HIGHER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.SellLimitMustBeHigherThanWatcherValue, watcher.Value)));
 
             // Watcher already bought
-            //if (WatcherExpression.WatcherBought().Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.WATCHER_ALREADY_BOUGHT, string.Format(WatcherMessage.WatcherAlreadyBought, watcher.BuyingPrice)));
+            if (WatcherExpression.WatcherBought().Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.WATCHER_ALREADY_BOUGHT, string.Format(WatcherMessage.WatcherAlreadyBought, watcher.BuyingOrder.Price)));
 
             // Watcher already sold
-            //if (WatcherExpression.WatcherSold().Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.WATCHER_ALREADY_SOLD, string.Format(WatcherMessage.WatcherAlreadySold, watcher.ExitPrice)));
+            if (WatcherExpression.WatcherSold().Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.WATCHER_ALREADY_SOLD, string.Format(WatcherMessage.WatcherAlreadySold, watcher.SellingOrder.Price)));
             
             // Set watcher
             watcher.Set(request.Buy, request.Sell, request.Quantity);

@@ -53,6 +53,10 @@ namespace CesarBmx.CryptoWatcher.Domain.Expressions
         {
             return x => x.Status == Types.WatcherStatus.BUYING || x.Status == Types.WatcherStatus.SELLING;
         }
+        public static Func<Watcher, bool> WatcherBought()
+        {
+            return x => x.Status == Types.WatcherStatus.HOLDING || x.Status == Types.WatcherStatus.SELLING || x.Status == Types.WatcherStatus.SOLD;
+        }
         public static Func<Watcher, bool> WatcherHolding()
         {
             return x => x.Status == Types.WatcherStatus.HOLDING;
