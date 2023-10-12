@@ -20,6 +20,7 @@ using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.Shared.Messaging.Ordering.Commands;
 using CesarBmx.Shared.Messaging.Ordering.Types;
 using MassTransit;
+using CesarBmx.CryptoWatcher.Application.Builders;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -111,23 +112,20 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Watcher already exists
             if (watcher != null) throw new ConflictException(new AddWatcherConflict(AddWatcherConflictReason.WATCHER_ALREADY_EXISTS, WatcherMessage.WatcherAlreadyExists));
 
-            // Get default watcher
-            var defaultWatcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.DefaultWatcher(request.CurrencyId, request.IndicatorId));
-
             // Add watcher
             watcher = new Watcher(
                 request.UserId,
                 request.CurrencyId,
                 indicator.IndicatorId,
-                defaultWatcher?.Value,
-                null,
-                null,
-                null,
-                defaultWatcher?.AverageBuy,
-                defaultWatcher?.AverageSell,
-                defaultWatcher?.Price,
                 request.Enabled,
                 DateTime.UtcNow.StripSeconds());
+
+
+            // Get default watcher
+            var defaultWatcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.DefaultWatcher(request.CurrencyId, request.IndicatorId));
+
+            // Sync watcher
+            watcher.Sync(defaultWatcher);
 
             // Add
             _mainDbContext.Watchers.Add(watcher);
@@ -299,10 +297,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             using var span = _activitySource.StartActivity(nameof(PlaceOrders));
 
             // Grab watchers selling
-            var watchersSelling = watchers.Where(WatcherExpression.WatcherSelling()).ToList();
-
-            // Set as buying
-            watchersSelling = watchersSelling.SetAsSelling();
+            var watchersSelling = watchers.Where(x=>x.Status == Domain.Types.WatcherStatus.SELLING).ToList();
 
             // Build PlaceOrders
             var placeBuyOrders = watchersSelling.BuildPlaceOrders();
@@ -318,10 +313,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _mainDbContext.Watchers.UpdateRange(watchersSelling);
 
             // Grab watchers buying
-            var watchersBuying = watchers.Where(WatcherExpression.WatcherBuying()).ToList();
-
-            // Set as selling
-            watchersBuying = watchersBuying.SetAsBuying();
+            var watchersBuying = watchers.Where(x=>x.Status == Domain.Types.WatcherStatus.BUYING).ToList();
 
             // Build PlaceOrders
             var placeSellOrders = watchersBuying.BuildPlaceOrders();

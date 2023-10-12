@@ -61,7 +61,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             using var span = _activitySource.StartActivity(nameof(CreateNewLines));
 
             // Get watchers willing to buy or sell
-            var watchers = await _mainDbContext.Watchers.Where(WatcherExpression.WatcherSet()).ToListAsync();
+            var watchers = await _mainDbContext.Watchers.Where(x=>x.Status == WatcherStatus.SET).ToListAsync();
 
             // Build new lines
             var lines = LineBuilder.BuildLines(currencies, indicators, watchers);

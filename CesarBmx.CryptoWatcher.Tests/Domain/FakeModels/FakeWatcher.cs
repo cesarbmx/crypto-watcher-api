@@ -12,9 +12,36 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
         {
             var watchers = new List<Watcher>()
             {
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,null,null,null, 3000m, 3000m,3000m, false, DateTime.UtcNow.StripSeconds()),
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,null,null,null, 3000m, 3000m,3000m, false, DateTime.UtcNow.StripSeconds())
+                new Watcher("cesarbmx", "BTC", "master.PRICE", false, DateTime.UtcNow.StripSeconds()),
+                new Watcher("cesarbmx", "BTC", "master.PRICE", false, DateTime.UtcNow.StripSeconds())
 
+            };
+            return watchers;
+        }
+        public static List<Watcher> GetWatchersSet()
+        {
+            var watchers = new List<Watcher>()
+            {
+               GetWatchersNotSet()[0]
+               .Set(
+                   buy:2000m, 
+                   sell:4000m, 
+                   quantity:100)
+               .Sync(
+                   averageBuyValue:2000m,
+                   averageSellValue:4000m,
+                   value:3000m, 
+                   price:3000m),
+               GetWatchersNotSet()[1]
+               .Set(
+                   buy:2000m,
+                   sell:null,
+                   quantity:100)
+               .Sync(
+                   averageBuyValue:2000m, 
+                   averageSellValue:4000m, 
+                   value:3000m, 
+                   price:3000m)
             };
             return watchers;
         }
@@ -22,19 +49,18 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
         {
             var watchers = new List<Watcher>()
             {
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,3100m,null,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()),
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,2000m,2900,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds())
-
-            };
-            return watchers;
-        }
-        public static List<Watcher> GetWatchersHoldingOrSelling()
-        {
-            var watchers = new List<Watcher>()
-            {
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,3100m,null,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying() ,
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,2000m,2900,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying()
-
+                GetWatchersSet()[0]
+                .Sync(
+                    averageBuyValue:2000m,
+                    averageSellValue:4000m,
+                    value:2000m,
+                    price:2000m),
+                GetWatchersSet()[1]
+                .Sync(
+                    averageBuyValue:2000m,
+                    averageSellValue:4000m,
+                    value:2000m,
+                    price:2000m)
             };
             return watchers;
         }
@@ -42,9 +68,12 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
         {
             var watchers = new List<Watcher>()
             {
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,2900m,3500,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying(),
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,2800m,3500,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying()
-
+                GetWatchersBuying()[0]
+                .Sync(
+                    averageBuyValue:2000m,
+                    averageSellValue:4000m,
+                    value:4000m,
+                    price:4000m)
             };
             return watchers;
         }
@@ -52,9 +81,10 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
         {
             var watchers = new List<Watcher>()
             {
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,2900m,null,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying(),
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 3000m,2800m,null,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying()
-
+                GetWatchersBuying()[1]
+                .ConfirmBuyOrder(
+                    price:4000m,
+                    executedAt:DateTime.UtcNow.StripSeconds())
             };
             return watchers;
         }
@@ -62,29 +92,85 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.FakeModels
         {
             var watchers = new List<Watcher>()
             {
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 6000m,2900m,3500,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying().SetAsSelling(),
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 2000m,2800m,3500,100, 3000m, 3000m,3000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying().SetAsSelling()
-
+                GetWatchersSelling()[0]
+                .Sync(
+                    averageBuyValue:2000m,
+                    averageSellValue:4000m,
+                    value:4000m,
+                    price:4000m)
+                .ConfirmOrder(
+                    price:4000m,
+                    executedAt:DateTime.UtcNow.StripSeconds())
             };
             return watchers;
         }
-        public static List<Watcher> GetWatchersWillingToBuyWithDifferentWeights()
+        public static List<Watcher> GetWatchersBuyingWithDifferentWeights()
         {
             var watchers = new List<Watcher>()
             {
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 30000m,30000m,50000,100, null, null,30000m, true, DateTime.UtcNow.StripSeconds()),
-                new Watcher("cesarbmx", "BTC", "master.PRICE", 30000m,20000m,40000,200, null, null,30000m, true, DateTime.UtcNow.StripSeconds())
-
+                new Watcher("cesarbmx", "BTC", "master.PRICE", true, DateTime.UtcNow.StripSeconds())
+                .Set(
+                    buy:30000m,
+                    sell:50000m,
+                    quantity:100)
+                .Sync(
+                    averageBuyValue:null,
+                    averageSellValue:null,
+                    value:30000m,
+                    price:30000m),
+                new Watcher("cesarbmx", "BTC", "master.PRICE", true, DateTime.UtcNow.StripSeconds())
+                .Set(
+                    buy:2000m,
+                    sell:4000m,
+                    quantity:200)
+                .Sync(
+                    averageBuyValue:null,
+                    averageSellValue:null,
+                    value:30000m,
+                    price:30000m)
             };
             return watchers;
         }
-        public static List<Watcher> GetWatchersWillingToSellWithDifferentWeights()
+        public static List<Watcher> GetWatchersSellingWithDifferentWeights()
         {
             var watchers = new List<Watcher>()
             {
-                new Watcher("cesarbmx", "BTC", "master.PRICE", null,30000m,50000,100, null, null,30000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying(),
-                new Watcher("cesarbmx", "BTC", "master.PRICE", null,20000m,40000,200, null, null,30000m, true, DateTime.UtcNow.StripSeconds()).SetAsBuying()
-
+                new Watcher("cesarbmx", "BTC", "master.PRICE", true, DateTime.UtcNow.StripSeconds())
+                .Set(
+                    buy:3000m,
+                    sell:50000m,
+                    quantity:100)
+                .Sync(
+                    averageBuyValue:null,
+                    averageSellValue:null,
+                    value:30000m,
+                    price:30000m)
+                .ConfirmBuyOrder(
+                    price:30000m,
+                    executedAt: DateTime.UtcNow.StripSeconds())
+                 .Sync(
+                    averageBuyValue:null,
+                    averageSellValue:null,
+                    value:30000m,
+                    price:30000m),
+                new Watcher("cesarbmx", "BTC", "master.PRICE", true, DateTime.UtcNow.StripSeconds())
+                .Set(
+                    buy:2000m,
+                    sell:4000m,
+                    quantity:200)
+                .Sync(
+                    averageBuyValue:null,
+                    averageSellValue:null,
+                    30000m,
+                    30000m)
+                 .ConfirmBuyOrder(
+                    price:30000m,
+                    executedAt: DateTime.UtcNow.StripSeconds())
+                 .Sync(
+                    averageBuyValue:null,
+                    averageSellValue:null,
+                    value:30000m,
+                    price:30000m),
             };
             return watchers;
         }

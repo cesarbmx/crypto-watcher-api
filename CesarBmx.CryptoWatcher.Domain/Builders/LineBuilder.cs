@@ -74,16 +74,16 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
         public static decimal? BuildWeightedAverageBuy(List<Watcher> watchers)
         {
             // Watchers buying
-            var watcherWillingToBuy = watchers.Where(WatcherExpression.WatcherBuying()).ToList();
+            var watchersBuying = watchers.Where(x=>x.Status == WatcherStatus.BUYING).ToList();
 
             // Return if no watchers
-            if(watcherWillingToBuy.Count == 0) return null;
+            if(watchersBuying.Count == 0) return null;
 
             // Total quantity
-            var totalQuantity = watcherWillingToBuy.Select(x => x.Quantity).Sum();
+            var totalQuantity = watchersBuying.Select(x => x.Quantity).Sum();
 
             // Weights
-            var weights = watcherWillingToBuy.Select(x => x.Buy * x.Quantity);
+            var weights = watchersBuying.Select(x => x.Buy * x.Quantity);
 
             // Total weight
             var totalWeight = weights.Sum();
@@ -98,16 +98,16 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
         public static decimal? BuildWeightedAverageSell(List<Watcher> watchers)
         {
             // Watchers selling
-            var watcherWillingToSell = watchers.Where(WatcherExpression.WatcherSelling()).ToList();
+            var watchersSelling = watchers.Where(x => x.Status == WatcherStatus.SELLING).ToList();
 
             // Return if no watchers
-            if (watcherWillingToSell.Count == 0) return null;
+            if (watchersSelling.Count == 0) return null;
 
             // Total quantity
-            var totalQuantity = watcherWillingToSell.Select(x => x.Quantity).Sum();
+            var totalQuantity = watchersSelling.Select(x => x.Quantity).Sum();
 
             // Weights
-            var weights = watcherWillingToSell.Select(x => x.Sell * x.Quantity);
+            var weights = watchersSelling.Select(x => x.Sell * x.Quantity);
 
             // Total weight
             var totalWeight = weights.Sum();

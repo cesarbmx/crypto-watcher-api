@@ -85,7 +85,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         public void Test_WeightedAverageBuy()
         {
             // Arrange
-            var watchers = FakeWatcher.GetWatchersWillingToBuyWithDifferentWeights();
+            var watchers = FakeWatcher.GetWatchersBuyingWithDifferentWeights();
 
             // Act
             var weightedAverageBuy = LineBuilder.BuildWeightedAverageBuy(watchers);
@@ -99,7 +99,7 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Builders
         public void Test_WeightedAverageSell()
         {
             // Arrange
-            var watchers = FakeWatcher.GetWatchersWillingToSellWithDifferentWeights();
+            var watchers = FakeWatcher.GetWatchersSellingWithDifferentWeights();
 
             // Act
             var weightedAverageSell = LineBuilder.BuildWeightedAverageSell(watchers);

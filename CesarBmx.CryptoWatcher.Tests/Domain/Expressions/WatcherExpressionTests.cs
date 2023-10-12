@@ -1,8 +1,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CesarBmx.CryptoWatcher.Domain.Expressions;
 using CesarBmx.CryptoWatcher.Tests.Domain.FakeModels;
-
+using CesarBmx.CryptoWatcher.Domain.Types;
 
 namespace CesarBmx.CryptoWatcher.Tests.Domain.Expressions
 {
@@ -13,73 +12,73 @@ namespace CesarBmx.CryptoWatcher.Tests.Domain.Expressions
         public void Test_WatcherNotSet()
         {
             // Arrange
-            var watchersBuyingAndSelling = FakeWatcher.GetWatchersNotSet();
+            var watchers = FakeWatcher.GetWatchersNotSet();
 
             // Act
-            var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherNotSet()).ToList();
+            var filter = watchers.Where(x=>x.Status == WatcherStatus.NOT_SET).ToList();
 
             // Assert
-            Assert.AreEqual(watchersBuyingAndSelling.Count, filter.Count);
+            Assert.AreEqual(watchers.Count, filter.Count);
+        }
+        [TestMethod]
+        public void Test_WatcherSet()
+        {
+            // Arrange
+            var watchers = FakeWatcher.GetWatchersSet();
+
+            // Act
+            var filter = watchers.Where(x => x.Status == WatcherStatus.SET).ToList();
+
+            // Assert
+            Assert.AreEqual(watchers.Count, filter.Count);
         }
         [TestMethod]
         public void Test_WatcherBuying()
         {
             // Arrange
-            var watchersBuyingAndSelling = FakeWatcher.GetWatchersBuying();
+            var watchers = FakeWatcher.GetWatchersBuying();
 
             // Act
-            var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherBuying()).ToList();
+            var filter = watchers.Where(x => x.Status == WatcherStatus.BUYING).ToList();
 
             // Assert
-            Assert.AreEqual(watchersBuyingAndSelling.Count, filter.Count);
-        }
-        [TestMethod]
-        public void Test_WatcherHoldingOrSelling()
-        {
-            // Arrange
-            var watchersBuying= FakeWatcher.GetWatchersHoldingOrSelling();
-
-            // Act
-            var filter = watchersBuying.Where(WatcherExpression.WatcherHoldingOrSelling()).ToList();
-
-            // Assert
-            Assert.AreEqual(watchersBuying.Count, filter.Count);
-        }
-        [TestMethod]
-        public void Test_WatcherSelling()
-        {
-            // Arrange
-            var watchersSelling = FakeWatcher.GetWatchersSelling();
-
-            // Act
-            var filter = watchersSelling.Where(WatcherExpression.WatcherSelling()).ToList();
-
-            // Assert
-            Assert.AreEqual(watchersSelling.Count, filter.Count);
+            Assert.AreEqual(watchers.Count, filter.Count);
         }
         [TestMethod]
         public void Test_WatcherHolding()
         {
             // Arrange
-            var watchersBuyingAndSelling = FakeWatcher.GetWatchersHolding();
+            var watchers = FakeWatcher.GetWatchersHolding();
 
             // Act
-            var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherHolding()).ToList();
+            var filter = watchers.Where(x => x.Status == WatcherStatus.HOLDING).ToList();
 
             // Assert
-            Assert.AreEqual(watchersBuyingAndSelling.Count, filter.Count);
+            Assert.AreEqual(watchers.Count, filter.Count);
+        }
+        [TestMethod]
+        public void Test_WatcherSelling()
+        {
+            // Arrange
+            var watchers = FakeWatcher.GetWatchersSelling();
+
+            // Act
+            var filter = watchers.Where(x => x.Status == WatcherStatus.SELLING).ToList();
+
+            // Assert
+            Assert.AreEqual(watchers.Count, filter.Count);
         }
         [TestMethod]
         public void Test_WatcherSold()
         {
             // Arrange
-            var watchersBuyingAndSelling = FakeWatcher.GetWatchersSold();
+            var watchers = FakeWatcher.GetWatchersSold();
 
             // Act
-            var filter = watchersBuyingAndSelling.Where(WatcherExpression.WatcherSold()).ToList();
+            var filter = watchers.Where(x => x.Status == WatcherStatus.SOLD).ToList();
 
             // Assert
-            Assert.AreEqual(watchersBuyingAndSelling.Count, filter.Count);
+            Assert.AreEqual(watchers.Count, filter.Count);
         }
     }
 }
