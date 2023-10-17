@@ -74,7 +74,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public Watcher Set(decimal? buy, decimal? sell, decimal? quantity)
         {
             // Buy can be set before buying
-            if (Status == WatcherStatus.NOT_SET)
+            if (Status == WatcherStatus.NOT_SET || Status == WatcherStatus.SET)
             {
                 Buy = buy;
                 Sell = sell;

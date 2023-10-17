@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CesarBmx.CryptoWatcher.Domain.Builders;
 using CesarBmx.CryptoWatcher.Domain.Models;
+using CesarBmx.CryptoWatcher.Domain.Types;
 using CesarBmx.Shared.Messaging.Ordering.Commands;
 using CesarBmx.Shared.Messaging.Ordering.Types;
 
@@ -42,8 +43,8 @@ namespace CesarBmx.CryptoWatcher.Application.Builders
         }
         public static OrderType BuildOrderType(this Watcher watcher)
         {
-            if (watcher.SellingOrder != null) return OrderType.SELL;
-            if (watcher.BuyingOrder != null) return OrderType.BUY;
+            if (watcher.Status == WatcherStatus.BUYING) return OrderType.BUY;
+            if (watcher.Status == WatcherStatus.SELLING) return OrderType.SELL;
             throw new NotImplementedException();
 
         }
