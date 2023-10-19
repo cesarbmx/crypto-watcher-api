@@ -335,7 +335,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@OrdersSelling}, {@OrdersBuying}, {@ExecutionTime}", "OrdersPlaced", Guid.NewGuid(), watchersSelling.Count, watchersBuying.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@OrdersSelling}, {@OrdersBuying}, {@ExecutionTime}", nameof(PlaceOrders), Guid.NewGuid(), watchersSelling.Count, watchersBuying.Count, stopwatch.Elapsed.TotalSeconds);
 
         }
     }
