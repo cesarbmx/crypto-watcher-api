@@ -7,6 +7,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Types
         NOT_SET,
         SET,
         BUYING,
+        BOUGHT,
         HOLDING,
         SELLING,
         SOLD

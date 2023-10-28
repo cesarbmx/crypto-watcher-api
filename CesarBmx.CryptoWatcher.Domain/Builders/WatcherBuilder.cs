@@ -10,7 +10,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
 {
     public static class WatcherBuilder
     {
-                public static List<Watcher> BuildDefaultWatchers(List<Line> lines)
+        public static List<Watcher> BuildDefaultWatchers(List<Line> lines)
         {
             var now = DateTime.UtcNow.StripSeconds();
             var watchers = new List<Watcher>();
@@ -63,6 +63,63 @@ namespace CesarBmx.CryptoWatcher.Domain.Builders
             if (watcher.BuyingOrder != null) return watcher.BuyingOrder.OrderId;
             throw new NotImplementedException();
 
+        }
+        public static WatcherStatus BuildWatcherStatus(WatcherStatus currentStatus, decimal? buy, decimal? sell, decimal? value, bool hasBuyingOrder, bool hasSellingOrder, bool isBuyingOrderConfirmed, bool isSellingOrderConfirmed)
+        {
+            // If the value has not been set yet, we don't change the status
+            if (!value.HasValue)
+                return currentStatus;
+
+            // If the buy has no value, it is not set
+            if (currentStatus == WatcherStatus.NOT_SET && !buy.HasValue)
+                return WatcherStatus.NOT_SET;
+
+            // If the buy has value and there is no buying order, then it is set
+            if (currentStatus == WatcherStatus.NOT_SET && buy.HasValue && buy < value)
+                return WatcherStatus.SET;
+
+            // If there is no buying order but the value meets the buy, then it is buying
+            if (currentStatus == WatcherStatus.SET && buy >= value)
+                return WatcherStatus.BUYING;
+
+            // If there is no buying order but the value meets the buy, then it is buying
+            if (currentStatus == WatcherStatus.BUYING && hasBuyingOrder)
+                return WatcherStatus.BOUGHT;
+
+            // If the buy is confirmed and the sell has no value,then it is holding
+            if (currentStatus == WatcherStatus.BOUGHT && !sell.HasValue)
+                return WatcherStatus.HOLDING;
+
+            // If the sell has value, there is no selling order and the value meets the sell, then it is selling
+            if (currentStatus == WatcherStatus.BOUGHT && sell.HasValue && sell <= value)
+                return WatcherStatus.SELLING;
+
+            // If the sell is confirmed
+            if (currentStatus == WatcherStatus.SELLING && isSellingOrderConfirmed)
+                return WatcherStatus.SOLD;
+
+            // Default value
+            return currentStatus;
+        }
+        public static bool BuildHasBuyingOrder(this Watcher watcher)
+        {
+            var hasBuyingOrder = watcher.BuyingOrder != null;
+            return hasBuyingOrder;
+        }
+        public static bool BuildHasSellingOrder(this Watcher watcher)
+        {
+            var hasSellingOrder = watcher.SellingOrder != null;
+            return hasSellingOrder;
+        }
+        public static bool BuildIsBuyingOrderConfirmed(this Watcher watcher)
+        {
+            var isBuyingOrderConfirmed = watcher.BuyingOrder != null && watcher.BuyingOrder.ExecutedAt.HasValue;
+            return isBuyingOrderConfirmed;
+        }
+        public static bool BuildIsSellingOrderConfirmed(this Watcher watcher)
+        {
+            var isSellingOrderConfirmed = watcher.SellingOrder != null && watcher.SellingOrder.ExecutedAt.HasValue;
+            return isSellingOrderConfirmed;
         }
     }
 }

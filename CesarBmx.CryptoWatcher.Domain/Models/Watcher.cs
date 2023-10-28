@@ -114,54 +114,26 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
 
             return this;
         }
-        public Watcher SetStatus()
+        private void SetStatus()
         {
-            // If the buy has not been set
-            if (Buy == null)
-            {
-                Status = WatcherStatus.NOT_SET;
-                return this;
-            }
+            var hasBuyingOrder = this.BuildHasBuyingOrder();
+            var hasSellingOrder = this.BuildHasBuyingOrder();
+            var isBuyingOrderConfirmed = this.BuildIsBuyingOrderConfirmed();
+            var isSellingOrderConfirmed = this.BuildIsSellingOrderConfirmed();
 
-            // If the buy has been set, it has not been executed yet and does not meet the buy, then it is just set
-            if (Buy != null && BuyingOrder == null && (Value == null || Buy < Value))
-            {
-                Status = WatcherStatus.SET;
-                return this;
-            }
+            Status = WatcherBuilder.BuildWatcherStatus(
+               Status,
+               Buy,
+               Sell,
+               Value,
+               hasBuyingOrder,
+               hasSellingOrder,
+               isBuyingOrderConfirmed,
+               isSellingOrderConfirmed);
 
-            // If the buy has been set, it has not been executed yet, but meets the buy, then it is buying
-            if (Buy != null && BuyingOrder == null && Buy >= Value)
-            {
-                Status = WatcherStatus.BUYING;
-                BuyingOrder = new Order();
-                return this;
-            }
-
-            // if buy has already happened, but sell has not, and meets the sell
-            if (BuyingOrder != null && SellingOrder == null && Sell != null && Sell <= Value)
-            {
-                Status = WatcherStatus.SELLING;
-                SellingOrder = new Order();
-                return this;
-            }
-
-            // if buy has already happened and sell is not set, then it is just holding
-            if (BuyingOrder != null && SellingOrder == null && Sell == null)
-            {
-                Status = WatcherStatus.HOLDING;
-                return this;
-            }            
-
-            // If sell has already happened 
-            if (SellingOrder != null)
-            {
-                Status = WatcherStatus.SOLD;
-                return this;
-            }
-
-            return this;
-        }     
+            if (Status == WatcherStatus.BUYING && BuyingOrder == null) BuyingOrder = new Order();
+            if (Status == WatcherStatus.SELLING && SellingOrder == null) SellingOrder = new Order();
+        }    
         public Watcher ConfirmOrder(decimal price, DateTime executedAt)
         {
             if (SellingOrder != null)
