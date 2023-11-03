@@ -300,10 +300,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var watchersSelling = watchers.Where(x=>x.Status == Domain.Types.WatcherStatus.SELLING).ToList();
 
             // Build PlaceOrders
-            var placeBuyOrders = watchersSelling.BuildPlaceOrders();
+            var placeSellOrders = watchersSelling.BuildPlaceOrders();
 
             // Send place orders
-            foreach(var placeOrder in placeBuyOrders)
+            foreach(var placeOrder in placeSellOrders)
             {
                 // Send
                 await _bus.Send(placeOrder);
@@ -316,10 +316,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var watchersBuying = watchers.Where(x=>x.Status == Domain.Types.WatcherStatus.BUYING).ToList();
 
             // Build PlaceOrders
-            var placeSellOrders = watchersBuying.BuildPlaceOrders();
+            var placeBuyOrders = watchersBuying.BuildPlaceOrders();
 
             // Send place orders
-            foreach (var placeOrder in placeSellOrders)
+            foreach (var placeOrder in placeBuyOrders)
             {
                 // Send
                 await _bus.Send(placeOrder);
