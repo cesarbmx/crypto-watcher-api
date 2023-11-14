@@ -23,13 +23,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Contexts
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Line>().Map();
-            modelBuilder.Entity<Currency>().Map();            
-            modelBuilder.Entity<Indicator>().Map();
-            modelBuilder.Entity<IndicatorDependency>().Map(); 
-            modelBuilder.Entity<Watcher>().Map();
-            //modelBuilder.Entity<Order>().Map();
-            modelBuilder.Entity<User>().Map();
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(MainDbContext).Assembly);
 
             base.OnModelCreating(modelBuilder);
 
