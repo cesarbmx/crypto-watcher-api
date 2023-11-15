@@ -71,7 +71,7 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 stopwatch.Stop();
 
                 // Log
-                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(OrderPlaced), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
+                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", "OrderConformed", Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
             }
             catch (Exception ex)
             {

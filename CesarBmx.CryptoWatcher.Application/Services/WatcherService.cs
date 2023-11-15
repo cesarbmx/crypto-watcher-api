@@ -21,6 +21,7 @@ using CesarBmx.Shared.Messaging.Ordering.Commands;
 using CesarBmx.Shared.Messaging.Ordering.Types;
 using MassTransit;
 using CesarBmx.CryptoWatcher.Application.Builders;
+using CesarBmx.Shared.Messaging.Ordering.Events;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -335,7 +336,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@OrdersSelling}, {@OrdersBuying}, {@ExecutionTime}", nameof(PlaceOrders), Guid.NewGuid(), watchersSelling.Count, watchersBuying.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@OrdersSelling}, {@OrdersBuying}, {@ExecutionTime}", nameof(OrderPlaced), Guid.NewGuid(), watchersSelling.Count, watchersBuying.Count, stopwatch.Elapsed.TotalSeconds);
 
         }
     }
