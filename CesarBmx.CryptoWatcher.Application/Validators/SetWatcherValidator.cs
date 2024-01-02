@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace CesarBmx.CryptoWatcher.Application.Validators
 {
-    public class SetWatcherValidator : AbstractValidator<SetWatcher>
+    public class SetWatcherValidator : AbstractValidator<SetWatcherRequest>
     {
         public SetWatcherValidator()
         {

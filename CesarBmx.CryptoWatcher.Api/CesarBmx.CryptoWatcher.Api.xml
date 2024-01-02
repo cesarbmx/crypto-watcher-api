@@ -34,12 +34,12 @@
             Get indicator
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.IndicatorController.AddIndicator(CesarBmx.CryptoWatcher.Application.Requests.AddIndicator)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.IndicatorController.AddIndicator(CesarBmx.CryptoWatcher.Application.Requests.AddIndicatorRequest)">
             <summary>
             Add indicator
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.IndicatorController.UpdateIndicator(System.String,CesarBmx.CryptoWatcher.Application.Requests.UpdateIndicator)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.IndicatorController.UpdateIndicator(System.String,CesarBmx.CryptoWatcher.Application.Requests.UpdateIndicatorRequest)">
             <summary>
             Update indicator
             </summary>
@@ -54,12 +54,12 @@
             Get script variables
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.TestController.TestLog(CesarBmx.CryptoWatcher.Application.Requests.TestLogging)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.TestController.TestLog(CesarBmx.CryptoWatcher.Application.Requests.TestLoggingRequest)">
             <summary>
             Test logging
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.TestController.TestLogException(CesarBmx.CryptoWatcher.Application.Requests.TestLogging)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.TestController.TestLogException(CesarBmx.CryptoWatcher.Application.Requests.TestLoggingRequest)">
             <summary>
             Test logging with exception
             </summary>
@@ -74,7 +74,7 @@
             Get user
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.UsersController.AddUser(CesarBmx.CryptoWatcher.Application.Requests.AddUser)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.UsersController.AddUser(CesarBmx.CryptoWatcher.Application.Requests.AddUserRequest)">
             <summary>
             Add user
             </summary>
@@ -89,17 +89,17 @@
             Get watcher
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.WatcherController.AddWatcher(CesarBmx.CryptoWatcher.Application.Requests.AddWatcher)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.WatcherController.AddWatcher(CesarBmx.CryptoWatcher.Application.Requests.AddWatcherRequest)">
             <summary>
             Add watcher
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.WatcherController.SetWatcher(System.Int32,CesarBmx.CryptoWatcher.Application.Requests.SetWatcher)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.WatcherController.SetWatcher(System.Int32,CesarBmx.CryptoWatcher.Application.Requests.SetWatcherRequest)">
             <summary>
             Set watcher
             </summary>
         </member>
-        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.WatcherController.EnableWatcher(System.Int32,CesarBmx.CryptoWatcher.Application.Requests.EnableWatcher)">
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.WatcherController.EnableWatcher(System.Int32,CesarBmx.CryptoWatcher.Application.Requests.EnableDisableWatcherRequest)">
             <summary>
             Enable/Disable watcher
             </summary>

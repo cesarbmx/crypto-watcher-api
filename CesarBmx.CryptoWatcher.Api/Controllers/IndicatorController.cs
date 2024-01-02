@@ -29,7 +29,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/users/{userId}/indicators")]
-        [SwaggerResponse(200, Type = typeof(List<Indicator>))]  
+        [SwaggerResponse(200, Type = typeof(List<IndicatorResponse>))]  
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetUserIndicators")]
         public async Task<IActionResult> GetUserIndicators(string userId)
         {
@@ -45,7 +45,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/indicators/{indicatorId}", Name = "Indicators_GetIndicator")]
-        [SwaggerResponse(200, Type = typeof(Indicator))]
+        [SwaggerResponse(200, Type = typeof(IndicatorResponse))]
         [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_GetIndicator")]
         public async Task<IActionResult> GetIndicator(string indicatorId)
@@ -62,13 +62,13 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpPost]
         [Route("api/indicators")]
-        [SwaggerResponse(201, Type = typeof(Indicator))]
+        [SwaggerResponse(201, Type = typeof(IndicatorResponse))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
         [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerResponse(409, Type = typeof(AddIndicatorConflict))]
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_AddIndicator")]
-        public async Task<IActionResult> AddIndicator([FromBody]AddIndicator request)
+        public async Task<IActionResult> AddIndicator([FromBody]AddIndicatorRequest request)
         {
             // Reponse
             var response = await _indicatorService.AddIndicator(request);
@@ -82,11 +82,11 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpPut]
         [Route("api/indicators/{indicatorId}")]
-        [SwaggerResponse(200, Type = typeof(Indicator))]
+        [SwaggerResponse(200, Type = typeof(IndicatorResponse))]
         [SwaggerResponse(400, Type = typeof(BadRequest))]
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Indicators" }, OperationId = "Indicators_UpdateIndicator")]
-        public async Task<IActionResult> UpdateIndicator(string indicatorId, [FromBody]UpdateIndicator request)
+        public async Task<IActionResult> UpdateIndicator(string indicatorId, [FromBody]UpdateIndicatorRequest request)
         {
             // Request
             request.UserId = "cesarbmx";

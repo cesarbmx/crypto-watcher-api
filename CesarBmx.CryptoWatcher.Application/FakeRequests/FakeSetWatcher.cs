@@ -5,9 +5,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeRequests
 {
     public static class FakeSetWatcher
     {
-        public static SetWatcher GetFake_1()
+        public static SetWatcherRequest GetFake_1()
         {
-            return new SetWatcher
+            return new SetWatcherRequest
             {
                 WatcherId = 1,             
                 Buy = 30000,

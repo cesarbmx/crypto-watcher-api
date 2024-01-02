@@ -5,14 +5,14 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CesarBmx.CryptoWatcher.Api.ResponseExamples
 {
-    public class WatcherResponseExample : IExamplesProvider<WatcherResponse>
+    public class ResponseExample : IExamplesProvider<WatcherResponse>
     {
         public WatcherResponse GetExamples()
         {
             return FakeWatcher.GetFake_master_Bitcoin_RSI();
         }
     }
-    public class WatcherListResponseExample : IExamplesProvider<List<WatcherResponse>>
+    public class ResponseListExample : IExamplesProvider<List<WatcherResponse>>
     {
         public List<WatcherResponse> GetExamples()
         {

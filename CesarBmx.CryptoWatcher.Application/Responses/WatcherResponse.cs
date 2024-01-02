@@ -1,10 +1,12 @@
 ﻿using System;
+using CesarBmx.CryptoWatcher.Application.Conflicts;
 using CesarBmx.CryptoWatcher.Domain.Types;
-
+using CesarBmx.Shared.Application.Responses;
 
 namespace CesarBmx.CryptoWatcher.Application.Responses
 {
-    public class Watcher
+
+    public class WatcherResponse
     {
         public int WatcherId { get; set; }
         public string UserId { get; set; }

@@ -4,7 +4,7 @@ using CesarBmx.CryptoWatcher.Domain.Models;
 
 namespace CesarBmx.CryptoWatcher.Application.Responses
 {
-    public class Chart
+    public class ChartResponse
     {
         public string ChartId { get; set; }
         public string CurrencyId { get; set; }

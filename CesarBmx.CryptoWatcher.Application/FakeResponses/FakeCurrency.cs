@@ -5,9 +5,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
     public static class FakeCurrency
     {
-        public static Currency GetFake_Bitcoin()
+        public static CurrencyResponse GetFake_Bitcoin()
         {
-            return new Currency
+            return new CurrencyResponse
             {              
                 CurrencyId = "BTC",
                 Name = "Bitcoin",
@@ -18,9 +18,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 PercentageChange24H = (decimal)10.93
             };
         }
-        public static Currency GetFake_Ethereum()
+        public static CurrencyResponse GetFake_Ethereum()
         {
-            return new Currency
+            return new CurrencyResponse
             {
                 CurrencyId = "ETH",
                 Name = "Ethereum",
@@ -31,9 +31,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 PercentageChange24H = (decimal)5.61
             };
         }
-        public static List<Currency> GetFake_List()
+        public static List<CurrencyResponse> GetFake_List()
         {
-            return new List<Currency>
+            return new List<CurrencyResponse>
             {
                 GetFake_Bitcoin(),
                 GetFake_Ethereum()

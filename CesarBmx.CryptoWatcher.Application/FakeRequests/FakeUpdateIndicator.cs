@@ -5,9 +5,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeRequests
 {
     public static class FakeUpdateIndicator
     {
-        public static UpdateIndicator GetFake_RSI()
+        public static UpdateIndicatorRequest GetFake_RSI()
         {
-            return new UpdateIndicator
+            return new UpdateIndicatorRequest
             {
                 IndicatorId = "cesarbmx.RSI",
                 Name = "Relative Strength Index",

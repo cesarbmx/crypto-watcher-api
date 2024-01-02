@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace CesarBmx.CryptoWatcher.Application.Requests
 {
-    public class EnableWatcher
+    public class EnableDisableWatcherRequest
     {
         [JsonIgnore] [Identity] public string UserId { get; set; }
         [JsonIgnore] public int  WatcherId { get; set; }

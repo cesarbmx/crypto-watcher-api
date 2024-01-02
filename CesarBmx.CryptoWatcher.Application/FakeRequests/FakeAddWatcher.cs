@@ -5,9 +5,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeRequests
 {
     public static class FakeAddWatcher
     {
-        public static AddWatcher GetFake_RSI()
+        public static AddWatcherRequest GetFake_RSI()
         {
-            return new AddWatcher
+            return new AddWatcherRequest
             {
                 UserId = "cesarbmx",
                 CurrencyId = "BTC", 

@@ -3,7 +3,7 @@
 
 namespace CesarBmx.CryptoWatcher.Application.Responses
 {
-    public class Currency
+    public class CurrencyResponse
     {
         public string CurrencyId { get; set; }
         public string Name { get; set; }

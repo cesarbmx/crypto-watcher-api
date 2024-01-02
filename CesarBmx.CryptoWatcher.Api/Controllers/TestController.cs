@@ -31,7 +31,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Test (It will be removed)" }, OperationId = "Test_Log")]
         [ServiceFilter(typeof(LogExecutionTimeAttribute))]
-        public async Task<IActionResult> TestLog([FromBody] TestLogging request)
+        public async Task<IActionResult> TestLog([FromBody] TestLoggingRequest request)
         {
             await _testService.TestLogging(request);
 
@@ -49,7 +49,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerResponse(422, Type = typeof(ValidationFailed))]
         [SwaggerOperation(Tags = new[] { "Test (It will be removed)" }, OperationId = "Test_Logging")]
         [ServiceFilter(typeof(LogExecutionTimeAttribute))]
-        public IActionResult TestLogException([FromBody] TestLogging request)
+        public IActionResult TestLogException([FromBody] TestLoggingRequest request)
         {
             throw new Exception("My exception");
         }

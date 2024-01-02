@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace CesarBmx.CryptoWatcher.Application.Validators
 {
-    public class AddUserValidator : AbstractValidator<AddUser>
+    public class AddUserValidator : AbstractValidator<AddUserRequest>
     {
         public AddUserValidator()
         {

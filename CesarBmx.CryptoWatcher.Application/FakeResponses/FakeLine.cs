@@ -7,9 +7,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
     public static class FakeLine
     {
-        public static Line GetFake_Bitcoin_Price()
+        public static LineResponse GetFake_Bitcoin_Price()
         {
-            return new Line
+            return new LineResponse
             {
                 Time = DateTime.UtcNow.StripSeconds().AddHours(-1),
                 UserId = "master",
@@ -20,9 +20,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 AverageSell = 8
             };
         }
-        public static Line GetFake_Bitcoin_RSI()
+        public static LineResponse GetFake_Bitcoin_RSI()
         {
-            return new Line
+            return new LineResponse
             {
                 Time = DateTime.UtcNow.StripSeconds(),
                 UserId = "master",
@@ -33,9 +33,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 AverageSell = 6
             };
         }
-        public static List<Line> GetFake_List()
+        public static List<LineResponse> GetFake_List()
         {
-            return new List<Line>
+            return new List<LineResponse>
             {
                 GetFake_Bitcoin_Price(),
                 GetFake_Bitcoin_RSI()

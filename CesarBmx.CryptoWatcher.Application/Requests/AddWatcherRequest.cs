@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CesarBmx.CryptoWatcher.Application.Requests
 {
-    public class AddWatcher 
+    public class AddWatcherRequest 
     {
         [JsonIgnore] [Identity] public string UserId { get; set; }
         [Required] public string CurrencyId { get; set; }

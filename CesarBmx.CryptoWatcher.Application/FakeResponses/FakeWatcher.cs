@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using CesarBmx.CryptoWatcher.Application.Responses;
 using CesarBmx.CryptoWatcher.Domain.Types;
+using CesarBmx.Shared.Application.Types;
 using CesarBmx.Shared.Common.Extensions;
 
 namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
     public static class FakeWatcher
     {
-        public static Watcher GetFake_master_Bitcoin_Price()
+        public static WatcherResponse GetFake_master_Bitcoin_Price()
         {
-            return new Watcher
+            return new WatcherResponse
             {
                 WatcherId = 1,
                 UserId = "cesarbmx",
@@ -32,9 +33,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 Enabled = false
             };
         }
-        public static Watcher GetFake_master_Bitcoin_RSI()
+        public static WatcherResponse GetFake_master_Bitcoin_RSI()
         {
-            return new Watcher
+            return new WatcherResponse
             {
                 WatcherId = 2,
                 UserId = "cesarbmx",
@@ -56,9 +57,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 Enabled = false
             };
         }
-        public static List<Watcher> GetFake_List()
+        public static List<WatcherResponse> GetFake_List()
         {
-            return new List<Watcher>
+            return new List<WatcherResponse>
             {
                 GetFake_master_Bitcoin_Price(),
                 GetFake_master_Bitcoin_RSI()

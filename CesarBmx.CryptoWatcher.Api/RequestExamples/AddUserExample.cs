@@ -4,9 +4,9 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CesarBmx.CryptoWatcher.Api.RequestExamples
 {
-    public class AddUserExample : IExamplesProvider<AddUser>
+    public class AddUserExample : IExamplesProvider<AddUserRequest>
     {
-        public AddUser GetExamples()
+        public AddUserRequest GetExamples()
         {
             return FakeAddUser.GetFake_master();
         }

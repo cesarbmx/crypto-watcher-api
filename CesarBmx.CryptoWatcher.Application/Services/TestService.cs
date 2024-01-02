@@ -22,7 +22,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _logger = logger;
         }
 
-        public async Task TestLogging(TestLogging request)
+        public async Task TestLogging(TestLoggingRequest request)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(TestLogging));

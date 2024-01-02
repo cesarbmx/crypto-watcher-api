@@ -35,7 +35,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _activitySource = activitySource;
         }
 
-        public async Task<List<Responses.User>> GetUsers()
+        public async Task<List<Responses.UserResponse>> GetUsers()
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetUsers));
@@ -44,12 +44,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var users = await _mainDbContext.Users.ToListAsync();
 
             // Response
-            var response = _mapper.Map<List<Responses.User>>(users);
+            var response = _mapper.Map<List<Responses.UserResponse>>(users);
 
             // Return
             return response;
         }
-        public async Task<Responses.User> GetUser(string userId)
+        public async Task<Responses.UserResponse> GetUser(string userId)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetUser));
@@ -61,12 +61,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (user == null) throw new NotFoundException(UserMessage.UserNotFound);
 
             // Response
-            var response = _mapper.Map<Responses.User>(user);
+            var response = _mapper.Map<Responses.UserResponse>(user);
 
             // Return
             return response;
         }
-        public async Task<Responses.User> AddUser(AddUser request)
+        public async Task<Responses.UserResponse> AddUser(AddUserRequest request)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(AddUser));
@@ -90,7 +90,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             await _mainDbContext.SaveChangesAsync();
 
             // Response
-            var response = _mapper.Map<Responses.User>(user);
+            var response = _mapper.Map<Responses.UserResponse>(user);
 
             // Log
             _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", "UserAdded", Guid.NewGuid(), request.UserId, request, response);

@@ -39,7 +39,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _activitySource = activitySource;
         }
 
-        public async Task<List<Responses.Indicator>> GetUserIndicators(string userId)
+        public async Task<List<Responses.IndicatorResponse>> GetUserIndicators(string userId)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetUserIndicators));
@@ -57,12 +57,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .Where(IndicatorExpression.Filter(null, userId)).ToListAsync();
 
             // Response
-            var response = _mapper.Map<List<Responses.Indicator>>(indicators);
+            var response = _mapper.Map<List<Responses.IndicatorResponse>>(indicators);
 
             // Return
             return response;
         }
-        public async Task<Responses.Indicator> GetIndicator(string indicatorId)
+        public async Task<Responses.IndicatorResponse> GetIndicator(string indicatorId)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetIndicator));
@@ -77,12 +77,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (indicator == null) throw new NotFoundException(IndicatorMessage.IndicatorNotFound);
 
             // Response
-            var response = _mapper.Map<Responses.Indicator>(indicator);
+            var response = _mapper.Map<Responses.IndicatorResponse>(indicator);
 
             // Return
             return response;
         }
-        public async Task<Responses.Indicator> AddIndicator(AddIndicator request)
+        public async Task<Responses.IndicatorResponse> AddIndicator(AddIndicatorRequest request)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(AddIndicator));
@@ -134,7 +134,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .FirstOrDefaultAsync(x=>x.IndicatorId == indicator.IndicatorId);
 
             // Response
-            var response = _mapper.Map<Responses.Indicator>(indicator);
+            var response = _mapper.Map<Responses.IndicatorResponse>(indicator);
 
             // Log
             _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", "IndicatorAdded", Guid.NewGuid(), request.UserId, request, response);
@@ -142,7 +142,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<Responses.Indicator> UpdateIndicator(UpdateIndicator request)
+        public async Task<Responses.IndicatorResponse> UpdateIndicator(UpdateIndicatorRequest request)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(UpdateIndicator));
@@ -183,7 +183,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .FirstOrDefaultAsync(x => x.IndicatorId == indicator.IndicatorId);
 
             // Response
-            var response = _mapper.Map<Responses.Indicator>(indicator);
+            var response = _mapper.Map<Responses.IndicatorResponse>(indicator);
 
             // Log
             _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", "IndicatorUpdated", Guid.NewGuid(), request.UserId, request, response);

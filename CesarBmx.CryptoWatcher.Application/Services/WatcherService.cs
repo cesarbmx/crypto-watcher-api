@@ -17,11 +17,10 @@ using CesarBmx.Shared.Application.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using CesarBmx.CryptoWatcher.Domain.Models;
-using CesarBmx.Shared.Messaging.Ordering.Commands;
-using CesarBmx.Shared.Messaging.Ordering.Types;
-using MassTransit;
 using CesarBmx.CryptoWatcher.Application.Builders;
 using CesarBmx.Shared.Messaging.Ordering.Events;
+using CesarBmx.CryptoWatcher.Application.Responses;
+using MassTransit;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -31,14 +30,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly ILogger<WatcherService> _logger;
         private readonly IMapper _mapper;
         private readonly ActivitySource _activitySource;
-        private readonly IBus _bus;
+        private readonly MassTransit.IBus _bus;
 
         public WatcherService(
             MainDbContext mainDbContext,
             ILogger<WatcherService> logger,
             IMapper mapper,
             ActivitySource activitySource,
-            IBus bus)
+            MassTransit.IBus bus)
         {
             _mainDbContext = mainDbContext;
             _logger = logger;
@@ -47,7 +46,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _bus = bus;
         }
 
-        public async Task<List<Responses.Watcher>> GetUserWatchers(string userId = null, string currencyId = null, string indicatorId = null)
+        public async Task<List<Responses.WatcherResponse>> GetUserWatchers(string userId = null, string currencyId = null, string indicatorId = null)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetUserWatchers));
@@ -62,12 +61,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var userWatchers = await _mainDbContext.Watchers.Where(WatcherExpression.Filter(userId, currencyId, indicatorId)).ToListAsync();
 
             // Response
-            var response = _mapper.Map<List<Responses.Watcher>>(userWatchers);
+            var response = _mapper.Map<List<Responses.WatcherResponse>>(userWatchers);
 
             // Return
             return response;
         }
-        public async Task<Responses.Watcher> GetWatcher(int watcherId)
+        public async Task<Responses.WatcherResponse> GetWatcher(int watcherId)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetWatcher));
@@ -79,12 +78,12 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Response
-            var response = _mapper.Map<Responses.Watcher>(watcher);
+            var response = _mapper.Map<Responses.WatcherResponse>(watcher);
 
             // Return
             return response;
         }
-        public async Task<Responses.Watcher> AddWatcher(AddWatcher request)
+        public async Task<Responses.WatcherResponse> AddWatcher(AddWatcherRequest request)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(AddWatcher));
@@ -135,7 +134,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             await _mainDbContext.SaveChangesAsync();
 
             // Response
-            var response = _mapper.Map<Responses.Watcher>(watcher);
+            var response = _mapper.Map<Responses.WatcherResponse>(watcher);
 
             // Log
             _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", "WatcherAdded", Guid.NewGuid(), request.UserId, request, response);
@@ -143,10 +142,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<Responses.Watcher> SetWatcher(SetWatcher request)
+        public async Task<Result<WatcherResponse,SetWatcherError>> SetWatcher(SetWatcherRequest request)
         {
+
             // Start span
             using var span = _activitySource.StartActivity(nameof(SetWatcher));
+
+            // Result
+            var result = new Result<WatcherResponse, SetWatcherError>();
 
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FindAsync(request.WatcherId);
@@ -155,17 +158,17 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (watcher == null) throw new NotFoundException(WatcherMessage.WatcherNotFound);
 
             // Buy limit must be lower than watcher value
-            if (WatcherExpression.BuyLimitHigherThanWatcherValue(request.Buy).Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.BuyLimitMustBeLowerThanWatcherValue, watcher.Value)));
+            if (WatcherExpression.BuyLimitHigherThanWatcherValue(request.Buy).Invoke(watcher)) return result.SetValidationError(SetWatcherError.BUY_LIMIT_MUST_BE_LOWER_THAN_WATCHER_VALUE );
 
             // Sell limit must be higher than watcher value
-            if (WatcherExpression.SellLimitLowerThanWatcherValue(request.Sell).Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.SELL_LIMIT_MUST_BE_HIGHER_THAN_WATCHER_VALUE, string.Format(WatcherMessage.SellLimitMustBeHigherThanWatcherValue, watcher.Value)));
+            if (WatcherExpression.SellLimitLowerThanWatcherValue(request.Sell).Invoke(watcher)) return result.SetValidationError(SetWatcherError.SELL_LIMIT_MUST_BE_HIGHER_THAN_WATCHER_VALUE);
 
             // Watcher already bought
-            if (WatcherExpression.WatcherBought().Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.WATCHER_ALREADY_BOUGHT, string.Format(WatcherMessage.WatcherAlreadyBought, watcher.BuyingOrder.Price)));
+            if (WatcherExpression.WatcherBought().Invoke(watcher)) return result.SetValidationError(SetWatcherError.WATCHER_ALREADY_BOUGHT);
 
             // Watcher already sold
-            if (WatcherExpression.WatcherSold().Invoke(watcher)) throw new ConflictException(new SetWatcherConflict(SetWatcherConflictReason.WATCHER_ALREADY_SOLD, string.Format(WatcherMessage.WatcherAlreadySold, watcher.SellingOrder.Price)));
-            
+            if (WatcherExpression.WatcherSold().Invoke(watcher)) return new Result<WatcherResponse, SetWatcherError> { ValidationError = SetWatcherError.WATCHER_ALREADY_SOLD };
+
             // Set watcher
             watcher.Set(request.Buy, request.Sell, request.Quantity);
 
@@ -175,16 +178,19 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Save
             await _mainDbContext.SaveChangesAsync();
 
-            // Response
-            var response = _mapper.Map<Responses.Watcher>(watcher);
+            // Data
+            var data = _mapper.Map<WatcherResponse>(watcher);
+
+            // Set result data
+            result.SetData(data);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", "WatcherSet", Guid.NewGuid(), request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", "WatcherSet", Guid.NewGuid(), request.UserId, request, result);
 
             // Return
-            return response;
+            return result;
         }
-        public async Task<Responses.Watcher> EnableWatcher(EnableWatcher request)
+        public async Task<Responses.WatcherResponse> EnableWatcher(EnableDisableWatcherRequest request)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(EnableWatcher));
@@ -211,7 +217,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             await _mainDbContext.SaveChangesAsync();
 
             // Response
-            var response = _mapper.Map<Responses.Watcher>(watcher);
+            var response = _mapper.Map<Responses.WatcherResponse>(watcher);
 
             if (request.Enabled)
             {

@@ -7,7 +7,7 @@ namespace CesarBmx.CryptoWatcher.Application.Mappers
     {
         public WatcherMapper()
         {
-            CreateMap<Watcher, Responses.Watcher>();
+            CreateMap<Watcher, Responses.WatcherResponse>();
         }
     }
 }

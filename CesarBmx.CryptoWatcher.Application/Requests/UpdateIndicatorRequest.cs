@@ -3,14 +3,12 @@ using System.ComponentModel.DataAnnotations;
 using CesarBmx.Shared.Authentication.Attributes;
 using Newtonsoft.Json;
 
-
 namespace CesarBmx.CryptoWatcher.Application.Requests
 {
-    public class AddIndicator
+    public class UpdateIndicatorRequest
     {
-        [JsonIgnore] public string IndicatorId => UserId + "." + Abbreviation;
         [JsonIgnore] [Identity] public string UserId { get; set; }
-        [Required] public string Abbreviation { get; set; }
+        [JsonIgnore] public string IndicatorId { get; set; }
         [Required] public string Name { get; set; }
         [Required] public string Description { get; set; }
         [Required] public string Formula { get; set; }

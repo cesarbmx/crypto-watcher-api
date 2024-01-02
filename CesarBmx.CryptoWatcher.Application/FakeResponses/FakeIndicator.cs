@@ -5,9 +5,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
     public static class FakeIndicator
     {
-        public static Indicator GetFake_Price()
+        public static IndicatorResponse GetFake_Price()
         {
-            return new Indicator
+            return new IndicatorResponse
             {
                 IndicatorId = "master.PRICE",
                 UserId = "master",
@@ -18,9 +18,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 Dependencies = FakeIndicatorDependency.GetFake_List()
             };
         }
-        public static Indicator GetFake_RSI()
+        public static IndicatorResponse GetFake_RSI()
         {
-            return new Indicator
+            return new IndicatorResponse
             {
                 IndicatorId = "master.RSI",
                 UserId = "master",
@@ -32,9 +32,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 Dependencies = FakeIndicatorDependency.GetFake_List()
             };
         }
-        public static List<Indicator> GetFake_List()
+        public static List<IndicatorResponse> GetFake_List()
         {
-            return new List<Indicator>
+            return new List<IndicatorResponse>
             {
                 GetFake_Price(),
                 GetFake_RSI()

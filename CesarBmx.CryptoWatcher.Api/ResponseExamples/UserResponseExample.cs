@@ -5,16 +5,16 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CesarBmx.CryptoWatcher.Api.ResponseExamples
 {
-    public class UserResponseExample : IExamplesProvider<User>
+    public class UserResponseExample : IExamplesProvider<UserResponse>
     {
-        public User GetExamples()
+        public UserResponse GetExamples()
         {
             return FakeUser.GetFake_master();
         }
     }
-    public class UserListResponseExample : IExamplesProvider<List<User>>
+    public class UserListResponseExample : IExamplesProvider<List<UserResponse>>
     {
-        public List<User> GetExamples()
+        public List<UserResponse> GetExamples()
         {
             return FakeUser.GetFake_List();
         }

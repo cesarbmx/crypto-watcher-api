@@ -6,7 +6,7 @@ namespace CesarBmx.CryptoWatcher.Api.ViewModelBuilders
 {
     public static class ChartBuilder
     {
-        public static List<ViewModels.Chart> BuildCharts(List<Application.Responses.Chart> chartsResponse)
+        public static List<ViewModels.Chart> BuildCharts(List<Application.Responses.ChartResponse> chartsResponse)
         {
             var charts = new List<ViewModels.Chart>();
             foreach (var chartResponse in chartsResponse)

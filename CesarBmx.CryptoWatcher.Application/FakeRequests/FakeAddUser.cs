@@ -5,9 +5,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeRequests
 {
     public static class FakeAddUser
     {
-        public static AddUser GetFake_master()
+        public static AddUserRequest GetFake_master()
         {
-            return new AddUser
+            return new AddUserRequest
             {
                 UserId = "cesarbmx",
                 PhoneNumber = "+34 666868686"

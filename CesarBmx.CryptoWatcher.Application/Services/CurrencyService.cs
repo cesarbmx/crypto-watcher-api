@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using AutoMapper.QueryableExtensions;
-using CesarBmx.CryptoWatcher.Domain.Builders;
-using CesarBmx.CryptoWatcher.Domain.Types;
-using CesarBmx.Shared.Common.Extensions;
 using CesarBmx.Shared.Messaging.Ordering.Commands;
 using MassTransit;
-using CesarBmx.Shared.Messaging.Notification.Commands;
-using CesarBmx.Shared.Messaging.Ordering.Events;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -30,8 +25,6 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         private readonly CoinpaprikaAPI.Client _coinpaprikaClient;
         private readonly ActivitySource _activitySource;
         private readonly IBus _bus;
-        private readonly IRequestClient<CancelOrder> _requestClient;
-
 
         public CurrencyService(
             MainDbContext mainDbContext,
@@ -39,8 +32,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             ILogger<CurrencyService> logger,
             CoinpaprikaAPI.Client coinpaprikaClient,
             ActivitySource activitySource,
-            IBus bus,
-            IRequestClient<CancelOrder> requestClient)
+            IBus bus)
         {
             _mainDbContext = mainDbContext;
             _mapper = mapper;
@@ -48,17 +40,16 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _coinpaprikaClient = coinpaprikaClient;
             _activitySource = activitySource;
             _bus = bus;
-            _requestClient = requestClient;
         }
 
-        public async Task<List<Responses.Currency>> GetCurrencies()
+        public async Task<List<Responses.CurrencyResponse>> GetCurrencies()
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetCurrencies));
 
             // Get all currencies
             var currencies = await _mainDbContext.Currencies
-                .ProjectTo<Responses.Currency>(_mapper.ConfigurationProvider)
+                .ProjectTo<Responses.CurrencyResponse>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             // Place order
@@ -78,7 +69,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Return
             return currencies;
         }       
-        public async Task<Responses.Currency> GetCurrency(string currencyId)
+        public async Task<Responses.CurrencyResponse> GetCurrency(string currencyId)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetCurrency));
@@ -90,7 +81,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (currency == null) throw new NotFoundException(CurrencyMessage.CurrencyNotFound);
 
             // Response
-            var response = _mapper.Map<Responses.Currency>(currency);
+            var response = _mapper.Map<Responses.CurrencyResponse>(currency);
 
             // Return
             return response;

@@ -5,23 +5,23 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
     public static class FakeUser
     {
-        public static User GetFake_master()
+        public static UserResponse GetFake_master()
         {
-            return new User
+            return new UserResponse
             {
                 UserId = "master"
             };
         }
-        public static User GetFake_cesar12()
+        public static UserResponse GetFake_cesar12()
         {
-            return new User
+            return new UserResponse
             {
                 UserId = "cesarbmx"
             };
         }
-        public static List<User> GetFake_List()
+        public static List<UserResponse> GetFake_List()
         {
-            return new List<User>
+            return new List<UserResponse>
             {
                 GetFake_master(),
                 GetFake_cesar12()
