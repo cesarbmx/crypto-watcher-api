@@ -18,7 +18,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Application.Builders;
-using CesarBmx.Shared.Messaging.Ordering.Events;
 using CesarBmx.CryptoWatcher.Application.Responses;
 using MassTransit;
 
@@ -342,7 +341,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@OrdersSelling}, {@OrdersBuying}, {@ExecutionTime}", nameof(OrderPlaced), Guid.NewGuid(), watchersSelling.Count, watchersBuying.Count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@OrdersSelling}, {@OrdersBuying}, {@ExecutionTime}", "OrderPlaced", Guid.NewGuid(), watchersSelling.Count, watchersBuying.Count, stopwatch.Elapsed.TotalSeconds);
 
         }
     }

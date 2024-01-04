@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using CesarBmx.CryptoWatcher.Application.Services;
-using CesarBmx.CryptoWatcher.Domain.Builders;
 using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
-using CesarBmx.Shared.Common.Extensions;
-using CesarBmx.Shared.Messaging.Notification.Commands;
 using CesarBmx.Shared.Messaging.Ordering.Events;
 using CesarBmx.Shared.Messaging.Ordering.Types;
 using MassTransit;
@@ -71,7 +67,7 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 stopwatch.Stop();
 
                 // Log
-                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", "OrderConformed", Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
+                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", "OrderConfirmed", Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
             }
             catch (Exception ex)
             {
