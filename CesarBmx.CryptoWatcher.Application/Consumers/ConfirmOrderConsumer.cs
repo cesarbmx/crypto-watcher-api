@@ -12,17 +12,17 @@ using System.Threading.Tasks;
 
 namespace CesarBmx.CryptoWatcher.Application.Consumers
 {
-    public class OrderPlacedConsumer : IConsumer<OrderPlaced>
+    public class ConfirmOrderConsumer : IConsumer<OrderPlaced>
     {
         private readonly MainDbContext _mainDbContext;
         private readonly IMapper _mapper;
-        private readonly ILogger<OrderPlacedConsumer> _logger;
+        private readonly ILogger<ConfirmOrderConsumer> _logger;
         private readonly ActivitySource _activitySource;
 
-        public OrderPlacedConsumer(
+        public ConfirmOrderConsumer(
             MainDbContext mainDbContext,
             IMapper mapper,
-            ILogger<OrderPlacedConsumer> logger,
+            ILogger<ConfirmOrderConsumer> logger,
             ActivitySource activitySource)
         {
             _mainDbContext = mainDbContext;
@@ -40,7 +40,7 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 stopwatch.Start();
 
                 // Start span
-                using var span = _activitySource.StartActivity(nameof(OrderPlaced));
+                using var span = _activitySource.StartActivity(nameof(ConfirmOrderConsumer));
 
                 // Event
                 var orderPlaced = context.Message;
@@ -67,7 +67,7 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 stopwatch.Stop();
 
                 // Log
-                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", "OrderConfirmed", Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
+                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(ConfirmOrderConsumer), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
             }
             catch (Exception ex)
             {

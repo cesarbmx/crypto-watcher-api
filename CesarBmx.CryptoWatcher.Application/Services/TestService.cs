@@ -29,7 +29,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             await _coinpaprikaClient.GetTickersAsync();
 
-            _logger.LogInformation("{@Event}, {@Id}, {@Request}", "LoggingTested", Guid.NewGuid(), request);
+            _logger.LogInformation("{@Event}, {@Id}, {@Request}", nameof(TestLogging), Guid.NewGuid(), request);
         }
     }
 }
