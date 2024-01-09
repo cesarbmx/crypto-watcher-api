@@ -66,6 +66,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Send
             await _bus.Send(placeOrder);
 
+
             // Return
             return currencies;
         }       
