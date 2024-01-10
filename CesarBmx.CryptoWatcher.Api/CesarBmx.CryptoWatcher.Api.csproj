@@ -8,7 +8,7 @@
 		<UserSecretsId>6bec4bc4-ce1c-404d-a073-df2a3b52396b</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 		<DocumentationFile>CesarBmx.CryptoWatcher.Api.xml</DocumentationFile>
 	</PropertyGroup>
 
