@@ -30,6 +30,9 @@
 
 
 	<ItemGroup>
+		<None Update="CesarBmx.CryptoWatcher.Api.xml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="Controllers\TemplateController.tt">
 			<LastGenOutput>TemplateController.txt</LastGenOutput>
 			<Generator>TextTemplatingFileGenerator</Generator>
