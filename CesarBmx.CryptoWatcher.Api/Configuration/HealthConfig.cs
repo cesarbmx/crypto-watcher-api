@@ -1,4 +1,5 @@
 ﻿using CesarBmx.Shared.Api.Configuration;
+using CesarBmx.Shared.Health.HealthChecks;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
@@ -8,6 +9,9 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
         {
             // Shared
             services.ConfigureSharedHealth(configuration);
+
+            services.AddHealthChecks()
+               .AddCheck<CoinpaprikaHealthCheck>("Coinpaprika API");
 
             // Return
             return services;
