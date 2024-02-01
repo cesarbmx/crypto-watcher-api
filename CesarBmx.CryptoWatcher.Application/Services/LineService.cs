@@ -37,7 +37,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _activitySource = activitySource;
         }
 
-        public async Task<List<Responses.LineResponse>> GetLines(Period period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
+        public async Task<List<Responses.Line>> GetLines(Period period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetLines));
@@ -46,7 +46,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var lines = await _mainDbContext.Lines.Where(LineExpression.Filter(_appSettings.LineRetention, period, currencyIds, userIds, indicatorIds)).ToListAsync();
 
             // Response
-            var response = _mapper.Map<List<Responses.LineResponse>>(lines);
+            var response = _mapper.Map<List<Responses.Line>>(lines);
 
             // Return
             return response;

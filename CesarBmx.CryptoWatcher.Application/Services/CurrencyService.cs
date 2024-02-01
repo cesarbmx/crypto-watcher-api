@@ -42,14 +42,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _bus = bus;
         }
 
-        public async Task<List<Responses.CurrencyResponse>> GetCurrencies()
+        public async Task<List<Responses.Currency>> GetCurrencies()
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetCurrencies));
 
             // Get all currencies
             var currencies = await _mainDbContext.Currencies
-                .ProjectTo<Responses.CurrencyResponse>(_mapper.ConfigurationProvider)
+                .ProjectTo<Responses.Currency>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
             // Place order
@@ -70,7 +70,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Return
             return currencies;
         }       
-        public async Task<Responses.CurrencyResponse> GetCurrency(string currencyId)
+        public async Task<Responses.Currency> GetCurrency(string currencyId)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetCurrency));
@@ -82,7 +82,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             if (currency == null) throw new NotFoundException(CurrencyMessage.CurrencyNotFound);
 
             // Response
-            var response = _mapper.Map<Responses.CurrencyResponse>(currency);
+            var response = _mapper.Map<Responses.Currency>(currency);
 
             // Return
             return response;

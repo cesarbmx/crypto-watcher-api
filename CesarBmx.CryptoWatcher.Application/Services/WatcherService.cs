@@ -225,7 +225,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             return response;
         }
 
-        public async Task<List<Watcher>> UpdateDefaultWatchers(List<Line> lines)
+        public async Task<List<Watcher>> UpdateDefaultWatchers(List<Domain.Models.Line> lines)
         {
             // Start watch
             var stopwatch = new Stopwatch();

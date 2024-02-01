@@ -32,7 +32,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/script-variables")]
-        [SwaggerResponse(200, Type = typeof(ScriptVariablesResponse))]
+        [SwaggerResponse(200, Type = typeof(ScriptVariables))]
         [SwaggerOperation(Tags = new[] { "Script variables" }, OperationId = "ScriptVariables_GetScriptVariables")]
         public async Task<IActionResult> GetScriptVariables([BindRequired]Period period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
         {

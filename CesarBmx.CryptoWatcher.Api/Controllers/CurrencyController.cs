@@ -27,7 +27,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/currencies")]
-        [SwaggerResponse(200, Type = typeof(List<CurrencyResponse>))]
+        [SwaggerResponse(200, Type = typeof(List<Currency>))]
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrencies")]
         public async Task<IActionResult> GetCurrencies()
         {
@@ -43,7 +43,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/currencies/{currencyId}", Name = "Currencies_GetCurrency")]
-        [SwaggerResponse(200, Type = typeof(CurrencyResponse))]
+        [SwaggerResponse(200, Type = typeof(Currency))]
         [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrency")]
         public async Task<IActionResult> GetCurrency(string currencyId)
@@ -60,7 +60,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/currencies/{currencyId:guid}", Name = "Currencies_GetCurrencyByGuid")]
-        [SwaggerResponse(200, Type = typeof(CurrencyResponse))]
+        [SwaggerResponse(200, Type = typeof(Currency))]
         [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrencyByGuid")]
         public IActionResult GetCurrencyByGuid(Guid currencyId)

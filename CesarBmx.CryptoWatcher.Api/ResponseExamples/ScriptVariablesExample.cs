@@ -4,9 +4,9 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CesarBmx.CryptoWatcher.Api.ResponseExamples
 {
-    public class ScriptVariableListExample : IExamplesProvider<ScriptVariablesResponse>
+    public class ScriptVariableListExample : IExamplesProvider<ScriptVariables>
     {
-        public ScriptVariablesResponse GetExamples()
+        public ScriptVariables GetExamples()
         {
             return FakeScriptVariables.GetFake_List();
         }

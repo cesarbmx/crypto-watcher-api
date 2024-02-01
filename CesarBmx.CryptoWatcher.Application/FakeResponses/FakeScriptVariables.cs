@@ -7,9 +7,9 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
 {
     public static class FakeScriptVariables
     {
-        public static ScriptVariablesResponse GetFake_List()
+        public static ScriptVariables GetFake_List()
         {
-           var scriptVariablesResponse = new ScriptVariablesResponse();
+           var scriptVariablesResponse = new ScriptVariables();
 
            var now = DateTime.UtcNow.StripSeconds();
            var times = new List<DateTime> { now};

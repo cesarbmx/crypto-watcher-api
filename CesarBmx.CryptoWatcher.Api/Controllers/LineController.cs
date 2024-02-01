@@ -29,7 +29,7 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/lines")]
-        [SwaggerResponse(200, Type = typeof(List<LineResponse>))]
+        [SwaggerResponse(200, Type = typeof(List<Line>))]
         [SwaggerOperation(Tags = new[] { "Lines" }, OperationId = "Lines_GetLines")]
         public async Task<IActionResult> GetLines([BindRequired] Period period, List<string> currencyIds, List<string> userIds, List<string> indicatorIds)
         {

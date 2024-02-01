@@ -3,7 +3,7 @@
 
 namespace CesarBmx.CryptoWatcher.Application.Responses
 {
-    public class LineResponse
+    public class Line
     {
         public DateTime Time { get; set; }
         public string UserId { get; set; }
