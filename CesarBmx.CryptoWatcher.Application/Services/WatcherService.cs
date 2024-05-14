@@ -86,6 +86,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(AddWatcher));
+            span.AddTag("UserId", request.UserId);
 
             // Get currency
             var currency = await _mainDbContext.Currencies.FindAsync(request.CurrencyId);
@@ -146,6 +147,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Start span
             using var span = _activitySource.StartActivity(nameof(SetWatcher));
+            span.AddTag("UserId", request.UserId);
 
             // Result
             var result = new Result<WatcherResponse, SetWatcherError>();
@@ -193,6 +195,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(EnableWatcher));
+            span.AddTag("UserId", request.UserId);
 
             // Get watcher
             var watcher = await _mainDbContext.Watchers.FindAsync(request.WatcherId);

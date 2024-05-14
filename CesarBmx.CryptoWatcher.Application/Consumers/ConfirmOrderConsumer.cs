@@ -39,11 +39,12 @@ namespace CesarBmx.CryptoWatcher.Application.Consumers
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Start span
-                using var span = _activitySource.StartActivity(nameof(ConfirmOrderConsumer));
-
                 // Event
                 var orderPlaced = context.Message;
+
+                // Start span
+                using var span = _activitySource.StartActivity(nameof(ConfirmOrderConsumer));
+                span.AddTag("UserId", orderPlaced.UserId);
 
                 // Get watcher
                 Watcher watcher = null;

@@ -70,6 +70,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(AddUser));
+            span.AddTag("UserId", request.UserId);
 
             // Get user
             var user = await _mainDbContext.Users.FindAsync(request.UserId);

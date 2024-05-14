@@ -17,6 +17,7 @@ using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using CesarBmx.Shared.Application.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using CesarBmx.Shared.Messaging.Ordering.Events;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -86,6 +87,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(AddIndicator));
+            span.AddTag("UserId", request.UserId);
 
             // Get user
             var user = await _mainDbContext.Users.FindAsync(request.UserId);
@@ -146,6 +148,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(UpdateIndicator));
+            span.AddTag("UserId", request.UserId);
 
             // Get indicator
             var indicator = await _mainDbContext.Indicators
