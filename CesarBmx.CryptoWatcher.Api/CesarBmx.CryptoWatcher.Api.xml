@@ -79,6 +79,11 @@
             Add user
             </summary>
         </member>
+        <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.UserLogController.GetUsers(System.String)">
+            <summary>
+            Get user logs
+            </summary>
+        </member>
         <member name="M:CesarBmx.CryptoWatcher.Api.Controllers.WatcherController.GetUserWatchers(System.String,System.String,System.String)">
             <summary>
             Get user watchers

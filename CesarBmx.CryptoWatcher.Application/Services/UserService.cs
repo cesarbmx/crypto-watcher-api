@@ -87,6 +87,21 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Add user
             _mainDbContext.Users.Add(user);
 
+            // Log Id
+            var logId = Guid.NewGuid();
+
+            // Log action
+            var action = nameof(AddUser);
+
+            // Log description
+            var description = $"New user added ({user.UserId})";
+
+            // Add user log
+            var userLog = new UserLog(logId, user.UserId, action, description, now);
+
+            // Add user log
+            _mainDbContext.UserLogs.Add(userLog);
+
             // Save
             await _mainDbContext.SaveChangesAsync();
 
@@ -94,7 +109,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var response = _mapper.Map<Responses.User>(user);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", nameof(AddUser), Guid.NewGuid(), request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", action, logId, request.UserId, request, response);
 
             // Return
             return response;

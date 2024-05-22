@@ -19,24 +19,6 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public DateTime Time { get; private set; }
 
         public Currency() {}
-        public Currency(
-            string currencyId,
-            string name,
-            short rank,
-            decimal price,
-            decimal volume24H,
-            decimal marketCap,
-            decimal percentageChange24H)
-        {
-            CurrencyId = currencyId;
-            Name = name;
-            Rank = rank;
-            Price = price;
-            Volume24H = volume24H;
-            MarketCap = marketCap;
-            PercentageChange24H = percentageChange24H;
-            Time = DateTime.UtcNow.StripSeconds();
-        }
 
         public Currency Update(Currency currency)
         {

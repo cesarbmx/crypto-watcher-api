@@ -12,7 +12,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
                 UserId = "master"
             };
         }
-        public static User GetFake_cesar12()
+        public static User GetFake_User1()
         {
             return new User
             {
@@ -24,7 +24,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             return new List<User>
             {
                 GetFake_master(),
-                GetFake_cesar12()
+                GetFake_User1()
             };
         }
     }

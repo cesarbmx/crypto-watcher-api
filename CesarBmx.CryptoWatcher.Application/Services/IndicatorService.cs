@@ -18,6 +18,8 @@ using CesarBmx.Shared.Application.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using CesarBmx.Shared.Messaging.Ordering.Events;
+using Twilio.TwiML.Voice;
+using CesarBmx.CryptoWatcher.Application.Responses;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -40,7 +42,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             _activitySource = activitySource;
         }
 
-        public async Task<List<Responses.IndicatorResponse>> GetUserIndicators(string userId)
+        public async Task<List<IndicatorResponse>> GetUserIndicators(string userId)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetUserIndicators));
@@ -63,7 +65,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<Responses.IndicatorResponse> GetIndicator(string indicatorId)
+        public async Task<IndicatorResponse> GetIndicator(string indicatorId)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetIndicator));
@@ -83,7 +85,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Return
             return response;
         }
-        public async Task<Responses.IndicatorResponse> AddIndicator(AddIndicatorRequest request)
+        public async Task<IndicatorResponse> AddIndicator(AddIndicatorRequest request)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(AddIndicator));
@@ -112,6 +114,9 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Build indicator dependencies
             var indicatorDependencies = IndicatorDependencyBuilder.BuildIndicatorDependencies(request.IndicatorId, dependencies);
 
+            // Now
+            var now = DateTime.UtcNow.StripSeconds();
+
             // Create
             indicator = new Indicator(
                 request.UserId,
@@ -121,10 +126,25 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 request.Formula,
                 indicatorDependencies,
                 dependencyLevel,
-                DateTime.UtcNow.StripSeconds());
+                now);
 
             // Add
             _mainDbContext.Indicators.Add(indicator);
+
+            // Log Id
+            var logId = Guid.NewGuid();
+
+            // Log action
+            var action = nameof(AddIndicator);
+
+            // Log description
+            var description = $"Indicator added ({indicator.IndicatorId})";
+
+            // Add user log
+            var userLog = new UserLog(logId, indicator.UserId, action, description, now);
+
+            // Add user log
+            _mainDbContext.UserLogs.Add(userLog);
 
             // Save
             await _mainDbContext.SaveChangesAsync();            
@@ -136,15 +156,15 @@ namespace CesarBmx.CryptoWatcher.Application.Services
                 .FirstOrDefaultAsync(x=>x.IndicatorId == indicator.IndicatorId);
 
             // Response
-            var response = _mapper.Map<Responses.IndicatorResponse>(indicator);
+            var response = _mapper.Map<IndicatorResponse>(indicator);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", nameof(AddIndicator), Guid.NewGuid(), request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", action, logId, request.UserId, request, response);
 
             // Return
             return response;
         }
-        public async Task<Responses.IndicatorResponse> UpdateIndicator(UpdateIndicatorRequest request)
+        public async Task<IndicatorResponse> UpdateIndicator(UpdateIndicatorRequest request)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(UpdateIndicator));
@@ -175,7 +195,25 @@ namespace CesarBmx.CryptoWatcher.Application.Services
 
             // Update
             _mainDbContext.Indicators.Update(indicator);
-            
+
+            // Now
+            var now = DateTime.UtcNow.StripSeconds();
+
+            // Log Id
+            var logId = Guid.NewGuid();
+
+            // Log action
+            var action = nameof(AddIndicator);
+
+            // Log description
+            var description = $"Indicator updated ({indicator.IndicatorId})";
+
+            // Add user log
+            var userLog = new UserLog(logId, indicator.UserId, action, description, now);
+
+            // Add user log
+            _mainDbContext.UserLogs.Add(userLog);
+
             // Save
             await _mainDbContext.SaveChangesAsync();
 
@@ -189,7 +227,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var response = _mapper.Map<Responses.IndicatorResponse>(indicator);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", nameof(UpdateIndicator), Guid.NewGuid(), request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", action, logId, request.UserId, request, response);
 
             // Return
             return response;

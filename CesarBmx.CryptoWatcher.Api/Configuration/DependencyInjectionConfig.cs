@@ -39,6 +39,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             services.AddScoped<ChartService>();
             services.AddScoped<ScriptVariablesService>();
             services.AddScoped<TestService>();
+            services.AddScoped<UserLogService>();
 
             // Jobs
             services.AddScoped<MainJob>();

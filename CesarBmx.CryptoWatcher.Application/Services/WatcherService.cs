@@ -112,14 +112,16 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Watcher already exists
             if (watcher != null) throw new ConflictException(new AddWatcherConflict(AddWatcherConflictReason.WATCHER_ALREADY_EXISTS, WatcherMessage.WatcherAlreadyExists));
 
+            // Now
+            var now = DateTime.UtcNow.StripSeconds();
+
             // Add watcher
             watcher = new Watcher(
                 request.UserId,
                 request.CurrencyId,
                 indicator.IndicatorId,
                 request.Enabled,
-                DateTime.UtcNow.StripSeconds());
-
+                now);
 
             // Get default watcher
             var defaultWatcher = await _mainDbContext.Watchers.FirstOrDefaultAsync(WatcherExpression.DefaultWatcher(request.CurrencyId, request.IndicatorId));
@@ -130,6 +132,21 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Add
             _mainDbContext.Watchers.Add(watcher);
 
+            // Log Id
+            var logId = Guid.NewGuid();
+
+            // Log action
+            var action = nameof(AddWatcher);
+
+            // Log description
+            var description = $"New watcher added ({watcher.CurrencyId}, {watcher.IndicatorId})";
+
+            // Add user log
+            var userLog = new UserLog(logId, user.UserId, action, description, now);
+
+            // Add user log
+            _mainDbContext.UserLogs.Add(userLog);
+
             // Save
             await _mainDbContext.SaveChangesAsync();
 
@@ -137,7 +154,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var response = _mapper.Map<Responses.WatcherResponse>(watcher);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", nameof(AddWatcher), Guid.NewGuid(), request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", action, logId, request.UserId, request, response);
 
             // Return
             return response;
@@ -176,6 +193,24 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Update
             _mainDbContext.Watchers.Update(watcher);
 
+            // Now
+            var now = DateTime.UtcNow.StripSeconds();
+
+            // Log Id
+            var logId = Guid.NewGuid();
+
+            // Log action
+            var action = nameof(SetWatcher);
+
+            // Log description
+            var description = $"Watcher set ({watcher.CurrencyId}, {watcher.IndicatorId}, buy:{watcher.Buy}, sell:{watcher.Sell})";
+
+            // Add user log
+            var userLog = new UserLog(logId, watcher.UserId, action, description, now);
+
+            // Add user log
+            _mainDbContext.UserLogs.Add(userLog);
+
             // Save
             await _mainDbContext.SaveChangesAsync();
 
@@ -186,7 +221,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             result.SetData(data);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", nameof(SetWatcher), Guid.NewGuid(), request.UserId, request, result);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", action, logId, request.UserId, request, result);
 
             // Return
             return result;
@@ -215,14 +250,32 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Update
             _mainDbContext.Watchers.Update(watcher);
 
+            // Now
+            var now = DateTime.UtcNow.StripSeconds();
+
+            // Log Id
+            var logId = Guid.NewGuid();
+
+            // Log action
+            var action = nameof(SetWatcher);
+
+            // Log description
+            var description = $"Watcher enabled ({watcher.CurrencyId}, {watcher.IndicatorId})";
+
+            // Add user log
+            var userLog = new UserLog(logId, watcher.UserId, action, description, now);
+
+            // Add user log
+            _mainDbContext.UserLogs.Add(userLog);
+
             // Save
             await _mainDbContext.SaveChangesAsync();
 
             // Response
-            var response = _mapper.Map<Responses.WatcherResponse>(watcher);
+            var response = _mapper.Map<WatcherResponse>(watcher);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", nameof(EnableWatcher), Guid.NewGuid(), request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", action, logId, request.UserId, request, response);
 
             // Return
             return response;
