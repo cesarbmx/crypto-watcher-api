@@ -6,7 +6,7 @@
       "serviceActions": {
         "cesarbmx.cryptowatcher.api": "StartDebugging",
         "cesarbmx.ordering.api": "StartDebugging",
-		    "cesarbmx.notification.api": "StartDebugging",
+        "cesarbmx.notification.api": "StartDebugging",
         "elasticsearch": "StartWithoutDebugging",
         "grafana": "StartWithoutDebugging",
         "jaeger-agent": "StartWithoutDebugging",
