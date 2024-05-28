@@ -84,11 +84,11 @@ namespace CesarBmx.CryptoWatcher.Api
             // CORS
             app.ConfigureCors();
 
-            // Error handling
-            app.ConfigureErrorHandling();
+            // Middleware
+            app.ConfigureMiddleware();
 
             // Serilog
-            app.ConfigureSerilog(loggerFactory, Configuration);
+            loggerFactory.ConfigureSerilog(Configuration);
 
             // Swagger
             app.ConfigureSwagger(Configuration);

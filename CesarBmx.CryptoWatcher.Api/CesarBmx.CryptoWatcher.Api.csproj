@@ -2,7 +2,7 @@
 
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>6bec4bc4-ce1c-404d-a073-df2a3b52396b</UserSecretsId>
@@ -10,20 +10,15 @@
 		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>CesarBmx.CryptoWatcher.Api.xml</DocumentationFile>
+		<RuntimeIdentifiers>win-x64;linux-x64;</RuntimeIdentifiers>
+		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
 	</PropertyGroup>
-
-
-	<ItemGroup>
-	  <Content Include="Properties\launchSettings.json" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Shared\CesarBmx.Shared.Api\CesarBmx.Shared.Api.csproj" />
 		<ProjectReference Include="..\CesarBmx.CryptoWatcher.Application\CesarBmx.CryptoWatcher.Application.csproj" />
 		<ProjectReference Include="..\CesarBmx.CryptoWatcher.Persistence\CesarBmx.CryptoWatcher.Persistence.csproj" />
 	</ItemGroup>
-
-
 
 	<ItemGroup>
 		<None Update="CesarBmx.CryptoWatcher.Api.xml">
@@ -39,7 +34,5 @@
 			<DependentUpon>TemplateController.tt</DependentUpon>
 		</None>
 	</ItemGroup>
-
-
 
 </Project>

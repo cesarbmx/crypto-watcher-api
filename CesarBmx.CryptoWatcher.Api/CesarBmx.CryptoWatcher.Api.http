@@ -1,0 +1,6 @@
+@CesarBmx.CryptoWatcher.Api_HostAddress = http://localhost:65012
+
+GET {{CesarBmx.CryptoWatcher.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
