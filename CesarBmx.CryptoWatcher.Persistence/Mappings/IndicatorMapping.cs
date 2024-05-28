@@ -27,7 +27,7 @@ namespace CesarBmx.CryptoWatcher.Persistence.Mappings
 
             // Properties
             entityBuilder.Property(t => t.IndicatorId)
-                .HasColumnType("nvarchar(100)")
+                .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();
 
