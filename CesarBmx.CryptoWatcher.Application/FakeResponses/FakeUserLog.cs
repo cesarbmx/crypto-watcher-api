@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CesarBmx.CryptoWatcher.Application.Responses;
+using CesarBmx.CryptoWatcher.Domain.Types;
 using CesarBmx.Shared.Common.Extensions;
 
 namespace CesarBmx.CryptoWatcher.Application.FakeResponses
@@ -14,7 +15,7 @@ namespace CesarBmx.CryptoWatcher.Application.FakeResponses
             {
                 LogId = Guid.NewGuid(),
                 UserId = "cesarbmx",
-                Action = "AddWatcher",
+                ActionType = ActionType.ADD_USER,
                 Description = "Watcher added (BTC, PRICE)",
                 CreatedAt = DateTime.UtcNow.StripSeconds()
             };

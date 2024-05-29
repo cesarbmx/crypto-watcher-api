@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CesarBmx.CryptoWatcher.Domain.Types;
+using System;
 
 namespace CesarBmx.CryptoWatcher.Domain.Models
 {
@@ -6,7 +7,7 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
     {
         public Guid LogId { get; private set; }
         public string UserId { get; private set; }
-        public string Action { get; private set; }
+        public ActionType ActionType { get; private set; }
         public string Description { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
@@ -14,13 +15,13 @@ namespace CesarBmx.CryptoWatcher.Domain.Models
         public UserLog (
             Guid logId, 
             string userId,
-            string action,
+            ActionType actionType,
             string text, 
             DateTime createdAt)
         {
             LogId = logId;
             UserId = userId;
-            Action = action;
+            ActionType = actionType;
             Description = text;
             CreatedAt = createdAt;
         }

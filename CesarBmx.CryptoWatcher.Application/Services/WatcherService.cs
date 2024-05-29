@@ -20,6 +20,7 @@ using CesarBmx.CryptoWatcher.Domain.Models;
 using CesarBmx.CryptoWatcher.Application.Builders;
 using CesarBmx.CryptoWatcher.Application.Responses;
 using MassTransit;
+using CesarBmx.CryptoWatcher.Domain.Types;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -135,14 +136,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Log Id
             var logId = Guid.NewGuid();
 
-            // Log action
-            var action = nameof(AddWatcher);
+            // Log action type
+            var actionType = ActionType.ADD_WARTCHER;
 
             // Log description
             var description = $"New watcher added ({watcher.CurrencyId}, {watcher.IndicatorId})";
 
             // Add user log
-            var userLog = new UserLog(logId, user.UserId, action, description, now);
+            var userLog = new UserLog(logId, user.UserId, actionType, description, now);
 
             // Add user log
             _mainDbContext.UserLogs.Add(userLog);
@@ -151,10 +152,10 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             await _mainDbContext.SaveChangesAsync();
 
             // Response
-            var response = _mapper.Map<Responses.WatcherResponse>(watcher);
+            var response = _mapper.Map<WatcherResponse>(watcher);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", action, logId, request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", nameof(AddWatcher), logId, request.UserId, request, response);
 
             // Return
             return response;
@@ -199,14 +200,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Log Id
             var logId = Guid.NewGuid();
 
-            // Log action
-            var action = nameof(SetWatcher);
+            // Log action type
+            var actionType = ActionType.ADD_WARTCHER;
 
             // Log description
             var description = $"Watcher set ({watcher.CurrencyId}, {watcher.IndicatorId}, buy:{watcher.Buy}, sell:{watcher.Sell})";
 
             // Add user log
-            var userLog = new UserLog(logId, watcher.UserId, action, description, now);
+            var userLog = new UserLog(logId, watcher.UserId, actionType, description, now);
 
             // Add user log
             _mainDbContext.UserLogs.Add(userLog);
@@ -221,7 +222,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             result.SetData(data);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", action, logId, request.UserId, request, result);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", nameof(SetWatcher), logId, request.UserId, request, result);
 
             // Return
             return result;
@@ -256,14 +257,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Log Id
             var logId = Guid.NewGuid();
 
-            // Log action
-            var action = nameof(SetWatcher);
+            // Log action type
+            var actionType = ActionType.ENABLE_WATCHER;
 
             // Log description
             var description = $"Watcher enabled ({watcher.CurrencyId}, {watcher.IndicatorId})";
 
             // Add user log
-            var userLog = new UserLog(logId, watcher.UserId, action, description, now);
+            var userLog = new UserLog(logId, watcher.UserId, actionType, description, now);
 
             // Add user log
             _mainDbContext.UserLogs.Add(userLog);
@@ -275,7 +276,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var response = _mapper.Map<WatcherResponse>(watcher);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", action, logId, request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", nameof(EnableWatcher), logId, request.UserId, request, response);
 
             // Return
             return response;

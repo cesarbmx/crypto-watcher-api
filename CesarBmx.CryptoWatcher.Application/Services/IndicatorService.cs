@@ -20,6 +20,7 @@ using Microsoft.Extensions.Logging;
 using CesarBmx.Shared.Messaging.Ordering.Events;
 using Twilio.TwiML.Voice;
 using CesarBmx.CryptoWatcher.Application.Responses;
+using CesarBmx.CryptoWatcher.Domain.Types;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -134,14 +135,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Log Id
             var logId = Guid.NewGuid();
 
-            // Log action
-            var action = nameof(AddIndicator);
+            // Log action type
+            var actionType = ActionType.ADD_INDICATOR;
 
             // Log description
             var description = $"Indicator added ({indicator.IndicatorId})";
 
             // Add user log
-            var userLog = new UserLog(logId, indicator.UserId, action, description, now);
+            var userLog = new UserLog(logId, indicator.UserId, actionType, description, now);
 
             // Add user log
             _mainDbContext.UserLogs.Add(userLog);
@@ -159,7 +160,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var response = _mapper.Map<IndicatorResponse>(indicator);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", action, logId, request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", nameof(AddIndicator), logId, request.UserId, request, response);
 
             // Return
             return response;
@@ -202,14 +203,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Log Id
             var logId = Guid.NewGuid();
 
-            // Log action
-            var action = nameof(AddIndicator);
+            // Log action type
+            var actionType = ActionType.UPDATE_INDICATOR;
 
             // Log description
             var description = $"Indicator updated ({indicator.IndicatorId})";
 
             // Add user log
-            var userLog = new UserLog(logId, indicator.UserId, action, description, now);
+            var userLog = new UserLog(logId, indicator.UserId, actionType, description, now);
 
             // Add user log
             _mainDbContext.UserLogs.Add(userLog);
@@ -227,7 +228,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var response = _mapper.Map<Responses.IndicatorResponse>(indicator);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", action, logId, request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", nameof(UpdateIndicator), logId, request.UserId, request, response);
 
             // Return
             return response;

@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using CesarBmx.CryptoWatcher.Domain.Models;
+using CesarBmx.CryptoWatcher.Domain.Types;
 
 namespace CesarBmx.CryptoWatcher.Application.Services
 {
@@ -90,14 +91,14 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             // Log Id
             var logId = Guid.NewGuid();
 
-            // Log action
-            var action = nameof(AddUser);
+            // Log action type
+            var actionType = ActionType.ADD_USER;
 
             // Log description
             var description = $"New user added ({user.UserId})";
 
             // Add user log
-            var userLog = new UserLog(logId, user.UserId, action, description, now);
+            var userLog = new UserLog(logId, user.UserId, actionType, description, now);
 
             // Add user log
             _mainDbContext.UserLogs.Add(userLog);
@@ -109,7 +110,7 @@ namespace CesarBmx.CryptoWatcher.Application.Services
             var response = _mapper.Map<Responses.User>(user);
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", action, logId, request.UserId, request, response);
+            _logger.LogInformation("{@Event}, {@Id}, {@UserId}, {@Request}, {@Response}", nameof(AddUser), logId, request.UserId, request, response);
 
             // Return
             return response;
