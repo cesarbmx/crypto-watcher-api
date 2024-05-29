@@ -123,7 +123,6 @@ services:
           - jaeger-agent
           - sql
 
-
     cesarbmx.ordering.api:
         container_name: ordering-api
         image: ${DOCKER_REGISTRY-}cesarbmx/ordering-api
