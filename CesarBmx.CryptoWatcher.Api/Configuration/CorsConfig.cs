@@ -1,4 +1,4 @@
-﻿using CesarBmx.Shared.Application.Settings;
+﻿using CesarBmx.Shared.Settings;
 using CesarBmx.Shared.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

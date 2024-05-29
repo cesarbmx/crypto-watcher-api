@@ -48,6 +48,9 @@ services.ConfigureAuthorization();
 // Distributed caching
 services.ConfigureCaching();
 
+// Redis
+services.ConfigureRedis(configuration);
+
 // Mvc
 services.ConfigureMvc(configuration);
 

@@ -15,7 +15,9 @@
         "kibana": "StartWithoutDebugging",
         "prometheus": "StartWithoutDebugging",
         "rabbitmq": "StartWithoutDebugging",
-        "sql": "StartWithoutDebugging"
+        "sql": "StartWithoutDebugging",
+        "redis": "StartWithoutDebugging",
+        "redisinsight": "StartWithoutDebugging"
       }
     }
   }

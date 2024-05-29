@@ -122,6 +122,7 @@ services:
         depends_on: 
           - jaeger-agent
           - sql
+          - redis
 
     cesarbmx.ordering.api:
         container_name: ordering-api
@@ -145,6 +146,7 @@ services:
         depends_on: 
           - jaeger-agent
           - sql
+          - redis
 
     cesarbmx.notification.api:
         container_name: notification-api
@@ -168,6 +170,7 @@ services:
         depends_on: 
           - jaeger-agent
           - sql
+          - redis
 
     prometheus:
         container_name: prometheus
@@ -211,6 +214,24 @@ services:
         ports:
           - '5672:5672'
           - '15672:15672'
+        networks:
+          - elastic
+
+    redis:    
+        container_name: redis
+        image: redis:latest
+        hostname: redis
+        ports:
+          - 6379:6379
+        networks:
+          - elastic
+
+    redisinsight:
+        container_name: redisinsight
+        image: redislabs/redisinsight:latest
+        hostname: redisinsight
+        ports:
+          - '8001:8001'
         networks:
           - elastic
 
