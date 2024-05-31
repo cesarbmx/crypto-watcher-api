@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using MassTransit;
 using CesarBmx.Shared.Messaging.Ordering.Commands;
+using Microsoft.Extensions.Caching.Hybrid;
+using Azure.Core;
 
 namespace CesarBmx.CryptoWatcher.Api.Controllers
 {
@@ -16,10 +18,12 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
     public class CurrencyController : Controller
     {
         private readonly CurrencyService _currencyService;
+        private readonly HybridCache _hybridCache;
 
-        public CurrencyController(CurrencyService currencyService)
+        public CurrencyController(CurrencyService currencyService, HybridCache hybridCache)
         {
             _currencyService = currencyService;
+            _hybridCache = hybridCache;
         }
 
         /// <summary>
@@ -31,8 +35,8 @@ namespace CesarBmx.CryptoWatcher.Api.Controllers
         [SwaggerOperation(Tags = new[] { "Currencies" }, OperationId = "Currencies_GetCurrencies")]
         public async Task<IActionResult> GetCurrencies()
         {
-            // Reponse
-            var response = await _currencyService.GetCurrencies();
+            // Cached reponse
+            var response = await _hybridCache.GetOrCreateAsync($"GetCurrencies", async cancel => await _currencyService.GetCurrencies());
 
             // Return
             return Ok(response);
