@@ -35,4 +35,8 @@
 		</None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="C\Logs\" />
+	</ItemGroup>
+
 </Project>
