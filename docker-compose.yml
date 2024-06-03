@@ -224,16 +224,20 @@ services:
         ports:
           - 6379:6379
         networks:
-          - elastic
+          - elastic        
 
     redisinsight:
         container_name: redisinsight
         image: redislabs/redisinsight:latest
         hostname: redisinsight
         ports:
-          - '8001:8001'
+          - 5540:5540
         networks:
-          - elastic
+          - elastic  
+        volumes:
+          - redis-insight:/data
+        depends_on: 
+          - redis
 
 networks:
   elastic:
@@ -241,3 +245,4 @@ networks:
 
 volumes:
   elasticsearch-data:
+  redis-insight:  
