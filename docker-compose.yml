@@ -13,6 +13,13 @@ services:
           - xpack.watcher.enabled=false
           - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
           - discovery.type=single-node
+          - cluster.routing.allocation.disk.threshold_enabled=true
+          - cluster.routing.allocation.disk.watermark.low=65%
+          - cluster.routing.allocation.disk.watermark.high=70%
+          - xpack.security.enabled=true
+          - xpack.security.audit.enabled=true
+          - ELASTIC_PASSWORD=elastic
+          - xpack.security.authc.api_key.enabled=true
         networks:
           - elastic
 
@@ -25,6 +32,8 @@ services:
           - elasticsearch
         environment:
           - ELASTICSEARCH_URL=http://localhost:9200
+          - ELASTICSEARCH_USERNAME=elastic
+          - ELASTICSEARCH_PASSWORD=elastic
         networks:
           - elastic
 
@@ -42,6 +51,8 @@ services:
         restart: on-failure
         environment:
           - SPAN_STORAGE_TYPE=elasticsearch
+          - ES_USERNAME=elastic
+          - ES_PASSWORD=elastic
         command: [
           "--es.server-urls=http://elasticsearch:9200",
           "--es.num-shards=1",
@@ -75,6 +86,8 @@ services:
         environment:
           - SPAN_STORAGE_TYPE=elasticsearch
           - no_proxy=localhost
+          - ES_USERNAME=elastic
+          - ES_PASSWORD=elastic
         ports:
           - "16686:16686"
           - "16687:16687"
@@ -238,6 +251,43 @@ services:
           - redis-insight:/data
         depends_on: 
           - redis
+
+    collector:
+        image: otel/opentelemetry-collector:latest
+        container_name: collector
+        hostname: collector
+        volumes:
+         - ./collector-config.yml:/etc/collector-config.yml
+        command: [ "--config=/etc/collector-config.yml" ]
+        ports:
+         - "4317:4317"
+        networks:
+         - elastic     
+ 
+    agent:
+        image: docker.elastic.co/beats/elastic-agent:8.13.2
+        container_name: agent
+        hostname: agent
+        restart: always
+        user: root 
+        healthcheck:
+          test: "elastic-agent status"
+          retries: 90
+          interval: 1s
+        environment:
+          - FLEET_ENROLLMENT_TOKEN=REPLACE2
+          - FLEET_ENROLL=1
+          - FLEET_URL=http://localhost:8220
+          - FLEET_INSECURE=1
+          - ELASTICSEARCH_HOSTS='["https://elasticsearch:9200"]'
+          - ELASTICSEARCH_USERNAME=elastic
+          - ELASTICSEARCH_PASSWORD=elastic
+          # - ELASTICSEARCH_CA=$CERTS_DIR/ca/ca.crt
+          - "STATE_PATH=/usr/share/elastic-agent"
+        networks:
+          - elastic
+        # volumes:
+        #   - certs:$CERTS_DIR
 
 networks:
   elastic:

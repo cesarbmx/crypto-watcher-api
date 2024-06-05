@@ -9,6 +9,7 @@
     <DockerServiceName>cesarbmx.cryptowatcher.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="collector-config.yml" />
     <None Include="prometheus.yml" />
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
