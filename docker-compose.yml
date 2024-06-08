@@ -20,8 +20,16 @@ services:
           - xpack.security.audit.enabled=true
           - ELASTIC_PASSWORD=elastic
           - xpack.security.authc.api_key.enabled=true
+        ulimits:
+            memlock:
+                hard: -1
+                soft: -1
         networks:
           - elastic
+        healthcheck:
+            interval: 20s
+            retries: 10
+            test: curl -s http://localhost:9200/_cluster/health | grep -vq '"status":"red"'
 
     kibana:
         container_name: kibana
@@ -29,13 +37,18 @@ services:
         ports:
           - 5601:5601
         depends_on:
-          - elasticsearch
+            elasticsearch:
+                condition: service_healthy
         environment:
-          - ELASTICSEARCH_URL=http://localhost:9200
+          - ELASTICSEARCH_URL=http://elasticsearch:9200
           - ELASTICSEARCH_USERNAME=elastic
           - ELASTICSEARCH_PASSWORD=elastic
         networks:
           - elastic
+        healthcheck:
+            interval: 10s
+            retries: 20
+            test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://kibana:5601/api/status
 
     jaeger-collector:
         container_name: jaeger-collector
@@ -257,37 +270,41 @@ services:
         container_name: collector
         hostname: collector
         volumes:
-         - ./collector-config.yml:/etc/collector-config.yml
+          - ./collector-config.yml:/etc/collector-config.yml
         command: [ "--config=/etc/collector-config.yml" ]
         ports:
-         - "4317:4317"
+          - "4317:4317"
         networks:
-         - elastic     
+          - elastic      
+
  
-    agent:
-        image: docker.elastic.co/beats/elastic-agent:8.13.2
-        container_name: agent
-        hostname: agent
-        restart: always
-        user: root 
-        healthcheck:
-          test: "elastic-agent status"
-          retries: 90
-          interval: 1s
-        environment:
-          - FLEET_ENROLLMENT_TOKEN=REPLACE2
-          - FLEET_ENROLL=1
-          - FLEET_URL=http://localhost:8220
-          - FLEET_INSECURE=1
-          - ELASTICSEARCH_HOSTS='["https://elasticsearch:9200"]'
-          - ELASTICSEARCH_USERNAME=elastic
-          - ELASTICSEARCH_PASSWORD=elastic
-          # - ELASTICSEARCH_CA=$CERTS_DIR/ca/ca.crt
-          - "STATE_PATH=/usr/share/elastic-agent"
+
+    apm-server:
+        image: docker.elastic.co/apm/apm-server:7.17.0
+        container_name: apm-server
+        depends_on:
+            elasticsearch:
+                condition: service_healthy
+            kibana:
+                condition: service_healthy
+        cap_add: ["CHOWN", "DAC_OVERRIDE", "SETGID", "SETUID"]
+        cap_drop: ["ALL"]
+        ports:
+          - 8200:8200
         networks:
           - elastic
-        # volumes:
-        #   - certs:$CERTS_DIR
+        command: >
+            apm-server -e
+            -E apm-server.rum.enabled=true
+            -E setup.kibana.host=kibana:5601
+            -E setup.template.settings.index.number_of_replicas=0
+            -E apm-server.kibana.enabled=true
+            -E apm-server.kibana.host=kibana:5601
+            -E output.elasticsearch.hosts=["elasticsearch:9200"]
+        healthcheck:
+            interval: 10s
+            retries: 12
+            test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://apm-server:8200/
 
 networks:
   elastic:
@@ -295,4 +312,5 @@ networks:
 
 volumes:
   elasticsearch-data:
+    driver: local
   redis-insight:  
