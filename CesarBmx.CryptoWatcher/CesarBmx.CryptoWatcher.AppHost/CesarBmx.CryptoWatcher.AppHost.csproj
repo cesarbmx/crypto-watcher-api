@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>096711a2-c23d-417f-90af-a09fb1b529fa</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CesarBmx.CryptoWatcher.ApiService\CesarBmx.CryptoWatcher.ApiService.csproj" />
+    <ProjectReference Include="..\CesarBmx.CryptoWatcher.Web\CesarBmx.CryptoWatcher.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0-preview.3.24210.17" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="9.0.0-preview.3.24210.17" />
+  </ItemGroup>
+
+</Project>
