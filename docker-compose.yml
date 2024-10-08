@@ -13,23 +13,8 @@ services:
           - xpack.watcher.enabled=false
           - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
           - discovery.type=single-node
-          - cluster.routing.allocation.disk.threshold_enabled=true
-          - cluster.routing.allocation.disk.watermark.low=65%
-          - cluster.routing.allocation.disk.watermark.high=70%
-          - xpack.security.enabled=true
-          - xpack.security.audit.enabled=true
-          - ELASTIC_PASSWORD=elastic
-          - xpack.security.authc.api_key.enabled=true
-        ulimits:
-            memlock:
-                hard: -1
-                soft: -1
         networks:
           - elastic
-        healthcheck:
-            interval: 20s
-            retries: 10
-            test: curl -s http://localhost:9200/_cluster/health | grep -vq '"status":"red"'
 
     kibana:
         container_name: kibana
@@ -37,18 +22,11 @@ services:
         ports:
           - 5601:5601
         depends_on:
-            elasticsearch:
-                condition: service_healthy
+          - elasticsearch
         environment:
-          - ELASTICSEARCH_URL=http://elasticsearch:9200
-          - ELASTICSEARCH_USERNAME=elastic
-          - ELASTICSEARCH_PASSWORD=elastic
+          - ELASTICSEARCH_URL=http://localhost:9200
         networks:
           - elastic
-        healthcheck:
-            interval: 10s
-            retries: 20
-            test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://kibana:5601/api/status
 
     jaeger-collector:
         container_name: jaeger-collector
@@ -64,8 +42,6 @@ services:
         restart: on-failure
         environment:
           - SPAN_STORAGE_TYPE=elasticsearch
-          - ES_USERNAME=elastic
-          - ES_PASSWORD=elastic
         command: [
           "--es.server-urls=http://elasticsearch:9200",
           "--es.num-shards=1",
@@ -99,8 +75,6 @@ services:
         environment:
           - SPAN_STORAGE_TYPE=elasticsearch
           - no_proxy=localhost
-          - ES_USERNAME=elastic
-          - ES_PASSWORD=elastic
         ports:
           - "16686:16686"
           - "16687:16687"
@@ -265,52 +239,10 @@ services:
         depends_on: 
           - redis
 
-    collector:
-        image: otel/opentelemetry-collector:latest
-        container_name: collector
-        hostname: collector
-        volumes:
-          - ./collector-config.yml:/etc/collector-config.yml
-        command: [ "--config=/etc/collector-config.yml" ]
-        ports:
-          - "4317:4317"
-        networks:
-          - elastic      
-
- 
-
-    apm-server:
-        image: docker.elastic.co/apm/apm-server:7.17.0
-        container_name: apm-server
-        depends_on:
-            elasticsearch:
-                condition: service_healthy
-            kibana:
-                condition: service_healthy
-        cap_add: ["CHOWN", "DAC_OVERRIDE", "SETGID", "SETUID"]
-        cap_drop: ["ALL"]
-        ports:
-          - 8200:8200
-        networks:
-          - elastic
-        command: >
-            apm-server -e
-            -E apm-server.rum.enabled=true
-            -E setup.kibana.host=kibana:5601
-            -E setup.template.settings.index.number_of_replicas=0
-            -E apm-server.kibana.enabled=true
-            -E apm-server.kibana.host=kibana:5601
-            -E output.elasticsearch.hosts=["elasticsearch:9200"]
-        healthcheck:
-            interval: 10s
-            retries: 12
-            test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://apm-server:8200/
-
 networks:
   elastic:
     driver: bridge
 
 volumes:
   elasticsearch-data:
-    driver: local
   redis-insight:  
