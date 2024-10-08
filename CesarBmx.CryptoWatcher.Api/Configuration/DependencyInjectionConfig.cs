@@ -4,8 +4,6 @@ using CesarBmx.CryptoWatcher.Application.Settings;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using CesarBmx.Shared.Api.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
@@ -19,13 +17,13 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
             //Db contexts
             if (appSettings.UseMemoryStorage)
             {
-                services.AddDbContext<MainDbContext, MainDbContext>(options => options
+                services.AddDbContext<MainDbContext>(options => options
                      .UseInMemoryDatabase(appSettings.DatabaseName)
                      .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }
             else
             {
-                services.AddDbContext<MainDbContext, MainDbContext>(options => options
+                services.AddDbContext<MainDbContext>(options => options
                     .UseSqlServer(configuration.GetConnectionString(appSettings.DatabaseName))
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             }

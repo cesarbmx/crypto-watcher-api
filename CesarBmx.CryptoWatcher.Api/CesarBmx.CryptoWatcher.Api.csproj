@@ -18,6 +18,7 @@
 		<ProjectReference Include="..\..\Shared\CesarBmx.Shared.Api\CesarBmx.Shared.Api.csproj" />
 		<ProjectReference Include="..\CesarBmx.CryptoWatcher.Application\CesarBmx.CryptoWatcher.Application.csproj" />
 		<ProjectReference Include="..\CesarBmx.CryptoWatcher.Persistence\CesarBmx.CryptoWatcher.Persistence.csproj" />
+		<ProjectReference Include="..\CesarBmx.CryptoWatcher\CesarBmx.CryptoWatcher.ServiceDefaults\CesarBmx.CryptoWatcher.ServiceDefaults.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

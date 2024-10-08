@@ -4,6 +4,9 @@ using CesarBmx.Shared.Api.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+builder.ConfigureOpenTelemetry();
+builder.ConfigureSharedAspire();
 
 var services = builder.Services;
 var configuration = builder.Configuration;
