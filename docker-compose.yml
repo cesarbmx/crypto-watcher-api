@@ -9,10 +9,9 @@ services:
         volumes:
           - elasticsearch-data:/usr/share/elasticsearch/data
         environment:
-          - xpack.monitoring.enabled=true
-          - xpack.watcher.enabled=false
-          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
           - discovery.type=single-node
+          - cluster.name=docker-cluster
+          - bootstrap.memory_lock=true
         networks:
           - elastic
 
@@ -24,7 +23,29 @@ services:
         depends_on:
           - elasticsearch
         environment:
-          - ELASTICSEARCH_URL=http://localhost:9200
+          - ELASTICSEARCH_URL=http://elasticsearch:9200
+        networks:
+          - elastic
+
+    apm-server:
+        container_name: apm-server
+        image: docker.elastic.co/apm/apm-server:7.17.1
+        cap_add:
+          - CHOWN
+          - DAC_OVERRIDE
+          - SETGID
+          - SETUID
+        cap_drop:
+          - ALL
+        depends_on:
+          - elasticsearch
+        ports:
+          - 8200:8200
+        environment:
+          - setup.kibana.host=kibana:5601
+          - setup.template.settings.index.number_of_replicas=0
+          - output.elasticsearch.hosts=["elasticsearch:9200"]
+          - apm-server.rum.enabled=true  # Optional: Enable RUM (Real User Monitoring)
         networks:
           - elastic
 
