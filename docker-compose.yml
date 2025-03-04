@@ -144,6 +144,8 @@ services:
           - jaeger-agent
           - sql
           - redis
+          - apm-server
+          - rabbitmq
 
     cesarbmx.ordering.api:
         container_name: ordering-api
@@ -168,6 +170,8 @@ services:
           - jaeger-agent
           - sql
           - redis
+          - apm-server
+          - rabbitmq
 
     cesarbmx.notification.api:
         container_name: notification-api
@@ -192,6 +196,8 @@ services:
           - jaeger-agent
           - sql
           - redis
+          - apm-server
+          - rabbitmq
 
     prometheus:
         container_name: prometheus
