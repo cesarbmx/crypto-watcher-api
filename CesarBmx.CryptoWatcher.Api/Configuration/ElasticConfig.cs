@@ -1,4 +1,5 @@
-﻿
+﻿using CesarBmx.Shared.Api.Configuration;
+
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
@@ -6,7 +7,7 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
     {
         public static IServiceCollection ConfigureElastic(this IServiceCollection services)
         {
-            services.AddAllElasticApm();
+            services.ConfigureSharedElastic();
 
             return services;
         }
