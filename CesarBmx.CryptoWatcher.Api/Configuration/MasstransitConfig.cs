@@ -1,6 +1,7 @@
 ﻿using CesarBmx.Shared.Api.Configuration;
 using CesarBmx.CryptoWatcher.Persistence.Contexts;
 using CesarBmx.CryptoWatcher.Application.Consumers;
+using CesarBmx.Shared.Messaging.Ordering.Commands;
 
 namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
@@ -10,6 +11,8 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
         {
             // Shared
             services.ConfigureSharedMasstransit<MainDbContext>(configuration, typeof(ConfirmOrderConsumer));
+            services.UseCommand<PlaceOrder>();
+            services.UseCommand<CancelOrder>();
 
             // Return
             return services;
