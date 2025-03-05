@@ -5,9 +5,9 @@ namespace CesarBmx.CryptoWatcher.Api.Configuration
 {
     public static class ElasticConfig
     {
-        public static IServiceCollection ConfigureElastic(this IServiceCollection services)
+        public static IServiceCollection ConfigureElastic(this IServiceCollection services, IConfiguration configuration)
         {
-            services.ConfigureSharedElastic();
+            services.ConfigureSharedElastic(configuration);
 
             return services;
         }

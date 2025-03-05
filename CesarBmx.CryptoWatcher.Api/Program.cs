@@ -70,7 +70,7 @@ services.ConfigureMasstransit(configuration);
 services.ConfigureLogging();
 
 // Elastic
-services.ConfigureElastic();
+services.ConfigureElastic(configuration);
 
 #endregion
 
