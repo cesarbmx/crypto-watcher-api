@@ -23,6 +23,8 @@ namespace CesarBmx.CryptoWatcher.Persistence.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.ApplyConfigurationsFromAssembly(typeof(Line).Assembly); // TODO: (Cesar)
+
             modelBuilder.Entity<Line>().Map();
             modelBuilder.Entity<Currency>().Map();
             modelBuilder.Entity<Indicator>().Map();
